@@ -1,28 +1,372 @@
 @import "tailwindcss";
-@import "@heroui/styles"; 
 
-
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
+/* ---------------------------------------------------------------------- */
+/* Wissal Univers design tokens.                                           */
+/*                                                                         */
+/* Cool family (exact):  #354666  #366479  #379f9e  #ffffff                */
+/* Warm accent (exact):  #c5522c  — the one deliberate hue outside it.      */
+/* Every other token is a tint/shade of one of those. Introduce no others.  */
+/* ---------------------------------------------------------------------- */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-paper: #ffffff; /* brand */
+  --color-mist: #eef2f6; /* light wash — tint of ink */
+  /* #379f9e is a mid-tone: as small text it clears neither white (3.2:1) nor the
+     dark surfaces (3.0:1). So accent TEXT uses a tint/shade picked for its ground —
+     `aqua` on dark (5.0:1), `teal-deep` on light (4.9:1) — while plain `teal` is for
+     fills, glows, borders and large display type, where 3:1 is enough. `steel` has
+     the same problem inverted (6.5:1 on white, 1.5:1 on ink), hence `steel-pale`.
+     The resolution is automatic — see the --accent-* / --pt-* blocks below. */
+  --color-aqua: #7fc9c8; /* light tint of teal — accent text on dark */
+  --color-teal-deep: #2b7d7c; /* shade of teal — accent text on light */
+  --color-teal: #379f9e; /* brand — fills, glows, large type */
+  --color-steel: #366479; /* brand — mid surface */
+  --color-ink: #354666; /* brand — darkest surface */
+  --color-steel-pale: #9fbdd0; /* light tint of steel — steel's accent text on dark */
+  --color-abyss: #26334c; /* shade of ink, for depth behind the 3D scene */
+
+  /* The warm accent. One hue, used scarcely — primary CTAs, the hand-drawn
+     underline, the hero caret, the meteors. It is the only thing on the page
+     that isn't blue-green, which is exactly why it must stay rare.
+     #c5522c is not an arbitrary pick: at L=0.181 it is the *lightest* warm tone
+     that still holds a white label at 4.5:1 (4.55:1), while also clearing 4.5:1
+     as small text on white. Brighter oranges cannot do either — #ff4100 peaks at
+     3.5:1 against white and 2.7:1 against ink, so it never carries text here. */
+  --color-ember: #c5522c; /* warm accent — fills + text on light */
+  --color-ember-soft: #f2a48a; /* light tint — warm accent on dark (4.7:1 on ink) */
+  --color-ember-hot: #ff4100; /* glows and 3D only — fails AA as text, never use it for any */
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  --color-background: var(--color-paper);
+  --color-foreground: var(--color-ink);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+:root {
+  --background: var(--color-paper);
+  --foreground: var(--color-ink);
+  color-scheme: light;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), "Segoe UI", Arial, Helvetica, sans-serif;
+  overflow-x: clip;
 }
+
+::selection {
+  background: var(--color-teal);
+  color: var(--color-abyss);
+}
+
+/* Slim, tech-styled scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-paper);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-ink);
+  border-radius: 999px;
+  border: 2px solid var(--color-paper);
+}
+
+/* Dark section rhythm: sections alternate paper / ink like the reference site */
+.section-ink {
+  background: var(--color-ink);
+  color: var(--color-paper);
+}
+.section-abyss {
+  background: var(--color-abyss);
+  color: var(--color-paper);
+}
+
+/* Ground-adaptive accent, for components that render on both light and dark
+   sections (SectionHeading, Badge). Small accent text can't be one fixed value:
+   see the token comment above. Anything nested in a dark section inherits the
+   tint; everything else falls back to the shade. */
+:root {
+  --accent-text: var(--color-teal-deep);
+}
+.section-ink,
+.section-abyss,
+/* Anything painted ink or abyss is a dark ground by definition. `.on-dark` is the
+   escape hatch for the rest: surfaces that are dark but don't use those utilities —
+   the navbar (transparent over the hero, glass-panel over light sections) and the
+   highlight cards (arbitrary-value background). It sets only the vars, no paint. */
+.bg-ink,
+.bg-abyss,
+.on-dark {
+  --accent-text: var(--color-aqua);
+}
+.text-accent {
+  color: var(--accent-text);
+}
+.border-accent\/40 {
+  border-color: color-mix(in srgb, var(--accent-text) 40%, transparent);
+}
+
+/* Accent-filled controls (primary button, active tab), also ground-adaptive.
+   A single fill can't work on both grounds: brand teal only reaches ~3:1 against
+   either white or ink, so the label would fail AA whichever way round it went.
+   Each ground gets the tint/shade that clears 4.5:1 for the label *and* 3:1 for
+   the control's own edge; hover swaps to the ground's opposite extreme. */
+:root {
+  --accent-fill: var(--color-teal-deep);
+  --accent-fill-label: var(--color-paper);
+  --accent-fill-hover: var(--color-ink);
+}
+.section-ink,
+.section-abyss,
+.bg-ink,
+.bg-abyss,
+.on-dark {
+  --accent-fill: var(--color-aqua);
+  --accent-fill-label: var(--color-ink);
+  --accent-fill-hover: var(--color-paper);
+}
+
+/* Per-service accent text (`lib/palette.ts` -> paletteText). Each solution owns a
+   palette token, but a token is one hex and small text needs 4.5:1 on whichever
+   ground it lands on — so the token names a *role* and the ground picks the value.
+   teal and aqua converge on dark (aqua IS the light tint of teal); the identity is
+   carried by the fills and glows, which only need 3:1 and keep the exact brand hex. */
+:root {
+  --pt-teal: var(--color-teal-deep);
+  --pt-aqua: var(--color-teal-deep);
+  --pt-steel: var(--color-steel);
+}
+.section-ink,
+.section-abyss,
+.bg-ink,
+.bg-abyss,
+.on-dark {
+  --pt-teal: var(--color-aqua);
+  --pt-aqua: var(--color-aqua);
+  --pt-steel: var(--color-steel-pale);
+}
+/* Warm accent. Unlike the cool accent, the FILL is the same `ember` on both grounds:
+   it is the brand warm value, a white label on it clears 4.5:1, and one fill
+   everywhere means the primary CTA looks identical site-wide. What a dark ground
+   can't give it is an edge — ember against ink is only 2.08:1 — so dark grounds add a
+   1px `ember-soft` ring, which is 4.7:1 against ink and carries the 3:1 non-text
+   requirement at the boundary instead. Accent TEXT still flips to the tint, since
+   ember as text on ink is 2.08:1. */
+:root {
+  --warm-text: var(--color-ember);
+  --warm-fill: var(--color-ember);
+  --warm-fill-label: var(--color-paper);
+  --warm-fill-hover: var(--color-ink);
+  --warm-fill-hover-label: var(--color-paper);
+  --warm-ring: transparent;
+}
+.section-ink,
+.section-abyss,
+.bg-ink,
+.bg-abyss,
+.on-dark {
+  --warm-text: var(--color-ember-soft);
+  /* Hover inverts to paper rather than darkening, so the control stays visible
+     against the dark ground; ember on paper is 4.55:1. */
+  --warm-fill-hover: var(--color-paper);
+  --warm-fill-hover-label: var(--color-ember);
+  --warm-ring: var(--color-ember-soft);
+}
+.text-warm {
+  color: var(--warm-text);
+}
+.fill-warm {
+  fill: var(--warm-text);
+}
+.border-warm\/40 {
+  border-color: color-mix(in srgb, var(--warm-text) 40%, transparent);
+}
+.control-warm {
+  background-color: var(--warm-fill);
+  color: var(--warm-fill-label);
+  box-shadow: inset 0 0 0 1px var(--warm-ring);
+}
+.control-warm:hover {
+  background-color: var(--warm-fill-hover);
+  color: var(--warm-fill-hover-label);
+}
+
+/* A "raised" dark surface: the highlight cards start lighter than a section and
+   lighten *further* on hover (a deliberate effect — the card should feel lit). That
+   costs the standard dark tints their 4.5:1: on the hovered card `aqua` falls to
+   3.99, `steel-pale` to 3.83, `ember-soft` to 3.76. The card has only 0.005 of
+   luminance headroom before that happens, so it cannot both lighten visibly and use
+   the section tints — the raised surface gets its own paler set instead, which clears
+   4.5:1 in *both* the resting and hovered states. */
+.on-dark-raised {
+  --warm-text: #f8c4b0; /* pale ember — 6.1:1 at rest, 4.9:1 hovered */
+  --accent-text: #a9dedd; /* pale aqua — 6.4:1 / 5.1:1 */
+  --pt-teal: #a9dedd;
+  --pt-aqua: #a9dedd;
+  --pt-steel: #c3d7e4; /* pale steel — 6.4:1 / 5.1:1 */
+}
+
+.pt-teal {
+  color: var(--pt-teal);
+}
+.pt-aqua {
+  color: var(--pt-aqua);
+}
+.pt-steel {
+  color: var(--pt-steel);
+}
+.control-accent {
+  background-color: var(--accent-fill);
+  color: var(--accent-fill-label);
+}
+.control-accent:hover {
+  background-color: var(--accent-fill-hover);
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+.font-display {
+  font-feature-settings: "ss01" 1, "cv01" 1;
+  letter-spacing: -0.02em;
+}
+
+/* Reusable "glass" chrome for cards floating over dark 3D scenes */
+.glass-panel {
+  background: color-mix(in srgb, var(--color-ink) 55%, transparent);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  border: 1px solid color-mix(in srgb, var(--color-aqua) 35%, transparent);
+}
+
+/* Hero copy entrance. Deliberately CSS rather than a JS tween: `animation-fill-mode:
+   both` applies the "from" state during the delay, so the text never paints at full
+   opacity first and then get hidden — no flash, and it still reveals with no JS. */
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    transform: translateY(26px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.hero-rise {
+  animation: hero-rise 1s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-rise {
+    animation: none;
+  }
+}
+
+/* Full-bleed carousel whose first slide lines up with the centred content container
+   (max-w-1280 + px-6/px-10) while later slides still bleed off the right edge.
+
+   This MUST sit on the Embla viewport, not the slide track: with align:"start" Embla
+   translates the track by the slide's offset, which cancels any padding applied there.
+   Overflow clips at the padding box, so slides still render across the full width.
+   `100%` resolves against the viewport — not 100vw — so it matches the container's
+   basis exactly and stays aligned when a scrollbar is present. */
+.carousel-inset {
+  padding-left: max(1.5rem, calc((100% - 1280px) / 2 + 1.5rem));
+}
+
+@media (min-width: 768px) {
+  .carousel-inset {
+    padding-left: max(2.5rem, calc((100% - 1280px) / 2 + 2.5rem));
+  }
+}
+
+/* Hand-drawn underline: sweeps in left-to-right like a marker stroke being drawn.
+   The taper comes from the path shape itself (a filled brush outline), so the reveal
+   is a clip sweep rather than a stroke-dash animation. */
+@keyframes underline-draw {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+.underline-draw {
+  animation: underline-draw 0.95s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .underline-draw {
+    animation: none;
+  }
+}
+
+/* Loading skeleton for images that haven't decoded yet */
+@keyframes skeleton-sweep {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+.skeleton-sweep::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    color-mix(in srgb, var(--color-aqua) 14%, transparent) 50%,
+    transparent 100%
+  );
+  animation: skeleton-sweep 1.6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton-sweep::after {
+    animation: none;
+  }
+}
+
+/* Blinking caret for the typewriter headline (components/ui/TypeCycle.tsx) */
+@keyframes caret-blink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0.15;
+  }
+}
+.animate-caret {
+  animation: caret-blink 1.05s steps(1, end) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-caret {
+    animation: none;
+  }
+}
+
+/* Elements with [data-reveal] start fully visible (SEO / no-JS safe); lib/gsap.ts sets their
+   hidden state imperatively via gsap.set() right before animating in, JS-only. */
