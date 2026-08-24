@@ -8,6 +8,9 @@ import type { Service } from "@/lib/types";
 export const SERVICES: Service[] = [
   {
     slug: "ocr",
+    // A finished mockup (laptop included), so it replaces the drawn frame rather than
+    // sitting on its screen. Matted on black — see `showcaseMockup` in lib/types.ts.
+    showcaseMockup: "/service1.jpg",
     name: "OCR",
     shortName: "OCR",
     icon: "scan",

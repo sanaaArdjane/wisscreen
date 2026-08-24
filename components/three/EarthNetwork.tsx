@@ -688,12 +688,12 @@ function ServiceMarker({
             <div
               // w-fit keeps the pill compact: as a block-level flex child it would
               // otherwise stretch to the (much wider) card below it.
-              className={`glass-panel mx-auto flex w-fit items-center gap-2 whitespace-nowrap rounded-full px-3.5 py-2 text-paper shadow-xl transition-colors duration-300 ${
+              className={`glass-panel mx-auto flex w-fit items-center gap-2 whitespace-nowrap rounded-full px-4 py-2.5 text-paper shadow-xl transition-colors duration-300 ${
                 isActive ? "border-ember-soft/80" : ""
               }`}
             >
-              <Icon name={service.icon} className={`h-3.5 w-3.5 ${isActive ? "text-ember-soft" : "text-ember"}`} />
-              <span className="text-xs font-semibold tracking-tight">{service.shortName}</span>
+              <Icon name={service.icon} className={`h-4 w-4 ${isActive ? "text-ember-soft" : "text-ember"}`} />
+              <span className="text-base font-semibold tracking-tight">{service.shortName}</span>
             </div>
 
             {isActive && (

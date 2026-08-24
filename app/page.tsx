@@ -1,6 +1,8 @@
 import { Hero } from "@/components/sections/Hero";
 import { HighlightsReel } from "@/components/sections/HighlightsReel";
 import { PerformanceMetrics } from "@/components/sections/PerformanceMetrics";
+import { UniverseReveal } from "@/components/sections/UniverseReveal";
+import { DeviceShowcase } from "@/components/sections/DeviceShowcase";
 import { DataIntelligence } from "@/components/sections/DataIntelligence";
 import { Reliability } from "@/components/sections/Reliability";
 import { PlatformShowcase } from "@/components/sections/PlatformShowcase";
@@ -25,6 +27,8 @@ export default function Home() {
       <Hero />
       <HighlightsReel />
       <PerformanceMetrics />
+      <UniverseReveal />
+      <DeviceShowcase />
       <DataIntelligence />
       <Reliability />
       <PlatformShowcase />

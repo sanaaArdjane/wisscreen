@@ -133,10 +133,24 @@ ground, and `git grep` for the section wrapper before assuming which.
 
 There is a contrast audit snippet worth re-running after any palette change: walk every
 element with a text node, resolve its nearest opaque ancestor background, and assert
-4.5:1 (or 3:1 for ≥24px / ≥18.66px bold). All five routes currently report zero failures.
+4.5:1 (or 3:1 for ≥24px / ≥18.66px bold). All routes currently report zero failures.
 It has caught real bugs every time it ran, so run it rather than reasoning about it —
-skip elements under `header` and any non-opaque colour, which it cannot resolve by
+skip elements under `header` and any non-opaque *background*, which it cannot resolve by
 walking ancestors (those pairings were checked by hand).
+
+**Composite the foreground through a canvas, never by parsing the colour string.** Chrome
+serializes Tailwind's `/opacity` colours as `lab(L a b / alpha)`, and a numeric regex reads
+those four numbers as if they were rgb+alpha — catastrophically wrong in both directions:
+`text-paper/70` on a dark ground reported **1.16:1** (a false failure; it is really 7.1:1)
+and `text-ink/80` on paper reported **11.3:1** (a false pass that happened to be fine; it
+is really 5.4:1). Fill a 1×1 canvas with the resolved background, fill again with
+`getComputedStyle(el).color`, and read the pixel — canvas parses any CSS colour and does
+the alpha blend for you.
+
+Note this also means `opacity: 0.7` on an *element* is invisible to the audit either way:
+it reads `color`, not the inherited opacity. `SectionHeading`'s `opacity-70` descriptions
+are a site-wide near-miss for exactly that reason (ink at 70% on paper is 4.12:1) — prefer
+`text-ink/80` for new body copy on paper.
 
 ## Content model
 
@@ -149,6 +163,21 @@ should hardcode the list. Current four: **OCR** (data extraction), **WICLOUD** (
 Real logos/screenshots/videos don't exist yet. Every media slot is a placeholder descriptor
 (`kind: "mock-dashboard" | "mock-scan" | ...`) rendered as generated art, never a broken
 `<img>`. Swapping in real assets means changing only the `media` field.
+
+**Device showcase images.** `DeviceShowcase` takes photos two ways, because both kinds of
+asset exist in the wild:
+
+- `Service.showcaseImage` (**2560 × 1600 / 16:10**) and `Service.showcaseMobileImage`
+  (**1170 × 2532 / 9:19.5**) are **plain screenshots**, rendered inside the drawn frames.
+  Prefer these — they keep every solution on the same device.
+- `Service.showcaseMockup` is an image that **already contains the device** (a finished
+  mockup like `public/service1.jpg`), and replaces the drawn laptop rather than going
+  inside it. Without this field such an image renders as a laptop nested in a laptop.
+  **Matte it on black or export it transparent**: it is composited with `mix-blend-screen`,
+  which makes black vanish into the ground (see the section notes below).
+
+Drop files in `public/` and set the field; until then each frame draws a generated on-brand
+mock rather than a broken image.
 
 **Project preview GIFs:** `Service.previewGif` is an optional path shown in the globe's hover
 card. Drop a file in `public/` (e.g. `public/previews/ocr.gif`) and set
@@ -211,9 +240,227 @@ Two things to preserve if you edit it:
 - **Alpha lives in the colour, not an `opacity-*` class**, so the grid can't be lightened
   twice, and the `Container` needs `relative` or it renders under the texture layers.
 
-Note this leaves two light sections adjacent (`PerformanceMetrics` → `DataIntelligence`).
-The texture and the dark tiles carry the distinction; if more light sections land in a row,
-the rhythm is worth revisiting rather than adding more texture.
+`UniverseReveal` sits between them and is light too, so that stretch is two light sections
+running — it gets away with it because it is a full-screen video with a masked headline and
+cannot be confused with a flat white content section. `DeviceShowcase` (near-black) then
+breaks the run before `DataIntelligence`, so the sequence is light → light → dark → light.
+That is the ceiling: a third light section in a row is the point to revisit the rhythm
+rather than to keep going.
+
+## `UniverseReveal` — the video the word clips into
+
+`components/sections/UniverseReveal.tsx`, the Apple `/macbook-pro` "Take a closer look"
+beat, five screens of pinned scroll. In order: `public/lp_video.webm` full-bleed; the ground
+resolving to paper with the camera sitting inside the counter of the "a" in "Wissal"; a long
+zoom out until the whole word is legible, centred; the word lifts to its resting place; the
+three-block pitch lands, one block at a time. The footage keeps playing inside the letters
+throughout — the finished headline *is* the video.
+
+The clipping is **one SVG mask, not a `background-clip: text`** — a `<video>` can't be a
+background. A paper `<rect>` covers the stage with a `mask` whose only hole is the word, so
+the video shows through the letters and nowhere else.
+
+**`VEIL`'s two numbers are load-bearing together, and both ends have been wrong.** It was
+briefly a hard cut, which popped — the ground and a giant letter edge arrived on the same
+frame. But a long fade is no better: it has to finish while the camera is still inside the
+counter, or the veil is still coming up when the zoom has already pulled back to whole
+letters, and the "you are inside the a" beat is spent behind a half-transparent wash.
+Short, early and eased (`[0.03, 0.13]`, `easeInOutSine`) satisfies both — it completes at
+~37×, still within the letter. Ease it, too: a linear opacity ramp has a visible corner at
+each end, which is what makes a short fade still read as a switch.
+
+### The layout is the finale; the scroll holds the word below it
+
+The copy column — eyebrow, `<h2>`, pitch — is the *settled* composition, laid out in normal
+flow. The scroll doesn't build it; it holds the word `lift` px **below** its place there
+until the `LIFT` window, then releases it. So "centred, alone" and "risen, with copy" are
+the same layout seen twice, and there is no second set of coordinates to keep in sync.
+
+`lift` is the distance from the h2's centre to the stage's centre, which is why the column
+uses `pt-[18svh]` instead of `justify-center`: centring the column would leave only ~60px
+of lift and the rise would not read as a move.
+
+### `ZOOM_CHAR` and the counter constants
+
+The opening frame sits inside the enclosed hole of the "a" (index 4). The letter is located
+*exactly* — a `Range` over one character of the `<h2>`'s text node gives its rendered box in
+the real font at the real size with the real tracking.
+
+The counter itself can't be: there is no DOM API for a glyph's inner geometry, so
+`COUNTER_EM` (0.138 — the bowl is far smaller than it looks) and `COUNTER_DROP` (0.205) were
+**measured off screenshots**, not estimated. Estimating them put a letter stroke in frame
+twice. Re-measure if the display face or `ZOOM_CHAR` changes: park mid-zoom at a known
+scale, read the white region's bounding box off the screenshot, and divide back out.
+
+### Two hard limits on how far the zoom can go
+
+Both were hit in practice, and the second is the one that will bite again.
+
+**Matrix precision.** The obvious transform, `translate(zx zy) scale(s) translate(-zx -zy)`,
+has to compute `-zx * s`; at zx≈590 and s≈70 that's ~41,000, and the on-screen result is the
+difference of two numbers that size. SVG matrices are single precision (~7 significant
+digits), so the detail is gone. The word is therefore drawn in coordinates **local to the
+zoom focus**, and the transform is just `translate(focus) scale(s)` — small translate, small
+glyph coordinates, no cancellation.
+
+**Blink's glyph rasterizer, `MAX_GLYPH_PX = 8500`.** Fixing the matrix was necessary but not
+sufficient: past roughly 9,000px of effective em (`fontSize × scale`), SVG text geometry
+decouples from the transform and the mask draws the *wrong part* of the letter — boundaries
+move back toward the centre as the scale rises, which is impossible for a real zoom and is
+the tell. Measured on this page: 60× at a 151px font (≈9,100px) is correct, 70× (≈10,600px)
+is not. `startScale` is clamped to `MAX_GLYPH_PX / fontSize`.
+
+The clamp binds on desktop (~56×) but not on a phone, where the font is small enough that
+the requested scale (~206×) fits under it. So the opening frame differs by device: an
+unbroken white field on mobile, and on desktop the counter with one wall of the bowl still
+in shot. The desktop version reads better — a featureless white screen tells the viewer
+nothing about where they are — so don't chase parity by lowering the mobile scale.
+
+Lifting the ceiling means converting the word to a `<path>`, which costs a font-parsing
+dependency and the "h2 is the source of truth" property. Not worth it unless the brief
+changes.
+
+### The pitch is staggered, and the numbers have to close
+
+`PITCH_START` / `PITCH_SPAN` / `PITCH_STEP` give each block its own window instead of fading
+the grid in as one slab. `STEP` is deliberately smaller than `SPAN`, so a block starts while
+the one before is still settling — three fully separate fades read as three events rather
+than one sequence. The last block ends at `START + 2·STEP + SPAN`; keep that below 1 or the
+third block never finishes before the section unpins.
+
+### The ghost, and why it has to clear before the copy lands
+
+The veil doesn't jump to opaque white. It cuts to `1 - GHOST` (8%), so the footage stays
+faintly readable as the section's ground for the whole zoom — that's the "faded video
+background" look. It then closes the last 8% during the `COPY` window, so the finale sits
+on **pure** paper.
+
+That last step is not cosmetic. `ember` clears 4.5:1 on white at exactly 4.55:1, so it has
+essentially no headroom: a 5% dark tint under the eyebrow drops it to ~3.6:1 and an 8% one
+to ~3.4:1. The same tint fails `mist` outright (`ember` on `mist` is 4.04:1), which is why
+the ground here is `paper` and not the slightly cooler token. Anything you add behind the
+copy has to be pure `#fff` by the time the copy is visible, or the eyebrow has to stop
+being ember.
+
+The pitch bodies use `text-ink/80`, not the site's usual `opacity-70`: ink at 70% composited
+on paper is 4.12:1, under the floor for this size. (That is a site-wide near-miss the audit
+snippet misses, because it reads the element's own `color` and ignores the `opacity`
+property.)
+
+### The video is graded on the same ramp, because it ends up as type
+
+`VIDEO_DIM` / `VIDEO_PUNCH` darken the footage (`brightness` 1 → 0.5, `contrast` 1 → 1.15)
+on the veil cut. Full-bleed at the start it is a picture and keeps its full range; from the
+cut on it is the fill of a headline on white and needs contrast.
+
+This is not decorative. `object-cover` on a portrait viewport crops to the middle of the
+frame, which is where this footage is brightest — ungraded, the mobile finale rendered
+"ssal Univers" in near-white on white. At 0.5 the brightest pixel in the footage composites
+to ~4.1:1 against paper, clear of the 3:1 display type needs, and the darks are untouched.
+
+So there is a **constraint on any replacement footage**: it has to stay dark enough to hold
+3:1 against paper inside the glyphs. The current clip has mean relative luminance 0.05
+(~10.5:1) with only ~4% of pixels bright enough to fail on their own — star specks, which
+read as texture. Bright or mid-key footage would need a heavier grade, or a tinted wash
+inside the letters. Measure it rather than eyeballing: draw the `<video>` to a canvas and
+histogram the luminance.
+
+### Things that will break if "simplified"
+
+- **The invisible `<h2>` is the layout source of truth.** It carries the heading semantics
+  and sits in normal flow between the eyebrow and the pitch; `measure()` reads its box, its
+  computed font size, and (via a Range) the zoom letter's box, and the SVG word is placed on
+  top of it. Both wear the same `WORD_TYPE` class string, so the two can't drift. Delete the
+  `<h2>` and the finale has no layout and no heading for assistive tech.
+- **`WORD_TYPE` is a `clamp()`, not breakpoint steps**, so one measurement holds at every
+  width instead of the word jumping a size mid-scroll. Its `whitespace-nowrap` is
+  load-bearing: the SVG `<text>` is a single line that cannot wrap, so an `<h2>` that
+  wrapped would stop describing it.
+- **Start scale is derived, never hardcoded.** The opening frame has to land inside the
+  counter; a multiplier tuned on a wide desktop shows whole letters on a tall phone. It's
+  stage height ÷ counter height, then clamped by `MAX_GLYPH_PX` — ~56× at 1440×900, ~206× on
+  a phone.
+- **The zoom interpolates in log space** (`startScale ** (1 - t)`). A linear ramp across a
+  50×–200× range is unusable: it crawls, then lunges.
+- **Playback is gated on visibility only.** An earlier cut paused the video once the veil
+  went opaque, which was free then because the headline had cross-faded to a gradient. It no
+  longer is: the footage is the headline's fill for the whole finale.
+- **CSS `position: sticky` pins the stage; ScrollTrigger is only a progress source**
+  (`onUpdate` → direct DOM writes, no React state per frame). No pin-spacer is injected, so
+  nothing fights the flex layout. The section needs `shrink-0` — its tall explicit height
+  *is* the mechanism.
+- **Reduced motion renders the finale directly** — same composition, video still inside the
+  letters, just a still frame instead of a scroll. The section also drops to one screen tall.
+  The pause button is a tri-state (`override ?? !reduceMotion`) so a visitor can still start
+  it, and it stays mounted for the whole section because there is never a point where the
+  video has stopped mattering.
+
+The IntersectionObserver uses `rootMargin: "100% 0px"` — a screen of lead time to buffer
+8 MB. `video.muted = true` is set imperatively in the effect: React doesn't render `muted`
+as an attribute during SSR, and autoplay policies check the property, so the first `play()`
+would otherwise be rejected.
+
+## `DeviceShowcase` — the solutions on a laptop and a phone
+
+`components/sections/DeviceShowcase.tsx`, modelled on Apple's tabbed device shot: devices
+on the left, per-solution copy on the right, tabs underneath. Four swappable screens, one
+tab per solution. Showing the laptop and the phone at once is what lets the section make
+the "works at any size" claim without a second layout for it.
+
+The two-column split is also what buys the devices their size back — stacked, the heading,
+copy and tabs all eat the same vertical budget the devices need.
+
+**Scroll is the single source of truth for which solution is showing.** The section is
+pinned and its progress picks the screen; the tabs hold no state of their own — clicking
+one scrolls the page to the offset where its solution is active (the inverse of `toRun`).
+That is deliberate. A click-driven index *plus* a scroll-driven one means the next scroll
+after a click silently overrides the click, and the two never agree while a smooth-scroll
+is still animating.
+
+The frames are **drawn in CSS, not photographed**, so any screenshot drops straight in.
+A solution that instead supplies `showcaseMockup` (device included) replaces the whole
+laptop rather than only what's on its screen — which is why the stage is built as an
+invisible frame setting the height plus absolutely-positioned layers on top, rather than
+one frame with screens inside it.
+
+### `mix-blend-screen` on mockups, and the stacking-context trap
+
+A mockup matted on black is composited with `mix-blend-screen`: `screen(0, ground) ==
+ground`, so the matte becomes the section and the device appears to float. It lifts the
+image's own darks to the ground colour too, which is what the eye expects from a device
+sitting on that ground.
+
+**This only works because the ground is painted on the sticky stage, not on the section.**
+`position: sticky` creates a stacking context, and a stacking context isolates blending —
+a `mix-blend-*` child can only see what is painted *inside* the stage. With the colour on
+`<section>` alone the computed style still said `screen`, the class was in the CSS, and the
+matte stayed a solid black rectangle. If you ever move that background back up to the
+section, the mockup silently breaks. The fastest way to check: set the stage's background
+to something garish from the console and see whether the matte picks the colour up.
+
+Things worth preserving:
+
+- **`layerAlpha` only ever fades a layer *in*.** Screens stack with later ones on top and
+  every layer below the current one stays fully opaque, so the stack is never see-through.
+  A symmetric tent — fading each layer in *and* out — puts two half-transparent screens on
+  screen at the crossover with the section's own background showing between them.
+- **The stage is height-critical.** Heading, devices, copy and tabs all have to fit one
+  viewport, and the devices are the only elastic part, so their width is capped by the
+  height left over: `max-w-[min(40rem,calc((100svh-21rem)*1.45))]`. `min()` lets whichever
+  of width or height is scarcer win — height on a short desktop, width on a phone. The
+  `21rem` is the measured cost of everything else; if you add a line anywhere in the stage,
+  raise it or the tabs go past the fold on a 760px-tall window.
+- **`on-dark` on the section is required, not decorative.** The ground is an arbitrary
+  value (`#0f1520`), so none of the `.bg-ink` / `.bg-abyss` selectors that carry the
+  dark-ground accent overrides match, and `.text-warm` / `.text-accent` would resolve to
+  their light-ground values on a near-black section.
+- **The tab row scrolls horizontally rather than wrapping.** A second row of tabs would
+  change the stage height mid-scroll.
+- **`pt-16` on the sticky stage clears the fixed navbar.** The stage centres its content in
+  the viewport, so without it the ember eyebrow sits under the glass bar.
+- **Reduced motion drops the pinning entirely**, which means there is no scroll position to
+  read and the tabs have to drive the screens directly — hence the second effect that
+  paints from `active` instead of from progress.
 
 ## Section 2 autoplay is gated on visibility
 
@@ -268,7 +515,7 @@ screenshot of the whole page is too coarse to show a 1-2 value step.
 
 All ~20 reference sections have an equivalent; components live in `components/sections/` and
 are composed in order in `app/page.tsx`: Hero, HighlightsReel, PerformanceMetrics,
-DataIntelligence, Reliability, PlatformShowcase, ConnectedSolutions, AudienceTabs, ScaleSpecs,
+UniverseReveal, DeviceShowcase, DataIntelligence, Reliability, PlatformShowcase, ConnectedSolutions, AudienceTabs, ScaleSpecs,
 OcrDemo, Integrations, Security, SolutionFinder, MigrationProgram, WhyUs, SolutionsGrid,
 DataCommitment, Values, FAQHome, Contact, plus `components/layout/Footer.tsx`.
 
@@ -284,6 +531,21 @@ In headless/automated browser sessions the tab reports `document.hidden === true
 throttles `requestAnimationFrame` — the WebGL canvas renders blank and GSAP tweens stall until
 a real interaction (click/drag) nudges the loop. This is a tooling artifact, not a bug; real
 users on a focused tab never hit it.
+
+**There is a clean way around it over CDP**, which is what makes scroll-scrubbed sections
+verifiable without a real browser: `Emulation.setPageVisibilityOverride {visible: true}`
+un-throttles rAF, so GSAP tickers and ScrollTrigger run normally and screenshots show the
+real frame. Chrome is at `/usr/bin/google-chrome`, and Node 22 has a built-in `WebSocket`,
+so a ~60-line script (spawn with `--headless=new --remote-debugging-port`, `Target.attachToTarget`
+with `flatten: true`, then `Runtime.evaluate` / `Page.captureScreenshot`) needs no
+dependencies. Launch with `--autoplay-policy=no-user-gesture-required` if the page has video.
+
+One trap when driving a pinned section: **don't precompute scroll offsets from one early
+measurement.** Content above settles after load, so a `sectionTop + p * track` computed at
+t=0 lands at a different progress by the time you scroll there — an early run of this
+sampled p=0.45 while believing it was at p=0.30. Re-read the section's live
+`getBoundingClientRect()` and correct in a loop until `-rect.top / (height - innerHeight)`
+matches the progress you wanted.
 
 ## Open items
 
