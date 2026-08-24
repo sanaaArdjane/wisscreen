@@ -7,8 +7,8 @@ import Link from "next/link";
 import { ScrollTrigger } from "@/lib/gsap";
 import { SERVICES } from "@/lib/data/services";
 import type { PaletteToken, Service } from "@/lib/types";
-import { Container } from "@/components/ui/Container";
 import { Badge } from "@/components/ui/Badge";
+import { HandUnderline } from "@/components/ui/HandUnderline";
 import { Icon } from "@/components/ui/Icon";
 import { paletteBg } from "@/lib/palette";
 import { cn } from "@/lib/cn";
@@ -175,7 +175,10 @@ export function DeviceShowcase() {
         <div className="pointer-events-none absolute -left-32 top-[12%] h-[28rem] w-[40rem] rounded-[50%] bg-teal/10 blur-3xl" />
         <div className="pointer-events-none absolute -right-40 bottom-[6%] h-[24rem] w-[34rem] rounded-[50%] bg-steel/15 blur-3xl" />
 
-        <Container className="relative flex flex-col gap-7">
+        {/* Wider than the site's `Container` on purpose — the devices are the whole
+            point of this section, and 1280 caps them well below what the viewport can
+            show. Heading, grid and tabs all align to this same edge. */}
+        <div className="relative mx-auto flex w-full max-w-[84rem] flex-col gap-5 px-6 md:px-10">
           <div className="text-center lg:text-left">
             <Badge className="text-warm border-warm/40">Nos interfaces</Badge>
             <h2 className="font-display mt-4 text-balance text-xl font-semibold leading-[1.05] md:text-3xl">
@@ -186,12 +189,12 @@ export function DeviceShowcase() {
           {/* Devices left, copy right — the two-column split is also what buys the laptop
               its size back: stacked, the heading, copy and tabs all eat the same vertical
               budget the devices need. */}
-          <div className="grid items-center gap-8 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] lg:gap-14">
+          <div className="grid items-center gap-8 lg:grid-cols-[minmax(0,1.9fr)_minmax(0,1fr)] lg:gap-12">
             {/* Still height-capped: the devices are the only elastic part, so the width is
                 bounded by the height left over. `min()` lets whichever of width or height
                 is scarcer win — height on a short desktop, width on a phone. `pb` reserves
                 the phone's overhang so the absolute frame never reaches into the tabs. */}
-            <div className="relative mx-auto w-full max-w-[min(40rem,calc((100svh-21rem)*1.45))] pb-10">
+            <div className="relative mx-auto w-full max-w-[min(54rem,calc((100svh-21.5rem)*1.55))] pb-6">
               {/* An invisible frame sets the height; the real ones stack on top of it, so
                   a solution that supplies a finished mockup can replace the whole laptop
                   rather than only what's on its screen. */}
@@ -214,7 +217,7 @@ export function DeviceShowcase() {
                         src={service.showcaseMockup}
                         alt={`${service.name} sur ordinateur portable`}
                         fill
-                        sizes="(min-width: 1024px) 40rem, 100vw"
+                        sizes="(min-width: 1024px) 54rem, 100vw"
                         // `screen` makes a black matte vanish: screen(0, ground) == ground,
                         // so a mockup exported on black composites onto the section (and
                         // the washes behind it) with no visible rectangle. It lifts the
@@ -231,7 +234,7 @@ export function DeviceShowcase() {
                 ))}
               </div>
 
-              <div className="absolute bottom-0 right-0 w-[22%] max-w-[8rem] sm:right-2 lg:right-4">
+              <div className="absolute bottom-0 right-0 w-[22%] max-w-[10rem] sm:right-2 lg:right-4">
                 <Phone>
                   {SERVICES.map((service, i) => (
                     <div
@@ -253,7 +256,14 @@ export function DeviceShowcase() {
             {/* Keyed on the slug so React remounts it and the entrance replays on change. */}
             <div key={current.slug} className="hero-rise text-center lg:text-left">
               <p className="text-accent text-xs font-semibold uppercase tracking-[0.14em]">{current.category}</p>
-              <h3 className="font-display mt-2 text-2xl font-semibold leading-tight md:text-3xl">{current.name}</h3>
+              <h3 className="font-display mt-2 text-2xl font-semibold leading-tight md:text-3xl">
+                {/* `relative inline-block` is what HandUnderline positions against, and it
+                    also keeps the rule the width of the word rather than the column. */}
+                <span className="relative inline-block">
+                  {current.name}
+                  <HandUnderline className="underline-draw" />
+                </span>
+              </h3>
               <p className="mt-3 text-sm leading-relaxed text-paper/70 md:text-base">{current.tagline}</p>
               <ul className="mt-5 flex flex-col gap-2.5 text-left">
                 {current.features.slice(0, 3).map((feature) => (
@@ -295,7 +305,7 @@ export function DeviceShowcase() {
               ))}
             </div>
           </div>
-        </Container>
+        </div>
       </div>
     </section>
   );

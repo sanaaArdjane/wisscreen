@@ -40,8 +40,12 @@ An all-teal/slate site reads flat, so `ember` breaks it. Where it goes:
 
 - **Primary CTAs** — `Button` primary, the navbar CTA, both contact submits.
 - **Eyebrow "mini titles"** — every `SectionHeading` badge, plus the hand-written ones in
-  `Hero`, `Reliability` and `SolutionHero`. This is the widest use, and it works because
-  an eyebrow is small, uppercase and sits above a cool heading.
+  `Hero`, `Reliability`, `SolutionHero` and `DeviceShowcase`. This is the widest use, and
+  it works because an eyebrow is small, uppercase and sits above a cool heading.
+- **The hand-drawn underline** (`components/ui/HandUnderline.tsx`) — under "L'essentiel" in
+  `HighlightsReel` and under the service name in `DeviceShowcase`. Shared component rather
+  than a duplicated 1.1KB path; it fills with `.fill-warm`, so the ground picks the value
+  and the caller owns the animation (`underline-draw` to wipe it in, `opacity-0` to hold).
 - **Section 2 (`HighlightsReel`)** — card category labels, the "Découvrir X" CTAs, the
   middle stat tile's glow, the hand-drawn underline under "L'essentiel", and the card
   edge. That edge is a **hairline, not a neon bloom**: one tight `0 0 12px -4px` ember
@@ -423,6 +427,10 @@ laptop rather than only what's on its screen — which is why the stage is built
 invisible frame setting the height plus absolutely-positioned layers on top, rather than
 one frame with screens inside it.
 
+The service name carries the hand-drawn `HandUnderline` (ember). It needs the
+`relative inline-block` span around the word — that is what the underline positions
+against, and it keeps the rule the width of the word rather than the whole column.
+
 ### `mix-blend-screen` on mockups, and the stacking-context trap
 
 A mockup matted on black is composited with `mix-blend-screen`: `screen(0, ground) ==
@@ -446,10 +454,14 @@ Things worth preserving:
   screen at the crossover with the section's own background showing between them.
 - **The stage is height-critical.** Heading, devices, copy and tabs all have to fit one
   viewport, and the devices are the only elastic part, so their width is capped by the
-  height left over: `max-w-[min(40rem,calc((100svh-21rem)*1.45))]`. `min()` lets whichever
-  of width or height is scarcer win — height on a short desktop, width on a phone. The
-  `21rem` is the measured cost of everything else; if you add a line anywhere in the stage,
-  raise it or the tabs go past the fold on a 760px-tall window.
+  height left over: `max-w-[min(54rem,calc((100svh-21.5rem)*1.55))]`. `min()` lets
+  whichever of width or height is scarcer win — height on a short desktop, width on a
+  phone. The `21.5rem` is the measured cost of everything else; if you add a line anywhere
+  in the stage, raise it or the tabs go past the fold on a 760px-tall window.
+- **The section wrapper is wider than the site's `Container`** (`max-w-[84rem]` vs 1280).
+  The devices are the point of this section and 1280 caps them well below what the viewport
+  can show; heading, grid and tabs all align to the same wider edge, so the section reads as
+  deliberately wide rather than misaligned.
 - **`on-dark` on the section is required, not decorative.** The ground is an arbitrary
   value (`#0f1520`), so none of the `.bg-ink` / `.bg-abyss` selectors that carry the
   dark-ground accent overrides match, and `.text-warm` / `.text-accent` would resolve to
