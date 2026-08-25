@@ -6,6 +6,7 @@ import { SolutionStory } from "@/components/sections/solution/SolutionStory";
 import { SolutionFeatures } from "@/components/sections/solution/SolutionFeatures";
 import { SolutionSteps } from "@/components/sections/solution/SolutionSteps";
 import { SolutionSubProjects } from "@/components/sections/solution/SolutionSubProjects";
+import { SolutionVideoReveal } from "@/components/sections/solution/SolutionVideoReveal";
 import { SolutionMedia } from "@/components/sections/solution/SolutionMedia";
 import { SolutionFAQ } from "@/components/sections/solution/SolutionFAQ";
 import { SolutionContact } from "@/components/sections/solution/SolutionContact";
@@ -44,6 +45,7 @@ export default async function SolutionPage({ params }: { params: Promise<Params>
       <SolutionFeatures service={service} />
       <SolutionSteps service={service} />
       <SolutionSubProjects service={service} />
+      <SolutionVideoReveal service={service} />
       <SolutionMedia service={service} />
       <SolutionFAQ service={service} />
       <SolutionContact service={service} />

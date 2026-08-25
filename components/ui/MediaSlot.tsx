@@ -1,25 +1,39 @@
 import type { MediaSlot as MediaSlotType, PaletteToken } from "@/lib/types";
 import { Icon } from "@/components/ui/Icon";
+import { LoadingImage } from "@/components/ui/LoadingImage";
 import { cn } from "@/lib/cn";
 // Reuse the shared maps rather than redeclaring them here — the local copies had
 // already drifted out of sync with the palette tokens.
 import { paletteBg as TOKEN_BG, paletteText as TOKEN_TEXT } from "@/lib/palette";
 
 /**
- * Renders a generated, on-brand stand-in for real product media (screenshots, video,
- * photography). Every real-media integration point in the app reads a MediaSlot
- * descriptor rather than a hardcoded path — swap the descriptor for a real asset later
- * without touching layout code.
+ * One media frame: the real asset when the descriptor has a `src`, and a generated
+ * on-brand stand-in when it doesn't. Every real-media integration point in the app reads
+ * a MediaSlot descriptor rather than a hardcoded path, so filling a slot in is a one-line
+ * change in `lib/data/services.ts` and never touches layout code.
+ *
+ * The mock is **always rendered**, and the real asset is layered over it — the same
+ * contract as the device frames. So a photo covers its decode with a skeleton and then
+ * cross-fades in (see `LoadingImage`), and a dead link falls back to the mock instead of
+ * leaving an alt-text box in the grid.
  */
 export function MediaSlot({
   slot,
   accent = "aqua",
   className,
+  /** Describes the frame's rendered width to next/image. Defaults to the three-up grid. */
+  sizes = "(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw",
+  priority = false,
 }: {
   slot: MediaSlotType;
   accent?: PaletteToken;
   className?: string;
+  sizes?: string;
+  priority?: boolean;
 }) {
+  const isVideo = slot.kind === "video-slot";
+  const hasAsset = Boolean(slot.src);
+
   return (
     <div
       className={cn(
@@ -33,12 +47,39 @@ export function MediaSlot({
       {slot.kind === "mock-dashboard" && <DashboardMock accent={accent} />}
       {slot.kind === "mock-scan" && <ScanMock accent={accent} />}
       {slot.kind === "mock-chart" && <ChartMock accent={accent} />}
-      {slot.kind === "video-slot" && <VideoMock accent={accent} />}
+      {isVideo && <VideoMock accent={accent} />}
       {slot.kind === "image-slot" && <ImageMock accent={accent} />}
 
-      <span className="absolute bottom-4 left-5 right-5 text-xs font-medium uppercase tracking-[0.12em] opacity-60">
-        {slot.label}
-      </span>
+      {/* The real asset, over the mock. A video keeps native controls — it is a clip in a
+          grid, so the browser's own player is both the most familiar and the most
+          accessible thing to give it; the scroll-driven presentation video is a separate
+          section with its own chrome. */}
+      {slot.src && isVideo && (
+        <video
+          src={slot.src}
+          poster={slot.poster}
+          controls
+          playsInline
+          preload="metadata"
+          className="absolute inset-0 h-full w-full bg-abyss object-cover"
+        />
+      )}
+      {slot.src && !isVideo && (
+        <LoadingImage src={slot.src} alt={slot.label} sizes={sizes} priority={priority} />
+      )}
+
+      {/* Scrim only when there is a photo under the label — over the mock the label sits
+          on a dark ground already, and an extra gradient would just mute the artwork.
+          A video's own controls occupy that strip, so it gets neither. */}
+      {hasAsset && !isVideo && (
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-abyss/90 to-transparent" />
+      )}
+
+      {!(hasAsset && isVideo) && (
+        <span className="absolute bottom-4 left-5 right-5 text-xs font-medium uppercase tracking-[0.12em] text-paper/75">
+          {slot.label}
+        </span>
+      )}
     </div>
   );
 }

@@ -8,13 +8,21 @@ import { Icon } from "@/components/ui/Icon";
 import { paletteText } from "@/lib/palette";
 
 export function SolutionMedia({ service }: { service: Service }) {
+  /* The "provisional" line has to stop claiming that once real assets land, and each slot
+     fills in independently — so it is keyed on whether *every* slot is still a mock. */
+  const allPlaceholders = service.media.gallery.every((slot) => !slot.src);
+
   return (
-    <section id="media" className="section-ink py-28">
+    <section id="media" className="py-28">
       <Container className="flex flex-col gap-16">
         <SectionHeading
           eyebrow="Images, vidéos & démo"
           title={`Découvrez ${service.name} en images.`}
-          description="Les visuels ci-dessous sont des aperçus provisoires — captures d'écran et vidéo réelles à venir."
+          description={
+            allPlaceholders
+              ? "Les visuels ci-dessous sont des aperçus provisoires — captures d'écran et vidéo réelles à venir."
+              : `Captures d'écran et séquences de ${service.name}, en conditions réelles.`
+          }
         />
 
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">

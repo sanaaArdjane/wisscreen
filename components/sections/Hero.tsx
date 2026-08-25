@@ -93,7 +93,7 @@ export function Hero() {
           {/* `hero-rise` is a CSS animation with fill-mode both, so each line holds
               its hidden state through its delay and never flashes in first. */}
           <div className="hero-rise" style={{ animationDelay: "0.15s" }}>
-            <Badge className="border-warm/40 text-warm">Agence de solutions IT</Badge>
+            <Badge className="border-signal/40 text-signal">Agence de solutions IT</Badge>
           </div>
 
           <h1

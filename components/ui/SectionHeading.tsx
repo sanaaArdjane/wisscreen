@@ -25,7 +25,7 @@ export function SectionHeading({
       )}
     >
       {eyebrow && (
-        <Badge data-reveal-item className="text-warm border-warm/40">
+        <Badge data-reveal-item className="text-signal border-signal/40">
           {eyebrow}
         </Badge>
       )}

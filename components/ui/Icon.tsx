@@ -20,6 +20,10 @@ const PATHS: Record<IconName, string> = {
   refresh: "M4 4v5h5M20 20v-5h-5M4.6 15A8 8 0 0 0 19 9M19.4 9A8 8 0 0 0 5 15",
   database: "M12 5c4.4 0 8-1.3 8-3s-3.6-3-8-3-8 1.3-8 3 3.6 3 8 3ZM4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6",
   move: "M12 3v18M3 12h18M12 3 9.5 5.5M12 3l2.5 2.5M12 21l-2.5-2.5M12 21l2.5-2.5M3 12l2.5-2.5M3 12l2.5 2.5M21 12l-2.5-2.5M21 12l-2.5 2.5",
+  // Corner brackets pointing outward / inward — the browser-frame and video controls.
+  maximize: "M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5",
+  minimize: "M9 4v5H4M20 9h-5V4M15 20v-5h5M4 15h5v5",
+  external: "M14 4h6v6M20 4l-8 8M18 13v5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h5",
   "arrow-right": "M5 12h14M13 6l6 6-6 6",
 };
 

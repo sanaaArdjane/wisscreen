@@ -41,7 +41,7 @@ export function Navbar() {
         <div className="hidden md:block">
           <Link
             href="#contact"
-            className="control-warm rounded-full px-5 py-2.5 text-sm font-medium transition-colors"
+            className="control-signal rounded-full px-5 py-2.5 text-sm font-medium transition-colors"
           >
             Nous contacter
           </Link>

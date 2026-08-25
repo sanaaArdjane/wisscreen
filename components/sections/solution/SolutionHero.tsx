@@ -1,59 +1,72 @@
 import type { Service } from "@/lib/types";
-import { Container } from "@/components/ui/Container";
 import { Badge } from "@/components/ui/Badge";
-import { Reveal } from "@/components/ui/Reveal";
 import { Button } from "@/components/ui/Button";
-import { PaletteAura } from "@/components/sections/solution/PaletteAura";
+import { SolutionHeroStage } from "@/components/sections/solution/SolutionHeroStage";
 
+/**
+ * The copy half of the solution hero. `SolutionHeroStage` owns the ground, the browser
+ * frame and the stretch states; this stays a server component so the headline is static
+ * markup, and it is passed in as children rather than duplicated inside the client
+ * component.
+ *
+ * It is a **single narrow column**: the stage gives it 30% of the width and the frame the
+ * rest, so the type ramp here is set for a ~20-24rem measure rather than for the page. That
+ * is also why the headline caps at `xl:text-6xl` — at `text-8xl` a name like WIFACILITY
+ * would not fit the column at any breakpoint the column exists at.
+ *
+ * Entrances are `hero-rise` (CSS, `fill-mode: both`) rather than the site's scroll
+ * `Reveal`: this is above the fold, so there is no scroll to trigger on, and the CSS
+ * version holds its hidden state through the delay instead of flashing in first. It
+ * animates `opacity` to 1, which is why every muted line here is `text-paper/NN` and
+ * never `opacity-NN` — the utility would be overridden mid-animation.
+ */
 export function SolutionHero({ service }: { service: Service }) {
   return (
-    <section className="section-ink relative flex min-h-[90svh] flex-col justify-end overflow-hidden pt-32 pb-20">
-      <PaletteAura primary={service.palette.primary} secondary={service.palette.secondary} />
-
-      <Container className="relative z-10 flex flex-col gap-8">
-        <Reveal className="flex flex-wrap items-center gap-3">
-          <Badge data-reveal-item className="border-warm/40 text-warm">
-            {service.category}
-          </Badge>
+    <SolutionHeroStage service={service}>
+      <div className="flex flex-col gap-5">
+        <div className="hero-rise flex flex-wrap items-center gap-2" style={{ animationDelay: "0.12s" }}>
+          <Badge className="border-signal/40 text-signal">{service.category}</Badge>
           {service.audiences.map((audience) => (
-            <Badge key={audience} data-reveal-item className="border-white/20 opacity-70">
+            <Badge key={audience} className="border-white/20 text-paper/70">
               {audience}
             </Badge>
           ))}
-        </Reveal>
+        </div>
 
-        <Reveal>
-          <h1 data-reveal-item className="font-display text-balance text-6xl font-semibold leading-[1.02] md:text-8xl">
-            {service.name}
-          </h1>
-        </Reveal>
+        <h1
+          className="hero-rise font-display text-balance text-4xl font-semibold leading-[1.02] md:text-5xl xl:text-6xl"
+          style={{ animationDelay: "0.24s" }}
+        >
+          {service.name}
+        </h1>
 
-        <Reveal className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-          <p data-reveal-item className="max-w-2xl text-balance text-xl leading-relaxed opacity-80 md:text-2xl">
-            {service.tagline}
-          </p>
-          <div data-reveal-item className="flex shrink-0 flex-wrap gap-4">
-            <Button href="#contact" variant="primary">
-              Demander une démo
-            </Button>
-            <Button href="#media" variant="ghost">
-              Voir en action
-            </Button>
-          </div>
-        </Reveal>
+        <p
+          className="hero-rise text-balance text-lg leading-relaxed text-paper/85 md:text-xl"
+          style={{ animationDelay: "0.36s" }}
+        >
+          {service.tagline}
+        </p>
 
-        <Reveal>
-          <p data-reveal-item className="max-w-3xl text-base leading-relaxed opacity-60">
-            {service.heroDescription}
-          </p>
-        </Reveal>
+        <p className="hero-rise text-sm leading-relaxed text-paper/75" style={{ animationDelay: "0.48s" }}>
+          {service.heroDescription}
+        </p>
 
-        <Reveal>
-          <p data-reveal-item className="text-xs font-semibold uppercase tracking-[0.14em] opacity-40">
-            {service.team}
-          </p>
-        </Reveal>
-      </Container>
-    </section>
+        <div className="hero-rise flex flex-wrap gap-3" style={{ animationDelay: "0.6s" }}>
+          <Button href="#contact" variant="primary">
+            Demander une démo
+          </Button>
+          <Button href="#video" variant="ghost">
+            Voir en action
+          </Button>
+        </div>
+
+        <p
+          className="hero-rise text-xs font-semibold uppercase tracking-[0.14em] text-paper/60"
+          style={{ animationDelay: "0.72s" }}
+        >
+          {service.team}
+        </p>
+      </div>
+    </SolutionHeroStage>
   );
 }

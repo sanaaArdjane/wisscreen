@@ -3,7 +3,7 @@
 import { useMemo, useRef, useState } from "react";
 import type { RefObject } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Float, Html, Line, OrbitControls } from "@react-three/drei";
+import { Html, Line, OrbitControls } from "@react-three/drei";
 import * as THREE from "three";
 import type { Service } from "@/lib/types";
 import { Icon } from "@/components/ui/Icon";
@@ -11,15 +11,15 @@ import { Icon } from "@/components/ui/Icon";
 const AQUA = "#7FC9C8";
 const TEAL = "#379F9E";
 const PAPER = "#FFFFFF";
-/* The warm accent in the scene. Ember is the ACTIVE colour: idle markers, arcs and
-   bands are cool, and hovering one turns it warm — so the hue carries the interaction
-   state rather than just decorating. #FF4100 is safe to use freely in here: it's far
-   too bright to carry text anywhere (3.5:1 at best), but an additively-blended glow
+/* The signal accent in the scene. It is the ACTIVE colour: idle markers, arcs and
+   bands are cool, and hovering one turns it green — so the hue carries the interaction
+   state rather than just decorating. #00FFA9 is safe to use freely in here: it's far
+   too bright to carry text anywhere (1.3:1 on paper), but an additively-blended glow
    has no contrast floor. */
-const EMBER_HOT = "#FF4100";
-const EMBER = "#F2A48A";
-/** Mid warm, for lit geometry that would blow out at EMBER_HOT. */
-const EMBER_MID = "#C5522C";
+const SIGNAL_BRIGHT = "#00FFA9";
+const SIGNAL_SOFT = "#4ED39D";
+/** The brand value, for lit geometry that would blow out at SIGNAL_BRIGHT. */
+const SIGNAL = "#13B78C";
 
 const GLOBE_RADIUS = 2.1;
 /** Markers sit just above the surface so they read as mounted ON the globe. */
@@ -52,11 +52,19 @@ const MARKER_ANGLES = [
   { phiDeg: 72, thetaDeg: 128 },
 ];
 
-function sphericalToCartesian(phiDeg: number, thetaDeg: number, radius: number) {
+function sphericalToCartesian(
+  phiDeg: number,
+  thetaDeg: number,
+  radius: number,
+) {
   const phi = THREE.MathUtils.degToRad(phiDeg);
   const theta = THREE.MathUtils.degToRad(thetaDeg);
   const ring = radius * Math.sin(phi);
-  return new THREE.Vector3(ring * Math.cos(theta), radius * Math.cos(phi), ring * Math.sin(theta));
+  return new THREE.Vector3(
+    ring * Math.cos(theta),
+    radius * Math.cos(phi),
+    ring * Math.sin(theta),
+  );
 }
 
 function radialGlowTexture() {
@@ -66,7 +74,14 @@ function radialGlowTexture() {
   canvas.height = size;
   const ctx = canvas.getContext("2d");
   if (ctx) {
-    const g = ctx.createRadialGradient(size / 2, size / 2, 0, size / 2, size / 2, size / 2);
+    const g = ctx.createRadialGradient(
+      size / 2,
+      size / 2,
+      0,
+      size / 2,
+      size / 2,
+      size / 2,
+    );
     g.addColorStop(0, "rgba(255,255,255,1)");
     g.addColorStop(0.35, "rgba(255,255,255,0.4)");
     g.addColorStop(1, "rgba(255,255,255,0)");
@@ -76,6 +91,35 @@ function radialGlowTexture() {
   return new THREE.CanvasTexture(canvas);
 }
 
+/**
+ * Soft round star sprite. THREE renders `points` as hard SQUARES unless the material
+ * carries a map with alpha — that alone is most of what makes a procedural starfield
+ * look cheap. Tight core, long tail, so a star reads as a point of light with bloom
+ * rather than a dot.
+ */
+function starTexture() {
+  const size = 64;
+  const canvas = document.createElement("canvas");
+  canvas.width = size;
+  canvas.height = size;
+  const ctx = canvas.getContext("2d");
+  if (!ctx) return null;
+
+  const c = size / 2;
+  const g = ctx.createRadialGradient(c, c, 0, c, c, c);
+  g.addColorStop(0, "rgba(255,255,255,1)");
+  g.addColorStop(0.12, "rgba(255,255,255,0.95)");
+  g.addColorStop(0.3, "rgba(255,255,255,0.35)");
+  g.addColorStop(0.6, "rgba(255,255,255,0.07)");
+  g.addColorStop(1, "rgba(255,255,255,0)");
+  ctx.fillStyle = g;
+  ctx.fillRect(0, 0, size, size);
+
+  const tex = new THREE.CanvasTexture(canvas);
+  tex.needsUpdate = true;
+  return tex;
+}
+
 function fibonacciSphere(count: number, radius: number, offset = 0) {
   const positions = new Float32Array(count * 3);
   const golden = Math.PI * (3 - Math.sqrt(5));
@@ -83,7 +127,10 @@ function fibonacciSphere(count: number, radius: number, offset = 0) {
     const y = 1 - ((i + offset) / (count - 1 + offset)) * 2;
     const r = Math.sqrt(Math.max(0, 1 - y * y));
     const theta = golden * (i + offset);
-    positions.set([Math.cos(theta) * r * radius, y * radius, Math.sin(theta) * r * radius], i * 3);
+    positions.set(
+      [Math.cos(theta) * r * radius, y * radius, Math.sin(theta) * r * radius],
+      i * 3,
+    );
   }
   return positions;
 }
@@ -148,13 +195,20 @@ function Atmosphere() {
  * the markers and arcs stay locked to it. */
 function GlobeBody() {
   const dense = useMemo(() => fibonacciSphere(5200, GLOBE_RADIUS * 1.002), []);
-  const sparse = useMemo(() => fibonacciSphere(520, GLOBE_RADIUS * 1.012, 0.37), []);
+  const sparse = useMemo(
+    () => fibonacciSphere(520, GLOBE_RADIUS * 1.012, 0.37),
+    [],
+  );
 
   const bands = useMemo(() => {
     const R = GLOBE_RADIUS * 1.008;
     return [-0.5, 0, 0.5].map((frac) => {
       const y = R * frac;
-      return { y, radius: Math.sqrt(Math.max(0.0001, R * R - y * y)), isEquator: frac === 0 };
+      return {
+        y,
+        radius: Math.sqrt(Math.max(0.0001, R * R - y * y)),
+        isEquator: frac === 0,
+      };
     });
   }, []);
 
@@ -163,30 +217,48 @@ function GlobeBody() {
       {/* Opaque core: gives the dot shell a crisp silhouette and hides far dots */}
       <mesh>
         <sphereGeometry args={[GLOBE_RADIUS * 0.99, 64, 64]} />
-        <meshStandardMaterial color="#2b3852" roughness={0.85} metalness={0.15} />
+        <meshStandardMaterial
+          color="#2b3852"
+          roughness={0.85}
+          metalness={0.15}
+        />
       </mesh>
 
       <points>
         <bufferGeometry>
           <bufferAttribute attach="attributes-position" args={[dense, 3]} />
         </bufferGeometry>
-        <pointsMaterial color={AQUA} size={0.026} transparent opacity={0.6} sizeAttenuation depthWrite={false} />
+        <pointsMaterial
+          color={AQUA}
+          size={0.026}
+          transparent
+          opacity={0.6}
+          sizeAttenuation
+          depthWrite={false}
+        />
       </points>
 
       <points>
         <bufferGeometry>
           <bufferAttribute attach="attributes-position" args={[sparse, 3]} />
         </bufferGeometry>
-        <pointsMaterial color={PAPER} size={0.05} transparent opacity={0.9} sizeAttenuation depthWrite={false} />
+        <pointsMaterial
+          color={PAPER}
+          size={0.05}
+          transparent
+          opacity={0.9}
+          sizeAttenuation
+          depthWrite={false}
+        />
       </points>
 
       {bands.map((band, i) => (
         <Line
           key={i}
           points={circlePoints(band.radius, band.y)}
-          // The equator takes the warm accent: it's the one line on the globe that
+          // The equator takes the signal accent: it's the one line on the globe that
           // reads as a deliberate belt rather than part of the dotted grid.
-          color={band.isEquator ? EMBER : AQUA}
+          color={band.isEquator ? SIGNAL_SOFT : AQUA}
           transparent
           opacity={band.isEquator ? 0.42 : 0.13}
           lineWidth={1}
@@ -197,49 +269,310 @@ function GlobeBody() {
 }
 
 /** Slow-drifting dust so the scene reads as weightless deep space. */
-function SpaceDust() {
-  const inner = useRef<THREE.Points>(null);
-  const outer = useRef<THREE.Points>(null);
+/**
+ * Per-star colour. A field of identical white points reads flat and synthetic; real
+ * skies vary in colour temperature. Kept inside the brand family: mostly `paper`, a
+ * cool minority tinted toward `aqua`, and a few tinted toward `signal`. Brightness
+ * varies far more than hue — that is what gives a starfield depth.
+ */
+function writeStarColor(i: number, seed: number, out: Float32Array) {
+  const hue = hash(i * 5.9 + seed);
+  let r = 1;
+  let g = 1;
+  let b = 1;
+  if (hue > 0.94) {
+    // signal — green tinted
+    r = 1;
+    g = 0.78;
+    b = 0.66;
+  } else if (hue > 0.66) {
+    // cool — aqua tinted
+    r = 0.76;
+    g = 0.92;
+    b = 0.98;
+  }
+  // Still a tail toward dim, but the floor is high: this sky's ground is mid-navy
+  // rather than black, so anything below ~0.4 disappears into it entirely.
+  const t = hash(i * 8.3 + seed);
+  const brightness = 0.45 + Math.pow(t, 1.4) * 0.55;
+  out.set([r * brightness, g * brightness, b * brightness], i * 3);
+}
 
-  const build = (count: number, min: number, max: number, seed: number) => {
-    const positions = new Float32Array(count * 3);
-    for (let i = 0; i < count; i++) {
-      const r = min + hash(i + seed) * (max - min);
-      const theta = hash(i * 2.3 + seed) * Math.PI * 2;
-      const phi = Math.acos(2 * hash(i * 3.7 + seed) - 1);
-      positions.set(
-        [r * Math.sin(phi) * Math.cos(theta), r * Math.sin(phi) * Math.sin(theta), r * Math.cos(phi)],
-        i * 3,
-      );
-    }
-    return positions;
-  };
+/** Positions + per-star colours for one depth shell. */
+function buildStarLayer(count: number, min: number, max: number, seed: number) {
+  const positions = new Float32Array(count * 3);
+  const colors = new Float32Array(count * 3);
+  for (let i = 0; i < count; i++) {
+    const r = min + hash(i + seed) * (max - min);
+    const theta = hash(i * 2.3 + seed) * Math.PI * 2;
+    const phi = Math.acos(2 * hash(i * 3.7 + seed) - 1);
+    positions.set(
+      [
+        r * Math.sin(phi) * Math.cos(theta),
+        r * Math.sin(phi) * Math.sin(theta),
+        r * Math.cos(phi),
+      ],
+      i * 3,
+    );
+    writeStarColor(i, seed, colors);
+  }
+  return { positions, colors };
+}
 
-  const near = useMemo(() => build(700, 5, 16, 11), []);
-  const far = useMemo(() => build(2000, 18, 58, 77), []);
+/** Dense band of stars squashed toward a plane — the galactic-plane look. */
+function buildStarBand(
+  count: number,
+  min: number,
+  max: number,
+  seed: number,
+  flatten: number,
+) {
+  const positions = new Float32Array(count * 3);
+  const colors = new Float32Array(count * 3);
+  const v = new THREE.Vector3();
+  for (let i = 0; i < count; i++) {
+    const r = min + hash(i + seed) * (max - min);
+    const theta = hash(i * 2.3 + seed) * Math.PI * 2;
+    const phi = Math.acos(2 * hash(i * 3.7 + seed) - 1);
+    v.set(
+      Math.sin(phi) * Math.cos(theta),
+      Math.sin(phi) * Math.sin(theta),
+      Math.cos(phi),
+    );
+    // Compress toward the y=0 plane, then renormalise, so density concentrates in a
+    // band instead of thinning out evenly.
+    v.y *= flatten;
+    v.normalize().multiplyScalar(r);
+    positions.set([v.x, v.y, v.z], i * 3);
+    writeStarColor(i, seed, colors);
+  }
+  return { positions, colors };
+}
+
+/** One shell of stars. */
+function StarLayer({
+  data,
+  size,
+  opacity,
+  star,
+}: {
+  data: { positions: Float32Array; colors: Float32Array };
+  size: number;
+  opacity: number;
+  star: THREE.CanvasTexture | null;
+}) {
+  return (
+    <points>
+      <bufferGeometry>
+        <bufferAttribute
+          attach="attributes-position"
+          args={[data.positions, 3]}
+        />
+        <bufferAttribute attach="attributes-color" args={[data.colors, 3]} />
+      </bufferGeometry>
+      <pointsMaterial
+        map={star ?? undefined}
+        vertexColors
+        size={size}
+        transparent
+        opacity={opacity}
+        // Screen-space size, NOT sizeAttenuation. These shells sit 28-95 units out
+        // while the camera is 6-14 units from the globe, so attenuated points collapse
+        // to sub-pixel and the whole field renders invisible — which is exactly how
+        // this looked before. In pixels, every shell reads, and the parallax comes
+        // from the differing rotation rates instead.
+        sizeAttenuation={false}
+        depthWrite={false}
+        blending={THREE.AdditiveBlending}
+      />
+    </points>
+  );
+}
+
+/**
+ * The sky. Four depth shells plus a galactic band, each drifting at its own rate so
+ * the field has parallax rather than turning as one rigid dome. Additive blending and
+ * a mapped sprite are what make these read as light instead of dots.
+ */
+function StarField({
+  star,
+  glow,
+}: {
+  star: THREE.CanvasTexture | null;
+  glow: THREE.CanvasTexture | null;
+}) {
+  const near = useRef<THREE.Points>(null);
+  const mid = useRef<THREE.Group>(null);
+  const far = useRef<THREE.Group>(null);
+  const band = useRef<THREE.Group>(null);
+
+  const nearData = useMemo(() => buildStarLayer(170, 7, 15, 11), []);
+  const midData = useMemo(() => buildStarLayer(760, 13, 32, 41), []);
+  const farData = useMemo(() => buildStarLayer(2300, 28, 62, 77), []);
+  const hazeData = useMemo(() => buildStarLayer(3600, 55, 95, 131), []);
+  const bandData = useMemo(() => buildStarBand(2800, 34, 74, 197, 0.14), []);
 
   useFrame((_, delta) => {
-    if (inner.current) {
-      inner.current.rotation.y += delta * 0.018;
-      inner.current.rotation.x += delta * 0.006;
-    }
-    if (outer.current) outer.current.rotation.y -= delta * 0.005;
+    // Nearer shells drift faster. The differential is the whole point — a single
+    // rotation speed reads as a painted backdrop.
+    if (near.current) near.current.rotation.y += delta * 0.016;
+    if (mid.current) mid.current.rotation.y += delta * 0.009;
+    if (far.current) far.current.rotation.y -= delta * 0.004;
+    if (band.current) band.current.rotation.y -= delta * 0.0025;
   });
 
   return (
     <>
-      <points ref={inner}>
+      <points ref={near}>
         <bufferGeometry>
-          <bufferAttribute attach="attributes-position" args={[near, 3]} />
+          <bufferAttribute
+            attach="attributes-position"
+            args={[nearData.positions, 3]}
+          />
+          <bufferAttribute
+            attach="attributes-color"
+            args={[nearData.colors, 3]}
+          />
         </bufferGeometry>
-        <pointsMaterial color={AQUA} size={0.05} transparent opacity={0.7} sizeAttenuation depthWrite={false} />
+        <pointsMaterial
+          map={star ?? undefined}
+          vertexColors
+          size={5}
+          transparent
+          opacity={1}
+          sizeAttenuation={false}
+          depthWrite={false}
+          blending={THREE.AdditiveBlending}
+        />
       </points>
-      <points ref={outer}>
-        <bufferGeometry>
-          <bufferAttribute attach="attributes-position" args={[far, 3]} />
-        </bufferGeometry>
-        <pointsMaterial color={PAPER} size={0.11} transparent opacity={0.55} sizeAttenuation depthWrite={false} />
-      </points>
+
+      <group ref={mid}>
+        <StarLayer data={midData} size={3.4} opacity={1} star={star} />
+      </group>
+
+      <group ref={far}>
+        <StarLayer data={farData} size={2.5} opacity={0.95} star={star} />
+        <StarLayer data={hazeData} size={1.8} opacity={0.8} star={star} />
+      </group>
+
+      {/* Galactic band, tilted so it crosses the frame diagonally rather than sitting
+          level with the globe's equator. */}
+      <group ref={band} rotation={[0.34, 0, 0.52]}>
+        <StarLayer data={bandData} size={2.3} opacity={1} star={star} />
+        {glow && (
+          <>
+            <sprite position={[0, 0, -46]} scale={[120, 26, 1]}>
+              <spriteMaterial
+                map={glow}
+                color={AQUA}
+                transparent
+                opacity={0.075}
+                depthWrite={false}
+                blending={THREE.AdditiveBlending}
+              />
+            </sprite>
+            <sprite position={[16, 2, -52]} scale={[80, 15, 1]}>
+              <spriteMaterial
+                map={glow}
+                color={PAPER}
+                transparent
+                opacity={0.05}
+                depthWrite={false}
+                blending={THREE.AdditiveBlending}
+              />
+            </sprite>
+          </>
+        )}
+      </group>
+    </>
+  );
+}
+
+/**
+ * A handful of foreground stars bright enough to carry a halo and diffraction spikes.
+ * Sprites always face the camera, and `spriteMaterial.rotation` lets two thin streaks
+ * cross into a spike — the classic bright-star signature, and the cheapest way to make
+ * a starfield look photographed rather than generated. Deliberately few: the effect
+ * works because most stars are plain points.
+ */
+function BrightStars({ glow }: { glow: THREE.CanvasTexture | null }) {
+  const stars = useMemo(
+    () => [
+      {
+        pos: [11.5, 5.4, -17] as [number, number, number],
+        scale: 0.55,
+        color: PAPER,
+      },
+      {
+        pos: [13.8, -1.6, -19] as [number, number, number],
+        scale: 0.4,
+        color: AQUA,
+      },
+      {
+        pos: [-5.2, 7.6, -22] as [number, number, number],
+        scale: 0.42,
+        color: PAPER,
+      },
+      {
+        pos: [8.8, -6.4, -18] as [number, number, number],
+        scale: 0.34,
+        color: SIGNAL_SOFT,
+      },
+    ],
+    [],
+  );
+
+  if (!glow) return null;
+
+  return (
+    <>
+      {stars.map((s, i) => (
+        <group key={i} position={s.pos}>
+          {/* Wide soft halo */}
+          <sprite scale={[3.4 * s.scale, 3.4 * s.scale, 1]}>
+            <spriteMaterial
+              map={glow}
+              color={s.color}
+              transparent
+              opacity={0.13}
+              depthWrite={false}
+              blending={THREE.AdditiveBlending}
+            />
+          </sprite>
+          {/* Core */}
+          <sprite scale={[0.34 * s.scale, 0.34 * s.scale, 1]}>
+            <spriteMaterial
+              map={glow}
+              color={PAPER}
+              transparent
+              opacity={0.9}
+              depthWrite={false}
+              blending={THREE.AdditiveBlending}
+            />
+          </sprite>
+          {/* Crossed diffraction spikes */}
+          <sprite scale={[3.1 * s.scale, 0.055 * s.scale, 1]}>
+            <spriteMaterial
+              map={glow}
+              color={s.color}
+              transparent
+              opacity={0.3}
+              depthWrite={false}
+              blending={THREE.AdditiveBlending}
+            />
+          </sprite>
+          <sprite scale={[0.055 * s.scale, 3.1 * s.scale, 1]}>
+            <spriteMaterial
+              map={glow}
+              color={s.color}
+              transparent
+              opacity={0.3}
+              depthWrite={false}
+              blending={THREE.AdditiveBlending}
+            />
+          </sprite>
+        </group>
+      ))}
     </>
   );
 }
@@ -267,7 +600,11 @@ function ShootingStar({
 
   const normalized = useMemo(() => dir.clone().normalize(), [dir]);
   const quat = useMemo(
-    () => new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0, 1, 0), normalized),
+    () =>
+      new THREE.Quaternion().setFromUnitVectors(
+        new THREE.Vector3(0, 1, 0),
+        normalized,
+      ),
     [normalized],
   );
 
@@ -275,12 +612,17 @@ function ShootingStar({
     time.current += delta * speed;
     const p = (time.current + offset) % 1;
 
-    if (group.current) group.current.position.copy(start).addScaledVector(normalized, p * distance);
+    if (group.current)
+      group.current.position
+        .copy(start)
+        .addScaledVector(normalized, p * distance);
 
     // Fade in and out across the pass so meteors don't pop at the loop seam.
     const fade = Math.sin(p * Math.PI);
-    if (streak.current) (streak.current.material as THREE.Material).opacity = fade * 0.8;
-    if (head.current) (head.current.material as THREE.SpriteMaterial).opacity = fade;
+    if (streak.current)
+      (streak.current.material as THREE.Material).opacity = fade * 0.8;
+    if (head.current)
+      (head.current.material as THREE.SpriteMaterial).opacity = fade;
   });
 
   return (
@@ -289,7 +631,7 @@ function ShootingStar({
       <mesh ref={streak} position={[0, -1.1, 0]}>
         <cylinderGeometry args={[0.035, 0.001, 2.2, 6, 1, true]} />
         <meshBasicMaterial
-          color={EMBER_HOT}
+          color={SIGNAL_BRIGHT}
           transparent
           opacity={0}
           depthWrite={false}
@@ -301,7 +643,7 @@ function ShootingStar({
         <sprite ref={head} scale={[0.55, 0.55, 1]}>
           <spriteMaterial
             map={glow}
-            color={EMBER}
+            color={SIGNAL_SOFT}
             transparent
             opacity={0}
             depthWrite={false}
@@ -343,134 +685,15 @@ function NebulaCloud({
   );
 }
 
-/** A small star cluster joined by faint lines — fills the side margins with
- * something that reads as deep aqua rather than noise. */
-function Constellation({
-  position,
-  scale,
-  seed,
-  color,
-}: {
-  position: [number, number, number];
-  scale: number;
-  seed: number;
-  color: string;
-}) {
-  const stars = useMemo(() => {
-    const pts: THREE.Vector3[] = [];
-    for (let i = 0; i < 7; i++) {
-      pts.push(
-        new THREE.Vector3(
-          (hash(i * 1.7 + seed) - 0.5) * 2.2,
-          (hash(i * 3.1 + seed) - 0.5) * 2.2,
-          (hash(i * 7.7 + seed) - 0.5) * 0.6,
-        ),
-      );
-    }
-    return pts;
-  }, [seed]);
-
-  const positions = useMemo(() => {
-    const arr = new Float32Array(stars.length * 3);
-    stars.forEach((p, i) => arr.set([p.x, p.y, p.z], i * 3));
-    return arr;
-  }, [stars]);
-
-  return (
-    <group position={position} scale={scale}>
-      <Line points={stars} color={color} transparent opacity={0.22} lineWidth={1} />
-      <points>
-        <bufferGeometry>
-          <bufferAttribute attach="attributes-position" args={[positions, 3]} />
-        </bufferGeometry>
-        <pointsMaterial color={PAPER} size={0.09} transparent opacity={0.9} sizeAttenuation depthWrite={false} />
-      </points>
-    </group>
-  );
-}
-
-/** Universe scenery in the upper part of the scene: a distant ringed planet, a
- * far moon, and meteors. Sits behind the globe and never rotates with it. */
-function CosmicSky({ glow }: { glow: THREE.CanvasTexture | null }) {
-  const planet = useRef<THREE.Group>(null);
-  const ringRadius = 1.05;
-
-  useFrame((_, delta) => {
-    if (planet.current) planet.current.rotation.y += delta * 0.05;
-  });
-
+/**
+ * Meteors, on a loop across the upper frame. This used to also host a ringed planet, a
+ * moon, a gas giant and connect-the-dots constellations; they read as cartoon scenery
+ * against a real starfield, so the sky is now stars and gas only. Meteors survive
+ * because they are motion, not props — they give the sky life without naming objects.
+ */
+function Meteors({ glow }: { glow: THREE.CanvasTexture | null }) {
   return (
     <>
-      {/* Ringed planet, upper-left, far away — kept clear of the fixed navbar */}
-      <group position={[-7.2, 2.9, -13]}>
-        <Float speed={0.5} rotationIntensity={0.15} floatIntensity={0.5}>
-          <group ref={planet} rotation={[0.42, 0, 0.22]}>
-            <mesh>
-              <sphereGeometry args={[0.62, 48, 48]} />
-              <meshStandardMaterial color="#3d5175" roughness={0.75} metalness={0.2} emissive={AQUA} emissiveIntensity={0.12} />
-            </mesh>
-            <mesh rotation={[Math.PI / 2, 0, 0]}>
-              <torusGeometry args={[ringRadius, 0.012, 8, 96]} />
-              <meshBasicMaterial color={TEAL} transparent opacity={0.6} />
-            </mesh>
-            <mesh rotation={[Math.PI / 2, 0, 0]}>
-              <torusGeometry args={[ringRadius * 1.16, 0.006, 8, 96]} />
-              <meshBasicMaterial color={AQUA} transparent opacity={0.4} />
-            </mesh>
-          </group>
-        </Float>
-        {glow && (
-          <sprite scale={[4.2, 4.2, 1]}>
-            <spriteMaterial
-              map={glow}
-              color={AQUA}
-              transparent
-              opacity={0.16}
-              depthWrite={false}
-              blending={THREE.AdditiveBlending}
-            />
-          </sprite>
-        )}
-      </group>
-
-      {/* Small pale moon, upper-right */}
-      <group position={[9.5, 4.2, -11]}>
-        <Float speed={0.65} rotationIntensity={0.2} floatIntensity={0.7}>
-          <mesh>
-            <sphereGeometry args={[0.26, 32, 32]} />
-            <meshStandardMaterial color="#dfeceb" roughness={0.9} emissive={AQUA} emissiveIntensity={0.2} />
-          </mesh>
-        </Float>
-      </group>
-
-      {/* Warm gas giant filling the right margin */}
-      <group position={[11.5, -2.4, -16]}>
-        <Float speed={0.45} rotationIntensity={0.12} floatIntensity={0.6}>
-          <mesh>
-            <sphereGeometry args={[1.05, 48, 48]} />
-            <meshStandardMaterial color="#2f6a72" roughness={0.8} metalness={0.15} emissive={TEAL} emissiveIntensity={0.14} />
-          </mesh>
-        </Float>
-        {glow && (
-          <sprite scale={[6, 6, 1]}>
-            <spriteMaterial
-              map={glow}
-              color={TEAL}
-              transparent
-              opacity={0.13}
-              depthWrite={false}
-              blending={THREE.AdditiveBlending}
-            />
-          </sprite>
-        )}
-      </group>
-
-      {/* Constellations filling the side margins */}
-      <Constellation position={[-12, 0.5, -10]} scale={1.5} seed={3} color={AQUA} />
-      <Constellation position={[12.5, 2.8, -9]} scale={1.25} seed={17} color={AQUA} />
-      <Constellation position={[-11, -4.5, -8]} scale={1.1} seed={29} color={TEAL} />
-
-      {/* Meteors across the top */}
       <ShootingStar
         start={new THREE.Vector3(-13, 9.5, -6)}
         dir={new THREE.Vector3(1, -0.42, 0.1)}
@@ -499,30 +722,6 @@ function CosmicSky({ glow }: { glow: THREE.CanvasTexture | null }) {
   );
 }
 
-/** Small tumbling shards drifting weightlessly around the globe. */
-function FloatingDebris() {
-  return (
-    <>
-      {[0, 1, 2].map((i) => {
-        const pos = sphericalToCartesian(35 + hash(i) * 110, hash(i * 5.1) * 360, 5.4 + hash(i * 2.2) * 2.6);
-        return (
-          <Float key={i} speed={0.8 + hash(i * 9) * 0.8} rotationIntensity={1.6} floatIntensity={1.8}>
-            <mesh position={pos}>
-              <icosahedronGeometry args={[0.05 + hash(i * 3.3) * 0.05, 0]} />
-              <meshStandardMaterial
-                color={i === 1 ? EMBER : i === 0 ? AQUA : TEAL}
-                emissive={i === 1 ? EMBER : i === 0 ? AQUA : TEAL}
-                emissiveIntensity={0.5}
-                roughness={0.4}
-              />
-            </mesh>
-          </Float>
-        );
-      })}
-    </>
-  );
-}
-
 function ServiceMarker({
   service,
   index,
@@ -544,10 +743,10 @@ function ServiceMarker({
   glow: THREE.CanvasTexture | null;
   showLabel: boolean;
 }) {
-  // Alternate the idle colour so the constellation mixes warm and cool rather than
+  // Alternate the idle colour so the constellation mixes signal and cool rather than
   // reading as one hue. With four services this is an even 2/2 split.
-  const idleWarm = index % 2 === 1;
-  const idle = idleWarm ? EMBER : AQUA;
+  const idleSignal = index % 2 === 1;
+  const idle = idleSignal ? SIGNAL_SOFT : AQUA;
 
   const anchor = useRef<THREE.Group>(null);
   const orb = useRef<THREE.Mesh>(null);
@@ -560,10 +759,17 @@ function ServiceMarker({
   const portal = overlayRef as RefObject<HTMLElement> | undefined;
 
   const normal = useMemo(() => position.clone().normalize(), [position]);
-  const footPoint = useMemo(() => normal.clone().multiplyScalar(GLOBE_RADIUS * 1.005), [normal]);
+  const footPoint = useMemo(
+    () => normal.clone().multiplyScalar(GLOBE_RADIUS * 1.005),
+    [normal],
+  );
   // Flat pad lying on the globe surface, oriented to the local normal.
   const padQuat = useMemo(
-    () => new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0, 0, 1), normal),
+    () =>
+      new THREE.Quaternion().setFromUnitVectors(
+        new THREE.Vector3(0, 0, 1),
+        normal,
+      ),
     [normal],
   );
 
@@ -573,14 +779,17 @@ function ServiceMarker({
 
     if (orb.current) {
       const scale = isActive ? 1.6 : 1;
-      orb.current.scale.setScalar(THREE.MathUtils.lerp(orb.current.scale.x, scale, 0.14));
+      orb.current.scale.setScalar(
+        THREE.MathUtils.lerp(orb.current.scale.x, scale, 0.14),
+      );
     }
 
     // Radar ping expanding across the surface pad.
     if (pulse.current) {
       const p = (t % 2.2) / 2.2;
       pulse.current.scale.setScalar(THREE.MathUtils.lerp(0.35, 2.1, p));
-      (pulse.current.material as THREE.Material).opacity = (1 - p) * (isActive ? 0.8 : 0.5);
+      (pulse.current.material as THREE.Material).opacity =
+        (1 - p) * (isActive ? 0.8 : 0.5);
     }
 
     // Fade labels on the far side so the front stays readable while the camera
@@ -602,7 +811,7 @@ function ServiceMarker({
         <mesh>
           <ringGeometry args={[0.13, 0.165, 48]} />
           <meshBasicMaterial
-            color={isActive ? EMBER_HOT : idle}
+            color={isActive ? SIGNAL_BRIGHT : idle}
             transparent
             opacity={isActive ? 0.95 : 0.65}
             side={THREE.DoubleSide}
@@ -612,7 +821,7 @@ function ServiceMarker({
         <mesh ref={pulse}>
           <ringGeometry args={[0.17, 0.2, 48]} />
           <meshBasicMaterial
-            color={isActive ? EMBER_HOT : idle}
+            color={isActive ? SIGNAL_BRIGHT : idle}
             transparent
             opacity={0.5}
             side={THREE.DoubleSide}
@@ -624,7 +833,7 @@ function ServiceMarker({
       {/* Short tether from the surface up to the marker — visibly mounted on the globe */}
       <Line
         points={[footPoint, position]}
-        color={isActive ? EMBER_HOT : idle}
+        color={isActive ? SIGNAL_BRIGHT : idle}
         transparent
         opacity={isActive ? 0.95 : 0.55}
         lineWidth={2}
@@ -658,7 +867,7 @@ function ServiceMarker({
           <sphereGeometry args={[0.15, 28, 28]} />
           <meshStandardMaterial
             color={PAPER}
-            emissive={isActive ? EMBER_HOT : idle}
+            emissive={isActive ? SIGNAL_BRIGHT : idle}
             emissiveIntensity={isActive ? 1.9 : 1}
           />
         </mesh>
@@ -667,7 +876,7 @@ function ServiceMarker({
           <sprite scale={[1.05, 1.05, 1]}>
             <spriteMaterial
               map={glow}
-              color={isActive ? EMBER_HOT : idle}
+              color={isActive ? SIGNAL_BRIGHT : idle}
               transparent
               opacity={isActive ? 0.68 : 0.32}
               depthWrite={false}
@@ -677,69 +886,83 @@ function ServiceMarker({
         )}
 
         {showLabel && (
-        <Html center portal={portal} zIndexRange={[40, 0]} style={{ pointerEvents: "none" }}>
-          <div
-            ref={label}
-            onMouseEnter={() => onHover(index)}
-            onMouseLeave={() => onHover(null)}
-            onClick={() => onSelect(service.slug)}
-            className="pointer-events-auto -translate-y-16 cursor-pointer select-none"
+          <Html
+            center
+            portal={portal}
+            zIndexRange={[40, 0]}
+            style={{ pointerEvents: "none" }}
           >
             <div
-              // w-fit keeps the pill compact: as a block-level flex child it would
-              // otherwise stretch to the (much wider) card below it.
-              className={`glass-panel mx-auto flex w-fit items-center gap-2 whitespace-nowrap rounded-full px-4 py-2.5 text-paper shadow-xl transition-colors duration-300 ${
-                isActive ? "border-ember-soft/80" : ""
-              }`}
+              ref={label}
+              onMouseEnter={() => onHover(index)}
+              onMouseLeave={() => onHover(null)}
+              onClick={() => onSelect(service.slug)}
+              className="pointer-events-auto -translate-y-16 cursor-pointer select-none"
             >
-              <Icon name={service.icon} className={`h-4 w-4 ${isActive ? "text-ember-soft" : "text-ember"}`} />
-              <span className="text-base font-semibold tracking-tight">{service.shortName}</span>
-            </div>
+              <div
+                // w-fit keeps the pill compact: as a block-level flex child it would
+                // otherwise stretch to the (much wider) card below it.
+                className={`glass-panel mx-auto flex w-fit items-center gap-2 whitespace-nowrap rounded-full px-4 py-2.5 text-paper shadow-xl transition-colors duration-300 ${
+                  isActive ? "border-signal-soft/80" : ""
+                }`}
+              >
+                <Icon
+                  name={service.icon}
+                  className={`h-4 w-4 ${isActive ? "text-signal-soft" : "text-signal"}`}
+                />
+                <span className="text-base font-semibold tracking-tight">
+                  {service.shortName}
+                </span>
+              </div>
 
-            {isActive && (
-              <div className="mt-2.5 flex w-[38rem] overflow-hidden rounded-2xl border border-ember-soft/30 bg-[#2c3a56]/96 text-paper shadow-2xl backdrop-blur-md">
-                {/* Text — left column */}
-                <div className="flex w-[15rem] shrink-0 flex-col justify-center p-5">
-                  <p className="text-[10px] font-semibold uppercase leading-tight tracking-[0.14em] text-ember-soft">
-                    {service.category}
-                  </p>
-                  <p className="mt-1.5 text-lg font-semibold leading-tight">{service.name}</p>
-                  <p className="mt-2 text-xs leading-relaxed opacity-80">{service.tagline}</p>
-                  <p className="mt-3 inline-flex items-center gap-1.5 text-xs font-medium text-ember-soft">
-                    Découvrir
-                    <Icon name="arrow-right" className="h-3.5 w-3.5" />
-                  </p>
-                </div>
+              {isActive && (
+                <div className="mt-2.5 flex w-[38rem] overflow-hidden rounded-2xl border border-signal-soft/30 bg-[#2c3a56]/96 text-paper shadow-2xl backdrop-blur-md">
+                  {/* Text — left column */}
+                  <div className="flex w-[15rem] shrink-0 flex-col justify-center p-5">
+                    <p className="text-[10px] font-semibold uppercase leading-tight tracking-[0.14em] text-signal-soft">
+                      {service.category}
+                    </p>
+                    <p className="mt-1.5 text-lg font-semibold leading-tight">
+                      {service.name}
+                    </p>
+                    <p className="mt-2 text-xs leading-relaxed opacity-80">
+                      {service.tagline}
+                    </p>
+                    <p className="mt-3 inline-flex items-center gap-1.5 text-xs font-medium text-signal-soft">
+                      Découvrir
+                      <Icon name="arrow-right" className="h-3.5 w-3.5" />
+                    </p>
+                  </div>
 
-                {/* Project preview — right column, large. Drops in a real GIF as soon
+                  {/* Project preview — right column, large. Drops in a real GIF as soon
                     as `previewGif` is set on the service, otherwise shows a labelled
                     placeholder. */}
-                <div className="relative min-h-[16.5rem] flex-1 overflow-hidden border-l border-ember-soft/20 bg-[#233047]">
-                  {service.previewGif ? (
-                    // eslint-disable-next-line @next/next/no-img-element -- animated GIF: next/image would strip the animation
-                    <img
-                      src={service.previewGif}
-                      alt={`Aperçu animé de ${service.name}`}
-                      className="absolute inset-0 h-full w-full object-cover"
-                    />
-                  ) : (
-                    <div className="flex h-full w-full flex-col items-center justify-center gap-2">
-                      <div className="absolute inset-0 opacity-30 [background-image:radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.5)_1px,transparent_0)] [background-size:18px_18px]" />
-                      <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-teal/20 blur-2xl" />
-                      <div className="absolute -bottom-12 -left-10 h-32 w-32 rounded-full bg-ember/25 blur-2xl" />
-                      <span className="relative flex h-10 w-10 items-center justify-center rounded-full border border-ember-soft/45 text-ember-soft">
-                        <Icon name="sparkles" className="h-5 w-5" />
-                      </span>
-                      <span className="relative text-[10px] font-semibold uppercase tracking-[0.14em] opacity-55">
-                        Aperçu du projet
-                      </span>
-                    </div>
-                  )}
+                  <div className="relative min-h-[16.5rem] flex-1 overflow-hidden border-l border-signal-soft/20 bg-[#233047]">
+                    {service.previewGif ? (
+                      // eslint-disable-next-line @next/next/no-img-element -- animated GIF: next/image would strip the animation
+                      <img
+                        src={service.previewGif}
+                        alt={`Aperçu animé de ${service.name}`}
+                        className="absolute inset-0 h-full w-full object-cover"
+                      />
+                    ) : (
+                      <div className="flex h-full w-full flex-col items-center justify-center gap-2">
+                        <div className="absolute inset-0 opacity-30 [background-image:radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.5)_1px,transparent_0)] [background-size:18px_18px]" />
+                        <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-teal/20 blur-2xl" />
+                        <div className="absolute -bottom-12 -left-10 h-32 w-32 rounded-full bg-signal/25 blur-2xl" />
+                        <span className="relative flex h-10 w-10 items-center justify-center rounded-full border border-signal-soft/45 text-signal-soft">
+                          <Icon name="sparkles" className="h-5 w-5" />
+                        </span>
+                        <span className="relative text-[10px] font-semibold uppercase tracking-[0.14em] opacity-55">
+                          Aperçu du projet
+                        </span>
+                      </div>
+                    )}
+                  </div>
                 </div>
-              </div>
-            )}
-          </div>
-        </Html>
+              )}
+            </div>
+          </Html>
         )}
       </group>
     </group>
@@ -771,7 +994,9 @@ function ServiceArc({
     const radius = from.length();
     const half = from.angleTo(to) / 2;
     const mid = from.clone().add(to).multiplyScalar(0.5);
-    const control = mid.normalize().multiplyScalar((radius / Math.max(0.2, Math.cos(half))) * 1.015);
+    const control = mid
+      .normalize()
+      .multiplyScalar((radius / Math.max(0.2, Math.cos(half))) * 1.015);
     return new THREE.QuadraticBezierCurve3(from, control, to);
   }, [from, to]);
 
@@ -779,17 +1004,26 @@ function ServiceArc({
 
   useFrame((_, delta) => {
     elapsed.current += delta;
-    if (travel.current) travel.current.position.copy(curve.getPointAt((elapsed.current * 0.15) % 1));
+    if (travel.current)
+      travel.current.position.copy(
+        curve.getPointAt((elapsed.current * 0.15) % 1),
+      );
   });
 
   return (
     <>
-      <Line points={points} color={isActive ? EMBER : TEAL} transparent opacity={isActive ? 0.9 : 0.42} lineWidth={1.3} />
+      <Line
+        points={points}
+        color={isActive ? SIGNAL_SOFT : TEAL}
+        transparent
+        opacity={isActive ? 0.9 : 0.42}
+        lineWidth={1.3}
+      />
       {glow && (
         <sprite ref={travel} scale={[0.3, 0.3, 1]}>
           <spriteMaterial
             map={glow}
-            color={isActive ? EMBER : TEAL}
+            color={isActive ? SIGNAL_SOFT : TEAL}
             transparent
             opacity={0.95}
             depthWrite={false}
@@ -816,7 +1050,14 @@ function Scene({
   paused: boolean;
   overlayRef?: RefObject<HTMLDivElement | null>;
 }) {
-  const glow = useMemo(() => (typeof document !== "undefined" ? radialGlowTexture() : null), []);
+  const glow = useMemo(
+    () => (typeof document !== "undefined" ? radialGlowTexture() : null),
+    [],
+  );
+  const starMap = useMemo(
+    () => (typeof document !== "undefined" ? starTexture() : null),
+    [],
+  );
   const drift = useRef<THREE.Group>(null);
   const spin = useRef<THREE.Group>(null);
   const intro = useRef<THREE.Group>(null);
@@ -843,7 +1084,10 @@ function Scene({
       // fading in over this window, so the globe arrives into an existing space.
       introDelay.current += delta;
       if (introDelay.current >= INTRO_DELAY) {
-        introProgress.current = Math.min(1, introProgress.current + delta / INTRO_DURATION);
+        introProgress.current = Math.min(
+          1,
+          introProgress.current + delta / INTRO_DURATION,
+        );
         const eased = easeOutBack(introProgress.current);
         intro.current.scale.setScalar(Math.max(0.0001, eased));
         if (introProgress.current >= 1) setIntroDone(true);
@@ -866,24 +1110,44 @@ function Scene({
       <pointLight position={[6, 4, 6]} intensity={80} color={PAPER} />
       <pointLight position={[-7, -2, -4]} intensity={35} color={TEAL} />
       <pointLight position={[0, 6, -6]} intensity={22} color={AQUA} />
-      {/* Low warm rim from below, so the globe isn't lit purely blue-green. */}
-      <pointLight position={[3, -6, 2]} intensity={26} color={EMBER_MID} />
+      {/* Low signal rim from below, so the globe isn't lit from one hue only. */}
+      <pointLight position={[3, -6, 2]} intensity={26} color={SIGNAL} />
 
-      <SpaceDust />
-      <CosmicSky glow={glow} />
+      <StarField star={starMap} glow={glow} />
+      <BrightStars glow={glow} />
+      <Meteors glow={glow} />
 
-      {/* Deep nebula wash: one large cloud directly behind the globe so its back
-          isn't empty black, plus two more reaching into the side margins. */}
-      <NebulaCloud position={[0, 0.5, -10]} scale={22} color={AQUA} opacity={0.14} glow={glow} />
-      <NebulaCloud position={[-13, 1.5, -17]} scale={18} color={TEAL} opacity={0.1} glow={glow} />
-      <NebulaCloud position={[13, -2, -15]} scale={17} color={EMBER_MID} opacity={0.13} glow={glow} />
+      {/* Deep gas, kept much fainter than it used to be. It exists so the globe's back
+          isn't empty black and so the frame has some colour temperature — not as
+          visible clouds. Anything stronger competes with the stars and the sky starts
+          looking illustrated again. */}
+      <NebulaCloud
+        position={[0, 0.5, -12]}
+        scale={30}
+        color={AQUA}
+        opacity={0.07}
+        glow={glow}
+      />
+      <NebulaCloud
+        position={[-15, 2.5, -22]}
+        scale={26}
+        color={TEAL}
+        opacity={0.055}
+        glow={glow}
+      />
+      <NebulaCloud
+        position={[14, -3, -20]}
+        scale={24}
+        color={SIGNAL}
+        opacity={0.06}
+        glow={glow}
+      />
 
       {/* scale starts near zero so the very first painted frame is already tiny —
           the pop-in then grows it via the render loop. */}
       <group ref={intro} scale={0.0001}>
         <group ref={drift}>
           <Atmosphere />
-          <FloatingDebris />
 
           <group ref={spin}>
             <GlobeBody />
@@ -959,7 +1223,9 @@ export default function EarthNetwork({
         camera={{ position: [0, 1.2, 8.4], fov: 42 }}
         // Rendered inside the <canvas> when a WebGL context can't be created at all
         // (unsupported browser, disabled hardware acceleration, exhausted contexts).
-        fallback={<EarthNetworkFallback message="Aperçu 3D indisponible sur cet appareil" />}
+        fallback={
+          <EarthNetworkFallback message="Aperçu 3D indisponible sur cet appareil" />
+        }
         // Fade in once the GL context exists, so there's no hard cut from placeholder
         // to scene. Grab hand over the scene so it reads as draggable, switching to a
         // pointer when a service marker is under the cursor.
@@ -1030,7 +1296,9 @@ export function EarthNetworkFallback({ message }: { message?: string } = {}) {
         </div>
 
         {message && (
-          <p className="max-w-xs text-center text-xs uppercase tracking-[0.14em] text-aqua/70">{message}</p>
+          <p className="max-w-xs text-center text-xs uppercase tracking-[0.14em] text-aqua/70">
+            {message}
+          </p>
         )}
       </div>
     </div>

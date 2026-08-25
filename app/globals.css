@@ -4,7 +4,7 @@
 /* Wissal Univers design tokens.                                           */
 /*                                                                         */
 /* Cool family (exact):  #354666  #366479  #379f9e  #ffffff                */
-/* Warm accent (exact):  #c5522c  — the one deliberate hue outside it.      */
+/* Signal accent (exact): #13B78C — the one deliberate hue outside it.      */
 /* Every other token is a tint/shade of one of those. Introduce no others.  */
 /* ---------------------------------------------------------------------- */
 @theme inline {
@@ -24,16 +24,17 @@
   --color-steel-pale: #9fbdd0; /* light tint of steel — steel's accent text on dark */
   --color-abyss: #26334c; /* shade of ink, for depth behind the 3D scene */
 
-  /* The warm accent. One hue, used scarcely — primary CTAs, the hand-drawn
-     underline, the hero caret, the meteors. It is the only thing on the page
-     that isn't blue-green, which is exactly why it must stay rare.
-     #c5522c is not an arbitrary pick: at L=0.181 it is the *lightest* warm tone
-     that still holds a white label at 4.5:1 (4.55:1), while also clearing 4.5:1
-     as small text on white. Brighter oranges cannot do either — #ff4100 peaks at
-     3.5:1 against white and 2.7:1 against ink, so it never carries text here. */
-  --color-ember: #c5522c; /* warm accent — fills + text on light */
-  --color-ember-soft: #f2a48a; /* light tint — warm accent on dark (4.7:1 on ink) */
-  --color-ember-hot: #ff4100; /* glows and 3D only — fails AA as text, never use it for any */
+  /* The signal accent. One hue, used scarcely — primary CTAs, the hand-drawn
+     underline, the highlight-card edge, the hero caret, the meteors. It is the only
+     thing on the page that isn't blue-green, which is exactly why it must stay rare.
+     #13B78C is the brand value and it is a BRIGHT mid-tone (L=0.399), which inverts
+     the constraints the old warm accent had: it is strong on dark grounds (4.05:1 on
+     ink, 5.41:1 on abyss) and weak on light ones (2.34:1 on paper). So the fill takes
+     a DARK label, and small accent text on a light ground has to drop to the shade. */
+  --color-signal: #13b78c; /* signal accent — fills, borders, glows */
+  --color-signal-soft: #4ed39d; /* light tint — accent text on dark (5.0:1 on ink) */
+  --color-signal-deep: #0d7d55; /* shade — accent text on light (5.1:1 on paper, 4.6:1 on mist) */
+  --color-signal-bright: #00ffa9; /* glows and 3D only — 1.3:1 on paper, never carries text */
 
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
@@ -162,61 +163,65 @@ body {
   --pt-aqua: var(--color-aqua);
   --pt-steel: var(--color-steel-pale);
 }
-/* Warm accent. Unlike the cool accent, the FILL is the same `ember` on both grounds:
-   it is the brand warm value, a white label on it clears 4.5:1, and one fill
-   everywhere means the primary CTA looks identical site-wide. What a dark ground
-   can't give it is an edge — ember against ink is only 2.08:1 — so dark grounds add a
-   1px `ember-soft` ring, which is 4.7:1 against ink and carries the 3:1 non-text
-   requirement at the boundary instead. Accent TEXT still flips to the tint, since
-   ember as text on ink is 2.08:1. */
+/* Signal accent. Like the old warm accent, the FILL is the same `signal` on both
+   grounds, so the primary CTA looks identical site-wide — but the label is DARK, not
+   white: `signal` is a bright mid-tone, so paper on it is 2.34:1 while `abyss` on it
+   is 5.41:1.
+
+   The edge problem is inverted too. `signal` against ink is 4.05:1, so a dark ground
+   gives the control its own boundary for free; against paper it is only 2.34:1, so it
+   is the LIGHT ground that needs the 1px ring — `signal-deep`, 5.1:1 on paper, which
+   carries the 3:1 non-text requirement at the boundary. Accent TEXT flips the usual
+   way round: the shade on light, the brand value itself is fine on dark. */
 :root {
-  --warm-text: var(--color-ember);
-  --warm-fill: var(--color-ember);
-  --warm-fill-label: var(--color-paper);
-  --warm-fill-hover: var(--color-ink);
-  --warm-fill-hover-label: var(--color-paper);
-  --warm-ring: transparent;
+  --signal-text: var(--color-signal-deep);
+  --signal-fill: var(--color-signal);
+  --signal-fill-label: var(--color-abyss);
+  --signal-fill-hover: var(--color-ink);
+  --signal-fill-hover-label: var(--color-paper);
+  --signal-ring: var(--color-signal-deep);
 }
 .section-ink,
 .section-abyss,
 .bg-ink,
 .bg-abyss,
 .on-dark {
-  --warm-text: var(--color-ember-soft);
+  --signal-text: var(--color-signal-soft);
   /* Hover inverts to paper rather than darkening, so the control stays visible
-     against the dark ground; ember on paper is 4.55:1. */
-  --warm-fill-hover: var(--color-paper);
-  --warm-fill-hover-label: var(--color-ember);
-  --warm-ring: var(--color-ember-soft);
+     against the dark ground; signal-deep on paper is 5.1:1. */
+  --signal-fill-hover: var(--color-paper);
+  --signal-fill-hover-label: var(--color-signal-deep);
+  /* No ring needed here — signal on ink is already 4.05:1, its own edge. */
+  --signal-ring: transparent;
 }
-.text-warm {
-  color: var(--warm-text);
+.text-signal {
+  color: var(--signal-text);
 }
-.fill-warm {
-  fill: var(--warm-text);
+.fill-signal {
+  fill: var(--signal-text);
 }
-.border-warm\/40 {
-  border-color: color-mix(in srgb, var(--warm-text) 40%, transparent);
+.border-signal\/40 {
+  border-color: color-mix(in srgb, var(--signal-text) 40%, transparent);
 }
-.control-warm {
-  background-color: var(--warm-fill);
-  color: var(--warm-fill-label);
-  box-shadow: inset 0 0 0 1px var(--warm-ring);
+.control-signal {
+  background-color: var(--signal-fill);
+  color: var(--signal-fill-label);
+  box-shadow: inset 0 0 0 1px var(--signal-ring);
 }
-.control-warm:hover {
-  background-color: var(--warm-fill-hover);
-  color: var(--warm-fill-hover-label);
+.control-signal:hover {
+  background-color: var(--signal-fill-hover);
+  color: var(--signal-fill-hover-label);
 }
 
 /* A "raised" dark surface: the highlight cards start lighter than a section and
    lighten *further* on hover (a deliberate effect — the card should feel lit). That
    costs the standard dark tints their 4.5:1: on the hovered card `aqua` falls to
-   3.99, `steel-pale` to 3.83, `ember-soft` to 3.76. The card has only 0.005 of
+   3.99, `steel-pale` to 3.83, `signal-soft` to 4.00. The card has only 0.005 of
    luminance headroom before that happens, so it cannot both lighten visibly and use
    the section tints — the raised surface gets its own paler set instead, which clears
    4.5:1 in *both* the resting and hovered states. */
 .on-dark-raised {
-  --warm-text: #f8c4b0; /* pale ember — 6.1:1 at rest, 4.9:1 hovered */
+  --signal-text: #86e5bc; /* pale signal — 6.3:1 at rest, 5.0:1 hovered */
   --accent-text: #a9dedd; /* pale aqua — 6.4:1 / 5.1:1 */
   --pt-teal: #a9dedd;
   --pt-aqua: #a9dedd;
@@ -245,8 +250,24 @@ body {
 }
 
 .font-display {
-  font-feature-settings: "ss01" 1, "cv01" 1;
+  font-feature-settings:
+    "ss01" 1,
+    "cv01" 1;
   letter-spacing: -0.02em;
+}
+
+/* An "immersive" overlay — the solution hero's browser frame or the presentation video,
+   stretched to the whole screen — sets `data-immersive` on <html> while it is up.
+
+   This exists because the Fullscreen API is not always available. When it is, the element
+   is promoted to the top layer and nothing in the document can paint over it. When it is
+   refused (iOS Safari has no element fullscreen, and a permissions policy can block it)
+   the overlay is a plain `position: fixed` div, and the fixed navbar still draws on top of
+   it — z-index can't settle that from inside a `sticky`/pinned ancestor, which creates its
+   own stacking context. So the site chrome steps aside instead, which is also what real
+   fullscreen looks like. Paired with a scroll lock in the same effect. */
+html[data-immersive] header {
+  display: none;
 }
 
 /* Reusable "glass" chrome for cards floating over dark 3D scenes */

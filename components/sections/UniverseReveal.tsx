@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useId, useLayoutEffect, useRef, useState, useSyncExternalStore } from "react";
 import { ScrollTrigger } from "@/lib/gsap";
 import { Badge } from "@/components/ui/Badge";
+import { HOME_MEDIA } from "@/lib/data/media";
 
 /**
  * Full-bleed video that a scroll-scrubbed word clips into — the Apple
@@ -72,7 +73,7 @@ const PITCH_STEP = 0.065;
 
 /* How much video still shows through the veil once it cuts in. The section holds the
    footage as a faint ground for most of the scroll, then clears to clean paper as the
-   copy lands — the eyebrow's `ember` is calibrated to exactly clear 4.5:1 on *white*,
+   copy lands — the eyebrow's `signal-deep` is calibrated to clear 4.5:1 on *white*,
    so any residual tint under it would put it under. */
 const GHOST = 0.08;
 
@@ -331,7 +332,9 @@ export function UniverseReveal() {
         <video
           ref={videoRef}
           className="absolute inset-0 h-full w-full object-cover"
-          src="/lp_video.webm"
+          // Every media path on the site lives in lib/data/media.ts — including this one,
+          // whose luminance is load-bearing (see the note there before swapping it).
+          src={HOME_MEDIA.revealVideo}
           loop
           muted
           playsInline
@@ -366,7 +369,7 @@ export function UniverseReveal() {
           {/* Wrapper rather than a ref on Badge: Badge is a plain server component that
               doesn't take one, and the animation only needs a box to move. */}
           <span ref={eyebrowRef} style={{ opacity: 0 }}>
-            <Badge className="text-warm border-warm/40">Un seul écosystème</Badge>
+            <Badge className="text-signal border-signal/40">Un seul écosystème</Badge>
           </span>
           <h2 ref={headingRef} className={`${WORD_TYPE} mt-7 opacity-0`}>
             {WORD}

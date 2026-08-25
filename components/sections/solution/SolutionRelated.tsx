@@ -11,7 +11,7 @@ export function SolutionRelated({ service }: { service: Service }) {
   const others = SERVICES.filter((item) => item.slug !== service.slug);
 
   return (
-    <section className="section-ink py-28">
+    <section className="py-28">
       <Container className="flex flex-col gap-16">
         <SectionHeading eyebrow="Découvrez aussi" title="Les autres solutions de l'univers." />
 

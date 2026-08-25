@@ -1,6 +1,12 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from "react";
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  useSyncExternalStore,
+} from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -29,18 +35,34 @@ const getReduceMotion = () => window.matchMedia(REDUCE_MOTION_QUERY).matches;
 const getReduceMotionOnServer = () => false;
 
 /** One of the "cards" variant's three data tiles. */
-function StatTile({ service, index, value, label }: { service: Service; index: number; value: string; label: string }) {
-  // The middle tile is the card's focal point, so it takes the warm accent — the one
+function StatTile({
+  service,
+  index,
+  value,
+  label,
+}: {
+  service: Service;
+  index: number;
+  value: string;
+  label: string;
+}) {
+  // The middle tile is the card's focal point, so it takes the signal accent — the one
   // hue on the page that isn't blue-green. The outer two carry the solution's own
-  // cool pairing, which is what keeps the warm tile reading as deliberate.
-  const warm = index === 1;
-  const accent: PaletteToken = index === 0 ? service.palette.primary : service.palette.secondary;
-  const glowClass = warm ? "bg-ember" : paletteBg[accent];
-  const iconClass = warm ? "text-ember-soft" : paletteText[accent];
+  // cool pairing, which is what keeps the signal tile reading as deliberate.
+  const isSignal = index === 1;
+  const accent: PaletteToken =
+    index === 0 ? service.palette.primary : service.palette.secondary;
+  const glowClass = isSignal ? "bg-signal" : paletteBg[accent];
+  const iconClass = isSignal ? "text-signal-soft" : paletteText[accent];
 
   return (
     <div className="relative aspect-square w-full max-w-[15rem] flex-1 overflow-hidden rounded-2xl border border-white/20 bg-[#26334c] p-5 shadow-2xl">
-      <div className={cn("absolute -bottom-1/4 -left-1/4 h-[115%] w-[115%] rounded-full opacity-95 blur-lg", glowClass)} />
+      <div
+        className={cn(
+          "absolute -bottom-1/4 -left-1/4 h-[115%] w-[115%] rounded-full opacity-95 blur-lg",
+          glowClass,
+        )}
+      />
       <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-[#26334c]/25 to-[#26334c]/75" />
       <div className="absolute inset-0 opacity-25 [background-image:radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.5)_1px,transparent_0)] [background-size:18px_18px]" />
       <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-white/15" />
@@ -48,27 +70,51 @@ function StatTile({ service, index, value, label }: { service: Service; index: n
       <div className="relative flex h-full flex-col justify-between">
         <Icon name={service.icon} className={cn("h-5 w-5", iconClass)} />
         <div>
-          <p className="font-display text-2xl font-semibold leading-none md:text-4xl">{value}</p>
-          <p className="mt-2 text-[11px] leading-snug text-paper/70 md:text-xs">{label}</p>
+          <p className="font-display text-2xl font-semibold leading-none md:text-4xl">
+            {value}
+          </p>
+          <p className="mt-2 text-[11px] leading-snug text-paper/70 md:text-xs">
+            {label}
+          </p>
         </div>
       </div>
     </div>
   );
 }
 
-/** Card headline block, shared by both variants. */
-function CardHeading({ service }: { service: Service }) {
+/**
+ * Card headline block, shared by both variants.
+ *
+ * `showCategory` is off for the "image" variant: the eyebrow was the one bit of
+ * "card chrome" sitting on top of the photo, and dropping it leaves only the name,
+ * tagline and CTA over the scrim — less to read, more of the photo left legible.
+ */
+function CardHeading({
+  service,
+  showCategory = true,
+}: {
+  service: Service;
+  showCategory?: boolean;
+}) {
   return (
     <div className="max-w-xl">
-      <p
+      {showCategory && (
+        <p
+          className={cn(
+            "text-xs font-semibold uppercase tracking-[0.14em] text-signal",
+          )}
+        >
+          {service.category}
+        </p>
+      )}
+      <h3
         className={cn(
-          "text-xs font-semibold uppercase tracking-[0.14em] text-warm",
+          "font-display text-2xl font-semibold leading-tight md:text-4xl",
+          showCategory && "mt-3",
         )}
       >
-        {service.category}
-      </p>
-      <h3 className="font-display mt-3 text-2xl font-semibold leading-tight md:text-4xl">
-        {service.name}. <span className="text-paper/75">{service.tagline}</span>
+        " {service.name} ".{" "}
+        <span className="text-paper/90">{service.tagline}</span>
       </h3>
     </div>
   );
@@ -76,56 +122,101 @@ function CardHeading({ service }: { service: Service }) {
 
 function CardCta({ service }: { service: Service }) {
   return (
-    <span className="relative inline-flex items-center gap-2 text-sm font-medium text-warm">
+    <span className="relative inline-flex items-center gap-2 text-sm font-medium text-signal">
       Découvrir {service.name}
-      <Icon name="arrow-right" className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+      <Icon
+        name="arrow-right"
+        className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
+      />
     </span>
   );
 }
 
 const CARD_WIDTH = "w-[90%] sm:w-[84%] lg:w-[76%]";
 const CARD_HEIGHT = "min-h-[30rem] md:min-h-[38rem]";
-/** A warm hairline edge, not a neon bloom: just enough to separate one card from the
+/** A signal hairline edge, not a neon bloom: just enough to separate one card from the
  *  next. The glow is deliberately tight (12px, tucked in by -4px) so it delineates the
- *  card rather than lighting up the section around it. rgba(197,82,44) is `ember`. */
+ *  card rather than lighting up the section around it. rgba(19,193,130) is `signal`.
+ *
+ *  The edge is the brand value `#13B78C` at full strength: it is 4.05:1 against the
+ *  card's own `#354666` and 3.23:1 against the lightened hover state, so the hairline
+ *  keeps its 3:1 boundary in *both* states without needing a raised-surface tint. */
 const CARD_SHELL = cn(
   "on-dark on-dark-raised group relative shrink-0 overflow-hidden rounded-[2rem] text-paper",
-  "border border-ember/55 bg-[#354666]",
+  "border border-signal/55 bg-[#354666]",
   // inset top line = lit top edge; the single outer layer is the whole glow
-  "shadow-[inset_0_1px_0_0_rgba(255,255,255,0.10),0_0_12px_-4px_rgba(197,82,44,0.45)]",
+  "shadow-[inset_0_1px_0_0_rgba(255,255,255,0.10),0_0_12px_-4px_rgba(19,193,130,0.45)]",
   "transition-[border-color,box-shadow,background-color] duration-500 ease-out",
-  "hover:border-ember hover:bg-[#3f5578]",
-  "hover:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.16),0_0_18px_-4px_rgba(197,82,44,0.65)]",
+  "hover:border-signal hover:bg-[#3f5578]",
+  "hover:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.16),0_0_18px_-4px_rgba(19,193,130,0.65)]",
 );
 
 /**
- * "image" variant: the photo fills the entire card edge to edge, with the copy laid
- * over it. A scrim behind the text keeps it legible on any photo.
+ * "image" variant: the photo fills the entire card edge to edge, with the copy over it.
+ *
+ * **Nothing dims the photo except what the text needs.** It used to sit under a
+ * full-height wash (`from-abyss/85 … to-abyss/70`) because the copy was split top and
+ * bottom, and an 85% scrim over the top third meant the top third was not really showing
+ * a photo at all. All the copy is anchored at the bottom now, so the scrim is a single
+ * bottom-up gradient and the upper ~70% of the frame is the untouched image.
+ *
+ * There is no eyebrow here (see `CardHeading`'s `showCategory`) — the copy block is
+ * just the name, tagline and CTA.
+ *
+ * The scrim is now minimal (peaks at 0.32 alpha, gone by 30% up) — a slight dark floor
+ * for the copy to sit on rather than a contrast guarantee, so a busy or light photo can
+ * still make the text harder to read; the photo takes priority.
+ *
+ * **One scale, gated by hover OR being the active card.** Both triggers target the same
+ * value on the same element, so they never compound — hovering the active card doesn't
+ * zoom further than either alone. The wrapper is `absolute inset-0 h-full`, which is what
+ * `fill` needs and also what keeps the photo filling the card edge to edge even when the
+ * row stretches taller than this card's own min-height (see `CARD_HEIGHT`'s `h-full`).
  */
-function ImageCard({ service }: { service: Service }) {
+function ImageCard({ service, active }: { service: Service; active: boolean }) {
   const [loaded, setLoaded] = useState(false);
 
   return (
-    <Link href={`/solutions/${service.slug}`} className={cn(CARD_SHELL, CARD_WIDTH)}>
-      <div className={cn("relative", CARD_HEIGHT)}>
+    <Link
+      href={`/solutions/${service.slug}`}
+      className={cn(CARD_SHELL, CARD_WIDTH)}
+    >
+      <div className={cn("relative h-full", CARD_HEIGHT)}>
         {service.highlightImage ? (
           <>
-            {!loaded && <div className="skeleton-sweep absolute inset-0 overflow-hidden bg-white/5" />}
-            <Image
-              src={service.highlightImage}
-              alt={`Aperçu de ${service.name}`}
-              fill
-              sizes="(max-width: 640px) 90vw, (max-width: 1024px) 84vw, 76vw"
+            {!loaded && (
+              <div className="skeleton-sweep absolute inset-0 overflow-hidden bg-white/5" />
+            )}
+            <div
               className={cn(
-                "object-cover transition-[opacity,transform] duration-700 ease-out group-hover:scale-[1.04]",
-                loaded ? "opacity-100" : "opacity-0",
+                // delay-0 on hover: the 1.5s hold is only for the card's own auto turn,
+                // hovering (any card) should zoom right away.
+                "absolute inset-0 transition-transform duration-700 ease-out delay-[800ms] motion-reduce:transition-none motion-reduce:delay-0",
+                active ? "scale-[1.07]" : "scale-100",
+                "group-hover:scale-[1.07] group-hover:delay-0 motion-reduce:scale-100",
               )}
-              onLoad={() => setLoaded(true)}
-            />
+            >
+              <Image
+                src={service.highlightImage}
+                alt={`Aperçu de ${service.name}`}
+                fill
+                sizes="(max-width: 640px) 90vw, (max-width: 1024px) 84vw, 76vw"
+                className={cn(
+                  "object-cover transition-opacity duration-700 ease-out",
+                  loaded ? "opacity-100" : "opacity-0",
+                )}
+                onLoad={() => setLoaded(true)}
+              />
+            </div>
           </>
         ) : (
           <div className="absolute inset-0">
-            <div className={cn("absolute -bottom-1/4 -left-1/4 h-[120%] w-[80%] rounded-full opacity-55 blur-3xl", paletteBg[service.palette.primary])} />
+            <div
+              className={cn(
+                "absolute -bottom-1/4 -left-1/4 h-[120%] w-[80%] rounded-full opacity-55 blur-3xl",
+                paletteBg[service.palette.primary],
+              )}
+            />
             <div className="absolute -right-24 -top-24 h-96 w-96 rounded-full bg-teal/25 blur-3xl" />
             <div className="absolute inset-0 flex items-center justify-center px-8 text-center">
               {/* `/70`, not `/55`: at 55% this lands at 4.14:1 on the card, under the
@@ -137,13 +228,14 @@ function ImageCard({ service }: { service: Service }) {
           </div>
         )}
 
-        {/* Scrim: darkens the top where the copy sits, and the bottom for the CTA */}
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-abyss/85 via-abyss/25 to-abyss/70" />
+        {/* A slightly stronger dark floor than the bare minimum, still fading out well
+            before the photo's midpoint. */}
+        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_top,rgba(38,51,76,0.55)_0%,rgba(38,51,76,0.28)_20%,transparent_38%)]" />
 
         {/* absolute inset-0, not h-full: the parent only has a min-height, so a
-            percentage height would collapse and justify-between wouldn't spread. */}
-        <div className="absolute inset-0 flex flex-col justify-between p-8 md:p-12">
-          <CardHeading service={service} />
+            percentage height would collapse and the copy would not sit on the floor. */}
+        <div className="absolute inset-0 flex flex-col justify-end gap-6 p-8 md:p-12">
+          <CardHeading service={service} showCategory={false} />
           <CardCta service={service} />
         </div>
       </div>
@@ -154,20 +246,41 @@ function ImageCard({ service }: { service: Service }) {
 /** "cards" variant: copy at the top, three data tiles centred below it. */
 function StatsCard({ service }: { service: Service }) {
   return (
-    <Link href={`/solutions/${service.slug}`} className={cn(CARD_SHELL, CARD_WIDTH)}>
+    <Link
+      href={`/solutions/${service.slug}`}
+      className={cn(CARD_SHELL, CARD_WIDTH)}
+    >
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute inset-0 opacity-30 [background-image:radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.4)_1px,transparent_0)] [background-size:32px_32px]" />
-        <div className={cn("absolute -right-24 -top-24 h-80 w-80 rounded-full opacity-25 blur-3xl", paletteBg[service.palette.primary])} />
-        <div className={cn("absolute -bottom-28 -left-20 h-80 w-80 rounded-full opacity-20 blur-3xl", paletteBg[service.palette.secondary])} />
+        <div
+          className={cn(
+            "absolute -right-24 -top-24 h-80 w-80 rounded-full opacity-25 blur-3xl",
+            paletteBg[service.palette.primary],
+          )}
+        />
+        <div
+          className={cn(
+            "absolute -bottom-28 -left-20 h-80 w-80 rounded-full opacity-20 blur-3xl",
+            paletteBg[service.palette.secondary],
+          )}
+        />
       </div>
 
-      <div className={cn("relative flex flex-col p-8 md:p-12", CARD_HEIGHT)}>
+      <div
+        className={cn("relative flex h-full flex-col p-8 md:p-12", CARD_HEIGHT)}
+      >
         <CardHeading service={service} />
 
         <div className="flex flex-1 items-center justify-center py-10">
           <div className="flex w-full max-w-3xl items-stretch justify-center gap-4 md:gap-6">
             {service.stats.slice(0, 3).map((stat, i) => (
-              <StatTile key={stat.label} service={service} index={i} value={stat.value} label={stat.label} />
+              <StatTile
+                key={stat.label}
+                service={service}
+                index={i}
+                value={stat.value}
+                label={stat.label}
+              />
             ))}
           </div>
         </div>
@@ -178,10 +291,16 @@ function StatsCard({ service }: { service: Service }) {
   );
 }
 
-function HighlightCard({ service }: { service: Service }) {
+function HighlightCard({
+  service,
+  active,
+}: {
+  service: Service;
+  active: boolean;
+}) {
   // Explicit per-service choice; falls back to the data tiles.
   return service.highlightVariant === "image" ? (
-    <ImageCard service={service} />
+    <ImageCard service={service} active={active} />
   ) : (
     <StatsCard service={service} />
   );
@@ -318,8 +437,10 @@ export function HighlightsReel() {
         // by a step and draw exactly the hard line the vignette exists to remove.
         // Ramping from nothing means both sides agree on the seam itself.
         style={{
-          maskImage: "linear-gradient(to bottom, transparent 0%, black 42%, transparent 100%)",
-          WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, black 42%, transparent 100%)",
+          maskImage:
+            "linear-gradient(to bottom, transparent 0%, black 42%, transparent 100%)",
+          WebkitMaskImage:
+            "linear-gradient(to bottom, transparent 0%, black 42%, transparent 100%)",
         }}
       >
         <div className="absolute -top-40 left-1/2 h-[34rem] w-[80rem] -translate-x-1/2 rounded-[50%] bg-steel/35 blur-3xl" />
@@ -334,7 +455,9 @@ export function HighlightsReel() {
         <h2 className="font-display text-4xl font-semibold leading-tight text-paper md:text-6xl">
           <span ref={underlineRef} className="relative inline-block">
             L&apos;essentiel
-            <HandUnderline className={underlined ? "underline-draw" : "opacity-0"} />
+            <HandUnderline
+              className={underlined ? "underline-draw" : "opacity-0"}
+            />
           </span>
           , en un coup d&apos;œil.
         </h2>
@@ -344,7 +467,10 @@ export function HighlightsReel() {
         >
           Voir toutes nos solutions
           <span className="flex h-6 w-6 items-center justify-center rounded-full border border-current">
-            <Icon name="arrow-right" className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5" />
+            <Icon
+              name="arrow-right"
+              className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5"
+            />
           </span>
         </Link>
       </Container>
@@ -352,10 +478,17 @@ export function HighlightsReel() {
       {/* Full-bleed carousel: the first card lines up with the heading, later cards
           bleed off the right edge. `relative` is needed because the dot overlay above
           is absolutely positioned, so static siblings would paint underneath it. */}
-      <div className="carousel-inset relative mt-12 overflow-hidden" ref={emblaRef}>
+      <div
+        className="carousel-inset relative mt-12 overflow-hidden"
+        ref={emblaRef}
+      >
         <div className="flex gap-5 md:gap-7">
-          {SERVICES.map((service) => (
-            <HighlightCard key={service.slug} service={service} />
+          {SERVICES.map((service, i) => (
+            <HighlightCard
+              key={service.slug}
+              service={service}
+              active={i === selected}
+            />
           ))}
         </div>
       </div>
@@ -374,7 +507,9 @@ export function HighlightsReel() {
                 aria-current={isActive}
                 className={cn(
                   "relative h-1.5 overflow-hidden rounded-full transition-all duration-500",
-                  isActive ? "w-12 bg-white/25" : "w-1.5 bg-white/40 hover:bg-white/70",
+                  isActive
+                    ? "w-12 bg-white/25"
+                    : "w-1.5 bg-white/40 hover:bg-white/70",
                 )}
               >
                 {isActive && (
@@ -391,16 +526,30 @@ export function HighlightsReel() {
         <button
           type="button"
           onClick={() => setPlaying((p) => !p)}
-          aria-label={autoplay ? "Mettre en pause le défilement" : "Reprendre le défilement"}
+          aria-label={
+            autoplay
+              ? "Mettre en pause le défilement"
+              : "Reprendre le défilement"
+          }
           className="flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-paper transition-colors hover:bg-white/20"
         >
           {autoplay ? (
-            <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor" aria-hidden="true">
+            <svg
+              viewBox="0 0 24 24"
+              className="h-4 w-4"
+              fill="currentColor"
+              aria-hidden="true"
+            >
               <rect x="7" y="5" width="3.5" height="14" rx="1" />
               <rect x="13.5" y="5" width="3.5" height="14" rx="1" />
             </svg>
           ) : (
-            <svg viewBox="0 0 24 24" className="ml-0.5 h-4 w-4" fill="currentColor" aria-hidden="true">
+            <svg
+              viewBox="0 0 24 24"
+              className="ml-0.5 h-4 w-4"
+              fill="currentColor"
+              aria-hidden="true"
+            >
               <path d="M8 5v14l11-7z" />
             </svg>
           )}

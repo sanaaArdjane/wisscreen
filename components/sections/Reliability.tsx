@@ -21,7 +21,7 @@ export function Reliability() {
 
       <Container className="relative flex flex-col items-center gap-10 text-center">
         <Reveal>
-          <Badge data-reveal-item className="border-warm/40 text-warm">
+          <Badge data-reveal-item className="border-signal/40 text-signal">
             Fiabilité 24/7
           </Badge>
         </Reveal>

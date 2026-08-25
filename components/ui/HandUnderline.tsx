@@ -3,7 +3,7 @@ import { cn } from "@/lib/cn";
 /**
  * The hand-drawn underline used to mark a key word. Inline SVG rather than a
  * `background-image` data URL so the stroke can be filled with a palette token —
- * `fill-warm` resolves per ground, so it stays legible on paper and on ink.
+ * `fill-signal` resolves per ground, so it stays legible on paper and on ink.
  *
  * Positioned against the nearest positioned ancestor, so wrap the word in a
  * `relative inline-block` span. Callers own the animation: pass `underline-draw`
@@ -23,7 +23,7 @@ export function HandUnderline({ className }: { className?: string }) {
         className,
       )}
     >
-      <path d={PATH} className="fill-warm" />
+      <path d={PATH} className="fill-signal" />
     </svg>
   );
 }

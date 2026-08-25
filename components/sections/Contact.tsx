@@ -65,7 +65,7 @@ export function Contact() {
           </label>
           <button
             type="submit"
-            className="mt-2 inline-flex w-fit items-center gap-2 control-warm rounded-full px-6 py-3 text-sm font-medium transition-colors"
+            className="mt-2 inline-flex w-fit items-center gap-2 control-signal rounded-full px-6 py-3 text-sm font-medium transition-colors"
           >
             Envoyer
             <Icon name="arrow-right" className="h-4 w-4" />

@@ -69,7 +69,7 @@ export function TypeCycle({
       <span
         aria-hidden="true"
         className={cn(
-          "animate-caret ml-1.5 inline-block h-[0.78em] w-[0.07em] translate-y-[0.04em] rounded-full bg-ember-soft",
+          "animate-caret ml-1.5 inline-block h-[0.78em] w-[0.07em] translate-y-[0.04em] rounded-full bg-signal-soft",
           "shadow-[0_0_10px_2px_rgba(55,159,158,0.75)]",
           caretClassName,
         )}

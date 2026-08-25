@@ -6,7 +6,7 @@ import { Icon } from "@/components/ui/Icon";
 type Variant = "primary" | "secondary" | "ghost";
 
 const VARIANTS: Record<Variant, string> = {
-  primary: "control-warm",
+  primary: "control-signal",
   secondary: "bg-ink text-paper hover:bg-abyss",
   ghost: "bg-transparent text-inherit border border-current/25 hover:border-current/60",
 };

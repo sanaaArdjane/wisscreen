@@ -1,16 +1,19 @@
 import type { Service } from "@/lib/types";
+import { withMedia } from "@/lib/data/media";
 
 /**
  * Single source of truth for every solution shown on the homepage and rendered at
  * /solutions/[slug]. Add a 5th solution by adding one entry here — no other file
  * should hardcode this list. Copy is a first draft; the client will revise it.
+ *
+ * **This file holds copy and structure; it holds no media.** Every link, photo and video
+ * lives in `lib/data/media.ts` and is stitched on by `withMedia` below, so filling the site
+ * with real assets is one file to edit. The `media.gallery` entries here declare a slot's
+ * *kind and label*; its file comes from `SOLUTION_MEDIA[slug].gallery`, matched by position.
  */
-export const SERVICES: Service[] = [
+const RAW_SERVICES: Service[] = [
   {
     slug: "ocr",
-    // A finished mockup (laptop included), so it replaces the drawn frame rather than
-    // sitting on its screen. Matted on black — see `showcaseMockup` in lib/types.ts.
-    showcaseMockup: "/service1.jpg",
     name: "OCR",
     shortName: "OCR",
     icon: "scan",
@@ -120,9 +123,10 @@ export const SERVICES: Service[] = [
     name: "WIFACILITY",
     shortName: "WIFACILITY",
     icon: "credit-card",
-    // Full-bleed photo layout. Set `highlightImage` and the photo fills the card;
-    // until then it shows a labelled placeholder. Switch to "cards" (or drop the
-    // field) to use the data-tile layout instead.
+    // Forces the photo layout for this card *before* there is a photo, so the layout can
+    // be reviewed and the empty card advertises the size it wants. Setting `highlight` in
+    // lib/data/media.ts switches a card to this layout on its own, so this line is only
+    // ever needed to preview it; drop it for the data-tile layout.
     highlightVariant: "image",
     category: "Paiement & achat échelonné",
     tagline: "L'écosystème complet du paiement par facilités, pour les commerces comme pour les banques.",
@@ -240,6 +244,9 @@ export const SERVICES: Service[] = [
     team: "Développé par l'équipe Produit de Wissal Univers",
   },
 ];
+
+/** The raw entries with `lib/data/media.ts` applied. Import this, never `RAW_SERVICES`. */
+export const SERVICES: Service[] = RAW_SERVICES.map(withMedia);
 
 export function getServiceBySlug(slug: string): Service | undefined {
   return SERVICES.find((service) => service.slug === slug);
