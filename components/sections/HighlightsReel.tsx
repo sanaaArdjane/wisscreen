@@ -113,7 +113,7 @@ function CardHeading({
           showCategory && "mt-3",
         )}
       >
-        " {service.name} ".{" "}
+        &quot; {service.name} &quot;.{" "}
         <span className="text-paper/90">{service.tagline}</span>
       </h3>
     </div>
