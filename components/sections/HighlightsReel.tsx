@@ -8,6 +8,7 @@ import {
   useState,
   useSyncExternalStore,
 } from "react";
+import type { KeyboardEvent, MouseEvent } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -35,6 +36,19 @@ const subscribeReduceMotion = (onChange: () => void) => {
 };
 const getReduceMotion = () => window.matchMedia(REDUCE_MOTION_QUERY).matches;
 const getReduceMotionOnServer = () => false;
+
+/* Same pattern, for whether the pointer can actually hover (mouse/trackpad) rather
+   than only tap (touch). `GifStatsCard`'s hover-to-fullscreen tile reads this — on a
+   touch device there is no real `mouseenter`/`mouseleave` pair to open and close it
+   with, so without this gate a tap could open it and leave it stuck expanded. */
+const CAN_HOVER_QUERY = "(hover: hover) and (pointer: fine)";
+const subscribeCanHover = (onChange: () => void) => {
+  const query = window.matchMedia(CAN_HOVER_QUERY);
+  query.addEventListener("change", onChange);
+  return () => query.removeEventListener("change", onChange);
+};
+const getCanHover = () => window.matchMedia(CAN_HOVER_QUERY).matches;
+const getCanHoverOnServer = () => false;
 
 /** One of the "cards" variant's three data tiles. */
 function StatTile({
@@ -349,7 +363,7 @@ function GifTileVisual({
           <p className="font-display text-2xl font-semibold leading-none md:text-4xl">
             {stat.value}
           </p>
-          <p className="mt-2 text-[11px] leading-snug text-paper/70 md:text-xs">
+          <p className="mt-2 line-clamp-2 text-[11px] leading-snug text-paper/70 md:text-xs">
             {stat.label}
           </p>
         </div>
@@ -381,6 +395,122 @@ function GifStatTile({
       className="relative aspect-square w-full max-w-[17rem] flex-1 overflow-hidden rounded-2xl border border-white/20 bg-[#26334c] shadow-2xl"
     >
       <GifTileVisual service={service} index={index} stat={stat} />
+    </div>
+  );
+}
+
+/**
+ * Mobile-only replacement for the three-tile row (`sm:hidden`, the row itself is
+ * `hidden` below `sm` — see `GifStatsCard`). Squeezing three tiles into a narrow card
+ * or turning them into tiny swipeable squares both under-used the space; this instead
+ * gives the photos the *whole* card width, one at a time, auto-advancing every
+ * second — and taps the same "erase to reveal" idea from the desktop hover as a tap:
+ * a stats panel slides up from the bottom and covers the photos, rather than a
+ * separate page or a modal.
+ *
+ * It sits inside `GifStatsCard`'s `Link`, so its own tap has to be caught before it
+ * bubbles there — `stopPropagation` (not just `preventDefault`) is what actually stops
+ * it, since Next's Link navigates from its own `onClick`, not the browser default.
+ * `role="button"`, not a real `<button>`, on purpose: a `<button>` nested in an `<a>`
+ * is invalid HTML (interactive content can't nest) even though browsers render it.
+ */
+function GifMobileSlideshow({
+  service,
+  stats,
+}: {
+  service: Service;
+  stats: ServiceStat[];
+}) {
+  const [active, setActive] = useState(0);
+  const [revealed, setRevealed] = useState(false);
+  const reduceMotion = useSyncExternalStore(
+    subscribeReduceMotion,
+    getReduceMotion,
+    getReduceMotionOnServer,
+  );
+
+  useEffect(() => {
+    if (revealed || reduceMotion) return;
+    const id = setInterval(() => {
+      setActive((i) => (i + 1) % stats.length);
+    }, 3000);
+    return () => clearInterval(id);
+  }, [revealed, reduceMotion, stats.length]);
+
+  const toggle = (e: MouseEvent | KeyboardEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setRevealed((r) => !r);
+  };
+
+  return (
+    <div className="w-full sm:hidden">
+      <div
+        role="button"
+        tabIndex={0}
+        aria-pressed={revealed}
+        aria-label={
+          revealed
+            ? `Masquer les statistiques de ${service.name}`
+            : `Afficher les statistiques de ${service.name}`
+        }
+        onClick={toggle}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") toggle(e);
+        }}
+        className="relative aspect-[4/3] w-full cursor-pointer overflow-hidden rounded-2xl border border-white/20 bg-[#26334c] shadow-2xl"
+      >
+        {/* Exactly one image in the DOM at a time — swapping `src`/content outright
+            on the 1s tick, not cross-fading 3 stacked layers. Overlapping two
+            partially-transparent copies of near-identical photos read as a glitchy
+            double-exposure rather than a clean cycle, especially at the placeholder
+            GIF's native size. A hard cut has nothing to overlap. */}
+        {stats[active]?.gif ? (
+          <img
+            src={stats[active].gif}
+            alt=""
+            aria-hidden="true"
+            className="absolute inset-0 h-full w-full object-cover"
+          />
+        ) : (
+          <div className="absolute inset-0 flex items-center justify-center bg-abyss">
+            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-paper/60">
+              Démo à venir
+            </p>
+          </div>
+        )}
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#131c2c]/70 via-transparent to-transparent" />
+
+        {/* Which photo is showing, and a nudge that the card is tappable. */}
+        <div className="pointer-events-none absolute inset-x-0 bottom-3 flex items-center justify-center gap-1.5">
+          {stats.map((stat, i) => (
+            <span
+              key={stat.label}
+              className={cn(
+                "h-1.5 rounded-full transition-all duration-300",
+                active === i ? "w-4 bg-signal" : "w-1.5 bg-white/40",
+              )}
+            />
+          ))}
+        </div>
+
+        {/* The stats panel — rises to fully cover the photos, and back down again. */}
+        <div
+          className={cn(
+            "absolute inset-0 flex flex-col justify-center gap-4 bg-abyss p-6 transition-transform duration-500 ease-out motion-reduce:transition-none",
+            revealed ? "translate-y-0" : "translate-y-full",
+          )}
+        >
+          {stats.map((stat) => (
+            <div key={stat.label}>
+              <p className="font-display text-2xl font-semibold leading-none text-paper">
+                {stat.value}
+              </p>
+              <p className="mt-1 text-xs leading-snug text-paper/70">{stat.label}</p>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
@@ -438,6 +568,11 @@ function GifStatsCard({ service }: { service: Service }) {
     subscribeReduceMotion,
     getReduceMotion,
     getReduceMotionOnServer,
+  );
+  const canHover = useSyncExternalStore(
+    subscribeCanHover,
+    getCanHover,
+    getCanHoverOnServer,
   );
 
   // Snap every clone onto its tile before the browser paints, so there is never a
@@ -555,8 +690,12 @@ function GifStatsCard({ service }: { service: Service }) {
       >
         <CardHeading service={service} />
 
-        <div className="flex flex-1 items-center justify-center py-10">
-          <div className="flex w-full max-w-4xl items-stretch justify-center gap-4 md:gap-6">
+        <div className="flex flex-1 items-center py-6 sm:py-10">
+          <GifMobileSlideshow service={service} stats={stats} />
+
+          {/* Desktop/hover-capable only — see GifMobileSlideshow for the mobile
+              replacement. */}
+          <div className="hidden w-full items-stretch justify-center gap-4 sm:flex sm:max-w-4xl md:gap-6">
             {stats.map((stat, i) => (
               <GifStatTile
                 key={stat.label}
@@ -567,9 +706,10 @@ function GifStatsCard({ service }: { service: Service }) {
                   tileRefs.current[i] = el;
                 }}
                 onEnter={() => {
-                  // Ignore an obscured tile — only a tile that's actually visible
-                  // (small, at rest) may start growing.
-                  if (hovered === null) openTile(i);
+                  // Ignore a touch device (no real hover to close it with again) and
+                  // an obscured tile — only a tile that's actually visible at rest,
+                  // on a pointer that can actually hover, may start growing.
+                  if (canHover && hovered === null) openTile(i);
                 }}
               />
             ))}
