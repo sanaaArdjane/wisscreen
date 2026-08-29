@@ -91,6 +91,14 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          # NEXT_PUBLIC_* vars get baked into the client bundle at build time (see
+          # the Dockerfile) — neither is secret, so they're repo *variables*
+          # (Settings → Secrets and variables → Actions → Variables), not secrets.
+          # TURNSTILE_SECRET_KEY is intentionally not here: it's a runtime-only
+          # value for wherever this image actually gets deployed, not the build.
+          build-args: |
+            NEXT_PUBLIC_SITE_URL=${{ vars.NEXT_PUBLIC_SITE_URL }}
+            NEXT_PUBLIC_TURNSTILE_SITE_KEY=${{ vars.NEXT_PUBLIC_TURNSTILE_SITE_KEY }}
           # Reuse layers between runs via the GitHub Actions cache backend.
           cache-from: type=gha
           cache-to: type=gha,mode=max

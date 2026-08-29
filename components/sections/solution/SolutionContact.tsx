@@ -6,13 +6,40 @@ import type { Service } from "@/lib/types";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Icon } from "@/components/ui/Icon";
+import { Turnstile } from "@/components/ui/Turnstile";
+
+// Unset until added to .env.local — see app/api/contact/route.ts for the matching
+// server-side TURNSTILE_SECRET_KEY. The form still works without either; it just
+// isn't bot-protected until both are set.
+const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
 
 export function SolutionContact({ service }: { service: Service }) {
   const [sent, setSent] = useState(false);
+  const [error, setError] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [verified, setVerified] = useState(false);
+  const [resetKey, setResetKey] = useState(0);
 
-  const onSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setSent(true);
+    const form = event.currentTarget;
+    setSending(true);
+    setError(false);
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        body: new FormData(form),
+      });
+      if (!res.ok) throw new Error("request failed");
+      setSent(true);
+      form.reset();
+    } catch {
+      setError(true);
+    } finally {
+      setSending(false);
+      setVerified(false);
+      setResetKey((k) => k + 1);
+    }
   };
 
   return (
@@ -40,14 +67,25 @@ export function SolutionContact({ service }: { service: Service }) {
             Votre message
             <textarea required name="message" rows={4} placeholder={`Dites-nous en plus sur votre besoin autour de ${service.name}...`} className="resize-none rounded-xl border border-ink/15 bg-transparent px-4 py-3 text-sm outline-none focus:border-teal" />
           </label>
+          {TURNSTILE_SITE_KEY && (
+            <Turnstile
+              siteKey={TURNSTILE_SITE_KEY}
+              onVerify={() => setVerified(true)}
+              resetKey={resetKey}
+            />
+          )}
           <button
             type="submit"
-            className="mt-2 inline-flex w-fit items-center gap-2 control-signal rounded-full px-6 py-3 text-sm font-medium transition-colors"
+            disabled={sending || (Boolean(TURNSTILE_SITE_KEY) && !verified)}
+            className="mt-2 inline-flex w-fit items-center gap-2 control-signal rounded-full px-6 py-3 text-sm font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-50"
           >
-            Envoyer
+            {sending ? "Envoi…" : "Envoyer"}
             <Icon name="arrow-right" className="h-4 w-4" />
           </button>
           {sent && <p className="text-sm font-medium text-teal-deep">Merci — votre message a bien été enregistré, nous revenons vers vous rapidement.</p>}
+          {/* No error hue in the brand palette (see AGENTS.md) — plain ink carries the
+              tone via copy instead of inventing a red. */}
+          {error && <p className="text-sm font-semibold text-ink">Une erreur est survenue — merci de réessayer.</p>}
         </form>
       </Container>
     </section>

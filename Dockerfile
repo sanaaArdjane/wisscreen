@@ -28,6 +28,20 @@ RUN pnpm install --frozen-lockfile
 FROM base AS builder
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
+
+# Next.js inlines every NEXT_PUBLIC_* var into the client JS bundle at build time,
+# not at container start — so these have to be supplied here, as build args, not
+# via `docker run -e`. Neither is actually secret (a canonical site URL and a
+# Turnstile *site* key are both meant to be public/embedded in the page), which is
+# why they're plain ARGs rather than a build secret. TURNSTILE_SECRET_KEY is
+# deliberately absent from this whole file: it's read server-side per-request, so
+# it belongs at `docker run` time on whatever host actually runs this image, not
+# baked into a layer here.
+ARG NEXT_PUBLIC_SITE_URL
+ARG NEXT_PUBLIC_TURNSTILE_SITE_KEY
+ENV NEXT_PUBLIC_SITE_URL=$NEXT_PUBLIC_SITE_URL
+ENV NEXT_PUBLIC_TURNSTILE_SITE_KEY=$NEXT_PUBLIC_TURNSTILE_SITE_KEY
+
 RUN pnpm build
 
 # ── runner: minimal runtime image ────────────────────────────────────────────
