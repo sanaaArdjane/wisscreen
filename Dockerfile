@@ -37,7 +37,10 @@ COPY . .
 # deliberately absent from this whole file: it's read server-side per-request, so
 # it belongs at `docker run` time on whatever host actually runs this image, not
 # baked into a layer here.
-ARG NEXT_PUBLIC_SITE_URL
+# Defaulted, not left bare: an ARG with no default resolves to an empty string
+# (not "unset") when the CI variable behind it isn't configured yet, and
+# lib/site.ts's `new URL(SITE_URL)` crashes the whole build on an empty string.
+ARG NEXT_PUBLIC_SITE_URL=https://wisscreen.rflabs.tech
 ARG NEXT_PUBLIC_TURNSTILE_SITE_KEY
 ENV NEXT_PUBLIC_SITE_URL=$NEXT_PUBLIC_SITE_URL
 ENV NEXT_PUBLIC_TURNSTILE_SITE_KEY=$NEXT_PUBLIC_TURNSTILE_SITE_KEY

@@ -5,7 +5,13 @@
  * (`NEXT_PUBLIC_SITE_URL` in `.env.local` / the hosting provider's env settings),
  * never a codebase-wide search.
  */
-const rawSiteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://wisscreen.rflabs.tech";
+// `||`, not `??`: an unset Docker build-arg lands here as `""`, not `undefined`
+// (ARG with no default, then ENV X=$X, sets the env var to an empty string — it
+// doesn't leave it unset) — `??` only falls back on null/undefined, so it let a
+// blank string straight through to `new URL(SITE_URL)` below and crashed the
+// build. No legitimate site URL is ever literally empty, so treating "" the same
+// as unset here is exactly right.
+const rawSiteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://wisscreen.rflabs.tech";
 
 export const SITE_URL = rawSiteUrl.replace(/\/+$/, "");
 export const SITE_NAME = "Wissal Univers";
