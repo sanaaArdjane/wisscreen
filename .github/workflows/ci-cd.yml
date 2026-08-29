@@ -17,7 +17,7 @@ permissions:
 
 env:
   # Public image repository (namespace/repo). The token lives in secrets.
-  IMAGE_NAME: raouffilali/wisscreen
+  IMAGE_NAME: raouffilali19/wisscreen
   NEXT_TELEMETRY_DISABLED: "1"
 
 jobs:
