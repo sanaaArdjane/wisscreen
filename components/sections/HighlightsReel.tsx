@@ -3,6 +3,7 @@
 import {
   useCallback,
   useEffect,
+  useLayoutEffect,
   useRef,
   useState,
   useSyncExternalStore,
@@ -11,12 +12,13 @@ import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
 import Link from "next/link";
 import { SERVICES } from "@/lib/data/services";
-import type { PaletteToken, Service } from "@/lib/types";
+import type { PaletteToken, Service, ServiceStat } from "@/lib/types";
 import { Container } from "@/components/ui/Container";
 import { Icon } from "@/components/ui/Icon";
 import { HandUnderline } from "@/components/ui/HandUnderline";
 import { paletteBg, paletteText } from "@/lib/palette";
 import { cn } from "@/lib/cn";
+import { gsap } from "@/lib/gsap";
 
 /** How long each highlight card holds before auto-advancing. */
 const SLIDE_MS = 6500;
@@ -291,6 +293,311 @@ function StatsCard({ service }: { service: Service }) {
   );
 }
 
+/**
+ * The tile's actual content — image/mock, scrim, icon, value, label. Shared verbatim
+ * between `GifStatTile` (the static, in-flow tile) and `GifStatsCard`'s reveal overlay,
+ * so the overlay is a pixel-identical clone of the tile it sits on. That's what makes
+ * the reveal read as the image itself expanding rather than a second layer fading in:
+ * at rest the overlay exactly overlaps its tile (same crop, same icon, same text) with
+ * full opacity, so there is nothing to cross-fade — growing it just pushes that same
+ * opaque content further out, erasing whatever is behind it as it goes.
+ */
+function GifTileVisual({
+  service,
+  index,
+  stat,
+}: {
+  service: Service;
+  index: number;
+  stat: ServiceStat;
+}) {
+  const isSignal = index === 1;
+  const accent: PaletteToken =
+    index === 0 ? service.palette.primary : service.palette.secondary;
+  const glowClass = isSignal ? "bg-signal" : paletteBg[accent];
+  const iconClass = isSignal ? "text-signal-soft" : paletteText[accent];
+
+  return (
+    <>
+      {stat.gif ? (
+        <img
+          src={stat.gif}
+          alt=""
+          aria-hidden="true"
+          className="absolute inset-0 h-full w-full object-cover"
+        />
+      ) : (
+        <div className="absolute inset-0">
+          <div
+            className={cn(
+              "absolute -bottom-1/4 -left-1/4 h-[115%] w-[115%] rounded-full opacity-95 blur-lg",
+              glowClass,
+            )}
+          />
+          <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-[#26334c]/25 to-[#26334c]/75" />
+          <div className="absolute inset-0 opacity-25 [background-image:radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.5)_1px,transparent_0)] [background-size:18px_18px]" />
+        </div>
+      )}
+      {/* Bottom-anchored scrim only — same technique as ImageCard — so a real photo
+          stays legible instead of being washed out. */}
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#131c2c]/85 via-[#131c2c]/15 to-transparent" />
+      <div className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-white/15" />
+
+      <div className="relative flex h-full flex-col justify-between p-5">
+        <Icon name={service.icon} className={cn("h-5 w-5", iconClass)} />
+        <div>
+          <p className="font-display text-2xl font-semibold leading-none md:text-4xl">
+            {stat.value}
+          </p>
+          <p className="mt-2 text-[11px] leading-snug text-paper/70 md:text-xs">
+            {stat.label}
+          </p>
+        </div>
+      </div>
+    </>
+  );
+}
+
+/** One tile of the "cards-gif" variant — a static, in-flow square. Its own visual is
+ *  what stays on screen at rest; the reveal overlay (see `GifStatsCard`) is a clone of
+ *  it stacked exactly on top. */
+function GifStatTile({
+  service,
+  index,
+  stat,
+  onEnter,
+  tileRef,
+}: {
+  service: Service;
+  index: number;
+  stat: ServiceStat;
+  onEnter: () => void;
+  tileRef: (el: HTMLDivElement | null) => void;
+}) {
+  return (
+    <div
+      ref={tileRef}
+      onMouseEnter={onEnter}
+      className="relative aspect-square w-full max-w-[17rem] flex-1 overflow-hidden rounded-2xl border border-white/20 bg-[#26334c] shadow-2xl"
+    >
+      <GifTileVisual service={service} index={index} stat={stat} />
+    </div>
+  );
+}
+
+/**
+ * "cards-gif" variant: the same copy-and-stats layout as "cards", but each tile is a
+ * photo/GIF background. Hovering a tile **erases the rest of the card with it** rather
+ * than cross-fading anything in: a clone of the tile (`GifTileVisual`, opaque, never
+ * touched by an opacity tween) sits stacked exactly on top of it at all times — a
+ * `useLayoutEffect` snaps every clone to its tile's live `getBoundingClientRect()`
+ * before the first paint, so at rest the two are indistinguishable. Hovering just
+ * GSAP-tweens that clone's `left/top/width/height` out to the card's own rect
+ * (`power2.out`, slow and smooth); since it's already fully opaque, growing it simply
+ * covers more of the card as it goes — heading, CTA, other tiles — with a hard edge,
+ * not a fade.
+ *
+ * Animating the real box, not a `scale()`, matters here too: the tile is square and
+ * the card isn't, so a transform scale would distort the photo; resizing the box lets
+ * `object-cover` recompute the crop every frame, reading as a clean expand instead of
+ * a stretch.
+ *
+ * **Closing is a card-level `mouseleave`, not a tile-level one.** Once a tile's clone
+ * has grown to fill the card, the pointer is visually "inside the photo" everywhere —
+ * tying the shrink to the tiny original tile's bounds meant it snapped shut the moment
+ * you moved off that original square, even though you were still deep inside the
+ * enlarged image. It only shrinks once the cursor actually leaves the whole card.
+ *
+ * **A tile can only open while nothing else is already open.** The clone is
+ * `pointer-events-none` so the real tile underneath still receives hover — which is
+ * exactly the problem for the *other two* tiles once one is expanded: they sit right
+ * behind the now-huge photo, and moving the cursor over their (invisible) position used
+ * to silently swap the zoom to them, as if the pointer could see through the image. The
+ * `onEnter` passed to each tile ignores the event unless `hovered === null`, so a tile
+ * can only ever start growing while it's actually visible at rest — switching to a
+ * different one now requires leaving the card first.
+ *
+ * **z-index is held for the entire shrink, not dropped the instant the mouse leaves.**
+ * It's managed by GSAP, not React state: `growOverlay` sets it to 10 immediately,
+ * `shrinkOverlay` only sets it back to 0 in the tween's `onComplete`. Dropping it
+ * up front (e.g. via a `hovered === i` class) meant the still-shrinking, still-huge
+ * clone tied in z-index with the other two (both back at 0) the instant the mouse
+ * left, and — same stacking-order rule as the erase bug — the later ones in this map
+ * painted over it, so you'd see the other two tiles pop back in *while* this one was
+ * still visibly mid-shrink.
+ */
+function GifStatsCard({ service }: { service: Service }) {
+  const [hovered, setHovered] = useState<number | null>(null);
+  const stats = service.stats.slice(0, 3);
+
+  const cardRef = useRef<HTMLAnchorElement>(null);
+  const tileRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const overlayRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  const reduceMotion = useSyncExternalStore(
+    subscribeReduceMotion,
+    getReduceMotion,
+    getReduceMotionOnServer,
+  );
+
+  // Snap every clone onto its tile before the browser paints, so there is never a
+  // frame where it's visible at the wrong size — a plain useEffect would flash the
+  // fallback (top-left, tiny) className state first.
+  useLayoutEffect(() => {
+    const card = cardRef.current;
+    if (!card) return;
+    const cardRect = card.getBoundingClientRect();
+    tileRefs.current.forEach((tile, i) => {
+      const overlay = overlayRefs.current[i];
+      if (!tile || !overlay) return;
+      const tileRect = tile.getBoundingClientRect();
+      gsap.set(overlay, {
+        left: tileRect.left - cardRect.left,
+        top: tileRect.top - cardRect.top,
+        width: tileRect.width,
+        height: tileRect.height,
+        opacity: 1,
+        zIndex: 0,
+      });
+    });
+  }, []);
+
+  const growOverlay = useCallback(
+    (i: number) => {
+      const overlay = overlayRefs.current[i];
+      const card = cardRef.current;
+      if (!overlay || !card) return;
+      const cardRect = card.getBoundingClientRect();
+
+      gsap.killTweensOf(overlay);
+      gsap.set(overlay, { zIndex: 10 });
+      gsap.to(overlay, {
+        left: 0,
+        top: 0,
+        width: cardRect.width,
+        height: cardRect.height,
+        duration: reduceMotion ? 0 : 0.85,
+        ease: "power2.out",
+      });
+    },
+    [reduceMotion],
+  );
+
+  const shrinkOverlay = useCallback(
+    (i: number) => {
+      const tile = tileRefs.current[i];
+      const overlay = overlayRefs.current[i];
+      const card = cardRef.current;
+      if (!tile || !overlay || !card) return;
+
+      const tileRect = tile.getBoundingClientRect();
+      const cardRect = card.getBoundingClientRect();
+
+      gsap.killTweensOf(overlay);
+      gsap.to(overlay, {
+        left: tileRect.left - cardRect.left,
+        top: tileRect.top - cardRect.top,
+        width: tileRect.width,
+        height: tileRect.height,
+        duration: reduceMotion ? 0 : 0.5,
+        ease: "power2.inOut",
+        onComplete: () => gsap.set(overlay, { zIndex: 0 }),
+      });
+    },
+    [reduceMotion],
+  );
+
+  // Only called while nothing else is open (gated where it's wired to each tile's
+  // `onEnter`, below) — a tile whose clone is hidden behind another one's expanded
+  // clone must not be openable at all. The real tiles stay in the DOM the whole time
+  // (so `onMouseLeave` on the card still works), and the covering clone is
+  // `pointer-events-none`, so without this gate hovering *over* an obscured tile's
+  // real position — which visually shows nothing but the other tile's photo — used to
+  // silently swap the zoom to it, as if the cursor could see through the photo.
+  const openTile = useCallback(
+    (i: number) => {
+      growOverlay(i);
+      setHovered(i);
+    },
+    [growOverlay],
+  );
+
+  const closeCard = useCallback(() => {
+    if (hovered !== null) shrinkOverlay(hovered);
+    setHovered(null);
+  }, [hovered, shrinkOverlay]);
+
+  return (
+    <Link
+      href={`/solutions/${service.slug}`}
+      ref={cardRef}
+      onMouseLeave={closeCard}
+      className={cn(CARD_SHELL, CARD_WIDTH)}
+    >
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute inset-0 opacity-30 [background-image:radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.4)_1px,transparent_0)] [background-size:32px_32px]" />
+        <div
+          className={cn(
+            "absolute -right-24 -top-24 h-80 w-80 rounded-full opacity-25 blur-3xl",
+            paletteBg[service.palette.primary],
+          )}
+        />
+        <div
+          className={cn(
+            "absolute -bottom-28 -left-20 h-80 w-80 rounded-full opacity-20 blur-3xl",
+            paletteBg[service.palette.secondary],
+          )}
+        />
+      </div>
+
+      <div
+        className={cn("relative flex h-full flex-col p-8 md:p-12", CARD_HEIGHT)}
+      >
+        <CardHeading service={service} />
+
+        <div className="flex flex-1 items-center justify-center py-10">
+          <div className="flex w-full max-w-4xl items-stretch justify-center gap-4 md:gap-6">
+            {stats.map((stat, i) => (
+              <GifStatTile
+                key={stat.label}
+                service={service}
+                index={i}
+                stat={stat}
+                tileRef={(el) => {
+                  tileRefs.current[i] = el;
+                }}
+                onEnter={() => {
+                  // Ignore an obscured tile — only a tile that's actually visible
+                  // (small, at rest) may start growing.
+                  if (hovered === null) openTile(i);
+                }}
+              />
+            ))}
+          </div>
+        </div>
+
+        <CardCta service={service} />
+      </div>
+
+      {/* One reveal clone per tile, stacked on top of it. Positioned/sized *and*
+          z-indexed entirely by GSAP (the mount effect, then growOverlay/shrinkOverlay)
+          — the `opacity-0`/`z-0` defaults only cover the case where JS never runs. */}
+      {stats.map((stat, i) => (
+        <div
+          key={stat.label}
+          ref={(el) => {
+            overlayRefs.current[i] = el;
+          }}
+          aria-hidden={hovered !== i}
+          className="pointer-events-none absolute left-0 top-0 z-0 h-full w-full overflow-hidden rounded-[2rem] opacity-0"
+        >
+          <GifTileVisual service={service} index={i} stat={stat} />
+        </div>
+      ))}
+    </Link>
+  );
+}
+
 function HighlightCard({
   service,
   active,
@@ -299,11 +606,13 @@ function HighlightCard({
   active: boolean;
 }) {
   // Explicit per-service choice; falls back to the data tiles.
-  return service.highlightVariant === "image" ? (
-    <ImageCard service={service} active={active} />
-  ) : (
-    <StatsCard service={service} />
-  );
+  if (service.highlightVariant === "image") {
+    return <ImageCard service={service} active={active} />;
+  }
+  if (service.highlightVariant === "cards-gif") {
+    return <GifStatsCard service={service} />;
+  }
+  return <StatsCard service={service} />;
 }
 
 export function HighlightsReel() {
@@ -397,7 +706,11 @@ export function HighlightsReel() {
     getReduceMotion,
     getReduceMotionOnServer,
   );
-  const autoplay = inView && playing && !reduceMotion;
+  // Pausing (not resetting) on hover: the countdown just holds wherever it was and
+  // picks back up when the cursor leaves, so a visitor reading a card doesn't have it
+  // flip away mid-read, but doesn't lose their place either.
+  const [hoverPaused, setHoverPaused] = useState(false);
+  const autoplay = inView && playing && !reduceMotion && !hoverPaused;
 
   useEffect(() => {
     if (!autoplay || !emblaApi) return;
@@ -481,6 +794,8 @@ export function HighlightsReel() {
       <div
         className="carousel-inset relative mt-12 overflow-hidden"
         ref={emblaRef}
+        onMouseEnter={() => setHoverPaused(true)}
+        onMouseLeave={() => setHoverPaused(false)}
       >
         <div className="flex gap-5 md:gap-7">
           {SERVICES.map((service, i) => (

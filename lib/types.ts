@@ -62,6 +62,13 @@ export interface MediaSlot {
 export interface ServiceStat {
   value: string;
   label: string;
+  /**
+   * Optional looping GIF for the `"cards-gif"` highlight variant (see
+   * `Service.highlightVariant`). Rendered faint behind this stat tile; on hover it
+   * expands to fill the whole highlight card, as a quick "how it works" demo. Until
+   * set, the tile still opens on hover but shows a "Démo à venir" placeholder.
+   */
+  gif?: string;
 }
 
 export interface ServiceFeature {
@@ -211,8 +218,11 @@ export interface Service {
   /**
    * Which layout the homepage highlights card uses.
    * - `"cards"` (default) — copy at the top, the three `stats` as data tiles below.
+   * - `"cards-gif"` — same layout, but each stat tile can carry a looping GIF
+   *   (`ServiceStat.gif`) that expands to fill the whole card on hover, as a quick
+   *   "how it works" demo instead of a static number.
    * - `"image"` — `highlightImage` fills the whole card edge to edge, with the copy
    *   laid over it behind a scrim.
    */
-  highlightVariant?: "cards" | "image";
+  highlightVariant?: "cards" | "cards-gif" | "image";
 }

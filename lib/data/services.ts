@@ -17,6 +17,9 @@ const RAW_SERVICES: Service[] = [
     name: "OCR",
     shortName: "OCR",
     icon: "scan",
+    // Each stat tile can carry a looping GIF (lib/data/media.ts → statGifs) that expands
+    // to fill the card on hover, as a quick demo instead of a plain number.
+    highlightVariant: "cards-gif",
     category: "Extraction intelligente de données",
     tagline: "Chaque document devient une donnée exploitable, en quelques secondes.",
     heroDescription:

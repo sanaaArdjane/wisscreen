@@ -1,3 +1,6 @@
+import type { Metadata } from "next";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { websiteSchema } from "@/lib/seo/schema";
 import { Hero } from "@/components/sections/Hero";
 import { HighlightsReel } from "@/components/sections/HighlightsReel";
 import { PerformanceMetrics } from "@/components/sections/PerformanceMetrics";
@@ -21,9 +24,14 @@ import { Values } from "@/components/sections/Values";
 import { FAQHome } from "@/components/sections/FAQHome";
 import { Contact } from "@/components/sections/Contact";
 
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+};
+
 export default function Home() {
   return (
     <main className="flex flex-1 flex-col">
+      <JsonLd data={websiteSchema()} />
       <Hero />
       <HighlightsReel />
       <PerformanceMetrics />
