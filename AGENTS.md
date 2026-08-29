@@ -15,7 +15,7 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 IT solutions agency site. One Apple-`/macbook-pro`-style long-form homepage presenting every
 solution, plus one rich sub-landing page per solution. Copy language is **French**, and all
-current copy is a first draft the client will revise.
+current copy is a first draft the client will revise..
 
 ## Stack decisions
 
