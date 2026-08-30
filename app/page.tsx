@@ -1,17 +1,30 @@
 import type { Metadata } from "next";
+import dynamic from "next/dynamic";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { websiteSchema } from "@/lib/seo/schema";
 import { Hero } from "@/components/sections/Hero";
 import { HighlightsReel } from "@/components/sections/HighlightsReel";
 import { PerformanceMetrics } from "@/components/sections/PerformanceMetrics";
-import { UniverseReveal } from "@/components/sections/UniverseReveal";
-import { DeviceShowcase } from "@/components/sections/DeviceShowcase";
 import { DataIntelligence } from "@/components/sections/DataIntelligence";
 import { Reliability } from "@/components/sections/Reliability";
 import { PlatformShowcase } from "@/components/sections/PlatformShowcase";
 import { ConnectedSolutions } from "@/components/sections/ConnectedSolutions";
-import { AudienceTabs } from "@/components/sections/AudienceTabs";
 import { ScaleSpecs } from "@/components/sections/ScaleSpecs";
+
+// Split out of the initial hydration bundle: still server-rendered (ssr: true, the
+// default) so content and SEO are unaffected, but each gets its own chunk instead of
+// competing with everything else for main-thread time during the initial load — these
+// three carry the heaviest client-side setup (GSAP/ScrollTrigger, pinned-scroll video
+// math, live iframes) among the below-the-fold sections.
+const UniverseReveal = dynamic(() =>
+  import("@/components/sections/UniverseReveal").then((m) => m.UniverseReveal),
+);
+const DeviceShowcase = dynamic(() =>
+  import("@/components/sections/DeviceShowcase").then((m) => m.DeviceShowcase),
+);
+const AudienceTabs = dynamic(() =>
+  import("@/components/sections/AudienceTabs").then((m) => m.AudienceTabs),
+);
 import { OcrDemo } from "@/components/sections/OcrDemo";
 import { Integrations } from "@/components/sections/Integrations";
 import { Security } from "@/components/sections/Security";

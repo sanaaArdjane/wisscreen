@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { SERVICES } from "@/lib/data/services";
 import { Badge } from "@/components/ui/Badge";
@@ -31,6 +31,23 @@ export function Hero() {
   const root = useRef<HTMLDivElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
+  // The globe is the single heaviest chunk on the page (three.js + drei), and
+  // mounting it competes with hydrating everything else for main-thread time. The
+  // sky placeholder already covers the wait while its chunk loads, so holding off
+  // an extra beat here — until the browser is idle, or 1.2s at the latest — lets the
+  // headline, copy and CTAs (the content actually needed first) hydrate uncontested.
+  const [mountScene, setMountScene] = useState(false);
+
+  useEffect(() => {
+    if (typeof window.requestIdleCallback === "function") {
+      const id = window.requestIdleCallback(() => setMountScene(true), {
+        timeout: 1200,
+      });
+      return () => window.cancelIdleCallback(id);
+    }
+    const id = window.setTimeout(() => setMountScene(true), 200);
+    return () => window.clearTimeout(id);
+  }, []);
 
   return (
     <section ref={root} className="section-ink relative min-h-[100svh] overflow-hidden bg-abyss">
@@ -39,16 +56,20 @@ export function Hero() {
       <div className="absolute inset-x-0 top-0 bottom-0 lg:bottom-[16%]">
         {/* If the WebGL scene throws at runtime, fall back to the static globe rather
             than blanking the hero (or taking the page down with it). */}
-        <ErrorBoundary
-          label="hero-3d"
-          fallback={<EarthNetworkFallback message="Aperçu 3D indisponible" />}
-        >
-          <EarthNetwork
-            services={SERVICES}
-            overlayRef={overlayRef}
-            onSelect={(slug) => router.push(`/solutions/${slug}`)}
-          />
-        </ErrorBoundary>
+        {mountScene ? (
+          <ErrorBoundary
+            label="hero-3d"
+            fallback={<EarthNetworkFallback message="Aperçu 3D indisponible" />}
+          >
+            <EarthNetwork
+              services={SERVICES}
+              overlayRef={overlayRef}
+              onSelect={(slug) => router.push(`/solutions/${slug}`)}
+            />
+          </ErrorBoundary>
+        ) : (
+          <EarthSkyPlaceholder />
+        )}
         {/* Vignette over the scene. Two jobs: darken the frame so the globe sits in
             space rather than inside a rectangle, and dissolve the canvas's own edges
             into the section colour — on large screens the scene stops at 16% from the

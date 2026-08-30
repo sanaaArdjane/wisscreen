@@ -282,6 +282,20 @@ export function DeviceShowcase() {
     setInteracting(next);
   };
 
+  /* The phone's unzoomed box is only ~20% of the laptop stage — comfortably under
+     PREVIEW_MIN_WIDTH.mobile, so the live iframe renders its 390px-logical page scaled
+     down to roughly 0.15x to fit. A mouse click still maps through that transform fine,
+     but touch input does not: verified live that a tap squarely inside the scaled
+     iframe's own bounding box never reaches it (`document.activeElement` stayed `body`)
+     — a real Chromium/WebKit limit on touch hit-testing through an extreme CSS scale,
+     not a bug in this component's state. Below that scale the frame is unusable by touch
+     regardless, so entering interactive mode on the phone also zooms it, which is the
+     only way to get the effective size back up to something a finger can actually hit. */
+  const enterPhoneInteractive = () => {
+    setZoomed("phone");
+    setInteracting("phone");
+  };
+
   /* A tab is a jump to the scroll offset where its solution is active, not state of its
      own — the inverse of `toRun`. */
   const selectTab = (index: number) => {
@@ -473,7 +487,7 @@ export function DeviceShowcase() {
                   live={Boolean(current.previewMobileUrl ?? current.previewUrl)}
                   interacting={interacting === "phone"}
                   zoomed={zoomed === "phone"}
-                  onInteract={() => setInteracting("phone")}
+                  onInteract={enterPhoneInteractive}
                   onRelease={() => setInteracting(null)}
                   onZoom={() => toggleZoom("phone")}
                 />
@@ -560,15 +574,20 @@ export function DeviceShowcase() {
               type="button"
               aria-label="Fermer l'aperçu agrandi"
               onClick={closeZoom}
-              className="absolute inset-0 z-30 cursor-default bg-abyss/85 backdrop-blur-sm"
+              className="absolute inset-0 z-30 touch-manipulation cursor-default bg-abyss/85 backdrop-blur-sm"
             />
-            {/* Outside the device, so it is not scaled up with it. */}
+            {/* Outside the device, so it is not scaled up with it. The one close path
+                guaranteed to work regardless of where keyboard focus ended up (see the
+                note in DeviceControls on why Escape can silently stop doing anything
+                once the live iframe has been clicked into) — touch-manipulation keeps
+                it tap-reliable, and it's sized a step up from a typical chip since it's
+                now the only affordance carrying that job. */}
             <button
               type="button"
               onClick={closeZoom}
-              className="absolute right-5 top-5 z-50 flex items-center gap-2 rounded-full bg-abyss/80 px-3 py-2 text-xs font-medium text-paper ring-1 ring-white/25 backdrop-blur-md transition-colors hover:bg-abyss md:right-8"
+              className="absolute right-5 top-5 z-50 flex touch-manipulation items-center gap-2 rounded-full bg-abyss/90 px-4 py-2.5 text-sm font-medium text-paper ring-1 ring-white/25 backdrop-blur-md transition-colors hover:bg-abyss md:right-8"
             >
-              <Icon name="minimize" className="h-3.5 w-3.5" />
+              <Icon name="minimize" className="h-4 w-4" />
               Fermer
             </button>
           </>
@@ -617,7 +636,11 @@ function DeviceControls({
           type="button"
           onClick={onInteract}
           aria-label={`Naviguer dans ${label}`}
-          className="group absolute inset-0 z-20 flex cursor-pointer items-center justify-center focus-visible:outline-none"
+          // `touch-manipulation` matters more here than on the laptop's shield: this
+          // section fights for scroll ownership via touch the whole time, and a small
+          // target amplifies the usual mobile issue where a tap with a pixel or two of
+          // drift gets read as a pan/scroll instead of a click.
+          className="group absolute inset-0 z-20 flex touch-manipulation cursor-pointer items-center justify-center focus-visible:outline-none"
         >
           <span
             className={cn(
@@ -634,12 +657,24 @@ function DeviceControls({
         <button
           type="button"
           onClick={onRelease}
-          className="absolute bottom-1 left-1/2 z-30 -translate-x-1/2 rounded-full bg-abyss/85 px-2.5 py-1 text-[10px] font-medium text-paper/80 ring-1 ring-white/15 backdrop-blur-sm transition-colors hover:bg-abyss hover:text-paper"
+          className="absolute bottom-1 left-1/2 z-30 -translate-x-1/2 touch-manipulation rounded-full bg-abyss/85 px-3 py-1.5 text-[11px] font-medium text-paper/80 ring-1 ring-white/15 backdrop-blur-sm transition-colors hover:bg-abyss hover:text-paper"
         >
           Échap pour défiler
         </button>
       )}
 
+      {/* Nothing renders here for the zoomed+interacting case: this whole block sits
+          inside the device shell, which is exactly what the zoom scales up — a chip
+          added here inherits that scale and balloons into an oversized, wrapped mess
+          (this is why every other control here is already gated on `!zoomed`). The
+          stage-level "Fermer" button below (outside the shell, so immune to the scale)
+          is the intended way out; see the note in its own comment on why that button
+          — not Escape — is the one guaranteed to work once the live iframe has focus. */}
+
+      {/* 44px is the accepted minimum touch target (Apple HIG / WCAG 2.5.5). The visible
+          circle can't grow that much on the phone without swallowing the frame it sits
+          on, so the button's actual hit area is padded out beyond what's painted, via a
+          transparent oversized ::before rather than more visible chrome. */}
       {!zoomed && (
         <button
           type="button"
@@ -647,11 +682,12 @@ function DeviceControls({
           aria-label={`Agrandir ${label}`}
           title={`Agrandir ${label}`}
           className={cn(
-            "absolute z-30 flex h-7 w-7 items-center justify-center rounded-full bg-abyss/80 text-paper ring-1 ring-white/25 backdrop-blur-md transition-colors hover:bg-abyss",
-            device === "laptop" ? "right-2 top-2" : "-left-2 -top-2 h-6 w-6",
+            "absolute z-30 flex touch-manipulation items-center justify-center rounded-full bg-abyss/80 text-paper ring-1 ring-white/25 backdrop-blur-md transition-colors hover:bg-abyss",
+            "before:absolute before:-inset-2.5 before:content-['']",
+            device === "laptop" ? "right-2 top-2 h-9 w-9" : "-left-2.5 -top-2.5 h-8 w-8",
           )}
         >
-          <Icon name="maximize" className={device === "laptop" ? "h-3.5 w-3.5" : "h-3 w-3"} />
+          <Icon name="maximize" className={device === "laptop" ? "h-4 w-4" : "h-3.5 w-3.5"} />
         </button>
       )}
     </>

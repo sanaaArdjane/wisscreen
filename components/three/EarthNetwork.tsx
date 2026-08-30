@@ -1218,8 +1218,14 @@ export default function EarthNetwork({
   return (
     <>
       <Canvas
-        dpr={[1, 1.75]}
-        gl={{ antialias: true, alpha: true }}
+        dpr={[1, 1.5]}
+        // Antialiasing multiplies per-pixel shading cost, and this scene's silhouettes
+        // (globe sphere, sprites) are already softened by dpr scaling and the mapped
+        // glow/star textures — see the file-level note on fill rate being the real
+        // cost, not geometry. `high-performance` nudges dual-GPU laptops off the
+        // integrated chip; it can't force a real GPU where none exists (e.g. a
+        // sandboxed Lighthouse run), but it costs nothing where one does.
+        gl={{ antialias: false, alpha: true, powerPreference: "high-performance" }}
         camera={{ position: [0, 1.2, 8.4], fov: 42 }}
         // Rendered inside the <canvas> when a WebGL context can't be created at all
         // (unsupported browser, disabled hardware acceleration, exhausted contexts).
