@@ -169,17 +169,17 @@ export const SOLUTION_MEDIA: Record<string, SolutionMedia> = {
   wicloud: {
     // site: "https://wicloud.example.com",           // live URL — framed in the hero + homepage device screens (desktop)
     // siteMobile: "https://wicloud.example.com/m",   // live URL for the phone frame only; defaults to `site` — rarely needed
-    // cover: "/photos/wicloud-cover.jpg",             // 1600×1000 — grid card, "La plateforme" panel, "Solutions liées" card
-    highlight: "/photos/highlight_test.jpg", // 2400×1200 — homepage carousel card; setting this switches the card to a photo
-    // screenshot: "/photos/wicloud-desktop.jpg",     // 2560×1600 — plain screenshot shown inside the drawn laptop
-    // screenshotMobile: "/photos/wicloud-mobile.jpg",// 1170×2532 — same screen, inside the drawn phone
+    cover: "/photos/wicloud.jpg", // 1600×1000 — grid card, "La plateforme" panel, "Solutions liées" card
+    highlight: "/photos/wicloud.jpg", // 2400×1200 — homepage carousel card; setting this switches the card to a photo
+    screenshot: "/photos/wicloud.jpg", // 2560×1600 — plain screenshot shown inside the drawn laptop
+    screenshotMobile: "/photos/wicloud.jpg", // 1170×2532 — same screen, inside the drawn phone
     // mockup: "/photos/wicloud-mockup.jpg",          // finished mockup that already contains a device — replaces the drawn laptop entirely
     // preview: "/videos/wicloud-preview.gif",        // looping GIF — the 3D globe's hover card
     // video: "/videos/wicloud-presentation.mp4",     // 16:9 — the scroll-stretched "Vidéo de présentation"
     // videoPoster: "/photos/wicloud-presentation-poster.jpg", // 1920×1080 — first frame, shown while the video buffers
     gallery: [
-      null, // Supervision temps réel des ressources
-      null, // Gestion des instances et du stockage
+      "/photos/wicloud.jpg", // Supervision temps réel des ressources
+      "/photos/wicloud1.jpg", // Gestion des instances et du stockage
       null, // Présentation vidéo de la console WICLOUD  (video-slot)
     ],
     // statGifs: [null, null, null],                  // only read while highlightVariant is "cards-gif" — WICLOUD uses "image" instead (see `highlight` above)
@@ -188,16 +188,16 @@ export const SOLUTION_MEDIA: Record<string, SolutionMedia> = {
   wifacility: {
     // site: "https://wifacility.example.com",        // live URL — framed in the hero + homepage device screens (desktop)
     // siteMobile: "https://wifacility.example.com/m",// live URL for the phone frame only; defaults to `site` — rarely needed
-    // cover: "/photos/wifacility-cover.jpg",          // 1600×1000 — grid card, "La plateforme" panel, "Solutions liées" card
+    cover: "/photos/wifacility.jpg", // 1600×1000 — grid card, "La plateforme" panel, "Solutions liées" card
     // highlight: "/photos/wifacility-highlight.jpg",  // 2400×1200 — homepage carousel card; services.ts forces the photo layout without one, so the empty card still shows this size hint
-    // screenshot: "/photos/wifacility-desktop.jpg",   // 2560×1600 — plain screenshot shown inside the drawn laptop
+    screenshot: "/photos/wifacility.jpg", // 2560×1600 — plain screenshot shown inside the drawn laptop
     // screenshotMobile: "/photos/wifacility-mobile.jpg", // 1170×2532 — same screen, inside the drawn phone
     // mockup: "/photos/wifacility-mockup.jpg",        // finished mockup that already contains a device — replaces the drawn laptop entirely
     // preview: "/videos/wifacility-preview.gif",      // looping GIF — the 3D globe's hover card
     // video: "/videos/wifacility-presentation.mp4",   // 16:9 — the scroll-stretched "Vidéo de présentation"
     // videoPoster: "/photos/wifacility-presentation-poster.jpg", // 1920×1080 — first frame, shown while the video buffers
     gallery: [
-      null, // Suivi des échéanciers en temps réel
+      "/photos/wifacility.jpg", // Suivi des échéanciers en temps réel
       null, // Évaluation et scoring d'un dossier
       null, // Parcours client de simulation d'achat échelonné
     ],
@@ -207,8 +207,8 @@ export const SOLUTION_MEDIA: Record<string, SolutionMedia> = {
   setycore: {
     site: "https://wi-univers-release.admin.setycorp.net/", // live URL — framed in the hero + homepage device screens (desktop). No siteMobile: its login page isn't responsive, so the mobile preview looks clipped — that's the site's own rendering, not the frame's
     // siteMobile: "https://setycore.example.com/m",  // live URL for the phone frame only; defaults to `site` — rarely needed
-    // cover: "/photos/setycore-cover.jpg",            // 1600×1000 — grid card, "La plateforme" panel, "Solutions liées" card
-    // highlight: "/photos/setycore-highlight.jpg",    // 2400×1200 — homepage carousel card; setting this switches the card to a photo
+    cover: "/photos/setycore_cover.jpg", // 1600×1000 — grid card, "La plateforme" panel, "Solutions liées" card
+    highlight: "/photos/setycore.jpg", // 2400×1200 — homepage carousel card; setting this switches the card to a photo
     // screenshot: "/photos/setycore-desktop.jpg",     // 2560×1600 — plain screenshot shown inside the drawn laptop
     // screenshotMobile: "/photos/setycore-mobile.jpg",// 1170×2532 — same screen, inside the drawn phone
     // mockup: "/photos/setycore-mockup.jpg",          // finished mockup that already contains a device — replaces the drawn laptop entirely
@@ -216,7 +216,7 @@ export const SOLUTION_MEDIA: Record<string, SolutionMedia> = {
     // video: "/videos/setycore-presentation.mp4",     // 16:9 — the scroll-stretched "Vidéo de présentation"
     // videoPoster: "/photos/setycore-presentation-poster.jpg", // 1920×1080 — first frame, shown while the video buffers
     gallery: [
-      null, // Statistiques de vente en temps réel
+      "/photos/setycore_cover.jpg", // Statistiques de vente en temps réel
       null, // Parcours d'achat côté client
       null, // Démonstration de la marketplace SETYCORE  (video-slot)
     ],
