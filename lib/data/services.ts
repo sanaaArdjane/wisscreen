@@ -34,7 +34,7 @@ const RAW_SERVICES: Service[] = [
     palette: { primary: "aqua", secondary: "steel" },
     stats: [
       { value: "99,2%", label: "Précision moyenne d'extraction" },
-      { value: "< 2 s", label: "Temps de traitement par document" },
+      { value: "< 2 m", label: "Temps de traitement par document" },
       { value: "30+", label: "Types de documents reconnus" },
     ],
     features: [

@@ -72,7 +72,7 @@ function StatTile({
   const iconClass = isSignal ? "text-signal-soft" : paletteText[accent];
 
   return (
-    <div className="relative aspect-square w-full max-w-[15rem] flex-1 overflow-hidden rounded-2xl border border-white/20 bg-[#26334c] p-5 shadow-2xl">
+    <div className="relative h-60 w-full flex-1 overflow-hidden rounded-2xl border border-white/20 bg-[#26334c] p-5 shadow-2xl">
       <div
         className={cn(
           "absolute -bottom-1/4 -left-1/4 h-[115%] w-[115%] rounded-full opacity-95 blur-lg",
@@ -288,7 +288,7 @@ function StatsCard({ service }: { service: Service }) {
         <CardHeading service={service} />
 
         <div className="flex flex-1 items-center justify-center py-10">
-          <div className="flex w-full max-w-3xl items-stretch justify-center gap-4 md:gap-6">
+          <div className="flex w-full items-stretch justify-center gap-4 md:gap-6">
             {service.stats.slice(0, 3).map((stat, i) => (
               <StatTile
                 key={stat.label}
@@ -392,7 +392,7 @@ function GifStatTile({
     <div
       ref={tileRef}
       onMouseEnter={onEnter}
-      className="relative aspect-square w-full max-w-[17rem] flex-1 overflow-hidden rounded-2xl border border-white/20 bg-[#26334c] shadow-2xl"
+      className="relative h-[17rem] w-full flex-1 overflow-hidden rounded-2xl border border-white/20 bg-[#26334c] shadow-2xl"
     >
       <GifTileVisual service={service} index={index} stat={stat} />
     </div>
@@ -695,7 +695,7 @@ function GifStatsCard({ service }: { service: Service }) {
 
           {/* Desktop/hover-capable only — see GifMobileSlideshow for the mobile
               replacement. */}
-          <div className="hidden w-full items-stretch justify-center gap-4 sm:flex sm:max-w-4xl md:gap-6">
+          <div className="hidden w-full items-stretch justify-center gap-4 sm:flex md:gap-6">
             {stats.map((stat, i) => (
               <GifStatTile
                 key={stat.label}

@@ -141,18 +141,18 @@ export const SOLUTION_MEDIA: Record<string, SolutionMedia> = {
   ocr: {
     // site: "https://ocr.example.com",              // live URL — framed in the hero + homepage device screens (desktop)
     // siteMobile: "https://ocr.example.com/m",       // live URL for the phone frame only; defaults to `site` — rarely needed
-    // cover: "/photos/ocr-cover.jpg",                // 1600×1000 — grid card, "Data & Intelligence" panel, "Solutions liées" card
-    // highlight: "/photos/ocr-highlight.jpg",        // 2400×1200 — homepage carousel card; NOT used while highlightVariant is "cards-gif" (see statGifs below)
-    // screenshot: "/photos/ocr-desktop.jpg",         // 2560×1600 — plain screenshot shown inside the drawn laptop
-    // screenshotMobile: "/photos/ocr-mobile.jpg",    // 1170×2532 — same screen, inside the drawn phone
-    mockup: "/photos/service1.jpg", // finished mockup that already contains a device — replaces the drawn laptop entirely
-    // preview: "/videos/ocr-preview.gif",            // looping GIF — the 3D globe's hover card
-    // video: "/videos/ocr-presentation.mp4",         // 16:9 — the scroll-stretched "Vidéo de présentation"
-    // videoPoster: "/photos/ocr-presentation-poster.jpg", // 1920×1080 — first frame, shown while the video buffers
+    cover: "/photos/ocrGif_1.gif", // 1600×1000 — grid card, "Data & Intelligence" panel, "Solutions liées" card
+    // highlight: "/photos/ocrGif_1.gif", // 2400×1200 — homepage carousel card; NOT used while highlightVariant is "cards-gif" (see statGifs below)
+    screenshot: "/photos/ocrGif_1.gif", // 2560×1600 — plain screenshot shown inside the drawn laptop
+    screenshotMobile: "/photos/ocrGif_1.gif", // 1170×2532 — same screen, inside the drawn phone
+    // mockup: "/photos/ocrGif_2.gif", // finished mockup that already contains a device — replaces the drawn laptop entirely
+    preview: "/photos/ocrGif_1.gif", // looping GIF — the 3D globe's hover card
+    video: "/videos/ocr_video.webm", // 16:9 — the scroll-stretched "Vidéo de présentation"
+    videoPoster: "/photos/ocr2.jpg", // 1920×1080 — first frame, shown while the video buffers
     gallery: [
-      null, // Détection des champs sur une pièce d'identité — also "OCR en action" on the homepage
-      null, // Précision par type de document
-      null, // Démonstration vidéo du moteur OCR  (video-slot — takes a video file)
+      "/photos/ocrGif_2.gif", // "Extraction de données" panel
+      "/photos/ocrGif_1.gif", // "OCR en action" panel
+      "/videos/ocr_video.webm", // "Types de documents reconnus" panel
     ],
     // Temporary: a real public-domain looping GIF (Wikimedia Commons — Muybridge's
     // galloping horse), pasted in as an absolute URL, just to test the hover-expand
@@ -160,9 +160,9 @@ export const SOLUTION_MEDIA: Record<string, SolutionMedia> = {
     // each for its own real GIF later — a local /photos/… path works exactly the same.
     // Only read while highlightVariant is "cards-gif" (see lib/data/services.ts).
     statGifs: [
-      "https://upload.wikimedia.org/wikipedia/commons/0/05/Muybridge_race_horse_animated_184px.gif", // "99,2% — Précision moyenne d'extraction" tile
-      "https://upload.wikimedia.org/wikipedia/commons/0/05/Muybridge_race_horse_animated_184px.gif", // "< 2 s — Temps de traitement par document" tile
-      "https://upload.wikimedia.org/wikipedia/commons/0/05/Muybridge_race_horse_animated_184px.gif", // "30+ — Types de documents reconnus" tile
+      "/photos/ocrGif_2.gif", // "< 2 m — Temps de traitement par document" tile
+      "/photos/ocrGif_1.gif", // "99,2% — Précision moyenne d'extraction" tile
+      "/photos/ocrGif_3.gif", // "30+ — Types de documents reconnus" tile
     ],
   },
 
@@ -237,7 +237,7 @@ export const HOME_MEDIA = {
    * Measure a candidate rather than eyeballing it — draw it to a canvas and histogram the
    * luminance — or expect to re-grade `VIDEO_DIM` in that component.
    */
-  revealVideo: "/videos/lp_video.webm" as Asset,
+  revealVideo: "/videos/lp_video2s.mp4" as Asset,
 };
 
 /* ─────────────────────────────────────────────────────────────────────────────────────────
@@ -259,7 +259,9 @@ export function withMedia(service: Service): Service {
     const src = media.gallery?.[index];
     return src ? { ...slot, src } : slot;
   });
-  const hero = media.cover ? { ...service.media.hero, src: media.cover } : service.media.hero;
+  const hero = media.cover
+    ? { ...service.media.hero, src: media.cover }
+    : service.media.hero;
   const stats = service.stats.map((stat, index) => {
     const gif = media.statGifs?.[index];
     return gif ? { ...stat, gif } : stat;
@@ -271,7 +273,9 @@ export function withMedia(service: Service): Service {
     ...(media.site ? { previewUrl: media.site } : {}),
     ...(media.siteMobile ? { previewMobileUrl: media.siteMobile } : {}),
     ...(media.screenshot ? { showcaseImage: media.screenshot } : {}),
-    ...(media.screenshotMobile ? { showcaseMobileImage: media.screenshotMobile } : {}),
+    ...(media.screenshotMobile
+      ? { showcaseMobileImage: media.screenshotMobile }
+      : {}),
     ...(media.mockup ? { showcaseMockup: media.mockup } : {}),
     ...(media.preview ? { previewGif: media.preview } : {}),
     ...(media.video ? { presentationVideo: media.video } : {}),
@@ -279,7 +283,9 @@ export function withMedia(service: Service): Service {
     // Supplying a card photo *is* the request for the photo layout. Deriving it here rather
     // than making it a second thing to remember in services.ts: setting one and forgetting
     // the other gave either a photo the layout never showed, or a layout with no photo.
-    ...(media.highlight ? { highlightImage: media.highlight, highlightVariant: "image" as const } : {}),
+    ...(media.highlight
+      ? { highlightImage: media.highlight, highlightVariant: "image" as const }
+      : {}),
     media: { ...service.media, hero, gallery },
   };
 }
