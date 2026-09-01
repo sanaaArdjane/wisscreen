@@ -186,19 +186,19 @@ export const SOLUTION_MEDIA: Record<string, SolutionMedia> = {
   },
 
   wifacility: {
-    // site: "https://wifacility.example.com",        // live URL — framed in the hero + homepage device screens (desktop)
-    // siteMobile: "https://wifacility.example.com/m",// live URL for the phone frame only; defaults to `site` — rarely needed
+    site: "https://admin-etayssir.wissal-group.com/auth", // live URL — framed in the hero + homepage device screens (desktop)
+    siteMobile: "https://admin-etayssir.wissal-group.com/auth", // live URL for the phone frame only; defaults to `site` — rarely needed
     cover: "/photos/wifacility.jpg", // 1600×1000 — grid card, "La plateforme" panel, "Solutions liées" card
-    // highlight: "/photos/wifacility-highlight.jpg",  // 2400×1200 — homepage carousel card; services.ts forces the photo layout without one, so the empty card still shows this size hint
-    screenshot: "/photos/wifacility.jpg", // 2560×1600 — plain screenshot shown inside the drawn laptop
-    // screenshotMobile: "/photos/wifacility-mobile.jpg", // 1170×2532 — same screen, inside the drawn phone
+    highlight: "/photos/Etaysir.jpg", // 2400×1200 — homepage carousel card; services.ts forces the photo layout without one, so the empty card still shows this size hint
+    // screenshot: "/photos/Etaysir.jpg", // 2560×1600 — plain screenshot shown inside the drawn laptop
+    // screenshotMobile: "/photos/Etaysir.jpg", // 1170×2532 — same screen, inside the drawn phone
     // mockup: "/photos/wifacility-mockup.jpg",        // finished mockup that already contains a device — replaces the drawn laptop entirely
-    // preview: "/videos/wifacility-preview.gif",      // looping GIF — the 3D globe's hover card
+    preview: "/photos/Etaysir.jpg", // looping GIF — the 3D globe's hover card
     // video: "/videos/wifacility-presentation.mp4",   // 16:9 — the scroll-stretched "Vidéo de présentation"
     // videoPoster: "/photos/wifacility-presentation-poster.jpg", // 1920×1080 — first frame, shown while the video buffers
     gallery: [
       "/photos/wifacility.jpg", // Suivi des échéanciers en temps réel
-      null, // Évaluation et scoring d'un dossier
+      "/photos/Eairsty.jpg", // Évaluation et scoring d'un dossier
       null, // Parcours client de simulation d'achat échelonné
     ],
     // statGifs: [null, null, null],                  // only read while highlightVariant is "cards-gif" — WIFACILITY uses "image" instead
