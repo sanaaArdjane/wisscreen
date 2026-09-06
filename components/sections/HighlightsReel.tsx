@@ -174,14 +174,15 @@ const CARD_SHELL = cn(
  * full-height wash (`from-abyss/85 … to-abyss/70`) because the copy was split top and
  * bottom, and an 85% scrim over the top third meant the top third was not really showing
  * a photo at all. All the copy is anchored at the bottom now, so the scrim is a single
- * bottom-up gradient and the upper ~70% of the frame is the untouched image.
+ * bottom-up gradient and the upper ~half of the frame is the untouched image.
  *
  * There is no eyebrow here (see `CardHeading`'s `showCategory`) — the copy block is
  * just the name, tagline and CTA.
  *
- * The scrim is now minimal (peaks at 0.32 alpha, gone by 30% up) — a slight dark floor
- * for the copy to sit on rather than a contrast guarantee, so a busy or light photo can
- * still make the text harder to read; the photo takes priority.
+ * The scrim is a proper vignette (peaks at 0.9 alpha right at the bottom, still at 0.62
+ * a quarter of the way up) rather than a bare-minimum wash — since a solution's photo can
+ * be anything up to plain white, the copy needs a guaranteed dark floor under it instead
+ * of one tuned for a specific image.
  *
  * **One scale, gated by hover OR being the active card.** Both triggers target the same
  * value on the same element, so they never compound — hovering the active card doesn't
@@ -244,9 +245,10 @@ function ImageCard({ service, active }: { service: Service; active: boolean }) {
           </div>
         )}
 
-        {/* A slightly stronger dark floor than the bare minimum, still fading out well
-            before the photo's midpoint. */}
-        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_top,rgba(38,51,76,0.55)_0%,rgba(38,51,76,0.28)_20%,transparent_38%)]" />
+        {/* A vignette sized for contrast, not just a dark floor: it has to hold the copy
+            legible even on a white/light photo, so it runs stronger and further up the
+            card than a minimal scrim would. */}
+        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_top,rgba(19,26,38,0.97)_0%,rgba(19,26,38,0.75)_28%,rgba(19,26,38,0.32)_52%,transparent_72%)]" />
 
         {/* absolute inset-0, not h-full: the parent only has a min-height, so a
             percentage height would collapse and the copy would not sit on the floor. */}
