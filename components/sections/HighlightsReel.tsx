@@ -508,7 +508,9 @@ function GifMobileSlideshow({
               <p className="font-display text-2xl font-semibold leading-none text-paper">
                 {stat.value}
               </p>
-              <p className="mt-1 text-xs leading-snug text-paper/70">{stat.label}</p>
+              <p className="mt-1 text-xs leading-snug text-paper/70">
+                {stat.label}
+              </p>
             </div>
           ))}
         </div>
