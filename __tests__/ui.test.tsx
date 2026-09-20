@@ -153,8 +153,8 @@ describe("Icon", () => {
 
 describe("SectionHeading", () => {
   it("renders the eyebrow, an h2 title, and the description", () => {
-    render(<SectionHeading eyebrow="Nos solutions" title="Un univers connecté" description="Quatre produits." />);
-    expect(screen.getByRole("heading", { level: 2 }).textContent).toBe("Un univers connecté");
+    render(<SectionHeading eyebrow="Nos solutions" title="Un écosystème connecté" description="Quatre produits." />);
+    expect(screen.getByRole("heading", { level: 2 }).textContent).toBe("Un écosystème connecté");
     expect(screen.getByText("Nos solutions")).toBeTruthy();
     expect(screen.getByText("Quatre produits.")).toBeTruthy();
   });
@@ -313,6 +313,6 @@ describe("Footer", () => {
   it("shows the current year in the copyright line", () => {
     render(<Footer />);
     const year = String(new Date().getFullYear());
-    expect(screen.getByText(new RegExp(`${year} Wissal Univers`))).toBeTruthy();
+    expect(screen.getByText(new RegExp(`${year} WICLOUD`))).toBeTruthy();
   });
 });

@@ -180,7 +180,7 @@ export const SOLUTION_MEDIA: Record<string, SolutionMedia> = {
     gallery: [
       "/photos/wicloud.jpg", // Supervision temps réel des ressources
       "/photos/wicloud1.jpg", // Gestion des instances et du stockage
-      null, // Présentation vidéo de la console WICLOUD  (video-slot)
+      null, // Présentation vidéo de la console Cloud  (video-slot)
     ],
     // statGifs: [null, null, null],                  // only read while highlightVariant is "cards-gif" — WICLOUD uses "image" instead (see `highlight` above)
   },
@@ -230,7 +230,7 @@ export const SOLUTION_MEDIA: Record<string, SolutionMedia> = {
 
 export const HOME_MEDIA = {
   /**
-   * The full-bleed clip in `UniverseReveal` — the footage the headline "Wissal Univers" is
+   * The full-bleed clip in `UniverseReveal` — the footage the headline "WICLOUD" is
    * clipped out of, so it ends up being the *fill of display type on white*. That puts a
    * real constraint on any replacement: it has to stay dark enough to hold 3:1 against
    * paper inside the glyphs. The current clip has mean relative luminance 0.05 (~10.5:1).

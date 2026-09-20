@@ -7,7 +7,7 @@ import { MediaSlot } from "@/components/ui/MediaSlot";
 const PANELS = [
   { slug: "wifacility", title: "Etaysir — panneau bancaire", text: "Les banques pilotent l'intégralité du cycle de financement : scoring, validation, échéanciers, recouvrement." },
   { slug: "setycore", title: "Dashboard marchand SETYCORE", text: "Catalogue, commandes, paiements et statistiques de vente, centralisés dans un seul back-office." },
-  { slug: "wicloud", title: "Console WICLOUD", text: "Calcul, stockage et supervision de l'infrastructure, pilotés depuis une interface unique." },
+  { slug: "wicloud", title: "Console Cloud", text: "Calcul, stockage et supervision de l'infrastructure, pilotés depuis une interface unique." },
 ];
 
 export function PlatformShowcase() {
@@ -17,7 +17,7 @@ export function PlatformShowcase() {
         <SectionHeading
           eyebrow="La plateforme"
           title="Un tableau de bord pensé pour chaque métier."
-          description="Derrière chaque solution Wissal Univers se cache une interface d'administration claire, pensée pour les équipes qui l'utilisent au quotidien."
+          description="Derrière chaque solution WICLOUD se cache une interface d'administration claire, pensée pour les équipes qui l'utilisent au quotidien."
           align="center"
         />
 

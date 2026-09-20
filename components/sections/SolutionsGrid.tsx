@@ -15,7 +15,7 @@ export function SolutionsGrid() {
           eyebrow="Toutes nos solutions"
           title="Explorez chaque produit en détail."
           align="center"
-          description="D'autres solutions rejoindront cet univers — cette page s'enrichira au fur et à mesure."
+          description="D'autres solutions rejoindront cet écosystème — cette page s'enrichira au fur et à mesure."
         />
 
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2">

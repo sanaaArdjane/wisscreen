@@ -20,7 +20,7 @@ export function Integrations() {
         <SectionHeading
           eyebrow="Intégrations & API"
           title="Vos systèmes, connectés en toute simplicité."
-          description="Wissal Univers se branche à votre écosystème existant — pas l'inverse."
+          description="WICLOUD se branche à votre écosystème existant — pas l'inverse."
         />
 
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">

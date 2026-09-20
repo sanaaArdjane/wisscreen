@@ -121,7 +121,7 @@ export function Hero() {
             className="hero-rise font-display text-4xl font-semibold leading-[1.06] md:whitespace-nowrap md:text-6xl xl:text-7xl"
             style={{ animationDelay: "0.27s" }}
           >
-            Un univers <TypeCycle words={HEADLINE_WORDS} className="text-aqua" />
+            Un écosystème <TypeCycle words={HEADLINE_WORDS} className="text-aqua" />
           </h1>
 
           {/* Muted via text-paper/NN rather than opacity-NN: `hero-rise` animates the
@@ -130,7 +130,7 @@ export function Hero() {
             className="hero-rise max-w-4xl text-base leading-relaxed text-paper/70 md:text-lg"
             style={{ animationDelay: "0.39s" }}
           >
-            Wissal Univers conçoit les technologies qui font tourner banques, entreprises
+            WICLOUD conçoit les technologies qui font tourner banques, entreprises
             partenaires et particuliers : extraction de données, cloud, paiement échelonné et
             marketplace — pensés pour fonctionner ensemble.
           </p>
@@ -145,7 +145,7 @@ export function Hero() {
           </div>
 
           <p
-            className="hero-rise text-xs uppercase tracking-[0.16em] text-paper/45"
+            className="hero-rise text-xs uppercase tracking-[0.16em] text-paper/70"
             style={{ animationDelay: "0.63s" }}
           >
             Faites tourner le globe — cliquez sur une solution pour l&apos;explorer

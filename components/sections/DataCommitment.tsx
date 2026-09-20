@@ -5,7 +5,7 @@ import { Icon } from "@/components/ui/Icon";
 import type { IconName } from "@/lib/types";
 
 const PILLARS: { icon: IconName; title: string; text: string }[] = [
-  { icon: "globe", title: "Hébergement souverain", text: "Vos données restent hébergées dans un environnement dont vous connaissez et contrôlez la localisation, via WICLOUD." },
+  { icon: "globe", title: "Hébergement souverain", text: "Vos données restent hébergées dans un environnement dont vous connaissez et contrôlez la localisation, via notre Cloud Infrastructure." },
   { icon: "shield", title: "Minimisation des données", text: "Nous ne collectons et ne conservons que les données strictement nécessaires au fonctionnement de chaque solution." },
   { icon: "check", title: "Transparence", text: "Nos partenaires savent précisément quelles données sont traitées, où, et pourquoi." },
 ];

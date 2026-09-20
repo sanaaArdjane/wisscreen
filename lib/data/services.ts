@@ -25,7 +25,7 @@ const RAW_SERVICES: Service[] = [
     heroDescription:
       "Notre moteur OCR, développé en interne par l'équipe Data, lit, comprend et structure vos documents et images — cartes d'identité, factures, relevés, contrats — pour les transformer instantanément en données prêtes à l'emploi.",
     description: [
-      "OCR est le moteur d'extraction de données de Wissal Univers. Conçu et entraîné par notre équipe Data, il combine reconnaissance optique de caractères, vision par ordinateur et modèles de compréhension de documents pour extraire automatiquement les informations contenues dans des fichiers scannés, des photos ou des PDF.",
+      "OCR est le moteur d'extraction de données de WICLOUD. Conçu et entraîné par notre équipe Data, il combine reconnaissance optique de caractères, vision par ordinateur et modèles de compréhension de documents pour extraire automatiquement les informations contenues dans des fichiers scannés, des photos ou des PDF.",
       "Pensé pour les flux à fort volume, OCR s'intègre directement dans vos processus métier : onboarding client, vérification d'identité, traitement de factures, dématérialisation d'archives. Chaque document est analysé, structuré puis restitué au format dont vos systèmes ont besoin (JSON, API, base de données).",
       "Le moteur continue d'apprendre : nouveaux types de documents, nouvelles langues, nouveaux formats — l'équipe Data enrichit continuellement les modèles pour améliorer la précision au fil du temps.",
       "Cette page évoluera avec plus de détails techniques, de cas d'usage et de métriques de performance au fur et à mesure des mises à jour du produit.",
@@ -55,7 +55,7 @@ const RAW_SERVICES: Service[] = [
       { question: "Quels types de documents OCR peut-il traiter ?", answer: "Cartes d'identité, passeports, factures, relevés bancaires, contrats, formulaires manuscrits et bien d'autres — la liste s'agrandit à chaque mise à jour du moteur." },
       { question: "Les documents sont-ils stockés après traitement ?", answer: "Le traitement peut être configuré pour ne conserver aucune copie du document source, selon vos exigences de confidentialité." },
       { question: "Combien de temps prend une intégration ?", answer: "La plupart des partenaires sont opérationnels en quelques jours grâce à notre API REST et nos SDK." },
-      { question: "OCR fonctionne-t-il hors ligne ou uniquement en cloud ?", answer: "OCR est disponible en mode cloud via WICLOUD, avec une option de déploiement dédié pour les besoins spécifiques." },
+      { question: "OCR fonctionne-t-il hors ligne ou uniquement en cloud ?", answer: "OCR est disponible en mode cloud via notre Cloud Infrastructure, avec une option de déploiement dédié pour les besoins spécifiques." },
       { question: "Quelle est la précision réelle du moteur ?", answer: "La précision moyenne dépasse 99% sur les documents standards ; elle varie selon la qualité de numérisation et le type de document." },
     ],
     media: {
@@ -66,22 +66,22 @@ const RAW_SERVICES: Service[] = [
         { kind: "video-slot", label: "Démonstration vidéo du moteur OCR" },
       ],
     },
-    team: "Développé par l'équipe Data de Wissal Univers",
+    team: "Développé par l'équipe Data de WICLOUD",
   },
   {
     slug: "wicloud",
-    name: "WICLOUD",
-    shortName: "WICLOUD",
+    name: "Cloud Infrastructure",
+    shortName: "Cloud",
     icon: "cloud",
     category: "Infrastructure cloud souveraine",
     tagline: "Votre cloud, vos règles — l'infrastructure qui fait tourner toutes nos solutions.",
     heroDescription:
-      "WICLOUD est notre plateforme d'infrastructure cloud, pensée à la manière des grands fournisseurs internationaux mais conçue pour répondre aux exigences locales de souveraineté, de performance et de sécurité des données.",
+      "Cloud Infrastructure est notre plateforme d'infrastructure cloud, pensée à la manière des grands fournisseurs internationaux mais conçue pour répondre aux exigences locales de souveraineté, de performance et de sécurité des données.",
     description: [
-      "WICLOUD fournit les briques essentielles pour héberger, déployer et faire évoluer des applications modernes : calcul, stockage, réseau, bases de données managées et outils de supervision, le tout piloté depuis une seule console.",
-      "Conçue dès le départ pour supporter l'ensemble des solutions Wissal Univers (OCR, WIFACILITY, SETYCORE), WICLOUD garantit une infrastructure homogène, sécurisée et scalable, avec un contrôle total sur la localisation des données.",
+      "Cloud Infrastructure fournit les briques essentielles pour héberger, déployer et faire évoluer des applications modernes : calcul, stockage, réseau, bases de données managées et outils de supervision, le tout piloté depuis une seule console.",
+      "Conçue dès le départ pour supporter l'ensemble des solutions WICLOUD (OCR, WIFACILITY, SETYCORE), Cloud Infrastructure garantit une infrastructure homogène, sécurisée et scalable, avec un contrôle total sur la localisation des données.",
       "Notre équipe infrastructure surveille la plateforme 24/7, avec des mécanismes de redondance, de sauvegarde et de reprise après sinistre pour garantir une disponibilité continue.",
-      "D'autres services (fonctions serverless, CDN, IA managée) rejoindront WICLOUD au fil des prochaines versions — cette page sera enrichie en conséquence.",
+      "D'autres services (fonctions serverless, CDN, IA managée) rejoindront Cloud Infrastructure au fil des prochaines versions — cette page sera enrichie en conséquence.",
     ],
     audiences: ["partenaires", "entreprises"],
     palette: { primary: "steel", secondary: "aqua" },
@@ -105,21 +105,21 @@ const RAW_SERVICES: Service[] = [
       { title: "Supervision continue", description: "Suivez performance, coûts et disponibilité depuis un tableau de bord unique." },
     ],
     faq: [
-      { question: "Où sont hébergées les données sur WICLOUD ?", answer: "Dans un environnement souverain dont l'emplacement est garanti contractuellement, avec un contrôle total pour nos partenaires." },
-      { question: "Peut-on migrer une infrastructure existante vers WICLOUD ?", answer: "Oui, notre équipe accompagne la migration avec un plan par étapes pour limiter les interruptions de service." },
+      { question: "Où sont hébergées les données sur Cloud Infrastructure ?", answer: "Dans un environnement souverain dont l'emplacement est garanti contractuellement, avec un contrôle total pour nos partenaires." },
+      { question: "Peut-on migrer une infrastructure existante vers Cloud Infrastructure ?", answer: "Oui, notre équipe accompagne la migration avec un plan par étapes pour limiter les interruptions de service." },
       { question: "Quel est le modèle de facturation ?", answer: "Un modèle à l'usage, avec des paliers adaptés aux besoins des partenaires et entreprises — détails à venir." },
       { question: "Quel est le SLA de disponibilité ?", answer: "99,95% de disponibilité garantie, avec supervision 24/7 par notre équipe infrastructure." },
-      { question: "WICLOUD héberge-t-il les autres solutions Wissal Univers ?", answer: "Oui, OCR, WIFACILITY et SETYCORE fonctionnent tous nativement sur l'infrastructure WICLOUD." },
+      { question: "Cloud Infrastructure héberge-t-il les autres solutions WICLOUD ?", answer: "Oui, OCR, WIFACILITY et SETYCORE fonctionnent tous nativement sur notre Cloud Infrastructure." },
     ],
     media: {
-      hero: { kind: "mock-dashboard", label: "Console WICLOUD — vue d'ensemble de l'infrastructure" },
+      hero: { kind: "mock-dashboard", label: "Console Cloud — vue d'ensemble de l'infrastructure" },
       gallery: [
         { kind: "mock-chart", label: "Supervision temps réel des ressources" },
         { kind: "mock-dashboard", label: "Gestion des instances et du stockage" },
-        { kind: "video-slot", label: "Présentation vidéo de la console WICLOUD" },
+        { kind: "video-slot", label: "Présentation vidéo de la console Cloud" },
       ],
     },
-    team: "Opéré par l'équipe Infrastructure de Wissal Univers",
+    team: "Opéré par l'équipe Infrastructure de WICLOUD",
   },
   {
     slug: "wifacility",
@@ -191,7 +191,7 @@ const RAW_SERVICES: Service[] = [
         { kind: "image-slot", label: "Parcours client de simulation d'achat échelonné" },
       ],
     },
-    team: "Porté par les équipes Produit & Ingénierie de Wissal Univers",
+    team: "Porté par les équipes Produit & Ingénierie de WICLOUD",
   },
   {
     slug: "setycore",
@@ -244,7 +244,7 @@ const RAW_SERVICES: Service[] = [
         { kind: "video-slot", label: "Démonstration de la marketplace SETYCORE" },
       ],
     },
-    team: "Développé par l'équipe Produit de Wissal Univers",
+    team: "Développé par l'équipe Produit de WICLOUD",
   },
 ];
 

@@ -33,8 +33,8 @@ export function Reliability() {
         </Reveal>
         <Reveal>
           <p data-reveal-item className="max-w-xl text-balance text-lg leading-relaxed opacity-70 md:text-xl">
-            de disponibilité garantie sur WICLOUD, l&apos;infrastructure qui fait tourner
-            l&apos;ensemble des solutions Wissal Univers — surveillée en continu pour que vos
+            de disponibilité garantie sur notre Cloud Infrastructure, la plateforme qui fait tourner
+            l&apos;ensemble des solutions WICLOUD — surveillée en continu pour que vos
             équipes n&apos;aient jamais à s&apos;en inquiéter.
           </p>
         </Reveal>

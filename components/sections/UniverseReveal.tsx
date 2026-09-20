@@ -15,12 +15,12 @@ import { HOME_MEDIA } from "@/lib/data/media";
  * at the end, where the finished headline is still filled with moving footage.
  *
  * The beat, in order: full-bleed video; the ground resolving to paper with the camera
- * sitting inside the counter of the "a" in "Wissal"; a long zoom out until the whole
+ * sitting inside the counter of the "O" in "WICLOUD"; a long zoom out until the whole
  * word is legible, centred; the word lifts to its resting place; the pitch lands under
  * it.
  */
 
-const WORD = "Wissal Univers";
+const WORD = "WICLOUD";
 
 /* The three blocks that land last. First-draft copy like the rest of the site. */
 const PITCH = [
@@ -30,11 +30,11 @@ const PITCH = [
   },
   {
     title: "Quatre solutions, une seule base",
-    body: "OCR, WICLOUD, WIFACILITY et SETYCORE partagent la même infrastructure. Ce que vous activez aujourd'hui se connecte à ce que vous ajouterez demain.",
+    body: "OCR, Cloud Infrastructure, WIFACILITY et SETYCORE partagent la même infrastructure. Ce que vous activez aujourd'hui se connecte à ce que vous ajouterez demain.",
   },
   {
     title: "Vos données restent les vôtres",
-    body: "Hébergement souverain sur WICLOUD, chiffrement de bout en bout et traçabilité complète. Vos documents ne quittent pas l'environnement que vous contrôlez.",
+    body: "Hébergement souverain sur notre Cloud Infrastructure, chiffrement de bout en bout et traçabilité complète. Vos documents ne quittent pas l'environnement que vous contrôlez.",
   },
 ];
 
@@ -47,7 +47,7 @@ const PITCH = [
    continuous ramp means one measurement holds across every width instead of the word
    jumping a size mid-scroll. `whitespace-nowrap` is load-bearing — the SVG <text> is a
    single line with no wrapping, so an h2 that wrapped would stop matching it. */
-const WORD_TYPE = "font-display font-semibold leading-none whitespace-nowrap text-[clamp(2.25rem,12.5vw,15rem)]";
+const WORD_TYPE = "font-display font-semibold leading-none whitespace-nowrap text-[clamp(2.5rem,15vw,16rem)]";
 
 /* Scroll timeline, in progress units across the pinned section.
 
@@ -59,7 +59,7 @@ const WORD_TYPE = "font-display font-semibold leading-none whitespace-nowrap tex
    beat is spent behind a half-transparent wash. Ending at 0.13 keeps the scale above
    ~37×, which is still within the letter. */
 const VEIL = [0.03, 0.13] as const; // full-bleed video -> paper ground
-const ZOOM = [0.03, 0.56] as const; // inside the "a" -> whole word, centred
+const ZOOM = [0.03, 0.56] as const; // inside the "O" -> whole word, centred
 const LIFT = [0.6, 0.74] as const; // centred -> resting place near the top
 const COPY = [0.72, 0.86] as const; // the last of the ghost clears to clean paper
 
@@ -83,29 +83,33 @@ const GHOST = 0.08;
 
    This is not decorative. `object-cover` on a portrait viewport crops to the middle of the
    frame, which is where this footage is brightest — ungraded, the mobile finale rendered
-   "ssal Univers" in near-white on white. At 0.5 even the brightest pixel in the footage
+   "LOUD" in near-white on white. At 0.5 even the brightest pixel in the footage
    composites to ~4.1:1 against paper, clear of the 3:1 that display type needs, while the
    darks (the bulk of it) are untouched. Kept mounted at k=0 rather than toggled on, so the
    compositing layer never appears mid-scroll. */
 const VIDEO_DIM = 0.5;
 const VIDEO_PUNCH = 0.15;
 
-/* The opening frame sits inside the counter (the enclosed hole) of the "a" in "Wissal",
+/* The opening frame sits inside the counter (the enclosed hole) of the "O" in "WICLOUD",
    so the cut to paper reads as a blank white screen that a giant letterform then grows
-   into. Index 4 of "Wissal Univers"; measured off the <h2> with a Range, so the letter is
+   into. Index 4 of "WICLOUD"; measured off the <h2> with a Range, so the letter is
    located exactly rather than estimated.
 
-   The two em fractions are *measured* off a screenshot, not estimated — there is no DOM
-   API for a glyph's counter, and eyeballing them put a letter stroke in frame. `_EM` is the
-   counter's height (Geist's double-storey "a" bowl is 0.138em, far smaller than it looks);
-   `_DROP` is how far its centre sits below the line box's middle. `_FILL` is the margin: at
-   1.0 the counter would exactly touch the stage's shorter axis, and the focus point is
-   never quite the counter's centre, so it needs headroom. Re-measure all three if the
-   display face or `ZOOM_CHAR` ever changes. */
+   The two em fractions are *measured*, not estimated — there is no DOM API for a glyph's
+   counter, and eyeballing them put a letter stroke in frame. They were read off the real
+   face by rasterising the glyph to a canvas and scanning for rows with two separate ink
+   runs (the counter is the gap between them). `_EM` is the counter's height — Geist's cap
+   "O" counter is 0.515em, which is why this scales far less than the old lowercase "a"
+   (0.138em) did. `_DROP` is how far its centre sits below the line box's middle: for a cap
+   under `leading-none` that is essentially zero, since the baseline lands at 0.855em from
+   the top and half the cap height is 0.363em. `_FILL` is the margin: at 1.0 the counter
+   would exactly touch the stage's shorter axis, and the focus point is never quite the
+   counter's centre, so it needs headroom. Re-run the canvas scan — not your eye — for all
+   three if the display face or `ZOOM_CHAR` ever changes. */
 const ZOOM_CHAR = 4;
-const COUNTER_EM = 0.138;
-const COUNTER_DROP = 0.205;
-const COUNTER_FILL = 1.5;
+const COUNTER_EM = 0.515;
+const COUNTER_DROP = 0;
+const COUNTER_FILL = 1.6;
 
 /* Hard ceiling on how far the mask can be scaled, as `fontSize × scale` in CSS px.
    Blink stops rendering SVG text correctly somewhere past ~9,000px of effective em: the

@@ -10,10 +10,19 @@ const COLUMNS = [
   {
     title: "Entreprise",
     links: [
-      { label: "À propos de Wissal Univers", href: "#values" },
+      { label: "À propos de WICLOUD", href: "#values" },
       { label: "Nos engagements", href: "#commitment" },
       { label: "Carrières", href: "#" },
       { label: "Actualités", href: "#" },
+    ],
+  },
+  {
+    title: "Espace client",
+    links: [
+      { label: "Se connecter", href: "/connexion" },
+      { label: "Créer un compte", href: "/inscription" },
+      { label: "Mes demandes", href: "/dashboard/demandes" },
+      { label: "Essayer nos solutions", href: "/dashboard/demos" },
     ],
   },
   {
@@ -42,7 +51,7 @@ export function Footer() {
         <div className="grid grid-cols-2 gap-10 md:grid-cols-5">
           <div className="col-span-2">
             <p className="text-sm font-semibold uppercase tracking-[0.14em]">
-              Wissal <span className="text-aqua">Univers</span>
+              WI<span className="text-aqua">CLOUD</span>
             </p>
             <p className="mt-4 max-w-xs text-sm leading-relaxed opacity-60">
               Agence de solutions IT. Nous concevons les outils qui connectent banques,
@@ -67,8 +76,8 @@ export function Footer() {
         </div>
 
         <div className="mt-16 flex flex-col gap-4 border-t border-white/10 pt-8 text-xs opacity-50 md:flex-row md:items-center md:justify-between">
-          <p>© {new Date().getFullYear()} Wissal Univers. Tous droits réservés.</p>
-          <p>OCR · WICLOUD · WIFACILITY · SETYCORE — et bientôt plus de solutions.</p>
+          <p>© {new Date().getFullYear()} WICLOUD. Tous droits réservés.</p>
+          <p>OCR · Cloud · WIFACILITY · SETYCORE — et bientôt plus de solutions.</p>
         </div>
       </Container>
     </footer>

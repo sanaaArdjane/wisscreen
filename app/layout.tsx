@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { Navbar } from "@/components/layout/Navbar";
-import { Footer } from "@/components/layout/Footer";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { organizationSchema } from "@/lib/seo/schema";
 import { SITE_DESCRIPTION, SITE_LOCALE, SITE_NAME, SITE_URL } from "@/lib/site";
@@ -18,14 +16,14 @@ const geistMono = Geist_Mono({
 });
 
 const TITLE_DEFAULT =
-  "Wissal Univers — Solutions IT pour banques, entreprises et particuliers";
+  "WICLOUD — Solutions IT pour banques, entreprises et particuliers";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
     default: TITLE_DEFAULT,
     // Every route below sets a bare title (e.g. "OCR") and gets this suffix for free,
-    // instead of every generateMetadata call re-concatenating "— Wissal Univers" itself.
+    // instead of every generateMetadata call re-concatenating "— WICLOUD" itself.
     template: `%s — ${SITE_NAME}`,
   },
   description: SITE_DESCRIPTION,
@@ -34,12 +32,12 @@ export const metadata: Metadata = {
   creator: SITE_NAME,
   publisher: SITE_NAME,
   keywords: [
-    "Wissal Univers",
+    "WICLOUD",
     "OCR",
     "extraction de données",
     "reconnaissance de caractères",
     "cloud souverain",
-    "WICLOUD",
+    "Cloud Infrastructure",
     "paiement échelonné",
     "WIFACILITY",
     "Etaysir",
@@ -85,6 +83,11 @@ export const metadata: Metadata = {
   },
 };
 
+/**
+ * Document shell only. `Navbar`/`Footer` used to live here, but the dashboard and
+ * the auth pages must not inherit the marketing chrome — they moved down into
+ * `app/(marketing)/layout.tsx`. The group leaves every public URL unchanged.
+ */
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
@@ -93,9 +96,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="min-h-full flex flex-col bg-paper text-ink" suppressHydrationWarning>
         <JsonLd data={organizationSchema()} />
-        <Navbar />
         {children}
-        <Footer />
       </body>
     </html>
   );

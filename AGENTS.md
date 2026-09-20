@@ -11,7 +11,7 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 <!-- Everything below MUST stay outside the block above: `next dev` regenerates
      that block and will silently delete anything placed inside it. -->
 
-# Wissal Univers — marketing site
+# WICLOUD — marketing site + platform
 
 IT solutions agency site. One Apple-`/macbook-pro`-style long-form homepage presenting every
 solution, plus one rich sub-landing page per solution. Copy language is **French**, and all
@@ -20,8 +20,9 @@ current copy is a first draft the client will revise..
 ## Stack decisions
 
 - App Router, single package (the `pnpm-workspace.yaml` only configures install policy).
-- Tailwind v4 with `@theme` tokens in `app/globals.css`. HeroUI is installed but unused —
-  custom primitives in `components/ui` give tighter control over the visual language.
+- Tailwind v4 with `@theme` tokens in `app/globals.css`. The **marketing** pages use the
+  custom primitives in `components/ui`; **HeroUI v3** is used by `/dashboard` and `/admin`
+  only, and its stylesheet is scoped to that route group (see the platform section).
 - GSAP + ScrollTrigger for scroll reveals (`lib/gsap.ts`); `embla-carousel-react` for the
   horizontal reels.
 - 3D: `@react-three/fiber` + `drei`. No postprocessing dependency — glow is faked with
@@ -175,7 +176,7 @@ are a site-wide near-miss for exactly that reason (ink at 70% on paper is 4.12:1
 
 `lib/data/services.ts` exports `SERVICES`, the single source of truth for both the homepage
 and `/solutions/[slug]`. Adding a solution means adding one entry there — no other file
-should hardcode the list. Current four: **OCR** (data extraction), **WICLOUD** (cloud infra),
+should hardcode the list. Current four: **OCR** (data extraction), **Cloud Infrastructure** (slug `wicloud`),
 **WIFACILITY** (installment payment, contains the bank-facing **Etaysir** admin panel), and
 **SETYCORE** (marketplace).
 
@@ -353,7 +354,7 @@ rather than to keep going.
 
 `components/sections/UniverseReveal.tsx`, the Apple `/macbook-pro` "Take a closer look"
 beat, five screens of pinned scroll. In order: `public/lp_video.webm` full-bleed; the ground
-resolving to paper with the camera sitting inside the counter of the "a" in "Wissal"; a long
+resolving to paper with the camera sitting inside the counter of the "O" in "WICLOUD"; a long
 zoom out until the whole word is legible, centred; the word lifts to its resting place; the
 three-block pitch lands, one block at a time. The footage keeps playing inside the letters
 throughout — the finished headline *is* the video.
@@ -384,15 +385,28 @@ of lift and the rise would not read as a move.
 
 ### `ZOOM_CHAR` and the counter constants
 
-The opening frame sits inside the enclosed hole of the "a" (index 4). The letter is located
-*exactly* — a `Range` over one character of the `<h2>`'s text node gives its rendered box in
-the real font at the real size with the real tracking.
+The opening frame sits inside the enclosed hole of the "O" (index 4 of "WICLOUD"). The
+letter is located *exactly* — a `Range` over one character of the `<h2>`'s text node gives
+its rendered box in the real font at the real size with the real tracking.
 
-The counter itself can't be: there is no DOM API for a glyph's inner geometry, so
-`COUNTER_EM` (0.138 — the bowl is far smaller than it looks) and `COUNTER_DROP` (0.205) were
-**measured off screenshots**, not estimated. Estimating them put a letter stroke in frame
-twice. Re-measure if the display face or `ZOOM_CHAR` changes: park mid-zoom at a known
-scale, read the white region's bounding box off the screenshot, and divide back out.
+The counter itself can't be: there is no DOM API for a glyph's inner geometry. Don't
+estimate it — that put a letter stroke in frame twice. **Rasterise the glyph and scan it.**
+Draw the character to a canvas with the h2's computed font string, then walk rows inside the
+ink bbox and keep the ones with **two separate ink runs**: the gap between them *is* the
+counter. That gives `COUNTER_EM` (its height) directly, and `COUNTER_DROP` follows from the
+baseline's position in the line box, `fontBoundingBoxAscent - (ascent + descent - fontSize)/2`.
+Measured on Geist semibold: cap "O" counter `0.515em`, cap height `0.725em`, baseline
+`0.855em` from the top — so the counter's centre is the line box's centre and
+`COUNTER_DROP` is **0**.
+
+**The cap "O" changed the character of the zoom, and that is expected.** Its counter is
+3.7× the old lowercase "a" bowl (0.515 vs 0.138), so the same `COUNTER_FILL` buys 3.7× less
+magnification. `COUNTER_FILL` is therefore **1.6**, not 1.5: the opening frame is a white
+field with the bowl's walls just out of shot, they sweep in within the first fifth of the
+zoom, and the whole word is legible by the end of the `ZOOM` window. Measured at 1440×900:
+`startScale` ≈ 12.8× (was ~56×). One consequence — `MAX_GLYPH_PX` **no longer binds on any
+device**: peak effective em is ~2,800px desktop and ~2,500px mobile, well under 8,500. The
+clamp stays as a guard, not as an active constraint.
 
 ### Two hard limits on how far the zoom can go
 
@@ -717,7 +731,7 @@ Two traps, both of which drew the exact hard line the vignette exists to remove:
 Verify by parking the seam mid-viewport and zooming a narrow band across it — a JPEG
 screenshot of the whole page is too coarse to show a 1-2 value step.
 
-## Homepage section map (Apple `/macbook-pro` → Wissal Univers)
+## Homepage section map (Apple `/macbook-pro` → WICLOUD)
 
 All ~20 reference sections have an equivalent; components live in `components/sections/` and
 are composed in order in `app/page.tsx`: Hero, HighlightsReel, PerformanceMetrics,
@@ -888,6 +902,254 @@ is a one-line change in `lib/data/services.ts`:
 `SolutionMedia`'s "these are provisional" line is keyed on whether every slot is still a
 mock, so it stops claiming that as soon as real assets land.
 
+# The platform — `/dashboard` and `/admin`
+
+The marketing site is now the front of a real product: a client space and a
+back-office, on Neon Postgres with Better Auth. The public pages are unchanged
+except for their URLs' new home in a route group.
+
+## How people get in
+
+Nothing on the public site links to `/admin`. The navbar carries **Connexion**
+and **Créer un compte**; sign-in then routes by role — `staff`/`admin` land on
+`/admin`, everyone else on `/dashboard` (`destinationFor` in
+`components/auth/AuthForms.tsx`). An explicit `?next=`, which `proxy.ts` sets
+when it bounced someone off a protected page, always wins over that.
+
+Both links are plain `href`s with no session read, so `/` and `/solutions/*`
+stay **statically rendered**; `/connexion` redirects an already-signed-in
+visitor to their dashboard, so the link is never wrong. Magic-link and Google
+sign-ins go through a server redirect where the role isn't available to branch
+on, so they land in the client space and staff walk to `/admin` from there.
+
+`ADMIN_EMAIL` is read **per sign-up**, not captured at import. A module-scope
+constant is frozen at first import, so changing it in `.env.local` left a running
+dev server on the old value — which is how the owner's first sign-up came out as
+a plain client. When that happens the fix is a role change from another admin's
+account, not a re-registration.
+
+`/inscription` is for clients signing themselves up. **Staff accounts are
+created from the back-office**, at `/admin/utilisateurs/nouveau`: `users:write`
+opens a client account, `team:write` is additionally required for anything
+above one. The password is optional — left blank the server generates one and
+shows it in the success banner **once**, which is the point of the page (an
+admin with a client on the phone needs a credential to read out). It goes
+through `auth.api.createUser`, never a hand-rolled INSERT: that is what hashes
+the password the way sign-in verifies it and creates the `account` row a
+credential login needs. The role is then corrected with a direct UPDATE, because
+the plugin types `role` to the roles *it* governs and `staff` is ours.
+
+### One account, one sidebar
+
+A staff or admin account has **one** dashboard, and it is `/admin`. The client
+layout redirects them there. An account that runs the desk is not also a customer
+of it — its client space rendered "0 demandes" and a Découverte plan it will never
+use, and two sidebars for one person is two mental models for one job.
+
+So `ADMIN_NAV` carries everything, **including `Mon profil`** (`/admin/profil`,
+the same forms as the client page, moved to `components/dashboard/ProfileForms.tsx`
+so both shells render one implementation). There is no "switch to my other
+dashboard" link in either direction.
+
+**This does not block seeing the client view — impersonation is that path**, and
+it keeps working by construction: during impersonation `getSession` returns the
+*impersonated* user, whose role is `user`, so the redirect does not fire and the
+admin sees the real client space with the banner up.
+
+`/admin/notifications` is the staff member's **own feed** — what the bell counts
+and therefore where it must lead. It used to be the broadcast composer, so the
+bell led to a "message everyone" form instead of the notifications it was
+counting; the composer moved to `/admin/notifications/envoyer`. The nav entry has
+no permission (a feed is yours); the composer behind it needs
+`notifications:write`.
+
+### The shell is full-bleed; only the content is capped
+
+`AppShell`'s flex row is `w-full`, and the width cap (`max-w-[96rem]`) sits on
+the content inside `<main>`. It was briefly `mx-auto max-w-[100rem]` on the row
+itself, which centred the **whole shell** — so above 1600px the navigation rail
+stopped short of the left edge and left a mist gutter beside it (160px a side at
+1920). A rail has to reach the edge of the screen; caps belong on content.
+
+## Route groups, and why the marketing pages moved
+
+`app/layout.tsx` is the document shell only. `Navbar`/`Footer` used to live there
+and would otherwise wrap the dashboard too, so they moved down into
+`app/(marketing)/layout.tsx`, and `page.tsx` + `solutions/` moved with them.
+**No public URL changed** — `app/(marketing)/page.tsx` is still `/`. The metadata
+file conventions (`icon`, `opengraph-image`, `manifest`, `robots`, `sitemap`)
+stay at `app/` root, where Next looks for them.
+
+```
+app/
+  layout.tsx            html/body/fonts/JsonLd
+  (marketing)/          Navbar + Footer          → /  ·  /solutions/[slug]
+  (auth)/               split-screen brand panel → /connexion /inscription …
+  (app)/                heroui.css + noindex     → /dashboard/*  /admin/*
+```
+
+## Data layer
+
+`lib/db/schema.ts` is the whole schema; `lib/db/index.ts` is a **lazily built**
+`pg` pool behind a `Proxy`. The laziness is load-bearing: CI runs `pnpm build`
+with no `DATABASE_URL` and the Dockerfile passes no database build-arg, so a
+pool constructed at module scope would fail the pipeline the moment a dashboard
+route imported it. `pnpm build` with the env file removed is part of the check.
+
+`node-postgres`, not `@neondatabase/serverless`: this ships as one long-lived
+Node container, so a real TCP pool against Neon's pooled endpoint beats
+per-request HTTP.
+
+Migrations are `pnpm db:generate` / `db:migrate`, run by hand against Neon —
+never from the app's start command. They use `DATABASE_URL_UNPOOLED`, because DDL
+through a transaction pooler trips "prepared statement already exists". The
+`db:*` scripts get their env from Node's own `--env-file=.env.local`; there is no
+`dotenv` dependency.
+
+Money is integer **cents** everywhere, with the currency in its own column.
+`lib/money.ts` is the only place a decimal appears.
+
+## Authorization is `can()`, and nothing else
+
+`lib/permissions.ts` answers every "may they?" question. Two layers: the **role**
+(`user` / `staff` / `admin`) supplies defaults, and the account's own
+`permissions` jsonb overrides individual keys either way. That second layer is
+the requirement — the admin can grant or revoke one capability without inventing
+a role for every combination — and it is why Better Auth's own static
+access-control is *not* used for this. The plugin is still what provides
+`role`/`banned`, `listUsers`, `banUser` and impersonation.
+
+- Only `lib/guard.ts` calls `can()` on behalf of a page: `requireUser`,
+  `requireStaff`, `requirePermission`, `assertOwnerOrPermission`.
+- **Every server action re-checks.** An action is a public endpoint; the page
+  having rendered the control is not an authorization.
+- `requirePermission` redirects to `/acces-refuse?perm=…`, which names the
+  missing capability. Next's `forbidden()` would be nicer but is still behind the
+  experimental `authInterrupts` flag.
+- Row ownership answers `notFound()`, not "access denied": telling a stranger
+  that request 9999 exists is itself a leak.
+- The admin actions enforce three invariants in code, not in the UI: nobody acts
+  on their own account, the **last active admin** cannot be demoted, suspended or
+  deleted (a `count(*)` query, not a hardcoded email), and only `team:write` may
+  change roles or permissions.
+
+`proxy.ts` (Next 16's renamed middleware) is an **optimistic cookie check only**
+— it keeps anonymous traffic off dashboard renders and decides nothing. It reads
+the cookie by name rather than importing `better-auth/cookies`, whose package
+declares a `dev-source` export condition pointing at a `src/` the published
+tarball does not ship: `next build` resolves it, `next dev` does not.
+
+The owner account is promoted by `databaseHooks.user.create.before` in
+`lib/auth.ts` — the first sign-up with `ADMIN_EMAIL` *is* the admin. No seeded
+password in the repo, and no window where the platform has none.
+
+## Everything external degrades instead of failing
+
+`RESEND_API_KEY`, the `AWS_*` storage credentials, the Google client and
+Turnstile are each optional, and each unset key disables its feature with a
+visible explanation rather than an exception. `/admin/parametres` renders the
+live state of all four, so the gap is never silently assumed. E-mail unset logs
+the message *including the verification and reset URLs*, which is what makes the
+whole sign-up flow completable with no mailbox.
+
+File storage is **Neon Object Storage**, declared as a bucket in `neon.ts` and
+provisioned by `pnpm neon:deploy`, which also writes the `AWS_*` vars into
+`.env.local`. It costs no second provider and it branches with the database.
+`forcePathStyle: true` is required. The bucket is private: the database stores
+the object *key* and every read mints a short-lived presigned GET
+(`lib/storage.ts`), so a leaked link expires. Uploads are presigned PUTs straight
+from the browser — bytes never enter the Node process — and the key is always
+built under `u/<the caller's own id>/`, which is what stops one account
+overwriting or reading another's objects.
+
+## HeroUI v3, and the two things it got wrong
+
+The dashboard is HeroUI (already a dependency, never used before). Two findings
+worth keeping:
+
+- **Its stylesheet is loaded only by `app/(app)/heroui.css`**, imported from the
+  signed-in layout, never from the root. Its component CSS is static rather than
+  JIT-purged, and importing it globally took the marketing site's CSS from
+  13.5 KB to 49 KB gzipped. The cost of scoping it is that dashboard documents
+  carry Tailwind's preflight twice; that is ~13 KB behind a login, and the
+  alternative leaves HeroUI's `@theme` blocks unprocessed.
+- **`Checkbox` renders no `<input name>` at all.** Measured in the browser: it is
+  a pure ARIA widget, so `name`/`value` on it are silently dropped and every flag
+  posts as `undefined`. Every settings switch, the "note interne" flag and
+  "envoyer aussi par e-mail" were permanently false. `CheckboxField` in
+  `components/dashboard/ui.tsx` is a real checkbox and is what the dashboard
+  uses. Don't reach for HeroUI's.
+
+Theming is CSS variables on `[data-wicloud-app]` (set by `AppShell`) — no config
+file, and scoped so it can never reach the marketing pages. Overriding
+`--primary`/`--secondary` is not enough: HeroUI's *secondary* and *tertiary*
+buttons read `--default` and `--accent-soft-foreground`, and `.description`
+reads `--muted`. All three are pinned, because HeroUI's own neutrals measured
+4.07:1 and 3.38:1.
+
+## Contrast, re-audited
+
+The audit snippet was improved while building this and now **composites the whole
+ancestor stack** rather than skipping translucent backgrounds — which is how the
+real failures below were found at all. It also skips `.sr-only`.
+
+What it caught, and the rules that came out of it:
+
+- **`text-ink/70` is 4.15:1 on paper and `text-ink/60` is 3.22:1 — both fail.**
+  The dashboard uses exactly two levels: `text-ink` and `text-ink/80` (5.4:1).
+  Don't reintroduce a third by reaching for a lower alpha.
+- **An accent on its own tint does not clear the floor.** `signal-deep` on
+  `bg-signal/15` is 4.46:1 and `teal-deep` on `bg-teal/10` is 4.37:1. Every chip
+  therefore carries its colour in the **fill and border** and its label in `ink`.
+  There is no darker green or teal in the palette to escape to — see the accent
+  table above.
+- The one exception is `bg-mist`, which is opaque: `signal-deep` clears it at
+  4.57:1, which is what the announcement banner uses.
+- Two pre-existing failures on the public site surfaced too and are fixed: the
+  hero's `text-paper/45` hint (3.3:1) and `SolutionRelated`'s `text-aqua` link on
+  a light ground (1.89:1 — the exact trap the accent section warns about; it is
+  now the adaptive `.text-accent`).
+
+All routes — `/`, `/solutions/*`, and every `/dashboard` and `/admin` page —
+report zero failures.
+
+## Demos are simulated, and say so
+
+`lib/demo.ts` returns plausible, clearly-labelled sample output built from the
+caller's own input; there is no OCR engine or scoring service behind it yet.
+Every surface that renders a result says "résultat simulé", and the page leads
+with it. What *is* real is the plumbing around it: the quota is spent, the run is
+recorded in `demo_runs`, and the admin sees it. Replacing that one file with real
+API calls is the only change needed — `DemoResult` is the contract.
+
+A refused run is recorded too, with `outcome: "quota"`. "This customer keeps
+hitting their ceiling" is the most useful thing the table can say, and it is
+invisible if refusals aren't written.
+
+## Quotas
+
+`lib/quotas.ts`. A metric with no row or a `null` limit is **unlimited**; a limit
+of `0` means **not included in the plan** — a different message, so the two are
+distinguishable at the call site. There is no cron: the period resets lazily
+inside `consume()`, which notices an expired `resetsAt` and zeroes the counter in
+the same statement. That statement is also the limit check — the increment and
+the guard are one `UPDATE … WHERE`, because a read-then-write lets two concurrent
+runs both see 19/20 and both go through.
+
+## Reference codes
+
+`WC-YYMM-NNNN` for requests, `DV-` for quotes, `FA-` for invoices, counted per
+prefix per month from the highest existing ref. Two concurrent inserts can
+compute the same one; the **unique index** is what guarantees uniqueness and the
+caller retries (`insertWithRef`). `lib/ref.ts` carries a `ponytail:` note about
+moving to a sequence if the desk ever outpaces it.
+
+## The contact form finally goes somewhere
+
+`app/api/contact/route.ts` verified Turnstile and then dropped the message, while
+the form told the visitor it had been "bien enregistré". It now writes a
+`contact_leads` row and e-mails the admin; /admin/messages is the inbox.
+
 ## Known environment quirk
 
 In headless/automated browser sessions the tab reports `document.hidden === true`, which
@@ -919,6 +1181,15 @@ matches the progress you wanted.
 ## Open items
 
 - All copy is a first-draft placeholder.
+- **`admin.test@example.com` is still on the production branch** and is an admin.
+  It was created to verify the back-office without touching the owner's address.
+  The owner's account now exists and is an admin too, so it can finally be
+  removed — from /admin/utilisateurs, signed in as the owner (the delete control
+  is hidden on your own fiche, which is why it could not delete itself).
+- No payment provider: an invoice's status is set by a human in /admin/factures.
+- No realtime: threads and notifications refresh on navigation.
+- A broadcast writes one `notifications` row per recipient. Fine into five
+  figures; swap for a segment join if the user table ever gets large.
 - No real media yet beyond `public/photos/service1.jpg` (OCR's laptop mockup) and the
   homepage reveal video. Every slot is plumbed and documented in `lib/data/media.ts` —
   filling them in is data, not code.

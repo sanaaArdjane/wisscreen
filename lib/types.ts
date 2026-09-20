@@ -25,7 +25,28 @@ export type IconName =
   | "maximize"
   | "minimize"
   | "external"
-  | "arrow-right";
+  | "arrow-right"
+  /* Added for the dashboard chrome (components/dashboard/). */
+  | "bell"
+  | "mail"
+  | "settings"
+  | "log-out"
+  | "menu"
+  | "close"
+  | "plus"
+  | "search"
+  | "file-text"
+  | "inbox"
+  | "chevron-down"
+  | "chevron-right"
+  | "trash"
+  | "upload"
+  | "download"
+  | "home"
+  | "receipt"
+  | "activity"
+  | "ban"
+  | "send";
 
 export type MediaSlotKind =
   | "mock-dashboard"

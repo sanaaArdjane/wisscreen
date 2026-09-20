@@ -54,7 +54,7 @@ export function Contact() {
           <div className="flex flex-col gap-4 text-sm">
             <p className="flex items-center gap-3 opacity-70">
               <Icon name="link" className="h-4 w-4 text-teal-deep" />
-              contact@wissalunivers.com
+              contact@wissalgroup.com
             </p>
             <p className="flex items-center gap-3 opacity-70">
               <Icon name="users" className="h-4 w-4 text-teal-deep" />

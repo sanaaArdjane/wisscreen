@@ -14,7 +14,7 @@ export function Values() {
   return (
     <section id="values" className="bg-paper py-28 text-ink">
       <Container className="flex flex-col gap-16">
-        <SectionHeading eyebrow="Nos valeurs" title="Ce qui guide Wissal Univers." align="center" />
+        <SectionHeading eyebrow="Nos valeurs" title="Ce qui guide WICLOUD." align="center" />
 
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-3">
           {VALUES.map((value) => (

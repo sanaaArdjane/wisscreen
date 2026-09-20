@@ -25,7 +25,7 @@ export function Navbar() {
     >
       <nav className="mx-auto flex w-full max-w-[1280px] items-center justify-between px-6 text-paper md:px-10">
         <Link href="/" className="text-sm font-semibold tracking-[0.14em] uppercase">
-          Wissal <span className="text-accent">Univers</span>
+          WI<span className="text-accent">CLOUD</span>
         </Link>
 
         <ul className="hidden items-center gap-8 text-sm font-medium md:flex">
@@ -38,12 +38,29 @@ export function Navbar() {
           ))}
         </ul>
 
-        <div className="hidden md:block">
+        {/* Auth entry points, and no link to /admin anywhere: staff reach the
+            back-office by typing the URL, and signing in sends them there. Both
+            links are plain hrefs with no session read, so the marketing pages
+            stay statically rendered — `/connexion` bounces an already-signed-in
+            visitor to their dashboard, so the link is never wrong. */}
+        <div className="hidden items-center gap-5 md:flex">
           <Link
             href="#contact"
-            className="control-signal rounded-full px-5 py-2.5 text-sm font-medium transition-colors"
+            className="text-sm font-medium opacity-80 transition-opacity hover:opacity-100"
           >
             Nous contacter
+          </Link>
+          <Link
+            href="/connexion"
+            className="text-sm font-medium opacity-80 transition-opacity hover:opacity-100"
+          >
+            Connexion
+          </Link>
+          <Link
+            href="/inscription"
+            className="control-signal rounded-full px-5 py-2.5 text-sm font-medium transition-colors"
+          >
+            Créer un compte
           </Link>
         </div>
 
@@ -70,11 +87,24 @@ export function Navbar() {
               </li>
             ))}
             <li>
-              <Link href="#contact" onClick={() => setOpen(false)} className="text-accent">
+              <Link href="#contact" onClick={() => setOpen(false)}>
                 Nous contacter
               </Link>
             </li>
           </ul>
+
+          <div className="mt-5 flex flex-col gap-3 border-t border-white/15 pt-5">
+            <Link href="/connexion" onClick={() => setOpen(false)} className="text-base font-medium">
+              Connexion
+            </Link>
+            <Link
+              href="/inscription"
+              onClick={() => setOpen(false)}
+              className="control-signal rounded-full px-5 py-2.5 text-center text-sm font-medium"
+            >
+              Créer un compte
+            </Link>
+          </div>
         </div>
       )}
     </header>

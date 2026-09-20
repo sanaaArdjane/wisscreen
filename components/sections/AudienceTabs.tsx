@@ -28,7 +28,7 @@ export function AudienceTabs() {
         <SectionHeading
           eyebrow="Pour qui ?"
           title="Une solution pour chaque acteur de votre écosystème."
-          description="Que vous soyez une banque, une entreprise partenaire ou un particulier, une ou plusieurs solutions Wissal Univers répondent à vos besoins."
+          description="Que vous soyez une banque, une entreprise partenaire ou un particulier, une ou plusieurs solutions WICLOUD répondent à vos besoins."
         />
 
         <Tabs tabs={tabs}>

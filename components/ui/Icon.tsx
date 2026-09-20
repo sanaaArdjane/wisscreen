@@ -25,6 +25,29 @@ const PATHS: Record<IconName, string> = {
   minimize: "M9 4v5H4M20 9h-5V4M15 20v-5h5M4 15h5v5",
   external: "M14 4h6v6M20 4l-8 8M18 13v5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h5",
   "arrow-right": "M5 12h14M13 6l6 6-6 6",
+
+  /* Dashboard chrome. Same 24×24 grid, same 1.6 stroke, no fills — so they sit
+     next to the marketing set without looking borrowed from another icon pack. */
+  bell: "M18 9a6 6 0 1 0-12 0c0 5-2 6-2 6h16s-2-1-2-6M13.7 20a2 2 0 0 1-3.4 0",
+  mail: "M3 6h18v12H3zM3 7l9 6 9-6",
+  settings: "M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM19.4 14.5a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-2.9 1.2v.2a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-2.9-1.2l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0-1.2-2.9H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.2-2.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 2.9-1.2V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 2.9 1.2l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0 1.2 2.9h.2a2 2 0 1 1 0 4h-.2a1.7 1.7 0 0 0-1.5 1Z",
+  "log-out": "M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9",
+  menu: "M4 6h16M4 12h16M4 18h16",
+  close: "M6 6l12 12M18 6L6 18",
+  plus: "M12 5v14M5 12h14",
+  search: "M11 19a8 8 0 1 0 0-16 8 8 0 0 0 0 16ZM21 21l-4.3-4.3",
+  "file-text": "M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8l-5-5ZM14 3v5h5M9 13h6M9 17h6",
+  inbox: "M3 12h5l2 3h4l2-3h5M5 5h14l2 7v7H3v-7l2-7Z",
+  "chevron-down": "M6 9l6 6 6-6",
+  "chevron-right": "M9 6l6 6-6 6",
+  trash: "M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3",
+  upload: "M12 17V4M7 9l5-5 5 5M4 20h16",
+  download: "M12 4v13M7 12l5 5 5-5M4 20h16",
+  home: "M4 11l8-7 8 7M6 10v10h12V10",
+  receipt: "M5 3v18l2.5-1.5L10 21l2-1.5L14 21l2.5-1.5L19 21V3H5ZM9 8h6M9 12h6M9 16h3",
+  activity: "M3 12h4l3 8 4-16 3 8h4",
+  ban: "M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18ZM5.6 5.6l12.8 12.8",
+  send: "M21 3 3 10.5l7 3 3 7L21 3Z",
 };
 
 export function Icon({

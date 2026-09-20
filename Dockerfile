@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
 
 # ─────────────────────────────────────────────────────────────────────────────
-# Wissal Univers — production image for the Next.js 16 marketing site.
+# WICLOUD — production image for the Next.js 16 marketing site.
 #
 # Multi-stage build around Next's `output: "standalone"` (set in next.config.ts):
 # the final image ships only the traced runtime deps + `server.js`, so it stays

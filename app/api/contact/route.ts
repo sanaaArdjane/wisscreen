@@ -1,13 +1,17 @@
 import { z } from "zod";
+import { db } from "@/lib/db";
+import { contactLeads } from "@/lib/db/schema";
+import { sendEmail, adminEmail } from "@/lib/email";
+import { SITE_URL } from "@/lib/site";
 
 /**
- * Verifies the Cloudflare Turnstile token both contact forms submit
- * (`Contact.tsx`, `SolutionContact.tsx`) before accepting a submission.
+ * The public contact form (`Contact.tsx`, `SolutionContact.tsx`).
  *
- * This route's job stops at "is the submitter human" — there is no email/CRM
- * provider wired in yet, so a verified submission is accepted but not actually
- * delivered anywhere. Wire in a real send (Resend, SMTP, …) here once there's a
- * provider and credentials for it.
+ * Turnstile decides whether the submitter is human; the submission is then
+ * **stored** in `contact_leads` and surfaced in /admin/messages, and a copy is
+ * e-mailed to the admin. It used to do neither — it verified the token, returned
+ * `{ok:true}` and dropped the message, while the form told the visitor it had
+ * been "bien enregistré". The database write is what makes that sentence true.
  */
 
 const ContactSchema = z.object({
@@ -67,5 +71,30 @@ export async function POST(request: Request) {
     return Response.json({ ok: false, error: "turnstile_failed" }, { status: 403 });
   }
 
-  return Response.json({ ok: true });
+  try {
+    const [lead] = await db
+      .insert(contactLeads)
+      .values({
+        name: parsed.data.name,
+        email: parsed.data.email,
+        message: parsed.data.message,
+        solution: parsed.data.solution,
+      })
+      .returning({ id: contactLeads.id });
+
+    // The e-mail is a convenience, not the record of truth — so a mail provider
+    // that is down or unconfigured must not turn a stored lead into an error the
+    // visitor sees and retries.
+    await sendEmail({
+      to: adminEmail(),
+      subject: `Message du site — ${parsed.data.name}`,
+      text: `${parsed.data.name} <${parsed.data.email}>${parsed.data.solution ? `\nSolution : ${parsed.data.solution}` : ""}\n\n${parsed.data.message}`,
+      action: { label: "Ouvrir la boîte de réception", url: `${SITE_URL}/admin/messages` },
+    });
+
+    return Response.json({ ok: true, id: lead.id });
+  } catch (error) {
+    console.error("[contact] failed to store lead", error);
+    return Response.json({ ok: false, error: "storage_failed" }, { status: 500 });
+  }
 }

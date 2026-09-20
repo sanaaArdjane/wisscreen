@@ -16,9 +16,9 @@ const LINKS = [
     text: "Le paiement échelonné de WIFACILITY est intégré nativement dans la marketplace SETYCORE au moment du paiement.",
   },
   {
-    from: "WICLOUD",
+    from: "Cloud Infrastructure",
     to: "Toutes les solutions",
-    text: "OCR, WIFACILITY et SETYCORE fonctionnent tous sur l'infrastructure WICLOUD — un socle commun, sécurisé et supervisé.",
+    text: "OCR, WIFACILITY et SETYCORE fonctionnent tous sur notre Cloud Infrastructure — un socle commun, sécurisé et supervisé.",
   },
 ];
 
@@ -27,9 +27,9 @@ export function ConnectedSolutions() {
     <section className="section-ink py-28">
       <Container className="flex flex-col gap-14">
         <SectionHeading
-          eyebrow="Un seul univers"
+          eyebrow="Un seul écosystème"
           title="Des solutions connectées entre elles."
-          description="Wissal Univers n'est pas une collection d'outils isolés : chaque produit est pensé pour s'intégrer aux autres et créer un parcours continu, de la donnée jusqu'au paiement."
+          description="WICLOUD n'est pas une collection d'outils isolés : chaque produit est pensé pour s'intégrer aux autres et créer un parcours continu, de la donnée jusqu'au paiement."
         />
 
         <div className="flex flex-col gap-6">

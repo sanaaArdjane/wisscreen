@@ -4,7 +4,7 @@ import { Reveal } from "@/components/ui/Reveal";
 import { Button } from "@/components/ui/Button";
 
 const STEPS = [
-  { title: "Audit", text: "Nous étudions vos process actuels et identifions les solutions Wissal Univers les plus pertinentes." },
+  { title: "Audit", text: "Nous étudions vos process actuels et identifions les solutions WICLOUD les plus pertinentes." },
   { title: "Plan de migration", text: "Un plan par étapes est défini pour limiter l'impact sur vos opérations en cours." },
   { title: "Déploiement accompagné", text: "Nos équipes vous accompagnent pendant tout le déploiement, environnement de test compris." },
   { title: "Formation", text: "Vos équipes sont formées à l'utilisation des tableaux de bord et des API." },
@@ -17,7 +17,7 @@ export function MigrationProgram() {
         <div className="flex flex-col items-start justify-between gap-8 md:flex-row md:items-end">
           <SectionHeading
             eyebrow="Accompagnement à la migration"
-            title="Passer à Wissal Univers, sans friction."
+            title="Passer à WICLOUD, sans friction."
             description="Que vous remplaciez un système existant ou partiez de zéro, notre équipe vous accompagne à chaque étape."
           />
           <Button href="#contact" variant="secondary" className="shrink-0">

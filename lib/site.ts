@@ -14,7 +14,7 @@
 const rawSiteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://wisscreen.rflabs.tech";
 
 export const SITE_URL = rawSiteUrl.replace(/\/+$/, "");
-export const SITE_NAME = "Wissal Univers";
+export const SITE_NAME = "WICLOUD";
 export const SITE_LOCALE = "fr_FR";
 export const SITE_DESCRIPTION =
-  "Wissal Univers conçoit OCR, WICLOUD, WIFACILITY et SETYCORE : des solutions IT qui connectent banques, partenaires et particuliers.";
+  "WICLOUD conçoit OCR, Cloud Infrastructure, WIFACILITY et SETYCORE : des solutions IT qui connectent banques, partenaires et particuliers.";

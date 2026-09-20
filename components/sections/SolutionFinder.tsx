@@ -28,8 +28,8 @@ const PROFILES = [
   },
   {
     title: "Vous développez une plateforme",
-    text: "Hébergez et faites évoluer vos applications sur WICLOUD, l'infrastructure qui fait tourner tout Wissal Univers.",
-    solutions: [{ name: "WICLOUD", slug: "wicloud" }],
+    text: "Hébergez et faites évoluer vos applications sur Cloud Infrastructure, la plateforme qui fait tourner tout WICLOUD.",
+    solutions: [{ name: "Cloud Infrastructure", slug: "wicloud" }],
   },
 ];
 
@@ -40,7 +40,7 @@ export function SolutionFinder() {
         <SectionHeading
           eyebrow="Quelle solution pour vous ?"
           title="Trouvez le produit adapté à votre situation."
-          description="Selon votre profil, une ou plusieurs solutions Wissal Univers répondent directement à votre besoin."
+          description="Selon votre profil, une ou plusieurs solutions WICLOUD répondent directement à votre besoin."
         />
 
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">

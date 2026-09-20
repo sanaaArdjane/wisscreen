@@ -21,7 +21,7 @@ export function ScaleSpecs() {
           eyebrow="Infrastructure"
           title="Construites pour l'échelle, dès le premier jour."
           align="center"
-          description="Chaque solution Wissal Univers hérite des standards de sécurité et de disponibilité de WICLOUD."
+          description="Chaque solution WICLOUD hérite des standards de sécurité et de disponibilité de notre Cloud Infrastructure."
         />
 
         <div className="grid grid-cols-1 gap-px overflow-hidden rounded-3xl bg-white/10 sm:grid-cols-2 lg:grid-cols-3">

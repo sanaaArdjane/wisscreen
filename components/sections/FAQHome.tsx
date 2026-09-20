@@ -8,8 +8,8 @@ const FAQ = [
     content: "Cela dépend de votre profil : banque, commerçant partenaire ou particulier. Consultez la section « Quelle solution pour vous ? » ou contactez-nous directement.",
   },
   {
-    title: "Les solutions Wissal Univers sont-elles connectées entre elles ?",
-    content: "Oui. OCR, WICLOUD, WIFACILITY et SETYCORE sont conçues pour fonctionner ensemble, sur une infrastructure commune.",
+    title: "Les solutions WICLOUD sont-elles connectées entre elles ?",
+    content: "Oui. OCR, Cloud Infrastructure, WIFACILITY et SETYCORE sont conçues pour fonctionner ensemble, sur une infrastructure commune.",
   },
   {
     title: "Proposez-vous un accompagnement à l'intégration ?",
@@ -17,10 +17,10 @@ const FAQ = [
   },
   {
     title: "Où sont hébergées les données ?",
-    content: "Sur WICLOUD, notre infrastructure cloud souveraine, avec un contrôle total sur la localisation des données.",
+    content: "Sur notre Cloud Infrastructure souveraine, avec un contrôle total sur la localisation des données.",
   },
   {
-    title: "Comment devenir partenaire de Wissal Univers ?",
+    title: "Comment devenir partenaire de WICLOUD ?",
     content: "Contactez notre équipe via le formulaire ci-dessous — nous reviendrons vers vous rapidement pour étudier votre projet.",
   },
 ];

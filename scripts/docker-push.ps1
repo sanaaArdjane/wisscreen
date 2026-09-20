@@ -1,6 +1,6 @@
 #!/usr/bin/env pwsh
 #
-# Build the Wissal Univers image and push it to Docker Hub (Windows / PowerShell).
+# Build the WICLOUD image and push it to Docker Hub (Windows / PowerShell).
 #
 #   .\scripts\docker-push.ps1              # tag = short git sha (+ :latest)
 #   .\scripts\docker-push.ps1 -Tag v1.2.0  # tag = v1.2.0 (+ :latest)

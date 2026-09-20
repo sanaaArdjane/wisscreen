@@ -5,7 +5,7 @@ import { Icon } from "@/components/ui/Icon";
 import type { IconName } from "@/lib/types";
 
 const PILLARS: { icon: IconName; title: string; text: string }[] = [
-  { icon: "lock", title: "Chiffrement de bout en bout", text: "Les données sont chiffrées au repos et en transit sur l'ensemble des solutions Wissal Univers." },
+  { icon: "lock", title: "Chiffrement de bout en bout", text: "Les données sont chiffrées au repos et en transit sur l'ensemble des solutions WICLOUD." },
   { icon: "shield", title: "Contrôle d'accès strict", text: "Rôles, permissions et journaux d'audit pour savoir qui accède à quoi, à tout moment." },
   { icon: "check", title: "Traçabilité & conformité", text: "Chaque action sensible — validation d'un dossier, traitement d'un document — est tracée et auditable." },
 ];

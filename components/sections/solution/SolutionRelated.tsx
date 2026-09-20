@@ -13,7 +13,7 @@ export function SolutionRelated({ service }: { service: Service }) {
   return (
     <section className="py-28">
       <Container className="flex flex-col gap-16">
-        <SectionHeading eyebrow="Découvrez aussi" title="Les autres solutions de l'univers." />
+        <SectionHeading eyebrow="Découvrez aussi" title="Les autres solutions de l'écosystème." />
 
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-3">
           {others.map((other) => (
@@ -23,7 +23,7 @@ export function SolutionRelated({ service }: { service: Service }) {
                 <div>
                   <p className="text-xs font-semibold uppercase tracking-[0.12em] opacity-50">{other.category}</p>
                   <p className="mt-1 text-xl font-semibold">{other.name}</p>
-                  <span className="mt-2 inline-flex items-center gap-2 text-sm font-medium text-aqua">
+                  <span className="mt-2 inline-flex items-center gap-2 text-sm font-medium text-accent">
                     Découvrir
                     <Icon name="arrow-right" className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                   </span>

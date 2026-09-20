@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Build the Wissal Univers image and push it to Docker Hub (Linux/macOS).
+# Build the WICLOUD image and push it to Docker Hub (Linux/macOS).
 #
 #   ./scripts/docker-push.sh            # tag = short git sha (+ :latest)
 #   ./scripts/docker-push.sh v1.2.0     # tag = v1.2.0 (+ :latest)

@@ -16,7 +16,7 @@ export function WhyUs() {
     <section className="section-ink py-28">
       <Container className="grid grid-cols-1 gap-16 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
         <SectionHeading
-          eyebrow="Pourquoi Wissal Univers"
+          eyebrow="Pourquoi WICLOUD"
           title="Un partenaire technique, pas juste un fournisseur."
           description="Au-delà du produit, c'est un accompagnement dans la durée que nous proposons à chaque banque, partenaire et particulier."
         />

@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/Button";
 const POINTS = [
   { icon: "scan" as const, title: "Compréhension de documents", text: "Nos modèles ne lisent pas que du texte : ils comprennent la structure d'un document — champs, tableaux, signatures." },
   { icon: "refresh" as const, title: "Apprentissage continu", text: "L'équipe Data ré-entraîne les modèles en continu sur de nouveaux types de documents et de nouvelles langues." },
-  { icon: "shield" as const, title: "Traitement maîtrisé", text: "Vos documents sont traités dans un environnement que vous contrôlez, hébergé sur notre infrastructure WICLOUD." },
+  { icon: "shield" as const, title: "Traitement maîtrisé", text: "Vos documents sont traités dans un environnement que vous contrôlez, hébergé sur notre Cloud Infrastructure." },
 ];
 
 export function DataIntelligence() {

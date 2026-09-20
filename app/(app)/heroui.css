@@ -1,0 +1,95 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   HeroUI v3, loaded **only** for the signed-in area.
+
+   This is imported by `app/(app)/layout.tsx`, not by the root layout, and Next
+   emits one CSS chunk per entry — so `/` and `/solutions/*` never download it.
+   That matters: HeroUI's stylesheet is static (its component rules aren't JIT
+   -purged), and importing it globally took the marketing site's CSS from 13.5 KB
+   to 49 KB gzipped. Behind a login, 49 KB is fine; on the landing page it is not.
+
+   The cost of scoping it this way is that `@heroui/styles/css` pulls in its own
+   `@import "tailwindcss"`, so dashboard documents carry Tailwind's preflight and
+   utilities twice — once from `globals.css`, once from here. The two copies are
+   byte-identical rules in the same layers, so nothing cascades differently; it is
+   ~13 KB gzipped of duplication on authenticated pages only, and the alternative
+   (hand-importing HeroUI's parts without Tailwind) leaves its `@theme` blocks
+   unprocessed and the components unthemed.
+
+   `@source` is explicit because the Tailwind entry now lives in node_modules,
+   which moves the automatic content-detection root away from this project.
+   ───────────────────────────────────────────────────────────────────────────── */
+@import "@heroui/styles/css";
+
+@source "../../app";
+@source "../../components";
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Brand theming.
+
+   HeroUI v3 is themed entirely through CSS variables, so there is no config file
+   and no plugin — these overrides ARE the theme. They are scoped to
+   `[data-wicloud-app]` (set on the dashboard shell) rather than `:root`, so they
+   can never reach the marketing pages even if this file were ever loaded there.
+
+   Contrast notes, the same rules the rest of the site follows:
+   - `--primary` is the signal accent `#13b78c`, a bright mid-tone. Its foreground
+     is `abyss`, not white: paper on signal is 2.34:1, abyss on it is 5.41:1.
+   - `--link` is `signal-deep` (5.1:1 on paper), never the brand value, which is
+     2.34:1 on white and cannot carry text.
+   - `--danger` has no brand token — the palette is a cool family plus one green.
+     It borrows `ink` at full strength so a destructive control reads as serious
+     without inventing a red the design system doesn't own.
+   ───────────────────────────────────────────────────────────────────────────── */
+[data-wicloud-app] {
+  --radius: 0.75rem;
+
+  --background: var(--color-mist);
+  --foreground: var(--color-ink);
+
+  --surface: var(--color-paper);
+  --surface-foreground: var(--color-ink);
+  --surface-hover: color-mix(in srgb, var(--color-ink) 4%, var(--color-paper));
+  --surface-secondary: var(--color-mist);
+  --surface-secondary-foreground: var(--color-ink);
+  --surface-tertiary: color-mix(in srgb, var(--color-ink) 8%, var(--color-paper));
+  --surface-tertiary-foreground: var(--color-ink);
+
+  --overlay: var(--color-paper);
+  --overlay-foreground: var(--color-ink);
+
+  /* `--muted` is what `.description` (every field hint) paints with. At 62% of
+     ink it measures 3.38:1 on paper — under the floor. 80% is 5.4:1, which is
+     the same value the dashboard's own `text-ink/80` uses, so hints and body
+     copy agree. */
+  --muted: color-mix(in srgb, var(--color-ink) 80%, transparent);
+
+  --accent: var(--color-signal);
+  --accent-foreground: var(--color-abyss);
+
+  /* `--default` + `--accent-soft-foreground` are what HeroUI's *secondary* and
+     *tertiary* buttons actually read — not `--secondary`, which only the filled
+     variant uses. Left at HeroUI's own neutrals they came out at 4.07:1, so they
+     are pinned to the brand's `mist` ground with a full-strength `ink` label. */
+  --default: var(--color-mist);
+  --default-hover: color-mix(in srgb, var(--color-ink) 9%, var(--color-paper));
+  --accent-soft: var(--color-mist);
+  --accent-soft-foreground: var(--color-ink);
+
+  --primary: var(--color-signal);
+  --primary-foreground: var(--color-abyss);
+
+  --secondary: var(--color-ink);
+  --secondary-foreground: var(--color-paper);
+
+  --border: color-mix(in srgb, var(--color-ink) 14%, transparent);
+  --separator: color-mix(in srgb, var(--color-ink) 10%, transparent);
+  --focus: var(--color-signal-deep);
+  --link: var(--color-signal-deep);
+
+  --success: var(--color-signal-deep);
+  --success-foreground: var(--color-paper);
+  --warning: var(--color-steel);
+  --warning-foreground: var(--color-paper);
+  --danger: var(--color-ink);
+  --danger-foreground: var(--color-paper);
+}
