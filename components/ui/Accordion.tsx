@@ -70,7 +70,11 @@ export function Accordion({
               ref={(node) => {
                 panelRefs.current[index] = node;
               }}
-              style={{ height: isOpen ? "auto" : 0 }}
+              // Keyed on `defaultOpen`, not `isOpen`: this is only the *initial*
+              // height. GSAP owns the property from the first toggle on, and a value
+              // that changed with state made React re-write it mid-tween — the panel
+              // snapped shut instead of animating.
+              style={{ height: index === defaultOpen ? "auto" : 0 }}
               className="overflow-hidden"
             >
               <div className="pb-6 pr-14 text-base leading-relaxed opacity-70">{item.content}</div>

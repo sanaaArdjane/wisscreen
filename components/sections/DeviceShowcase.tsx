@@ -193,7 +193,6 @@ export function DeviceShowcase() {
         el.style.transform = "";
         continue;
       }
-      const box = el.getBoundingClientRect();
       const bounds = stage.getBoundingClientRect();
       // The box is already transformed if this is a re-apply on resize, so undo first and
       // re-measure — otherwise the scale compounds.
@@ -211,7 +210,6 @@ export function DeviceShowcase() {
       // `translate` sits left of `scale` in the list, so it is applied *after* it and is
       // not itself scaled — the centre-to-centre offsets above are used as measured.
       el.style.transform = `translate3d(${dx.toFixed(1)}px, ${dy.toFixed(1)}px, 0) scale(${scale.toFixed(4)})`;
-      void box;
     }
   }, []);
 

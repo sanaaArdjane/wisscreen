@@ -78,12 +78,10 @@ export function Turnstile({
         widgetIdRef.current = null;
       }
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     if (widgetIdRef.current) window.turnstile?.reset(widgetIdRef.current);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [resetKey]);
 
   return (

@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 
+import { sourceMatches } from "@/app/api/preview-status/route";
 import { cn } from "@/lib/cn";
 import { SOLUTION_MEDIA, withMedia } from "@/lib/data/media";
 import { SERVICES } from "@/lib/data/services";
@@ -62,5 +63,31 @@ describe("withMedia", () => {
       expect(built?.highlightVariant, `${slug}.highlightVariant`).toBe("image");
       expect(built?.highlightImage, `${slug}.highlightImage`).toBe(media.highlight);
     }
+  });
+});
+
+describe("sourceMatches (CSP frame-ancestors)", () => {
+  const self = "https://wissal.example";
+
+  it("matches an exact host, with or without a scheme", () => {
+    expect(sourceMatches("wissal.example", self, self)).toBe(true);
+    expect(sourceMatches("https://wissal.example", self, self)).toBe(true);
+    expect(sourceMatches("other.example", self, self)).toBe(false);
+  });
+
+  it("treats a wildcard as subdomains only, never the bare host", () => {
+    expect(sourceMatches("*.example", "https://wissal.example", self)).toBe(true);
+    expect(sourceMatches("*.wissal.example", "https://wissal.example", self)).toBe(false);
+  });
+
+  it("honours the keywords", () => {
+    expect(sourceMatches("*", self, self)).toBe(true);
+    expect(sourceMatches("'none'", self, self)).toBe(false);
+    expect(sourceMatches("'self'", self, self)).toBe(true);
+    expect(sourceMatches("'self'", self, "https://other.example")).toBe(false);
+  });
+
+  it("requires the scheme to agree", () => {
+    expect(sourceMatches("http://wissal.example", self, self)).toBe(false);
   });
 });

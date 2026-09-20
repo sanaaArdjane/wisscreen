@@ -582,7 +582,13 @@ function GifStatsCard({ service }: { service: Service }) {
   // Snap every clone onto its tile before the browser paints, so there is never a
   // frame where it's visible at the wrong size — a plain useEffect would flash the
   // fallback (top-left, tiny) className state first.
-  useLayoutEffect(() => {
+  //
+  // Re-run on resize, not only on mount. The tile row is `hidden sm:flex`, so below
+  // `sm` every tile measures 0x0 and the clones are pinned to nothing; a mount-only
+  // measurement left them there for good once the viewport crossed the breakpoint,
+  // and any width change left them stale. Skipped while a tile is open so it never
+  // fights the grow tween.
+  const snapOverlays = useCallback(() => {
     const card = cardRef.current;
     if (!card) return;
     const cardRect = card.getBoundingClientRect();
@@ -600,6 +606,25 @@ function GifStatsCard({ service }: { service: Service }) {
       });
     });
   }, []);
+
+  /* Read by the observer instead of `hovered` itself: re-running the effect on every
+     open/close would snap the clone mid-tween — back onto its tile as it grows, or
+     straight to its destination as it shrinks. */
+  const hoveredRef = useRef<number | null>(null);
+
+  useLayoutEffect(() => {
+    const card = cardRef.current;
+    if (!card) return;
+    snapOverlays();
+    const observer = new ResizeObserver(() => {
+      // An open or still-animating clone owns its own geometry.
+      if (hoveredRef.current !== null) return;
+      if (overlayRefs.current.some((o) => o && gsap.isTweening(o))) return;
+      snapOverlays();
+    });
+    observer.observe(card);
+    return () => observer.disconnect();
+  }, [snapOverlays]);
 
   const growOverlay = useCallback(
     (i: number) => {
@@ -656,6 +681,7 @@ function GifStatsCard({ service }: { service: Service }) {
   const openTile = useCallback(
     (i: number) => {
       growOverlay(i);
+      hoveredRef.current = i;
       setHovered(i);
     },
     [growOverlay],
@@ -663,6 +689,7 @@ function GifStatsCard({ service }: { service: Service }) {
 
   const closeCard = useCallback(() => {
     if (hovered !== null) shrinkOverlay(hovered);
+    hoveredRef.current = null;
     setHovered(null);
   }, [hovered, shrinkOverlay]);
 

@@ -38,8 +38,8 @@ function selfOrigin(request: Request): string {
   return new URL(request.url).origin;
 }
 
-/** Does one CSP `frame-ancestors` source cover `origin`? */
-function sourceMatches(source: string, origin: string, targetOrigin: string): boolean {
+/** Does one CSP `frame-ancestors` source cover `origin`? Exported for tests. */
+export function sourceMatches(source: string, origin: string, targetOrigin: string): boolean {
   const src = source.trim().toLowerCase();
   if (!src) return false;
   if (src === "*" || src === "https:" || src === "http:") return true;
@@ -59,7 +59,8 @@ function sourceMatches(source: string, origin: string, targetOrigin: string): bo
     return false;
   }
   if (scheme !== url.protocol) return false;
-  if (host.startsWith("*.")) return url.host === host.slice(2) || url.host.endsWith(host.slice(1));
+  // `*.example.com` covers subdomains only — the bare host is not one of them (CSP 3).
+  if (host.startsWith("*.")) return url.host.endsWith(host.slice(1));
   return host === url.host;
 }
 
