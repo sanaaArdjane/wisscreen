@@ -1,17 +1,12 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { requireUser } from "@/lib/guard";
-import {
-  getOwnRequest,
-  listAttachments,
-  listMessages,
-  listQuotes,
-} from "@/lib/server/queries";
+import { getOwnRequest, listQuotes, listThread } from "@/lib/server/queries";
 import { PageHeader, Panel } from "@/components/dashboard/PageHeader";
 import { StatusChip } from "@/components/dashboard/ui";
 import { Thread } from "@/components/dashboard/Thread";
-import { FileUpload } from "@/components/dashboard/FileUpload";
-import { ReplyForm } from "./ReplyForm";
+import { ChatComposer } from "@/components/dashboard/ChatComposer";
+import { markThreadRead, replyToRequest } from "../actions";
 import { CloseRequestButton } from "./CloseRequestButton";
 import {
   PRIORITY_LABELS,
@@ -44,9 +39,8 @@ export default async function DemandeDetailPage({
 
   // `false` on both: this is the client's view, so staff notes and internal
   // files must not be fetched at all — not fetched and hidden, not fetched.
-  const [messages, files, quotes] = await Promise.all([
-    listMessages(request.id, false),
-    listAttachments(request.id, false),
+  const [thread, quotes] = await Promise.all([
+    listThread(request.id, false),
     listQuotes(user.id),
   ]);
 
@@ -78,42 +72,40 @@ export default async function DemandeDetailPage({
             <p className="whitespace-pre-wrap text-sm text-fg/80">{request.details}</p>
           </Panel>
 
-          <Panel title="Échanges" bodyClassName="p-5">
+          <Panel title="Échanges">
             <Thread
-              messages={messages.map((m) => ({
-                id: m.message.id,
-                body: m.message.body,
-                internal: m.message.internal,
-                createdAt: m.message.createdAt,
-                authorId: m.message.authorId,
-                authorName: m.author?.name ?? "Équipe WICLOUD",
+              messages={thread.messages.map(({ message: m, author, files }) => ({
+                id: m.id,
+                body: m.body,
+                internal: m.internal,
+                createdAt: m.createdAt,
+                readAt: m.readAt,
+                authorId: m.authorId,
+                authorName: m.authorId === user.id ? user.name : (author?.name ?? null),
+                authorSide: m.authorId === user.id ? "client" : "team",
+                files,
               }))}
-              files={files.map((f) => ({
-                id: f.id,
-                filename: f.filename,
-                sizeBytes: f.sizeBytes,
-                internal: f.internal,
-                createdAt: f.createdAt,
-              }))}
+              looseFiles={thread.loose}
               viewerId={user.id}
-              emptyLabel="Notre équipe vous répondra ici. Vous recevrez une notification."
+              viewerSide="client"
+              onOpen={markThreadRead.bind(null, request.id)}
+              emptyLabel="Notre équipe vous répondra ici. Vous serez notifié en direct et par e-mail."
+              composer={
+                closed ? (
+                  <p className="rounded-2xl bg-soft px-4 py-3 text-sm text-fg/80">
+                    Cette demande est clôturée. Ouvrez-en une nouvelle pour un sujet connexe.
+                  </p>
+                ) : (
+                  <ChatComposer
+                    action={replyToRequest}
+                    requestId={request.id}
+                    allowFiles={storageConfigured()}
+                    maxBytes={MAX_UPLOAD_BYTES}
+                    placeholder="Écrire à l'équipe WICLOUD…"
+                  />
+                )
+              }
             />
-
-            {closed ? (
-              <p className="mt-6 rounded-2xl bg-soft px-4 py-3 text-sm text-fg/80">
-                Cette demande est clôturée. Ouvrez-en une nouvelle pour un sujet connexe.
-              </p>
-            ) : (
-              <div className="mt-6 flex flex-col gap-4 border-t border-fg/10 pt-6">
-                <ReplyForm requestId={request.id} />
-                <FileUpload
-                  target={{ requestId: request.id }}
-                  maxBytes={MAX_UPLOAD_BYTES}
-                  disabled={!storageConfigured()}
-                  disabledReason="L'envoi de fichiers sera disponible prochainement."
-                />
-              </div>
-            )}
           </Panel>
         </div>
 

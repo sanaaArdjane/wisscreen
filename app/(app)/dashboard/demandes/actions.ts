@@ -3,11 +3,12 @@
 import { z } from "zod";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { and, eq, like } from "drizzle-orm";
+import { and, eq, isNull, like, ne, or } from "drizzle-orm";
 import { db } from "@/lib/db";
 import { requestMessages, requests } from "@/lib/db/schema";
 import { requireUser } from "@/lib/guard";
-import { logActivity, notify, notifyStaff } from "@/lib/account";
+import { logActivity, notify, notifyStaff, staffWith } from "@/lib/account";
+import { publishMany } from "@/lib/realtime";
 import { nextRef, refPeriod } from "@/lib/ref";
 import { REQUEST_TYPES } from "@/lib/requests";
 import { SERVICES } from "@/lib/data/services";
@@ -115,7 +116,9 @@ export async function createRequest(
 
 const ReplySchema = z.object({
   requestId: z.coerce.number().int().positive(),
-  body: z.string().trim().min(1, "Écrivez un message.").max(5000),
+  body: z.string().trim().max(5000),
+  /** Set by the composer when files ride along — then an empty body is fine. */
+  withFiles: z.string().optional(),
 });
 
 export async function replyToRequest(
@@ -134,12 +137,16 @@ export async function replyToRequest(
     .where(and(eq(requests.id, parsed.data.requestId), eq(requests.userId, user.id)))
     .limit(1);
   if (!request) return fail("Demande introuvable.");
+  if (request.status === "terminee" || request.status === "refusee") {
+    return fail("Cette demande est clôturée.");
+  }
+  const body = parsed.data.body || (parsed.data.withFiles ? "Pièce jointe" : "");
+  if (!body) return fail("Écrivez un message.", { body: "Écrivez un message." });
 
-  await db.insert(requestMessages).values({
-    requestId: request.id,
-    authorId: user.id,
-    body: parsed.data.body,
-  });
+  const [created] = await db
+    .insert(requestMessages)
+    .values({ requestId: request.id, authorId: user.id, body })
+    .returning({ id: requestMessages.id });
   await db
     .update(requests)
     .set({ updatedAt: new Date() })
@@ -150,7 +157,7 @@ export async function replyToRequest(
   const message = {
     type: "message",
     title: `Nouveau message sur ${request.ref}`,
-    body: `${user.name} : ${parsed.data.body.slice(0, 140)}`,
+    body: `${user.name} : ${body.slice(0, 140)}`,
     href: `/admin/demandes/${request.id}`,
     actorId: user.id,
     entity: "request",
@@ -165,12 +172,44 @@ export async function replyToRequest(
   await sendEmail({
     to: adminEmail(),
     subject: `Message client sur ${request.ref}`,
-    text: `${user.name} a répondu sur « ${request.title} » :\n\n${parsed.data.body}`,
+    text: `${user.name} a répondu sur « ${request.title} » :\n\n${body}`,
     action: { label: "Répondre", url: `${SITE_URL}/admin/demandes/${request.id}` },
   });
 
   revalidatePath(`/dashboard/demandes/${request.id}`);
-  return { ok: true };
+  revalidatePath(`/admin/demandes/${request.id}`);
+  // The composer uploads its files onto this message id next.
+  return { ok: true, values: { messageId: String(created.id) } };
+}
+
+/**
+ * The client opened the thread: everything the desk wrote there is now read.
+ * Scoped by ownership in the WHERE. The desk's open tabs are nudged so their
+ * "Lu" appears without a reload.
+ */
+export async function markThreadRead(requestId: number): Promise<void> {
+  const user = await requireUser();
+  const [request] = await db
+    .select({ id: requests.id, assignedToId: requests.assignedToId })
+    .from(requests)
+    .where(and(eq(requests.id, requestId), eq(requests.userId, user.id)))
+    .limit(1);
+  if (!request) return;
+  const marked = await db
+    .update(requestMessages)
+    .set({ readAt: new Date() })
+    .where(
+      and(
+        eq(requestMessages.requestId, request.id),
+        eq(requestMessages.internal, false),
+        isNull(requestMessages.readAt),
+        or(isNull(requestMessages.authorId), ne(requestMessages.authorId, user.id)),
+      ),
+    )
+    .returning({ id: requestMessages.id });
+  if (marked.length === 0) return;
+  const staffIds = request.assignedToId ? [request.assignedToId] : await staffWith("requests:read");
+  await publishMany(staffIds, { kind: "message", entity: "request", entityId: String(request.id) });
 }
 
 /** The client's own "close this, it's handled" — the only transition they own. */

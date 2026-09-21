@@ -1,9 +1,8 @@
 "use client";
 
-import { useActionState, useEffect, useRef, useState } from "react";
+import { useActionState, useState } from "react";
 import { Button } from "@heroui/react";
 import {
-  CheckboxField,
   ConfirmButton,
   Field,
   FormAlert,
@@ -13,7 +12,7 @@ import {
   type Option,
 } from "@/components/dashboard/ui";
 import { IDLE, type ActionState } from "@/lib/actions";
-import { assignRequest, changeStatus, deleteRequest, staffReply, updateRequest } from "../actions";
+import { assignRequest, changeStatus, deleteRequest, updateRequest } from "../actions";
 
 /**
  * The three desk controls on a request. Separate forms on purpose: a single
@@ -100,35 +99,6 @@ export function AssignControl({
   );
 }
 
-export function StaffReplyForm({ requestId }: { requestId: number }) {
-  const [state, action] = useActionState<ActionState, FormData>(staffReply, IDLE);
-  const formRef = useRef<HTMLFormElement>(null);
-
-  useEffect(() => {
-    if (state.ok) formRef.current?.reset();
-  }, [state]);
-
-  return (
-    <form ref={formRef} action={action} className="flex flex-col gap-3">
-      <input type="hidden" name="requestId" value={requestId} />
-      {!state.ok && <FormAlert state={state} />}
-      <TextAreaField
-        name="body"
-        label="Répondre au client"
-        placeholder="Votre réponse…"
-        error={state.fieldErrors?.body}
-        rows={4}
-        isRequired
-      />
-      <div className="flex flex-wrap items-center gap-4">
-        <SubmitButton>Envoyer</SubmitButton>
-        {/* Unchecked by default, every time. A note that stays "internal" from a
-            previous message is how a private remark reaches a client. */}
-        <CheckboxField name="internal" label="Note interne (invisible pour le client)" />
-      </div>
-    </form>
-  );
-}
 
 
 /** Correct what the client filed. Not notified — it's the desk's own record. */

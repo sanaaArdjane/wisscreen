@@ -237,3 +237,29 @@ export async function unreadLeadCount() {
     .where(and(eq(contactLeads.status, "nouveau"), isNull(contactLeads.userId)));
   return row?.n ?? 0;
 }
+
+/**
+ * A request's conversation, with each message's own attachments — the thread
+ * renders files inline with the message they were sent with. Files attached to
+ * the request itself (not to a message) come back separately as `loose`.
+ */
+export async function listThread(requestId: number, includeInternal = false) {
+  const [rows, files] = await Promise.all([
+    listMessages(requestId, includeInternal),
+    listAttachments(requestId, includeInternal),
+  ]);
+  const byMessage = new Map<number, typeof files>();
+  const loose: typeof files = [];
+  for (const f of files) {
+    if (f.messageId) byMessage.set(f.messageId, [...(byMessage.get(f.messageId) ?? []), f]);
+    else loose.push(f);
+  }
+  return {
+    messages: rows.map(({ message, author }) => ({
+      message,
+      author,
+      files: (byMessage.get(message.id) ?? []).sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime()),
+    })),
+    loose,
+  };
+}

@@ -3,11 +3,12 @@
 import { z } from "zod";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { eq } from "drizzle-orm";
+import { and, eq, isNull } from "drizzle-orm";
 import { db } from "@/lib/db";
 import { requestMessages, requests } from "@/lib/db/schema";
 import { requirePermission } from "@/lib/guard";
-import { logActivity, notify } from "@/lib/account";
+import { logActivity, notify, staffWith } from "@/lib/account";
+import { publish, publishMany } from "@/lib/realtime";
 import { canTransition, STATUS_LABELS, type RequestStatus } from "@/lib/requests";
 import { checkbox, fail, parseForm, succeed, type ActionState } from "@/lib/actions";
 import { sendEmail } from "@/lib/email";
@@ -143,8 +144,9 @@ export async function assignRequest(_prev: ActionState, formData: FormData): Pro
 
 const StaffReplySchema = z.object({
   requestId: z.coerce.number().int().positive(),
-  body: z.string().trim().min(1, "Écrivez un message.").max(5000),
+  body: z.string().trim().max(5000),
   internal: checkbox,
+  withFiles: z.string().optional(),
 });
 
 export async function staffReply(_prev: ActionState, formData: FormData): Promise<ActionState> {
@@ -155,12 +157,13 @@ export async function staffReply(_prev: ActionState, formData: FormData): Promis
   const request = await loadRequest(parsed.data.requestId);
   if (!request) return fail("Demande introuvable.");
 
-  await db.insert(requestMessages).values({
-    requestId: request.id,
-    authorId: staff.id,
-    body: parsed.data.body,
-    internal: parsed.data.internal,
-  });
+  const body = parsed.data.body || (parsed.data.withFiles ? "Pièce jointe" : "");
+  if (!body) return fail("Écrivez un message.", { body: "Écrivez un message." });
+
+  const [created] = await db
+    .insert(requestMessages)
+    .values({ requestId: request.id, authorId: staff.id, body, internal: parsed.data.internal })
+    .returning({ id: requestMessages.id });
   await db.update(requests).set({ updatedAt: new Date() }).where(eq(requests.id, request.id));
 
   // An internal note reaches nobody outside the desk: no notification, no email.
@@ -170,7 +173,7 @@ export async function staffReply(_prev: ActionState, formData: FormData): Promis
       userId: request.userId,
       type: "message",
       title: `Réponse sur votre demande ${request.ref}`,
-      body: parsed.data.body.slice(0, 140),
+      body: body.slice(0, 140),
       href: `/dashboard/demandes/${request.id}`,
       actorId: staff.id,
       entity: "request",
@@ -185,7 +188,7 @@ export async function staffReply(_prev: ActionState, formData: FormData): Promis
       await sendEmail({
         to: recipient.email,
         subject: `Réponse à votre demande ${request.ref}`,
-        text: `Bonjour ${recipient.name},\n\nNotre équipe vient de répondre sur « ${request.title} » :\n\n${parsed.data.body}`,
+        text: `Bonjour ${recipient.name},\n\nNotre équipe vient de répondre sur « ${request.title} » :\n\n${body}`,
         action: {
           label: "Voir la demande",
           url: `${SITE_URL}/dashboard/demandes/${request.id}`,
@@ -202,8 +205,36 @@ export async function staffReply(_prev: ActionState, formData: FormData): Promis
     meta: { ref: request.ref },
   });
 
+  // An internal note notifies nobody, but colleagues with the thread open
+  // should still see it appear.
+  if (parsed.data.internal) {
+    const desk = await staffWith("requests:read", staff.id);
+    await publishMany(desk, { kind: "message", entity: "request", entityId: String(request.id) });
+  }
+
   refresh(request.id);
-  return { ok: true };
+  return { ok: true, values: { messageId: String(created.id) } };
+}
+
+/** The desk opened the thread: the client's messages are now read. */
+export async function markThreadReadByStaff(requestId: number): Promise<void> {
+  await requirePermission("requests:read");
+  const request = await loadRequest(requestId);
+  if (!request) return;
+  const marked = await db
+    .update(requestMessages)
+    .set({ readAt: new Date() })
+    .where(
+      and(
+        eq(requestMessages.requestId, request.id),
+        eq(requestMessages.authorId, request.userId),
+        isNull(requestMessages.readAt),
+      ),
+    )
+    .returning({ id: requestMessages.id });
+  if (marked.length > 0) {
+    await publish(request.userId, { kind: "message", entity: "request", entityId: String(request.id) });
+  }
 }
 
 const EditSchema = z.object({

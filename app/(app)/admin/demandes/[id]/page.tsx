@@ -3,18 +3,15 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { requirePermission } from "@/lib/guard";
 import { can } from "@/lib/permissions";
-import {
-  getRequestById,
-  listAssignees,
-  listAttachments,
-  listMessages,
-} from "@/lib/server/queries";
+import { getRequestById, listAssignees, listThread } from "@/lib/server/queries";
 import { PageHeader, Panel } from "@/components/dashboard/PageHeader";
 import { StatusChip } from "@/components/dashboard/ui";
 import { pillPrimary, pillSmall } from "@/components/dashboard/pills";
 import { Thread } from "@/components/dashboard/Thread";
+import { ChatComposer } from "@/components/dashboard/ChatComposer";
+import { markThreadReadByStaff, staffReply } from "../actions";
 import { FileUpload } from "@/components/dashboard/FileUpload";
-import { AssignControl, DeleteRequestForm, EditRequestForm, StaffReplyForm, StatusControl } from "./RequestControls";
+import { AssignControl, DeleteRequestForm, EditRequestForm, StatusControl } from "./RequestControls";
 import {
   PRIORITY_LABELS,
   REQUEST_PRIORITIES,
@@ -45,9 +42,8 @@ export default async function AdminRequestPage({ params }: PageProps<"/admin/dem
   const writable = can(staff, "requests:write");
 
   // `true` here, unlike the client page: the desk sees internal notes and files.
-  const [messages, files, assignees] = await Promise.all([
-    listMessages(request.id, true),
-    listAttachments(request.id, true),
+  const [thread, assignees] = await Promise.all([
+    listThread(request.id, true),
     writable ? listAssignees() : [],
   ]);
 
@@ -92,36 +88,51 @@ export default async function AdminRequestPage({ params }: PageProps<"/admin/dem
 
           <Panel title="Fil de discussion">
             <Thread
-              messages={messages.map((m) => ({
-                id: m.message.id,
-                body: m.message.body,
-                internal: m.message.internal,
-                createdAt: m.message.createdAt,
-                authorId: m.message.authorId,
-                authorName: m.author?.name ?? "Compte supprimé",
+              messages={thread.messages.map(({ message: m, author, files }) => ({
+                id: m.id,
+                body: m.body,
+                internal: m.internal,
+                createdAt: m.createdAt,
+                readAt: m.readAt,
+                authorId: m.authorId,
+                // A null author is always a deleted staff account: deleting a
+                // client cascades their requests away with them.
+                authorName: author?.name ?? null,
+                authorSide: m.authorId === request.userId ? "client" : "team",
+                files,
               }))}
-              files={files.map((f) => ({
-                id: f.id,
-                filename: f.filename,
-                sizeBytes: f.sizeBytes,
-                internal: f.internal,
-                createdAt: f.createdAt,
-              }))}
+              looseFiles={thread.loose}
               viewerId={staff.id}
+              viewerSide="team"
+              onOpen={markThreadReadByStaff.bind(null, request.id)}
+              emptyLabel="Aucun échange pour l'instant. Votre première réponse notifiera le client."
+              composer={
+                writable ? (
+                  <div className="flex flex-col gap-3">
+                    <ChatComposer
+                      action={staffReply}
+                      requestId={request.id}
+                      allowInternal
+                      allowFiles={storageConfigured()}
+                      maxBytes={MAX_UPLOAD_BYTES}
+                      placeholder={`Répondre à ${client.name}…`}
+                    />
+                    <details className="px-1 text-xs text-fg/80">
+                      <summary className="cursor-pointer select-none">Joindre un livrable à la demande (hors message)</summary>
+                      <div className="mt-3">
+                        <FileUpload
+                          target={{ requestId: request.id }}
+                          maxBytes={MAX_UPLOAD_BYTES}
+                          label="Joindre un livrable"
+                          disabled={!storageConfigured()}
+                          disabledReason="Stockage non configuré sur cet environnement."
+                        />
+                      </div>
+                    </details>
+                  </div>
+                ) : undefined
+              }
             />
-
-            {writable && (
-              <div className="mt-6 flex flex-col gap-4 border-t border-fg/10 pt-6">
-                <StaffReplyForm requestId={request.id} />
-                <FileUpload
-                  target={{ requestId: request.id }}
-                  maxBytes={MAX_UPLOAD_BYTES}
-                  label="Joindre un livrable"
-                  disabled={!storageConfigured()}
-                  disabledReason="Stockage non configuré sur cet environnement."
-                />
-              </div>
-            )}
           </Panel>
         </div>
 
