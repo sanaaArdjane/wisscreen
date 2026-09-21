@@ -14,6 +14,7 @@ import { QuoteActions } from "./QuoteActions";
 import { QUOTE_LABELS, QUOTE_TONE, isQuoteStatus } from "@/lib/billing";
 import { formatDate, formatDateTime, toDateInput } from "@/lib/format";
 import { formatMoney } from "@/lib/money";
+import { getCompany } from "@/lib/settings";
 
 export const metadata: Metadata = { title: "Devis" };
 
@@ -23,6 +24,7 @@ export default async function AdminQuotePage({ params }: PageProps<"/admin/devis
   if (!Number.isInteger(numericId)) notFound();
 
   const staff = await requirePermission("quotes:read");
+  const company = await getCompany();
 
   const [row] = await db
     .select({ quote: quotes, client: userTable })
@@ -93,6 +95,7 @@ export default async function AdminQuotePage({ params }: PageProps<"/admin/devis
                 lines={quote.lines}
                 total={quote.amountCents}
                 currency={quote.currency}
+                vatRate={company.vatRate}
               />
               {quote.note && (
                 <p className="mt-6 whitespace-pre-wrap border-t border-fg/10 pt-4 text-sm text-fg/80">
@@ -124,21 +127,24 @@ export default async function AdminQuotePage({ params }: PageProps<"/admin/devis
                 label="Validité"
                 value={quote.validUntil ? formatDate(quote.validUntil) : "Sans limite"}
               />
+              <Row label="Envoyé le" value={quote.sentAt ? formatDateTime(quote.sentAt) : "Pas encore"} />
               <Row label="Dernière modification" value={formatDateTime(quote.updatedAt)} />
             </dl>
           </Panel>
 
-          {mayWrite && (
-            <Panel title="Actions">
-              <QuoteActions
-                quoteId={quote.id}
-                status={status}
-                hasInvoice={linkedInvoice.length > 0}
-                canInvoice={can(staff, "invoices:write")}
-                canDelete={can(staff, "quotes:delete")}
-              />
-            </Panel>
-          )}
+          <Panel title="Document et envoi">
+            <QuoteActions
+              quoteId={quote.id}
+              quoteRef={quote.ref}
+              status={status}
+              sentAt={quote.sentAt ? formatDateTime(quote.sentAt) : null}
+              hasInvoice={linkedInvoice.length > 0}
+              canWrite={mayWrite}
+              canInvoice={can(staff, "invoices:write")}
+              canProvision={can(staff, "subscriptions:write")}
+              canDelete={can(staff, "quotes:delete")}
+            />
+          </Panel>
 
           {linkedInvoice[0] && (
             <Panel title="Facture liée">

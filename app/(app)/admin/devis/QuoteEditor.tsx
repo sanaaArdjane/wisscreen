@@ -14,11 +14,14 @@ import { IDLE, type ActionState } from "@/lib/actions";
 import { formatMoney } from "@/lib/money";
 import { Icon } from "@/components/ui/Icon";
 import { saveQuote } from "./actions";
+import { saveInvoice } from "../factures/actions";
 
 type DraftLine = { key: number; label: string; quantity: string; unit: string };
 
 /**
- * The quote editor — one form for both "nouveau" and "modifier".
+ * The line-item editor for quotes **and** invoices (`kind`) — one form for both
+ * "nouveau" and "modifier", so the two documents can never drift in how they
+ * are written.
  *
  * Line items are a repeated fieldset posting three parallel arrays
  * (`label[]`, `quantity[]`, `unitCents[]`); the action zips them and **re-sums
@@ -32,6 +35,7 @@ type DraftLine = { key: number; label: string; quantity: string; unit: string };
  * how a 1 250,50 becomes a 1 250.
  */
 export function QuoteEditor({
+  kind = "quote",
   quoteId,
   clients,
   defaultUserId,
@@ -43,6 +47,8 @@ export function QuoteEditor({
   currency = "DZD",
   lines: initialLines,
 }: {
+  kind?: "quote" | "invoice";
+  /** The row being edited — a quote id or an invoice id, depending on `kind`. */
   quoteId?: number;
   clients: Option[];
   defaultUserId?: string;
@@ -54,7 +60,11 @@ export function QuoteEditor({
   currency?: string;
   lines?: { label: string; quantity: number; unitCents: number }[];
 }) {
-  const [state, action] = useActionState<ActionState, FormData>(saveQuote, IDLE);
+  const [state, action] = useActionState<ActionState, FormData>(
+    kind === "quote" ? saveQuote : saveInvoice,
+    IDLE,
+  );
+  const isQuote = kind === "quote";
   const [lines, setLines] = useState<DraftLine[]>(() =>
     (initialLines?.length ? initialLines : [{ label: "", quantity: 1, unitCents: 0 }]).map(
       (l, i) => ({
@@ -77,7 +87,7 @@ export function QuoteEditor({
 
   return (
     <form action={action} className="flex flex-col gap-6">
-      {quoteId && <input type="hidden" name="quoteId" value={quoteId} />}
+      {quoteId && <input type="hidden" name={isQuote ? "quoteId" : "invoiceId"} value={quoteId} />}
       {requestId && <input type="hidden" name="requestId" value={requestId} />}
       <input type="hidden" name="currency" value={currency} />
 
@@ -93,10 +103,10 @@ export function QuoteEditor({
           isRequired
         />
         <Field
-          name="validUntil"
-          label="Valable jusqu'au"
+          name={isQuote ? "validUntil" : "dueAt"}
+          label={isQuote ? "Valable jusqu'au" : "Échéance"}
           type="date"
-          defaultValue={state.values?.validUntil ?? validUntil ?? ""}
+          defaultValue={(isQuote ? state.values?.validUntil : state.values?.dueAt) ?? validUntil ?? ""}
           description="Facultatif."
         />
       </div>
@@ -188,14 +198,20 @@ export function QuoteEditor({
 
       <TextAreaField
         name="note"
-        label="Note au client"
+        label={isQuote ? "Note au client" : "Remarques"}
         description="Conditions, délais, précisions — affiché sous le détail."
         defaultValue={state.values?.note ?? note ?? ""}
         rows={4}
       />
 
       <SubmitButton className="self-start">
-        {quoteId ? "Enregistrer le devis" : "Créer le devis"}
+        {isQuote
+          ? quoteId
+            ? "Enregistrer le devis"
+            : "Créer le devis"
+          : quoteId
+            ? "Enregistrer la facture"
+            : "Créer la facture"}
       </SubmitButton>
     </form>
   );

@@ -41,12 +41,20 @@ export async function sendEmail(input: {
   text: string;
   /** Optional call-to-action rendered as a button in the HTML part. */
   action?: { label: string; url: string };
+  /** Files to attach — the devis or facture PDF. */
+  attachments?: { filename: string; content: Buffer }[];
+  /** Reply-To, e.g. the staff member who sent a quote. */
+  replyTo?: string;
 }): Promise<{ ok: boolean; skipped?: boolean; error?: string }> {
   const key = process.env.RESEND_API_KEY;
   if (!key) {
+    // Say what *would* have been attached, so a dev who is testing "send the
+    // devis" can tell the PDF was produced even though nothing left the box.
+    const files = input.attachments?.map((a) => `${a.filename} (${a.content.length} o)`).join(", ");
     console.info(
       `[email:skipped] to=${input.to} subject=${JSON.stringify(input.subject)}` +
         (input.action ? ` url=${input.action.url}` : "") +
+        (files ? ` attachments=${files}` : "") +
         `\n${input.text}`,
     );
     return { ok: true, skipped: true };
@@ -60,6 +68,8 @@ export async function sendEmail(input: {
       subject: input.subject,
       text: input.action ? `${input.text}\n\n${input.action.url}` : input.text,
       html: wrap(input.text, input.action),
+      attachments: input.attachments?.map((a) => ({ filename: a.filename, content: a.content })),
+      replyTo: input.replyTo,
     });
     if (error) return { ok: false, error: error.message };
     return { ok: true };

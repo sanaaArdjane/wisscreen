@@ -150,3 +150,20 @@ export async function deleteObject(key: string): Promise<void> {
 export function isAllowedContentType(value: string): boolean {
   return (ALLOWED_CONTENT_TYPES as readonly string[]).includes(value);
 }
+
+/**
+ * An object's bytes, server-side — for the PDF renderer, which embeds the
+ * company logo and signature. Not for anything a browser asked for: those go
+ * through a presigned URL so the bytes never pass through the app.
+ */
+export async function getObjectBytes(key: string): Promise<Buffer> {
+  const res = await s3().send(new GetObjectCommand({ Bucket: BUCKET, Key: key }));
+  if (!res.Body) throw new Error(`Empty object: ${key}`);
+  return Buffer.from(await res.Body.transformToByteArray());
+}
+
+/** Store bytes the server produced itself (a sent PDF). Keys stay under the
+ *  caller's `u/<id>/` prefix, the same invariant uploads follow. */
+export async function putObject(key: string, body: Buffer, contentType: string): Promise<void> {
+  await s3().send(new PutObjectCommand({ Bucket: BUCKET, Key: key, Body: body, ContentType: contentType }));
+}

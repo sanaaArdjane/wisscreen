@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
-import { asc } from "drizzle-orm";
-import { db } from "@/lib/db";
-import { plans } from "@/lib/db/schema";
 import { requirePermission } from "@/lib/guard";
 import { can } from "@/lib/permissions";
-import { getSettings } from "@/lib/settings";
+import { getCompany, getSettings } from "@/lib/settings";
+import { CompanyForm } from "./CompanyForm";
 import { PageHeader, Panel } from "@/components/dashboard/PageHeader";
 import { SettingsForm } from "./SettingsForm";
 import { encryptionConfigured } from "@/lib/crypto";
@@ -17,10 +15,7 @@ export const metadata: Metadata = { title: "Paramètres" };
 
 export default async function ParametresPage() {
   const staff = await requirePermission("settings:read");
-  const [settings, catalogue] = await Promise.all([
-    getSettings(),
-    db.select().from(plans).orderBy(asc(plans.sortOrder)),
-  ]);
+  const [settings, company] = await Promise.all([getSettings(), getCompany()]);
 
   const google = Boolean(process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET);
   const turnstile = Boolean(process.env.TURNSTILE_SECRET_KEY);
@@ -32,19 +27,29 @@ export default async function ParametresPage() {
         description="Réglages de la plateforme et état des services externes."
       />
 
-      <div className="grid gap-6 lg:grid-cols-3">
-        <Panel className="lg:col-span-2" title="Réglages">
+      <div className="grid items-start gap-6 lg:grid-cols-3">
+        <div className="flex flex-col gap-6 lg:col-span-2">
+        <Panel title="Réglages">
           {can(staff, "settings:write") ? (
-            <SettingsForm
-              settings={settings}
-              planOptions={catalogue.map((p) => ({ value: p.slug, label: p.name }))}
-            />
+            <SettingsForm settings={settings} />
           ) : (
             <p className="text-sm text-fg/80">
               Vous pouvez consulter ces réglages mais pas les modifier.
             </p>
           )}
         </Panel>
+
+        <Panel
+          title="Identité de l'entreprise"
+          description="En-tête, pied de page et signature des devis et factures PDF."
+        >
+          {can(staff, "settings:write") ? (
+            <CompanyForm company={company} storage={storageConfigured()} />
+          ) : (
+            <p className="text-sm text-fg/80">{company.name}</p>
+          )}
+        </Panel>
+        </div>
 
         {/* Configuration state, shown rather than assumed. Each of these degrades
             quietly by design — an unset key disables a feature instead of

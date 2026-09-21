@@ -3,64 +3,22 @@
 import { z } from "zod";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { eq, like } from "drizzle-orm";
+import { eq } from "drizzle-orm";
 import { db } from "@/lib/db";
-import { invoices, quotes, user as userTable } from "@/lib/db/schema";
+import { invoices, quotes } from "@/lib/db/schema";
 import { requirePermission } from "@/lib/guard";
 import { logActivity, notify } from "@/lib/account";
-import { nextRef, refPeriod, type RefPrefix } from "@/lib/ref";
+import { allocateRef, readLines } from "@/lib/billing-lines";
+import { emailBillingDocument } from "@/lib/billing-send";
 import { formatMoney, totalCents } from "@/lib/money";
 import { fail, optionalText, parseForm, succeed, type ActionState } from "@/lib/actions";
-import { sendEmail } from "@/lib/email";
-import { SITE_URL } from "@/lib/site";
-import type { MoneyLine } from "@/lib/db/schema";
 
 /**
  * Quotes, and turning an accepted one into an invoice.
  *
- * Line items arrive as three parallel arrays (`label[]`, `quantity[]`,
- * `unitCents[]`) because that is what a repeated fieldset posts. They're zipped
- * and re-summed here: `amountCents` is always derived from the lines on the
- * server, never trusted from a hidden input, so a tampered form cannot change
- * the total without changing the lines the client will see.
+ * Line parsing and references are shared with invoices in `lib/billing-lines.ts`;
+ * the PDF and e-mail step in `lib/billing-send.ts`.
  */
-
-const LineArrays = z.object({
-  label: z.union([z.string(), z.array(z.string())]).optional(),
-  quantity: z.union([z.string(), z.array(z.string())]).optional(),
-  unitCents: z.union([z.string(), z.array(z.string())]).optional(),
-});
-
-function readLines(formData: FormData): MoneyLine[] {
-  const parsed = LineArrays.parse({
-    label: formData.getAll("label").map(String),
-    quantity: formData.getAll("quantity").map(String),
-    unitCents: formData.getAll("unitCents").map(String),
-  });
-  const labels = Array.isArray(parsed.label) ? parsed.label : [parsed.label ?? ""];
-  const quantities = Array.isArray(parsed.quantity) ? parsed.quantity : [parsed.quantity ?? ""];
-  const units = Array.isArray(parsed.unitCents) ? parsed.unitCents : [parsed.unitCents ?? ""];
-
-  return labels
-    .map((label, i) => ({
-      label: label.trim(),
-      quantity: Number(quantities[i] ?? 1) || 0,
-      // The form collects whole currency units; cents are this app's storage unit.
-      unitCents: Math.round((Number(units[i] ?? 0) || 0) * 100),
-    }))
-    .filter((l) => l.label !== "");
-}
-
-async function allocateRef(prefix: RefPrefix, table: typeof quotes | typeof invoices) {
-  const existing = await db
-    .select({ ref: table.ref })
-    .from(table)
-    .where(like(table.ref, `${prefix}-${refPeriod()}-%`));
-  return nextRef(
-    prefix,
-    existing.map((r) => r.ref),
-  );
-}
 
 const QuoteSchema = z.object({
   quoteId: z.coerce.number().int().positive().optional(),
@@ -142,54 +100,63 @@ export async function saveQuote(_prev: ActionState, formData: FormData): Promise
   redirect(`/admin/devis/${created.id}`);
 }
 
-/** Draft → sent. This is the moment the client can see it, so it notifies. */
-export async function sendQuote(formData: FormData): Promise<void> {
+/**
+ * Send a quote by e-mail, with its PDF attached.
+ *
+ * From a draft this is the moment the client can see it, so it also moves it
+ * to `envoye` and notifies. From any later state it is a **resend** — the same
+ * PDF, current data, no status change. Before, a quote could be sent exactly
+ * once: `sendQuote` returned early unless it was a draft.
+ */
+export async function sendQuote(_prev: ActionState, formData: FormData): Promise<ActionState> {
   const staff = await requirePermission("quotes:write");
   const id = Number(formData.get("quoteId"));
-  if (!Number.isInteger(id)) return;
+  const message = String(formData.get("message") ?? "");
+  if (!Number.isInteger(id)) return fail("Devis introuvable.");
 
   const [quote] = await db.select().from(quotes).where(eq(quotes.id, id)).limit(1);
-  if (!quote || quote.status !== "brouillon") return;
+  if (!quote) return fail("Devis introuvable.");
+  if (quote.lines.length === 0) return fail("Ajoutez au moins une ligne avant d'envoyer.");
 
-  await db
-    .update(quotes)
-    .set({ status: "envoye", updatedAt: new Date() })
-    .where(eq(quotes.id, id));
+  const first = quote.status === "brouillon";
+  if (first) {
+    await db.update(quotes).set({ status: "envoye", updatedAt: new Date() }).where(eq(quotes.id, id));
+  }
 
-  const [client] = await db
-    .select({ email: userTable.email, name: userTable.name })
-    .from(userTable)
-    .where(eq(userTable.id, quote.userId))
-    .limit(1);
+  const sent = await emailBillingDocument("quote", id, staff, message);
 
-  await notify({
-    userId: quote.userId,
-    type: "quote",
-    title: `Nouveau devis ${quote.ref}`,
-    body: `${quote.title} — ${formatMoney(quote.amountCents, quote.currency)}`,
-    href: `/dashboard/devis/${quote.id}`,
-  });
-
-  if (client) {
-    await sendEmail({
-      to: client.email,
-      subject: `Votre devis ${quote.ref}`,
-      text: `Bonjour ${client.name},\n\nVotre devis « ${quote.title} » est disponible dans votre espace : ${formatMoney(quote.amountCents, quote.currency)}.`,
-      action: { label: "Consulter le devis", url: `${SITE_URL}/dashboard/devis/${quote.id}` },
+  if (first) {
+    await notify({
+      userId: quote.userId,
+      type: "quote",
+      title: `Nouveau devis ${quote.ref}`,
+      body: `${quote.title} — ${formatMoney(quote.amountCents, quote.currency)}`,
+      href: `/dashboard/devis/${quote.id}`,
+      actorId: staff.id,
+      entity: "quote",
+      entityId: quote.id,
     });
   }
 
   await logActivity({
     actorId: staff.id,
-    action: "quote.sent",
+    action: first ? "quote.sent" : "quote.resent",
     entity: "quote",
     entityId: id,
-    meta: { ref: quote.ref },
+    meta: { ref: quote.ref, emailed: sent.ok && !sent.skipped },
   });
 
   revalidatePath(`/admin/devis/${id}`);
   revalidatePath("/admin/devis");
   revalidatePath("/dashboard/devis");
+  revalidatePath(`/dashboard/devis/${id}`);
+
+  if (!sent.ok) return fail(`Devis ${first ? "envoyé dans l'espace client" : "non renvoyé"}, mais l'e-mail a échoué : ${sent.error}`);
+  return succeed(
+    sent.skipped
+      ? `${first ? "Envoyé" : "Renvoyé"} dans l'espace client. E-mail non configuré : le message et le PDF ont été journalisés, pas expédiés.`
+      : `Devis ${quote.ref} ${first ? "envoyé" : "renvoyé"} par e-mail, PDF joint.`,
+  );
 }
 
 /**
@@ -212,7 +179,7 @@ export async function invoiceFromQuote(formData: FormData): Promise<void> {
     .where(eq(invoices.quoteId, id))
     .limit(1);
   if (existing) {
-    redirect(`/admin/factures?q=${quote.ref}`);
+    redirect(`/admin/factures/${existing.id}`);
   }
 
   const ref = await allocateRef("FA", invoices);
@@ -240,30 +207,40 @@ export async function invoiceFromQuote(formData: FormData): Promise<void> {
   });
 
   revalidatePath("/admin/factures");
-  redirect(`/admin/factures?q=${ref}`);
+  redirect(`/admin/factures/${created.id}`);
 }
 
-export async function deleteQuote(formData: FormData): Promise<void> {
+/**
+ * Delete a quote.
+ *
+ * A draft goes with a plain confirmation. Anything the client has already seen
+ * requires the reference to be typed: deleting it makes their dashboard
+ * disagree with the e-mail in their inbox, and that should be a decision, not
+ * a click. (The old action deleted any status while its comment said "drafts
+ * only" — the UI was the only thing enforcing it.) An invoice made from it
+ * survives, with its `quote_id` set to null.
+ */
+export async function deleteQuote(_prev: ActionState, formData: FormData): Promise<ActionState> {
   const staff = await requirePermission("quotes:delete");
   const id = Number(formData.get("quoteId"));
-  if (!Number.isInteger(id)) return;
+  if (!Number.isInteger(id)) return fail("Devis introuvable.");
 
-  // Drafts only: a sent quote is something the client has seen, and deleting it
-  // would make their dashboard disagree with their inbox.
-  const deleted = await db
-    .delete(quotes)
-    .where(eq(quotes.id, id))
-    .returning({ ref: quotes.ref, status: quotes.status });
-  if (deleted.length === 0) return;
+  const [quote] = await db.select().from(quotes).where(eq(quotes.id, id)).limit(1);
+  if (!quote) return fail("Devis introuvable.");
+  if (quote.status !== "brouillon" && String(formData.get("confirm") ?? "").trim() !== quote.ref) {
+    return fail(`Ce devis a été envoyé au client. Saisissez « ${quote.ref} » pour confirmer.`);
+  }
 
+  await db.delete(quotes).where(eq(quotes.id, id));
   await logActivity({
     actorId: staff.id,
     action: "quote.deleted",
     entity: "quote",
     entityId: id,
-    meta: { ref: deleted[0].ref },
+    meta: { ref: quote.ref, status: quote.status, amountCents: quote.amountCents },
   });
 
   revalidatePath("/admin/devis");
+  revalidatePath("/dashboard/devis");
   redirect("/admin/devis");
 }

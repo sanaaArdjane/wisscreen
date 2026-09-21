@@ -26,6 +26,7 @@
     "@heroui/styles": "^3.2.4",
     "@neon/config": "^1.7.2",
     "@neon/env": "^1.4.3",
+    "@react-pdf/renderer": "^4.9.0",
     "@react-three/drei": "^10.7.8",
     "@react-three/fiber": "^9.7.0",
     "better-auth": "^1.7.5",

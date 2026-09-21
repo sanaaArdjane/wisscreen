@@ -11,6 +11,9 @@ import { MoneyLines } from "@/components/dashboard/MoneyLines";
 import { QuoteDecision } from "./QuoteDecision";
 import { QUOTE_LABELS, QUOTE_TONE, isQuoteExpired, isQuoteStatus } from "@/lib/billing";
 import { formatDate } from "@/lib/format";
+import { getCompany } from "@/lib/settings";
+import { pillSmall } from "@/components/dashboard/pills";
+import { Icon } from "@/components/ui/Icon";
 
 export const metadata: Metadata = { title: "Devis" };
 
@@ -38,6 +41,7 @@ export default async function DevisDetailPage({ params }: PageProps<"/dashboard/
   if (!row) notFound();
 
   const { quote, request } = row;
+  const company = await getCompany();
   const status = isQuoteStatus(quote.status) ? quote.status : "brouillon";
   const expired = isQuoteExpired(quote);
 
@@ -62,6 +66,7 @@ export default async function DevisDetailPage({ params }: PageProps<"/dashboard/
             lines={quote.lines}
             total={quote.amountCents}
             currency={quote.currency}
+            vatRate={company.vatRate}
           />
           {quote.note && (
             <p className="mt-6 whitespace-pre-wrap border-t border-fg/10 pt-4 text-sm text-fg/80">
@@ -71,6 +76,24 @@ export default async function DevisDetailPage({ params }: PageProps<"/dashboard/
         </Panel>
 
         <div className="flex flex-col gap-6">
+          <Panel title="Document">
+            <div className="flex flex-wrap gap-2">
+              <a
+                href={`/api/documents/devis/${quote.id}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={pillSmall}
+              >
+                <Icon name="file-text" className="size-4" />
+                Voir le PDF
+              </a>
+              <a href={`/api/documents/devis/${quote.id}?download=1`} className={pillSmall}>
+                <Icon name="download" className="size-4" />
+                Télécharger
+              </a>
+            </div>
+          </Panel>
+
           <Panel title="Votre réponse">
             {status === "envoye" && !expired ? (
               <>

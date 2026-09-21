@@ -8,8 +8,8 @@ import { can } from "@/lib/permissions";
 import { PageHeader, Panel, StatTile } from "@/components/dashboard/PageHeader";
 import { EmptyState, StatusChip } from "@/components/dashboard/ui";
 import { FilterBar } from "@/components/dashboard/FilterBar";
-import { MoneyLines } from "@/components/dashboard/MoneyLines";
-import { InvoiceControls } from "./InvoiceControls";
+import { pillPrimary } from "@/components/dashboard/pills";
+import { Icon } from "@/components/ui/Icon";
 import {
   INVOICE_LABELS,
   INVOICE_STATUSES,
@@ -18,7 +18,7 @@ import {
   isInvoiceStatus,
 } from "@/lib/billing";
 import { formatMoney } from "@/lib/money";
-import { formatDate, toDateInput } from "@/lib/format";
+import { formatDate } from "@/lib/format";
 
 export const metadata: Metadata = { title: "Factures" };
 
@@ -62,7 +62,15 @@ export default async function AdminFacturesPage({ searchParams }: PageProps<"/ad
     <>
       <PageHeader
         title="Factures"
-        description="Aucun encaissement automatique : le statut est posé à la main, ici."
+        description="Aucun encaissement automatique : le statut est posé à la main, sur chaque facture."
+        actions={
+          mayWrite && (
+            <Link href="/admin/factures/nouveau" className={pillPrimary}>
+              <Icon name="plus" className="size-4" />
+              Nouvelle facture
+            </Link>
+          )
+        }
       />
 
       <div className="mb-6 grid gap-4 sm:grid-cols-3">
@@ -101,52 +109,37 @@ export default async function AdminFacturesPage({ searchParams }: PageProps<"/ad
       {rows.length === 0 ? (
         <EmptyState
           title="Aucune facture"
-          description="Une facture naît d'un devis accepté, depuis la fiche du devis."
+          description="Une facture naît d'un devis accepté (depuis la fiche du devis), ou se crée directement."
         />
       ) : (
-        <div className="flex flex-col gap-4">
-          {rows.map(({ invoice, client }) => {
-            const effective = effectiveInvoiceStatus(invoice);
-            return (
-              <Panel
-                key={invoice.id}
-                title={invoice.title}
-                description={`${invoice.ref} · ${client.name}${invoice.issuedAt ? ` · émise le ${formatDate(invoice.issuedAt)}` : ""}${invoice.dueAt ? ` · échéance ${formatDate(invoice.dueAt)}` : ""}`}
-                actions={
-                  <>
-                    {can(staff, "users:read") && (
-                      <Link
-                        href={`/admin/utilisateurs/${client.id}`}
-                        className="text-sm font-[650] text-fg underline underline-offset-4"
-                      >
-                        Client
-                      </Link>
-                    )}
-                    <StatusChip
-                      label={INVOICE_LABELS[effective]}
-                      tone={INVOICE_TONE[effective]}
-                    />
-                  </>
-                }
-              >
-                <MoneyLines
-                  lines={invoice.lines}
-                  total={invoice.amountCents}
-                  currency={invoice.currency}
-                />
-                {mayWrite && (
-                  <div className="mt-5 border-t border-fg/10 pt-5">
-                    <InvoiceControls
-                      invoiceId={invoice.id}
-                      status={invoice.status}
-                      dueAt={toDateInput(invoice.dueAt)}
-                    />
-                  </div>
-                )}
-              </Panel>
-            );
-          })}
-        </div>
+        <Panel bodyClassName="p-0">
+          <ul className="divide-y divide-fg/10">
+            {rows.map(({ invoice, client }) => {
+              const effective = effectiveInvoiceStatus(invoice);
+              return (
+                <li key={invoice.id}>
+                  <Link
+                    href={`/admin/factures/${invoice.id}`}
+                    className="flex flex-wrap items-center gap-4 px-6 py-4 transition-colors hover:bg-soft"
+                  >
+                    <span className="min-w-0 flex-1">
+                      <span className="block truncate text-sm font-[650] text-fg">{invoice.title}</span>
+                      <span className="block truncate text-xs text-fg/80">
+                        {invoice.ref} · {client.name}
+                        {invoice.issuedAt ? ` · émise le ${formatDate(invoice.issuedAt)}` : ""}
+                        {invoice.dueAt ? ` · échéance ${formatDate(invoice.dueAt)}` : ""}
+                      </span>
+                    </span>
+                    <span className="shrink-0 text-sm font-[650] tabular-nums text-fg">
+                      {formatMoney(invoice.amountCents, invoice.currency)}
+                    </span>
+                    <StatusChip label={INVOICE_LABELS[effective]} tone={INVOICE_TONE[effective]} />
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </Panel>
       )}
     </>
   );

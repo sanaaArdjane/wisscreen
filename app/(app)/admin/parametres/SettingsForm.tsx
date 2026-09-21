@@ -5,21 +5,13 @@ import {
   CheckboxField,
   Field,
   FormAlert,
-  SelectField,
   SubmitButton,
-  type Option,
 } from "@/components/dashboard/ui";
 import { IDLE, type ActionState } from "@/lib/actions";
 import type { Settings } from "@/lib/settings";
 import { updateSettings } from "./actions";
 
-export function SettingsForm({
-  settings,
-  planOptions,
-}: {
-  settings: Settings;
-  planOptions: Option[];
-}) {
+export function SettingsForm({ settings }: { settings: Settings }) {
   const [state, action] = useActionState<ActionState, FormData>(updateSettings, IDLE);
 
   return (
@@ -47,17 +39,6 @@ export function SettingsForm({
           name="requireEmailVerification"
           label="Exiger une adresse vérifiée avant l'accès au tableau de bord"
           defaultChecked={settings.requireEmailVerification}
-        />
-      </fieldset>
-
-      <fieldset className="flex flex-col gap-4 border-t border-fg/10 pt-6">
-        <legend className="mb-1 text-sm font-[650] text-fg">Nouveaux comptes</legend>
-        <SelectField
-          name="defaultPlan"
-          label="Formule attribuée à l'inscription"
-          options={planOptions}
-          defaultValue={settings.defaultPlan}
-          isRequired
         />
       </fieldset>
 

@@ -4,22 +4,27 @@ import { listInvoices } from "@/lib/server/queries";
 import { PageHeader, Panel, StatTile } from "@/components/dashboard/PageHeader";
 import { EmptyState, StatusChip } from "@/components/dashboard/ui";
 import { INVOICE_LABELS, INVOICE_TONE, effectiveInvoiceStatus } from "@/lib/billing";
-import { formatMoney } from "@/lib/money";
+import { formatMoney, withVat } from "@/lib/money";
 import { formatDate } from "@/lib/format";
 import { MoneyLines } from "@/components/dashboard/MoneyLines";
+import { getCompany } from "@/lib/settings";
+import { pillSmall } from "@/components/dashboard/pills";
+import { Icon } from "@/components/ui/Icon";
 
 export const metadata: Metadata = { title: "Factures" };
 
 export default async function FacturesPage() {
   const user = await requireUser("/dashboard/factures");
-  const rows = await listInvoices(user.id);
+  const [rows, company] = await Promise.all([listInvoices(user.id), getCompany()]);
+  // What is actually owed is TTC — the figure on the PDF — not the stored HT.
+  const ttc = (cents: number) => withVat(cents, company.vatRate);
 
   const outstanding = rows
     .filter(({ invoice }) => ["envoyee", "en_retard"].includes(effectiveInvoiceStatus(invoice)))
-    .reduce((sum, { invoice }) => sum + invoice.amountCents, 0);
+    .reduce((sum, { invoice }) => sum + ttc(invoice.amountCents), 0);
   const paid = rows
     .filter(({ invoice }) => invoice.status === "payee")
-    .reduce((sum, { invoice }) => sum + invoice.amountCents, 0);
+    .reduce((sum, { invoice }) => sum + ttc(invoice.amountCents), 0);
 
   return (
     <>
@@ -55,14 +60,26 @@ export default async function FacturesPage() {
                   title={invoice.title}
                   description={`${invoice.ref}${invoice.issuedAt ? ` · émise le ${formatDate(invoice.issuedAt)}` : ""}${invoice.dueAt ? ` · échéance ${formatDate(invoice.dueAt)}` : ""}`}
                   actions={
-                    <StatusChip label={INVOICE_LABELS[status]} tone={INVOICE_TONE[status]} />
+                    <>
+                      <a href={`/api/documents/facture/${invoice.id}`} target="_blank" rel="noopener noreferrer" className={pillSmall}>
+                        <Icon name="file-text" className="size-4" />
+                        PDF
+                      </a>
+                      <StatusChip label={INVOICE_LABELS[status]} tone={INVOICE_TONE[status]} />
+                    </>
                   }
                 >
                   <MoneyLines
                     lines={invoice.lines}
                     total={invoice.amountCents}
                     currency={invoice.currency}
+                    vatRate={company.vatRate}
                   />
+                  {(company.bank || company.rib) && ["envoyee", "en_retard"].includes(status) && (
+                    <p className="mt-5 border-t border-fg/10 pt-4 text-sm text-fg/80">
+                      Règlement par virement : {[company.bank, company.rib && `RIB ${company.rib}`].filter(Boolean).join(" · ")}
+                    </p>
+                  )}
                 </Panel>
               );
             })}

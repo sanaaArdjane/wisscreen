@@ -13,11 +13,14 @@ export function MoneyLines({
   lines,
   total,
   currency = "DZD",
+  vatRate = 0,
 }: {
   lines: MoneyLine[];
   total: number;
   currency?: string;
+  vatRate?: number;
 }) {
+  const vat = vatRate > 0 ? Math.round((total * vatRate) / 100) : 0;
   if (lines.length === 0) {
     return (
       <p className="flex items-baseline justify-between gap-4 text-sm">
@@ -63,12 +66,28 @@ export function MoneyLines({
         ))}
       </tbody>
       <tfoot>
+        {vat > 0 && (
+          <>
+            <tr>
+              <th scope="row" colSpan={3} className="px-4 pt-4 text-right font-[450] text-fg/80">
+                Total HT
+              </th>
+              <td className="px-4 pt-4 text-right tabular-nums text-fg">{formatMoney(total, currency)}</td>
+            </tr>
+            <tr>
+              <th scope="row" colSpan={3} className="px-4 pt-1 text-right font-[450] text-fg/80">
+                TVA {vatRate} %
+              </th>
+              <td className="px-4 pt-1 text-right tabular-nums text-fg">{formatMoney(vat, currency)}</td>
+            </tr>
+          </>
+        )}
         <tr>
           <th scope="row" colSpan={3} className="px-4 pt-4 text-right font-[450] text-fg/80">
-            Total
+            {vat > 0 ? "Total TTC" : "Total"}
           </th>
           <td className="px-4 pt-4 text-right text-2xl font-[650] tabular-nums text-fg">
-            {formatMoney(total, currency)}
+            {formatMoney(total + vat, currency)}
           </td>
         </tr>
       </tfoot>

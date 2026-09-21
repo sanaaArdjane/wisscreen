@@ -19,7 +19,8 @@ import { StatusChip, EmptyState } from "@/components/dashboard/ui";
 import { pillPrimary, pillSmall } from "@/components/dashboard/pills";
 import { QuotaMeter } from "@/components/dashboard/QuotaMeter";
 import { STATUS_LABELS, STATUS_TONE, type RequestStatus } from "@/lib/requests";
-import { formatMoney } from "@/lib/money";
+import { formatMoney, withVat } from "@/lib/money";
+import { getCompany } from "@/lib/settings";
 import { formatDate, relativeTime } from "@/lib/format";
 import { Icon } from "@/components/ui/Icon";
 
@@ -35,7 +36,7 @@ export const metadata: Metadata = { title: "Mon espace" };
 export default async function DashboardHome() {
   const user = await requireUser("/dashboard");
 
-  const [counters, recent, services, usage, demos, notifications, pendingQuotes, unpaid] =
+  const [counters, recent, services, usage, demos, notifications, pendingQuotes, unpaid, company] =
     await Promise.all([
       clientCounters(user.id),
       listRequests(user.id, 5),
@@ -55,7 +56,9 @@ export default async function DashboardHome() {
         .where(and(eq(invoices.userId, user.id), inArray(invoices.status, ["envoyee", "en_retard"])))
         .orderBy(invoices.dueAt)
         .limit(5),
+      getCompany(),
     ]);
+  const ttc = (cents: number) => withVat(cents, company.vatRate);
 
   const activeServices = services.filter((s) => s.subscription.status === "active");
   const liveServices = services.filter((s) => s.subscription.status !== "cancelled");
@@ -98,7 +101,7 @@ export default async function DashboardHome() {
         <StatTile
           label="Factures à régler"
           value={counters.unpaidInvoices}
-          hint={counters.unpaidCents > 0 ? formatMoney(counters.unpaidCents) : "À jour"}
+          hint={counters.unpaidCents > 0 ? formatMoney(ttc(counters.unpaidCents)) : "À jour"}
           href="/dashboard/factures"
           icon="receipt"
           tone={counters.unpaidInvoices > 0 && counters.pendingQuotes === 0 ? "accent" : "cool"}
@@ -133,7 +136,7 @@ export default async function DashboardHome() {
                       {q.validUntil ? `À accepter avant le ${formatDate(q.validUntil)}` : "En attente de votre réponse"}
                     </span>
                   </span>
-                  <span className="shrink-0 text-sm font-[650] tabular-nums text-fg">{formatMoney(q.amountCents, q.currency)}</span>
+                  <span className="shrink-0 text-sm font-[650] tabular-nums text-fg">{formatMoney(ttc(q.amountCents), q.currency)}</span>
                 </Link>
               </li>
             ))}
@@ -147,7 +150,7 @@ export default async function DashboardHome() {
                       {inv.dueAt ? `Échéance le ${formatDate(inv.dueAt)}` : "À régler"}
                     </span>
                   </span>
-                  <span className="shrink-0 text-sm font-[650] tabular-nums text-fg">{formatMoney(inv.amountCents, inv.currency)}</span>
+                  <span className="shrink-0 text-sm font-[650] tabular-nums text-fg">{formatMoney(ttc(inv.amountCents), inv.currency)}</span>
                 </Link>
               </li>
             ))}

@@ -31,3 +31,12 @@ export function parseMoneyToCents(input: string): number | null {
   if (!/^-?\d+(\.\d{1,2})?$/.test(cleaned)) return null;
   return Math.round(parseFloat(cleaned) * 100);
 }
+
+/**
+ * Stored amounts are HT. With a VAT rate set in the company identity, what a
+ * customer owes is this — the same arithmetic as the PDF and `MoneyLines`, so
+ * the screen, the document and the dashboard total never disagree.
+ */
+export function withVat(cents: number, vatRate: number): number {
+  return vatRate > 0 ? cents + Math.round((cents * vatRate) / 100) : cents;
+}
