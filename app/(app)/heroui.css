@@ -58,9 +58,22 @@
      "fg" pair: paper on ink 9.5:1 in light, abyss on paper 12.7:1 in dark.
    - `--link` is `signal-fg` (signal-deep 5.1:1 on paper / signal-soft on ink),
      never the brand value, which is 2.3:1 on white and cannot carry text.
-   - `--danger` has no brand token — the palette is a cool family plus one green.
-     It borrows `fg` at full strength so a destructive control reads as serious
-     without inventing a red the design system doesn't own.
+   - `--danger` is the ONE hue outside the cool+signal family, and it is
+     functional: it marks controls that destroy data, and nothing else. It never
+     decorates, and it never reaches the marketing pages — these variables are
+     scoped to `[data-wicloud-app]`. (It replaced a `fg`-borrowing token, which
+     read as "serious" but not as "irreversible"; the owner asked for red.)
+     It inverts by ground exactly the way `signal` does, and for the same reason
+     — a mid-tone cannot hold a white label AND a 3:1 edge on both grounds:
+       light  fill #b42318, white label      6.6:1 ✓   edge on paper 6.6:1 ✓
+       dark   fill #f97066, **abyss** label  4.9:1 ✓   edge on abyss 4.9:1 ✓
+     A white label on the dark fill is the trap: the window where it clears both
+     4.5:1 for the label and 3:1 for the edge is ~0.001 of luminance wide. So the
+     dark fill takes a dark label, like the `signal` CTA does.
+     `--dash-danger-fg` is destructive *text*, which needs a further step: #f97066
+     is 3.4:1 on an `ink` card, so the dark value is #fda29b (4.9:1 there).
+     `danger-soft` follows the chip rule — colour in the fill and border, label
+     in `fg` — because a red on its own tint lands around 4.4:1.
    ───────────────────────────────────────────────────────────────────────────── */
 @theme inline {
   --color-canvas: var(--dash-canvas);
@@ -70,6 +83,9 @@
   --color-on-fg: var(--dash-on-fg);
   --color-fg-hover: var(--dash-fg-hover);
   --color-signal-fg: var(--dash-signal-fg);
+  --color-danger: var(--dash-danger);
+  --color-danger-fg: var(--dash-danger-fg);
+  --color-on-danger: var(--dash-on-danger);
 }
 
 [data-wicloud-app],
@@ -81,6 +97,13 @@ body:has([data-wicloud-app]) {
   --dash-on-fg: light-dark(#ffffff, #26334c); /* label on a `fg` fill */
   --dash-fg-hover: light-dark(#26334c, #eef2f6); /* abyss / mist */
   --dash-signal-fg: light-dark(#0d7d55, #4ed39d); /* signal-deep / signal-soft */
+
+  /* Destructive. See the contrast note in the header — the dark fill takes a
+     dark label, and destructive *text* needs a paler value again than the fill. */
+  --dash-danger: light-dark(#b42318, #f97066);
+  --dash-danger-hover: light-dark(#912018, #fda29b);
+  --dash-on-danger: light-dark(#ffffff, #26334c); /* label on a `danger` fill */
+  --dash-danger-fg: light-dark(#b42318, #fda29b); /* destructive text and icons */
 
   /* Which half of the theme toggle's sun/moon pair is visible. It has to be CSS,
      not state: the server cannot know what `system` resolves to, so a JS-picked
@@ -145,8 +168,15 @@ body:has([data-wicloud-app]) {
   --success-foreground: var(--dash-on-fg);
   --warning: light-dark(#366479, #9fbdd0); /* steel / steel-pale */
   --warning-foreground: light-dark(#ffffff, #26334c);
-  --danger: var(--dash-fg);
-  --danger-foreground: var(--dash-on-fg);
+  /* `.button--danger` reads `--danger` / `--danger-hover` / `--danger-foreground`,
+     and `.button--danger-soft` reads the `--danger-soft-*` trio — not `--danger`.
+     Same shape as `.button--primary` reading `--accent`; pin all six. */
+  --danger: var(--dash-danger);
+  --danger-hover: var(--dash-danger-hover);
+  --danger-foreground: var(--dash-on-danger);
+  --danger-soft: color-mix(in srgb, var(--dash-danger) 12%, transparent);
+  --danger-soft-hover: color-mix(in srgb, var(--dash-danger) 20%, transparent);
+  --danger-soft-foreground: var(--dash-fg);
 }
 
 /* color-scheme is what `light-dark()` reads. The portal container (<body>) needs

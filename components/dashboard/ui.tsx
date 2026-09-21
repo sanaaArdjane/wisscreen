@@ -1,7 +1,7 @@
 "use client";
 
 import { useFormStatus } from "react-dom";
-import type { ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 import {
   Button,
   Chip,
@@ -243,7 +243,10 @@ export function SubmitButton({
   value,
 }: {
   children: ReactNode;
-  variant?: "primary" | "secondary" | "tertiary" | "ghost";
+  /** `danger` / `danger-soft` are HeroUI variants that read the red `--danger`
+   *  token pinned in `app/(app)/heroui.css`. They mark actions that destroy
+   *  data — prefer `ConfirmButton`, which arms first. */
+  variant?: "primary" | "secondary" | "tertiary" | "ghost" | "danger" | "danger-soft";
   className?: string;
   isDisabled?: boolean;
   /** For a second submit in the same form, e.g. "Enregistrer" vs "Envoyer". */
@@ -324,6 +327,105 @@ export function EmptyState({
       {description && <p className="max-w-md text-sm font-[450] text-fg/80">{description}</p>}
       {action}
     </div>
+  );
+}
+
+/* ──────────────────────────── Destructive actions ──────────────────────────── */
+
+/**
+ * The two-step destructive control: a quiet button that *arms*, then a red one
+ * that acts.
+ *
+ * It exists because this pattern was hand-rolled in three places that had
+ * already drifted — one asked a yes/no question, one demanded the account's
+ * e-mail, and none of them was red. Deleting a quote and deleting an account
+ * should not look like two different kinds of event.
+ *
+ * `action` takes either a plain server action or the dispatch from
+ * `useActionState`; both are `(formData: FormData) => void`, so one prop covers
+ * a redirecting delete and one that reports back through `FormAlert`.
+ *
+ * The arming step is the real safeguard, not the colour — a `<form>` posts on
+ * Enter, and a bare red submit inside a panel is one stray keystroke from
+ * running. Nothing here is ever a single click.
+ */
+export function ConfirmButton({
+  action,
+  label,
+  confirmLabel = "Supprimer définitivement",
+  cancelLabel = "Annuler",
+  description,
+  typeToConfirm,
+  typeToConfirmLabel,
+  hidden,
+  children,
+  fullWidth,
+  isDisabled,
+}: {
+  action: (formData: FormData) => void | Promise<void>;
+  /** The resting button, e.g. "Supprimer ce devis". */
+  label: string;
+  confirmLabel?: string;
+  cancelLabel?: string;
+  /** What the action destroys, and what survives it. Say both. */
+  description?: string;
+  /** Require the exact string to be retyped — for the genuinely unrecoverable. */
+  typeToConfirm?: string;
+  typeToConfirmLabel?: string;
+  /** Hidden inputs the action needs, e.g. `{ quoteId: 12 }`. */
+  hidden?: Record<string, string | number>;
+  /** Rendered inside the armed form — a `FormAlert`, usually. */
+  children?: ReactNode;
+  fullWidth?: boolean;
+  isDisabled?: boolean;
+}) {
+  const [armed, setArmed] = useState(false);
+
+  if (!armed) {
+    return (
+      <Button
+        variant="tertiary"
+        fullWidth={fullWidth}
+        isDisabled={isDisabled}
+        onPress={() => setArmed(true)}
+        // The resting step is not red. Red is what the *irreversible* button
+        // wears; painting the arming step too spends the signal before the
+        // decision is made, and a panel full of red buttons stops meaning
+        // anything. The label still says exactly what it will do.
+        className="text-danger-fg"
+      >
+        {label}
+      </Button>
+    );
+  }
+
+  return (
+    <form action={action} className="flex flex-col gap-3">
+      {hidden &&
+        Object.entries(hidden).map(([name, value]) => (
+          <input key={name} type="hidden" name={name} value={String(value)} />
+        ))}
+      {children}
+      {description && (
+        <p className="rounded-2xl border border-danger/45 bg-danger/10 px-4 py-3 text-sm text-fg">
+          {description}
+        </p>
+      )}
+      {typeToConfirm && (
+        <Field
+          name="confirm"
+          label={typeToConfirmLabel ?? `Saisissez « ${typeToConfirm} » pour confirmer`}
+          placeholder={typeToConfirm}
+          isRequired
+        />
+      )}
+      <div className="flex flex-wrap gap-2">
+        <SubmitButton variant="danger">{confirmLabel}</SubmitButton>
+        <Button variant="ghost" onPress={() => setArmed(false)}>
+          {cancelLabel}
+        </Button>
+      </div>
+    </form>
   );
 }
 
