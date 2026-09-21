@@ -1,75 +1,127 @@
 "use server";
 
-import { z } from "zod";
 import { revalidatePath } from "next/cache";
+import { and, eq, sql } from "drizzle-orm";
 import { db } from "@/lib/db";
-import { demoRuns } from "@/lib/db/schema";
+import { attachments, demoAccess, demoRuns } from "@/lib/db/schema";
 import { requireUser } from "@/lib/guard";
+import { logActivity, notifyStaff } from "@/lib/account";
 import { consume } from "@/lib/quotas";
-import { getScenario } from "@/lib/demo";
-import { logActivity } from "@/lib/account";
-import { parseForm, fail, type ActionState } from "@/lib/actions";
-
-const RunSchema = z.object({
-  slug: z.string().trim().min(1),
-  input: z.string().trim().min(1, "Saisissez quelque chose à analyser.").max(4000),
-});
+import { getEntitledDemo } from "@/lib/server/demos";
 
 /**
- * Runs a sandbox scenario and records it.
+ * The customer's side of an `upload` block: open a run, drop files into it,
+ * send it for processing.
  *
- * The quota is spent even when the scenario itself is simulated, because the
- * point of the meter is to behave exactly as it will when the engines are real —
- * a limit that only starts applying later is a limit nobody has tested.
- *
- * A refused run is still written to `demo_runs` with `outcome: "quota"`. That is
- * deliberate: "this customer kept hitting their ceiling" is the single most
- * useful thing this table can tell the admin, and it is invisible if refusals
- * aren't recorded.
+ * Every action re-derives entitlement from `getEntitledDemo` — a demo that was
+ * revoked or expired a minute ago must stop accepting files now, not at the
+ * next page load.
  */
-export async function runDemo(_prev: ActionState, formData: FormData): Promise<ActionState> {
+
+export async function startDemoRun(formData: FormData): Promise<void> {
   const user = await requireUser();
-  const parsed = parseForm(RunSchema, formData);
-  if (!parsed.ok) return parsed.state;
+  const demoId = Number(formData.get("demoId"));
+  if (!Number.isInteger(demoId)) return;
 
-  const scenario = getScenario(parsed.data.slug);
-  if (!scenario) return fail("Démo inconnue.");
+  const entitled = await getEntitledDemo(user.id, { id: demoId });
+  if (!entitled || !entitled.blocks.some((b) => b.kind === "upload")) return;
 
-  const quota = await consume(user.id, "demo.runs");
+  // One open run at a time: a second "Commencer" reuses the first.
+  const [open] = await db
+    .select({ id: demoRuns.id })
+    .from(demoRuns)
+    .where(
+      and(
+        eq(demoRuns.userId, user.id),
+        eq(demoRuns.demoId, demoId),
+        sql`${demoRuns.outcome} in ('en_attente', 'en_cours')`,
+      ),
+    )
+    .limit(1);
+  if (open) return;
+
+  // Processing is the part of a demo that costs real work, so it is the one
+  // hook left for a quota. No service grants `demo.processing` today, and a
+  // metric with no row is unlimited — so this is a no-op until one does,
+  // at which point it becomes a limit without a code change.
+  const quota = await consume(user.id, "demo.processing");
   if (!quota.ok) {
     await db.insert(demoRuns).values({
       userId: user.id,
-      serviceSlug: scenario.slug,
-      input: parsed.data.input.slice(0, 500),
+      demoId,
+      serviceSlug: entitled.demo.serviceSlug ?? entitled.demo.slug,
+      demoAccessId: entitled.grant?.id,
       outcome: "quota",
     });
-    revalidatePath("/dashboard/demos");
-    return fail(
-      quota.reason === "not_included"
-        ? "Les démos ne sont pas comprises dans votre formule."
-        : "Vous avez atteint votre quota de démos pour ce mois.",
-    );
+    revalidatePath(`/dashboard/demos/${entitled.demo.slug}`);
+    return;
   }
 
-  const started = Date.now();
-  const result = scenario.run(parsed.data.input);
+  const [run] = await db
+    .insert(demoRuns)
+    .values({
+      userId: user.id,
+      demoId,
+      serviceSlug: entitled.demo.serviceSlug ?? entitled.demo.slug,
+      demoAccessId: entitled.grant?.id,
+      outcome: "en_attente",
+    })
+    .returning({ id: demoRuns.id });
 
-  await db.insert(demoRuns).values({
-    userId: user.id,
-    serviceSlug: scenario.slug,
-    input: parsed.data.input.slice(0, 500),
-    result,
-    outcome: "ok",
-    durationMs: Date.now() - started,
-  });
-
+  if (entitled.grant) {
+    await db.update(demoAccess).set({ lastAccessAt: new Date() }).where(eq(demoAccess.id, entitled.grant.id));
+  }
   await logActivity({
     actorId: user.id,
-    action: "demo.run",
-    entity: "demo",
-    entityId: scenario.slug,
+    action: "demo.run_started",
+    entity: "demo_run",
+    entityId: run.id,
+    meta: { demoId },
   });
+  revalidatePath(`/dashboard/demos/${entitled.demo.slug}`);
+}
 
-  revalidatePath("/dashboard/demos");
-  return { ok: true, message: result.summary };
+/** "Envoyer pour traitement": the files are in, tell the desk. */
+export async function submitDemoRun(formData: FormData): Promise<void> {
+  const user = await requireUser();
+  const runId = Number(formData.get("runId"));
+  if (!Number.isInteger(runId)) return;
+
+  const [run] = await db
+    .select()
+    .from(demoRuns)
+    .where(and(eq(demoRuns.id, runId), eq(demoRuns.userId, user.id), eq(demoRuns.outcome, "en_attente")))
+    .limit(1);
+  if (!run?.demoId) return;
+  const entitled = await getEntitledDemo(user.id, { id: run.demoId });
+  if (!entitled) return;
+
+  const [{ n }] = await db
+    .select({ n: sql<number>`count(*)::int` })
+    .from(attachments)
+    .where(eq(attachments.demoRunId, runId));
+  if (n === 0) return;
+
+  await db
+    .update(demoRuns)
+    .set({ outcome: "en_cours", input: `${n} fichier${n > 1 ? "s" : ""}`, updatedAt: new Date() })
+    .where(eq(demoRuns.id, runId));
+
+  await notifyStaff("demos:read", {
+    type: "demo",
+    title: `Fichier à traiter — ${entitled.demo.title}`,
+    body: `${user.name} a envoyé ${n} fichier${n > 1 ? "s" : ""}.`,
+    href: `/admin/demos/${run.demoId}#execution-${runId}`,
+    actorId: user.id,
+    entity: "demo",
+    entityId: run.demoId,
+  });
+  await logActivity({
+    actorId: user.id,
+    action: "demo.run_submitted",
+    entity: "demo_run",
+    entityId: runId,
+    meta: { files: n },
+  });
+  revalidatePath(`/dashboard/demos/${entitled.demo.slug}`);
 }

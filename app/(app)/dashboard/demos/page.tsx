@@ -1,125 +1,90 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { requireUser } from "@/lib/guard";
-import { listDemoRuns } from "@/lib/server/queries";
-import { listQuotas } from "@/lib/quotas";
-import { PageHeader, Panel } from "@/components/dashboard/PageHeader";
-import { QuotaMeter } from "@/components/dashboard/QuotaMeter";
-import { DEMO_SCENARIOS } from "@/lib/demo";
-import type { DemoResult } from "@/lib/demo";
-import { DemoRunner } from "./DemoRunner";
-import { formatDateTime } from "@/lib/format";
+import { PageHeader } from "@/components/dashboard/PageHeader";
+import { EmptyState, StatusChip } from "@/components/dashboard/ui";
+import { pillPrimary } from "@/components/dashboard/pills";
 import { Icon } from "@/components/ui/Icon";
-import { pillSmall } from "@/components/dashboard/pills";
+import { listEntitledDemos } from "@/lib/server/demos";
+import { BLOCK_LABELS } from "@/lib/demos";
+import { SERVICES } from "@/lib/data/services";
+import { formatDate } from "@/lib/format";
 
-export const metadata: Metadata = { title: "Essayer nos solutions" };
+export const metadata: Metadata = { title: "Mes démos" };
 
+/**
+ * The demos WICLOUD has opened for this customer.
+ *
+ * It used to be four simulated sandboxes every account saw; a demo is now
+ * something the desk prepares and hands to a named customer, so an account
+ * with none gets a way to ask for one rather than a fake to play with.
+ */
 export default async function DemosPage() {
   const user = await requireUser("/dashboard/demos");
-
-  const [runs, quotas] = await Promise.all([listDemoRuns(user.id, 30), listQuotas(user.id)]);
-  const demoQuota = quotas.find((q) => q.metric === "demo.runs");
-
-  // The most recent successful run per scenario, so each card comes back with
-  // its last result after a reload instead of an empty panel.
-  const lastBySlug = new Map<string, DemoResult>();
-  for (const { run } of runs) {
-    if (run.outcome === "ok" && run.result && !lastBySlug.has(run.serviceSlug)) {
-      lastBySlug.set(run.serviceSlug, run.result as unknown as DemoResult);
-    }
-  }
+  const demos = await listEntitledDemos(user.id);
+  const now = new Date();
+  const soon = new Date(now.getTime() + 7 * 24 * 3600 * 1000);
 
   return (
     <>
       <PageHeader
-        title="Essayer nos solutions"
-        description="Un bac à sable pour voir ce que fait chaque solution, sans installer quoi que ce soit."
+        title="Mes démos"
+        description="Les accès de démonstration préparés pour vous par notre équipe : plateformes, comptes de test, serveurs et documents."
+        actions={
+          <Link href="/dashboard/demandes/nouvelle?type=demo" className={pillPrimary}>
+            <Icon name="plus" className="size-4" />
+            Demander une démo
+          </Link>
+        }
       />
 
-      {/* Said once, at the top, in plain language — not buried in a footnote.
-          Someone will screenshot a result; they should know what it is. */}
-      <div className="mb-6 flex gap-3 rounded-2xl border border-fg/15 bg-panel px-6 py-4">
-        <Icon name="sparkles" className="mt-0.5 size-5 shrink-0 text-signal-fg" />
-        <div className="text-sm text-fg/80">
-          <p className="font-[650] text-fg">Ces démonstrations sont simulées.</p>
-          <p className="mt-1">
-            Elles reproduisent le format des réponses de nos moteurs à partir de vos saisies,
-            pour montrer la mécanique et l&apos;intégration. Pour un essai sur vos données
-            réelles,{" "}
-            <Link
-              href="/dashboard/demandes/nouvelle?type=demo"
-              className="font-[650] text-fg underline underline-offset-4"
-            >
-              demandez une démo accompagnée
+      {demos.length === 0 ? (
+        <EmptyState
+          title="Aucune démo pour l'instant"
+          description="Dites-nous quelle solution vous voulez évaluer : nous vous préparons un accès, un compte de test ou un environnement dédié."
+          action={
+            <Link href="/dashboard/demandes/nouvelle?type=demo" className={`${pillPrimary} mt-2`}>
+              Demander une démo
             </Link>
-            .
-          </p>
-        </div>
-      </div>
-
-      {demoQuota && (
-        <Panel className="mb-6" title="Votre quota de démos">
-          <QuotaMeter quota={demoQuota} showReset />
-        </Panel>
-      )}
-
-      <div className="grid gap-6 xl:grid-cols-2">
-        {DEMO_SCENARIOS.map((scenario) => (
-          <Panel
-            key={scenario.slug}
-            title={`${scenario.name} — ${scenario.title}`}
-            description={scenario.description}
-            actions={
-              <Link
-                href={`/solutions/${scenario.slug}`}
-                className={pillSmall}
-              >
-                La solution
-              </Link>
-            }
-          >
-            <DemoRunner
-              slug={scenario.slug}
-              inputLabel={scenario.inputLabel}
-              placeholder={scenario.inputPlaceholder}
-              sample={scenario.sample}
-              lastResult={lastBySlug.get(scenario.slug) ?? null}
-            />
-          </Panel>
-        ))}
-      </div>
-
-      <Panel className="mt-6" title="Historique" bodyClassName={runs.length ? "p-0" : undefined}>
-        {runs.length === 0 ? (
-          <p className="text-sm text-fg/80">Aucune exécution pour l&apos;instant.</p>
-        ) : (
-          <ul className="divide-y divide-fg/10">
-            {runs.map(({ run }) => (
-              <li key={run.id} className="flex items-center gap-4 px-6 py-3.5">
-                <span className="min-w-0 flex-1">
-                  <span className="block truncate text-sm text-fg">
-                    {DEMO_SCENARIOS.find((s) => s.slug === run.serviceSlug)?.name ??
-                      run.serviceSlug}
-                  </span>
-                  <span className="block truncate text-xs text-fg/80">{run.input}</span>
-                </span>
-                <span className="shrink-0 text-xs text-fg/80">
-                  {formatDateTime(run.createdAt)}
-                </span>
-                <span
-                  className={
-                    run.outcome === "ok"
-                      ? "shrink-0 rounded-full border border-signal/45 bg-signal/10 px-2.5 py-0.5 text-xs text-fg"
-                      : "shrink-0 rounded-full border border-fg/20 bg-fg/5 px-2.5 py-0.5 text-xs text-fg/80"
-                  }
+          }
+        />
+      ) : (
+        <ul className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+          {demos.map(({ demo, blocks, expiresAt }) => {
+            const service = SERVICES.find((s) => s.slug === demo.serviceSlug);
+            const kinds = Array.from(new Set(blocks.map((b) => b.kind)));
+            const expiringSoon = expiresAt && expiresAt < soon;
+            return (
+              <li key={demo.id}>
+                <Link
+                  href={`/dashboard/demos/${demo.slug}`}
+                  className="flex h-full flex-col gap-3 rounded-3xl border border-fg/10 bg-panel p-6 transition-colors hover:border-fg/25"
                 >
-                  {run.outcome === "ok" ? "Exécutée" : "Quota atteint"}
-                </span>
+                  <div className="flex flex-wrap items-center gap-2">
+                    {(demo.category || service) && (
+                      <span className="text-xs font-[650] uppercase tracking-wide text-signal-fg">
+                        {demo.category || service?.name}
+                      </span>
+                    )}
+                    {expiringSoon && (
+                      <StatusChip label={`Jusqu'au ${formatDate(expiresAt)}`} tone="bg-signal/15 text-fg border-signal/45" />
+                    )}
+                  </div>
+                  <p className="text-lg font-[650] leading-tight text-fg">{demo.title}</p>
+                  {demo.summary && <p className="line-clamp-3 text-sm text-fg/80">{demo.summary}</p>}
+                  <p className="mt-auto flex flex-wrap gap-1.5 pt-2">
+                    {kinds.map((k) => (
+                      <span key={k} className="rounded-full bg-soft px-2.5 py-1 text-xs text-fg">
+                        {BLOCK_LABELS[k].label}
+                      </span>
+                    ))}
+                  </p>
+                </Link>
               </li>
-            ))}
-          </ul>
-        )}
-      </Panel>
+            );
+          })}
+        </ul>
+      )}
     </>
   );
 }

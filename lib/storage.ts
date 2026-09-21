@@ -53,6 +53,12 @@ export const ALLOWED_CONTENT_TYPES = [
   "image/gif",
   "text/plain",
   "text/csv",
+  // Demo instructions. Safe for the same reason as everything else here: the
+  // object is only ever served as an attachment from the bucket's own origin.
+  // (`image/svg+xml` stays out — it is script-capable, and the disposition is
+  // the only line between it and a stored XSS if anything ever served it inline.)
+  "text/markdown",
+  "text/html",
   "application/zip",
   "application/msword",
   "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
@@ -111,15 +117,27 @@ export async function presignUpload(key: string, contentType: string): Promise<s
 }
 
 /** A short-lived download link. `filename` forces a download rather than inline render. */
-export async function presignDownload(key: string, filename?: string): Promise<string> {
+/**
+ * `inline` is for previewing a PDF or image in a new tab. It is only ever safe
+ * because the object is served from the bucket's own origin, never the site's —
+ * an inline HTML file there cannot read this site's cookies. `text/html` is
+ * still forced to `attachment` below, as a second line.
+ */
+export async function presignDownload(
+  key: string,
+  filename?: string,
+  inline = false,
+): Promise<string> {
+  const safeInline = inline && !/\.html?$/i.test(filename ?? "");
+  const disposition = safeInline ? "inline" : "attachment";
   return getSignedUrl(
     s3(),
     new GetObjectCommand({
       Bucket: BUCKET,
       Key: key,
       ResponseContentDisposition: filename
-        ? `attachment; filename="${filename.replace(/["\\]/g, "")}"`
-        : "attachment",
+        ? `${disposition}; filename="${filename.replace(/["\\]/g, "")}"`
+        : disposition,
     }),
     { expiresIn: DOWNLOAD_TTL_SECONDS },
   );

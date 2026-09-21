@@ -7,6 +7,7 @@ import { can } from "@/lib/permissions";
 import { getSettings } from "@/lib/settings";
 import { PageHeader, Panel } from "@/components/dashboard/PageHeader";
 import { SettingsForm } from "./SettingsForm";
+import { encryptionConfigured } from "@/lib/crypto";
 import { emailConfigured } from "@/lib/email";
 import { BUCKET, storageConfigured } from "@/lib/storage";
 import { Icon } from "@/components/ui/Icon";
@@ -70,6 +71,18 @@ export default async function ParametresPage() {
               label="Connexion Google"
               okHint="Client OAuth configuré"
               offHint="GOOGLE_CLIENT_ID / SECRET absents — le bouton est masqué"
+            />
+            <ServiceRow
+              ok={encryptionConfigured()}
+              label="Chiffrement des identifiants de démo"
+              okHint="ENCRYPTION_KEY présent — mots de passe et clés SSH chiffrés (AES-256-GCM). Conservez cette clé hors des sauvegardes de la base : la perdre rend les identifiants illisibles."
+              offHint="ENCRYPTION_KEY absent — les blocs d'identifiants et SSH refusent d'enregistrer un secret (rien n'est stocké en clair). Générez-la avec `openssl rand -base64 32`."
+            />
+            <ServiceRow
+              ok={Boolean(process.env.DATABASE_URL_UNPOOLED)}
+              label="Notifications en temps réel"
+              okHint="Connexion directe à Postgres disponible pour LISTEN/NOTIFY"
+              offHint="DATABASE_URL_UNPOOLED absent — le flux tente la connexion poolée, où LISTEN ne reçoit rien"
             />
             <ServiceRow
               ok={turnstile}

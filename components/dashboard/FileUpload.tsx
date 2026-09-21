@@ -5,9 +5,11 @@ import { useRef, useState } from "react";
 import { Button, Spinner } from "@heroui/react";
 import { Icon } from "@/components/ui/Icon";
 import { formatBytes } from "@/lib/format";
+import { uploadFile, type UploadTarget } from "@/lib/upload-client";
 
 /**
- * Direct-to-bucket upload: presign → PUT the file to storage → record the row.
+ * Direct-to-bucket upload: presign → PUT the file to storage → record the row
+ * (the steps live in `lib/upload-client.ts`, shared with the chat composer).
  *
  * The middle step goes straight from the browser to Neon Object Storage, so a
  * 25 MB attachment never occupies the Node process. `router.refresh()` at the
@@ -20,22 +22,29 @@ import { formatBytes } from "@/lib/format";
  * message.
  */
 export function FileUpload({
-  requestId,
+  target = {},
   internal = false,
   disabled = false,
   disabledReason,
   label = "Joindre un fichier",
   accept,
+  hint = "PDF, images, documents Office, archives.",
   maxBytes,
+  onUploaded,
 }: {
-  requestId?: number;
+  /** What the file is attached to. Omitted: a personal document. */
+  target?: UploadTarget;
   /** Staff-only attachment: recorded but never shown to the client. */
   internal?: boolean;
   disabled?: boolean;
   disabledReason?: string;
   label?: string;
   accept?: string;
+  /** What the person should send — an `upload` demo block says it in its own words. */
+  hint?: string;
   maxBytes: number;
+  /** Called after the row is recorded, before the refresh. */
+  onUploaded?: (result: { id: number; key: string; filename: string }) => void;
 }) {
   const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
@@ -45,73 +54,21 @@ export function FileUpload({
 
   async function upload(file: File) {
     setError(null);
-
     if (file.size > maxBytes) {
       setError(`Fichier trop volumineux (${formatBytes(file.size)}). Maximum ${formatBytes(maxBytes)}.`);
       return;
     }
-
     setBusy(true);
-    try {
-      setProgress("Préparation…");
-      const meta = {
-        filename: file.name,
-        // Chrome leaves `type` empty for extensions it doesn't know; the server
-        // allowlist will reject the empty string with a clear message rather
-        // than us guessing a type here.
-        contentType: file.type || "application/octet-stream",
-        size: file.size,
-        requestId,
-      };
-
-      const presign = await fetch("/api/uploads", {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify(meta),
-      });
-      if (!presign.ok) {
-        const { error } = await presign.json().catch(() => ({ error: "" }));
-        setError(
-          error === "unsupported_type"
-            ? "Ce type de fichier n'est pas accepté."
-            : error === "storage_not_configured"
-              ? "Le stockage de fichiers n'est pas encore configuré."
-              : "Impossible de préparer l'envoi.",
-        );
-        return;
-      }
-      const { key, url } = (await presign.json()) as { key: string; url: string };
-
-      setProgress("Envoi…");
-      const put = await fetch(url, {
-        method: "PUT",
-        headers: { "content-type": meta.contentType },
-        body: file,
-      });
-      if (!put.ok) {
-        setError("L'envoi du fichier a échoué. Réessayez.");
-        return;
-      }
-
-      setProgress("Enregistrement…");
-      const record = await fetch("/api/uploads", {
-        method: "PUT",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({ ...meta, key, internal }),
-      });
-      if (!record.ok) {
-        setError("Le fichier a été envoyé mais n'a pas pu être rattaché.");
-        return;
-      }
-
-      router.refresh();
-    } catch {
-      setError("Envoi interrompu. Vérifiez votre connexion.");
-    } finally {
-      setBusy(false);
-      setProgress(null);
-      if (inputRef.current) inputRef.current.value = "";
+    const result = await uploadFile(file, target, { internal, onStep: setProgress });
+    setBusy(false);
+    setProgress(null);
+    if (inputRef.current) inputRef.current.value = "";
+    if (!result.ok) {
+      setError(result.error);
+      return;
     }
+    onUploaded?.({ id: result.id, key: result.key, filename: file.name });
+    router.refresh();
   }
 
   if (disabled) {
@@ -144,7 +101,7 @@ export function FileUpload({
         {busy ? (progress ?? "Envoi…") : label}
       </Button>
       <p className="text-xs text-fg/80">
-        {formatBytes(maxBytes)} maximum — PDF, images, documents Office, archives.
+        {formatBytes(maxBytes)} maximum — {hint}
       </p>
       {error && (
         <p role="status" className="text-sm text-fg">

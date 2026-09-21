@@ -24,7 +24,7 @@ export type NavItem = {
 export const CLIENT_NAV: NavItem[] = [
   { href: "/dashboard", label: "Vue d'ensemble", icon: "home" },
   { href: "/dashboard/demandes", label: "Mes demandes", icon: "inbox", prefix: true },
-  { href: "/dashboard/demos", label: "Essayer nos solutions", icon: "zap", prefix: true },
+  { href: "/dashboard/demos", label: "Mes démos", icon: "zap", prefix: true },
   { href: "/dashboard/abonnement", label: "Abonnement & quotas", icon: "credit-card" },
   { href: "/dashboard/devis", label: "Devis", icon: "file-text", prefix: true },
   { href: "/dashboard/factures", label: "Factures", icon: "receipt", prefix: true },
@@ -72,7 +72,7 @@ export const ADMIN_NAV: NavItem[] = [
   // No permission: everyone with a back-office account has a feed of their own.
   // The *composer* behind it is what needs `notifications:write`.
   { href: "/admin/notifications", label: "Notifications", icon: "bell", prefix: true },
-  { href: "/admin/demos", label: "Démos", icon: "zap", permission: "demos:read" },
+  { href: "/admin/demos", label: "Démos", icon: "zap", permission: "demos:read", prefix: true },
   { href: "/admin/messages", label: "Messages du site", icon: "mail", permission: "leads:read" },
   { href: "/admin/equipe", label: "Équipe & accès", icon: "shield", permission: "team:read" },
   {

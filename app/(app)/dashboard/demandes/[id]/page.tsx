@@ -107,7 +107,7 @@ export default async function DemandeDetailPage({
               <div className="mt-6 flex flex-col gap-4 border-t border-fg/10 pt-6">
                 <ReplyForm requestId={request.id} />
                 <FileUpload
-                  requestId={request.id}
+                  target={{ requestId: request.id }}
                   maxBytes={MAX_UPLOAD_BYTES}
                   disabled={!storageConfigured()}
                   disabledReason="L'envoi de fichiers sera disponible prochainement."

@@ -109,7 +109,7 @@ export default async function AdminRequestPage({ params }: PageProps<"/admin/dem
               <div className="mt-6 flex flex-col gap-4 border-t border-fg/10 pt-6">
                 <StaffReplyForm requestId={request.id} />
                 <FileUpload
-                  requestId={request.id}
+                  target={{ requestId: request.id }}
                   maxBytes={MAX_UPLOAD_BYTES}
                   label="Joindre un livrable"
                   disabled={!storageConfigured()}
