@@ -42,7 +42,7 @@ export function CreateUserForm({
       {createdId && (
         <Link
           href={`/admin/utilisateurs/${createdId}`}
-          className="text-sm text-signal-deep underline underline-offset-4"
+          className="text-sm font-[650] text-fg underline underline-offset-4"
         >
           Ouvrir la fiche du nouveau compte
         </Link>

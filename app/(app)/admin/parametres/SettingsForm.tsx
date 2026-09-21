@@ -27,7 +27,7 @@ export function SettingsForm({
       <FormAlert state={state} />
 
       <fieldset className="flex flex-col gap-4">
-        <legend className="mb-1 text-sm font-medium text-ink">Connexion</legend>
+        <legend className="mb-1 text-sm font-[650] text-fg">Connexion</legend>
 
         <CheckboxField
           name="magicLinkEnabled"
@@ -50,8 +50,8 @@ export function SettingsForm({
         />
       </fieldset>
 
-      <fieldset className="flex flex-col gap-4 border-t border-ink/10 pt-6">
-        <legend className="mb-1 text-sm font-medium text-ink">Nouveaux comptes</legend>
+      <fieldset className="flex flex-col gap-4 border-t border-fg/10 pt-6">
+        <legend className="mb-1 text-sm font-[650] text-fg">Nouveaux comptes</legend>
         <SelectField
           name="defaultPlan"
           label="Formule attribuée à l'inscription"
@@ -61,8 +61,8 @@ export function SettingsForm({
         />
       </fieldset>
 
-      <fieldset className="flex flex-col gap-4 border-t border-ink/10 pt-6">
-        <legend className="mb-1 text-sm font-medium text-ink">Bandeau d&apos;information</legend>
+      <fieldset className="flex flex-col gap-4 border-t border-fg/10 pt-6">
+        <legend className="mb-1 text-sm font-[650] text-fg">Bandeau d&apos;information</legend>
         <Field
           name="announcement"
           label="Message affiché en haut des tableaux de bord"

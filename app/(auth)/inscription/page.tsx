@@ -7,7 +7,8 @@ import { getSetting } from "@/lib/settings";
 export const metadata: Metadata = { title: "Créer un compte", robots: { index: false } };
 
 export default async function InscriptionPage() {
-  if (await getCurrentUser()) redirect("/dashboard");
+  const user = await getCurrentUser();
+  if (user) redirect(user.role === "admin" || user.role === "staff" ? "/admin" : "/dashboard");
 
   return (
     <SignUpForm

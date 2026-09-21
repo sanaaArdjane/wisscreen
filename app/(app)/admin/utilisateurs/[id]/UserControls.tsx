@@ -97,7 +97,7 @@ export function RoleForm({
 
   if (isSelf) {
     return (
-      <p className="text-sm text-ink/80">
+      <p className="text-sm text-fg/80">
         Vous ne pouvez pas modifier votre propre rôle. Demandez à un autre administrateur.
       </p>
     );
@@ -143,7 +143,7 @@ export function PermissionMatrix({
 
   if (isSelf) {
     return (
-      <p className="text-sm text-ink/80">
+      <p className="text-sm text-fg/80">
         Vous ne pouvez pas modifier vos propres accès.
       </p>
     );
@@ -159,21 +159,21 @@ export function PermissionMatrix({
       <div className="overflow-x-auto">
         <table className="w-full min-w-[34rem] text-sm">
           <thead>
-            <tr className="border-b border-ink/10 text-left text-xs uppercase tracking-wider text-ink/80">
-              <th scope="col" className="pb-2 font-medium">
+            <tr className="text-left text-xs text-fg/80">
+              <th scope="col" className="rounded-l-2xl bg-soft px-4 py-2.5 font-[650]">
                 Domaine
               </th>
               {actions.map((a) => (
-                <th key={a} scope="col" className="pb-2 text-center font-medium">
+                <th key={a} scope="col" className="bg-soft px-2 py-2.5 text-center font-[650] last:rounded-r-2xl">
                   {ACTION_LABELS[a]}
                 </th>
               ))}
             </tr>
           </thead>
-          <tbody className="divide-y divide-ink/5">
+          <tbody className="divide-y divide-fg/5">
             {DOMAINS.map((domain: Domain) => (
               <tr key={domain}>
-                <th scope="row" className="py-2 pr-4 text-left font-normal text-ink">
+                <th scope="row" className="py-2 pr-4 text-left font-normal text-fg">
                   {DOMAIN_LABELS[domain]}
                 </th>
                 {actions.map((a) => {
@@ -184,11 +184,11 @@ export function PermissionMatrix({
                     <td key={key} className="py-2 text-center">
                       <label
                         className={cn(
-                          "inline-flex size-7 cursor-pointer items-center justify-center rounded-lg border transition-colors",
+                          "inline-flex size-7 cursor-pointer items-center justify-center rounded-md border transition-colors",
                           checked
-                            ? "border-signal/55 bg-signal/15"
-                            : "border-ink/15 bg-paper hover:border-ink/30",
-                          overridden && "ring-1 ring-ink/40",
+                            ? "border-signal bg-signal"
+                            : "border-fg/15 bg-panel hover:border-fg/30",
+                          overridden && "ring-1 ring-fg/40",
                         )}
                         title={
                           overridden
@@ -209,7 +209,7 @@ export function PermissionMatrix({
                           {DOMAIN_LABELS[domain]} — {ACTION_LABELS[a]}
                         </span>
                         {checked && (
-                          <svg viewBox="0 0 24 24" className="size-4 text-signal-deep" aria-hidden>
+                          <svg viewBox="0 0 24 24" className="size-4 text-abyss" aria-hidden>
                             <path
                               d="M5 12l5 5L19 7"
                               fill="none"
@@ -230,7 +230,7 @@ export function PermissionMatrix({
         </table>
       </div>
 
-      <p className="text-xs text-ink/80">
+      <p className="text-xs text-fg/80">
         Les cases entourées sont des exceptions au rôle. Seules les exceptions sont
         enregistrées : si vous changez le rôle plus tard, le reste suit automatiquement.
       </p>
@@ -338,7 +338,7 @@ export function QuotaForm({
       />
       <SubmitButton variant="secondary">Appliquer</SubmitButton>
       {state.message && (
-        <p className="w-full text-sm text-ink/80">{state.message}</p>
+        <p className="w-full text-sm text-fg/80">{state.message}</p>
       )}
     </form>
   );
@@ -359,13 +359,13 @@ export function SuspendForm({
   const [armed, setArmed] = useState(false);
 
   if (isSelf) {
-    return <p className="text-sm text-ink/80">Vous ne pouvez pas suspendre votre propre compte.</p>;
+    return <p className="text-sm text-fg/80">Vous ne pouvez pas suspendre votre propre compte.</p>;
   }
 
   if (banned) {
     return (
       <div className="flex flex-col gap-3">
-        <p className="rounded-xl border border-ink/25 bg-ink/5 px-4 py-3 text-sm text-ink">
+        <p className="rounded-2xl border border-fg/25 bg-panel px-4 py-3 text-sm text-fg">
           Compte suspendu{banReason ? ` — ${banReason}` : ""}. Les sessions ont été révoquées.
         </p>
         <form action={unsuspendUser}>
@@ -455,7 +455,7 @@ export function DeleteUserForm({ userId, email }: { userId: string; email: strin
     <form action={action} className="flex flex-col gap-4">
       <input type="hidden" name="userId" value={userId} />
       <FormAlert state={state} />
-      <p className="rounded-xl border border-ink/25 bg-ink/5 px-4 py-3 text-sm text-ink">
+      <p className="rounded-2xl border border-fg/25 bg-panel px-4 py-3 text-sm text-fg">
         Cette action supprime le compte et, en cascade, ses demandes, messages, devis,
         factures, documents et notifications. Elle est irréversible.
       </p>

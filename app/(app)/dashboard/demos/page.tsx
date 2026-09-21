@@ -10,6 +10,7 @@ import type { DemoResult } from "@/lib/demo";
 import { DemoRunner } from "./DemoRunner";
 import { formatDateTime } from "@/lib/format";
 import { Icon } from "@/components/ui/Icon";
+import { pillSmall } from "@/components/dashboard/pills";
 
 export const metadata: Metadata = { title: "Essayer nos solutions" };
 
@@ -37,17 +38,17 @@ export default async function DemosPage() {
 
       {/* Said once, at the top, in plain language — not buried in a footnote.
           Someone will screenshot a result; they should know what it is. */}
-      <div className="mb-6 flex gap-3 rounded-2xl border border-ink/15 bg-paper px-5 py-4">
-        <Icon name="sparkles" className="mt-0.5 size-5 shrink-0 text-signal-deep" />
-        <div className="text-sm text-ink/80">
-          <p className="font-medium text-ink">Ces démonstrations sont simulées.</p>
+      <div className="mb-6 flex gap-3 rounded-2xl border border-fg/15 bg-panel px-6 py-4">
+        <Icon name="sparkles" className="mt-0.5 size-5 shrink-0 text-signal-fg" />
+        <div className="text-sm text-fg/80">
+          <p className="font-[650] text-fg">Ces démonstrations sont simulées.</p>
           <p className="mt-1">
             Elles reproduisent le format des réponses de nos moteurs à partir de vos saisies,
             pour montrer la mécanique et l&apos;intégration. Pour un essai sur vos données
             réelles,{" "}
             <Link
               href="/dashboard/demandes/nouvelle?type=demo"
-              className="text-signal-deep underline underline-offset-4"
+              className="font-[650] text-fg underline underline-offset-4"
             >
               demandez une démo accompagnée
             </Link>
@@ -71,7 +72,7 @@ export default async function DemosPage() {
             actions={
               <Link
                 href={`/solutions/${scenario.slug}`}
-                className="text-sm text-signal-deep underline underline-offset-4"
+                className={pillSmall}
               >
                 La solution
               </Link>
@@ -90,26 +91,26 @@ export default async function DemosPage() {
 
       <Panel className="mt-6" title="Historique" bodyClassName={runs.length ? "p-0" : undefined}>
         {runs.length === 0 ? (
-          <p className="text-sm text-ink/80">Aucune exécution pour l&apos;instant.</p>
+          <p className="text-sm text-fg/80">Aucune exécution pour l&apos;instant.</p>
         ) : (
-          <ul className="divide-y divide-ink/10">
+          <ul className="divide-y divide-fg/10">
             {runs.map(({ run }) => (
-              <li key={run.id} className="flex items-center gap-4 px-5 py-3">
+              <li key={run.id} className="flex items-center gap-4 px-6 py-3.5">
                 <span className="min-w-0 flex-1">
-                  <span className="block truncate text-sm text-ink">
+                  <span className="block truncate text-sm text-fg">
                     {DEMO_SCENARIOS.find((s) => s.slug === run.serviceSlug)?.name ??
                       run.serviceSlug}
                   </span>
-                  <span className="block truncate text-xs text-ink/80">{run.input}</span>
+                  <span className="block truncate text-xs text-fg/80">{run.input}</span>
                 </span>
-                <span className="shrink-0 text-xs text-ink/80">
+                <span className="shrink-0 text-xs text-fg/80">
                   {formatDateTime(run.createdAt)}
                 </span>
                 <span
                   className={
                     run.outcome === "ok"
-                      ? "shrink-0 rounded-full border border-signal/45 bg-signal/10 px-2.5 py-0.5 text-xs text-ink"
-                      : "shrink-0 rounded-full border border-ink/20 bg-ink/5 px-2.5 py-0.5 text-xs text-ink/80"
+                      ? "shrink-0 rounded-full border border-signal/45 bg-signal/10 px-2.5 py-0.5 text-xs text-fg"
+                      : "shrink-0 rounded-full border border-fg/20 bg-fg/5 px-2.5 py-0.5 text-xs text-fg/80"
                   }
                 >
                   {run.outcome === "ok" ? "Exécutée" : "Quota atteint"}

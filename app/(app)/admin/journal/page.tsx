@@ -115,7 +115,7 @@ export default async function JournalPage({ searchParams }: PageProps<"/admin/jo
         <EmptyState title="Aucune activité" description="Rien ne correspond à ces filtres." />
       ) : (
         <Panel bodyClassName="p-0">
-          <ul className="divide-y divide-ink/10">
+          <ul className="divide-y divide-fg/10">
             {rows.map(({ log, actor }) => {
               const href =
                 log.entity && log.entityId
@@ -131,16 +131,16 @@ export default async function JournalPage({ searchParams }: PageProps<"/admin/jo
                 : "";
 
               return (
-                <li key={log.id} className="flex flex-col gap-1 px-5 py-3 sm:flex-row sm:items-center sm:gap-4">
+                <li key={log.id} className="flex flex-col gap-1 px-6 py-3.5 sm:flex-row sm:items-center sm:gap-4">
                   <span className="min-w-0 flex-1">
-                    <span className="block text-sm text-ink">
+                    <span className="block text-sm text-fg">
                       {ACTION_LABELS[log.action] ?? log.action}
                       {href && (
                         <>
                           {" — "}
                           <Link
                             href={href}
-                            className="text-signal-deep underline underline-offset-4"
+                            className="font-[650] text-fg underline underline-offset-4"
                           >
                             ouvrir
                           </Link>
@@ -148,13 +148,13 @@ export default async function JournalPage({ searchParams }: PageProps<"/admin/jo
                       )}
                     </span>
                     {summary && (
-                      <span className="mt-0.5 block truncate text-xs text-ink/80">{summary}</span>
+                      <span className="mt-0.5 block truncate text-xs text-fg/80">{summary}</span>
                     )}
                   </span>
-                  <span className="shrink-0 text-xs text-ink/80">
+                  <span className="shrink-0 text-xs text-fg/80">
                     {actor?.name ?? "Système"}
                   </span>
-                  <span className="shrink-0 text-xs tabular-nums text-ink/80">
+                  <span className="shrink-0 text-xs tabular-nums text-fg/80">
                     {formatDateTime(log.createdAt)}
                   </span>
                 </li>

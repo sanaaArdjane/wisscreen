@@ -99,31 +99,31 @@ export default async function AdminDemandesPage({ searchParams }: PageProps<"/ad
         />
       ) : (
         <Panel bodyClassName="p-0">
-          <ul className="divide-y divide-ink/10">
+          <ul className="divide-y divide-fg/10">
             {rows.map(({ request, client }) => (
               <li key={request.id}>
                 <Link
                   href={`/admin/demandes/${request.id}`}
-                  className="flex flex-col gap-2 px-5 py-4 transition-colors hover:bg-mist sm:flex-row sm:items-center sm:gap-4"
+                  className="flex flex-col gap-2 px-6 py-4 transition-colors hover:bg-soft sm:flex-row sm:items-center sm:gap-4"
                 >
                   <div className="min-w-0 flex-1">
-                    <p className="truncate text-sm font-medium text-ink">{request.title}</p>
-                    <p className="mt-0.5 truncate text-xs text-ink/80">
+                    <p className="truncate text-sm font-[650] text-fg">{request.title}</p>
+                    <p className="mt-0.5 truncate text-xs text-fg/80">
                       {request.ref} · {client.name} ({client.email})
                     </p>
                   </div>
                   <div className="flex shrink-0 items-center gap-3">
                     {request.priority !== "normale" && (
-                      <span className="text-xs font-medium text-ink/80">
+                      <span className="text-xs font-[650] text-fg/80">
                         {PRIORITY_LABELS[request.priority as RequestPriority]}
                       </span>
                     )}
                     {!request.assignedToId && (
-                      <span className="rounded-full border border-ink/20 px-2 py-0.5 text-[11px] text-ink/80">
+                      <span className="rounded-full border border-fg/20 px-2 py-0.5 text-[11px] text-fg/80">
                         Non attribuée
                       </span>
                     )}
-                    <span className="text-xs text-ink/80">{relativeTime(request.updatedAt)}</span>
+                    <span className="text-xs text-fg/80">{relativeTime(request.updatedAt)}</span>
                     <StatusChip
                       label={STATUS_LABELS[request.status as RequestStatus] ?? request.status}
                       tone={STATUS_TONE[request.status as RequestStatus] ?? STATUS_TONE.nouvelle}

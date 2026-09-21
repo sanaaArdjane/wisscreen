@@ -30,7 +30,7 @@ export function InvoiceControls({
       />
       <Field name="dueAt" label="Échéance" type="date" defaultValue={dueAt} className="w-48" />
       <SubmitButton variant="secondary">Appliquer</SubmitButton>
-      {state.message && <p className="w-full text-sm text-ink/80">{state.message}</p>}
+      {state.message && <p className="w-full text-sm text-fg/80">{state.message}</p>}
       <div className="w-full">
         <FormAlert state={state.ok ? {} : state} />
       </div>

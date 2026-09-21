@@ -11,6 +11,7 @@ import {
 } from "@/lib/server/queries";
 import { PageHeader, Panel } from "@/components/dashboard/PageHeader";
 import { StatusChip } from "@/components/dashboard/ui";
+import { pillPrimary } from "@/components/dashboard/pills";
 import { Thread } from "@/components/dashboard/Thread";
 import { FileUpload } from "@/components/dashboard/FileUpload";
 import { AssignControl, StaffReplyForm, StatusControl } from "./RequestControls";
@@ -69,7 +70,7 @@ export default async function AdminRequestPage({ params }: PageProps<"/admin/dem
             {can(staff, "quotes:write") && (
               <Link
                 href={`/admin/devis/nouveau?demande=${request.id}`}
-                className="control-signal inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium"
+                className={pillPrimary}
               >
                 Établir un devis
               </Link>
@@ -81,7 +82,7 @@ export default async function AdminRequestPage({ params }: PageProps<"/admin/dem
       <div className="grid gap-6 lg:grid-cols-3">
         <div className="flex flex-col gap-6 lg:col-span-2">
           <Panel title="Demande du client">
-            <p className="whitespace-pre-wrap text-sm text-ink/80">{request.details}</p>
+            <p className="whitespace-pre-wrap text-sm text-fg/80">{request.details}</p>
           </Panel>
 
           <Panel title="Fil de discussion">
@@ -105,7 +106,7 @@ export default async function AdminRequestPage({ params }: PageProps<"/admin/dem
             />
 
             {writable && (
-              <div className="mt-6 flex flex-col gap-4 border-t border-ink/10 pt-6">
+              <div className="mt-6 flex flex-col gap-4 border-t border-fg/10 pt-6">
                 <StaffReplyForm requestId={request.id} />
                 <FileUpload
                   requestId={request.id}
@@ -121,19 +122,19 @@ export default async function AdminRequestPage({ params }: PageProps<"/admin/dem
 
         <div className="flex flex-col gap-6">
           <Panel title="Client">
-            <p className="text-sm font-medium text-ink">{client.name}</p>
-            <p className="text-sm text-ink/80">{client.email}</p>
-            {client.company && <p className="mt-1 text-sm text-ink/80">{client.company}</p>}
-            {client.phone && <p className="text-sm text-ink/80">{client.phone}</p>}
+            <p className="text-sm font-[650] text-fg">{client.name}</p>
+            <p className="text-sm text-fg/80">{client.email}</p>
+            {client.company && <p className="mt-1 text-sm text-fg/80">{client.company}</p>}
+            {client.phone && <p className="text-sm text-fg/80">{client.phone}</p>}
             {client.banned && (
-              <p className="mt-3 rounded-xl border border-ink/25 bg-ink/5 px-3 py-2 text-xs text-ink">
+              <p className="mt-3 rounded-2xl border border-fg/25 bg-panel px-3 py-2 text-xs text-fg">
                 Compte suspendu{client.banReason ? ` — ${client.banReason}` : ""}
               </p>
             )}
             {can(staff, "users:read") && (
               <Link
                 href={`/admin/utilisateurs/${client.id}`}
-                className="mt-3 inline-block text-sm text-signal-deep underline underline-offset-4"
+                className="mt-3 inline-block text-sm font-[650] text-fg underline underline-offset-4"
               >
                 Voir la fiche complète
               </Link>
@@ -191,8 +192,8 @@ export default async function AdminRequestPage({ params }: PageProps<"/admin/dem
 function Row({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex items-baseline justify-between gap-4">
-      <dt className="text-ink/80">{label}</dt>
-      <dd className="text-right font-medium text-ink">{value}</dd>
+      <dt className="text-fg/80">{label}</dt>
+      <dd className="text-right font-[650] text-fg">{value}</dd>
     </div>
   );
 }

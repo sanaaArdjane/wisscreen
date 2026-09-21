@@ -116,7 +116,7 @@ export function FileUpload({
 
   if (disabled) {
     return (
-      <p className="rounded-xl border border-dashed border-ink/20 px-4 py-3 text-sm text-ink/80">
+      <p className="rounded-2xl bg-soft px-4 py-3 text-sm text-fg/80">
         {disabledReason ?? "Envoi de fichiers indisponible."}
       </p>
     );
@@ -143,11 +143,11 @@ export function FileUpload({
         {busy ? <Spinner className="size-4" /> : <Icon name="upload" className="size-4" />}
         {busy ? (progress ?? "Envoi…") : label}
       </Button>
-      <p className="text-xs text-ink/80">
+      <p className="text-xs text-fg/80">
         {formatBytes(maxBytes)} maximum — PDF, images, documents Office, archives.
       </p>
       {error && (
-        <p role="status" className="text-sm text-ink">
+        <p role="status" className="text-sm text-fg">
           {error}
         </p>
       )}

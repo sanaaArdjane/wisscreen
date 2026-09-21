@@ -22,74 +22,163 @@
 
 @source "../../app";
 @source "../../components";
+@source "../../lib";
 
 /* ─────────────────────────────────────────────────────────────────────────────
-   Brand theming.
+   Theme — the Mobbin language in WICLOUD colours, light and dark
+   (spec: .claude/skills/DESIGN-mobbin.md).
 
-   HeroUI v3 is themed entirely through CSS variables, so there is no config file
-   and no plugin — these overrides ARE the theme. They are scoped to
-   `[data-wicloud-app]` (set on the dashboard shell) rather than `:root`, so they
-   can never reach the marketing pages even if this file were ever loaded there.
+   ONE definition per token, written with `light-dark()`. Which half applies is
+   decided by `color-scheme`, which the shell sets from its `data-theme`:
+     data-theme="light"  -> color-scheme: light
+     data-theme="dark"   -> color-scheme: dark
+     (absent, "system")  -> color-scheme: light dark, i.e. follow the OS
+   So "system" needs no media query and no JS, and there is no flash: the server
+   reads the cookie and renders the attribute.
+
+   The dashboard's components use these tokens (`bg-canvas`, `bg-panel`, `bg-soft`,
+   `text-fg`, `text-fg/80`, `border-fg/10`, ...) instead of `paper`/`mist`/`ink`,
+   because those are fixed hexes and the whole point here is that they flip.
+   `@theme inline` matters: it makes the utilities emit `var(--dash-*)` directly.
+   A plain `@theme` would resolve the reference once at :root, where the shell's
+   variables do not exist yet, and every utility would go invalid.
+
+   Dark ground is `abyss`, cards are `ink` (dark UIs lift, they don't sink), and
+   the soft fill is a translucent paper wash so ONE token works both on the ground
+   and inside a card. The sidebar is `bg-ink` in both modes — the spec's inverse
+   surface — so it uses fixed palette colours, not these tokens.
+
+   The variables are declared on `body:has([data-wicloud-app])` as well as on the
+   shell: react-aria portals popovers and modals to <body>, outside the shell, and
+   they would otherwise fall back to HeroUI's own light palette.
 
    Contrast notes, the same rules the rest of the site follows:
-   - `--primary` is the signal accent `#13b78c`, a bright mid-tone. Its foreground
-     is `abyss`, not white: paper on signal is 2.34:1, abyss on it is 5.41:1.
-   - `--link` is `signal-deep` (5.1:1 on paper), never the brand value, which is
-     2.34:1 on white and cannot carry text.
+   - HeroUI's `.button--primary` reads `--accent` / `--accent-hover` /
+     `--accent-foreground` — NOT `--primary`. Hence `--accent` is the ink/paper
+     "fg" pair: paper on ink 9.5:1 in light, abyss on paper 12.7:1 in dark.
+   - `--link` is `signal-fg` (signal-deep 5.1:1 on paper / signal-soft on ink),
+     never the brand value, which is 2.3:1 on white and cannot carry text.
    - `--danger` has no brand token — the palette is a cool family plus one green.
-     It borrows `ink` at full strength so a destructive control reads as serious
+     It borrows `fg` at full strength so a destructive control reads as serious
      without inventing a red the design system doesn't own.
    ───────────────────────────────────────────────────────────────────────────── */
-[data-wicloud-app] {
-  --radius: 0.75rem;
+@theme inline {
+  --color-canvas: var(--dash-canvas);
+  --color-panel: var(--dash-panel);
+  --color-soft: var(--dash-soft);
+  --color-fg: var(--dash-fg);
+  --color-on-fg: var(--dash-on-fg);
+  --color-fg-hover: var(--dash-fg-hover);
+  --color-signal-fg: var(--dash-signal-fg);
+}
 
-  --background: var(--color-mist);
-  --foreground: var(--color-ink);
+[data-wicloud-app],
+body:has([data-wicloud-app]) {
+  --dash-canvas: light-dark(#ffffff, #26334c); /* paper / abyss */
+  --dash-panel: light-dark(#ffffff, #354666); /* paper / ink */
+  --dash-soft: light-dark(#eef2f6, rgb(255 255 255 / 0.08)); /* mist / paper wash */
+  --dash-fg: light-dark(#354666, #ffffff); /* ink / paper */
+  --dash-on-fg: light-dark(#ffffff, #26334c); /* label on a `fg` fill */
+  --dash-fg-hover: light-dark(#26334c, #eef2f6); /* abyss / mist */
+  --dash-signal-fg: light-dark(#0d7d55, #4ed39d); /* signal-deep / signal-soft */
 
-  --surface: var(--color-paper);
-  --surface-foreground: var(--color-ink);
-  --surface-hover: color-mix(in srgb, var(--color-ink) 4%, var(--color-paper));
-  --surface-secondary: var(--color-mist);
-  --surface-secondary-foreground: var(--color-ink);
-  --surface-tertiary: color-mix(in srgb, var(--color-ink) 8%, var(--color-paper));
-  --surface-tertiary-foreground: var(--color-ink);
+  /* Which half of the theme toggle's sun/moon pair is visible. It has to be CSS,
+     not state: the server cannot know what `system` resolves to, so a JS-picked
+     icon is either a hydration mismatch or a flash on every first paint. Both
+     icons are always in the DOM and `color-scheme` chooses, exactly like every
+     colour above. The sun shows on light (click it to go dark) and vice versa. */
+  --dash-sun-o: light-dark(1, 0);
+  --dash-moon-o: light-dark(0, 1);
 
-  --overlay: var(--color-paper);
-  --overlay-foreground: var(--color-ink);
+  --radius: 1rem;
+  --field-radius: 1rem;
 
-  /* `--muted` is what `.description` (every field hint) paints with. At 62% of
-     ink it measures 3.38:1 on paper — under the floor. 80% is 5.4:1, which is
-     the same value the dashboard's own `text-ink/80` uses, so hints and body
-     copy agree. */
-  --muted: color-mix(in srgb, var(--color-ink) 80%, transparent);
+  --background: var(--dash-canvas);
+  --foreground: var(--dash-fg);
 
-  --accent: var(--color-signal);
-  --accent-foreground: var(--color-abyss);
+  --surface: var(--dash-panel);
+  --surface-foreground: var(--dash-fg);
+  --surface-hover: var(--dash-soft);
+  --surface-secondary: var(--dash-soft);
+  --surface-secondary-foreground: var(--dash-fg);
+  --surface-tertiary: color-mix(in srgb, var(--dash-fg) 8%, transparent);
+  --surface-tertiary-foreground: var(--dash-fg);
+
+  --overlay: var(--dash-panel);
+  --overlay-foreground: var(--dash-fg);
+
+  /* `--muted` is what `.description` (every field hint) paints with. At 62% it
+     was 3.38:1 on paper; 80% is 5.4:1, the same value `text-fg/80` uses. */
+  --muted: color-mix(in srgb, var(--dash-fg) 80%, transparent);
+
+  /* Primary = the `fg` pill (ink in light, paper in dark). See the header. */
+  --accent: var(--dash-fg);
+  --accent-foreground: var(--dash-on-fg);
+  --accent-hover: var(--dash-fg-hover);
+
+  --primary: var(--dash-fg);
+  --primary-foreground: var(--dash-on-fg);
 
   /* `--default` + `--accent-soft-foreground` are what HeroUI's *secondary* and
-     *tertiary* buttons actually read — not `--secondary`, which only the filled
-     variant uses. Left at HeroUI's own neutrals they came out at 4.07:1, so they
-     are pinned to the brand's `mist` ground with a full-strength `ink` label. */
-  --default: var(--color-mist);
-  --default-hover: color-mix(in srgb, var(--color-ink) 9%, var(--color-paper));
-  --accent-soft: var(--color-mist);
-  --accent-soft-foreground: var(--color-ink);
+     *tertiary* buttons actually read — not `--secondary`. The spec's soft pill. */
+  --default: var(--dash-soft);
+  --default-foreground: var(--dash-fg);
+  --default-hover: color-mix(in srgb, var(--dash-fg) 10%, transparent);
+  --accent-soft: var(--dash-soft);
+  --accent-soft-foreground: var(--dash-fg);
 
-  --primary: var(--color-signal);
-  --primary-foreground: var(--color-abyss);
+  --secondary: var(--dash-fg);
+  --secondary-foreground: var(--dash-on-fg);
 
-  --secondary: var(--color-ink);
-  --secondary-foreground: var(--color-paper);
+  /* Fields: soft fill, no resting border, no shadow; focus is a 2px `fg` ring. */
+  --field-background: var(--dash-soft);
+  --field-foreground: var(--dash-fg);
+  --field-placeholder: color-mix(in srgb, var(--dash-fg) 80%, transparent);
+  --field-shadow: 0 0 0 0 transparent inset;
 
-  --border: color-mix(in srgb, var(--color-ink) 14%, transparent);
-  --separator: color-mix(in srgb, var(--color-ink) 10%, transparent);
-  --focus: var(--color-signal-deep);
-  --link: var(--color-signal-deep);
+  --border: color-mix(in srgb, var(--dash-fg) 15%, transparent);
+  --separator: color-mix(in srgb, var(--dash-fg) 10%, transparent);
+  --focus: var(--dash-fg);
+  --link: var(--dash-signal-fg);
 
-  --success: var(--color-signal-deep);
-  --success-foreground: var(--color-paper);
-  --warning: var(--color-steel);
-  --warning-foreground: var(--color-paper);
-  --danger: var(--color-ink);
-  --danger-foreground: var(--color-paper);
+  --success: var(--dash-signal-fg);
+  --success-foreground: var(--dash-on-fg);
+  --warning: light-dark(#366479, #9fbdd0); /* steel / steel-pale */
+  --warning-foreground: light-dark(#ffffff, #26334c);
+  --danger: var(--dash-fg);
+  --danger-foreground: var(--dash-on-fg);
+}
+
+/* color-scheme is what `light-dark()` reads. The portal container (<body>) needs
+   it too, for the same reason it needs the variables. */
+[data-wicloud-app],
+body:has([data-wicloud-app]:not([data-theme="light"]):not([data-theme="dark"])) {
+  color-scheme: light dark;
+}
+[data-wicloud-app][data-theme="light"],
+body:has([data-wicloud-app][data-theme="light"]) {
+  color-scheme: light;
+}
+[data-wicloud-app][data-theme="dark"],
+body:has([data-wicloud-app][data-theme="dark"]) {
+  color-scheme: dark;
+}
+
+/* The page's own ground (overscroll, short pages) and the scrollbar follow it. */
+body:has([data-wicloud-app]) {
+  background: var(--dash-canvas);
+  color: var(--dash-fg);
+}
+body:has([data-wicloud-app]) ::-webkit-scrollbar-track {
+  background: var(--dash-canvas);
+}
+body:has([data-wicloud-app]) ::-webkit-scrollbar-thumb {
+  background: var(--dash-fg);
+  border-color: var(--dash-canvas);
+}
+
+/* Every interactive element is a stadium. HeroUI's default is `rounded-3xl`,
+   which is a pill only while the button is short enough; pin it. */
+[data-wicloud-app] .button {
+  border-radius: 9999px;
 }

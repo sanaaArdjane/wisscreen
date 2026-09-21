@@ -57,6 +57,30 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Density on laptop-class screens.
+ *
+ * The type ramp (.claude/skills/DESIGN-mobbin.md) is drawn for a wide desktop; on a
+ * 14" 1366-1536px panel the same ramp lands in a much smaller box and everything
+ * reads oversized. Scaling the root font size moves every rem-based utility at once
+ * — type, padding, gap, radius — so the composition shrinks as a whole instead of the
+ * text shrinking away from its container.
+ *
+ * Three things make this safe to do globally:
+ * - Tailwind's breakpoints do not drift. Media-query `rem` always resolves against
+ *   the *initial* root font size (16px) per spec, so `lg` stays 1024px regardless.
+ * - Both clamp bounds are in `rem`, not `px`, so a visitor who has raised their
+ *   browser's default font size still gets it honoured.
+ * - It is gated at `lg`. Phones and tablets keep the full 16px; they were never the
+ *   complaint, and shrinking them would cost legibility for nothing.
+ *
+ * Resolves to 14px at 1024, ~15.1px at 1366, 16px at 1536 and above.
+ */
+@media (min-width: 64rem) {
+  html {
+    font-size: clamp(0.875rem, 0.5rem + 0.52vw, 1rem);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -391,3 +415,66 @@ html[data-immersive] header {
 
 /* Elements with [data-reveal] start fully visible (SEO / no-JS safe); lib/gsap.ts sets their
    hidden state imperatively via gsap.set() right before animating in, JS-only. */
+
+/* A scroll container with no visible scrollbar. The dashboard's nav rail needs
+   this for two reasons that are really one: the bar reserves ~10px of the
+   container's *content* box, so the active tab stops short of the rail's edge
+   and no longer meets the page — and Chrome paints its track as a pale band,
+   which made the scrolling nav read as a second, lighter blue against the
+   footer block below it, as if the rail were two panels. */
+.scrollbar-none {
+  scrollbar-width: none;
+}
+.scrollbar-none::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+/* ── Dashboard sidebar: the active nav tab ─────────────────────────────────
+   The active item is not a pill floating on the rail — it is a *tab cut out of
+   the page*. It takes the content area's own colour (`--dash-canvas`: white on
+   light, abyss on dark), is rounded on the left only, and runs flush to the
+   rail's right edge, so it and the page beside it read as one continuous
+   surface. That is the whole signal: the open right side says "this item and
+   what you are looking at are the same thing".
+
+   A hard 90° step where the tab meets the page edge would give that away, so
+   each end carries a concave corner — a `--nav-notch`-square box just above and
+   just below the tab, flush right, filled with the page colour everywhere
+   *outside* a circle whose centre sits at the box's inner corner. The circle's
+   inside stays transparent and shows the rail through it, so the page colour
+   sweeps into the tab instead of stepping into it.
+
+   The stops are 0.5px apart rather than coincident: a hard stop in a radial
+   gradient is not antialiased and the arc renders as a visible staircase. */
+.nav-tab {
+  --nav-notch: 12px;
+}
+
+.nav-tab::before,
+.nav-tab::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  width: var(--nav-notch);
+  height: var(--nav-notch);
+  pointer-events: none;
+}
+
+.nav-tab::before {
+  top: calc(var(--nav-notch) * -1);
+  background: radial-gradient(
+    circle at top left,
+    transparent 0 calc(var(--nav-notch) - 0.5px),
+    var(--dash-canvas) var(--nav-notch)
+  );
+}
+
+.nav-tab::after {
+  bottom: calc(var(--nav-notch) * -1);
+  background: radial-gradient(
+    circle at bottom left,
+    transparent 0 calc(var(--nav-notch) - 0.5px),
+    var(--dash-canvas) var(--nav-notch)
+  );
+}

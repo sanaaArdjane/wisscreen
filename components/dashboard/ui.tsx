@@ -145,7 +145,7 @@ export function CheckboxField({
 }) {
   return (
     <div className={cn("flex flex-col gap-1", className)}>
-      <label className="group flex cursor-pointer items-start gap-2.5 text-sm text-ink">
+      <label className="group flex cursor-pointer items-start gap-2.5 text-sm font-[450] text-fg">
         <input
           type="checkbox"
           name={name}
@@ -156,11 +156,11 @@ export function CheckboxField({
         />
         <span
           aria-hidden
-          className="mt-0.5 flex size-[18px] shrink-0 items-center justify-center rounded-[5px] border border-ink/25 bg-paper transition-colors group-hover:border-ink/45 peer-checked:border-signal peer-checked:bg-signal peer-checked:[&_svg]:opacity-100 peer-focus-visible:ring-2 peer-focus-visible:ring-signal-deep peer-focus-visible:ring-offset-1 peer-disabled:opacity-50"
+          className="mt-0.5 flex size-[18px] shrink-0 items-center justify-center rounded-md border border-fg/40 bg-panel transition-colors group-hover:border-fg peer-checked:border-fg peer-checked:bg-fg peer-checked:[&_svg]:opacity-100 peer-focus-visible:ring-2 peer-focus-visible:ring-fg peer-focus-visible:ring-offset-2 peer-focus-visible:ring-offset-canvas peer-disabled:opacity-50"
         >
           <svg
             viewBox="0 0 24 24"
-            className="size-3.5 text-abyss opacity-0 transition-opacity"
+            className="size-3.5 text-on-fg opacity-0 transition-opacity"
             aria-hidden
           >
             <path
@@ -175,7 +175,7 @@ export function CheckboxField({
         </span>
         <span className="peer-disabled:opacity-60">{label}</span>
       </label>
-      {description && <p className="ml-[28px] text-xs text-ink/80">{description}</p>}
+      {description && <p className="ml-[28px] text-xs text-fg/80">{description}</p>}
     </div>
   );
 }
@@ -279,14 +279,16 @@ export function FormAlert({ state }: { state: ActionState }) {
     <p
       role="status"
       className={cn(
-        "rounded-xl border px-4 py-3 text-sm",
-        state.ok
-          // `text-ink`, not `text-signal-deep`: the accent on its own 10% tint
-          // measures ~4.3:1, under the floor. The green stays in the border.
-          ? "border-signal/45 bg-signal/10 text-ink"
-          : "border-ink/25 bg-ink/5 text-ink",
+        "flex items-start gap-3 rounded-2xl px-6 py-3.5 text-sm font-[450] text-fg",
+        // `text-fg` on `mist` in both cases: an accent on its own tint measures
+        // under 4.5:1, so the green is a dot, never the text.
+        state.ok ? "bg-soft" : "border border-fg/25 bg-panel",
       )}
     >
+      <span
+        aria-hidden
+        className={cn("mt-1.5 size-2 shrink-0 rounded-full", state.ok ? "bg-signal" : "bg-fg")}
+      />
       {state.message}
     </p>
   );
@@ -298,7 +300,7 @@ export function StatusChip({ label, tone }: { label: string; tone: string }) {
   return (
     <span
       className={cn(
-        "inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-medium",
+        "inline-flex items-center rounded-full border px-3 py-1 text-xs font-[650]",
         tone,
       )}
     >
@@ -317,9 +319,9 @@ export function EmptyState({
   action?: ReactNode;
 }) {
   return (
-    <div className="flex flex-col items-center gap-3 rounded-2xl border border-dashed border-ink/20 bg-paper px-6 py-14 text-center">
-      <p className="text-base font-medium text-ink">{title}</p>
-      {description && <p className="max-w-md text-sm text-ink/80">{description}</p>}
+    <div className="flex flex-col items-center gap-3 rounded-3xl bg-soft px-6 py-16 text-center">
+      <p className="text-xl font-[650] leading-tight text-fg">{title}</p>
+      {description && <p className="max-w-md text-sm font-[450] text-fg/80">{description}</p>}
       {action}
     </div>
   );

@@ -35,14 +35,14 @@ export function QuoteActions({
           <Button type="submit" fullWidth>
             Envoyer au client
           </Button>
-          <p className="mt-2 text-xs text-ink/80">
+          <p className="mt-2 text-xs text-fg/80">
             Le client reçoit une notification et un e-mail, et peut répondre depuis son espace.
           </p>
         </form>
       )}
 
       {status === "envoye" && (
-        <p className="text-sm text-ink/80">
+        <p className="text-sm text-fg/80">
           En attente de la réponse du client. Vous pouvez encore corriger le contenu.
         </p>
       )}
@@ -57,17 +57,17 @@ export function QuoteActions({
       )}
 
       {status === "refuse" && (
-        <p className="text-sm text-ink/80">
+        <p className="text-sm text-fg/80">
           Devis refusé. Créez-en un nouveau si les conditions changent.
         </p>
       )}
 
       {canDelete && status === "brouillon" && (
-        <div className="border-t border-ink/10 pt-4">
+        <div className="border-t border-fg/10 pt-4">
           {armed ? (
             <form action={deleteQuote} className="flex flex-col gap-2">
               <input type="hidden" name="quoteId" value={quoteId} />
-              <p className="text-sm text-ink/80">Supprimer définitivement ce brouillon ?</p>
+              <p className="text-sm text-fg/80">Supprimer définitivement ce brouillon ?</p>
               <div className="flex gap-2">
                 <Button type="submit" variant="secondary">
                   Supprimer

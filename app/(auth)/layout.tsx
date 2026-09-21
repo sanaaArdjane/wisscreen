@@ -1,63 +1,42 @@
 import Link from "next/link";
+import AuthVisual from "./AuthVisual";
+import AuthBackdrop from "./AuthBackdrop";
 import "../(app)/heroui.css";
+import "./auth.css";
 
-/**
- * The signed-out chrome: brand panel left on `lg`, form right.
- *
- * It imports the dashboard stylesheet because the forms are HeroUI fields and
- * these pages are the doorway into the same product — sharing the sheet keeps
- * the sign-in inputs identical to the ones behind the login, and it is already
- * being fetched by the page the visitor is about to land on.
- */
-export default function AuthLayout({ children }: LayoutProps<"/"> ) {
+export default function AuthLayout({ children }: LayoutProps<"/">) {
   return (
-    <div data-wicloud-app className="flex min-h-dvh bg-paper text-ink">
-      {/* Decorative panel. `aria-hidden` and no links: nothing here is content a
-          screen-reader user needs before the form they came for. */}
-      <aside
-        aria-hidden
-        className="relative hidden w-[42%] max-w-xl flex-col justify-between overflow-hidden bg-ink p-10 text-paper lg:flex"
-      >
-        <div
-          className="absolute inset-0 opacity-[0.13]"
-          style={{
-            backgroundImage:
-              "radial-gradient(circle, rgba(255,255,255,.55) 1px, transparent 1px)",
-            backgroundSize: "22px 22px",
-          }}
-        />
-        <div
-          className="absolute -left-24 bottom-[-18%] size-[34rem] rounded-full opacity-45 blur-3xl"
-          style={{
-            background:
-              "radial-gradient(circle, rgba(19,183,140,.5) 0%, rgba(19,183,140,0) 68%)",
-          }}
-        />
-        <p className="relative text-xl font-semibold tracking-tight">
-          WI<span className="text-signal-soft">CLOUD</span>
-        </p>
-        <div className="relative">
-          <p className="text-3xl font-semibold leading-tight tracking-tight">
-            Vos solutions, vos dossiers, vos équipes — au même endroit.
-          </p>
-          <p className="mt-4 max-w-sm text-sm text-steel-pale">
-            Déposez une demande, suivez son avancement, testez nos solutions et
-            gérez vos devis depuis un seul espace.
-          </p>
-        </div>
-        <p className="relative text-xs text-steel-pale">
-          OCR · Cloud Infrastructure · WIFACILITY · SETYCORE
-        </p>
-      </aside>
+    <div data-wicloud-app data-theme="light" className="relative isolate min-h-dvh overflow-hidden bg-paper text-ink">
+      <AuthBackdrop />
+      <header className="relative mx-auto flex w-full max-w-7xl items-center justify-between px-6 py-6 sm:px-10 lg:px-12">
+        <Link href="/" className="text-xl font-[650] tracking-tight text-ink" aria-label="WICLOUD, accueil">
+          WICLOUD<span className="text-signal-deep">.</span>
+        </Link>
+        <Link
+          href="/"
+          className="rounded-full bg-mist px-5 py-2.5 text-sm font-semibold text-ink transition-colors hover:bg-ink/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
+        >
+          Retour au site <span aria-hidden>↗</span>
+        </Link>
+      </header>
 
-      <main className="flex flex-1 flex-col">
-        <div className="px-6 pt-6 lg:hidden">
-          <Link href="/" className="text-lg font-semibold tracking-tight">
-            WI<span className="text-signal-deep">CLOUD</span>
-          </Link>
+      <main className="relative mx-auto grid w-full max-w-7xl items-center gap-10 px-6 pb-12 pt-5 sm:px-10 lg:min-h-[calc(100dvh-100px)] lg:grid-cols-[minmax(0,1fr)_440px] lg:gap-12 lg:px-12 lg:pb-10 lg:pt-0">
+        <div className="hidden max-w-[680px] overflow-hidden rounded-[32px] bg-mist/85 p-10 lg:block xl:p-12">
+          <div className="mb-8 inline-flex size-14 items-center justify-center rounded-[30%] bg-paper text-2xl font-[650] text-ink" aria-hidden>
+            W
+          </div>
+          <p className="text-sm font-semibold text-signal-deep">Votre espace WICLOUD</p>
+          <h2 className="mt-5 text-5xl font-[650] leading-[1.08] text-ink xl:text-6xl">
+            Tout votre travail, au même endroit.
+          </h2>
+          <p className="mt-6 max-w-md text-xl font-light leading-relaxed text-ink/80">
+            Suivez vos demandes, découvrez vos solutions et avancez avec votre équipe dans un espace pensé pour vous.
+          </p>
+          <AuthVisual />
         </div>
-        <div className="flex flex-1 items-center justify-center px-6 py-10">
-          <div className="w-full max-w-sm">{children}</div>
+
+        <div className="w-full max-w-[440px] justify-self-center rounded-3xl border border-ink/10 bg-paper/90 p-6 sm:p-9 lg:justify-self-end">
+          {children}
         </div>
       </main>
     </div>

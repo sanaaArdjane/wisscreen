@@ -13,11 +13,11 @@ import { formatDate } from "@/lib/format";
 export const metadata: Metadata = { title: "Abonnements & quotas" };
 
 const STATUS_TONE: Record<string, string> = {
-  active: "bg-teal/15 text-ink border-teal/40",
-  trialing: "bg-signal/15 text-ink border-signal/45",
-  past_due: "bg-ink text-paper border-ink",
-  paused: "bg-ink/5 text-ink border-ink/15",
-  cancelled: "bg-ink/10 text-ink border-ink/20",
+  active: "bg-teal/15 text-fg border-teal/40",
+  trialing: "bg-signal/15 text-fg border-signal/45",
+  past_due: "bg-fg text-on-fg border-fg",
+  paused: "bg-fg/5 text-fg border-fg/15",
+  cancelled: "bg-fg/10 text-fg border-fg/20",
 };
 
 const STATUS_LABELS: Record<string, string> = {
@@ -96,26 +96,26 @@ export default async function AbonnementsPage() {
           description="Ajustez le quota ou proposez une formule supérieure depuis la fiche du compte."
           bodyClassName="p-0"
         >
-          <ul className="divide-y divide-ink/10">
+          <ul className="divide-y divide-fg/10">
             {atLimit.map(({ quota, client }) => {
               const view = describe(quota);
               return (
                 <li key={quota.id}>
                   <Link
                     href={`/admin/utilisateurs/${client.id}`}
-                    className="flex items-center gap-4 px-5 py-3 transition-colors hover:bg-mist"
+                    className="flex items-center gap-4 px-6 py-3.5 transition-colors hover:bg-soft"
                   >
                     <span className="min-w-0 flex-1">
-                      <span className="block truncate text-sm text-ink">{client.name}</span>
-                      <span className="block text-xs text-ink/80">{client.email}</span>
+                      <span className="block truncate text-sm text-fg">{client.name}</span>
+                      <span className="block text-xs text-fg/80">{client.email}</span>
                     </span>
-                    <span className="shrink-0 text-sm text-ink/80">
+                    <span className="shrink-0 text-sm text-fg/80">
                       {METRIC_LABELS[quota.metric] ?? quota.metric}
                     </span>
-                    <span className="shrink-0 text-sm font-semibold tabular-nums text-ink">
+                    <span className="shrink-0 text-sm font-[650] tabular-nums text-fg">
                       {quota.used} / {quota.limit}
                     </span>
-                    <span className="shrink-0 text-xs tabular-nums text-ink/80">
+                    <span className="shrink-0 text-xs tabular-nums text-fg/80">
                       {Math.round(view.ratio * 100)} %
                     </span>
                   </Link>
@@ -130,22 +130,22 @@ export default async function AbonnementsPage() {
         {rows.length === 0 ? (
           <EmptyState title="Aucun abonnement" />
         ) : (
-          <ul className="divide-y divide-ink/10">
+          <ul className="divide-y divide-fg/10">
             {rows.map(({ subscription, plan, client }) => (
               <li key={subscription.id}>
                 <Link
                   href={`/admin/utilisateurs/${client.id}`}
-                  className="flex flex-col gap-2 px-5 py-4 transition-colors hover:bg-mist sm:flex-row sm:items-center sm:gap-4"
+                  className="flex flex-col gap-2 px-6 py-4 transition-colors hover:bg-soft sm:flex-row sm:items-center sm:gap-4"
                 >
                   <span className="min-w-0 flex-1">
-                    <span className="block truncate text-sm font-medium text-ink">
+                    <span className="block truncate text-sm font-[650] text-fg">
                       {client.name}
                     </span>
-                    <span className="block truncate text-xs text-ink/80">
+                    <span className="block truncate text-xs text-fg/80">
                       {client.email} · depuis le {formatDate(subscription.periodStart)}
                     </span>
                   </span>
-                  <span className="shrink-0 text-sm text-ink/80">{plan.name}</span>
+                  <span className="shrink-0 text-sm text-fg/80">{plan.name}</span>
                   <StatusChip
                     label={STATUS_LABELS[subscription.status] ?? subscription.status}
                     tone={STATUS_TONE[subscription.status] ?? STATUS_TONE.paused}

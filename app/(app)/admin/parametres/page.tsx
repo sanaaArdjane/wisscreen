@@ -39,7 +39,7 @@ export default async function ParametresPage() {
               planOptions={catalogue.map((p) => ({ value: p.slug, label: p.name }))}
             />
           ) : (
-            <p className="text-sm text-ink/80">
+            <p className="text-sm text-fg/80">
               Vous pouvez consulter ces réglages mais pas les modifier.
             </p>
           )}
@@ -100,14 +100,14 @@ function ServiceRow({
       <span
         className={cn(
           "mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full",
-          ok ? "bg-signal/20 text-signal-deep" : "bg-ink/10 text-ink/80",
+          ok ? "bg-signal text-abyss" : "bg-soft text-fg/80",
         )}
       >
         <Icon name={ok ? "check" : "close"} className="size-3" strokeWidth={2.6} />
       </span>
       <span className="min-w-0">
-        <span className="block text-sm font-medium text-ink">{label}</span>
-        <span className="block text-xs text-ink/80">{ok ? okHint : offHint}</span>
+        <span className="block text-sm font-[650] text-fg">{label}</span>
+        <span className="block text-xs text-fg/80">{ok ? okHint : offHint}</span>
       </span>
     </li>
   );

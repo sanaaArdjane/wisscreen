@@ -77,7 +77,7 @@ export function isClosed(status: string): boolean {
  * Chip tones: a tinted fill and a coloured border carry the identity, and the
  * **label stays `ink`**.
  *
- * The obvious version — `text-signal-deep` on `bg-signal/15`, `text-teal-deep`
+ * The obvious version — `text-signal-fg` on `bg-signal/15`, `text-teal-deep`
  * on `bg-teal/10` — measures 4.46:1 and 4.37:1 at 12px, both under the floor.
  * The brand's accents are mid-tones with almost no margin on light grounds
  * (AGENTS.md has the table), and a tint behind them spends what is left. There
@@ -86,9 +86,9 @@ export function isClosed(status: string): boolean {
  * one value that is legible on every one of them.
  */
 export const STATUS_TONE: Record<RequestStatus, string> = {
-  nouvelle: "bg-signal/15 text-ink border-signal/45",
-  en_cours: "bg-steel/15 text-ink border-steel/40",
-  acceptee: "bg-teal/15 text-ink border-teal/40",
-  refusee: "bg-ink/10 text-ink border-ink/20",
-  terminee: "bg-ink/5 text-ink border-ink/15",
+  nouvelle: "bg-signal/15 text-fg border-signal/45",
+  en_cours: "bg-steel/15 text-fg border-steel/40",
+  acceptee: "bg-teal/15 text-fg border-teal/40",
+  refusee: "bg-fg/10 text-fg border-fg/20",
+  terminee: "bg-fg/5 text-fg border-fg/15",
 };

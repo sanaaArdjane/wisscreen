@@ -63,7 +63,7 @@ export function FilterBar({
   return (
     <div
       className={cn(
-        "mb-5 flex flex-wrap items-center gap-3 transition-opacity",
+        "mb-6 flex flex-wrap items-center gap-3 transition-opacity",
         pending && "opacity-60",
       )}
     >
@@ -71,20 +71,20 @@ export function FilterBar({
         <span className="sr-only">{searchPlaceholder}</span>
         <Icon
           name="search"
-          className="pointer-events-none absolute left-3 size-4 text-ink/80"
+          className="pointer-events-none absolute left-4 size-4 text-fg/80"
         />
         <input
           type="search"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder={searchPlaceholder}
-          className="w-full rounded-xl border border-ink/15 bg-paper py-2.5 pl-9 pr-3 text-sm text-ink placeholder:text-ink/60 focus:border-signal-deep focus:outline-none focus:ring-1 focus:ring-signal-deep"
+          className="w-full rounded-full bg-soft py-3 pl-11 pr-4 text-sm font-[450] text-fg placeholder:text-fg/80 focus:outline-none focus:ring-2 focus:ring-fg"
         />
       </label>
 
       {filters.map((filter) => (
         <label key={filter.name} className="flex items-center gap-2 text-sm">
-          <span className="text-ink/80">{filter.label}</span>
+          <span className="font-[450] text-fg/80">{filter.label}</span>
           {/* A native <select>: it is one control, it is keyboard-accessible for
               free, and on a phone it opens the platform picker — which beats a
               custom listbox for a filter nobody spends time in. */}
@@ -97,7 +97,7 @@ export function FilterBar({
               else next.set(filter.name, e.target.value);
               push(next);
             }}
-            className="rounded-xl border border-ink/15 bg-paper py-2.5 pl-3 pr-8 text-sm text-ink focus:border-signal-deep focus:outline-none focus:ring-1 focus:ring-signal-deep"
+            className="rounded-full bg-soft py-3 pl-4 pr-9 text-sm font-[650] text-fg focus:outline-none focus:ring-2 focus:ring-fg"
           >
             {filter.options.map((o) => (
               <option key={o.value} value={o.value}>
@@ -108,7 +108,7 @@ export function FilterBar({
         </label>
       ))}
 
-      {pending && <Spinner className="size-4 text-ink/80" />}
+      {pending && <Spinner className="size-4 text-fg/80" />}
     </div>
   );
 }

@@ -6,6 +6,7 @@ import { getSubscription, listQuotas } from "@/lib/quotas";
 import { recentNotifications } from "@/lib/account";
 import { PageHeader, Panel, StatTile } from "@/components/dashboard/PageHeader";
 import { StatusChip, EmptyState } from "@/components/dashboard/ui";
+import { pillPrimary, pillSmall } from "@/components/dashboard/pills";
 import { QuotaMeter } from "@/components/dashboard/QuotaMeter";
 import { STATUS_LABELS, STATUS_TONE, type RequestStatus } from "@/lib/requests";
 import { formatMoney } from "@/lib/money";
@@ -33,7 +34,7 @@ export default async function DashboardHome() {
         actions={
           <Link
             href="/dashboard/demandes/nouvelle"
-            className="control-signal inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium"
+            className={pillPrimary}
           >
             <Icon name="plus" className="size-4" />
             Nouvelle demande
@@ -86,7 +87,7 @@ export default async function DashboardHome() {
           actions={
             <Link
               href="/dashboard/demandes"
-              className="text-sm text-signal-deep underline underline-offset-4"
+              className={pillSmall}
             >
               Tout voir
             </Link>
@@ -101,7 +102,7 @@ export default async function DashboardHome() {
                 action={
                   <Link
                     href="/dashboard/demandes/nouvelle"
-                    className="control-signal mt-2 inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium"
+                    className={`${pillPrimary} mt-2`}
                   >
                     Déposer une demande
                   </Link>
@@ -109,16 +110,16 @@ export default async function DashboardHome() {
               />
             </div>
           ) : (
-            <ul className="divide-y divide-ink/10">
+            <ul className="divide-y divide-fg/10">
               {recent.map((r) => (
                 <li key={r.id}>
                   <Link
                     href={`/dashboard/demandes/${r.id}`}
-                    className="flex items-center gap-4 px-5 py-4 transition-colors hover:bg-mist"
+                    className="flex items-center gap-4 px-6 py-4 transition-colors hover:bg-soft"
                   >
                     <div className="min-w-0 flex-1">
-                      <p className="truncate text-sm font-medium text-ink">{r.title}</p>
-                      <p className="mt-0.5 text-xs text-ink/80">
+                      <p className="truncate text-sm font-[650] text-fg">{r.title}</p>
+                      <p className="mt-0.5 text-xs text-fg/80">
                         {r.ref} · mis à jour {relativeTime(r.updatedAt)}
                       </p>
                     </div>
@@ -139,7 +140,7 @@ export default async function DashboardHome() {
             actions={
               <Link
                 href="/dashboard/abonnement"
-                className="text-sm text-signal-deep underline underline-offset-4"
+                className={pillSmall}
               >
                 Détails
               </Link>
@@ -147,8 +148,8 @@ export default async function DashboardHome() {
           >
             {subscription ? (
               <>
-                <p className="text-lg font-semibold text-ink">{subscription.plan.name}</p>
-                <p className="mt-0.5 text-sm text-ink/80">
+                <p className="text-lg font-[650] text-fg">{subscription.plan.name}</p>
+                <p className="mt-0.5 text-sm text-fg/80">
                   Depuis le {formatDate(subscription.subscription.periodStart)}
                 </p>
                 <div className="mt-4 flex flex-col gap-3">
@@ -156,12 +157,12 @@ export default async function DashboardHome() {
                     <QuotaMeter key={q.metric} quota={q} />
                   ))}
                   {quotas.length === 0 && (
-                    <p className="text-sm text-ink/80">Aucune limite sur cette formule.</p>
+                    <p className="text-sm text-fg/80">Aucune limite sur cette formule.</p>
                   )}
                 </div>
               </>
             ) : (
-              <p className="text-sm text-ink/80">Aucune formule active.</p>
+              <p className="text-sm text-fg/80">Aucune formule active.</p>
             )}
           </Panel>
 
@@ -170,7 +171,7 @@ export default async function DashboardHome() {
             actions={
               <Link
                 href="/dashboard/notifications"
-                className="text-sm text-signal-deep underline underline-offset-4"
+                className={pillSmall}
               >
                 Tout voir
               </Link>
@@ -178,13 +179,13 @@ export default async function DashboardHome() {
             bodyClassName={notifications.length ? "p-0" : undefined}
           >
             {notifications.length === 0 ? (
-              <p className="text-sm text-ink/80">Rien de nouveau.</p>
+              <p className="text-sm text-fg/80">Rien de nouveau.</p>
             ) : (
-              <ul className="divide-y divide-ink/10">
+              <ul className="divide-y divide-fg/10">
                 {notifications.map((n) => (
-                  <li key={n.id} className="px-5 py-3">
-                    <p className="text-sm text-ink">{n.title}</p>
-                    <p className="mt-0.5 text-xs text-ink/80">{relativeTime(n.createdAt)}</p>
+                  <li key={n.id} className="px-6 py-3.5">
+                    <p className="text-sm text-fg">{n.title}</p>
+                    <p className="mt-0.5 text-xs text-fg/80">{relativeTime(n.createdAt)}</p>
                   </li>
                 ))}
               </ul>

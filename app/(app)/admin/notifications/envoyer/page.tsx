@@ -77,7 +77,7 @@ export default async function AdminNotificationsPage() {
           {history.length === 0 ? (
             <EmptyState title="Aucun envoi" />
           ) : (
-            <ul className="divide-y divide-ink/10">
+            <ul className="divide-y divide-fg/10">
               {history.map(({ log, actor }) => {
                 const meta = (log.meta ?? {}) as {
                   title?: string;
@@ -86,9 +86,9 @@ export default async function AdminNotificationsPage() {
                   email?: boolean;
                 };
                 return (
-                  <li key={log.id} className="px-5 py-3">
-                    <p className="text-sm text-ink">{meta.title ?? "—"}</p>
-                    <p className="mt-0.5 text-xs text-ink/80">
+                  <li key={log.id} className="px-6 py-3.5">
+                    <p className="text-sm text-fg">{meta.title ?? "—"}</p>
+                    <p className="mt-0.5 text-xs text-fg/80">
                       {meta.recipients ?? 0} destinataire{(meta.recipients ?? 0) > 1 ? "s" : ""}
                       {meta.email ? " · e-mail" : ""} · {actor?.name ?? "Système"} ·{" "}
                       {formatDateTime(log.createdAt)}

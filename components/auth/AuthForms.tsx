@@ -65,9 +65,9 @@ function Alert({ children, tone = "error" }: { children: ReactNode; tone?: "erro
 
 function Heading({ title, subtitle }: { title: string; subtitle?: string }) {
   return (
-    <div className="mb-6">
-      <h1 className="text-2xl font-semibold tracking-tight text-ink">{title}</h1>
-      {subtitle && <p className="mt-1.5 text-sm text-ink/80">{subtitle}</p>}
+    <div className="mb-8">
+      <h1 className="text-3xl font-[650] leading-tight text-ink sm:text-4xl">{title}.</h1>
+      {subtitle && <p className="mt-3 text-base font-light leading-relaxed text-ink/80">{subtitle}</p>}
     </div>
   );
 }
@@ -117,7 +117,7 @@ function GoogleMark() {
 
 function Divider() {
   return (
-    <div className="my-5 flex items-center gap-3 text-xs uppercase tracking-wider text-ink/80">
+    <div className="my-6 flex items-center gap-3 text-sm text-ink/80">
       <span className="h-px flex-1 bg-ink/15" />
       ou
       <span className="h-px flex-1 bg-ink/15" />
@@ -225,7 +225,7 @@ export function SignInForm({
         </>
       )}
 
-      <form onSubmit={onSubmit} className="flex flex-col gap-4">
+      <form onSubmit={onSubmit} className="flex flex-col gap-5">
         {error && <Alert>{error}</Alert>}
 
         <Field name="email" label="Adresse e-mail" type="email" autoComplete="email" isRequired />
@@ -246,7 +246,7 @@ export function SignInForm({
         </Button>
       </form>
 
-      <div className="mt-4 flex flex-col gap-2 text-sm">
+      <div className="mt-5 flex flex-col gap-3 text-sm">
         {magicLinkEnabled && (
           <button
             type="button"
@@ -254,7 +254,7 @@ export function SignInForm({
               setMode(mode === "magic" ? "password" : "magic");
               setError(null);
             }}
-            className="self-start text-signal-deep underline underline-offset-4"
+            className="self-start font-semibold text-ink underline decoration-ink/25 underline-offset-4 hover:decoration-ink"
           >
             {mode === "magic"
               ? "Se connecter avec un mot de passe"
@@ -263,15 +263,15 @@ export function SignInForm({
         )}
         <Link
           href="/mot-de-passe-oublie"
-          className="self-start text-signal-deep underline underline-offset-4"
+          className="self-start font-semibold text-ink underline decoration-ink/25 underline-offset-4 hover:decoration-ink"
         >
           Mot de passe oublié ?
         </Link>
       </div>
 
-      <p className="mt-8 text-sm text-ink/80">
+      <p className="mt-8 border-t border-ink/10 pt-6 text-sm text-ink/80">
         Pas encore de compte ?{" "}
-        <Link href="/inscription" className="text-signal-deep underline underline-offset-4">
+        <Link href="/inscription" className="font-semibold text-ink underline decoration-ink/25 underline-offset-4 hover:decoration-ink">
           Créer un compte
         </Link>
       </p>
@@ -348,7 +348,7 @@ export function SignUpForm({
         </>
       )}
 
-      <form onSubmit={onSubmit} className="flex flex-col gap-4">
+      <form onSubmit={onSubmit} className="flex flex-col gap-5">
         {error && <Alert>{error}</Alert>}
         <Field name="name" label="Nom complet" autoComplete="name" isRequired />
         <Field name="email" label="Adresse e-mail" type="email" autoComplete="email" isRequired />
@@ -366,9 +366,9 @@ export function SignUpForm({
         </Button>
       </form>
 
-      <p className="mt-8 text-sm text-ink/80">
+      <p className="mt-8 border-t border-ink/10 pt-6 text-sm text-ink/80">
         Déjà inscrit ?{" "}
-        <Link href="/connexion" className="text-signal-deep underline underline-offset-4">
+        <Link href="/connexion" className="font-semibold text-ink underline decoration-ink/25 underline-offset-4 hover:decoration-ink">
           Se connecter
         </Link>
       </p>

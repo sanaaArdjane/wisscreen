@@ -4,6 +4,7 @@ import { requireUser } from "@/lib/guard";
 import { listRequests } from "@/lib/server/queries";
 import { PageHeader, Panel } from "@/components/dashboard/PageHeader";
 import { EmptyState, StatusChip } from "@/components/dashboard/ui";
+import { pillPrimary } from "@/components/dashboard/pills";
 import { STATUS_LABELS, STATUS_TONE, TYPE_LABELS, type RequestStatus, type RequestType } from "@/lib/requests";
 import { formatDate, relativeTime } from "@/lib/format";
 import { Icon } from "@/components/ui/Icon";
@@ -25,7 +26,7 @@ export default async function DemandesPage() {
         actions={
           <Link
             href="/dashboard/demandes/nouvelle"
-            className="control-signal inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium"
+            className={pillPrimary}
           >
             <Icon name="plus" className="size-4" />
             Nouvelle demande
@@ -40,7 +41,7 @@ export default async function DemandesPage() {
           action={
             <Link
               href="/dashboard/demandes/nouvelle"
-              className="control-signal mt-2 inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium"
+              className={`${pillPrimary} mt-2`}
             >
               Déposer ma première demande
             </Link>
@@ -51,22 +52,22 @@ export default async function DemandesPage() {
           {/* A list of links rather than a <table>: every row goes to one place,
               and a table of five columns is unreadable on a phone without a
               horizontal scroll nobody discovers. */}
-          <ul className="divide-y divide-ink/10">
+          <ul className="divide-y divide-fg/10">
             {rows.map((r) => (
               <li key={r.id}>
                 <Link
                   href={`/dashboard/demandes/${r.id}`}
-                  className="flex flex-col gap-2 px-5 py-4 transition-colors hover:bg-mist sm:flex-row sm:items-center sm:gap-4"
+                  className="flex flex-col gap-2 px-6 py-4 transition-colors hover:bg-soft sm:flex-row sm:items-center sm:gap-4"
                 >
                   <div className="min-w-0 flex-1">
-                    <p className="truncate text-sm font-medium text-ink">{r.title}</p>
-                    <p className="mt-0.5 text-xs text-ink/80">
+                    <p className="truncate text-sm font-[650] text-fg">{r.title}</p>
+                    <p className="mt-0.5 text-xs text-fg/80">
                       {r.ref} · {TYPE_LABELS[r.type as RequestType] ?? r.type}
                       {r.serviceSlug && ` · ${SERVICE_NAMES.get(r.serviceSlug) ?? r.serviceSlug}`}
                     </p>
                   </div>
                   <div className="flex items-center gap-4">
-                    <span className="text-xs text-ink/80" title={formatDate(r.updatedAt)}>
+                    <span className="text-xs text-fg/80" title={formatDate(r.updatedAt)}>
                       {relativeTime(r.updatedAt)}
                     </span>
                     <StatusChip

@@ -5,6 +5,7 @@ import { isStaff } from "@/lib/permissions";
 import { redirect } from "next/navigation";
 import { ensureProvisioned, unreadCount } from "@/lib/account";
 import { getSetting } from "@/lib/settings";
+import { getTheme } from "@/lib/theme-server";
 
 /**
  * Every client-dashboard page renders inside this, so the session check happens
@@ -34,10 +35,11 @@ export default async function DashboardLayout({ children }: LayoutProps<"/dashbo
 
   await ensureProvisioned(user.id);
 
-  const [unread, announcement, impersonating] = await Promise.all([
+  const [unread, announcement, impersonating, theme] = await Promise.all([
     unreadCount(user.id),
     getSetting("announcement"),
     isImpersonating(),
+    getTheme(),
   ]);
 
   return (
@@ -48,6 +50,7 @@ export default async function DashboardLayout({ children }: LayoutProps<"/dashbo
       unread={unread}
       announcement={announcement || undefined}
       impersonating={impersonating}
+      theme={theme}
     >
       {children}
     </AppShell>

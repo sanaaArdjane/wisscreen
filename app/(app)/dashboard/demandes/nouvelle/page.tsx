@@ -43,7 +43,7 @@ export default async function NouvelleDemandePage({
             </Panel>
           )}
           <Panel title="Ce qui se passe ensuite">
-            <ol className="flex flex-col gap-4 text-sm text-ink/80">
+            <ol className="flex flex-col gap-4 text-sm text-fg/80">
               {[
                 "Votre demande arrive immédiatement dans notre back-office.",
                 "Un membre de l'équipe se l'attribue et vous répond dans le fil.",
@@ -51,7 +51,7 @@ export default async function NouvelleDemandePage({
                 "Vous suivez l'avancement jusqu'à la clôture, sans échange d'e-mails.",
               ].map((step, i) => (
                 <li key={step} className="flex gap-3">
-                  <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-ink text-xs font-semibold text-paper">
+                  <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-fg text-xs font-[650] text-on-fg">
                     {i + 1}
                   </span>
                   {step}

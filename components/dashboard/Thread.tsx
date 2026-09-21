@@ -43,7 +43,7 @@ export function Thread({
   emptyLabel?: string;
 }) {
   if (messages.length === 0 && (!files || files.length === 0)) {
-    return <p className="py-6 text-center text-sm text-ink/80">{emptyLabel}</p>;
+    return <p className="py-6 text-center text-sm text-fg/80">{emptyLabel}</p>;
   }
 
   return (
@@ -57,23 +57,23 @@ export function Thread({
           >
             <div
               className={cn(
-                "max-w-[42rem] rounded-2xl px-4 py-3 text-sm whitespace-pre-wrap",
+                "max-w-[42rem] rounded-3xl px-6 py-3.5 text-sm font-[450] whitespace-pre-wrap",
                 m.internal
-                  ? "border border-dashed border-ink/35 bg-mist text-ink"
+                  ? "border border-dashed border-fg/35 bg-soft text-fg"
                   : mine
-                    ? "bg-ink text-paper"
-                    : "border border-ink/10 bg-mist text-ink",
+                    ? "bg-fg text-on-fg"
+                    : "bg-soft text-fg",
               )}
             >
               {m.internal && (
-                <p className="mb-1 flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wider text-ink/80">
+                <p className="mb-1 flex items-center gap-1.5 text-xs font-[650] text-fg/80">
                   <Icon name="lock" className="size-3.5" />
                   Note interne — invisible pour le client
                 </p>
               )}
               {m.body}
             </div>
-            <p className="px-1 text-xs text-ink/80">
+            <p className="px-1 text-xs text-fg/80">
               {m.authorName ?? "Compte supprimé"} · {formatDateTime(m.createdAt)}
             </p>
           </article>
@@ -81,8 +81,8 @@ export function Thread({
       })}
 
       {files && files.length > 0 && (
-        <div className="mt-2 border-t border-ink/10 pt-4">
-          <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-ink/80">
+        <div className="mt-2 pt-4">
+          <p className="mb-3 text-sm font-[650] text-fg">
             Pièces jointes
           </p>
           <ul className="flex flex-col gap-1.5">
@@ -90,19 +90,19 @@ export function Thread({
               <li key={f.id}>
                 <a
                   href={`/api/uploads?id=${f.id}`}
-                  className="flex items-center gap-2.5 rounded-xl border border-ink/10 bg-paper px-3 py-2 text-sm text-ink transition-colors hover:border-ink/25"
+                  className="flex items-center gap-2.5 rounded-2xl bg-soft px-4 py-3 text-sm font-[450] text-fg transition-colors hover:bg-fg/8"
                 >
-                  <Icon name="file-text" className="size-4 shrink-0 text-steel" />
+                  <Icon name="file-text" className="size-4 shrink-0 text-fg/80" />
                   <span className="min-w-0 flex-1 truncate">{f.filename}</span>
                   {f.internal && (
-                    <span className="shrink-0 text-[11px] uppercase tracking-wider text-ink/80">
+                    <span className="shrink-0 text-xs text-fg/80">
                       interne
                     </span>
                   )}
-                  <span className="shrink-0 text-xs tabular-nums text-ink/80">
+                  <span className="shrink-0 text-xs tabular-nums text-fg/80">
                     {formatBytes(f.sizeBytes)}
                   </span>
-                  <Icon name="download" className="size-4 shrink-0 text-ink/80" />
+                  <Icon name="download" className="size-4 shrink-0 text-fg/80" />
                 </a>
               </li>
             ))}

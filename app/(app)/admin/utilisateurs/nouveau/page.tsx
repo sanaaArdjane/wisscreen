@@ -43,7 +43,7 @@ export default async function NouvelUtilisateurPage() {
           planOptions={catalogue.map((p) => ({ value: p.slug, label: p.name }))}
         />
         {!emailConfigured() && (
-          <p className="mt-5 border-t border-ink/10 pt-4 text-xs text-ink/80">
+          <p className="mt-5 border-t border-fg/10 pt-4 text-xs text-fg/80">
             L&apos;envoi d&apos;e-mails n&apos;est pas configuré sur cet environnement : la case
             « envoyer les identifiants » écrira le message dans les journaux du serveur au lieu
             de l&apos;expédier. Communiquez le mot de passe autrement.

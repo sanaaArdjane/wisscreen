@@ -23,7 +23,7 @@ export function CloseRequestButton({ requestId }: { requestId: number }) {
   return (
     <form action={closeOwnRequest} className="flex items-center gap-2">
       <input type="hidden" name="requestId" value={requestId} />
-      <span className="text-sm text-ink/80">Clôturer cette demande ?</span>
+      <span className="text-sm text-fg/80">Clôturer cette demande ?</span>
       <Button type="submit" variant="secondary">
         Oui, clôturer
       </Button>

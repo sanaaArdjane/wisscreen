@@ -1,0 +1,43 @@
+.auth-flow {
+  animation: auth-flow 9s linear infinite;
+}
+
+.auth-pulse {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: auth-pulse 3s ease-in-out infinite;
+}
+
+.auth-orbit {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: auth-orbit 5s ease-in-out infinite;
+}
+
+.auth-wave {
+  transform-origin: center;
+  animation: auth-wave 8s ease-in-out infinite alternate;
+}
+
+.auth-wave-middle { animation-delay: -3s; animation-duration: 11s; }
+.auth-wave-front { animation-delay: -5s; animation-duration: 9s; }
+
+@keyframes auth-wave {
+  to { transform: translateY(-18px) scaleY(1.12); }
+}
+
+@keyframes auth-flow {
+  to { stroke-dashoffset: -170; }
+}
+
+@keyframes auth-pulse {
+  50% { transform: scale(1.3); opacity: .7; }
+}
+
+@keyframes auth-orbit {
+  50% { transform: scale(1.12); opacity: .5; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .auth-flow, .auth-pulse, .auth-orbit, .auth-wave { animation: none; }
+}

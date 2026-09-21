@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import type { IconName } from "@/lib/types";
 
 const PATHS: Record<IconName, string> = {
@@ -48,16 +49,23 @@ const PATHS: Record<IconName, string> = {
   activity: "M3 12h4l3 8 4-16 3 8h4",
   ban: "M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18ZM5.6 5.6l12.8 12.8",
   send: "M21 3 3 10.5l7 3 3 7L21 3Z",
+  /* Light/dark toggle, lucide's own geometry (ISC) redrawn on this file's 24x24
+     grid: `sun` is lucide's `sun`, `moon` its `moon`. Both are stroke-only like
+     every other entry, so the pair sits inside a nav row without looking borrowed. */
+  sun: "M12 17a5 5 0 1 0 0-10 5 5 0 0 0 0 10M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42",
+  moon: "M20.98 12.79A9 9 0 1 1 11.21 3.02a7 7 0 0 0 9.77 9.77Z",
 };
 
 export function Icon({
   name,
   className = "h-6 w-6",
   strokeWidth = 1.6,
+  style,
 }: {
   name: IconName;
   className?: string;
   strokeWidth?: number;
+  style?: CSSProperties;
 }) {
   return (
     <svg
@@ -68,6 +76,7 @@ export function Icon({
       strokeLinecap="round"
       strokeLinejoin="round"
       className={className}
+      style={style}
       aria-hidden="true"
     >
       <path d={PATHS[name]} />

@@ -42,12 +42,12 @@ export function BroadcastForm({
           recipient count, and RAC's Select reports selection by key through a
           different callback — one control, one behaviour, no wrapper. */}
       <label className="flex flex-col gap-1.5">
-        <span className="text-sm text-ink/80">Destinataires</span>
+        <span className="text-sm text-fg/80">Destinataires</span>
         <select
           name="segment"
           value={segment}
           onChange={(e) => setSegment(e.target.value)}
-          className="rounded-xl border border-ink/15 bg-paper px-3 py-2.5 text-sm text-ink focus:border-signal-deep focus:outline-none focus:ring-1 focus:ring-signal-deep"
+          className="rounded-2xl bg-soft px-3 py-2.5 text-sm text-fg focus:outline-none focus:ring-2 focus:ring-fg"
         >
           {SEGMENTS.map((s) => (
             <option key={s.value} value={s.value}>
@@ -59,12 +59,12 @@ export function BroadcastForm({
 
       {segment === "plan" && (
         <label className="flex flex-col gap-1.5">
-          <span className="text-sm text-ink/80">Formule</span>
+          <span className="text-sm text-fg/80">Formule</span>
           <select
             name="planSlug"
             value={planSlug}
             onChange={(e) => setPlanSlug(e.target.value)}
-            className="rounded-xl border border-ink/15 bg-paper px-3 py-2.5 text-sm text-ink focus:border-signal-deep focus:outline-none focus:ring-1 focus:ring-signal-deep"
+            className="rounded-2xl bg-soft px-3 py-2.5 text-sm text-fg focus:outline-none focus:ring-2 focus:ring-fg"
           >
             {planOptions.map((p) => (
               <option key={p.value} value={p.value}>
@@ -75,8 +75,8 @@ export function BroadcastForm({
         </label>
       )}
 
-      <p className="rounded-xl border border-ink/15 bg-mist px-4 py-3 text-sm text-ink">
-        <strong className="font-semibold">{recipients}</strong> destinataire
+      <p className="rounded-2xl bg-soft px-4 py-3 text-sm text-fg">
+        <strong className="font-[650]">{recipients}</strong> destinataire
         {recipients > 1 ? "s" : ""} recevront ce message.
       </p>
 

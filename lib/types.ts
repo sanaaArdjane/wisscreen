@@ -46,7 +46,9 @@ export type IconName =
   | "receipt"
   | "activity"
   | "ban"
-  | "send";
+  | "send"
+  | "sun"
+  | "moon";
 
 export type MediaSlotKind =
   | "mock-dashboard"

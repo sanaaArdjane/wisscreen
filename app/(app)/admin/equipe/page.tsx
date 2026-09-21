@@ -6,6 +6,7 @@ import { user as userTable } from "@/lib/db/schema";
 import { requirePermission } from "@/lib/guard";
 import { PageHeader, Panel } from "@/components/dashboard/PageHeader";
 import { EmptyState, StatusChip } from "@/components/dashboard/ui";
+import { pillPrimary } from "@/components/dashboard/pills";
 import {
   ACTION_LABELS,
   ALL_PERMISSIONS,
@@ -64,7 +65,7 @@ export default async function EquipePage() {
           can(staff, "team:write") && (
             <Link
               href="/admin/utilisateurs/nouveau"
-              className="control-signal inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium"
+              className={pillPrimary}
             >
               <Icon name="plus" className="size-4" />
               Ajouter un membre
@@ -80,7 +81,7 @@ export default async function EquipePage() {
           action={
             <Link
               href="/admin/utilisateurs"
-              className="control-signal mt-2 inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium"
+              className={`${pillPrimary} mt-2`}
             >
               Ouvrir les utilisateurs
             </Link>
@@ -98,27 +99,27 @@ export default async function EquipePage() {
                 actions={
                   <>
                     {overrides > 0 && (
-                      <span className="text-xs text-ink/80">
+                      <span className="text-xs text-fg/80">
                         {overrides} exception{overrides > 1 ? "s" : ""}
                       </span>
                     )}
                     {member.banned && (
-                      <StatusChip label="Suspendu" tone="bg-ink text-paper border-ink" />
+                      <StatusChip label="Suspendu" tone="bg-fg text-on-fg border-fg" />
                     )}
                     <StatusChip
                       label={ROLE_LABELS[member.role] ?? "Client avec accès"}
                       tone={
                         member.role === "admin"
-                          ? "bg-signal/15 text-ink border-signal/45"
+                          ? "bg-signal/15 text-fg border-signal/45"
                           : member.role === "staff"
-                            ? "bg-steel/15 text-ink border-steel/40"
-                            : "bg-ink/5 text-ink border-ink/15"
+                            ? "bg-steel/15 text-fg border-steel/40"
+                            : "bg-fg/5 text-fg border-fg/15"
                       }
                     />
                     {can(staff, "team:write") && (
                       <Link
                         href={`/admin/utilisateurs/${member.id}`}
-                        className="text-sm text-signal-deep underline underline-offset-4"
+                        className="text-sm font-[650] text-fg underline underline-offset-4"
                       >
                         Modifier
                       </Link>
@@ -130,21 +131,21 @@ export default async function EquipePage() {
                   <table className="w-full min-w-[34rem] text-sm">
                     <caption className="sr-only">Permissions de {member.name}</caption>
                     <thead>
-                      <tr className="border-b border-ink/10 text-left text-xs uppercase tracking-wider text-ink/80">
-                        <th scope="col" className="pb-2 font-medium">
+                      <tr className="text-left text-xs text-fg/80">
+                        <th scope="col" className="rounded-l-2xl bg-soft px-4 py-2.5 font-[650]">
                           Domaine
                         </th>
                         {actions.map((a) => (
-                          <th key={a} scope="col" className="pb-2 text-center font-medium">
+                          <th key={a} scope="col" className="bg-soft px-2 py-2.5 text-center font-[650] last:rounded-r-2xl">
                             {ACTION_LABELS[a]}
                           </th>
                         ))}
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-ink/5">
+                    <tbody className="divide-y divide-fg/5">
                       {DOMAINS.map((domain) => (
                         <tr key={domain}>
-                          <th scope="row" className="py-1.5 pr-4 text-left font-normal text-ink">
+                          <th scope="row" className="py-1.5 pr-4 text-left font-normal text-fg">
                             {DOMAIN_LABELS[domain]}
                           </th>
                           {actions.map((a) => {
@@ -161,8 +162,8 @@ export default async function EquipePage() {
                                   }
                                   className={cn(
                                     "inline-flex size-6 items-center justify-center rounded-md",
-                                    granted ? "bg-signal/15 text-signal-deep" : "text-ink/25",
-                                    overridden && "ring-1 ring-ink/40",
+                                    granted ? "bg-signal text-abyss" : "text-fg/25",
+                                    overridden && "ring-1 ring-fg/40",
                                   )}
                                 >
                                   <Icon
@@ -188,7 +189,7 @@ export default async function EquipePage() {
         </div>
       )}
 
-      <p className="mt-6 text-xs text-ink/80">
+      <p className="mt-6 text-xs text-fg/80">
         {ALL_PERMISSIONS.length} permissions au total. Les cases entourées sont des
         exceptions accordées ou retirées individuellement.
       </p>

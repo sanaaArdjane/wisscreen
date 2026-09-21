@@ -20,9 +20,9 @@ const LABELS: Record<string, string> = {
 };
 
 const TONE: Record<string, string> = {
-  nouveau: "bg-signal/15 text-ink border-signal/45",
-  traite: "bg-teal/15 text-ink border-teal/40",
-  archive: "bg-ink/5 text-ink border-ink/15",
+  nouveau: "bg-signal/15 text-fg border-signal/45",
+  traite: "bg-teal/15 text-fg border-teal/40",
+  archive: "bg-fg/5 text-fg border-fg/15",
 };
 
 const SERVICE_NAMES = new Map(SERVICES.map((s) => [s.slug, s.name]));
@@ -83,11 +83,11 @@ export default async function MessagesPage({ searchParams }: PageProps<"/admin/m
                 />
               }
             >
-              <p className="whitespace-pre-wrap text-sm text-ink/80">{lead.message}</p>
-              <div className="mt-4 flex flex-wrap items-center gap-3 border-t border-ink/10 pt-4">
+              <p className="whitespace-pre-wrap text-sm text-fg/80">{lead.message}</p>
+              <div className="mt-4 flex flex-wrap items-center gap-3 border-t border-fg/10 pt-4">
                 <a
                   href={`mailto:${lead.email}?subject=${encodeURIComponent("Votre message à WICLOUD")}`}
-                  className="text-sm text-signal-deep underline underline-offset-4"
+                  className="text-sm font-[650] text-fg underline underline-offset-4"
                 >
                   Répondre par e-mail
                 </a>

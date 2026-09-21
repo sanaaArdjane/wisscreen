@@ -111,45 +111,45 @@ export function QuoteEditor({
       />
 
       {requestLabel && (
-        <p className="text-sm text-ink/80">
-          Rattaché à la demande <strong className="font-medium text-ink">{requestLabel}</strong>.
+        <p className="text-sm text-fg/80">
+          Rattaché à la demande <strong className="font-[650] text-fg">{requestLabel}</strong>.
         </p>
       )}
 
       <fieldset className="flex flex-col gap-3">
-        <legend className="mb-2 text-sm font-medium text-ink">Lignes</legend>
+        <legend className="mb-2 text-sm font-[650] text-fg">Lignes</legend>
 
         {lines.map((line, index) => (
           <div key={line.key} className="flex flex-wrap items-end gap-3">
             <label className="flex min-w-[14rem] flex-1 flex-col gap-1.5">
-              <span className="text-sm text-ink/80">Désignation</span>
+              <span className="text-sm text-fg/80">Désignation</span>
               <input
                 name="label"
                 value={line.label}
                 onChange={(e) => update(line.key, { label: e.target.value })}
                 placeholder="Prestation"
-                className="rounded-xl border border-ink/15 bg-paper px-3 py-2.5 text-sm text-ink placeholder:text-ink/60 focus:border-signal-deep focus:outline-none focus:ring-1 focus:ring-signal-deep"
+                className="rounded-2xl bg-soft px-3 py-2.5 text-sm text-fg placeholder:text-fg/80 focus:outline-none focus:ring-2 focus:ring-fg"
               />
             </label>
             <label className="flex w-24 flex-col gap-1.5">
-              <span className="text-sm text-ink/80">Qté</span>
+              <span className="text-sm text-fg/80">Qté</span>
               <input
                 name="quantity"
                 inputMode="decimal"
                 value={line.quantity}
                 onChange={(e) => update(line.key, { quantity: e.target.value })}
-                className="rounded-xl border border-ink/15 bg-paper px-3 py-2.5 text-right text-sm tabular-nums text-ink focus:border-signal-deep focus:outline-none focus:ring-1 focus:ring-signal-deep"
+                className="rounded-2xl bg-soft px-3 py-2.5 text-right text-sm tabular-nums text-fg focus:outline-none focus:ring-2 focus:ring-fg"
               />
             </label>
             <label className="flex w-36 flex-col gap-1.5">
-              <span className="text-sm text-ink/80">P.U. ({currency})</span>
+              <span className="text-sm text-fg/80">P.U. ({currency})</span>
               <input
                 name="unitCents"
                 inputMode="decimal"
                 value={line.unit}
                 onChange={(e) => update(line.key, { unit: e.target.value })}
                 placeholder="0"
-                className="rounded-xl border border-ink/15 bg-paper px-3 py-2.5 text-right text-sm tabular-nums text-ink placeholder:text-ink/60 focus:border-signal-deep focus:outline-none focus:ring-1 focus:ring-signal-deep"
+                className="rounded-2xl bg-soft px-3 py-2.5 text-right text-sm tabular-nums text-fg placeholder:text-fg/80 focus:outline-none focus:ring-2 focus:ring-fg"
               />
             </label>
             <Button
@@ -179,9 +179,9 @@ export function QuoteEditor({
         </Button>
       </fieldset>
 
-      <p className="flex items-baseline justify-between border-t border-ink/10 pt-4 text-sm">
-        <span className="text-ink/80">Total</span>
-        <span className="text-xl font-semibold tabular-nums text-ink">
+      <p className="flex items-baseline justify-between border-t border-fg/10 pt-4 text-sm">
+        <span className="text-fg/80">Total</span>
+        <span className="text-xl font-[650] tabular-nums text-fg">
           {formatMoney(total, currency)}
         </span>
       </p>

@@ -35,22 +35,22 @@ export default async function DocumentsPage() {
               description="Joignez un fichier à une demande, ou déposez-en un ici."
             />
           ) : (
-            <ul className="divide-y divide-ink/10">
+            <ul className="divide-y divide-fg/10">
               {rows.map(({ attachment, request }) => (
-                <li key={attachment.id} className="flex items-center gap-4 px-5 py-3">
-                  <Icon name="file-text" className="size-5 shrink-0 text-steel" />
+                <li key={attachment.id} className="flex items-center gap-4 px-6 py-3.5">
+                  <Icon name="file-text" className="size-5 shrink-0 text-fg/80" />
                   <div className="min-w-0 flex-1">
-                    <p className="truncate text-sm font-medium text-ink">
+                    <p className="truncate text-sm font-[650] text-fg">
                       {attachment.filename}
                     </p>
-                    <p className="mt-0.5 text-xs text-ink/80">
+                    <p className="mt-0.5 text-xs text-fg/80">
                       {formatBytes(attachment.sizeBytes)} · {formatDateTime(attachment.createdAt)}
                       {request && (
                         <>
                           {" · "}
                           <Link
                             href={`/dashboard/demandes/${request.id}`}
-                            className="text-signal-deep underline underline-offset-2"
+                            className="font-[650] text-fg underline underline-offset-2"
                           >
                             {request.ref}
                           </Link>
@@ -60,7 +60,7 @@ export default async function DocumentsPage() {
                   </div>
                   <a
                     href={`/api/uploads?id=${attachment.id}`}
-                    className="shrink-0 rounded-lg p-2 text-ink/80 transition-colors hover:bg-mist hover:text-ink"
+                    className="shrink-0 rounded-full p-2 text-fg/80 transition-colors hover:bg-soft hover:text-fg"
                     aria-label={`Télécharger ${attachment.filename}`}
                   >
                     <Icon name="download" className="size-4" />
@@ -84,9 +84,9 @@ export default async function DocumentsPage() {
             {storageQuota ? (
               <QuotaMeter quota={storageQuota} />
             ) : (
-              <p className="text-sm text-ink/80">Aucune limite de stockage sur votre formule.</p>
+              <p className="text-sm text-fg/80">Aucune limite de stockage sur votre formule.</p>
             )}
-            <p className="mt-3 text-xs text-ink/80">
+            <p className="mt-3 text-xs text-fg/80">
               {rows.length} fichier{rows.length > 1 ? "s" : ""} · {formatBytes(used)} au total
             </p>
           </Panel>

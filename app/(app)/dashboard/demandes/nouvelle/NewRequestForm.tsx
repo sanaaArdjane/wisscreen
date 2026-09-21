@@ -81,7 +81,7 @@ export function NewRequestForm({
 
       <div className="flex items-center gap-3">
         <SubmitButton>Envoyer la demande</SubmitButton>
-        <p className="text-sm text-ink/80">Réponse sous 48 h ouvrées.</p>
+        <p className="text-sm text-fg/80">Réponse sous 48 h ouvrées.</p>
       </div>
     </form>
   );

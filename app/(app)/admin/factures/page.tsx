@@ -117,7 +117,7 @@ export default async function AdminFacturesPage({ searchParams }: PageProps<"/ad
                     {can(staff, "users:read") && (
                       <Link
                         href={`/admin/utilisateurs/${client.id}`}
-                        className="text-sm text-signal-deep underline underline-offset-4"
+                        className="text-sm font-[650] text-fg underline underline-offset-4"
                       >
                         Client
                       </Link>
@@ -135,7 +135,7 @@ export default async function AdminFacturesPage({ searchParams }: PageProps<"/ad
                   currency={invoice.currency}
                 />
                 {mayWrite && (
-                  <div className="mt-5 border-t border-ink/10 pt-5">
+                  <div className="mt-5 border-t border-fg/10 pt-5">
                     <InvoiceControls
                       invoiceId={invoice.id}
                       status={invoice.status}

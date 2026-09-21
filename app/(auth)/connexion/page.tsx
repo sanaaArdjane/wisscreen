@@ -9,7 +9,8 @@ export const metadata: Metadata = { title: "Connexion", robots: { index: false }
 
 export default async function ConnexionPage() {
   // Already signed in: the sign-in page is a dead end, not a second front door.
-  if (await getCurrentUser()) redirect("/dashboard");
+  const user = await getCurrentUser();
+  if (user) redirect(user.role === "admin" || user.role === "staff" ? "/admin" : "/dashboard");
 
   return (
     // `useSearchParams` in the form makes this route a client-boundary read;

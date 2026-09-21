@@ -7,6 +7,7 @@ import { requirePermission } from "@/lib/guard";
 import { can } from "@/lib/permissions";
 import { PageHeader, Panel } from "@/components/dashboard/PageHeader";
 import { EmptyState, StatusChip } from "@/components/dashboard/ui";
+import { pillPrimary } from "@/components/dashboard/pills";
 import { FilterBar } from "@/components/dashboard/FilterBar";
 import { QUOTE_LABELS, QUOTE_STATUSES, QUOTE_TONE, isQuoteStatus } from "@/lib/billing";
 import { formatMoney } from "@/lib/money";
@@ -48,7 +49,7 @@ export default async function AdminDevisPage({ searchParams }: PageProps<"/admin
           can(staff, "quotes:write") && (
             <Link
               href="/admin/devis/nouveau"
-              className="control-signal inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium"
+              className={pillPrimary}
             >
               <Icon name="plus" className="size-4" />
               Nouveau devis
@@ -80,22 +81,22 @@ export default async function AdminDevisPage({ searchParams }: PageProps<"/admin
         />
       ) : (
         <Panel bodyClassName="p-0">
-          <ul className="divide-y divide-ink/10">
+          <ul className="divide-y divide-fg/10">
             {rows.map(({ quote, client }) => {
               const s = isQuoteStatus(quote.status) ? quote.status : "brouillon";
               return (
                 <li key={quote.id}>
                   <Link
                     href={`/admin/devis/${quote.id}`}
-                    className="flex flex-col gap-2 px-5 py-4 transition-colors hover:bg-mist sm:flex-row sm:items-center sm:gap-4"
+                    className="flex flex-col gap-2 px-6 py-4 transition-colors hover:bg-soft sm:flex-row sm:items-center sm:gap-4"
                   >
                     <div className="min-w-0 flex-1">
-                      <p className="truncate text-sm font-medium text-ink">{quote.title}</p>
-                      <p className="mt-0.5 truncate text-xs text-ink/80">
+                      <p className="truncate text-sm font-[650] text-fg">{quote.title}</p>
+                      <p className="mt-0.5 truncate text-xs text-fg/80">
                         {quote.ref} · {client.name} · {formatDate(quote.createdAt)}
                       </p>
                     </div>
-                    <span className="text-sm font-semibold tabular-nums text-ink">
+                    <span className="text-sm font-[650] tabular-nums text-fg">
                       {formatMoney(quote.amountCents, quote.currency)}
                     </span>
                     <StatusChip label={QUOTE_LABELS[s]} tone={QUOTE_TONE[s]} />

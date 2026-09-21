@@ -8,6 +8,7 @@ import { can } from "@/lib/permissions";
 import { PageHeader } from "@/components/dashboard/PageHeader";
 import { NotificationFeed } from "@/components/dashboard/NotificationFeed";
 import { Icon } from "@/components/ui/Icon";
+import { pillPrimary } from "@/components/dashboard/pills";
 
 export const metadata: Metadata = { title: "Notifications" };
 
@@ -45,7 +46,7 @@ export default async function AdminNotificationsPage() {
           can(staff, "notifications:write") && (
             <Link
               href="/admin/notifications/envoyer"
-              className="control-signal inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium"
+              className={pillPrimary}
             >
               <Icon name="send" className="size-4" />
               Envoyer une notification

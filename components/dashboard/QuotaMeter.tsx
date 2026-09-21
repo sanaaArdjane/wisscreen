@@ -21,16 +21,16 @@ export function QuotaMeter({ quota, showReset = false }: { quota: QuotaView; sho
   return (
     <div>
       <div className="flex items-baseline justify-between gap-3 text-sm">
-        <span className="text-ink/80">{quota.label}</span>
-        <span className="tabular-nums text-ink">
+        <span className="text-fg/80">{quota.label}</span>
+        <span className="tabular-nums text-fg">
           {quota.unlimited ? (
-            <span className="text-ink/80">Illimité</span>
+            <span className="text-fg/80">Illimité</span>
           ) : !quota.included ? (
-            <span className="text-ink/80">Non inclus</span>
+            <span className="text-fg/80">Non inclus</span>
           ) : (
             <>
-              <strong className="font-semibold">{quota.used}</strong>
-              <span className="text-ink/80"> / {quota.limit}</span>
+              <strong className="font-[650]">{quota.used}</strong>
+              <span className="text-fg/80"> / {quota.limit}</span>
             </>
           )}
         </span>
@@ -43,12 +43,12 @@ export function QuotaMeter({ quota, showReset = false }: { quota: QuotaView; sho
           aria-valuemin={0}
           aria-valuemax={quota.limit ?? undefined}
           aria-valuenow={quota.used}
-          className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-ink/10"
+          className="mt-2 h-2 overflow-hidden rounded-full bg-soft"
         >
           <div
             className={cn(
               "h-full rounded-full transition-[width] duration-500",
-              nearLimit ? "bg-signal" : "bg-teal",
+              nearLimit ? "bg-signal" : "bg-fg",
             )}
             style={{ width: `${Math.max(pct, quota.used > 0 ? 3 : 0)}%` }}
           />
@@ -56,7 +56,7 @@ export function QuotaMeter({ quota, showReset = false }: { quota: QuotaView; sho
       )}
 
       {showReset && quota.resetsAt && (
-        <p className="mt-1 text-xs text-ink/80">
+        <p className="mt-1 text-xs text-fg/80">
           Réinitialisation le {formatDate(quota.resetsAt)}
         </p>
       )}

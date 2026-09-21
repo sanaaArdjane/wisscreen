@@ -21,8 +21,8 @@ export function MoneyLines({
   if (lines.length === 0) {
     return (
       <p className="flex items-baseline justify-between gap-4 text-sm">
-        <span className="text-ink/80">Montant</span>
-        <span className="text-lg font-semibold tabular-nums text-ink">
+        <span className="text-fg/80">Montant</span>
+        <span className="text-2xl font-[650] tabular-nums text-fg">
           {formatMoney(total, currency)}
         </span>
       </p>
@@ -33,41 +33,41 @@ export function MoneyLines({
     <table className="w-full text-sm">
       <caption className="sr-only">Détail des lignes</caption>
       <thead>
-        <tr className="border-b border-ink/10 text-left text-xs uppercase tracking-wider text-ink/80">
-          <th scope="col" className="pb-2 font-medium">
+        <tr className="text-left text-xs text-fg/80">
+          <th scope="col" className="rounded-l-2xl bg-soft px-4 py-2.5 font-[650]">
             Désignation
           </th>
-          <th scope="col" className="pb-2 text-right font-medium">
+          <th scope="col" className="bg-soft px-4 py-2.5 text-right font-[650]">
             Qté
           </th>
-          <th scope="col" className="pb-2 text-right font-medium">
+          <th scope="col" className="bg-soft px-4 py-2.5 text-right font-[650]">
             P.U.
           </th>
-          <th scope="col" className="pb-2 text-right font-medium">
+          <th scope="col" className="rounded-r-2xl bg-soft px-4 py-2.5 text-right font-[650]">
             Total
           </th>
         </tr>
       </thead>
-      <tbody className="divide-y divide-ink/5">
+      <tbody className="divide-y divide-fg/10">
         {lines.map((line, i) => (
           <tr key={`${line.label}-${i}`}>
-            <td className="py-2 pr-3 text-ink">{line.label}</td>
-            <td className="py-2 text-right tabular-nums text-ink/80">{line.quantity}</td>
-            <td className="py-2 text-right tabular-nums text-ink/80">
+            <td className="px-4 py-3 text-fg">{line.label}</td>
+            <td className="px-4 py-3 text-right tabular-nums text-fg/80">{line.quantity}</td>
+            <td className="px-4 py-3 text-right tabular-nums text-fg/80">
               {formatMoney(line.unitCents, currency)}
             </td>
-            <td className="py-2 text-right font-medium tabular-nums text-ink">
+            <td className="px-4 py-3 text-right font-[650] tabular-nums text-fg">
               {formatMoney(lineTotalCents(line), currency)}
             </td>
           </tr>
         ))}
       </tbody>
       <tfoot>
-        <tr className="border-t border-ink/15">
-          <th scope="row" colSpan={3} className="pt-3 text-right font-medium text-ink/80">
+        <tr>
+          <th scope="row" colSpan={3} className="px-4 pt-4 text-right font-[450] text-fg/80">
             Total
           </th>
-          <td className="pt-3 text-right text-lg font-semibold tabular-nums text-ink">
+          <td className="px-4 pt-4 text-right text-2xl font-[650] tabular-nums text-fg">
             {formatMoney(total, currency)}
           </td>
         </tr>

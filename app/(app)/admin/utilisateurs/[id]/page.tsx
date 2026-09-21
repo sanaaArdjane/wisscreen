@@ -69,14 +69,14 @@ export default async function UserDetailPage({ params }: PageProps<"/admin/utili
               label={ROLE_LABELS[target.role] ?? target.role}
               tone={
                 target.role === "admin"
-                  ? "bg-signal/15 text-ink border-signal/45"
+                  ? "bg-signal/15 text-fg border-signal/45"
                   : target.role === "staff"
-                    ? "bg-steel/15 text-ink border-steel/40"
-                    : "bg-ink/5 text-ink border-ink/15"
+                    ? "bg-steel/15 text-fg border-steel/40"
+                    : "bg-fg/5 text-fg border-fg/15"
               }
             />
             {target.banned && (
-              <StatusChip label="Suspendu" tone="bg-ink text-paper border-ink" />
+              <StatusChip label="Suspendu" tone="bg-fg text-on-fg border-fg" />
             )}
           </>
         }
@@ -122,7 +122,7 @@ export default async function UserDetailPage({ params }: PageProps<"/admin/utili
               title="Accès"
               description="Le rôle donne une base ; les cases ci-dessous ajoutent ou retirent des accès précis."
             >
-              <div className="mb-6 border-b border-ink/10 pb-6">
+              <div className="mb-6 border-b border-fg/10 pb-6">
                 <RoleForm
                   userId={target.id}
                   role={target.role}
@@ -163,7 +163,7 @@ export default async function UserDetailPage({ params }: PageProps<"/admin/utili
             }
           >
             {quotaRows.length === 0 ? (
-              <p className="text-sm text-ink/80">Aucun quota appliqué à ce compte.</p>
+              <p className="text-sm text-fg/80">Aucun quota appliqué à ce compte.</p>
             ) : mayWriteSubs ? (
               <div className="flex flex-col gap-6">
                 {quotaRows.map((q) => (
@@ -188,18 +188,18 @@ export default async function UserDetailPage({ params }: PageProps<"/admin/utili
 
           <Panel title="Demandes récentes" bodyClassName={userRequests.length ? "p-0" : undefined}>
             {userRequests.length === 0 ? (
-              <p className="text-sm text-ink/80">Aucune demande.</p>
+              <p className="text-sm text-fg/80">Aucune demande.</p>
             ) : (
-              <ul className="divide-y divide-ink/10">
+              <ul className="divide-y divide-fg/10">
                 {userRequests.map((r) => (
                   <li key={r.id}>
                     <Link
                       href={`/admin/demandes/${r.id}`}
-                      className="flex items-center gap-4 px-5 py-3 transition-colors hover:bg-mist"
+                      className="flex items-center gap-4 px-6 py-3.5 transition-colors hover:bg-soft"
                     >
                       <span className="min-w-0 flex-1">
-                        <span className="block truncate text-sm text-ink">{r.title}</span>
-                        <span className="block text-xs text-ink/80">
+                        <span className="block truncate text-sm text-fg">{r.title}</span>
+                        <span className="block text-xs text-fg/80">
                           {r.ref} · {formatDateTime(r.updatedAt)}
                         </span>
                       </span>
@@ -250,7 +250,7 @@ export default async function UserDetailPage({ params }: PageProps<"/admin/utili
 
           {target.adminNote && !mayWriteUsers && (
             <Panel title="Note interne">
-              <p className="whitespace-pre-wrap text-sm text-ink/80">{target.adminNote}</p>
+              <p className="whitespace-pre-wrap text-sm text-fg/80">{target.adminNote}</p>
             </Panel>
           )}
         </div>

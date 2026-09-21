@@ -72,11 +72,11 @@ export default async function AdminDemosPage() {
             description="Les démos lancées depuis les espaces clients apparaîtront ici."
           />
         ) : (
-          <ul className="divide-y divide-ink/10">
+          <ul className="divide-y divide-fg/10">
             {runs.map(({ run, client }) => (
-              <li key={run.id} className="flex items-center gap-4 px-5 py-3">
+              <li key={run.id} className="flex items-center gap-4 px-6 py-3.5">
                 <span className="min-w-0 flex-1">
-                  <span className="block truncate text-sm text-ink">
+                  <span className="block truncate text-sm text-fg">
                     {can(staff, "users:read") ? (
                       <Link
                         href={`/admin/utilisateurs/${client.id}`}
@@ -87,18 +87,18 @@ export default async function AdminDemosPage() {
                     ) : (
                       client.name
                     )}
-                    <span className="text-ink/80"> — {NAMES.get(run.serviceSlug) ?? run.serviceSlug}</span>
+                    <span className="text-fg/80"> — {NAMES.get(run.serviceSlug) ?? run.serviceSlug}</span>
                   </span>
-                  <span className="block truncate text-xs text-ink/80">{run.input}</span>
+                  <span className="block truncate text-xs text-fg/80">{run.input}</span>
                 </span>
-                <span className="shrink-0 text-xs text-ink/80">
+                <span className="shrink-0 text-xs text-fg/80">
                   {formatDateTime(run.createdAt)}
                 </span>
                 <span
                   className={
                     run.outcome === "ok"
-                      ? "shrink-0 rounded-full border border-signal/45 bg-signal/10 px-2.5 py-0.5 text-xs text-ink"
-                      : "shrink-0 rounded-full border border-ink/25 bg-ink/5 px-2.5 py-0.5 text-xs text-ink"
+                      ? "shrink-0 rounded-full border border-signal/45 bg-signal/10 px-2.5 py-0.5 text-xs text-fg"
+                      : "shrink-0 rounded-full border border-fg/25 bg-fg/5 px-2.5 py-0.5 text-xs text-fg"
                   }
                 >
                   {run.outcome === "ok" ? "Exécutée" : "Quota atteint"}

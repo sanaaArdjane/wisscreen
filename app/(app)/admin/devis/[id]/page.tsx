@@ -95,7 +95,7 @@ export default async function AdminQuotePage({ params }: PageProps<"/admin/devis
                 currency={quote.currency}
               />
               {quote.note && (
-                <p className="mt-6 whitespace-pre-wrap border-t border-ink/10 pt-4 text-sm text-ink/80">
+                <p className="mt-6 whitespace-pre-wrap border-t border-fg/10 pt-4 text-sm text-fg/80">
                   {quote.note}
                 </p>
               )}
@@ -105,12 +105,12 @@ export default async function AdminQuotePage({ params }: PageProps<"/admin/devis
 
         <div className="flex flex-col gap-6">
           <Panel title="Client">
-            <p className="text-sm font-medium text-ink">{client.name}</p>
-            <p className="text-sm text-ink/80">{client.email}</p>
+            <p className="text-sm font-[650] text-fg">{client.name}</p>
+            <p className="text-sm text-fg/80">{client.email}</p>
             {can(staff, "users:read") && (
               <Link
                 href={`/admin/utilisateurs/${client.id}`}
-                className="mt-2 inline-block text-sm text-signal-deep underline underline-offset-4"
+                className="mt-2 inline-block text-sm font-[650] text-fg underline underline-offset-4"
               >
                 Fiche client
               </Link>
@@ -144,7 +144,7 @@ export default async function AdminQuotePage({ params }: PageProps<"/admin/devis
             <Panel title="Facture liée">
               <Link
                 href={`/admin/factures?q=${linkedInvoice[0].ref}`}
-                className="text-sm text-signal-deep underline underline-offset-4"
+                className="text-sm font-[650] text-fg underline underline-offset-4"
               >
                 {linkedInvoice[0].ref}
               </Link>
@@ -155,7 +155,7 @@ export default async function AdminQuotePage({ params }: PageProps<"/admin/devis
             <Panel title="Demande liée">
               <Link
                 href={`/admin/demandes/${linkedRequest[0].id}`}
-                className="text-sm text-signal-deep underline underline-offset-4"
+                className="text-sm font-[650] text-fg underline underline-offset-4"
               >
                 {linkedRequest[0].ref} — {linkedRequest[0].title}
               </Link>
@@ -170,8 +170,8 @@ export default async function AdminQuotePage({ params }: PageProps<"/admin/devis
 function Row({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex items-baseline justify-between gap-4">
-      <dt className="text-ink/80">{label}</dt>
-      <dd className="text-right font-medium text-ink">{value}</dd>
+      <dt className="text-fg/80">{label}</dt>
+      <dd className="text-right font-[650] text-fg">{value}</dd>
     </div>
   );
 }

@@ -32,7 +32,7 @@ export function StatusControl({
 
   if (allowed.length === 0) {
     return (
-      <p className="text-sm text-ink/80">
+      <p className="text-sm text-fg/80">
         Cette demande est clôturée — son statut ne peut plus changer.
       </p>
     );
@@ -51,7 +51,7 @@ export function StatusControl({
         isRequired
       />
       <SubmitButton className="self-start">Appliquer</SubmitButton>
-      <p className="text-xs text-ink/80">Statut actuel : {current}</p>
+      <p className="text-xs text-fg/80">Statut actuel : {current}</p>
     </form>
   );
 }

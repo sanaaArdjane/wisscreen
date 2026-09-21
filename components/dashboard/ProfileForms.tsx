@@ -79,7 +79,7 @@ export function PasswordForm({ hasPassword }: { hasPassword: boolean }) {
 
   if (!hasPassword) {
     return (
-      <p className="text-sm text-ink/80">
+      <p className="text-sm text-fg/80">
         Votre compte se connecte via Google. Pour ajouter un mot de passe, utilisez
         « Mot de passe oublié » depuis la page de connexion.
       </p>
@@ -131,8 +131,8 @@ export function PasswordForm({ hasPassword }: { hasPassword: boolean }) {
           role="status"
           className={
             message.ok
-              ? "rounded-xl border border-signal/45 bg-signal/10 px-4 py-3 text-sm text-ink"
-              : "rounded-xl border border-ink/25 bg-ink/5 px-4 py-3 text-sm text-ink"
+              ? "rounded-2xl bg-soft px-6 py-3.5 text-sm text-fg"
+              : "rounded-2xl border border-fg/25 bg-panel px-6 py-3.5 text-sm text-fg"
           }
         >
           {message.text}
@@ -191,7 +191,7 @@ export function SessionList({ currentToken }: { currentToken: string }) {
 
   if (rows === null) {
     return (
-      <p className="flex items-center gap-2 text-sm text-ink/80">
+      <p className="flex items-center gap-2 text-sm text-fg/80">
         <Spinner className="size-4" /> Chargement…
       </p>
     );
@@ -199,22 +199,22 @@ export function SessionList({ currentToken }: { currentToken: string }) {
 
   return (
     <div className="flex flex-col gap-3">
-      <ul className="flex flex-col divide-y divide-ink/10">
+      <ul className="flex flex-col divide-y divide-fg/10">
         {rows.map((s) => {
           const current = s.token === currentToken;
           return (
             <li key={s.id} className="flex items-center gap-3 py-3">
-              <Icon name="server" className="size-4 shrink-0 text-steel" />
+              <Icon name="server" className="size-4 shrink-0 text-fg/80" />
               <div className="min-w-0 flex-1">
-                <p className="truncate text-sm text-ink">
+                <p className="truncate text-sm text-fg">
                   {describeAgent(s.userAgent)}
                   {current && (
-                    <span className="ml-2 rounded-full border border-signal/45 bg-signal/10 px-2 py-0.5 text-[11px] text-ink">
+                    <span className="ml-2 rounded-full border border-signal/45 bg-signal/10 px-2.5 py-1 text-xs font-[650] text-fg">
                       Session actuelle
                     </span>
                   )}
                 </p>
-                <p className="mt-0.5 text-xs text-ink/80">
+                <p className="mt-0.5 text-xs text-fg/80">
                   Depuis le {formatDateTime(s.createdAt)}
                   {s.ipAddress && ` · ${s.ipAddress}`}
                 </p>
@@ -311,11 +311,11 @@ export function DeleteAccount() {
         router.refresh();
       }}
     >
-      <p className="rounded-xl border border-ink/25 bg-ink/5 px-4 py-3 text-sm text-ink">
+      <p className="rounded-2xl border border-fg/25 bg-panel px-6 py-3.5 text-sm text-fg">
         Cette action est définitive. Vos demandes, devis, factures et documents seront
         supprimés et ne pourront pas être restaurés.
       </p>
-      {error && <p className="text-sm text-ink">{error}</p>}
+      {error && <p className="text-sm text-fg">{error}</p>}
       <Field
         name="password"
         label="Confirmez avec votre mot de passe"

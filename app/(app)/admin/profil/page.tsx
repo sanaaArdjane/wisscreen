@@ -100,8 +100,8 @@ export default async function AdminProfilPage() {
 function Row({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex items-baseline justify-between gap-4">
-      <dt className="text-ink/80">{label}</dt>
-      <dd className="text-right font-medium text-ink">{value}</dd>
+      <dt className="text-fg/80">{label}</dt>
+      <dd className="text-right font-[650] text-fg">{value}</dd>
     </div>
   );
 }

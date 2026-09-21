@@ -3,6 +3,7 @@ import { ADMIN_NAV } from "@/components/dashboard/nav";
 import { isImpersonating, requireStaff } from "@/lib/guard";
 import { unreadCount } from "@/lib/account";
 import { getSetting } from "@/lib/settings";
+import { getTheme } from "@/lib/theme-server";
 import { can } from "@/lib/permissions";
 
 /**
@@ -18,10 +19,11 @@ import { can } from "@/lib/permissions";
 export default async function AdminLayout({ children }: LayoutProps<"/admin">) {
   const user = await requireStaff();
 
-  const [unread, announcement, impersonating] = await Promise.all([
+  const [unread, announcement, impersonating, theme] = await Promise.all([
     unreadCount(user.id),
     getSetting("announcement"),
     isImpersonating(),
+    getTheme(),
   ]);
 
   const nav = ADMIN_NAV.filter((item) => !item.permission || can(user, item.permission));
@@ -34,6 +36,7 @@ export default async function AdminLayout({ children }: LayoutProps<"/admin">) {
       unread={unread}
       announcement={announcement || undefined}
       impersonating={impersonating}
+      theme={theme}
     >
       {children}
     </AppShell>

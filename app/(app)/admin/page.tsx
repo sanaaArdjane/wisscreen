@@ -12,6 +12,7 @@ import { STATUS_LABELS, STATUS_TONE, type RequestStatus } from "@/lib/requests";
 import { formatMoney } from "@/lib/money";
 import { relativeTime } from "@/lib/format";
 import { eq } from "drizzle-orm";
+import { pillSmall } from "@/components/dashboard/pills";
 
 export const metadata: Metadata = { title: "Administration" };
 
@@ -91,15 +92,15 @@ export default async function AdminHome() {
       {counters && counters.newLeads > 0 && can(staff, "leads:read") && (
         <Link
           href="/admin/messages"
-          className="mt-4 flex items-center justify-between gap-4 rounded-2xl border border-signal/45 bg-signal/10 px-5 py-4 transition-colors hover:border-signal"
+          className="mt-4 flex items-center justify-between gap-4 rounded-2xl border border-signal/45 bg-signal/10 px-6 py-4 transition-colors hover:border-signal"
         >
-          <span className="text-sm text-ink">
-            <strong className="font-semibold">
+          <span className="text-sm text-fg">
+            <strong className="font-[650]">
               {counters.newLeads} message{counters.newLeads > 1 ? "s" : ""}
             </strong>{" "}
             non traité{counters.newLeads > 1 ? "s" : ""} depuis le formulaire du site.
           </span>
-          <span className="shrink-0 text-sm font-medium text-ink underline underline-offset-4">Ouvrir</span>
+          <span className="shrink-0 text-sm font-[650] text-fg underline underline-offset-4">Ouvrir</span>
         </Link>
       )}
 
@@ -112,7 +113,7 @@ export default async function AdminHome() {
             actions={
               <Link
                 href="/admin/demandes"
-                className="text-sm text-signal-deep underline underline-offset-4"
+                className={pillSmall}
               >
                 Tout voir
               </Link>
@@ -122,16 +123,16 @@ export default async function AdminHome() {
             {queue.length === 0 ? (
               <EmptyState title="Rien en attente" description="Toutes les demandes sont traitées." />
             ) : (
-              <ul className="divide-y divide-ink/10">
+              <ul className="divide-y divide-fg/10">
                 {queue.map(({ request, client }) => (
                   <li key={request.id}>
                     <Link
                       href={`/admin/demandes/${request.id}`}
-                      className="flex items-center gap-4 px-5 py-4 transition-colors hover:bg-mist"
+                      className="flex items-center gap-4 px-6 py-4 transition-colors hover:bg-soft"
                     >
                       <div className="min-w-0 flex-1">
-                        <p className="truncate text-sm font-medium text-ink">{request.title}</p>
-                        <p className="mt-0.5 truncate text-xs text-ink/80">
+                        <p className="truncate text-sm font-[650] text-fg">{request.title}</p>
+                        <p className="mt-0.5 truncate text-xs text-fg/80">
                           {request.ref} · {client.name} · {relativeTime(request.createdAt)}
                           {!request.assignedToId && " · non attribuée"}
                         </p>
@@ -155,7 +156,7 @@ export default async function AdminHome() {
               actions={
                 <Link
                   href="/admin/utilisateurs"
-                  className="text-sm text-signal-deep underline underline-offset-4"
+                  className={pillSmall}
                 >
                   Tout voir
                 </Link>
@@ -163,17 +164,17 @@ export default async function AdminHome() {
               bodyClassName={recentUsers.length ? "p-0" : undefined}
             >
               {recentUsers.length === 0 ? (
-                <p className="text-sm text-ink/80">Aucun compte.</p>
+                <p className="text-sm text-fg/80">Aucun compte.</p>
               ) : (
-                <ul className="divide-y divide-ink/10">
+                <ul className="divide-y divide-fg/10">
                   {recentUsers.map((u) => (
                     <li key={u.id}>
                       <Link
                         href={`/admin/utilisateurs/${u.id}`}
-                        className="block px-5 py-3 transition-colors hover:bg-mist"
+                        className="block px-6 py-3.5 transition-colors hover:bg-soft"
                       >
-                        <span className="block truncate text-sm text-ink">{u.name}</span>
-                        <span className="block truncate text-xs text-ink/80">
+                        <span className="block truncate text-sm text-fg">{u.name}</span>
+                        <span className="block truncate text-xs text-fg/80">
                           {u.email} · {relativeTime(u.createdAt)}
                         </span>
                       </Link>
@@ -190,7 +191,7 @@ export default async function AdminHome() {
               actions={
                 <Link
                   href="/admin/journal"
-                  className="text-sm text-signal-deep underline underline-offset-4"
+                  className={pillSmall}
                 >
                   Journal
                 </Link>
@@ -198,13 +199,13 @@ export default async function AdminHome() {
               bodyClassName={activity.length ? "p-0" : undefined}
             >
               {activity.length === 0 ? (
-                <p className="text-sm text-ink/80">Rien pour l&apos;instant.</p>
+                <p className="text-sm text-fg/80">Rien pour l&apos;instant.</p>
               ) : (
-                <ul className="divide-y divide-ink/10">
+                <ul className="divide-y divide-fg/10">
                   {activity.map(({ log, actor }) => (
                     <li key={log.id} className="px-5 py-2.5">
-                      <p className="text-sm text-ink">{log.action}</p>
-                      <p className="text-xs text-ink/80">
+                      <p className="text-sm text-fg">{log.action}</p>
+                      <p className="text-xs text-fg/80">
                         {actor?.name ?? "Système"} · {relativeTime(log.createdAt)}
                       </p>
                     </li>

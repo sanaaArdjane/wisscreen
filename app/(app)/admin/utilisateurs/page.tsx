@@ -7,6 +7,7 @@ import { requirePermission } from "@/lib/guard";
 import { can } from "@/lib/permissions";
 import { PageHeader, Panel } from "@/components/dashboard/PageHeader";
 import { EmptyState, StatusChip } from "@/components/dashboard/ui";
+import { pillPrimary } from "@/components/dashboard/pills";
 import { FilterBar } from "@/components/dashboard/FilterBar";
 import { formatDate, relativeTime } from "@/lib/format";
 import { Icon } from "@/components/ui/Icon";
@@ -20,9 +21,9 @@ const ROLE_LABELS: Record<string, string> = {
 };
 
 const ROLE_TONE: Record<string, string> = {
-  admin: "bg-signal/15 text-ink border-signal/45",
-  staff: "bg-steel/15 text-ink border-steel/40",
-  user: "bg-ink/5 text-ink border-ink/15",
+  admin: "bg-signal/15 text-fg border-signal/45",
+  staff: "bg-steel/15 text-fg border-steel/40",
+  user: "bg-fg/5 text-fg border-fg/15",
 };
 
 export default async function UtilisateursPage({ searchParams }: PageProps<"/admin/utilisateurs">) {
@@ -71,7 +72,7 @@ export default async function UtilisateursPage({ searchParams }: PageProps<"/adm
           can(staff, "users:write") && (
             <Link
               href="/admin/utilisateurs/nouveau"
-              className="control-signal inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium"
+              className={pillPrimary}
             >
               <Icon name="plus" className="size-4" />
               Nouveau compte
@@ -112,31 +113,31 @@ export default async function UtilisateursPage({ searchParams }: PageProps<"/adm
         <EmptyState title="Aucun compte ne correspond" description="Élargissez les filtres." />
       ) : (
         <Panel bodyClassName="p-0">
-          <ul className="divide-y divide-ink/10">
+          <ul className="divide-y divide-fg/10">
             {rows.map(({ user, planName }) => (
               <li key={user.id}>
                 <Link
                   href={`/admin/utilisateurs/${user.id}`}
-                  className="flex flex-col gap-2 px-5 py-4 transition-colors hover:bg-mist sm:flex-row sm:items-center sm:gap-4"
+                  className="flex flex-col gap-2 px-6 py-4 transition-colors hover:bg-soft sm:flex-row sm:items-center sm:gap-4"
                 >
                   <div className="min-w-0 flex-1">
-                    <p className="truncate text-sm font-medium text-ink">
+                    <p className="truncate text-sm font-[650] text-fg">
                       {user.name}
                       {user.banned && (
-                        <span className="ml-2 rounded-full border border-ink/25 bg-ink/5 px-2 py-0.5 text-[11px] font-normal text-ink/80">
+                        <span className="ml-2 rounded-full border border-fg/25 bg-fg/5 px-2 py-0.5 text-[11px] font-normal text-fg/80">
                           Suspendu
                         </span>
                       )}
                     </p>
-                    <p className="mt-0.5 truncate text-xs text-ink/80">
+                    <p className="mt-0.5 truncate text-xs text-fg/80">
                       {user.email}
                       {user.company && ` · ${user.company}`}
                       {` · inscrit ${relativeTime(user.createdAt)}`}
                     </p>
                   </div>
                   <div className="flex shrink-0 items-center gap-3">
-                    {planName && <span className="text-xs text-ink/80">{planName}</span>}
-                    <span className="hidden text-xs text-ink/80 sm:block">
+                    {planName && <span className="text-xs text-fg/80">{planName}</span>}
+                    <span className="hidden text-xs text-fg/80 sm:block">
                       {formatDate(user.createdAt)}
                     </span>
                     <StatusChip

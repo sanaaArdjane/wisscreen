@@ -75,7 +75,7 @@ export default async function DemandeDetailPage({
       <div className="grid gap-6 lg:grid-cols-3">
         <div className="flex flex-col gap-6 lg:col-span-2">
           <Panel title="Votre demande">
-            <p className="whitespace-pre-wrap text-sm text-ink/80">{request.details}</p>
+            <p className="whitespace-pre-wrap text-sm text-fg/80">{request.details}</p>
           </Panel>
 
           <Panel title="Échanges" bodyClassName="p-5">
@@ -100,11 +100,11 @@ export default async function DemandeDetailPage({
             />
 
             {closed ? (
-              <p className="mt-6 rounded-xl border border-ink/15 bg-mist px-4 py-3 text-sm text-ink/80">
+              <p className="mt-6 rounded-2xl bg-soft px-4 py-3 text-sm text-fg/80">
                 Cette demande est clôturée. Ouvrez-en une nouvelle pour un sujet connexe.
               </p>
             ) : (
-              <div className="mt-6 flex flex-col gap-4 border-t border-ink/10 pt-6">
+              <div className="mt-6 flex flex-col gap-4 border-t border-fg/10 pt-6">
                 <ReplyForm requestId={request.id} />
                 <FileUpload
                   requestId={request.id}
@@ -139,18 +139,18 @@ export default async function DemandeDetailPage({
 
           {relatedQuotes.length > 0 && (
             <Panel title="Devis liés" bodyClassName="p-0">
-              <ul className="divide-y divide-ink/10">
+              <ul className="divide-y divide-fg/10">
                 {relatedQuotes.map(({ quote }) => (
                   <li key={quote.id}>
                     <Link
                       href={`/dashboard/devis/${quote.id}`}
-                      className="flex items-center justify-between gap-3 px-5 py-3 transition-colors hover:bg-mist"
+                      className="flex items-center justify-between gap-3 px-6 py-3.5 transition-colors hover:bg-soft"
                     >
                       <span className="min-w-0">
-                        <span className="block truncate text-sm text-ink">{quote.title}</span>
-                        <span className="block text-xs text-ink/80">{quote.ref}</span>
+                        <span className="block truncate text-sm text-fg">{quote.title}</span>
+                        <span className="block text-xs text-fg/80">{quote.ref}</span>
                       </span>
-                      <span className="shrink-0 text-sm font-medium tabular-nums text-ink">
+                      <span className="shrink-0 text-sm font-[650] tabular-nums text-fg">
                         {formatMoney(quote.amountCents, quote.currency)}
                       </span>
                     </Link>
@@ -168,8 +168,8 @@ export default async function DemandeDetailPage({
 function Row({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex items-baseline justify-between gap-4">
-      <dt className="text-ink/80">{label}</dt>
-      <dd className="text-right font-medium text-ink">{value}</dd>
+      <dt className="text-fg/80">{label}</dt>
+      <dd className="text-right font-[650] text-fg">{value}</dd>
     </div>
   );
 }

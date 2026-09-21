@@ -64,21 +64,21 @@ export function DemoRunner({
 
 function ResultPanel({ result }: { result: DemoResult }) {
   return (
-    <div className="rounded-xl border border-ink/10 bg-mist px-4 py-3">
+    <div className="rounded-2xl bg-soft px-4 py-3">
       <div className="flex flex-wrap items-baseline justify-between gap-2">
-        <p className="text-sm font-medium text-ink">{result.summary}</p>
-        <span className="rounded-full border border-ink/20 px-2 py-0.5 text-[11px] uppercase tracking-wider text-ink/80">
+        <p className="text-sm font-[650] text-fg">{result.summary}</p>
+        <span className="rounded-full border border-fg/20 px-2 py-0.5 text-[11px] text-fg/80">
           Résultat simulé
         </span>
       </div>
       <dl className="mt-3 flex flex-col gap-1.5 text-sm">
         {result.fields.map((f) => (
           <div key={f.label} className="flex items-baseline justify-between gap-4">
-            <dt className="text-ink/80">{f.label}</dt>
-            <dd className="text-right font-medium text-ink">
+            <dt className="text-fg/80">{f.label}</dt>
+            <dd className="text-right font-[650] text-fg">
               {f.value}
               {typeof f.confidence === "number" && (
-                <span className="ml-2 text-xs font-normal tabular-nums text-ink/80">
+                <span className="ml-2 text-xs font-normal tabular-nums text-fg/80">
                   {Math.round(f.confidence * 100)} %
                 </span>
               )}

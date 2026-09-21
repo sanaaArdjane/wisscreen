@@ -55,14 +55,14 @@ export function NotificationFeed({
         </div>
       )}
       <Panel bodyClassName="p-0">
-        <ul className="divide-y divide-ink/10">
+        <ul className="divide-y divide-fg/10">
           {rows.map((n) => {
             const body = (
               <>
                 <span
                   className={cn(
-                    "mt-0.5 flex size-8 shrink-0 items-center justify-center rounded-full",
-                    n.readAt ? "bg-ink/5 text-ink/80" : "bg-signal/15 text-signal-deep",
+                    "mt-0.5 flex size-9 shrink-0 items-center justify-center rounded-[30%]",
+                    n.readAt ? "bg-soft text-fg/80" : "bg-signal text-abyss",
                   )}
                 >
                   <Icon name={TYPE_ICON[n.type] ?? "bell"} className="size-4" />
@@ -71,13 +71,13 @@ export function NotificationFeed({
                   <span
                     className={cn(
                       "block text-sm",
-                      n.readAt ? "text-ink/80" : "font-medium text-ink",
+                      n.readAt ? "font-[450] text-fg/80" : "font-[650] text-fg",
                     )}
                   >
                     {n.title}
                   </span>
-                  {n.body && <span className="mt-0.5 block text-sm text-ink/80">{n.body}</span>}
-                  <span className="mt-1 block text-xs text-ink/80">
+                  {n.body && <span className="mt-0.5 block text-sm text-fg/80">{n.body}</span>}
+                  <span className="mt-1 block text-xs text-fg/80">
                     {relativeTime(n.createdAt)}
                   </span>
                 </span>
@@ -89,12 +89,12 @@ export function NotificationFeed({
                 {n.href ? (
                   <Link
                     href={n.href}
-                    className="flex gap-3 px-5 py-4 transition-colors hover:bg-mist"
+                    className="flex gap-3 px-6 py-4 transition-colors hover:bg-soft"
                   >
                     {body}
                   </Link>
                 ) : (
-                  <div className="flex gap-3 px-5 py-4">{body}</div>
+                  <div className="flex gap-3 px-6 py-4">{body}</div>
                 )}
               </li>
             );

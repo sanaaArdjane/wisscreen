@@ -64,7 +64,7 @@ export default async function DevisDetailPage({ params }: PageProps<"/dashboard/
             currency={quote.currency}
           />
           {quote.note && (
-            <p className="mt-6 whitespace-pre-wrap border-t border-ink/10 pt-4 text-sm text-ink/80">
+            <p className="mt-6 whitespace-pre-wrap border-t border-fg/10 pt-4 text-sm text-fg/80">
               {quote.note}
             </p>
           )}
@@ -74,7 +74,7 @@ export default async function DevisDetailPage({ params }: PageProps<"/dashboard/
           <Panel title="Votre réponse">
             {status === "envoye" && !expired ? (
               <>
-                <p className="mb-4 text-sm text-ink/80">
+                <p className="mb-4 text-sm text-fg/80">
                   {quote.validUntil
                     ? `Ce devis est valable jusqu'au ${formatDate(quote.validUntil)}.`
                     : "Ce devis est en attente de votre réponse."}
@@ -82,16 +82,16 @@ export default async function DevisDetailPage({ params }: PageProps<"/dashboard/
                 <QuoteDecision quoteId={quote.id} />
               </>
             ) : expired ? (
-              <p className="text-sm text-ink/80">
+              <p className="text-sm text-fg/80">
                 Ce devis a expiré le {formatDate(quote.validUntil)}. Demandez-nous une mise à
                 jour depuis la demande liée.
               </p>
             ) : status === "accepte" ? (
-              <p className="text-sm text-ink/80">
+              <p className="text-sm text-fg/80">
                 Vous avez accepté ce devis. Notre équipe a été prévenue.
               </p>
             ) : (
-              <p className="text-sm text-ink/80">Ce devis a été refusé.</p>
+              <p className="text-sm text-fg/80">Ce devis a été refusé.</p>
             )}
           </Panel>
 
@@ -99,7 +99,7 @@ export default async function DevisDetailPage({ params }: PageProps<"/dashboard/
             <Panel title="Demande liée">
               <Link
                 href={`/dashboard/demandes/${request.id}`}
-                className="text-sm text-signal-deep underline underline-offset-4"
+                className="text-sm font-[650] text-fg underline underline-offset-4"
               >
                 {request.ref} — {request.title}
               </Link>
