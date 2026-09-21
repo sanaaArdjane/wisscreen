@@ -23,7 +23,7 @@ import {
   type RequestStatus,
   type RequestType,
 } from "@/lib/requests";
-import { SERVICES } from "@/lib/data/services";
+import { getSolutions } from "@/lib/content";
 import { formatDateTime } from "@/lib/format";
 import { MAX_UPLOAD_BYTES, storageConfigured } from "@/lib/storage";
 
@@ -47,7 +47,7 @@ export default async function AdminRequestPage({ params }: PageProps<"/admin/dem
     writable ? listAssignees() : [],
   ]);
 
-  const service = SERVICES.find((s) => s.slug === request.serviceSlug);
+  const service = (await getSolutions({ includeHidden: true })).find((s) => s.slug === request.serviceSlug);
   const status = request.status as RequestStatus;
 
   return (

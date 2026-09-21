@@ -8,13 +8,12 @@ import { pillPrimary } from "@/components/dashboard/pills";
 import { STATUS_LABELS, STATUS_TONE, TYPE_LABELS, type RequestStatus, type RequestType } from "@/lib/requests";
 import { formatDate, relativeTime } from "@/lib/format";
 import { Icon } from "@/components/ui/Icon";
-import { SERVICES } from "@/lib/data/services";
+import { getSolutions } from "@/lib/content";
 
 export const metadata: Metadata = { title: "Mes demandes" };
 
-const SERVICE_NAMES = new Map(SERVICES.map((s) => [s.slug, s.name]));
-
 export default async function DemandesPage() {
+  const SERVICE_NAMES = new Map((await getSolutions({ includeHidden: true })).map((s) => [s.slug, s.name]));
   const user = await requireUser("/dashboard/demandes");
   const rows = await listRequests(user.id);
 

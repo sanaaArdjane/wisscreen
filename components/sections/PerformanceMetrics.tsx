@@ -1,13 +1,20 @@
-import { SERVICES } from "@/lib/data/services";
+import type { Service } from "@/lib/types";
+import type { SectionContent } from "@/lib/content/schema";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
 import { StatCounter } from "@/components/ui/StatCounter";
 import Link from "next/link";
 
-export function PerformanceMetrics() {
+export function PerformanceMetrics({
+  content,
+  solutions,
+}: {
+  content: SectionContent<"performance">;
+  solutions: Service[];
+}) {
   return (
-    <section className="relative overflow-hidden bg-paper py-28 text-ink">
+    <section id="performance" className="relative overflow-hidden bg-paper py-28 text-ink">
       {/* Textured paper rather than flat white. Two layers, both very low contrast:
           the same dot grid the dark sections use — inverted to ink dots on paper, so
           both grounds share one visual language — over a soft mist wash that keeps the
@@ -31,16 +38,16 @@ export function PerformanceMetrics() {
           sibling would render underneath them. */}
       <Container className="relative flex flex-col gap-16">
         <SectionHeading
-          eyebrow="Performance & échelle"
-          title="Conçues pour tenir la charge, à chaque étage."
-          description="Du document scanné à la transaction bancaire validée, chaque solution est mesurée en continu — voici les chiffres qui comptent."
+          eyebrow={content.heading.eyebrow}
+          title={content.heading.title}
+          description={content.heading.description || undefined}
         />
 
         {/* The data tiles stay dark on the light ground: it keeps the numbers as the
             loudest thing in the section, and `.bg-ink` carries the dark-ground accent
             overrides so the tokens inside resolve correctly without touching them. */}
         <div className="grid grid-cols-1 gap-px overflow-hidden rounded-3xl bg-ink/15 shadow-xl md:grid-cols-2 lg:grid-cols-4">
-          {SERVICES.map((service) => (
+          {solutions.map((service) => (
             <Reveal key={service.slug} className="bg-ink p-8 text-paper">
               <Link href={`/solutions/${service.slug}`} className="flex h-full flex-col justify-between gap-8" data-reveal-item>
                 <p className="text-xs font-semibold uppercase tracking-[0.14em] text-aqua">{service.name}</p>

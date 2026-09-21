@@ -5,7 +5,7 @@ import type { ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ScrollTrigger } from "@/lib/gsap";
-import { SERVICES } from "@/lib/data/services";
+import type { SectionContent } from "@/lib/content/schema";
 import type { PaletteToken, Service } from "@/lib/types";
 import { Badge } from "@/components/ui/Badge";
 import { HandUnderline } from "@/components/ui/HandUnderline";
@@ -55,8 +55,6 @@ import { cn } from "@/lib/cn";
  *   screen to put a live page on.
  */
 
-const COUNT = SERVICES.length;
-
 /* Progress held on the first and last solution before and after the run, so the section
    settles at each end instead of already moving at the moment it pins. */
 const LEAD = 0.1;
@@ -75,8 +73,10 @@ const getReduceMotion = () => window.matchMedia(REDUCE_MOTION_QUERY).matches;
 const getReduceMotionOnServer = () => false;
 
 const clamp01 = (v: number) => Math.min(1, Math.max(0, v));
-/** Scroll progress -> position along the run, in units of "one solution". */
-const toRun = (p: number) => clamp01((p - LEAD) / (1 - LEAD - TAIL)) * (COUNT - 1);
+/** Scroll progress -> position along the run, in units of "one solution". `count` is
+ * the number of solutions, which the owner controls — so it is a parameter, never a
+ * module constant, and a single solution simply never moves. */
+const toRun = (p: number, count: number) => clamp01((p - LEAD) / (1 - LEAD - TAIL)) * Math.max(0, count - 1);
 
 /**
  * Opacity for the layer at `index`, given the run position.
@@ -93,7 +93,14 @@ type Device = "laptop" | "phone";
 /** Breathing room left around a zoomed device, inside the stage. */
 const ZOOM_PAD = 20;
 
-export function DeviceShowcase() {
+export function DeviceShowcase({
+  content,
+  solutions: SERVICES,
+}: {
+  content: SectionContent<"devices">;
+  solutions: Service[];
+}) {
+  const COUNT = SERVICES.length;
   const reduceMotion = useSyncExternalStore(subscribeReduceMotion, getReduceMotion, getReduceMotionOnServer);
 
   const sectionRef = useRef<HTMLElement>(null);
@@ -128,7 +135,7 @@ export function DeviceShowcase() {
   const [zoomed, setZoomed] = useState<Device | null>(null);
 
   const paint = useCallback((p: number) => {
-    const run = toRun(p);
+    const run = toRun(p, COUNT);
     for (let i = 0; i < COUNT; i++) {
       const a = String(layerAlpha(i, run));
       const screen = screenRefs.current[i];
@@ -142,7 +149,7 @@ export function DeviceShowcase() {
       setActive(next);
       markSeen(next);
     }
-  }, [markSeen]);
+  }, [markSeen, COUNT]);
 
   useLayoutEffect(() => {
     const section = sectionRef.current;
@@ -172,7 +179,7 @@ export function DeviceShowcase() {
       if (screen) screen.style.opacity = a;
       if (phone) phone.style.opacity = a;
     }
-  }, [reduceMotion, active]);
+  }, [reduceMotion, active, COUNT]);
 
   /* Zooming is a **transform, not a layout change**: the device keeps its box, so nothing
      around it reflows, the iframe inside is never resized (a resize is a real reflow of
@@ -270,7 +277,7 @@ export function DeviceShowcase() {
     );
     observer.observe(section);
     return () => observer.disconnect();
-  }, []);
+  }, [SERVICES]);
 
   const toggleZoom = (device: Device) => {
     const next = zoomed === device ? null : device;
@@ -304,7 +311,7 @@ export function DeviceShowcase() {
       markSeen(index);
       return;
     }
-    const p = LEAD + (index / (COUNT - 1)) * (1 - LEAD - TAIL);
+    const p = LEAD + (index / Math.max(1, COUNT - 1)) * (1 - LEAD - TAIL);
     const box = section.getBoundingClientRect();
     window.scrollTo({
       top: window.scrollY + box.top + p * (box.height - window.innerHeight),
@@ -312,7 +319,7 @@ export function DeviceShowcase() {
     });
   };
 
-  const current = SERVICES[active];
+  const current = SERVICES[Math.min(active, COUNT - 1)];
 
   return (
     <section
@@ -354,9 +361,9 @@ export function DeviceShowcase() {
             show. Heading, grid and tabs all align to this same edge. */}
         <div className="relative mx-auto flex w-full max-w-[84rem] flex-col gap-4 px-6 md:px-10">
           <div className="text-center lg:text-left">
-            <Badge className="text-signal border-signal/40">Nos interfaces</Badge>
+            <Badge className="text-signal border-signal/40">{content.badge}</Badge>
             <h2 className="font-display mt-4 text-balance text-xl font-semibold leading-[1.05] md:text-3xl">
-              La même solution, sur chaque écran.
+              {content.title}
             </h2>
           </div>
 

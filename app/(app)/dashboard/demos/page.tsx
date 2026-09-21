@@ -7,7 +7,7 @@ import { pillPrimary } from "@/components/dashboard/pills";
 import { Icon } from "@/components/ui/Icon";
 import { listEntitledDemos } from "@/lib/server/demos";
 import { BLOCK_LABELS } from "@/lib/demos";
-import { SERVICES } from "@/lib/data/services";
+import { getSolutions } from "@/lib/content";
 import { formatDate } from "@/lib/format";
 
 export const metadata: Metadata = { title: "Mes démos" };
@@ -21,7 +21,7 @@ export const metadata: Metadata = { title: "Mes démos" };
  */
 export default async function DemosPage() {
   const user = await requireUser("/dashboard/demos");
-  const demos = await listEntitledDemos(user.id);
+  const [demos, SERVICES] = await Promise.all([listEntitledDemos(user.id), getSolutions({ includeHidden: true })]);
   const now = new Date();
   const soon = new Date(now.getTime() + 7 * 24 * 3600 * 1000);
 

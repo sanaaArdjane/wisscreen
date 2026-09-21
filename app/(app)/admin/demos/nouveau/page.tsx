@@ -3,7 +3,7 @@ import { requirePermission } from "@/lib/guard";
 import { PageHeader, Panel } from "@/components/dashboard/PageHeader";
 import { encryptionConfigured } from "@/lib/crypto";
 import { MAX_UPLOAD_BYTES, storageConfigured } from "@/lib/storage";
-import { SERVICES } from "@/lib/data/services";
+import { getSolutions } from "@/lib/content";
 import { DemoEditor } from "../DemoEditor";
 
 export const metadata: Metadata = { title: "Nouvelle démo" };
@@ -20,7 +20,7 @@ export default async function NouvelleDemoPage() {
       />
       <Panel className="max-w-5xl">
         <DemoEditor
-          services={SERVICES.map((s) => ({ value: s.slug, label: s.name }))}
+          services={(await getSolutions({ includeHidden: true })).map((s) => ({ value: s.slug, label: s.name }))}
           encryption={encryptionConfigured()}
           storage={storageConfigured()}
           maxUploadBytes={MAX_UPLOAD_BYTES}

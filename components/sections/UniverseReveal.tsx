@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useId, useLayoutEffect, useRef, useState, useSyncExternalStore } from "react";
 import { ScrollTrigger } from "@/lib/gsap";
 import { Badge } from "@/components/ui/Badge";
-import { HOME_MEDIA } from "@/lib/data/media";
+import type { SectionContent } from "@/lib/content/schema";
 
 /**
  * Full-bleed video that a scroll-scrubbed word clips into — the Apple
@@ -22,21 +22,6 @@ import { HOME_MEDIA } from "@/lib/data/media";
 
 const WORD = "WICLOUD";
 
-/* The three blocks that land last. First-draft copy like the rest of the site. */
-const PITCH = [
-  {
-    title: "Un partenaire, pas un prestataire",
-    body: "Nos équipes conçoivent, déploient et exploitent vos solutions de bout en bout — un seul interlocuteur, du cadrage à la production.",
-  },
-  {
-    title: "Quatre solutions, une seule base",
-    body: "OCR, Cloud Infrastructure, WIFACILITY et SETYCORE partagent la même infrastructure. Ce que vous activez aujourd'hui se connecte à ce que vous ajouterez demain.",
-  },
-  {
-    title: "Vos données restent les vôtres",
-    body: "Hébergement souverain sur notre Cloud Infrastructure, chiffrement de bout en bout et traçabilité complète. Vos documents ne quittent pas l'environnement que vous contrôlez.",
-  },
-];
 
 /* Typography shared by the SVG word and the invisible <h2> that anchors it. The h2 is
    the layout source of truth — it keeps the finale in normal document flow (and gives
@@ -143,7 +128,8 @@ const easeInOutSine = (t: number) => -(Math.cos(Math.PI * t) - 1) / 2;
 
 type Metrics = { zx: number; zy: number; startScale: number; lift: number };
 
-export function UniverseReveal() {
+export function UniverseReveal({ content }: { content: SectionContent<"reveal"> }) {
+  const PITCH = content.pitch;
   const reduceMotion = useSyncExternalStore(subscribeReduceMotion, getReduceMotion, getReduceMotionOnServer);
 
   const sectionRef = useRef<HTMLElement>(null);
@@ -336,9 +322,9 @@ export function UniverseReveal() {
         <video
           ref={videoRef}
           className="absolute inset-0 h-full w-full object-cover"
-          // Every media path on the site lives in lib/data/media.ts — including this one,
-          // whose luminance is load-bearing (see the note there before swapping it).
-          src={HOME_MEDIA.revealVideo}
+          // Edited in /admin/site (« Accueil » → this section). Its luminance is
+          // load-bearing — see HOME_MEDIA.revealVideo in lib/data/media.ts before swapping.
+          src={content.video || undefined}
           loop
           muted
           playsInline
@@ -373,7 +359,7 @@ export function UniverseReveal() {
           {/* Wrapper rather than a ref on Badge: Badge is a plain server component that
               doesn't take one, and the animation only needs a box to move. */}
           <span ref={eyebrowRef} style={{ opacity: 0 }}>
-            <Badge className="text-signal border-signal/40">Un seul écosystème</Badge>
+            <Badge className="text-signal border-signal/40">{content.badge}</Badge>
           </span>
           <h2 ref={headingRef} className={`${WORD_TYPE} mt-7 opacity-0`}>
             {WORD}

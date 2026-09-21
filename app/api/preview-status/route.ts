@@ -1,4 +1,4 @@
-import { SERVICES } from "@/lib/data/services";
+import { getSolutions } from "@/lib/content";
 
 /**
  * Can this solution's `previewUrl` actually be shown in an `<iframe>`?
@@ -16,7 +16,8 @@ import { SERVICES } from "@/lib/data/services";
  * answers with a plain boolean; the frame mounts only on `true`, and the screenshot
  * fallback stays put otherwise.
  *
- * The `url` it is given is checked against the preview URLs declared in `SERVICES` before
+ * The `url` it is given is checked against the preview URLs the solutions declare (edited in
+ * /admin/site, see `getSolutions`) before
  * anything is fetched. An endpoint that fetched whatever URL it was handed would be an
  * open SSRF proxy — the allowlist is what stops that, so keep it.
  */
@@ -112,9 +113,11 @@ async function probe(url: string, origin: string): Promise<Verdict> {
 }
 
 /** Every preview URL any solution declares — the only things this route will fetch. */
-function allowedUrls(): Set<string> {
+async function allowedUrls(): Promise<Set<string>> {
   const urls = new Set<string>();
-  for (const service of SERVICES) {
+  // Hidden solutions included: a preview being judged is never a leak, and a solution
+  // the owner is about to publish should already have its frame cleared.
+  for (const service of await getSolutions({ includeHidden: true })) {
     if (service.previewUrl) urls.add(service.previewUrl);
     if (service.previewMobileUrl) urls.add(service.previewMobileUrl);
   }
@@ -123,7 +126,7 @@ function allowedUrls(): Set<string> {
 
 export async function GET(request: Request) {
   const url = new URL(request.url).searchParams.get("url");
-  if (!url || !allowedUrls().has(url)) {
+  if (!url || !(await allowedUrls()).has(url)) {
     return Response.json({ embeddable: false, reason: "not a declared preview url" }, { status: 404 });
   }
 

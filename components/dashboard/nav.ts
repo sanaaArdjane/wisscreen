@@ -89,6 +89,7 @@ export const ADMIN_NAV: NavItem[] = [
     icon: "activity",
     permission: "activity:read",
   },
+  { href: "/admin/site", label: "Configuration du site", icon: "globe", permission: "site:read", prefix: true },
   { href: "/admin/parametres", label: "Paramètres", icon: "settings", permission: "settings:read" },
   // Same account, same sidebar: a staff member changes their own password and
   // reviews their devices here rather than crossing into a client space they

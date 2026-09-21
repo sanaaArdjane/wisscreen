@@ -1,6 +1,7 @@
 "use client";
 
 import { useActionState, useMemo, useState, type ReactNode } from "react";
+import Link from "next/link";
 import { Button } from "@heroui/react";
 import { FormAlert, SubmitButton } from "@/components/dashboard/ui";
 import { Icon } from "@/components/ui/Icon";
@@ -61,6 +62,11 @@ const EMITTER_KEYS = new Set<keyof CompanyIdentity>([
   ...LEGAL_FIELDS.map((f) => f.key),
   "vatRate",
 ]);
+
+/** Fields that say whether Paramètres has been filled in at all. The name and
+ * country ship with defaults, so they can't tell a configured identity apart. */
+const CONFIGURED_KEYS: (keyof CompanyIdentity)[] = ["address", "phone", "email", "rc", "nif", "nis", "rib"];
+const PARAMS_HREF = "/admin/parametres#identite";
 
 const input =
   "w-full rounded-2xl bg-soft px-3 py-2.5 text-sm text-fg placeholder:text-fg/80 focus:outline-none focus:ring-2 focus:ring-fg";
@@ -144,6 +150,7 @@ export function DocumentEditor({
     });
   }
 
+  const paramsEmpty = CONFIGURED_KEYS.every((k) => !company[k]);
   const client = clients.find((c) => c.id === userId) ?? null;
   const subtotal = previewTotal(lines);
   const termsKey = isQuote ? "quoteTerms" : "invoiceTerms";
@@ -196,6 +203,17 @@ export function DocumentEditor({
             </button>
           ))}
         </div>
+
+        {paramsEmpty && (
+          <p className="flex flex-wrap items-center gap-x-2 gap-y-1 rounded-2xl bg-soft px-4 py-3 text-sm text-fg ring-1 ring-signal/45">
+            <Icon name="settings" className="size-4" />
+            Les informations de votre entreprise ne sont pas encore renseignées. Saisissez-les une fois
+            dans les Paramètres : chaque devis et facture les reprendra automatiquement.
+            <Link href={PARAMS_HREF} className="font-[650] underline underline-offset-2">
+              Compléter les Paramètres
+            </Link>
+          </p>
+        )}
 
         {overridden.length > 0 && (
           <p className="flex flex-wrap items-center gap-2 rounded-2xl bg-soft px-4 py-3 text-sm text-fg">
@@ -301,7 +319,17 @@ export function DocumentEditor({
         )}
 
         {tab === "emetteur" && (
-          <Section hint="Chaque champ suit les Paramètres tant que vous ne le modifiez pas. Modifié, il ne vaut que pour ce document.">
+          <Section
+            hint={
+              <>
+                Pré-rempli avec les informations enregistrées dans les Paramètres. Un champ modifié ici ne
+                vaut que pour ce document ; « Par défaut » le remet.{" "}
+                <Link href={PARAMS_HREF} className="font-[650] text-fg underline underline-offset-2">
+                  Modifier les valeurs par défaut
+                </Link>
+              </>
+            }
+          >
             <div className="grid gap-4 sm:grid-cols-2">
               {IDENTITY_FIELDS.map((f) => (
                 <IdentityInput key={f.key} ctx={ctx} k={f.key} label={f.label} wide={f.wide} />
@@ -435,7 +463,7 @@ export function DocumentEditor({
   );
 }
 
-function Section({ children, hint }: { children: ReactNode; hint?: string }) {
+function Section({ children, hint }: { children: ReactNode; hint?: ReactNode }) {
   return (
     <div className="flex flex-col gap-4">
       {hint && <p className="text-sm text-fg/80">{hint}</p>}
@@ -471,6 +499,7 @@ function IdentityInput({
   mono?: boolean;
 }) {
   const isOver = ctx.overrides[k] !== undefined;
+  const fromParams = !isOver && Boolean(ctx.company[k]);
   return (
     <label className={cn("flex flex-col gap-1.5", wide && "sm:col-span-2")}>
       <span className="flex items-center justify-between gap-2 text-sm text-fg">
@@ -479,6 +508,11 @@ function IdentityInput({
           {isOver && (
             <span className="ml-2 rounded-full bg-signal/15 px-2 py-0.5 text-[11px] font-[650] text-fg ring-1 ring-signal/45">
               ce document
+            </span>
+          )}
+          {fromParams && (
+            <span className="ml-2 rounded-full px-2 py-0.5 text-[11px] font-[650] text-fg/80 ring-1 ring-fg/15">
+              Paramètres
             </span>
           )}
         </span>

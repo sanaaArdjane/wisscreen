@@ -17,4 +17,4 @@ export const SITE_URL = rawSiteUrl.replace(/\/+$/, "");
 export const SITE_NAME = "WICLOUD";
 export const SITE_LOCALE = "fr_FR";
 export const SITE_DESCRIPTION =
-  "WICLOUD conçoit OCR, Cloud Infrastructure, WIFACILITY et SETYCORE : des solutions IT qui connectent banques, partenaires et particuliers.";
+  "WICLOUD, le cloud souverain et les services qui tournent dessus : infrastructure, données, paiement et commerce en ligne, pour les entreprises, les banques et les particuliers.";

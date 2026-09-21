@@ -60,7 +60,7 @@ export default function Image() {
           </div>
         </div>
         <div style={{ fontSize: 64, fontWeight: 700, lineHeight: 1.1, maxWidth: 920 }}>
-          Solutions IT pour banques, entreprises et particuliers
+          Le cloud qui fait tourner vos services
         </div>
         <div
           style={{

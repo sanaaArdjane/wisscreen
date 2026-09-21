@@ -6,7 +6,7 @@ import { paletteText } from "@/lib/palette";
 
 export function SolutionSteps({ service }: { service: Service }) {
   return (
-    <section className="bg-paper py-28 text-ink">
+    <section id="etapes" className="bg-paper py-28 text-ink">
       <Container className="flex flex-col gap-16">
         <SectionHeading eyebrow="Comment ça marche" title="Un parcours simple, de bout en bout." align="center" />
 

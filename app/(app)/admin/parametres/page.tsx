@@ -39,16 +39,18 @@ export default async function ParametresPage() {
           )}
         </Panel>
 
-        <Panel
-          title="Identité de l'entreprise"
-          description="En-tête, pied de page et signature des devis et factures PDF."
-        >
-          {can(staff, "settings:write") ? (
-            <CompanyForm company={company} storage={storageConfigured()} />
-          ) : (
-            <p className="text-sm text-fg/80">{company.name}</p>
-          )}
-        </Panel>
+          <div id="identite" className="scroll-mt-24">
+            <Panel
+              title="Identité de l'entreprise"
+              description="En-tête, pied de page et signature des devis et factures PDF."
+            >
+              {can(staff, "settings:write") ? (
+                <CompanyForm company={company} storage={storageConfigured()} />
+              ) : (
+                <p className="text-sm text-fg/80">{company.name}</p>
+              )}
+            </Panel>
+          </div>
         </div>
 
         {/* Configuration state, shown rather than assumed. Each of these degrades

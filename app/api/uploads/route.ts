@@ -6,6 +6,7 @@ import { getCurrentUser } from "@/lib/guard";
 import { can } from "@/lib/permissions";
 import {
   MAX_UPLOAD_BYTES,
+  SITE_MAX_UPLOAD_BYTES,
   buildKey,
   isAllowedContentType,
   presignDownload,
@@ -44,6 +45,7 @@ import { getEntitledDemo } from "@/lib/server/demos";
  * | demo        | `demos:write`                   | anyone entitled to it, or `demos:read` |
  * | demoRun     | its customer, or `demos:write`  | its customer (not internal), or `demos:read` |
  * | company     | `settings:write`                | `settings:read` (the PDF reads it server-side) |
+ * | site        | `site:write`                    | anyone — served by `/media/<id>`   |
  *
  * The demo row is why the GET cannot decide on `ownerId` alone: an instructions
  * PDF is owned by the admin who wrote it, and the customer it was written for
@@ -57,12 +59,15 @@ const Target = {
   demoRunId: z.number().int().positive().optional(),
   /** The company logo or signature used on documents (see /admin/parametres). */
   company: z.boolean().optional(),
+  /** A public-site asset (see /admin/site). Served to anyone by `/media/<id>`. */
+  site: z.boolean().optional(),
 };
 
 const PresignSchema = z.object({
   filename: z.string().trim().min(1).max(255),
   contentType: z.string().trim().min(1).max(255),
-  size: z.number().int().positive().max(MAX_UPLOAD_BYTES),
+  // The per-target cap is checked after the target is known: site assets may be larger.
+  size: z.number().int().positive().max(SITE_MAX_UPLOAD_BYTES),
   ...Target,
 });
 
@@ -83,11 +88,13 @@ type Resolved = {
   /** Whether the caller is acting as the desk on this target — decides whether
    *  `internal` is honoured and whether a storage quota is spent. */
   asStaff: boolean;
+  /** A public-site asset: anonymous visitors may read it through `/media/<id>`. */
+  public?: boolean;
 };
 
 /** Where the file goes, and whose it is — or null if the caller may not. */
 async function resolveTarget(user: Caller, input: TargetInput): Promise<Resolved | null | "ambiguous"> {
-  const set = [input.requestId, input.messageId, input.demoId, input.demoRunId, input.company].filter(
+  const set = [input.requestId, input.messageId, input.demoId, input.demoRunId, input.company, input.site].filter(
     Boolean,
   );
   if (set.length > 1) return "ambiguous";
@@ -143,6 +150,10 @@ async function resolveTarget(user: Caller, input: TargetInput): Promise<Resolved
     return can(user, "settings:write") ? { ownerId: user.id, asStaff: true } : null;
   }
 
+  if (input.site) {
+    return can(user, "site:write") ? { ownerId: user.id, asStaff: true, public: true } : null;
+  }
+
   // No target: a personal document in /dashboard/documents.
   return { ownerId: user.id, asStaff: false };
 }
@@ -156,8 +167,12 @@ export async function POST(request: Request) {
 
   const parsed = PresignSchema.safeParse(await request.json().catch(() => null));
   if (!parsed.success) return Response.json({ error: "invalid_input" }, { status: 400 });
-  if (!isAllowedContentType(parsed.data.contentType)) {
+  const site = Boolean(parsed.data.site);
+  if (!isAllowedContentType(parsed.data.contentType, { site })) {
     return Response.json({ error: "unsupported_type" }, { status: 415 });
+  }
+  if (!site && parsed.data.size > MAX_UPLOAD_BYTES) {
+    return Response.json({ error: "too_large" }, { status: 413 });
   }
   const target = await resolveTarget(user, parsed.data);
   if (target === "ambiguous") return Response.json({ error: "invalid_input" }, { status: 400 });
@@ -183,6 +198,12 @@ export async function PUT(request: Request) {
     return Response.json({ error: "forbidden" }, { status: 403 });
   }
 
+  if (!isAllowedContentType(parsed.data.contentType, { site: Boolean(parsed.data.site) })) {
+    return Response.json({ error: "unsupported_type" }, { status: 415 });
+  }
+  if (!parsed.data.site && parsed.data.size > MAX_UPLOAD_BYTES) {
+    return Response.json({ error: "too_large" }, { status: 413 });
+  }
   const target = await resolveTarget(user, parsed.data);
   if (target === "ambiguous") return Response.json({ error: "invalid_input" }, { status: 400 });
   if (!target) return Response.json({ error: "forbidden" }, { status: 403 });
@@ -214,6 +235,7 @@ export async function PUT(request: Request) {
       demoId: target.demoId,
       demoRunId: target.demoRunId,
       internal: Boolean(parsed.data.internal) && target.asStaff,
+      public: Boolean(target.public),
     })
     .returning();
 
@@ -229,6 +251,7 @@ export async function PUT(request: Request) {
       demoId: row.demoId,
       demoRunId: row.demoRunId,
       company: parsed.data.company || undefined,
+      site: parsed.data.site || undefined,
     },
   });
 
@@ -268,6 +291,7 @@ async function mayDownload(user: Caller, row: typeof attachments.$inferSelect): 
     if (can(user, "demos:read")) return true;
     return row.ownerId === user.id && !row.internal;
   }
+  if (row.public) return true;
   if (can(user, "requests:read")) return true;
   // Company assets (logo, signature) have no target and a staff owner.
   if (!row.requestId && !row.messageId && can(user, "settings:read")) return true;

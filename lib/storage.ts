@@ -37,6 +37,23 @@ const UPLOAD_TTL_SECONDS = 600;
 export const MAX_UPLOAD_BYTES = 25 * 1024 * 1024;
 
 /**
+ * Public-site assets (/admin/site) may be larger — a hero or presentation video —
+ * and may be video at all. Both exceptions are scoped to that one upload target,
+ * which only `site:write` can use; every other upload keeps the 25 MB cap and the
+ * document allowlist below.
+ */
+export const SITE_MAX_UPLOAD_BYTES = 200 * 1024 * 1024;
+export const SITE_CONTENT_TYPES = [
+  "image/png",
+  "image/jpeg",
+  "image/webp",
+  "image/gif",
+  "image/avif",
+  "video/mp4",
+  "video/webm",
+] as const;
+
+/**
  * What a client may upload. An allowlist, not a denylist: this is a trust
  * boundary, and "anything that isn't an executable" is not a list anyone can
  * keep correct. The extension is never trusted — the browser-declared type is
@@ -147,7 +164,8 @@ export async function deleteObject(key: string): Promise<void> {
   await s3().send(new DeleteObjectCommand({ Bucket: BUCKET, Key: key }));
 }
 
-export function isAllowedContentType(value: string): boolean {
+export function isAllowedContentType(value: string, opts: { site?: boolean } = {}): boolean {
+  if (opts.site) return (SITE_CONTENT_TYPES as readonly string[]).includes(value);
   return (ALLOWED_CONTENT_TYPES as readonly string[]).includes(value);
 }
 
@@ -166,4 +184,32 @@ export async function getObjectBytes(key: string): Promise<Buffer> {
  *  caller's `u/<id>/` prefix, the same invariant uploads follow. */
 export async function putObject(key: string, body: Buffer, contentType: string): Promise<void> {
   await s3().send(new PutObjectCommand({ Bucket: BUCKET, Key: key, Body: body, ContentType: contentType }));
+}
+
+/**
+ * An object as a stream, honouring an HTTP `Range` — for `/media/<id>`, which serves
+ * public-site assets. Videos need ranges: browsers seek (and Safari starts playback)
+ * with `Range` requests, and a server that ignores them makes a video unseekable.
+ */
+export async function getObjectStream(
+  key: string,
+  range?: string | null,
+): Promise<{
+  body: ReadableStream;
+  contentType?: string;
+  contentLength?: number;
+  contentRange?: string;
+  partial: boolean;
+}> {
+  const res = await s3().send(
+    new GetObjectCommand({ Bucket: BUCKET, Key: key, ...(range ? { Range: range } : {}) }),
+  );
+  if (!res.Body) throw new Error(`Empty object: ${key}`);
+  return {
+    body: res.Body.transformToWebStream(),
+    contentType: res.ContentType,
+    contentLength: res.ContentLength,
+    contentRange: res.ContentRange,
+    partial: Boolean(res.ContentRange),
+  };
 }

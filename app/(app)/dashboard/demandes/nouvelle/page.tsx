@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { requireUser } from "@/lib/guard";
 import { PageHeader, Panel } from "@/components/dashboard/PageHeader";
-import { SERVICES } from "@/lib/data/services";
+import { getSolutions } from "@/lib/content";
 import { REQUEST_TYPES, TYPE_LABELS } from "@/lib/requests";
 import { NewRequestForm } from "./NewRequestForm";
 
@@ -26,7 +26,7 @@ export default async function NouvelleDemandePage({
         <Panel className="lg:col-span-2">
           <NewRequestForm
             typeOptions={REQUEST_TYPES.map((t) => ({ value: t, label: TYPE_LABELS[t] }))}
-            serviceOptions={SERVICES.map((s) => ({ value: s.slug, label: s.name }))}
+            serviceOptions={(await getSolutions()).map((s) => ({ value: s.slug, label: s.name }))}
             defaultType={typeof type === "string" ? type : undefined}
             defaultService={typeof solution === "string" ? solution : undefined}
             defaultTitle={typeof title === "string" ? title.slice(0, 160) : undefined}

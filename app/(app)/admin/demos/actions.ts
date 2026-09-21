@@ -16,7 +16,7 @@ import {
   declaredSecrets,
   type DemoBlock,
 } from "@/lib/demos";
-import { SERVICES } from "@/lib/data/services";
+import { getSolutions } from "@/lib/content";
 import { deleteObject } from "@/lib/storage";
 import { sendEmail } from "@/lib/email";
 import { SITE_URL } from "@/lib/site";
@@ -59,8 +59,7 @@ const DemoSchema = z.object({
   serviceSlug: z
     .string()
     .optional()
-    .transform((v) => (v ? v : null))
-    .refine((v) => v === null || SERVICES.some((s) => s.slug === v), "Solution inconnue."),
+    .transform((v) => (v ? v : null)),
   status: z.enum(DEMO_STATUSES),
   visibility: z.enum(["assigned", "all_clients"]),
   expiresAt: dateOrNull,
@@ -99,6 +98,10 @@ export async function saveDemo(_prev: ActionState, formData: FormData): Promise<
   const parsed = parseForm(DemoSchema, scalar);
   if (!parsed.ok) return parsed.state;
   const data = parsed.data;
+  // Solutions are edited in /admin/site, so the slug is checked against the live list.
+  if (data.serviceSlug && !(await getSolutions({ includeHidden: true })).some((s) => s.slug === data.serviceSlug)) {
+    return fail("Vérifiez les champs signalés.", { serviceSlug: "Solution inconnue." });
+  }
 
   const blocksParsed = z.array(DemoBlockSchema).max(50).safeParse(
     blockValues.map((raw) => {

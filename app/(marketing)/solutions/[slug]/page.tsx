@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { SERVICES, getServiceBySlug } from "@/lib/data/services";
+import { getSolution, getSolutions } from "@/lib/content";
 import { JsonLd } from "@/components/seo/JsonLd";
 import {
   breadcrumbSchema,
@@ -20,8 +20,13 @@ import { SolutionRelated } from "@/components/sections/solution/SolutionRelated"
 
 type Params = { slug: string };
 
-export function generateStaticParams(): Params[] {
-  return SERVICES.map((service) => ({ slug: service.slug }));
+// A solution added in /admin/site after the build has no pre-rendered page yet; it is
+// rendered on its first visit and cached from then on. A hidden or unknown slug is a 404.
+export const dynamicParams = true;
+export const revalidate = 600;
+
+export async function generateStaticParams(): Promise<Params[]> {
+  return (await getSolutions()).map((service) => ({ slug: service.slug }));
 }
 
 export async function generateMetadata({
@@ -30,7 +35,7 @@ export async function generateMetadata({
   params: Promise<Params>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const service = getServiceBySlug(slug);
+  const service = await getSolution(slug);
   if (!service) return {};
 
   const path = `/solutions/${service.slug}`;
@@ -60,7 +65,8 @@ export async function generateMetadata({
 
 export default async function SolutionPage({ params }: { params: Promise<Params> }) {
   const { slug } = await params;
-  const service = getServiceBySlug(slug);
+  const solutions = await getSolutions();
+  const service = solutions.find((s) => s.slug === slug);
   if (!service) notFound();
 
   const faq = faqSchema(service);
@@ -79,7 +85,7 @@ export default async function SolutionPage({ params }: { params: Promise<Params>
       <SolutionMedia service={service} />
       <SolutionFAQ service={service} />
       <SolutionContact service={service} />
-      <SolutionRelated service={service} />
+      <SolutionRelated others={solutions.filter((s) => s.slug !== service.slug)} />
     </main>
   );
 }

@@ -2,28 +2,22 @@ import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
 import { Icon } from "@/components/ui/Icon";
-import type { IconName } from "@/lib/types";
+import type { SectionContent } from "@/lib/content/schema";
 
-const PILLARS: { icon: IconName; title: string; text: string }[] = [
-  { icon: "lock", title: "Chiffrement de bout en bout", text: "Les données sont chiffrées au repos et en transit sur l'ensemble des solutions WICLOUD." },
-  { icon: "shield", title: "Contrôle d'accès strict", text: "Rôles, permissions et journaux d'audit pour savoir qui accède à quoi, à tout moment." },
-  { icon: "check", title: "Traçabilité & conformité", text: "Chaque action sensible — validation d'un dossier, traitement d'un document — est tracée et auditable." },
-];
-
-export function Security() {
+export function Security({ content }: { content: SectionContent<"security"> }) {
   return (
-    <section className="bg-paper py-28 text-ink">
+    <section id="security" className="bg-paper py-28 text-ink">
       <Container className="flex flex-col gap-16">
         <SectionHeading
-          eyebrow="Sécurité & conformité"
-          title="La confiance ne se négocie pas."
+          eyebrow={content.heading.eyebrow}
+          title={content.heading.title}
           align="center"
-          description="Nos solutions traitent des données sensibles — identité, finances, transactions. La sécurité est pensée dès la conception, pas ajoutée après coup."
+          description={content.heading.description || undefined}
         />
 
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-3">
-          {PILLARS.map((pillar) => (
-            <Reveal key={pillar.title} className="flex flex-col items-center gap-4 text-center">
+          {content.items.map((pillar, i) => (
+            <Reveal key={i} className="flex flex-col items-center gap-4 text-center">
               <span data-reveal-item className="flex h-14 w-14 items-center justify-center rounded-2xl bg-ink text-paper">
                 <Icon name={pillar.icon} className="h-6 w-6" />
               </span>

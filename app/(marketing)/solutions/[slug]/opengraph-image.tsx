@@ -1,5 +1,5 @@
 import { ImageResponse } from "next/og";
-import { SERVICES, getServiceBySlug } from "@/lib/data/services";
+import { getSolution, getSolutions } from "@/lib/content";
 import { SITE_NAME } from "@/lib/site";
 
 /** One share-card image per solution — same orbit motif and ground as the root
@@ -7,8 +7,8 @@ import { SITE_NAME } from "@/lib/site";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-export function generateStaticParams() {
-  return SERVICES.map((service) => ({ slug: service.slug }));
+export async function generateStaticParams() {
+  return (await getSolutions()).map((service) => ({ slug: service.slug }));
 }
 
 export default async function Image({
@@ -17,7 +17,7 @@ export default async function Image({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const service = getServiceBySlug(slug);
+  const service = await getSolution(slug);
   const name = service?.name ?? SITE_NAME;
   const category = service?.category ?? "";
   const tagline = service?.tagline ?? "";

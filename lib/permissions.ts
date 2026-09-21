@@ -28,6 +28,8 @@ export const DOMAINS = [
   "leads",
   "settings",
   "activity",
+  /** The public marketing site: its copy, media and solutions (/admin/site). */
+  "site",
 ] as const;
 
 export type Domain = (typeof DOMAINS)[number];
@@ -55,6 +57,7 @@ export const DOMAIN_LABELS: Record<Domain, string> = {
   leads: "Messages du site",
   settings: "Paramètres",
   activity: "Journal d'activité",
+  site: "Site public",
 };
 
 export const ACTION_LABELS: Record<Action, string> = {

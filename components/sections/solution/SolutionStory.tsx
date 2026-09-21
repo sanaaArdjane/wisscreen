@@ -6,7 +6,7 @@ import { StatCounter } from "@/components/ui/StatCounter";
 
 export function SolutionStory({ service }: { service: Service }) {
   return (
-    <section className="bg-paper py-28 text-ink">
+    <section id="presentation" className="bg-paper py-28 text-ink">
       <Container className="grid grid-cols-1 gap-16 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.7fr)]">
         <div className="flex flex-col gap-10">
           <SectionHeading eyebrow="Présentation" title={`${service.name}, en détail`} />

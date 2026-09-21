@@ -12,7 +12,7 @@ import { FileUpload } from "@/components/dashboard/FileUpload";
 import { Icon } from "@/components/ui/Icon";
 import { encryptionConfigured } from "@/lib/crypto";
 import { MAX_UPLOAD_BYTES, storageConfigured } from "@/lib/storage";
-import { SERVICES } from "@/lib/data/services";
+import { getSolutions } from "@/lib/content";
 import {
   DEMO_LABELS,
   DEMO_TONE,
@@ -109,7 +109,7 @@ export default async function AdminDemoPage({ params }: PageProps<"/admin/demos/
                 initialBlocks={blocks}
                 storedSecrets={secrets.map((s) => `${s.blockId}:${s.label}`)}
                 files={files}
-                services={SERVICES.map((s) => ({ value: s.slug, label: s.name }))}
+                services={(await getSolutions({ includeHidden: true })).map((s) => ({ value: s.slug, label: s.name }))}
                 encryption={encryptionConfigured()}
                 storage={storageConfigured()}
                 maxUploadBytes={MAX_UPLOAD_BYTES}

@@ -306,6 +306,10 @@ export const attachments = pgTable(
     demoRunId: integer("demo_run_id").references(() => demoRuns.id, { onDelete: "cascade" }),
     /** Staff-uploaded deliverables are visible to the client; internal ones are not. */
     internal: boolean("internal").default(false).notNull(),
+    /** A public-site asset (hero image, section video…) uploaded from
+     *  /admin/site. The only attachments `/media/<id>` will stream to an
+     *  anonymous visitor; everything else stays behind `/api/uploads`. */
+    public: boolean("public").default(false).notNull(),
     createdAt: timestamp("created_at").defaultNow().notNull(),
   },
   (t) => [
@@ -595,4 +599,40 @@ export const contactLeads = pgTable(
     createdAt: timestamp("created_at").defaultNow().notNull(),
   },
   (t) => [index("contact_leads_status_idx").on(t.status)],
+);
+
+/* ─────────────────────────── Public site content (/admin/site) ─────────────────────────── */
+
+/**
+ * One editable block of the marketing site per row: `general`, `hero`, `footer`
+ * and one per homepage section. The value's shape is `lib/content/schema.ts`; a
+ * missing row means "the code default in `lib/content/defaults.ts`".
+ */
+export const siteContent = pgTable("site_content", {
+  key: text("key").primaryKey(),
+  value: jsonb("value").notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+  updatedById: text("updated_by_id").references(() => user.id, { onDelete: "set null" }),
+});
+
+/**
+ * The solutions (OCR, Cloud, WIFACILITY, SETYCORE, and any the owner adds).
+ * `content` is one `lib/data/services.ts` entry, `media` one `lib/data/media.ts`
+ * entry. While the table is empty the site uses those files; the first edit in
+ * /admin/site/solutions copies them in.
+ */
+export const siteSolutions = pgTable(
+  "site_solutions",
+  {
+    id: serial("id").primaryKey(),
+    slug: text("slug").notNull(),
+    position: integer("position").default(0).notNull(),
+    published: boolean("published").default(true).notNull(),
+    content: jsonb("content").notNull(),
+    media: jsonb("media").notNull(),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+    updatedAt: timestamp("updated_at").defaultNow().notNull(),
+    updatedById: text("updated_by_id").references(() => user.id, { onDelete: "set null" }),
+  },
+  (t) => [uniqueIndex("site_solutions_slug_idx").on(t.slug)],
 );

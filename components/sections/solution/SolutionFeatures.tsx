@@ -7,7 +7,7 @@ import { paletteText } from "@/lib/palette";
 
 export function SolutionFeatures({ service }: { service: Service }) {
   return (
-    <section className="section-ink py-28">
+    <section id="fonctionnalites" className="section-ink py-28">
       <Container className="flex flex-col gap-16">
         <SectionHeading eyebrow="Fonctionnalités" title="Tout ce dont vous avez besoin, inclus." />
 

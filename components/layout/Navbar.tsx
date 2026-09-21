@@ -2,10 +2,12 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { SERVICES } from "@/lib/data/services";
 import { cn } from "@/lib/cn";
 
-export function Navbar() {
+/** Only what the nav draws, so the client payload stays small. */
+export type NavSolution = { slug: string; name: string; shortName: string };
+
+export function Navbar({ solutions: SERVICES }: { solutions: NavSolution[] }) {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 

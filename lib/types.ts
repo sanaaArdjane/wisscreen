@@ -2,55 +2,59 @@ export type Audience = "banques" | "partenaires" | "particuliers" | "entreprises
 
 export type PaletteToken = "teal" | "aqua" | "steel";
 
-export type IconName =
-  | "scan"
-  | "layers"
-  | "globe"
-  | "shield"
-  | "zap"
-  | "link"
-  | "bar-chart"
-  | "clock"
-  | "credit-card"
-  | "store"
-  | "server"
-  | "lock"
-  | "check"
-  | "users"
-  | "cloud"
-  | "sparkles"
-  | "refresh"
-  | "database"
-  | "move"
-  | "maximize"
-  | "minimize"
-  | "external"
-  | "arrow-right"
-  /* Added for the dashboard chrome (components/dashboard/). */
-  | "bell"
-  | "mail"
-  | "settings"
-  | "log-out"
-  | "menu"
-  | "close"
-  | "plus"
-  | "search"
-  | "file-text"
-  | "inbox"
-  | "chevron-down"
-  | "chevron-right"
-  | "panel-left-close"
-  | "panel-left-open"
-  | "trash"
-  | "upload"
-  | "download"
-  | "home"
-  | "receipt"
-  | "activity"
-  | "ban"
-  | "send"
-  | "sun"
-  | "moon";
+/** Every icon `components/ui/Icon.tsx` can draw. A runtime list, not just a type, so the
+ * site editor can validate an icon and offer a picker. */
+export const ICON_NAMES = [
+  "scan",
+  "layers",
+  "globe",
+  "shield",
+  "zap",
+  "link",
+  "bar-chart",
+  "clock",
+  "credit-card",
+  "store",
+  "server",
+  "lock",
+  "check",
+  "users",
+  "cloud",
+  "sparkles",
+  "refresh",
+  "database",
+  "move",
+  "maximize",
+  "minimize",
+  "external",
+  "arrow-right",
+  "bell",
+  "mail",
+  "settings",
+  "log-out",
+  "menu",
+  "close",
+  "plus",
+  "search",
+  "file-text",
+  "inbox",
+  "chevron-down",
+  "chevron-right",
+  "panel-left-close",
+  "panel-left-open",
+  "trash",
+  "upload",
+  "download",
+  "home",
+  "receipt",
+  "activity",
+  "ban",
+  "send",
+  "sun",
+  "moon",
+] as const;
+
+export type IconName = (typeof ICON_NAMES)[number];
 
 export type MediaSlotKind =
   | "mock-dashboard"

@@ -54,6 +54,7 @@ import { TypeCycle } from "@/components/ui/TypeCycle";
 import { isRemote } from "@/components/ui/LoadingImage";
 import { Footer } from "@/components/layout/Footer";
 import { SERVICES } from "@/lib/data/services";
+import { DEFAULT_FOOTER, DEFAULT_GENERAL } from "@/lib/content/defaults";
 
 // @testing-library/react does not auto-clean between tests without globals enabled.
 afterEach(cleanup);
@@ -300,9 +301,12 @@ describe("isRemote (LoadingImage helper)", () => {
   });
 });
 
+const renderFooter = () =>
+  render(<Footer footer={DEFAULT_FOOTER} general={DEFAULT_GENERAL} solutions={SERVICES} />);
+
 describe("Footer", () => {
   it("renders a contentinfo landmark linking to every solution page", () => {
-    render(<Footer />);
+    renderFooter();
     expect(screen.getByRole("contentinfo")).toBeTruthy();
     for (const service of SERVICES) {
       const link = screen.getByRole("link", { name: service.name });
@@ -311,7 +315,7 @@ describe("Footer", () => {
   });
 
   it("shows the current year in the copyright line", () => {
-    render(<Footer />);
+    renderFooter();
     const year = String(new Date().getFullYear());
     expect(screen.getByText(new RegExp(`${year} WICLOUD`))).toBeTruthy();
   });

@@ -3,38 +3,21 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
 import { Icon } from "@/components/ui/Icon";
 import { Badge } from "@/components/ui/Badge";
+import type { SectionContent } from "@/lib/content/schema";
 
-const LINKS = [
-  {
-    from: "OCR",
-    to: "WIFACILITY",
-    text: "Les pièces justificatives d'un dossier de financement sont lues et vérifiées automatiquement par OCR avant validation.",
-  },
-  {
-    from: "WIFACILITY",
-    to: "SETYCORE",
-    text: "Le paiement échelonné de WIFACILITY est intégré nativement dans la marketplace SETYCORE au moment du paiement.",
-  },
-  {
-    from: "Cloud Infrastructure",
-    to: "Toutes les solutions",
-    text: "OCR, WIFACILITY et SETYCORE fonctionnent tous sur notre Cloud Infrastructure — un socle commun, sécurisé et supervisé.",
-  },
-];
-
-export function ConnectedSolutions() {
+export function ConnectedSolutions({ content }: { content: SectionContent<"connected"> }) {
   return (
-    <section className="section-ink py-28">
+    <section id="connected" className="section-ink py-28">
       <Container className="flex flex-col gap-14">
         <SectionHeading
-          eyebrow="Un seul écosystème"
-          title="Des solutions connectées entre elles."
-          description="WICLOUD n'est pas une collection d'outils isolés : chaque produit est pensé pour s'intégrer aux autres et créer un parcours continu, de la donnée jusqu'au paiement."
+          eyebrow={content.heading.eyebrow}
+          title={content.heading.title}
+          description={content.heading.description || undefined}
         />
 
         <div className="flex flex-col gap-6">
-          {LINKS.map((link) => (
-            <Reveal key={link.from + link.to} className="flex flex-col gap-4 rounded-3xl border border-white/10 p-6 md:flex-row md:items-center md:gap-8 md:p-8">
+          {content.links.map((link, i) => (
+            <Reveal key={i} className="flex flex-col gap-4 rounded-3xl border border-white/10 p-6 md:flex-row md:items-center md:gap-8 md:p-8">
               <div data-reveal-item className="flex shrink-0 items-center gap-3">
                 <Badge className="border-aqua/40 text-aqua">{link.from}</Badge>
                 <Icon name="link" className="h-4 w-4 opacity-50" />

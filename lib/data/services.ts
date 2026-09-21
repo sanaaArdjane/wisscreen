@@ -11,7 +11,7 @@ import { withMedia } from "@/lib/data/media";
  * with real assets is one file to edit. The `media.gallery` entries here declare a slot's
  * *kind and label*; its file comes from `SOLUTION_MEDIA[slug].gallery`, matched by position.
  */
-const RAW_SERVICES: Service[] = [
+export const RAW_SERVICES: Service[] = [
   {
     slug: "ocr",
     name: "OCR",
@@ -248,7 +248,12 @@ const RAW_SERVICES: Service[] = [
   },
 ];
 
-/** The raw entries with `lib/data/media.ts` applied. Import this, never `RAW_SERVICES`. */
+/**
+ * The raw entries with `lib/data/media.ts` applied. **These are the defaults**: the live
+ * site reads its solutions from the database through `getSolutions()` in
+ * `lib/content/index.ts`, which falls back to this list until the owner saves one in
+ * /admin/site/solutions (and whenever the database is unreachable, e.g. CI builds).
+ */
 export const SERVICES: Service[] = RAW_SERVICES.map(withMedia);
 
 export function getServiceBySlug(slug: string): Service | undefined {

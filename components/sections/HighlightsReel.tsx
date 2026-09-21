@@ -12,7 +12,7 @@ import type { KeyboardEvent, MouseEvent } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
 import Link from "next/link";
-import { SERVICES } from "@/lib/data/services";
+import type { SectionContent } from "@/lib/content/schema";
 import type { PaletteToken, Service, ServiceStat } from "@/lib/types";
 import { Container } from "@/components/ui/Container";
 import { Icon } from "@/components/ui/Icon";
@@ -786,7 +786,13 @@ function HighlightCard({
   return <StatsCard service={service} />;
 }
 
-export function HighlightsReel() {
+export function HighlightsReel({
+  content,
+  solutions,
+}: {
+  content: SectionContent<"highlights">;
+  solutions: Service[];
+}) {
   // align "start": the active card snaps to the container's left edge rather than
   // being centred, so the deck reads as a row starting under the heading.
   // loop is off deliberately — in loop mode Embla parks the previous slide just
@@ -904,9 +910,9 @@ export function HighlightsReel() {
       id="highlights"
       className="relative overflow-hidden bg-abyss pb-24 pt-28 text-paper md:pb-32 md:pt-36"
     >
-      {/* The hero's globe reads as continuing *behind* this section: a wide, very soft
-          limb glow bleeding down over the top edge, fading back to the section ground.
-          Paired with the hero's own bottom falloff, the earth dissolves into the
+      {/* The hero's cloud glow reads as continuing *behind* this section: a wide, very
+          soft glow bleeding down over the top edge, fading back to the section ground.
+          Paired with the hero's own bottom falloff, the scene dissolves into the
           background exactly where the copy begins instead of being cut off at the seam.
           Overflow-hidden keeps the oversized ellipses from forcing a scrollbar.
 
@@ -938,18 +944,18 @@ export function HighlightsReel() {
       <Container className="relative flex flex-wrap items-end justify-between gap-6">
         <h2 className="font-display text-4xl font-semibold leading-tight text-paper md:text-6xl">
           <span ref={underlineRef} className="relative inline-block">
-            L&apos;essentiel
+            {content.titleUnderlined}
             <HandUnderline
               className={underlined ? "underline-draw" : "opacity-0"}
             />
           </span>
-          , en un coup d&apos;œil.
+          {content.titleRest}
         </h2>
         <Link
-          href="#solutions"
+          href={content.link.href || "#solutions"}
           className="group inline-flex items-center gap-2 text-sm font-medium text-paper/70 transition-colors hover:text-aqua"
         >
-          Voir toutes nos solutions
+          {content.link.label}
           <span className="flex h-6 w-6 items-center justify-center rounded-full border border-current">
             <Icon
               name="arrow-right"
@@ -969,7 +975,7 @@ export function HighlightsReel() {
         onMouseLeave={() => setHoverPaused(false)}
       >
         <div className="flex gap-5 md:gap-7">
-          {SERVICES.map((service, i) => (
+          {solutions.map((service, i) => (
             <HighlightCard
               key={service.slug}
               service={service}
@@ -982,7 +988,7 @@ export function HighlightsReel() {
       {/* Progress pill + play/pause, centred under the deck */}
       <div className="relative mt-10 flex items-center justify-center gap-4">
         <div className="flex items-center gap-2.5 rounded-full bg-white/10 px-4 py-3">
-          {SERVICES.map((service, i) => {
+          {solutions.map((service, i) => {
             const isActive = i === selected;
             return (
               <button

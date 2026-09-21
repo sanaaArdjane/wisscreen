@@ -66,14 +66,14 @@ An all-teal/slate site reads flat, so `signal` breaks it. Where it goes:
   next and nothing more. It replaced a four-layer aqua bloom that lit up the whole section.
   The edge uses the brand value at full strength on both card states — 4.05:1 at rest,
   3.23:1 hovered — so it keeps its 3:1 boundary without a raised-surface tint.
-- **The 3D scene** — the service markers **alternate signal/cool by index** (`index % 2`,
-  an even 2/2 split across the four solutions), and the marker pill's icon is `signal`.
+- **The 3D scene** — the solution nodes **alternate signal/cool by index** (`index % 2`,
+  an even 2/2 split across the four solutions), and the node pill's icon is `signal`.
   Hover then escalates to `signal-bright` with a white orb core and a brighter glow, so the
-  active state still reads on a marker that is already green — don't "simplify" that back
-  to a plain accent/cool swap or hovering an accented marker becomes invisible. Also: the
-  equatorial belt, active arcs, one rim light, one nebula, one debris shard, and the
-  meteors.
-- **The globe's hover card** — border, category mini title, "Découvrir" link, and the
+  active state still reads on a node that is already green — don't "simplify" that back
+  to a plain accent/cool swap or hovering an accented node becomes invisible. Also: the
+  ~20% of the layers' status LEDs and rising motes, the active layer (edges, etch, scan
+  line, underglow), active module links, one rim light, one nebula, and the meteors.
+- **The scene's hover card** — border, category mini title, "Découvrir" link, and the
   preview placeholder's badge and one blur blob.
 
 Still cool on purpose: headings, body copy, audience/link tags (`SolutionsGrid`,
@@ -108,7 +108,7 @@ floor.
 
 Utilities: `.control-signal` (filled CTA), `.text-signal`, `.border-signal/40`,
 `.fill-signal` (SVG). The 3D scene keeps its own constants — `SIGNAL`, `SIGNAL_SOFT`,
-`SIGNAL_BRIGHT` in `EarthNetwork`.
+`SIGNAL_BRIGHT` in `components/three/sky.tsx`.
 
 ### `.on-dark-raised` — why the highlight cards need their own tints
 
@@ -183,9 +183,14 @@ are a site-wide near-miss for exactly that reason (ink at 70% on paper is 4.12:1
 
 ## Content model
 
-`lib/data/services.ts` exports `SERVICES`, the single source of truth for both the homepage
-and `/solutions/[slug]`. Adding a solution means adding one entry there — no other file
-should hardcode the list. Current four: **OCR** (data extraction), **Cloud Infrastructure** (slug `wicloud`),
+**The public site's copy, media and solutions are edited by the owner in `/admin/site`**
+(see "Configuration du site" under the platform section). The files below are now the
+**defaults**: what renders before anything is saved, and whenever the database is
+unreachable (CI builds). Components never import them directly — they receive content as
+props from `getSiteContent()` / `getSolutions()` (`lib/content`).
+
+`lib/data/services.ts` exports `SERVICES`, the default solutions for both the homepage
+and `/solutions/[slug]`. Current four: **OCR** (data extraction), **Cloud Infrastructure** (slug `wicloud`),
 **WIFACILITY** (installment payment, contains the bank-facing **Etaysir** admin panel), and
 **SETYCORE** (marketplace).
 
@@ -255,7 +260,7 @@ and the solution hero — see "Live previews" under `DeviceShowcase`. Each solut
 commented `previewUrl` slot in `lib/data/services.ts`; paste the URL and nothing else needs
 touching. A host that refuses to be framed falls back to `showcaseImage`, then to the mock.
 
-**Project preview GIFs:** `Service.previewGif` is an optional path shown in the globe's hover
+**Project preview GIFs:** `Service.previewGif` is an optional path shown in the 3D scene's hover
 card. Drop a file in `public/` (e.g. `public/previews/ocr.gif`) and set
 `previewGif: "/previews/ocr.gif"` on that service. Until set, the card renders a labelled
 placeholder. It uses a plain `<img>` on purpose — `next/image` would strip GIF animation.
@@ -278,9 +283,46 @@ but the visible crop shifts with viewport, so keep important content in the midd
 treat the edges as bleed. A shimmer skeleton covers decode, then the photo cross-fades in and
 scales gently on card hover. With no image set the card shows a placeholder stating the size.
 
-## Hero / 3D scene (`components/three/EarthNetwork.tsx`)
+## Hero (`components/sections/Hero.tsx` + `hero/`)
 
-Hard-won details worth preserving:
+**Copy on the left 30%, a visual on the right 70%** (`lg` and up; below it the visual comes
+first, ~58svh, then the copy). The owner picks the visual in /admin/site/hero:
+
+| mode | what fills the panel |
+| --- | --- |
+| `earth` | the 3D globe (`components/three/EarthNetwork.tsx`), solutions as markers |
+| `stack` | the 3D infrastructure stack (`components/three/InfraStack.tsx`), solutions as modules |
+| `image` | one photo, `priority` — the LCP element |
+| `video` | a muted loop, played only while on screen, with a pause control (WCAG 2.2.2) |
+| `slides` | an embla carousel of photos/clips; slide 0 eager, the rest lazy; only the visible clip plays |
+
+- **`Hero` is a server component.** Only `HeroVisual` (and `TypeCycle`) hydrate.
+- **Only the chosen scene's chunk is ever fetched.** Both scenes are `next/dynamic`; the
+  other branch never renders. The CSS fallbacks live in `components/three/fallbacks.tsx`
+  on purpose — importing a fallback from a scene file pulls three.js into the main bundle.
+- The idle-callback mount gate is kept: the scene mounts once the browser is idle (1.2s
+  at the latest) so the copy and CTAs hydrate first.
+- 3D modes are full-bleed in the panel with the radial vignette and a left fade into the
+  copy column; media modes sit in an inset rounded frame that clears the navbar.
+
+### The two 3D scenes
+
+- **Earth** is the original globe, restored from git; its sky code now comes from
+  `sky.tsx`. Markers alternate signal/cool, hover escalates to `signal-bright`.
+- **Stack** is four glass layers stacked **straight** (Applications · Données · Calcul ·
+  Réseau) with etched patterns, status LEDs, a scan line, corner pillars carrying packets,
+  a module per solution on layer `i` linked to the next, and a grid floor with rising
+  motes. The client rejected a twisted version and a ring of floating cloud objects —
+  don't bring either back. Its entrance is two beats on the render loop (pop, then the
+  layers unfold from one `unfold` group's `scale.y`); modules are dark glass lit from
+  within; the active label gets its own `zIndexRange`; `useFit` only shrinks on narrow
+  panels now (the panel no longer sits behind the copy, so there is no lift).
+- **The camera prop only applies on mount** — reload after changing it.
+- **Uniforms are written through a material ref**, and refs mutated in `useFrame` end in
+  `Ref` when passed as props — the React Compiler lint rejects both otherwise.
+- **Reduced motion** renders both scenes settled: no pop, no spin, no packets.
+
+Hard-won details carried over from the globe:
 
 - **The label portal must share the canvas's exact bounds.** drei's `Html` positions labels
   relative to the canvas, so anchoring the portal `<div>` to the section instead offsets every
@@ -288,17 +330,14 @@ Hard-won details worth preserving:
 - **That wrapper deliberately has no `z-index`.** An absolute element with `z-auto` creates no
   stacking context, so the inner label overlay (`z-20`) still layers above the copy scrim
   (`z-5`) while the canvas itself stays below it.
-- **Markers and arcs live inside the same spinning group as the globe**, so they stay locked to
-  the surface. Rotating the globe in its own inner group was why they once looked detached.
-- **Arcs hug the sphere** because each bezier control point sits at `radius / cos(halfAngle)`,
-  which approximates a circular arc instead of cutting a chord through the globe.
-- **`OrbitControls.target` always renders at screen centre.** Moving the globe's group does not
-  shift it on screen; to place the globe off-centre, inset the canvas element instead.
+- **`OrbitControls.target` always renders at screen centre.** Moving the camera's group does
+  not shift the object on screen; offset the object relative to the target, or inset the
+  canvas element.
 - Procedural geometry uses a pure `hash(index)` helper, never `Math.random()` during render
   (React's purity rule). One-time random work goes in a lazy `useState` initialiser.
 - Camera rotation is unconstrained (full 360°, over the poles) with damping.
 
-## The background sky (`EarthNetwork`)
+## The background sky (`components/three/sky.tsx`)
 
 The sky is **stars, gas and meteors — nothing else**. It used to carry a ringed planet, a
 moon, a gas giant, connect-the-dots constellations and tumbling geometric shards; against
@@ -308,7 +347,7 @@ are motion rather than scenery. Don't reintroduce named objects.
 What makes it work, in rough order of impact:
 
 - **`sizeAttenuation={false}` on every star layer.** This is the one that matters. The
-  shells sit 7-95 units out while the camera is 6-14 units from the globe, so *attenuated*
+  shells sit 7-95 units out while the camera is 6-14 units from the stack, so *attenuated*
   points collapse to sub-pixel and the entire field renders invisible — only the ~170
   nearest stars ever drew, which is why the sky looked empty. Point size is in **pixels**
   here; depth comes from per-shell pixel size (5 / 3.4 / 2.5 / 1.8) and from the differing
@@ -327,7 +366,7 @@ What makes it work, in rough order of impact:
   works *because* it is rare and restrained: an early pass had them 2x the size and opacity
   and one landed on the wordmark, which read as lens flare. Keep them clear of the logo
   (top-left) and the copy band (bottom-left).
-- **Gas is very faint** (0.055-0.07). It exists so the globe's back isn't empty and the
+- **Gas is very faint** (0.055-0.07). It exists so the frame behind the stack isn't empty and the
   frame has some colour temperature — not as visible clouds. Anything stronger competes
   with the stars and the sky starts looking illustrated again.
 
@@ -720,11 +759,11 @@ horizontal line. Three pieces fix it, and they only work together:
 
 1. **Radial vignette** inside the canvas wrapper (`z-10`), so it covers exactly the canvas
    bounds — above the canvas (`z-auto`), below the marker labels (`z-20`) and copy (`z-30`).
-   Darkens the frame so the globe sits in space rather than in a rectangle.
+   Darkens the frame so the stack sits in space rather than in a rectangle.
 2. **Section-level bottom falloff** on the hero (`h-[45%]`, fading to `abyss`). It must be
    scoped to the *section*, not the canvas: on `lg` a canvas-scoped fade leaves a sliver of
    the hero's own `ink` showing between it and the copy band's scrim.
-3. **Limb glow** at the top of `HighlightsReel`, so the earth reads as continuing behind
+3. **Limb glow** at the top of `HighlightsReel`, so the scene's glow reads as continuing behind
    the copy.
 
 Two traps, both of which drew the exact hard line the vignette exists to remove:
@@ -743,7 +782,9 @@ screenshot of the whole page is too coarse to show a 1-2 value step.
 ## Homepage section map (Apple `/macbook-pro` → WICLOUD)
 
 All ~20 reference sections have an equivalent; components live in `components/sections/` and
-are composed in order in `app/page.tsx`: Hero, HighlightsReel, PerformanceMetrics,
+are composed in order in `app/(marketing)/page.tsx`, which is async, reads the content once
+and passes each section its block (a section whose block has `hidden: true` is skipped):
+Hero, HighlightsReel, PerformanceMetrics,
 UniverseReveal, DeviceShowcase, DataIntelligence, Reliability, PlatformShowcase, ConnectedSolutions, AudienceTabs, ScaleSpecs,
 OcrDemo, Integrations, Security, SolutionFinder, MigrationProgram, WhyUs, SolutionsGrid,
 DataCommitment, Values, FAQHome, Contact, plus `components/layout/Footer.tsx`.
@@ -1122,6 +1163,50 @@ What it caught, and the rules that came out of it:
 All routes — `/`, `/solutions/*`, and every `/dashboard` and `/admin` page —
 report zero failures.
 
+## Configuration du site — `/admin/site`
+
+The owner edits the public site here: the hero (text + visual mode), every homepage
+section's text and media (and can hide a section), the solutions (every field of
+`services.ts` / `media.ts`, plus add, hide, reorder, delete), contact details, social
+links, SEO and the footer. Permission domain `site` (`site:read` / `site:write`).
+
+**Data.** `site_content` holds one jsonb row per block (`general`, `hero`, `footer`, one
+per section); `site_solutions` one row per solution (`content` = a `services.ts` entry,
+`media` = a `media.ts` entry, plus `position` / `published`). Shapes are Zod schemas in
+`lib/content/schema.ts` (no DB import — the client editors use them too); defaults in
+`lib/content/defaults.ts`, lifted verbatim from the components.
+
+**Reads (`lib/content/index.ts`).** `getSiteContent()` / `getSolutions()` are
+`unstable_cache`d and tagged; stored blocks are **deep-merged over the defaults and
+re-validated**, so a field added in code later gets its default and a block that no
+longer parses falls back instead of breaking the page. The cached loaders *throw* on a
+database error and the fallback sits outside the cache — `unstable_cache` doesn't store a
+thrown result, so an outage (or a DB-less build) never pins the defaults for an hour. An
+empty `site_solutions` table means "use `SERVICES`"; the first solution write copies the
+four in (`ensureSeeded`). Pages are static with `revalidate = 600` as a safety net.
+
+**Writes (`app/(app)/admin/site/actions.ts`).** Every action re-checks `site:write`,
+validates, upserts, logs, then `updateTag` (read-your-own-writes) + `revalidatePath("/",
+"layout")` + the admin layout. Solutions are addressed by slug; a slug rename redirects
+the editor. Membership checks that used to be a sync Zod `refine` against `SERVICES`
+(demandes, demos) now query `getSolutions({ includeHidden: true })` after parsing.
+
+**Forms are data.** `lib/content/forms.ts` describes every field (`text`, `asset`,
+`list`, `cards`, …) and **every field must carry a `where`** — page, section, detail,
+anchor, recommended size. `SpecForm` renders any spec, and `FieldHint` shows `where` in a
+tooltip with a ↗ link that opens the live page at that section (`section[id]:target`
+flashes it — `globals.css`). A new field without a location doesn't compile; keep it that
+way. Specs hold functions (`showIf`), so client editors resolve them by block key —
+never pass a spec from a server component.
+
+**Media: upload or link.** `MediaField` uploads through `/api/uploads` with the new
+`{ site: true }` target (needs `site:write`, allows mp4/webm and up to 200 MB, sets
+`attachments.public`) and stores `/media/<id>`. `app/media/[id]/route.ts` streams **only
+public** image/video attachments from the private bucket, passes `Range` through (video
+seeking, Safari needs 206), and caches for a year (ids are immutable). Everything else is
+still behind `/api/uploads`' checks. To `next/image` it is a local path, so it gets
+optimised.
+
 ## Demos are authored by the desk and granted to named customers
 
 A demo is **something the owner hands a specific customer to evaluate a service**, not a
@@ -1307,6 +1392,7 @@ sampled p=0.45 while believing it was at p=0.30. Re-read the section's live
 matches the progress you wanted.
 
 ## Open items
+
 
 - All copy is a first-draft placeholder.
 - **`admin.test@example.com` is still on the production branch** and is an admin.

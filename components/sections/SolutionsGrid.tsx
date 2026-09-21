@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { SERVICES } from "@/lib/data/services";
+import type { Service } from "@/lib/types";
+import type { SectionContent } from "@/lib/content/schema";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
@@ -7,19 +8,25 @@ import { MediaSlot } from "@/components/ui/MediaSlot";
 import { Icon } from "@/components/ui/Icon";
 import { Badge } from "@/components/ui/Badge";
 
-export function SolutionsGrid() {
+export function SolutionsGrid({
+  content,
+  solutions,
+}: {
+  content: SectionContent<"solutionsGrid">;
+  solutions: Service[];
+}) {
   return (
     <section id="solutions" className="bg-paper py-28 text-ink">
       <Container className="flex flex-col gap-16">
         <SectionHeading
-          eyebrow="Toutes nos solutions"
-          title="Explorez chaque produit en détail."
+          eyebrow={content.heading.eyebrow}
+          title={content.heading.title}
           align="center"
-          description="D'autres solutions rejoindront cet écosystème — cette page s'enrichira au fur et à mesure."
+          description={content.heading.description || undefined}
         />
 
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-          {SERVICES.map((service) => (
+          {solutions.map((service) => (
             <Reveal key={service.slug}>
               <Link
                 href={`/solutions/${service.slug}`}
@@ -39,7 +46,7 @@ export function SolutionsGrid() {
                   <h3 className="text-2xl font-semibold">{service.name}</h3>
                   <p className="text-base leading-relaxed opacity-70">{service.heroDescription}</p>
                   <span className="mt-2 inline-flex w-fit items-center gap-2 text-sm font-medium text-teal-deep">
-                    Découvrir {service.name}
+                    {content.ctaPrefix} {service.name}
                     <Icon name="arrow-right" className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                   </span>
                 </div>

@@ -1,32 +1,33 @@
-import { getServiceBySlug } from "@/lib/data/services";
+import type { Service } from "@/lib/types";
+import type { SectionContent } from "@/lib/content/schema";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
 import { MediaSlot } from "@/components/ui/MediaSlot";
 
-const PANELS = [
-  { slug: "wifacility", title: "Etaysir — panneau bancaire", text: "Les banques pilotent l'intégralité du cycle de financement : scoring, validation, échéanciers, recouvrement." },
-  { slug: "setycore", title: "Dashboard marchand SETYCORE", text: "Catalogue, commandes, paiements et statistiques de vente, centralisés dans un seul back-office." },
-  { slug: "wicloud", title: "Console Cloud", text: "Calcul, stockage et supervision de l'infrastructure, pilotés depuis une interface unique." },
-];
-
-export function PlatformShowcase() {
+export function PlatformShowcase({
+  content,
+  solutions,
+}: {
+  content: SectionContent<"platform">;
+  solutions: Service[];
+}) {
   return (
-    <section className="bg-paper py-28 text-ink">
+    <section id="platform" className="bg-paper py-28 text-ink">
       <Container className="flex flex-col gap-16">
         <SectionHeading
-          eyebrow="La plateforme"
-          title="Un tableau de bord pensé pour chaque métier."
-          description="Derrière chaque solution WICLOUD se cache une interface d'administration claire, pensée pour les équipes qui l'utilisent au quotidien."
+          eyebrow={content.heading.eyebrow}
+          title={content.heading.title}
+          description={content.heading.description || undefined}
           align="center"
         />
 
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
-          {PANELS.map((panel) => {
-            const service = getServiceBySlug(panel.slug);
+          {content.panels.map((panel, i) => {
+            const service = solutions.find((s) => s.slug === panel.slug);
             if (!service) return null;
             return (
-              <Reveal key={panel.slug} className="flex flex-col gap-5">
+              <Reveal key={i} className="flex flex-col gap-5">
                 <div data-reveal-item>
                   <MediaSlot slot={service.media.hero} accent={service.palette.primary} />
                 </div>

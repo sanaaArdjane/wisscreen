@@ -176,6 +176,7 @@ export function SolutionHeroStage({
 
   return (
     <section
+      id="apercu"
       className={cn(
         "section-ink relative flex flex-col overflow-hidden",
         // Expanded, the section is exactly one screen — it *is* the frame. At rest it is

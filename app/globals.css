@@ -478,3 +478,33 @@ html[data-immersive] header {
     var(--dash-canvas) var(--nav-notch)
   );
 }
+
+/* A section reached by a "voir sur le site" link from /admin/site (`/#faq`) flashes a
+   signal outline once, so the owner sees exactly which block a field changes. An
+   inset outline rather than a border: it adds nothing to the layout, and on a
+   full-bleed section a normal outline would sit outside the viewport. Offset for the
+   fixed navbar so the flashed section isn't tucked under it. */
+section[id] {
+  scroll-margin-top: 4.5rem;
+}
+section[id]:target {
+  animation: target-flash 2.2s ease-out 1;
+}
+@keyframes target-flash {
+  0%,
+  35% {
+    outline: 3px solid var(--color-signal);
+    outline-offset: -3px;
+  }
+  100% {
+    outline: 3px solid transparent;
+    outline-offset: -3px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  section[id]:target {
+    animation: none;
+    outline: 3px solid var(--color-signal);
+    outline-offset: -3px;
+  }
+}

@@ -7,7 +7,7 @@ export function SolutionSubProjects({ service }: { service: Service }) {
   if (!service.subProjects?.length) return null;
 
   return (
-    <section className="bg-paper py-28 text-ink">
+    <section id="sous-projets" className="bg-paper py-28 text-ink">
       <Container className="flex flex-col gap-16">
         <SectionHeading
           eyebrow="Sous-projets"

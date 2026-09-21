@@ -2,34 +2,30 @@ import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
 import { Button } from "@/components/ui/Button";
+import type { SectionContent } from "@/lib/content/schema";
 
-const STEPS = [
-  { title: "Audit", text: "Nous étudions vos process actuels et identifions les solutions WICLOUD les plus pertinentes." },
-  { title: "Plan de migration", text: "Un plan par étapes est défini pour limiter l'impact sur vos opérations en cours." },
-  { title: "Déploiement accompagné", text: "Nos équipes vous accompagnent pendant tout le déploiement, environnement de test compris." },
-  { title: "Formation", text: "Vos équipes sont formées à l'utilisation des tableaux de bord et des API." },
-];
-
-export function MigrationProgram() {
+export function MigrationProgram({ content }: { content: SectionContent<"migration"> }) {
   return (
-    <section className="bg-paper py-28 text-ink">
+    <section id="migration" className="bg-paper py-28 text-ink">
       <Container className="flex flex-col gap-16">
         <div className="flex flex-col items-start justify-between gap-8 md:flex-row md:items-end">
           <SectionHeading
-            eyebrow="Accompagnement à la migration"
-            title="Passer à WICLOUD, sans friction."
-            description="Que vous remplaciez un système existant ou partiez de zéro, notre équipe vous accompagne à chaque étape."
+            eyebrow={content.heading.eyebrow}
+            title={content.heading.title}
+            description={content.heading.description || undefined}
           />
-          <Button href="#contact" variant="secondary" className="shrink-0">
-            Démarrer un projet
-          </Button>
+          {content.cta.label && (
+            <Button href={content.cta.href || "#contact"} variant="secondary" className="shrink-0">
+              {content.cta.label}
+            </Button>
+          )}
         </div>
 
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
-          {STEPS.map((step, index) => (
-            <Reveal key={step.title} className="relative flex flex-col gap-3 border-t-2 border-ink/10 pt-6">
+          {content.steps.map((step, index) => (
+            <Reveal key={index} className="relative flex flex-col gap-3 border-t-2 border-ink/10 pt-6">
               <span data-reveal-item className="font-display text-sm font-semibold text-teal-deep">
-                0{index + 1}
+                {String(index + 1).padStart(2, "0")}
               </span>
               <p data-reveal-item className="text-lg font-semibold">{step.title}</p>
               <p data-reveal-item className="text-sm leading-relaxed opacity-70">{step.text}</p>

@@ -9,7 +9,7 @@ import { PageHeader, Panel } from "@/components/dashboard/PageHeader";
 import { EmptyState, StatusChip } from "@/components/dashboard/ui";
 import { FilterBar } from "@/components/dashboard/FilterBar";
 import { DeleteLeadButton, LeadActions } from "./LeadActions";
-import { SERVICES } from "@/lib/data/services";
+import { getSolutions } from "@/lib/content";
 import { formatDateTime } from "@/lib/format";
 
 export const metadata: Metadata = { title: "Messages du site" };
@@ -26,9 +26,8 @@ const TONE: Record<string, string> = {
   archive: "bg-fg/5 text-fg border-fg/15",
 };
 
-const SERVICE_NAMES = new Map(SERVICES.map((s) => [s.slug, s.name]));
-
 export default async function MessagesPage({ searchParams }: PageProps<"/admin/messages">) {
+  const SERVICE_NAMES = new Map((await getSolutions({ includeHidden: true })).map((s) => [s.slug, s.name]));
   const staff = await requirePermission("leads:read");
   const { statut } = await searchParams;
   const status = typeof statut === "string" ? statut : "nouveau";

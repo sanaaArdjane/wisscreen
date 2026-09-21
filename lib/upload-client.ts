@@ -15,6 +15,7 @@ export type UploadTarget =
   | { demoId: number }
   | { demoRunId: number }
   | { company: true }
+  | { site: true }
   | Record<string, never>;
 
 export type UploadResult =
@@ -26,12 +27,18 @@ const ERRORS: Record<string, string> = {
   storage_not_configured: "Le stockage de fichiers n'est pas encore configuré.",
   forbidden: "Vous ne pouvez pas joindre de fichier ici.",
   quota_exceeded: "Votre espace de stockage est plein.",
+  too_large: "Fichier trop volumineux.",
 };
 
 export async function uploadFile(
   file: File,
   target: UploadTarget = {},
-  options: { internal?: boolean; onStep?: (label: string) => void } = {},
+  options: {
+    internal?: boolean;
+    onStep?: (label: string) => void;
+    /** 0 → 1 while the bytes go up. Only large files (site videos) really need it. */
+    onProgress?: (fraction: number) => void;
+  } = {},
 ): Promise<UploadResult> {
   const step = options.onStep ?? (() => {});
   try {
@@ -58,12 +65,10 @@ export async function uploadFile(
     const { key, url } = (await presign.json()) as { key: string; url: string };
 
     step("Envoi…");
-    const put = await fetch(url, {
-      method: "PUT",
-      headers: { "content-type": meta.contentType },
-      body: file,
-    });
-    if (!put.ok) return { ok: false, error: "L'envoi du fichier a échoué. Réessayez." };
+    const putOk = options.onProgress
+      ? await putWithProgress(url, file, meta.contentType, options.onProgress)
+      : (await fetch(url, { method: "PUT", headers: { "content-type": meta.contentType }, body: file })).ok;
+    if (!putOk) return { ok: false, error: "L'envoi du fichier a échoué. Réessayez." };
 
     step("Enregistrement…");
     const record = await fetch("/api/uploads", {
@@ -83,6 +88,26 @@ export async function uploadFile(
   } catch {
     return { ok: false, error: "Envoi interrompu. Vérifiez votre connexion." };
   }
+}
+
+/** `fetch` exposes no upload progress; XHR does. Same PUT, same headers. */
+function putWithProgress(
+  url: string,
+  file: File,
+  contentType: string,
+  onProgress: (fraction: number) => void,
+): Promise<boolean> {
+  return new Promise((resolve) => {
+    const xhr = new XMLHttpRequest();
+    xhr.open("PUT", url);
+    xhr.setRequestHeader("content-type", contentType);
+    xhr.upload.onprogress = (e) => {
+      if (e.lengthComputable) onProgress(e.loaded / e.total);
+    };
+    xhr.onload = () => resolve(xhr.status >= 200 && xhr.status < 300);
+    xhr.onerror = () => resolve(false);
+    xhr.send(file);
+  });
 }
 
 /** Only for types some browsers leave blank. Anything else stays unknown and

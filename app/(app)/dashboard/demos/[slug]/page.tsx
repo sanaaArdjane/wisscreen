@@ -6,7 +6,7 @@ import { PageHeader } from "@/components/dashboard/PageHeader";
 import { DemoBlocks } from "@/components/dashboard/demos/DemoBlocks";
 import { getEntitledDemo, listDemoFiles, listRunsForUser } from "@/lib/server/demos";
 import { MAX_UPLOAD_BYTES, storageConfigured } from "@/lib/storage";
-import { SERVICES } from "@/lib/data/services";
+import { getSolutions } from "@/lib/content";
 import { formatDate } from "@/lib/format";
 import { pillSmall } from "@/components/dashboard/pills";
 
@@ -23,7 +23,7 @@ export default async function DemoPage({ params }: PageProps<"/dashboard/demos/[
   const { demo, blocks, expiresAt } = entitled;
 
   const [files, runs] = await Promise.all([listDemoFiles(demo.id), listRunsForUser(user.id, demo.id)]);
-  const service = SERVICES.find((s) => s.slug === demo.serviceSlug);
+  const service = (await getSolutions({ includeHidden: true })).find((s) => s.slug === demo.serviceSlug);
 
   return (
     <>

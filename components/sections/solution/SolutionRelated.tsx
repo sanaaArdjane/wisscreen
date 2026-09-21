@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { SERVICES } from "@/lib/data/services";
 import type { Service } from "@/lib/types";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -7,11 +6,12 @@ import { Reveal } from "@/components/ui/Reveal";
 import { MediaSlot } from "@/components/ui/MediaSlot";
 import { Icon } from "@/components/ui/Icon";
 
-export function SolutionRelated({ service }: { service: Service }) {
-  const others = SERVICES.filter((item) => item.slug !== service.slug);
+/** The other published solutions, excluding the one this page is about. */
+export function SolutionRelated({ others }: { others: Service[] }) {
+  if (others.length === 0) return null;
 
   return (
-    <section className="py-28">
+    <section id="autres-solutions" className="py-28">
       <Container className="flex flex-col gap-16">
         <SectionHeading eyebrow="Découvrez aussi" title="Les autres solutions de l'écosystème." />
 

@@ -18,7 +18,7 @@ import {
   type RequestStatus,
   type RequestType,
 } from "@/lib/requests";
-import { SERVICES } from "@/lib/data/services";
+import { getSolutions } from "@/lib/content";
 import { formatDateTime } from "@/lib/format";
 import { formatMoney } from "@/lib/money";
 import { MAX_UPLOAD_BYTES, storageConfigured } from "@/lib/storage";
@@ -44,7 +44,7 @@ export default async function DemandeDetailPage({
     listQuotes(user.id),
   ]);
 
-  const service = SERVICES.find((s) => s.slug === request.serviceSlug);
+  const service = (await getSolutions({ includeHidden: true })).find((s) => s.slug === request.serviceSlug);
   const relatedQuotes = quotes.filter((q) => q.quote.requestId === request.id);
   const closed = isClosed(request.status);
 

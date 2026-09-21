@@ -11,12 +11,10 @@ import { logActivity, notify, notifyStaff, staffWith } from "@/lib/account";
 import { publishMany } from "@/lib/realtime";
 import { nextRef, refPeriod } from "@/lib/ref";
 import { REQUEST_TYPES } from "@/lib/requests";
-import { SERVICES } from "@/lib/data/services";
+import { getSolutions } from "@/lib/content";
 import { parseForm, fail, type ActionState } from "@/lib/actions";
 import { sendEmail, adminEmail } from "@/lib/email";
 import { SITE_URL } from "@/lib/site";
-
-const SLUGS = SERVICES.map((s) => s.slug);
 
 const NewRequestSchema = z.object({
   title: z.string().trim().min(4, "Donnez un titre d'au moins 4 caractères.").max(160),
@@ -26,9 +24,15 @@ const NewRequestSchema = z.object({
   serviceSlug: z
     .string()
     .transform((v) => (v === "" ? undefined : v))
-    .optional()
-    .refine((v) => v === undefined || SLUGS.includes(v), "Solution inconnue."),
+    .optional(),
 });
+
+/** The solutions are edited in /admin/site, so membership is checked against the live
+ *  list after parsing, not baked into the schema. */
+async function isKnownSolution(slug: string | undefined): Promise<boolean> {
+  if (!slug) return true;
+  return (await getSolutions({ includeHidden: true })).some((s) => s.slug === slug);
+}
 
 /**
  * Allocates the next `WC-YYMM-NNNN` and inserts, retrying on the unique index.
@@ -72,6 +76,9 @@ export async function createRequest(
   const user = await requireUser();
   const parsed = parseForm(NewRequestSchema, formData);
   if (!parsed.ok) return parsed.state;
+  if (!(await isKnownSolution(parsed.data.serviceSlug))) {
+    return fail("Vérifiez les champs signalés.", { serviceSlug: "Solution inconnue." });
+  }
 
   // Filing a demande is not metered. It used to spend a `requests.monthly`
   // quota, which capped how often a customer could ask WICLOUD for work —

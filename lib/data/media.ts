@@ -244,48 +244,56 @@ export const HOME_MEDIA = {
    Wiring. `services.ts` maps its raw entries through this; nothing else needs to know.
    ───────────────────────────────────────────────────────────────────────────────────────── */
 
+/** An asset field counts as set only if it is a non-empty string. */
+const set = (v: string | null | undefined): v is string => typeof v === "string" && v !== "";
+
 /**
- * Copies this solution's entry from `SOLUTION_MEDIA` onto its `Service`.
+ * Copies a media record onto a `Service`. Used for the code defaults below and for the
+ * records the owner edits in /admin/site/solutions, which use "" for an unset field.
  *
  * Assignments are conditional so an absent key leaves the field `undefined` rather than
  * writing `undefined` over a value — which matters because every consumer treats
  * "undefined" as "render the placeholder".
  */
-export function withMedia(service: Service): Service {
-  const media = SOLUTION_MEDIA[service.slug];
+export function applyMedia(service: Service, media: SolutionMedia | undefined): Service {
   if (!media) return service;
 
   const gallery = service.media.gallery.map((slot, index) => {
     const src = media.gallery?.[index];
-    return src ? { ...slot, src } : slot;
+    return set(src) ? { ...slot, src } : slot;
   });
-  const hero = media.cover
+  const hero = set(media.cover)
     ? { ...service.media.hero, src: media.cover }
     : service.media.hero;
   const stats = service.stats.map((stat, index) => {
     const gif = media.statGifs?.[index];
-    return gif ? { ...stat, gif } : stat;
+    return set(gif) ? { ...stat, gif } : stat;
   });
 
   return {
     ...service,
     stats,
-    ...(media.site ? { previewUrl: media.site } : {}),
-    ...(media.siteMobile ? { previewMobileUrl: media.siteMobile } : {}),
-    ...(media.screenshot ? { showcaseImage: media.screenshot } : {}),
-    ...(media.screenshotMobile
+    ...(set(media.site) ? { previewUrl: media.site } : {}),
+    ...(set(media.siteMobile) ? { previewMobileUrl: media.siteMobile } : {}),
+    ...(set(media.screenshot) ? { showcaseImage: media.screenshot } : {}),
+    ...(set(media.screenshotMobile)
       ? { showcaseMobileImage: media.screenshotMobile }
       : {}),
-    ...(media.mockup ? { showcaseMockup: media.mockup } : {}),
-    ...(media.preview ? { previewGif: media.preview } : {}),
-    ...(media.video ? { presentationVideo: media.video } : {}),
-    ...(media.videoPoster ? { presentationPoster: media.videoPoster } : {}),
+    ...(set(media.mockup) ? { showcaseMockup: media.mockup } : {}),
+    ...(set(media.preview) ? { previewGif: media.preview } : {}),
+    ...(set(media.video) ? { presentationVideo: media.video } : {}),
+    ...(set(media.videoPoster) ? { presentationPoster: media.videoPoster } : {}),
     // Supplying a card photo *is* the request for the photo layout. Deriving it here rather
     // than making it a second thing to remember in services.ts: setting one and forgetting
     // the other gave either a photo the layout never showed, or a layout with no photo.
-    ...(media.highlight
+    ...(set(media.highlight)
       ? { highlightImage: media.highlight, highlightVariant: "image" as const }
       : {}),
     media: { ...service.media, hero, gallery },
   };
+}
+
+/** Copies this solution's entry from `SOLUTION_MEDIA` onto its `Service`. */
+export function withMedia(service: Service): Service {
+  return applyMedia(service, SOLUTION_MEDIA[service.slug]);
 }
