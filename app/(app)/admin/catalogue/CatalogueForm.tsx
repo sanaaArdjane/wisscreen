@@ -11,7 +11,7 @@ import {
   TextAreaField,
 } from "@/components/dashboard/ui";
 import { IDLE, type ActionState } from "@/lib/actions";
-import { CATEGORY_LABELS, METRIC_LABELS } from "@/lib/quotas";
+import { CATEGORY_LABELS, METRIC_LABELS } from "@/lib/quota-labels";
 import { deleteCatalogueItem, saveCatalogueItem } from "./actions";
 
 export type CatalogueDefaults = {

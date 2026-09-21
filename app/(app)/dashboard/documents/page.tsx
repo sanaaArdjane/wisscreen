@@ -84,7 +84,7 @@ export default async function DocumentsPage() {
             {storageQuota ? (
               <QuotaMeter quota={storageQuota} />
             ) : (
-              <p className="text-sm text-fg/80">Aucune limite de stockage sur votre formule.</p>
+              <p className="text-sm text-fg/80">Aucune limite de stockage sur votre compte.</p>
             )}
             <p className="mt-3 text-xs text-fg/80">
               {rows.length} fichier{rows.length > 1 ? "s" : ""} · {formatBytes(used)} au total

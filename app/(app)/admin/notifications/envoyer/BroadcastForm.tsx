@@ -59,7 +59,7 @@ export function BroadcastForm({
 
       {segment === "plan" && (
         <label className="flex flex-col gap-1.5">
-          <span className="text-sm text-fg/80">Formule</span>
+          <span className="text-sm text-fg/80">Clients ayant un service actif de l&apos;offre</span>
           <select
             name="planSlug"
             value={planSlug}

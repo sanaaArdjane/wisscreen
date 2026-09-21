@@ -50,17 +50,25 @@ export async function broadcast(_prev: ActionState, formData: FormData): Promise
       break;
     }
     case "plan":
-      if (!parsed.data.planSlug) return fail("Choisissez une formule.");
+      if (!parsed.data.planSlug) return fail("Choisissez une offre.");
       break;
   }
 
   const rows =
     parsed.data.segment === "plan"
-      ? await db
-          .select({ id: userTable.id, email: userTable.email, name: userTable.name })
+      ? // Distinct: a customer can hold several services of one offer, and
+        // only a live service counts — a cancelled one is a former customer.
+        await db
+          .selectDistinct({ id: userTable.id, email: userTable.email, name: userTable.name })
           .from(userTable)
           .innerJoin(subscriptions, eq(subscriptions.userId, userTable.id))
-          .where(and(active, eq(subscriptions.planSlug, parsed.data.planSlug!)))
+          .where(
+            and(
+              active,
+              eq(subscriptions.planSlug, parsed.data.planSlug!),
+              inArray(subscriptions.status, ["active", "provisioning"]),
+            ),
+          )
       : await db
           .select({ id: userTable.id, email: userTable.email, name: userTable.name })
           .from(userTable)

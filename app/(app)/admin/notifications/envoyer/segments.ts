@@ -10,7 +10,7 @@ export const SEGMENTS = [
   { value: "clients", label: "Clients uniquement" },
   { value: "equipe", label: "Équipe et administrateurs" },
   { value: "nouveaux", label: "Inscrits des 30 derniers jours" },
-  { value: "plan", label: "Une formule précise" },
+  { value: "plan", label: "Clients d'une offre" },
 ] as const;
 
 export const SEGMENT_VALUES = SEGMENTS.map((s) => s.value) as unknown as [string, ...string[]];

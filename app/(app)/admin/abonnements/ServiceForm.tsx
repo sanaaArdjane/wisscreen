@@ -12,7 +12,7 @@ import {
   type Option,
 } from "@/components/dashboard/ui";
 import { IDLE, type ActionState } from "@/lib/actions";
-import { SUBSCRIPTION_LABELS, SUBSCRIPTION_STATUSES } from "@/lib/quotas";
+import { SUBSCRIPTION_LABELS, SUBSCRIPTION_STATUSES } from "@/lib/quota-labels";
 import { deleteService, saveService } from "./actions";
 
 export type ServiceDefaults = {

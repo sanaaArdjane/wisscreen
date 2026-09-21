@@ -32,12 +32,12 @@ export default async function AdminNotificationsPage() {
       .select({ n: sql<number>`count(*)::int` })
       .from(userTable)
       .where(and(active, gte(userTable.createdAt, since))),
-    db.select().from(plans).orderBy(asc(plans.sortOrder)),
+    db.select().from(plans).where(eq(plans.active, true)).orderBy(asc(plans.sortOrder)),
     db
-      .select({ slug: subscriptions.planSlug, n: sql<number>`count(*)::int` })
+      .select({ slug: subscriptions.planSlug, n: sql<number>`count(distinct ${subscriptions.userId})::int` })
       .from(subscriptions)
       .innerJoin(userTable, eq(userTable.id, subscriptions.userId))
-      .where(active)
+      .where(and(active, inArray(subscriptions.status, ["active", "provisioning"])))
       .groupBy(subscriptions.planSlug),
     db
       .select({ log: activityLog, actor: userTable })

@@ -67,7 +67,7 @@ export default async function UtilisateursPage({ searchParams }: PageProps<"/adm
     <>
       <PageHeader
         title="Utilisateurs"
-        description={`${rows.length} compte${rows.length > 1 ? "s" : ""} — cliquez pour gérer les accès, la formule et les quotas.`}
+        description={`${rows.length} compte${rows.length > 1 ? "s" : ""} — cliquez pour gérer les accès, les services et les quotas.`}
         actions={
           can(staff, "users:write") && (
             <Link

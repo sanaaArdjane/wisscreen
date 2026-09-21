@@ -37,6 +37,15 @@ current copy is a first draft the client will revise..
   `--color-signal-bright #00FFA9`.
   The accent was a warm `ember #C5522C` until the client replaced it with this green; if
   you find an orange anywhere it is a leftover, not a deliberate exception.
+- **One functional exception: red, for destructive controls, in the dashboard only.** The
+  owner asked for every delete to be red. `--danger` in `app/(app)/heroui.css` (scoped to
+  `[data-wicloud-app]`, so the marketing pages never see it) is `#b42318` with a white label
+  on light and `#f97066` with an **abyss** label on dark — the same inversion `signal`
+  needs, because a white label on a mid-tone red can't clear 4.5:1 and a 3:1 edge on the
+  dark canvas at once. Destructive *text* is `text-danger-fg` (`#fda29b` on dark: `#f97066`
+  is only 3.4:1 on an `ink` card). It marks actions that destroy data and nothing else — no
+  errors, no warnings, no decoration. Use `ConfirmButton` (`components/dashboard/ui.tsx`):
+  the arming step is *not* red, only the irreversible one is.
 
 ### The signal accent, and why it stays rare
 
@@ -1113,28 +1122,133 @@ What it caught, and the rules that came out of it:
 All routes — `/`, `/solutions/*`, and every `/dashboard` and `/admin` page —
 report zero failures.
 
-## Demos are simulated, and say so
+## Demos are authored by the desk and granted to named customers
 
-`lib/demo.ts` returns plausible, clearly-labelled sample output built from the
-caller's own input; there is no OCR engine or scoring service behind it yet.
-Every surface that renders a result says "résultat simulé", and the page leads
-with it. What *is* real is the plumbing around it: the quota is spent, the run is
-recorded in `demo_runs`, and the admin sees it. Replacing that one file with real
-API calls is the only change needed — `DemoResult` is the contract.
+A demo is **something the owner hands a specific customer to evaluate a service**, not a
+sandbox. (It used to be `lib/demo.ts`: four functions that hashed the visitor's input into
+plausible-looking output. That file is gone.) The model is in `lib/demos.ts`:
 
-A refused run is recorded too, with `outcome: "quota"`. "This customer keeps
-hitting their ceiling" is the most useful thing the table can say, and it is
-invisible if refusals aren't written.
+- **A demo is an ordered list of typed blocks** in `demos.blocks` (jsonb): `link` (with an
+  optional embed — the plain link always stays, some sites refuse to be framed),
+  `credentials`, `markdown`, `html`, `file`, `ssh`, `upload`. The owner's demos mix kinds
+  ("the platform link *and* the test account *and* an expiry"), so one `kind` per demo was
+  the wrong shape. A new block kind is a type member + a Zod member + an editor case
+  (`app/(app)/admin/demos/DemoEditor.tsx`) + a renderer case
+  (`components/dashboard/demos/DemoBlocks.tsx`). Never a migration.
+- **The editor posts each block as one JSON hidden input**, not `QuoteEditor`'s parallel
+  arrays. Parallel arrays only work when every row posts the same fields; a union doesn't,
+  and one conditional input silently shifts every later block's fields by one.
+- **Block ids are uuids minted on add, never indexes.** `demo_secrets.block_id` points at
+  them; reordering must not move a password to another server.
+- **Access is `demo_access`** — one row per (demo, customer), soft-revoked with a
+  timestamp, optional expiry that can only shorten the demo's own. Entitlement is decided
+  in one place, `lib/server/demos.ts` (`getEntitledDemo`), used by the pages, the upload
+  route and the secret route. A non-entitled slug is a 404.
+- **Secrets never live in a block.** A secret credentials row or an SSH password/key keeps
+  only its label in the blocks; the value is AES-256-GCM encrypted into `demo_secrets`
+  (`lib/crypto.ts`, `ENCRYPTION_KEY`, AAD = demo+block+label so a ciphertext copied to
+  another row fails loudly). Values are fetched one at a time on click through
+  `/api/demos/secret`, which re-checks everything and writes `demo.secret_revealed` to the
+  journal. **This is the one optional dependency that does not degrade to a lesser
+  feature**: with no key, secrets are refused rather than stored in the clear.
+- **HTML blocks render in `<iframe sandbox="">`**, Markdown through `lib/markdown.tsx`,
+  which returns React elements — `demos:write` can be granted to one staff member and must
+  not also be a way to run script in a customer's session.
+- **Upload blocks are the honest OCR demo**: the customer opens a run, uploads onto it
+  (`attachments.demo_run_id`), sends it; the desk is notified, answers with a note and a
+  deliverable, and the customer is notified and e-mailed. Submission vs deliverable is
+  `uploadedById` — there is deliberately no `demo_runs.result_attachment_id`, which would
+  make the two tables reference each other.
+- `demo_runs` rows from the old simulator keep rendering on /admin/demos as history;
+  `DemoResult.simulated` (once the literal type `true`) is read only through
+  `resultSource()`.
 
-## Quotas
+## Services, subscriptions and quotas
+
+These used to meter the *dashboard* (Découverte/Pro/Entreprise capped demandes and demo
+runs). That was backwards for an agency. Now:
+
+- **`plans` is the service catalogue** (`/admin/catalogue`): what WICLOUD sells — servers,
+  bespoke cloud, SMTP, AI API, SMS, storage, managed hosting — with a price per period,
+  free-form specs, and the quota metrics it grants. The table and its `default_quotas`
+  column keep their names to avoid a destructive rename.
+- **A `subscriptions` row is one provisioned service**, not one per account — the unique
+  index on `user_id` is gone. It copies price and spec at provisioning so re-pricing the
+  catalogue never re-prices a live service, links back to the demande/devis it came from,
+  and moves `pending → provisioning → active → suspended / cancelled` (the customer is
+  notified each time). Anything reading "the" subscription is a bug: use
+  `listSubscriptions()`. No account gets one on sign-up any more.
+- **Quotas meter consumables** (`smtp.emails`, `ai.requests`, `sms.messages`,
+  `storage.mb`, …). `grantServiceQuotas` *upserts and adds* a service's grants; its
+  predecessor deleted every quota row on each plan change. Filing a demande is not metered.
+  `startDemoRun` spends `demo.processing`, which no service grants yet — so it is
+  unlimited until one does, with no code change.
 
 `lib/quotas.ts`. A metric with no row or a `null` limit is **unlimited**; a limit
-of `0` means **not included in the plan** — a different message, so the two are
+of `0` means **not included** — a different message, so the two are
 distinguishable at the call site. There is no cron: the period resets lazily
 inside `consume()`, which notices an expired `resetsAt` and zeroes the counter in
 the same statement. That statement is also the limit check — the increment and
 the guard are one `UPDATE … WHERE`, because a read-then-write lets two concurrent
 runs both see 19/20 and both go through.
+
+## Realtime — SSE over Postgres LISTEN/NOTIFY
+
+Notifications, threads and every server-rendered page are live. `notify()` / `notifyMany()`
+in `lib/account.ts` are the only writers of `notifications`, and both `publish()`
+(`lib/realtime.ts`) after the insert — so every call site is live without knowing it.
+`notifyStaff(permission, …)` resolves the desk through `can()`; it is what finally tells
+someone about a new demande, a reply on an unassigned request, a closed request, a new
+contact lead, and a customer's demo upload.
+
+- **The payload is a pointer** (`{kind, entity, entityId}`), never content. The browser's
+  `RealtimeProvider` (one `EventSource` per tab, mounted by `AppShell`) refetches the count
+  from `/api/notifications`, toasts what's new, and calls a debounced `router.refresh()` —
+  on *every* event, deliberately: a table mapping events to routes is one more thing to
+  forget when a page is added. `router.refresh()` keeps client state.
+- **Postgres, not an in-process emitter**, so a second container doesn't silently drop
+  events.
+- **The LISTEN connection uses `DATABASE_URL_UNPOOLED`.** Neon's pooled URL is PgBouncer in
+  transaction mode: a `LISTEN` there registers on a connection you no longer hold and
+  receives nothing — measured, zero deliveries. `NOTIFY` through the pool is fine. It is a
+  dedicated `pg.Client`, never one of the pool's ten, and built lazily (CI builds with no
+  database).
+- `/api/realtime` answers 401 (not a redirect — `EventSource` would parse the HTML
+  forever), sends the unread count on open, heartbeats every 25s, and ends after 30 min;
+  the browser reconnects on its own. During impersonation it is the impersonated user's
+  stream.
+- Opening a notification goes through `/api/notifications/[id]/open`, which marks it read
+  and redirects (to an in-app path only).
+
+## Devis and factures are documents
+
+`lib/pdf/BillingDocument.tsx` (`@react-pdf/renderer` — pure JS, so no Chromium in the image,
+and the same bytes stream to `/api/documents/{devis,facture}/[id]` and ride along as the
+e-mail attachment). The header, legal footer, bank details, signature and VAT come from the
+`company` setting, edited in /admin/parametres; every field is optional. Things that bit:
+
+- **Helvetica can't draw U+202F**, which `Intl` puts between French thousands. `pdfMoney`
+  swaps it; anything new printed in the PDF must go through `clean()`.
+- **Don't put `lineHeight` on a container `View`**, or on the page — it tripled the line
+  spacing and made a render-prop `Text` vanish. Spacing is flex `gap`. And a render-prop
+  `Text` *inside* a fixed `View` drops the whole footer: the page counter is its own fixed
+  element.
+- Stored amounts are **HT**. `withVat()` (`lib/money.ts`) is the one formula for TTC, used by
+  the PDF, `MoneyLines`, the customer totals and the e-mail body, so they never disagree.
+- Sending (`lib/billing-send.ts`) archives the exact bytes sent (`pdf_key`, and as a
+  document in the customer's space) and can be repeated; a quote used to be sendable once.
+- `tsx` can't render these (it resolves `@react-pdf/hyphenate` as CommonJS, which that
+  package doesn't export). Vitest can: `PDF_OUT=/tmp pnpm vitest run __tests__/pdf.test.tsx`
+  writes sample PDFs to look at.
+
+## The request thread
+
+`components/dashboard/Thread.tsx` + `ThreadViewport` + `ChatComposer`: grouped bubbles, day
+separators, attachments inline via `attachments.message_id` (the composer creates the
+message, gets its id back in `values.messageId`, then uploads onto it), an unread divider,
+and "Lu" read receipts from `request_messages.read_at` — set by the other side opening the
+thread, from an effect (never during render), and pushed live. Times are formatted in
+`Africa/Algiers` because the component renders on a server that may be in UTC.
 
 ## Reference codes
 
@@ -1187,7 +1301,10 @@ matches the progress you wanted.
   removed — from /admin/utilisateurs, signed in as the owner (the delete control
   is hidden on your own fiche, which is why it could not delete itself).
 - No payment provider: an invoice's status is set by a human in /admin/factures.
-- No realtime: threads and notifications refresh on navigation.
+- `ENCRYPTION_KEY` has no rotation yet. The `v1:` prefix on every ciphertext is the seam;
+  losing the key loses every demo secret, by design. Keep it out of the database backups.
+- The three existing accounts' free "Découverte" subscriptions were marked *résilié* by
+  the seed (they were never a sale). Delete them from /admin/abonnements if unwanted.
 - A broadcast writes one `notifications` row per recipient. Fine into five
   figures; swap for a segment join if the user table ever gets large.
 - No real media yet beyond `public/photos/service1.jpg` (OCR's laptop mockup) and the
