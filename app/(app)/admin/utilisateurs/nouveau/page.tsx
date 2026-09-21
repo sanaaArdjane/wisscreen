@@ -13,7 +13,15 @@ const ROLE_LABELS: Record<string, string> = {
   admin: "Administrateur",
 };
 
-export default async function NouvelUtilisateurPage() {
+export default async function NouvelUtilisateurPage({
+  searchParams,
+}: PageProps<"/admin/utilisateurs/nouveau">) {
+  const sp = await searchParams;
+  // From a contact message: « Créer le compte client » prefills who wrote in.
+  const prefill = {
+    name: typeof sp.nom === "string" ? sp.nom : undefined,
+    email: typeof sp.email === "string" ? sp.email : undefined,
+  };
   const staff = await requirePermission("users:write");
   const canCreateStaff = can(staff, "team:write");
 
@@ -28,6 +36,7 @@ export default async function NouvelUtilisateurPage() {
 
       <Panel className="max-w-3xl">
         <CreateUserForm
+          prefill={prefill}
           canCreateStaff={canCreateStaff}
           // The list is filtered rather than disabled: offering a role that the
           // action will refuse is a form that lies about what it can do.

@@ -38,3 +38,21 @@ export async function setLeadStatus(formData: FormData): Promise<void> {
   revalidatePath("/admin/messages");
   revalidatePath("/admin");
 }
+
+/** Delete a contact message outright — spam, a duplicate, a test. */
+export async function deleteLead(formData: FormData): Promise<void> {
+  const staff = await requirePermission("leads:delete");
+  const id = Number(formData.get("id"));
+  if (!Number.isInteger(id)) return;
+  const [row] = await db.delete(contactLeads).where(eq(contactLeads.id, id)).returning();
+  if (!row) return;
+  await logActivity({
+    actorId: staff.id,
+    action: "lead.deleted",
+    entity: "lead",
+    entityId: id,
+    meta: { email: row.email, name: row.name },
+  });
+  revalidatePath("/admin/messages");
+  revalidatePath("/admin");
+}

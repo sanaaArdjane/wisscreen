@@ -1,8 +1,11 @@
 "use client";
 
-import { useActionState, useEffect, useRef } from "react";
+import { useActionState, useEffect, useRef, useState } from "react";
+import { Button } from "@heroui/react";
 import {
   CheckboxField,
+  ConfirmButton,
+  Field,
   FormAlert,
   SelectField,
   SubmitButton,
@@ -10,7 +13,7 @@ import {
   type Option,
 } from "@/components/dashboard/ui";
 import { IDLE, type ActionState } from "@/lib/actions";
-import { assignRequest, changeStatus, staffReply } from "../actions";
+import { assignRequest, changeStatus, deleteRequest, staffReply, updateRequest } from "../actions";
 
 /**
  * The three desk controls on a request. Separate forms on purpose: a single
@@ -127,3 +130,71 @@ export function StaffReplyForm({ requestId }: { requestId: number }) {
   );
 }
 
+
+/** Correct what the client filed. Not notified — it's the desk's own record. */
+export function EditRequestForm({
+  requestId,
+  title,
+  details,
+  budget,
+}: {
+  requestId: number;
+  title: string;
+  details: string;
+  budget: string;
+}) {
+  const [state, action] = useActionState<ActionState, FormData>(updateRequest, IDLE);
+  const [open, setOpen] = useState(false);
+  if (!open) {
+    return (
+      <Button variant="tertiary" onPress={() => setOpen(true)}>
+        Modifier l&apos;intitulé, la description ou le budget
+      </Button>
+    );
+  }
+  return (
+    <form action={action} className="flex flex-col gap-4">
+      <input type="hidden" name="requestId" value={requestId} />
+      <FormAlert state={state} />
+      <Field name="title" label="Intitulé" defaultValue={state.values?.title ?? title} error={state.fieldErrors?.title} isRequired />
+      <TextAreaField
+        name="details"
+        label="Description"
+        defaultValue={state.values?.details ?? details}
+        error={state.fieldErrors?.details}
+        rows={6}
+        isRequired
+      />
+      <Field
+        name="budget"
+        label="Budget indicatif"
+        inputMode="decimal"
+        defaultValue={state.values?.budget ?? budget}
+        error={state.fieldErrors?.budget}
+        description="Vide = non renseigné."
+      />
+      <div className="flex gap-2">
+        <SubmitButton>Enregistrer</SubmitButton>
+        <Button variant="ghost" onPress={() => setOpen(false)}>
+          Fermer
+        </Button>
+      </div>
+    </form>
+  );
+}
+
+export function DeleteRequestForm({ requestId, requestRef }: { requestId: number; requestRef: string }) {
+  const [state, action] = useActionState<ActionState, FormData>(deleteRequest, IDLE);
+  return (
+    <ConfirmButton
+      action={action}
+      label="Supprimer cette demande"
+      hidden={{ requestId }}
+      typeToConfirm={requestRef}
+      description="La demande, son fil de discussion et ses pièces jointes sont supprimés. Les devis et services liés sont conservés, sans lien vers elle."
+      fullWidth
+    >
+      <FormAlert state={state} />
+    </ConfirmButton>
+  );
+}

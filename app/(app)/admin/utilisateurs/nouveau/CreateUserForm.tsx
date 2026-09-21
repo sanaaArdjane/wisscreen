@@ -25,7 +25,9 @@ import { createAccount } from "../actions";
 export function CreateUserForm({
   roleOptions,
   canCreateStaff,
+  prefill = {},
 }: {
+  prefill?: { name?: string; email?: string };
   roleOptions: Option[];
   canCreateStaff: boolean;
 }) {
@@ -50,7 +52,7 @@ export function CreateUserForm({
         <Field
           name="name"
           label="Nom complet"
-          defaultValue={v.name}
+          defaultValue={v.name ?? prefill.name}
           error={state.fieldErrors?.name}
           isRequired
         />
@@ -58,7 +60,7 @@ export function CreateUserForm({
           name="email"
           label="Adresse e-mail"
           type="email"
-          defaultValue={v.email}
+          defaultValue={v.email ?? prefill.email}
           error={state.fieldErrors?.email}
           isRequired
         />

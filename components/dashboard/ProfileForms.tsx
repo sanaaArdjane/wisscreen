@@ -287,7 +287,7 @@ export function DeleteAccount() {
 
   if (!armed) {
     return (
-      <Button variant="tertiary" onPress={() => setArmed(true)}>
+      <Button variant="tertiary" className="text-danger-fg" onPress={() => setArmed(true)}>
         Supprimer mon compte
       </Button>
     );
@@ -311,7 +311,7 @@ export function DeleteAccount() {
         router.refresh();
       }}
     >
-      <p className="rounded-2xl border border-fg/25 bg-panel px-6 py-3.5 text-sm text-fg">
+      <p className="rounded-2xl border border-danger/45 bg-danger/10 px-6 py-3.5 text-sm text-fg">
         Cette action est définitive. Vos demandes, devis, factures et documents seront
         supprimés et ne pourront pas être restaurés.
       </p>
@@ -324,7 +324,7 @@ export function DeleteAccount() {
         isRequired
       />
       <div className="flex gap-2">
-        <Button type="submit" variant="secondary" isDisabled={busy}>
+        <Button type="submit" variant="danger" isDisabled={busy}>
           {busy && <Spinner className="size-4" />}
           Supprimer définitivement
         </Button>

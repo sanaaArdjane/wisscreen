@@ -8,6 +8,8 @@ import { PageHeader, Panel } from "@/components/dashboard/PageHeader";
 import { EmptyState } from "@/components/dashboard/ui";
 import { FilterBar } from "@/components/dashboard/FilterBar";
 import { formatDateTime } from "@/lib/format";
+import { can } from "@/lib/permissions";
+import { PurgeForm } from "./PurgeForm";
 
 export const metadata: Metadata = { title: "Journal d'activité" };
 
@@ -47,16 +49,52 @@ const ACTION_LABELS: Record<string, string> = {
   "profile.updated": "Profil mis à jour",
   "lead.status_changed": "Message du site traité",
   "settings.updated": "Paramètres modifiés",
+  "settings.company_updated": "Identité de l'entreprise modifiée",
+  "request.edited": "Demande modifiée",
+  "request.deleted": "Demande supprimée",
+  "quote.resent": "Devis renvoyé",
+  "invoice.created": "Facture créée",
+  "invoice.updated": "Facture modifiée",
+  "invoice.sent": "Facture émise et envoyée",
+  "invoice.resent": "Facture renvoyée",
+  "invoice.deleted": "Facture supprimée",
+  "user.created": "Compte créé",
+  "subscription.provisioned": "Service provisionné",
+  "subscription.deleted": "Service supprimé",
+  "quota.deleted": "Quota supprimé",
+  "catalogue.created": "Offre créée",
+  "catalogue.updated": "Offre modifiée",
+  "catalogue.deleted": "Offre supprimée",
+  "demo.created": "Démo créée",
+  "demo.updated": "Démo modifiée",
+  "demo.deleted": "Démo supprimée",
+  "demo.access_granted": "Accès démo accordé",
+  "demo.access_revoked": "Accès démo révoqué",
+  "demo.access_deleted": "Accès démo supprimé",
+  "demo.secret_revealed": "Identifiant de démo affiché",
+  "demo.file_deleted": "Fichier de démo supprimé",
+  "demo.run_started": "Dépôt de démo ouvert",
+  "demo.run_submitted": "Fichier de démo envoyé",
+  "demo.run_ok": "Résultat de démo envoyé",
+  "demo.run_en_cours": "Démo en traitement",
+  "demo.run_error": "Démo impossible à traiter",
+  "demo.run_deleted": "Exécution de démo supprimée",
+  "lead.deleted": "Message du site supprimé",
+  "activity.purged": "Journal purgé",
 };
 
 const ENTITY_LINK: Record<string, (id: string) => string> = {
   request: (id) => `/admin/demandes/${id}`,
   quote: (id) => `/admin/devis/${id}`,
   user: (id) => `/admin/utilisateurs/${id}`,
+  invoice: (id) => `/admin/factures/${id}`,
+  demo: (id) => `/admin/demos/${id}`,
+  subscription: (id) => `/admin/abonnements/${id}`,
+  plan: (id) => `/admin/catalogue/${id}`,
 };
 
 export default async function JournalPage({ searchParams }: PageProps<"/admin/journal">) {
-  await requirePermission("activity:read");
+  const staff = await requirePermission("activity:read");
   const { q, domaine } = await searchParams;
 
   const filters: SQL[] = [];
@@ -85,6 +123,7 @@ export default async function JournalPage({ searchParams }: PageProps<"/admin/jo
       <PageHeader
         title="Journal d'activité"
         description="Chaque action du back-office, avec son auteur et son horodatage."
+        actions={can(staff, "activity:delete") ? <PurgeForm /> : undefined}
       />
 
       <FilterBar
@@ -105,6 +144,8 @@ export default async function JournalPage({ searchParams }: PageProps<"/admin/jo
               { value: "quota", label: "Quotas" },
               { value: "notification", label: "Notifications" },
               { value: "demo", label: "Démos" },
+              { value: "catalogue", label: "Catalogue" },
+              { value: "lead", label: "Messages du site" },
               { value: "settings", label: "Paramètres" },
             ],
           },

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { desc, eq } from "drizzle-orm";
 import { db } from "@/lib/db";
 import { contactLeads } from "@/lib/db/schema";
@@ -7,7 +8,7 @@ import { can } from "@/lib/permissions";
 import { PageHeader, Panel } from "@/components/dashboard/PageHeader";
 import { EmptyState, StatusChip } from "@/components/dashboard/ui";
 import { FilterBar } from "@/components/dashboard/FilterBar";
-import { LeadActions } from "./LeadActions";
+import { DeleteLeadButton, LeadActions } from "./LeadActions";
 import { SERVICES } from "@/lib/data/services";
 import { formatDateTime } from "@/lib/format";
 
@@ -91,8 +92,21 @@ export default async function MessagesPage({ searchParams }: PageProps<"/admin/m
                 >
                   Répondre par e-mail
                 </a>
+                {can(staff, "users:write") && !lead.userId && (
+                  <Link
+                    href={`/admin/utilisateurs/nouveau?nom=${encodeURIComponent(lead.name)}&email=${encodeURIComponent(lead.email)}`}
+                    className="text-sm font-[650] text-fg underline underline-offset-4"
+                  >
+                    Créer le compte client
+                  </Link>
+                )}
                 {can(staff, "leads:write") && (
                   <LeadActions id={lead.id} status={lead.status} />
+                )}
+                {can(staff, "leads:delete") && (
+                  <div className="ml-auto">
+                    <DeleteLeadButton id={lead.id} name={lead.name} />
+                  </div>
                 )}
               </div>
             </Panel>

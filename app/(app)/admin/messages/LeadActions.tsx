@@ -1,7 +1,8 @@
 "use client";
 
 import { Button } from "@heroui/react";
-import { setLeadStatus } from "./actions";
+import { ConfirmButton } from "@/components/dashboard/ui";
+import { deleteLead, setLeadStatus } from "./actions";
 
 /**
  * Two buttons in one form, distinguished by the submitted `status`. Plain
@@ -27,5 +28,17 @@ export function LeadActions({ id, status }: { id: number; status: string }) {
         </Button>
       )}
     </form>
+  );
+}
+
+export function DeleteLeadButton({ id, name }: { id: number; name: string }) {
+  return (
+    <ConfirmButton
+      action={deleteLead}
+      label="Supprimer"
+      confirmLabel="Supprimer le message"
+      hidden={{ id }}
+      description={`Le message de ${name} est supprimé définitivement.`}
+    />
   );
 }

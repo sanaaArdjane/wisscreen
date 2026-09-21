@@ -13,6 +13,7 @@ import { checkbox, fail, parseForm, succeed, type ActionState } from "@/lib/acti
 import { sendEmail } from "@/lib/email";
 import { SITE_URL } from "@/lib/site";
 import { REQUEST_PRIORITIES } from "@/lib/requests";
+import { parseMoneyToCents } from "@/lib/money";
 
 /**
  * The desk's side of a request.
@@ -213,8 +214,8 @@ const EditSchema = z.object({
   budget: z
     .string()
     .trim()
-    .transform((v) => (v === "" ? null : Math.round(Number(v.replace(",", ".")) * 100)))
-    .refine((v) => v === null || (Number.isFinite(v) && v >= 0), "Montant invalide."),
+    .transform((v) => (v === "" ? null : (parseMoneyToCents(v) ?? -1)))
+    .refine((v) => v === null || v >= 0, "Montant invalide."),
 });
 
 /**

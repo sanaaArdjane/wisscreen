@@ -14,7 +14,7 @@ import { StatusChip } from "@/components/dashboard/ui";
 import { pillPrimary, pillSmall } from "@/components/dashboard/pills";
 import { Thread } from "@/components/dashboard/Thread";
 import { FileUpload } from "@/components/dashboard/FileUpload";
-import { AssignControl, StaffReplyForm, StatusControl } from "./RequestControls";
+import { AssignControl, DeleteRequestForm, EditRequestForm, StaffReplyForm, StatusControl } from "./RequestControls";
 import {
   PRIORITY_LABELS,
   REQUEST_PRIORITIES,
@@ -186,7 +186,22 @@ export default async function AdminRequestPage({ params }: PageProps<"/admin/dem
                   currentPriority={request.priority}
                 />
               </Panel>
+
+              <Panel title="Modifier">
+                <EditRequestForm
+                  requestId={request.id}
+                  title={request.title}
+                  details={request.details}
+                  budget={request.budgetCents === null ? "" : String(request.budgetCents / 100)}
+                />
+              </Panel>
             </>
+          )}
+
+          {can(staff, "requests:delete") && (
+            <Panel title="Zone sensible">
+              <DeleteRequestForm requestId={request.id} requestRef={request.ref} />
+            </Panel>
           )}
         </div>
       </div>
