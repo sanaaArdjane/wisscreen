@@ -6,7 +6,7 @@ import { and, eq } from "drizzle-orm";
 import { db } from "@/lib/db";
 import { quotes } from "@/lib/db/schema";
 import { requireUser } from "@/lib/guard";
-import { logActivity, notify } from "@/lib/account";
+import { logActivity, notifyStaff } from "@/lib/account";
 import { parseForm, fail, type ActionState } from "@/lib/actions";
 import { sendEmail, adminEmail } from "@/lib/email";
 import { formatMoney } from "@/lib/money";
@@ -59,15 +59,17 @@ export async function respondToQuote(
     meta: { ref: quote.ref, amountCents: quote.amountCents },
   });
 
-  if (quote.createdById) {
-    await notify({
-      userId: quote.createdById,
-      type: "quote",
-      title: `Devis ${quote.ref} ${accepted ? "accepté" : "refusé"}`,
-      body: `${user.name} — ${formatMoney(quote.amountCents, quote.currency)}`,
-      href: `/admin/devis/${quote.id}`,
-    });
-  }
+  // The author, plus everyone who can act on quotes — the author may be away,
+  // and an accepted quote is the moment the desk most needs to move.
+  await notifyStaff("quotes:read", {
+    type: "quote",
+    title: `Devis ${quote.ref} ${accepted ? "accepté" : "refusé"}`,
+    body: `${user.name} — ${formatMoney(quote.amountCents, quote.currency)}`,
+    href: `/admin/devis/${quote.id}`,
+    actorId: user.id,
+    entity: "quote",
+    entityId: quote.id,
+  });
 
   await sendEmail({
     to: adminEmail(),

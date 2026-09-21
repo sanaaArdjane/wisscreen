@@ -2,6 +2,7 @@ import { z } from "zod";
 import { db } from "@/lib/db";
 import { contactLeads } from "@/lib/db/schema";
 import { sendEmail, adminEmail } from "@/lib/email";
+import { notifyStaff } from "@/lib/account";
 import { SITE_URL } from "@/lib/site";
 
 /**
@@ -81,6 +82,15 @@ export async function POST(request: Request) {
         solution: parsed.data.solution,
       })
       .returning({ id: contactLeads.id });
+
+    await notifyStaff("leads:read", {
+      type: "lead",
+      title: `Nouveau message du site — ${parsed.data.name}`,
+      body: parsed.data.message.slice(0, 140),
+      href: "/admin/messages",
+      entity: "lead",
+      entityId: lead.id,
+    });
 
     // The e-mail is a convenience, not the record of truth — so a mail provider
     // that is down or unconfigured must not turn a stored lead into an error the

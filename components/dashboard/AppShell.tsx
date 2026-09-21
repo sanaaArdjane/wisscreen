@@ -8,6 +8,7 @@ import { cn } from "@/lib/cn";
 import { authClient } from "@/lib/auth-client";
 import { isActive, type NavItem } from "@/components/dashboard/nav";
 import { isDarkTheme, THEME_COOKIE, type Theme } from "@/lib/theme";
+import { RealtimeProvider, UnreadBadge, useRealtime } from "@/components/dashboard/RealtimeProvider";
 
 /**
  * The frame both dashboards share: a fixed sidebar on `lg`, a slide-over drawer
@@ -137,7 +138,10 @@ export function AppShell({
 
   const home = area === "admin" ? "/admin" : "/dashboard";
 
+  // The provider wraps the whole shell so the bell, the toasts and any page
+  // below can all read one live count from one stream.
   return (
+    <RealtimeProvider initialUnread={unread}>
     <div
       data-wicloud-app
       // `system` renders no attribute: `color-scheme: light dark` follows the OS.
@@ -321,20 +325,9 @@ export function AppShell({
 
               <div className="flex-1" />
 
-              <Link
+              <BellLink
                 href={area === "admin" ? "/admin/notifications" : "/dashboard/notifications"}
-                className="relative rounded-full p-2.5 text-fg hover:bg-fg/8"
-                aria-label={
-                  unread > 0 ? `Notifications (${unread} non lues)` : "Notifications"
-                }
-              >
-                <Icon name="bell" className="size-5" />
-                {unread > 0 && (
-                  <span className="absolute -right-0.5 -top-0.5 flex min-w-[18px] items-center justify-center rounded-full bg-signal px-1 text-[10px] font-[650] text-abyss">
-                    {unread > 99 ? "99+" : unread}
-                  </span>
-                )}
-              </Link>
+              />
 
               <Link
                 href={area === "admin" ? "/admin/profil" : "/dashboard/profil"}
@@ -366,6 +359,7 @@ export function AppShell({
         </div>
       </div>
     </div>
+    </RealtimeProvider>
   );
 }
 
@@ -450,5 +444,24 @@ function Avatar({ name, image }: { name: string; image?: string | null }) {
     <span className="flex size-8 items-center justify-center rounded-full bg-fg text-xs font-[650] text-on-fg">
       {initials || "?"}
     </span>
+  );
+}
+
+/**
+ * The bell, reading the live count from `RealtimeProvider`. Its own component
+ * because the count comes from context, and the shell *renders* the provider —
+ * it cannot also be its consumer.
+ */
+function BellLink({ href }: { href: string }) {
+  const { unread } = useRealtime();
+  return (
+    <Link
+      href={href}
+      className="relative rounded-full p-2.5 text-fg hover:bg-fg/8"
+      aria-label={unread > 0 ? `Notifications (${unread} non lues)` : "Notifications"}
+    >
+      <Icon name="bell" className="size-5" />
+      <UnreadBadge />
+    </Link>
   );
 }

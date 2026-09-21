@@ -1,7 +1,10 @@
-import Link from "next/link";
 import { Panel } from "@/components/dashboard/PageHeader";
 import { EmptyState } from "@/components/dashboard/ui";
-import { MarkAllReadButton } from "@/app/(app)/dashboard/notifications/MarkAllReadButton";
+import {
+  ClearReadButton,
+  MarkAllReadButton,
+} from "@/app/(app)/dashboard/notifications/MarkAllReadButton";
+import { deleteNotification } from "@/app/(app)/dashboard/notifications/actions";
 import { relativeTime } from "@/lib/format";
 import { cn } from "@/lib/cn";
 import { Icon } from "@/components/ui/Icon";
@@ -13,6 +16,8 @@ const TYPE_ICON: Record<string, IconName> = {
   quote: "file-text",
   invoice: "receipt",
   subscription: "credit-card",
+  demo: "zap",
+  lead: "mail",
   system: "bell",
 };
 
@@ -46,12 +51,14 @@ export function NotificationFeed({
   }
 
   const unread = rows.filter((n) => !n.readAt).length;
+  const read = rows.length - unread;
 
   return (
     <>
-      {unread > 0 && (
-        <div className="mb-4 flex justify-end">
-          <MarkAllReadButton />
+      {(unread > 0 || read > 0) && (
+        <div className="mb-4 flex flex-wrap items-start justify-end gap-2">
+          {read > 0 && <ClearReadButton count={read} />}
+          {unread > 0 && <MarkAllReadButton />}
         </div>
       )}
       <Panel bodyClassName="p-0">
@@ -85,17 +92,33 @@ export function NotificationFeed({
             );
 
             return (
-              <li key={n.id}>
+              <li key={n.id} className="group flex items-start">
+                {/* Through the open route, so following a notification is what
+                    marks it read — see app/api/notifications/[id]/open. A plain
+                    <a>, not <Link>: it is a redirecting GET, not a page. */}
                 {n.href ? (
-                  <Link
-                    href={n.href}
-                    className="flex gap-3 px-6 py-4 transition-colors hover:bg-soft"
+                  <a
+                    href={`/api/notifications/${n.id}/open`}
+                    className="flex min-w-0 flex-1 gap-3 px-6 py-4 transition-colors hover:bg-soft"
                   >
                     {body}
-                  </Link>
+                  </a>
                 ) : (
-                  <div className="flex gap-3 px-6 py-4">{body}</div>
+                  <div className="flex min-w-0 flex-1 gap-3 px-6 py-4">{body}</div>
                 )}
+                {/* A single notification is the viewer's own and trivially
+                    recreated by nothing — so one click, no arming step. It is
+                    still red, because it still deletes. */}
+                <form action={deleteNotification} className="shrink-0 py-3 pr-4">
+                  <input type="hidden" name="id" value={n.id} />
+                  <button
+                    type="submit"
+                    className="rounded-full p-2 text-danger-fg hover:bg-danger/10"
+                    aria-label={`Supprimer « ${n.title} »`}
+                  >
+                    <Icon name="trash" className="size-4" />
+                  </button>
+                </form>
               </li>
             );
           })}

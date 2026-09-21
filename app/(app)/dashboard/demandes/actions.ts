@@ -7,8 +7,7 @@ import { and, eq, like } from "drizzle-orm";
 import { db } from "@/lib/db";
 import { requestMessages, requests } from "@/lib/db/schema";
 import { requireUser } from "@/lib/guard";
-import { logActivity, notify } from "@/lib/account";
-import { consume, refund } from "@/lib/quotas";
+import { logActivity, notify, notifyStaff } from "@/lib/account";
 import { nextRef, refPeriod } from "@/lib/ref";
 import { REQUEST_TYPES } from "@/lib/requests";
 import { SERVICES } from "@/lib/data/services";
@@ -73,29 +72,16 @@ export async function createRequest(
   const parsed = parseForm(NewRequestSchema, formData);
   if (!parsed.ok) return parsed.state;
 
-  // Spend the allowance first: an over-quota submit must not leave a row behind.
-  const quota = await consume(user.id, "requests.monthly");
-  if (!quota.ok) {
-    return fail(
-      quota.reason === "not_included"
-        ? "Votre formule ne comprend pas le dépôt de demandes en ligne. Passez à une formule supérieure ou écrivez-nous."
-        : "Vous avez atteint votre quota de demandes pour ce mois. Il se réinitialise le 1er du mois prochain.",
-    );
-  }
-
-  let created;
-  try {
-    created = await insertWithRef({
-      userId: user.id,
-      title: parsed.data.title,
-      details: parsed.data.details,
-      type: parsed.data.type,
-      serviceSlug: parsed.data.serviceSlug,
-    });
-  } catch (err) {
-    await refund(user.id, "requests.monthly");
-    throw err;
-  }
+  // Filing a demande is not metered. It used to spend a `requests.monthly`
+  // quota, which capped how often a customer could ask WICLOUD for work —
+  // the one thing an agency never wants to ration.
+  const created = await insertWithRef({
+    userId: user.id,
+    title: parsed.data.title,
+    details: parsed.data.details,
+    type: parsed.data.type,
+    serviceSlug: parsed.data.serviceSlug,
+  });
 
   await logActivity({
     actorId: user.id,
@@ -103,6 +89,18 @@ export async function createRequest(
     entity: "request",
     entityId: created.id,
     meta: { ref: created.ref, type: created.type },
+  });
+
+  // The desk's bell. Before this, a new demande reached no one in-app — only
+  // the one e-mail below, to one address.
+  await notifyStaff("requests:read", {
+    type: "request",
+    title: `Nouvelle demande ${created.ref}`,
+    body: `${user.name} — ${created.title}`,
+    href: `/admin/demandes/${created.id}`,
+    actorId: user.id,
+    entity: "request",
+    entityId: created.id,
   });
 
   await sendEmail({
@@ -147,14 +145,21 @@ export async function replyToRequest(
     .set({ updatedAt: new Date() })
     .where(eq(requests.id, request.id));
 
+  // The assignee if there is one, otherwise the whole desk. An unassigned
+  // request's reply used to reach nobody in-app.
+  const message = {
+    type: "message",
+    title: `Nouveau message sur ${request.ref}`,
+    body: `${user.name} : ${parsed.data.body.slice(0, 140)}`,
+    href: `/admin/demandes/${request.id}`,
+    actorId: user.id,
+    entity: "request",
+    entityId: request.id,
+  };
   if (request.assignedToId) {
-    await notify({
-      userId: request.assignedToId,
-      type: "message",
-      title: `Nouveau message sur ${request.ref}`,
-      body: parsed.data.body.slice(0, 140),
-      href: `/admin/demandes/${request.id}`,
-    });
+    await notify({ userId: request.assignedToId, ...message });
+  } else {
+    await notifyStaff("requests:read", message);
   }
 
   await sendEmail({
@@ -193,6 +198,18 @@ export async function closeOwnRequest(formData: FormData): Promise<void> {
     entityId: id,
     meta: { ref: request.ref },
   });
+
+  const closed = {
+    type: "request",
+    title: `${request.ref} clôturée par le client`,
+    body: request.title,
+    href: `/admin/demandes/${id}`,
+    actorId: user.id,
+    entity: "request",
+    entityId: id,
+  };
+  if (request.assignedToId) await notify({ userId: request.assignedToId, ...closed });
+  else await notifyStaff("requests:read", closed);
 
   revalidatePath(`/dashboard/demandes/${id}`);
   revalidatePath("/dashboard/demandes");
