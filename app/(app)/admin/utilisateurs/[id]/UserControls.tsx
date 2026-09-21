@@ -4,6 +4,7 @@ import { useActionState, useState } from "react";
 import { Button } from "@heroui/react";
 import {
   CheckboxField,
+  ConfirmButton,
   Field,
   FormAlert,
   SelectField,
@@ -23,16 +24,17 @@ import {
   type PermissionKey,
 } from "@/lib/permissions";
 import { cn } from "@/lib/cn";
+import { Icon } from "@/components/ui/Icon";
 import {
   changeRole,
   deleteUser,
   impersonate,
   messageUser,
   setQuota,
+  deleteQuota,
   suspendUser,
   unsuspendUser,
   updatePermissions,
-  updateSubscription,
   updateUser,
 } from "../actions";
 
@@ -254,93 +256,92 @@ export function PermissionMatrix({
   );
 }
 
-export function SubscriptionForm({
-  userId,
-  planSlug,
-  status,
-  note,
-  planOptions,
-}: {
-  userId: string;
-  planSlug?: string;
-  status?: string;
-  note?: string | null;
-  planOptions: Option[];
-}) {
-  const [state, action] = useActionState<ActionState, FormData>(updateSubscription, IDLE);
-
-  return (
-    <form action={action} className="flex flex-col gap-4">
-      <input type="hidden" name="userId" value={userId} />
-      <FormAlert state={state} />
-      <SelectField
-        name="planSlug"
-        label="Formule"
-        options={planOptions}
-        defaultValue={planSlug ?? planOptions[0]?.value}
-        isRequired
-      />
-      <SelectField
-        name="status"
-        label="Statut"
-        options={[
-          { value: "active", label: "Active" },
-          { value: "trialing", label: "Période d'essai" },
-          { value: "past_due", label: "Paiement en retard" },
-          { value: "paused", label: "En pause" },
-          { value: "cancelled", label: "Résiliée" },
-        ]}
-        defaultValue={status ?? "active"}
-        isRequired
-      />
-      <TextAreaField name="note" label="Note" defaultValue={note ?? ""} rows={2} />
-      <CheckboxField name="resetQuotas" label="Réappliquer les quotas de la formule" />
-      <SubmitButton className="self-start">Enregistrer</SubmitButton>
-    </form>
-  );
-}
-
+/**
+ * One metered allowance on an account. With `metric` omitted it is the "add a
+ * metric" row: before, only metrics a plan had already created could be edited,
+ * so an admin could not give a customer an SMS allowance by hand at all.
+ */
 export function QuotaForm({
   userId,
   metric,
   label,
   limit,
   used,
+  metricOptions,
+  canDelete,
 }: {
   userId: string;
-  metric: string;
-  label: string;
-  limit: number | null;
-  used: number;
+  metric?: string;
+  label?: string;
+  limit?: number | null;
+  used?: number;
+  /** For the "add" row: known metrics, plus free text via "autre". */
+  metricOptions?: Option[];
+  canDelete?: boolean;
 }) {
   const [state, action] = useActionState<ActionState, FormData>(setQuota, IDLE);
+  const [custom, setCustom] = useState(false);
+  const isNew = metric === undefined;
 
   return (
-    <form action={action} className="flex flex-wrap items-end gap-3">
-      <input type="hidden" name="userId" value={userId} />
-      <input type="hidden" name="metric" value={metric} />
-      <Field
-        name="limit"
-        label={`${label} — limite`}
-        description="Vide = illimité, 0 = non inclus"
-        defaultValue={limit === null ? "" : String(limit)}
-        error={state.fieldErrors?.limit}
-        inputMode="numeric"
-        className="w-44"
-      />
-      <Field
-        name="used"
-        label="Consommé"
-        defaultValue={String(used)}
-        error={state.fieldErrors?.used}
-        inputMode="numeric"
-        className="w-32"
-      />
-      <SubmitButton variant="secondary">Appliquer</SubmitButton>
-      {state.message && (
-        <p className="w-full text-sm text-fg/80">{state.message}</p>
+    <div className="flex flex-wrap items-end gap-3">
+      <form action={action} className="flex flex-1 flex-wrap items-end gap-3">
+        <input type="hidden" name="userId" value={userId} />
+        {isNew ? (
+          custom ? (
+            <Field name="metric" label="Métrique" placeholder="ex. vps.snapshots" className="w-48" isRequired />
+          ) : (
+            <SelectField
+              name="metric"
+              label="Métrique"
+              options={metricOptions ?? []}
+              className="w-56"
+              isRequired
+            />
+          )
+        ) : (
+          <input type="hidden" name="metric" value={metric} />
+        )}
+        <Field
+          name="limit"
+          label={isNew ? "Limite" : `${label} — limite`}
+          description="Vide = illimité, 0 = non inclus"
+          defaultValue={limit === null || limit === undefined ? "" : String(limit)}
+          error={state.fieldErrors?.limit}
+          inputMode="numeric"
+          className="w-44"
+        />
+        <Field
+          name="used"
+          label="Consommé"
+          defaultValue={String(used ?? 0)}
+          error={state.fieldErrors?.used}
+          inputMode="numeric"
+          className="w-32"
+        />
+        <SubmitButton variant="secondary">{isNew ? "Ajouter" : "Appliquer"}</SubmitButton>
+        {isNew && (
+          <Button variant="ghost" onPress={() => setCustom((c) => !c)}>
+            {custom ? "Liste" : "Autre métrique"}
+          </Button>
+        )}
+        {state.message && <p className="w-full text-sm text-fg/80">{state.message}</p>}
+      </form>
+      {!isNew && canDelete && (
+        <form action={deleteQuota}>
+          <input type="hidden" name="userId" value={userId} />
+          <input type="hidden" name="metric" value={metric} />
+          <button
+            type="submit"
+            className="mb-1 rounded-full p-2.5 text-danger-fg hover:bg-danger/10"
+            aria-label={`Supprimer le quota ${label}`}
+            title="Supprimer ce quota (la métrique devient illimitée)"
+          >
+            <Icon name="trash" className="size-4" />
+          </button>
+        </form>
       )}
-    </form>
+    </div>
   );
 }
 
@@ -441,36 +442,15 @@ export function ImpersonateButton({ userId, isSelf }: { userId: string; isSelf: 
 
 export function DeleteUserForm({ userId, email }: { userId: string; email: string }) {
   const [state, action] = useActionState<ActionState, FormData>(deleteUser, IDLE);
-  const [armed, setArmed] = useState(false);
-
-  if (!armed) {
-    return (
-      <Button variant="tertiary" onPress={() => setArmed(true)}>
-        Supprimer définitivement ce compte
-      </Button>
-    );
-  }
-
   return (
-    <form action={action} className="flex flex-col gap-4">
-      <input type="hidden" name="userId" value={userId} />
+    <ConfirmButton
+      action={action}
+      label="Supprimer définitivement ce compte"
+      hidden={{ userId }}
+      typeToConfirm={email}
+      description="Cette action supprime le compte et, en cascade, ses demandes, messages, devis, factures, services, documents et notifications. Elle est irréversible."
+    >
       <FormAlert state={state} />
-      <p className="rounded-2xl border border-fg/25 bg-panel px-4 py-3 text-sm text-fg">
-        Cette action supprime le compte et, en cascade, ses demandes, messages, devis,
-        factures, documents et notifications. Elle est irréversible.
-      </p>
-      <Field
-        name="confirm"
-        label={`Saisissez « ${email} » pour confirmer`}
-        placeholder={email}
-        isRequired
-      />
-      <div className="flex gap-2">
-        <SubmitButton variant="secondary">Supprimer définitivement</SubmitButton>
-        <Button variant="ghost" onPress={() => setArmed(false)}>
-          Annuler
-        </Button>
-      </div>
-    </form>
+    </ConfirmButton>
   );
 }

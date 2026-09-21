@@ -26,11 +26,14 @@ export function NewRequestForm({
   serviceOptions,
   defaultType,
   defaultService,
+  defaultTitle,
 }: {
   typeOptions: Option[];
   serviceOptions: Option[];
   defaultType?: string;
   defaultService?: string;
+  /** From `?title=` — "Commander" on an offer, "question sur cette démo". */
+  defaultTitle?: string;
 }) {
   const [state, action] = useActionState<ActionState, FormData>(createRequest, IDLE);
   const v = state.values ?? {};
@@ -43,7 +46,7 @@ export function NewRequestForm({
         name="title"
         label="Objet de la demande"
         placeholder="Ex. Intégrer l'OCR à notre back-office"
-        defaultValue={v.title}
+        defaultValue={v.title ?? defaultTitle}
         error={state.fieldErrors?.title}
         isRequired
       />

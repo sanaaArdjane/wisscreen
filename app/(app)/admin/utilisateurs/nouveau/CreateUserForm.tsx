@@ -24,11 +24,9 @@ import { createAccount } from "../actions";
  */
 export function CreateUserForm({
   roleOptions,
-  planOptions,
   canCreateStaff,
 }: {
   roleOptions: Option[];
-  planOptions: Option[];
   canCreateStaff: boolean;
 }) {
   const [state, action] = useActionState<ActionState, FormData>(createAccount, IDLE);
@@ -84,14 +82,6 @@ export function CreateUserForm({
           defaultValue={v.role ?? "user"}
           error={state.fieldErrors?.role}
           isRequired
-        />
-        <SelectField
-          name="planSlug"
-          label="Formule"
-          description="Par défaut, celle définie dans les paramètres."
-          options={planOptions}
-          defaultValue={v.planSlug}
-          placeholder="Formule par défaut"
         />
       </div>
 

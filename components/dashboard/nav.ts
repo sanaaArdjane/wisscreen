@@ -25,7 +25,7 @@ export const CLIENT_NAV: NavItem[] = [
   { href: "/dashboard", label: "Vue d'ensemble", icon: "home" },
   { href: "/dashboard/demandes", label: "Mes demandes", icon: "inbox", prefix: true },
   { href: "/dashboard/demos", label: "Mes démos", icon: "zap", prefix: true },
-  { href: "/dashboard/abonnement", label: "Abonnement & quotas", icon: "credit-card" },
+  { href: "/dashboard/abonnement", label: "Mes services", icon: "server" },
   { href: "/dashboard/devis", label: "Devis", icon: "file-text", prefix: true },
   { href: "/dashboard/factures", label: "Factures", icon: "receipt", prefix: true },
   { href: "/dashboard/documents", label: "Documents", icon: "database" },
@@ -68,6 +68,14 @@ export const ADMIN_NAV: NavItem[] = [
     label: "Abonnements & quotas",
     icon: "credit-card",
     permission: "subscriptions:read",
+    prefix: true,
+  },
+  {
+    href: "/admin/catalogue",
+    label: "Catalogue",
+    icon: "store",
+    permission: "subscriptions:read",
+    prefix: true,
   },
   // No permission: everyone with a back-office account has a feed of their own.
   // The *composer* behind it is what needs `notifications:write`.

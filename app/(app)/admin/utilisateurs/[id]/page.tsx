@@ -1,12 +1,21 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { asc, desc, eq } from "drizzle-orm";
+import { desc, eq } from "drizzle-orm";
 import { db } from "@/lib/db";
-import { plans, requests, user as userTable } from "@/lib/db/schema";
+import { requests, user as userTable } from "@/lib/db/schema";
 import { requirePermission } from "@/lib/guard";
 import { can, effectivePermissions, ROLES } from "@/lib/permissions";
-import { getSubscription, listQuotas, METRIC_LABELS } from "@/lib/quotas";
+import {
+  listQuotas,
+  listSubscriptions,
+  METRIC_LABELS,
+  PERIOD_LABELS,
+  SUBSCRIPTION_LABELS,
+  SUBSCRIPTION_TONE,
+} from "@/lib/quotas";
+import { formatMoney } from "@/lib/money";
+import { pillSmall } from "@/components/dashboard/pills";
 import { PageHeader, Panel, StatTile } from "@/components/dashboard/PageHeader";
 import { StatusChip } from "@/components/dashboard/ui";
 import { QuotaMeter } from "@/components/dashboard/QuotaMeter";
@@ -17,7 +26,6 @@ import {
   PermissionMatrix,
   QuotaForm,
   RoleForm,
-  SubscriptionForm,
   SuspendForm,
   UserProfileForm,
 } from "./UserControls";
@@ -39,10 +47,9 @@ export default async function UserDetailPage({ params }: PageProps<"/admin/utili
   const [target] = await db.select().from(userTable).where(eq(userTable.id, id)).limit(1);
   if (!target) notFound();
 
-  const [subscription, quotaRows, catalogue, userRequests] = await Promise.all([
-    getSubscription(target.id),
+  const [services, quotaRows, userRequests] = await Promise.all([
+    listSubscriptions(target.id),
     listQuotas(target.id),
-    db.select().from(plans).orderBy(asc(plans.sortOrder)),
     db
       .select()
       .from(requests)
@@ -85,10 +92,10 @@ export default async function UserDetailPage({ params }: PageProps<"/admin/utili
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <StatTile label="Demandes" value={userRequests.length} icon="inbox" />
         <StatTile
-          label="Formule"
-          value={subscription?.plan.name ?? "—"}
-          hint={subscription?.subscription.status}
-          icon="credit-card"
+          label="Services actifs"
+          value={services.filter((s) => s.subscription.status === "active").length}
+          hint={`${services.length} au total`}
+          icon="server"
         />
         <StatTile
           label="Adresse vérifiée"
@@ -142,30 +149,65 @@ export default async function UserDetailPage({ params }: PageProps<"/admin/utili
             </Panel>
           )}
 
-          {mayWriteSubs && (
-            <Panel title="Abonnement">
-              <SubscriptionForm
-                userId={target.id}
-                planSlug={subscription?.plan.slug}
-                status={subscription?.subscription.status}
-                note={subscription?.subscription.note}
-                planOptions={catalogue.map((p) => ({ value: p.slug, label: p.name }))}
-              />
-            </Panel>
-          )}
+          <Panel
+            title="Services"
+            description="Ce que ce client a souscrit : serveurs, infrastructure, services à la consommation."
+            actions={
+              mayWriteSubs && (
+                <Link href={`/admin/abonnements/nouveau?client=${target.id}`} className={pillSmall}>
+                  Provisionner
+                </Link>
+              )
+            }
+            bodyClassName={services.length ? "p-0" : undefined}
+          >
+            {services.length === 0 ? (
+              <p className="text-sm text-fg/80">Aucun service souscrit.</p>
+            ) : (
+              <ul className="divide-y divide-fg/10">
+                {services.map(({ subscription: sub, plan }) => (
+                  <li key={sub.id}>
+                    <Link
+                      href={`/admin/abonnements/${sub.id}`}
+                      className="flex items-center gap-4 px-6 py-3.5 transition-colors hover:bg-soft"
+                    >
+                      <span className="min-w-0 flex-1">
+                        <span className="block truncate text-sm font-[650] text-fg">
+                          {sub.label || plan?.name || "Service sur mesure"}
+                        </span>
+                        <span className="block text-xs text-fg/80">
+                          {sub.priceCents === null
+                            ? "Sur devis"
+                            : `${formatMoney(sub.priceCents, sub.currency)} ${PERIOD_LABELS[sub.billingPeriod] ?? ""}`}
+                          {sub.renewsAt && ` · renouvellement le ${formatDate(sub.renewsAt)}`}
+                        </span>
+                      </span>
+                      <StatusChip
+                        label={SUBSCRIPTION_LABELS[sub.status] ?? sub.status}
+                        tone={SUBSCRIPTION_TONE[sub.status] ?? SUBSCRIPTION_TONE.pending}
+                      />
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </Panel>
 
           <Panel
             title="Quotas"
             description={
               mayWriteSubs
-                ? "Ajustez une limite ou remettez un compteur à zéro."
+                ? "Ce que ce client consomme sur les services mesurés : ajustez une limite, remettez un compteur à zéro, ou ajoutez une métrique."
                 : undefined
             }
           >
-            {quotaRows.length === 0 ? (
-              <p className="text-sm text-fg/80">Aucun quota appliqué à ce compte.</p>
-            ) : mayWriteSubs ? (
+            {mayWriteSubs ? (
               <div className="flex flex-col gap-6">
+                {quotaRows.length === 0 && (
+                  <p className="text-sm text-fg/80">
+                    Aucun quota : tout est illimité. Un service provisionné ajoute les siens.
+                  </p>
+                )}
                 {quotaRows.map((q) => (
                   <QuotaForm
                     key={q.metric}
@@ -174,9 +216,20 @@ export default async function UserDetailPage({ params }: PageProps<"/admin/utili
                     label={METRIC_LABELS[q.metric] ?? q.metric}
                     limit={q.limit}
                     used={q.used}
+                    canDelete={can(staff, "subscriptions:delete")}
                   />
                 ))}
+                <div className="border-t border-fg/10 pt-5">
+                  <QuotaForm
+                    userId={target.id}
+                    metricOptions={Object.entries(METRIC_LABELS)
+                      .filter(([m]) => !quotaRows.some((q) => q.metric === m))
+                      .map(([value, label]) => ({ value, label }))}
+                  />
+                </div>
               </div>
+            ) : quotaRows.length === 0 ? (
+              <p className="text-sm text-fg/80">Aucun quota appliqué à ce compte.</p>
             ) : (
               <div className="flex flex-col gap-4">
                 {quotaRows.map((q) => (

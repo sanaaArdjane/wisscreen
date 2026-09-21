@@ -7,12 +7,11 @@ import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { and, eq, sql } from "drizzle-orm";
 import { db } from "@/lib/db";
-import { quotas, subscriptions, user as userTable } from "@/lib/db/schema";
+import { quotas, user as userTable } from "@/lib/db/schema";
 import { auth } from "@/lib/auth";
 import { requirePermission } from "@/lib/guard";
 import { logActivity, notify } from "@/lib/account";
-import { applyPlanQuotas, nextPeriodReset } from "@/lib/quotas";
-import { getSetting } from "@/lib/settings";
+import { isStandingMetric, nextPeriodReset } from "@/lib/quotas";
 import { ALL_PERMISSIONS, ROLES, can, isRoleDefault, type PermissionKey } from "@/lib/permissions";
 import { checkbox, fail, optionalText, parseForm, succeed, type ActionState } from "@/lib/actions";
 import { sendEmail } from "@/lib/email";
@@ -69,7 +68,6 @@ const CreateSchema = z.object({
   role: z.enum(ROLES),
   company: optionalText,
   phone: optionalText,
-  planSlug: optionalText,
   password: z
     .string()
     .min(10, "10 caractères minimum.")
@@ -155,17 +153,8 @@ export async function createAccount(_prev: ActionState, formData: FormData): Pro
       .where(eq(userTable.id, userId));
   }
 
-  // Provision immediately rather than waiting for their first dashboard hit, so
-  // the admin can set a plan and quotas on the account straight away.
-  await db
-    .insert(subscriptions)
-    .values({
-      userId,
-      planSlug: parsed.data.planSlug || (await getSetting("defaultPlan")),
-      status: "active",
-    })
-    .onConflictDoNothing({ target: subscriptions.userId });
-  await applyPlanQuotas(userId, parsed.data.planSlug || (await getSetting("defaultPlan")));
+  // No subscription is created here. A subscription is a service the customer
+  // bought, provisioned from /admin/abonnements — an account is not a sale.
 
   await logActivity({
     actorId: staff.id,
@@ -393,76 +382,6 @@ export async function updatePermissions(
 
 /* ────────────────────────── Subscription & quotas ────────────────────────── */
 
-const SubscriptionSchema = z.object({
-  userId: z.string().min(1),
-  planSlug: z.string().min(1),
-  status: z.enum(["active", "trialing", "past_due", "paused", "cancelled"]),
-  resetQuotas: checkbox,
-  note: optionalText,
-});
-
-export async function updateSubscription(
-  _prev: ActionState,
-  formData: FormData,
-): Promise<ActionState> {
-  const staff = await requirePermission("subscriptions:write");
-  const parsed = parseForm(SubscriptionSchema, formData);
-  if (!parsed.ok) return parsed.state;
-
-  const [existing] = await db
-    .select()
-    .from(subscriptions)
-    .where(eq(subscriptions.userId, parsed.data.userId))
-    .limit(1);
-
-  const changedPlan = existing?.planSlug !== parsed.data.planSlug;
-
-  await db
-    .insert(subscriptions)
-    .values({
-      userId: parsed.data.userId,
-      planSlug: parsed.data.planSlug,
-      status: parsed.data.status,
-      note: parsed.data.note,
-    })
-    .onConflictDoUpdate({
-      target: subscriptions.userId,
-      set: {
-        planSlug: parsed.data.planSlug,
-        status: parsed.data.status,
-        note: parsed.data.note,
-        updatedAt: new Date(),
-      },
-    });
-
-  // A plan change always re-applies allowances; otherwise it only happens when
-  // the admin asks, so a bumped-up limit isn't wiped by an unrelated edit.
-  if (changedPlan || parsed.data.resetQuotas) {
-    await applyPlanQuotas(parsed.data.userId, parsed.data.planSlug);
-  }
-
-  await logActivity({
-    actorId: staff.id,
-    action: "subscription.updated",
-    entity: "user",
-    entityId: parsed.data.userId,
-    meta: { planSlug: parsed.data.planSlug, status: parsed.data.status },
-  });
-
-  if (changedPlan) {
-    await notify({
-      userId: parsed.data.userId,
-      type: "subscription",
-      title: "Votre formule a été mise à jour",
-      href: "/dashboard/abonnement",
-    });
-  }
-
-  refresh(parsed.data.userId);
-  revalidatePath("/admin/abonnements");
-  return succeed("Abonnement mis à jour.");
-}
-
 const QuotaSchema = z.object({
   userId: z.string().min(1),
   metric: z.string().trim().min(1).max(64),
@@ -486,7 +405,7 @@ export async function setQuota(_prev: ActionState, formData: FormData): Promise<
       metric: parsed.data.metric,
       limit: parsed.data.limit,
       used: parsed.data.used,
-      resetsAt: parsed.data.metric.startsWith("storage.") ? null : nextPeriodReset(),
+      resetsAt: isStandingMetric(parsed.data.metric) ? null : nextPeriodReset(),
     })
     .onConflictDoUpdate({
       target: [quotas.userId, quotas.metric],
@@ -502,7 +421,26 @@ export async function setQuota(_prev: ActionState, formData: FormData): Promise<
   });
 
   refresh(parsed.data.userId);
+  revalidatePath("/admin/abonnements");
   return succeed("Quota mis à jour.");
+}
+
+/** Remove a metric from an account — which makes it unlimited, per the quota rules. */
+export async function deleteQuota(formData: FormData): Promise<void> {
+  const staff = await requirePermission("subscriptions:delete");
+  const userId = String(formData.get("userId") ?? "");
+  const metric = String(formData.get("metric") ?? "");
+  if (!userId || !metric) return;
+  await db.delete(quotas).where(and(eq(quotas.userId, userId), eq(quotas.metric, metric)));
+  await logActivity({
+    actorId: staff.id,
+    action: "quota.deleted",
+    entity: "user",
+    entityId: userId,
+    meta: { metric },
+  });
+  refresh(userId);
+  revalidatePath("/admin/abonnements");
 }
 
 /* ───────────────────────── Notifications & access ────────────────────────── */

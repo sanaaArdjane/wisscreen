@@ -62,7 +62,7 @@ export function Field({
 }: BaseFieldProps & {
   type?: string;
   autoComplete?: string;
-  inputMode?: "text" | "email" | "tel" | "numeric" | "url";
+  inputMode?: "text" | "email" | "tel" | "numeric" | "decimal" | "url";
 }) {
   return (
     <TextField

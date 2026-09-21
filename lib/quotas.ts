@@ -1,14 +1,20 @@
-import { and, eq, sql } from "drizzle-orm";
+import { and, desc, eq, sql } from "drizzle-orm";
 import { db } from "@/lib/db";
 import { plans, quotas, subscriptions } from "@/lib/db/schema";
 
 /**
- * Usage allowances.
+ * Metered consumables — what WICLOUD provides and counts: SMTP sends, AI
+ * requests, SMS, storage, bandwidth.
+ *
+ * These used to meter the *dashboard* itself (demandes per month, demo runs),
+ * which rationed the one thing an agency wants more of: customers asking it
+ * for work. A quota now exists because a provisioned service granted it —
+ * see `grantServiceQuotas` — or because the desk set one by hand.
  *
  * Three rules the rest of the app relies on:
- *  - **A metric with no row, or a null limit, is unlimited.** The Entreprise plan
- *    works by simply not listing `requests.monthly`, rather than by a magic
- *    sentinel number that someone later compares with `>=`.
+ *  - **A metric with no row, or a null limit, is unlimited.** A service that
+ *    doesn't mention a metric simply doesn't meter it, rather than setting a
+ *    magic sentinel number that someone later compares with `>=`.
  *  - **A limit of 0 means "not in your plan"** — a different message from
  *    "you've used it all", so the two are distinguishable at the call site.
  *  - **The period resets lazily.** There is no cron: `consume()` notices that
@@ -17,11 +23,26 @@ import { plans, quotas, subscriptions } from "@/lib/db/schema";
  *    first request after it wakes.
  */
 
+/**
+ * The metrics the admin UI offers. Free text is still accepted everywhere —
+ * `describe()` falls back to the raw key — so metering a new service is a line
+ * here, not a migration. `storage.*` and `bandwidth.*` prefixes matter: a
+ * `storage.` metric is a standing total and never resets.
+ */
 export const METRIC_LABELS: Record<string, string> = {
-  "requests.monthly": "Demandes ce mois",
-  "demo.runs": "Exécutions de démo",
+  "smtp.emails": "Envois SMTP",
+  "ai.requests": "Requêtes IA",
+  "ai.tokens": "Jetons IA",
+  "sms.messages": "SMS envoyés",
   "storage.mb": "Stockage (Mo)",
+  "bandwidth.gb": "Bande passante (Go)",
+  "demo.processing": "Traitements de démo",
 };
+
+/** A storage allowance is a standing total, not a monthly budget. */
+export function isStandingMetric(metric: string): boolean {
+  return metric.startsWith("storage.");
+}
 
 export type QuotaView = {
   metric: string;
@@ -65,31 +86,50 @@ export async function listQuotas(userId: string): Promise<QuotaView[]> {
 }
 
 /**
- * Gives a user the allowances of a plan. Called when a subscription is created
- * or its plan changed. Metrics the new plan doesn't mention are **deleted**, not
- * left at the old value — an upgrade to Entreprise has to actually remove the
- * cap rather than leave a stale 50 sitting there.
+ * Grant the quotas a catalogue service provides, when it is provisioned.
+ *
+ * **Upsert, never delete.** Its predecessor, `applyPlanQuotas`, deleted every
+ * quota row for the account and re-inserted the plan's — correct when one plan
+ * owned everything, destructive now that a customer holds several services: a
+ * new SMS bundle would have wiped their SMTP allowance. Each metric granted
+ * here is *added* to whatever limit the account already has, so two SMTP
+ * services stack; `used` is never touched. A grant of `null` (unlimited)
+ * wins over any number.
  */
-export async function applyPlanQuotas(userId: string, planSlug: string): Promise<void> {
-  const [plan] = await db.select().from(plans).where(eq(plans.slug, planSlug)).limit(1);
-  if (!plan) return;
-
-  const entries = Object.entries(plan.defaultQuotas ?? {});
+export async function grantServiceQuotas(
+  userId: string,
+  grants: Record<string, number | null>,
+): Promise<void> {
   const resetsAt = nextPeriodReset();
+  for (const [metric, limit] of Object.entries(grants)) {
+    await db
+      .insert(quotas)
+      .values({ userId, metric, limit, used: 0, resetsAt: isStandingMetric(metric) ? null : resetsAt })
+      .onConflictDoUpdate({
+        target: [quotas.userId, quotas.metric],
+        set: {
+          limit:
+            limit === null
+              ? sql`null`
+              : sql`case when ${quotas.limit} is null then null else ${quotas.limit} + ${limit} end`,
+          updatedAt: new Date(),
+        },
+      });
+  }
+}
 
-  await db.delete(quotas).where(eq(quotas.userId, userId));
-  if (entries.length === 0) return;
-
-  await db.insert(quotas).values(
-    entries.map(([metric, limit]) => ({
-      userId,
-      metric,
-      limit,
-      used: 0,
-      // A storage allowance is a standing total, not a monthly budget.
-      resetsAt: metric.startsWith("storage.") ? null : resetsAt,
-    })),
-  );
+/** The inverse, for a cancelled or deleted service. Floors at 0; unlimited stays. */
+export async function revokeServiceQuotas(
+  userId: string,
+  grants: Record<string, number | null>,
+): Promise<void> {
+  for (const [metric, limit] of Object.entries(grants)) {
+    if (limit === null) continue;
+    await db
+      .update(quotas)
+      .set({ limit: sql`greatest(0, ${quotas.limit} - ${limit})`, updatedAt: new Date() })
+      .where(and(eq(quotas.userId, userId), eq(quotas.metric, metric), sql`${quotas.limit} is not null`));
+  }
 }
 
 export type ConsumeResult =
@@ -151,16 +191,50 @@ export async function refund(userId: string, metric: string, amount = 1): Promis
 }
 
 /**
- * The subscription a user is on, with its plan. Everyone gets one on sign-up
- * (see `lib/account.ts`), so a missing row means something went wrong rather
- * than "free tier" — the caller renders a prompt rather than assuming limits.
+ * Every service an account holds, newest first, with its catalogue entry when
+ * it has one (a bespoke service has none). This replaced `getSubscription`,
+ * which assumed exactly one row — the model this table no longer has.
  */
-export async function getSubscription(userId: string) {
-  const [row] = await db
+export async function listSubscriptions(userId: string) {
+  return db
     .select({ subscription: subscriptions, plan: plans })
     .from(subscriptions)
-    .innerJoin(plans, eq(plans.slug, subscriptions.planSlug))
+    .leftJoin(plans, eq(plans.slug, subscriptions.planSlug))
     .where(eq(subscriptions.userId, userId))
-    .limit(1);
-  return row ?? null;
+    .orderBy(desc(subscriptions.createdAt));
 }
+
+export const SUBSCRIPTION_STATUSES = ["pending", "provisioning", "active", "suspended", "cancelled"] as const;
+export type SubscriptionStatus = (typeof SUBSCRIPTION_STATUSES)[number];
+
+export const SUBSCRIPTION_LABELS: Record<string, string> = {
+  pending: "En attente",
+  provisioning: "Mise en service",
+  active: "Actif",
+  suspended: "Suspendu",
+  cancelled: "Résilié",
+  // Legacy values from the platform-tier model.
+  trialing: "Essai",
+  past_due: "Impayé",
+  paused: "Suspendu",
+};
+
+export const SUBSCRIPTION_TONE: Record<string, string> = {
+  pending: "bg-fg/5 text-fg border-fg/15",
+  provisioning: "bg-signal/15 text-fg border-signal/45",
+  active: "bg-teal/15 text-fg border-teal/40",
+  suspended: "bg-fg text-on-fg border-fg",
+  cancelled: "bg-fg/5 text-fg border-fg/15",
+};
+
+export const CATEGORY_LABELS: Record<string, string> = {
+  infrastructure: "Infrastructure",
+  addon: "Service à la consommation",
+  support: "Accompagnement",
+};
+
+export const PERIOD_LABELS: Record<string, string> = {
+  monthly: "/ mois",
+  yearly: "/ an",
+  one_off: "une fois",
+};

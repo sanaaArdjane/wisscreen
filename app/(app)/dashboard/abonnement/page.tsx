@@ -1,181 +1,220 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { asc } from "drizzle-orm";
+import { asc, eq } from "drizzle-orm";
 import { db } from "@/lib/db";
 import { plans } from "@/lib/db/schema";
 import { requireUser } from "@/lib/guard";
-import { getSubscription, listQuotas, METRIC_LABELS } from "@/lib/quotas";
 import { PageHeader, Panel } from "@/components/dashboard/PageHeader";
+import { EmptyState, StatusChip } from "@/components/dashboard/ui";
 import { QuotaMeter } from "@/components/dashboard/QuotaMeter";
+import { pillPrimary, pillSmall } from "@/components/dashboard/pills";
+import { Icon } from "@/components/ui/Icon";
+import {
+  CATEGORY_LABELS,
+  METRIC_LABELS,
+  PERIOD_LABELS,
+  SUBSCRIPTION_LABELS,
+  SUBSCRIPTION_TONE,
+  listQuotas,
+  listSubscriptions,
+} from "@/lib/quotas";
 import { formatMoney } from "@/lib/money";
 import { formatDate } from "@/lib/format";
-import { cn } from "@/lib/cn";
-import { Icon } from "@/components/ui/Icon";
-import { pillPrimary } from "@/components/dashboard/pills";
 
-export const metadata: Metadata = { title: "Abonnement & quotas" };
+export const metadata: Metadata = { title: "Mes services" };
 
-const STATUS_LABELS: Record<string, string> = {
-  active: "Active",
-  trialing: "Période d'essai",
-  past_due: "Paiement en retard",
-  paused: "En pause",
-  cancelled: "Résiliée",
-};
+function price(cents: number | null, currency: string, period: string) {
+  if (cents === null) return "Sur devis";
+  if (cents === 0) return "Inclus";
+  return `${formatMoney(cents, currency)} ${PERIOD_LABELS[period] ?? ""}`;
+}
 
-export default async function AbonnementPage() {
+/**
+ * What this customer has bought from WICLOUD — servers, infrastructure,
+ * metered services — and how much of the metered ones they have used.
+ *
+ * It used to be "your plan", a platform tier that capped how many demandes
+ * the customer could file. Ordering is still a human step: every "Commander"
+ * opens a demande, the desk answers with a devis, and provisions the service.
+ */
+export default async function MesServicesPage() {
   const user = await requireUser("/dashboard/abonnement");
-
-  const [subscription, quotas, catalogue] = await Promise.all([
-    getSubscription(user.id),
+  const [services, usage, catalogue] = await Promise.all([
+    listSubscriptions(user.id),
     listQuotas(user.id),
-    db.select().from(plans).orderBy(asc(plans.sortOrder)),
+    db.select().from(plans).where(eq(plans.active, true)).orderBy(asc(plans.category), asc(plans.sortOrder)),
   ]);
 
-  const currentSlug = subscription?.plan.slug;
+  const live = services.filter((s) => s.subscription.status !== "cancelled");
+  const past = services.filter((s) => s.subscription.status === "cancelled");
+  const groups = Object.keys(CATEGORY_LABELS)
+    .map((cat) => ({ cat, items: catalogue.filter((p) => p.category === cat) }))
+    .filter((g) => g.items.length > 0);
 
   return (
     <>
       <PageHeader
-        title="Abonnement & quotas"
-        description="Ce que comprend votre formule, et ce qu'il vous reste ce mois-ci."
+        title="Mes services"
+        description="Vos serveurs, votre infrastructure et vos services à la consommation chez WICLOUD."
+        actions={
+          <Link href="/dashboard/demandes/nouvelle?type=service" className={pillPrimary}>
+            <Icon name="plus" className="size-4" />
+            Demander un service
+          </Link>
+        }
       />
 
-      <div className="grid gap-6 lg:grid-cols-3">
-        <Panel className="lg:col-span-2" title="Consommation">
-          {quotas.length === 0 ? (
-            <p className="text-sm text-fg/80">
-              Aucune limite n&apos;est appliquée à votre compte.
-            </p>
-          ) : (
-            <div className="flex flex-col gap-5">
-              {quotas.map((q) => (
-                <QuotaMeter key={q.metric} quota={q} showReset />
-              ))}
-            </div>
-          )}
-          <p className="mt-6 border-t border-fg/10 pt-4 text-xs text-fg/80">
-            Les compteurs mensuels se réinitialisent le 1<sup>er</sup> de chaque mois. Le
-            stockage est un total cumulé.
-          </p>
-        </Panel>
+      {live.length === 0 ? (
+        <EmptyState
+          title="Aucun service pour l'instant"
+          description="Déposez une demande pour un serveur, un hébergement ou un service à la consommation : nous vous envoyons un devis, puis le mettons en service ici."
+          action={
+            <Link href="/dashboard/demandes/nouvelle?type=service" className={`${pillPrimary} mt-2`}>
+              Déposer une demande
+            </Link>
+          }
+        />
+      ) : (
+        <ul className="grid gap-4 lg:grid-cols-2">
+          {live.map(({ subscription: s, plan }) => {
+            const spec = Object.entries(s.resourceSpec ?? {});
+            return (
+              <li key={s.id} className="flex flex-col gap-4 rounded-3xl border border-fg/10 bg-panel p-6">
+                <div className="flex items-start gap-3">
+                  <span className="flex size-10 shrink-0 items-center justify-center rounded-[30%] bg-soft text-fg">
+                    <Icon name={plan?.category === "addon" ? "zap" : plan?.category === "support" ? "users" : "server"} className="size-5" />
+                  </span>
+                  <div className="min-w-0 flex-1">
+                    <p className="text-lg font-[650] leading-tight text-fg">{s.label || plan?.name || "Service"}</p>
+                    <p className="mt-0.5 text-sm text-fg/80">{price(s.priceCents, s.currency, s.billingPeriod)}</p>
+                  </div>
+                  <StatusChip label={SUBSCRIPTION_LABELS[s.status] ?? s.status} tone={SUBSCRIPTION_TONE[s.status] ?? SUBSCRIPTION_TONE.pending} />
+                </div>
 
-        <Panel title="Votre formule">
-          {subscription ? (
-            <>
-              <p className="text-2xl font-[650] text-fg">
-                {subscription.plan.name}
-              </p>
-              <p className="mt-1 text-sm text-fg/80">{subscription.plan.description}</p>
-              <dl className="mt-4 flex flex-col gap-2 border-t border-fg/10 pt-4 text-sm">
-                <div className="flex justify-between gap-4">
-                  <dt className="text-fg/80">Statut</dt>
-                  <dd className="font-[650] text-fg">
-                    {STATUS_LABELS[subscription.subscription.status] ??
-                      subscription.subscription.status}
-                  </dd>
-                </div>
-                <div className="flex justify-between gap-4">
-                  <dt className="text-fg/80">Depuis le</dt>
-                  <dd className="font-[650] text-fg">
-                    {formatDate(subscription.subscription.periodStart)}
-                  </dd>
-                </div>
-                {subscription.subscription.periodEnd && (
-                  <div className="flex justify-between gap-4">
-                    <dt className="text-fg/80">
-                      {subscription.subscription.cancelAtPeriodEnd ? "Se termine le" : "Échéance"}
-                    </dt>
-                    <dd className="font-[650] text-fg">
-                      {formatDate(subscription.subscription.periodEnd)}
-                    </dd>
+                {spec.length > 0 && (
+                  <dl className="grid grid-cols-[auto_1fr] gap-x-6 gap-y-1 text-sm">
+                    {spec.map(([k, v]) => (
+                      <div key={k} className="contents">
+                        <dt className="text-fg/80">{k}</dt>
+                        <dd className="text-fg">{v}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                )}
+
+                {s.accessNotes && (
+                  <div className="rounded-2xl bg-soft px-4 py-3">
+                    <p className="mb-1 text-xs font-[650] text-fg/80">Accès</p>
+                    <p className="whitespace-pre-wrap break-words font-mono text-sm text-fg">{s.accessNotes}</p>
                   </div>
                 )}
-              </dl>
-            </>
-          ) : (
-            <p className="text-sm text-fg/80">Aucune formule active sur ce compte.</p>
-          )}
-        </Panel>
-      </div>
 
-      <h2 className="mb-4 mt-10 text-lg font-[650] text-fg">
-        Changer de formule
-      </h2>
-      <p className="mb-5 max-w-2xl text-sm text-fg/80">
-        Les changements de formule passent par notre équipe : déposez une demande et nous
-        ajustons votre accès, en général sous 24 h ouvrées.
-      </p>
-
-      <div className="grid gap-4 lg:grid-cols-3">
-        {catalogue.map((plan) => {
-          const current = plan.slug === currentSlug;
-          return (
-            <article
-              key={plan.slug}
-              className={cn(
-                "flex flex-col rounded-2xl border bg-panel p-6",
-                // Exactly one accented card: the one you're on. The accent marks
-                // state here, not a recommendation — it isn't an upsell badge.
-                current ? "border-signal/55" : "border-fg/10",
-              )}
-            >
-              <div className="flex items-start justify-between gap-3">
-                <h3 className="text-lg font-[650] text-fg">{plan.name}</h3>
-                {current && (
-                  <span className="rounded-full border border-signal/45 bg-signal/10 px-2.5 py-0.5 text-xs font-[650] text-fg">
-                    Formule actuelle
-                  </span>
-                )}
-              </div>
-
-              <p className="mt-2 text-sm text-fg/80">{plan.description}</p>
-
-              <p className="mt-4 text-2xl font-[650] text-fg">
-                {plan.priceCents === null ? (
-                  <span className="text-lg">Sur devis</span>
-                ) : plan.priceCents === 0 ? (
-                  "Gratuit"
-                ) : (
-                  <>
-                    {formatMoney(plan.priceCents, plan.currency)}
-                    <span className="text-sm font-normal text-fg/80"> / mois</span>
-                  </>
-                )}
-              </p>
-
-              <ul className="mt-4 flex flex-1 flex-col gap-2 text-sm text-fg/80">
-                {plan.features.map((f) => (
-                  <li key={f} className="flex gap-2">
-                    <Icon name="check" className="mt-0.5 size-4 shrink-0 text-signal-fg" />
-                    {f}
-                  </li>
-                ))}
-              </ul>
-
-              {Object.keys(plan.defaultQuotas ?? {}).length > 0 && (
-                <dl className="mt-4 border-t border-fg/10 pt-3 text-xs text-fg/80">
-                  {Object.entries(plan.defaultQuotas).map(([metric, limit]) => (
-                    <div key={metric} className="flex justify-between gap-3 py-0.5">
-                      <dt>{METRIC_LABELS[metric] ?? metric}</dt>
-                      <dd className="tabular-nums">{limit.toLocaleString("fr-FR")}</dd>
-                    </div>
-                  ))}
-                </dl>
-              )}
-
-              {!current && (
+                <p className="mt-auto text-xs text-fg/80">
+                  En service depuis le {formatDate(s.periodStart)}
+                  {s.renewsAt && ` · renouvellement le ${formatDate(s.renewsAt)}`}
+                </p>
                 <Link
-                  href={`/dashboard/demandes/nouvelle?type=devis&title=${encodeURIComponent(plan.name)}`}
-                  className={`${pillPrimary} mt-5`}
+                  href={`/dashboard/demandes/nouvelle?type=support&title=${encodeURIComponent(`Support — ${s.label || plan?.name || "service"}`)}`}
+                  className={`${pillSmall} self-start`}
                 >
-                  Demander {plan.name}
+                  Demander de l&apos;aide
                 </Link>
-              )}
-            </article>
-          );
-        })}
-      </div>
+              </li>
+            );
+          })}
+        </ul>
+      )}
+
+      {usage.length > 0 && (
+        <Panel className="mt-6" title="Consommation" description="Les services mesurés à l'usage.">
+          <div className="grid gap-5 sm:grid-cols-2">
+            {usage.map((q) => (
+              <QuotaMeter key={q.metric} quota={q} showReset />
+            ))}
+          </div>
+        </Panel>
+      )}
+
+      {groups.length > 0 && (
+        <section className="mt-10">
+          <h2 className="mb-1 text-xl font-[650] text-fg">Nos offres</h2>
+          <p className="mb-5 text-sm text-fg/80">
+            Commander ouvre une demande : nous revenons vers vous avec un devis.
+          </p>
+          <div className="flex flex-col gap-6">
+            {groups.map((g) => (
+              <div key={g.cat}>
+                <p className="mb-3 text-xs font-[650] uppercase tracking-wide text-signal-fg">{CATEGORY_LABELS[g.cat]}</p>
+                <ul className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+                  {g.items.map((p) => {
+                    const owned = live.some((s) => s.subscription.planSlug === p.slug);
+                    return (
+                      <li
+                        key={p.slug}
+                        className={`flex flex-col gap-3 rounded-3xl border bg-panel p-6 ${owned ? "border-signal/55" : "border-fg/10"}`}
+                      >
+                        <div className="flex items-start justify-between gap-2">
+                          <p className="text-lg font-[650] leading-tight text-fg">{p.name}</p>
+                          {owned && <StatusChip label="Souscrit" tone="bg-signal/15 text-fg border-signal/45" />}
+                        </div>
+                        <p className="text-sm text-fg/80">{p.description}</p>
+                        <p className="text-xl font-[650] text-fg">{price(p.priceCents, p.currency, p.billingPeriod)}</p>
+                        {Object.keys(p.specs ?? {}).length > 0 && (
+                          <dl className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-1 text-sm">
+                            {Object.entries(p.specs).map(([k, v]) => (
+                              <div key={k} className="contents">
+                                <dt className="text-fg/80">{k}</dt>
+                                <dd className="text-fg">{v}</dd>
+                              </div>
+                            ))}
+                          </dl>
+                        )}
+                        {(p.features ?? []).length > 0 && (
+                          <ul className="flex flex-col gap-1.5 text-sm text-fg">
+                            {p.features.map((f) => (
+                              <li key={f} className="flex gap-2">
+                                <Icon name="check" className="mt-0.5 size-4 shrink-0 text-signal-fg" />
+                                {f}
+                              </li>
+                            ))}
+                          </ul>
+                        )}
+                        {Object.keys(p.defaultQuotas ?? {}).length > 0 && (
+                          <p className="text-xs text-fg/80">
+                            Inclut :{" "}
+                            {Object.entries(p.defaultQuotas)
+                              .map(([m, n]) => `${n === null ? "illimité" : n.toLocaleString("fr-FR")} ${METRIC_LABELS[m]?.toLowerCase() ?? m}`)
+                              .join(", ")}
+                          </p>
+                        )}
+                        <Link
+                          href={`/dashboard/demandes/nouvelle?type=devis&title=${encodeURIComponent(p.name)}`}
+                          className={`${pillSmall} mt-auto self-start`}
+                        >
+                          {owned ? "En commander un autre" : "Commander"}
+                        </Link>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {past.length > 0 && (
+        <Panel className="mt-10" title="Services résiliés" bodyClassName="p-0">
+          <ul className="divide-y divide-fg/10">
+            {past.map(({ subscription: s, plan }) => (
+              <li key={s.id} className="flex items-center gap-4 px-6 py-3 text-sm">
+                <span className="min-w-0 flex-1 truncate text-fg">{s.label || plan?.name || "Service"}</span>
+                <span className="text-xs text-fg/80">depuis le {formatDate(s.periodStart)}</span>
+              </li>
+            ))}
+          </ul>
+        </Panel>
+      )}
     </>
   );
 }

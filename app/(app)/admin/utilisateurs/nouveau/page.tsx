@@ -1,7 +1,4 @@
 import type { Metadata } from "next";
-import { asc } from "drizzle-orm";
-import { db } from "@/lib/db";
-import { plans } from "@/lib/db/schema";
 import { requirePermission } from "@/lib/guard";
 import { can, ROLES } from "@/lib/permissions";
 import { PageHeader, Panel } from "@/components/dashboard/PageHeader";
@@ -19,8 +16,6 @@ const ROLE_LABELS: Record<string, string> = {
 export default async function NouvelUtilisateurPage() {
   const staff = await requirePermission("users:write");
   const canCreateStaff = can(staff, "team:write");
-
-  const catalogue = await db.select().from(plans).orderBy(asc(plans.sortOrder));
 
   return (
     <>
@@ -40,7 +35,6 @@ export default async function NouvelUtilisateurPage() {
             value: r,
             label: ROLE_LABELS[r] ?? r,
           }))}
-          planOptions={catalogue.map((p) => ({ value: p.slug, label: p.name }))}
         />
         {!emailConfigured() && (
           <p className="mt-5 border-t border-fg/10 pt-4 text-xs text-fg/80">

@@ -11,7 +11,7 @@ import {
 } from "@/lib/server/queries";
 import { PageHeader, Panel } from "@/components/dashboard/PageHeader";
 import { StatusChip } from "@/components/dashboard/ui";
-import { pillPrimary } from "@/components/dashboard/pills";
+import { pillPrimary, pillSmall } from "@/components/dashboard/pills";
 import { Thread } from "@/components/dashboard/Thread";
 import { FileUpload } from "@/components/dashboard/FileUpload";
 import { AssignControl, StaffReplyForm, StatusControl } from "./RequestControls";
@@ -73,6 +73,11 @@ export default async function AdminRequestPage({ params }: PageProps<"/admin/dem
                 className={pillPrimary}
               >
                 Établir un devis
+              </Link>
+            )}
+            {can(staff, "subscriptions:write") && (
+              <Link href={`/admin/abonnements/nouveau?demande=${request.id}`} className={pillSmall}>
+                Provisionner un service
               </Link>
             )}
           </>
