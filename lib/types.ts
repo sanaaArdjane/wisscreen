@@ -39,6 +39,8 @@ export type IconName =
   | "inbox"
   | "chevron-down"
   | "chevron-right"
+  | "panel-left-close"
+  | "panel-left-open"
   | "trash"
   | "upload"
   | "download"

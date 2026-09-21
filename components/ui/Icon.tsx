@@ -41,6 +41,10 @@ const PATHS: Record<IconName, string> = {
   inbox: "M3 12h5l2 3h4l2-3h5M5 5h14l2 7v7H3v-7l2-7Z",
   "chevron-down": "M6 9l6 6 6-6",
   "chevron-right": "M9 6l6 6-6 6",
+  // Lucide panel-left-close / panel-left-open, copied into the shared registry
+  // so dashboard chrome does not need a second icon dependency.
+  "panel-left-close": "M16 15l-3-3 3-3M3 5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5ZM9 3v18",
+  "panel-left-open": "M13 9l3 3-3 3M3 5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5ZM9 3v18",
   trash: "M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3",
   upload: "M12 17V4M7 9l5-5 5 5M4 20h16",
   download: "M12 4v13M7 12l5 5 5-5M4 20h16",

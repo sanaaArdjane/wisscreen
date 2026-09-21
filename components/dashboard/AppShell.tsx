@@ -57,6 +57,8 @@ export function AppShell({
   const pathname = usePathname();
   const router = useRouter();
   const [open, setOpen] = useState(false);
+  const [sidebarMode, setSidebarMode] = useState<"open" | "closed" | "hover">("open");
+  const sidebarCollapsed = sidebarMode !== "open";
   const [theme, setThemeState] = useState<Theme>(initialTheme);
   // False while the page is at the top (the bar floats as a pill); true once the
   // visitor has scrolled (it becomes a full-width bar). Driven by an observer on
@@ -170,14 +172,51 @@ export function AppShell({
         {/* ── Sidebar ─────────────────────────────────────────────────────── */}
         <aside
           className={cn(
-            "fixed inset-y-0 left-0 z-50 flex w-72 flex-col bg-ink text-paper transition-transform duration-300 ease-out lg:sticky lg:top-0 lg:h-dvh lg:translate-x-0",
+            "group/sidebar fixed inset-y-0 left-0 z-50 flex w-72 flex-col overflow-hidden bg-ink text-paper transition-[width,transform] duration-300 ease-out lg:sticky lg:top-0 lg:h-dvh lg:translate-x-0",
+            sidebarMode === "hover" && "lg:hover:w-72",
+            sidebarCollapsed ? "lg:w-20" : "lg:w-72",
             open ? "translate-x-0" : "-translate-x-full",
           )}
         >
-          <div className="flex items-center justify-between px-6 py-6">
-            <Link href={home} className="text-xl font-[650] leading-none">
-              WI<span className="text-signal-soft">CLOUD</span>
+          <div className="flex h-[76px] shrink-0 items-center gap-3 px-5">
+            <Link href={home} className={cn("min-w-0 flex-1 items-center text-xl font-[650] leading-none", sidebarMode === "open" ? "flex" : sidebarMode === "hover" ? "flex lg:hidden lg:group-hover/sidebar:flex" : "flex lg:hidden")}>
+              <span className="shrink-0">W</span>
+              <span className={cn("w-[92px] overflow-hidden whitespace-nowrap opacity-100 transition-[opacity,width] duration-200", sidebarMode === "hover" && "lg:w-0 lg:opacity-0 lg:group-hover/sidebar:w-[92px] lg:group-hover/sidebar:opacity-100")}>I<span className="text-signal-soft">CLOUD</span></span>
             </Link>
+            <button
+              type="button"
+              onClick={(event) => {
+                if (event.shiftKey) {
+                  setSidebarMode((mode) => (mode === "hover" ? "open" : "hover"));
+                  return;
+                }
+                setSidebarMode((mode) => (mode === "open" ? "closed" : "open"));
+              }}
+              className={cn("group/collapse relative hidden shrink-0 rounded-full p-2 text-paper hover:bg-paper/10 lg:block", sidebarCollapsed && "lg:mx-auto", sidebarMode === "hover" && "lg:group-hover/sidebar:mx-0")}
+              aria-label={sidebarMode === "open" ? "Réduire le menu" : "Ouvrir le menu"}
+              aria-describedby={sidebarMode === "open" ? "sidebar-collapse-hint" : undefined}
+              aria-pressed={sidebarMode === "open"}
+            >
+              <Icon
+                name={sidebarMode === "open" ? "panel-left-close" : "panel-left-open"}
+                className="size-5 shrink-0"
+              />
+              {sidebarMode === "hover" && (
+                <span className="absolute right-1 top-1 size-2 rounded-full bg-signal" aria-hidden />
+              )}
+              {sidebarMode === "open" && (
+                <span
+                  id="sidebar-collapse-hint"
+                  role="tooltip"
+                  className="pointer-events-none absolute right-0 top-full z-50 mt-2 w-56 rounded-2xl bg-paper px-3.5 py-3 text-left text-xs font-[450] leading-relaxed text-ink opacity-0 transition-opacity group-hover/collapse:opacity-100 group-focus-visible/collapse:opacity-100"
+                >
+                  Cliquez pour ouvrir ou réduire.
+                  <span className="mt-1 block text-ink/80">
+                    <kbd className="font-[650] text-ink">Maj</kbd> + clic active l’ouverture au survol.
+                  </span>
+                </span>
+              )}
+            </button>
             <button
               type="button"
               onClick={close}
@@ -188,7 +227,7 @@ export function AppShell({
             </button>
           </div>
 
-          <p className="px-6 text-xs font-[650] text-steel-pale">
+          <p className={cn("overflow-hidden whitespace-nowrap px-6 text-xs font-[650] text-steel-pale transition-opacity", sidebarMode === "closed" && "lg:opacity-0", sidebarMode === "hover" && "lg:opacity-0 lg:group-hover/sidebar:opacity-100")}>
             {area === "admin" ? "Administration" : "Espace client"}
           </p>
 
@@ -201,7 +240,7 @@ export function AppShell({
           <div className="relative flex min-h-0 flex-1 flex-col">
             <nav
               ref={navRef}
-              className="scrollbar-none flex-1 overflow-y-auto pb-4 pl-4 pr-0 pt-4"
+              className={cn("scrollbar-none flex-1 overflow-y-auto pb-4 pl-4 pr-0 pt-4 transition-[padding]", sidebarMode === "closed" && "lg:pl-3", sidebarMode === "hover" && "lg:pl-3 lg:group-hover/sidebar:pl-4")}
             >
               <ul ref={listRef} className="flex flex-col gap-0.5">
                 {nav.map((item) => {
@@ -238,7 +277,7 @@ export function AppShell({
                         )}
                       >
                         <Icon name={item.icon} className="size-[18px] shrink-0" />
-                        <span className="min-w-0 flex-1 truncate">{item.label}</span>
+                        <span className={cn("min-w-0 flex-1 truncate whitespace-nowrap transition-opacity", sidebarMode === "closed" && "lg:opacity-0", sidebarMode === "hover" && "lg:opacity-0 lg:group-hover/sidebar:opacity-100")}>{item.label}</span>
                       </Link>
                     </li>
                   );
@@ -263,15 +302,15 @@ export function AppShell({
                 A staff member has no client space of their own — `Mon profil` is
                 in the nav above, and seeing what a client sees is what
                 impersonation is for. */}
-            <ThemeToggle theme={theme} onChange={setTheme} />
-            <ShellLink href="/" icon="external" label="Retour au site" onNavigate={close} />
+            <ThemeToggle theme={theme} onChange={setTheme} sidebarMode={sidebarMode} />
+            <ShellLink href="/" icon="external" label="Retour au site" onNavigate={close} sidebarMode={sidebarMode} />
             <button
               type="button"
               onClick={signOut}
               className="flex w-full items-center gap-3 rounded-full px-4 py-2.5 text-sm font-[450] text-steel-pale transition-colors hover:bg-paper/8 hover:text-paper"
             >
-              <Icon name="log-out" className="size-[18px]" />
-              Se déconnecter
+              <Icon name="log-out" className="size-[18px] shrink-0" />
+              <span className={cn("whitespace-nowrap transition-opacity", sidebarMode === "closed" && "lg:opacity-0", sidebarMode === "hover" && "lg:opacity-0 lg:group-hover/sidebar:opacity-100")}>Se déconnecter</span>
             </button>
           </div>
         </aside>
@@ -368,11 +407,13 @@ function ShellLink({
   icon,
   label,
   onNavigate,
+  sidebarMode,
 }: {
   href: string;
   icon: NavItem["icon"];
   label: string;
   onNavigate?: () => void;
+  sidebarMode: "open" | "closed" | "hover";
 }) {
   return (
     <Link
@@ -380,8 +421,8 @@ function ShellLink({
       onClick={onNavigate}
       className="flex items-center gap-3 rounded-full px-4 py-2.5 text-sm font-[450] text-steel-pale transition-colors hover:bg-paper/8 hover:text-paper"
     >
-      <Icon name={icon} className="size-[18px]" />
-      {label}
+      <Icon name={icon} className="size-[18px] shrink-0" />
+      <span className={cn("whitespace-nowrap transition-opacity", sidebarMode === "closed" && "lg:opacity-0", sidebarMode === "hover" && "lg:opacity-0 lg:group-hover/sidebar:opacity-100")}>{label}</span>
     </Link>
   );
 }
@@ -401,7 +442,15 @@ function ShellLink({
  * server renders — this control just never writes it back. The first click resolves
  * the visitor to an explicit preference.
  */
-function ThemeToggle({ theme, onChange }: { theme: Theme; onChange: (next: Theme) => void }) {
+function ThemeToggle({
+  theme,
+  onChange,
+  sidebarMode,
+}: {
+  theme: Theme;
+  onChange: (next: Theme) => void;
+  sidebarMode: "open" | "closed" | "hover";
+}) {
   return (
     <button
       type="button"
@@ -423,7 +472,7 @@ function ThemeToggle({ theme, onChange }: { theme: Theme; onChange: (next: Theme
           style={{ opacity: "var(--dash-moon-o)" }}
         />
       </span>
-      Thème
+      <span className={cn("whitespace-nowrap transition-opacity", sidebarMode === "closed" && "lg:opacity-0", sidebarMode === "hover" && "lg:opacity-0 lg:group-hover/sidebar:opacity-100")}>Thème</span>
     </button>
   );
 }
