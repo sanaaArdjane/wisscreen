@@ -11,7 +11,7 @@ import { logActivity, notify } from "@/lib/account";
 import { INVOICE_STATUSES, INVOICE_LABELS, type InvoiceStatus } from "@/lib/billing";
 import { fail, optionalText, parseForm, succeed, type ActionState } from "@/lib/actions";
 import { formatMoney, totalCents } from "@/lib/money";
-import { allocateRef, readLines } from "@/lib/billing-lines";
+import { allocateRef, readLines, readOverrides } from "@/lib/billing-lines";
 import { emailBillingDocument } from "@/lib/billing-send";
 
 /**
@@ -50,6 +50,8 @@ export async function saveInvoice(_prev: ActionState, formData: FormData): Promi
   if (!parsed.ok) return parsed.state;
   const lines = readLines(formData);
   if (lines.length === 0) return fail("Ajoutez au moins une ligne.");
+  const ov = await readOverrides(formData);
+  if (!ov.ok) return fail(ov.error);
   const amountCents = totalCents(lines);
 
   if (parsed.data.invoiceId) {
@@ -67,6 +69,7 @@ export async function saveInvoice(_prev: ActionState, formData: FormData): Promi
         currency: parsed.data.currency,
         lines,
         amountCents,
+        overrides: ov.overrides,
         updatedAt: new Date(),
       })
       .where(eq(invoices.id, existing.id));
@@ -89,6 +92,7 @@ export async function saveInvoice(_prev: ActionState, formData: FormData): Promi
     currency: parsed.data.currency,
     lines,
     amountCents,
+    overrides: ov.overrides,
     status: "brouillon",
     createdById: staff.id,
   });

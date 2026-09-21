@@ -1,15 +1,19 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { asc, eq, ne } from "drizzle-orm";
+import { eq } from "drizzle-orm";
 import { db } from "@/lib/db";
 import { invoices, quotes, user as userTable } from "@/lib/db/schema";
 import { requirePermission } from "@/lib/guard";
 import { can } from "@/lib/permissions";
 import { PageHeader, Panel } from "@/components/dashboard/PageHeader";
 import { StatusChip } from "@/components/dashboard/ui";
-import { MoneyLines } from "@/components/dashboard/MoneyLines";
-import { QuoteEditor } from "../../devis/QuoteEditor";
+import { DocumentEditor } from "@/components/dashboard/billing/DocumentEditor";
+import { DocumentPreview } from "@/components/dashboard/billing/DocumentPreview";
+import { previewDoc } from "@/lib/billing-preview";
+import { listBillableClients } from "@/lib/server/queries";
+import { storageConfigured } from "@/lib/storage";
+import { effectiveCompany, type CompanyOverrides } from "@/lib/company";
 import { InvoiceControls } from "../InvoiceControls";
 import { InvoiceActions } from "../InvoiceActions";
 import { INVOICE_LABELS, INVOICE_TONE, effectiveInvoiceStatus } from "@/lib/billing";
@@ -34,17 +38,13 @@ export default async function AdminInvoicePage({ params }: PageProps<"/admin/fac
   if (!row) notFound();
   const { invoice, client, quote } = row;
 
-  const company = await getCompany();
+  const base = await getCompany();
+  const overrides = (invoice.overrides ?? {}) as CompanyOverrides;
+  const company = effectiveCompany(base, overrides);
   const mayWrite = can(staff, "invoices:write");
   const editable = ["brouillon", "envoyee", "en_retard"].includes(invoice.status);
   const effective = effectiveInvoiceStatus(invoice);
-  const clients = mayWrite && editable
-    ? await db
-        .select({ id: userTable.id, name: userTable.name, email: userTable.email })
-        .from(userTable)
-        .where(ne(userTable.role, "staff"))
-        .orderBy(asc(userTable.name))
-    : [];
+  const clients = mayWrite && editable ? await listBillableClients() : [];
 
   return (
     <>
@@ -55,28 +55,53 @@ export default async function AdminInvoicePage({ params }: PageProps<"/admin/fac
         backLabel="Factures"
         actions={<StatusChip label={INVOICE_LABELS[effective]} tone={INVOICE_TONE[effective]} />}
       />
-      <div className="grid gap-6 xl:grid-cols-3">
-        <Panel className="xl:col-span-2" title={mayWrite && editable ? "Contenu" : "Détail"}>
-          {mayWrite && editable ? (
-            <QuoteEditor
-              kind="invoice"
-              quoteId={invoice.id}
-              clients={clients.map((c) => ({ value: c.id, label: `${c.name} — ${c.email}` }))}
-              defaultUserId={invoice.userId}
-              title={invoice.title}
-              note={invoice.note}
-              validUntil={toDateInput(invoice.dueAt)}
-              currency={invoice.currency}
-              lines={invoice.lines}
-            />
-          ) : (
-            <>
-              <MoneyLines lines={invoice.lines} total={invoice.amountCents} currency={invoice.currency} vatRate={company.vatRate} />
-              {invoice.note && <p className="mt-6 whitespace-pre-wrap border-t border-fg/10 pt-4 text-sm text-fg/80">{invoice.note}</p>}
-            </>
-          )}
+      {mayWrite && editable ? (
+        <Panel
+          title="Contenu de la facture"
+          description="Modifiez à gauche ou directement dans l'aperçu. Les informations de l'émetteur modifiées ici ne valent que pour cette facture."
+        >
+          <DocumentEditor
+            kind="invoice"
+            docId={invoice.id}
+            docRef={invoice.ref}
+            sourceRef={quote?.ref}
+            issuedAt={(invoice.issuedAt ?? invoice.createdAt).toISOString()}
+            clients={clients}
+            defaultUserId={invoice.userId}
+            title={invoice.title}
+            note={invoice.note}
+            date={toDateInput(invoice.dueAt)}
+            currency={invoice.currency}
+            lines={invoice.lines}
+            company={base}
+            overrides={overrides}
+            storage={storageConfigured()}
+          />
         </Panel>
-        <div className="flex flex-col gap-6">
+      ) : (
+        <Panel title="Document" description="Facture payée ou annulée : elle ne se modifie plus.">
+          <div className="mx-auto max-w-3xl rounded-3xl bg-soft p-4 sm:p-6">
+            <DocumentPreview
+              doc={previewDoc({
+                kind: "invoice",
+                ref: invoice.ref,
+                title: invoice.title,
+                note: invoice.note,
+                date: invoice.issuedAt ?? invoice.createdAt,
+                dueAt: invoice.dueAt,
+                currency: invoice.currency,
+                lines: invoice.lines,
+                client,
+                sourceRef: quote?.ref,
+              })}
+              company={company}
+            />
+          </div>
+        </Panel>
+      )}
+
+      <div className="mt-6 grid gap-6 lg:grid-cols-3">
+        <div className="grid gap-6 lg:col-span-3 lg:grid-cols-3">
           <Panel title="Document et envoi">
             <InvoiceActions
               invoiceId={invoice.id}

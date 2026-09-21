@@ -8,6 +8,7 @@ import { formatMoney, withVat } from "@/lib/money";
 import { formatDate } from "@/lib/format";
 import { MoneyLines } from "@/components/dashboard/MoneyLines";
 import { getCompany } from "@/lib/settings";
+import { effectiveCompany } from "@/lib/company";
 import { pillSmall } from "@/components/dashboard/pills";
 import { Icon } from "@/components/ui/Icon";
 
@@ -17,14 +18,16 @@ export default async function FacturesPage() {
   const user = await requireUser("/dashboard/factures");
   const [rows, company] = await Promise.all([listInvoices(user.id), getCompany()]);
   // What is actually owed is TTC — the figure on the PDF — not the stored HT.
-  const ttc = (cents: number) => withVat(cents, company.vatRate);
+  // Per document: a facture can carry its own VAT rate.
+  const vatOf = (inv: { overrides: unknown }) => effectiveCompany(company, inv.overrides as never).vatRate;
+  const ttc = (inv: { amountCents: number; overrides: unknown }) => withVat(inv.amountCents, vatOf(inv));
 
   const outstanding = rows
     .filter(({ invoice }) => ["envoyee", "en_retard"].includes(effectiveInvoiceStatus(invoice)))
-    .reduce((sum, { invoice }) => sum + ttc(invoice.amountCents), 0);
+    .reduce((sum, { invoice }) => sum + ttc(invoice), 0);
   const paid = rows
     .filter(({ invoice }) => invoice.status === "payee")
-    .reduce((sum, { invoice }) => sum + ttc(invoice.amountCents), 0);
+    .reduce((sum, { invoice }) => sum + ttc(invoice), 0);
 
   return (
     <>
@@ -73,13 +76,16 @@ export default async function FacturesPage() {
                     lines={invoice.lines}
                     total={invoice.amountCents}
                     currency={invoice.currency}
-                    vatRate={company.vatRate}
+                    vatRate={vatOf(invoice)}
                   />
-                  {(company.bank || company.rib) && ["envoyee", "en_retard"].includes(status) && (
+                  {(() => {
+                    const c = effectiveCompany(company, invoice.overrides as never);
+                    return (c.bank || c.rib) && ["envoyee", "en_retard"].includes(status) ? (
                     <p className="mt-5 border-t border-fg/10 pt-4 text-sm text-fg/80">
-                      Règlement par virement : {[company.bank, company.rib && `RIB ${company.rib}`].filter(Boolean).join(" · ")}
+                      Règlement par virement : {[c.bank, c.rib && `RIB ${c.rib}`].filter(Boolean).join(" · ")}
                     </p>
-                  )}
+                    ) : null;
+                  })()}
                 </Panel>
               );
             })}

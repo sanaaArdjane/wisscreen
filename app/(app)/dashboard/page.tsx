@@ -21,6 +21,7 @@ import { QuotaMeter } from "@/components/dashboard/QuotaMeter";
 import { STATUS_LABELS, STATUS_TONE, type RequestStatus } from "@/lib/requests";
 import { formatMoney, withVat } from "@/lib/money";
 import { getCompany } from "@/lib/settings";
+import { effectiveCompany } from "@/lib/company";
 import { formatDate, relativeTime } from "@/lib/format";
 import { Icon } from "@/components/ui/Icon";
 
@@ -54,16 +55,18 @@ export default async function DashboardHome() {
         .select()
         .from(invoices)
         .where(and(eq(invoices.userId, user.id), inArray(invoices.status, ["envoyee", "en_retard"])))
-        .orderBy(invoices.dueAt)
-        .limit(5),
+        .orderBy(invoices.dueAt),
       getCompany(),
     ]);
-  const ttc = (cents: number) => withVat(cents, company.vatRate);
+  // TTC per document — each devis/facture may carry its own VAT rate.
+  const ttc = (d: { amountCents: number; overrides: unknown }) =>
+    withVat(d.amountCents, effectiveCompany(company, d.overrides as never).vatRate);
+  const unpaidTtc = unpaid.reduce((sum, inv) => sum + ttc(inv), 0);
 
   const activeServices = services.filter((s) => s.subscription.status === "active");
   const liveServices = services.filter((s) => s.subscription.status !== "cancelled");
   const hot = usage.filter((q) => q.ratio >= 0.6);
-  const todo = pendingQuotes.length + unpaid.length;
+  const todo = pendingQuotes.length + Math.min(unpaid.length, 5);
   const now = new Date();
 
   return (
@@ -101,7 +104,7 @@ export default async function DashboardHome() {
         <StatTile
           label="Factures à régler"
           value={counters.unpaidInvoices}
-          hint={counters.unpaidCents > 0 ? formatMoney(ttc(counters.unpaidCents)) : "À jour"}
+          hint={unpaidTtc > 0 ? formatMoney(unpaidTtc) : "À jour"}
           href="/dashboard/factures"
           icon="receipt"
           tone={counters.unpaidInvoices > 0 && counters.pendingQuotes === 0 ? "accent" : "cool"}
@@ -136,11 +139,11 @@ export default async function DashboardHome() {
                       {q.validUntil ? `À accepter avant le ${formatDate(q.validUntil)}` : "En attente de votre réponse"}
                     </span>
                   </span>
-                  <span className="shrink-0 text-sm font-[650] tabular-nums text-fg">{formatMoney(ttc(q.amountCents), q.currency)}</span>
+                  <span className="shrink-0 text-sm font-[650] tabular-nums text-fg">{formatMoney(ttc(q), q.currency)}</span>
                 </Link>
               </li>
             ))}
-            {unpaid.map((inv) => (
+            {unpaid.slice(0, 5).map((inv) => (
               <li key={`i${inv.id}`}>
                 <Link href="/dashboard/factures" className="flex items-center gap-4 px-6 py-4 hover:bg-soft">
                   <Icon name="receipt" className="size-5 shrink-0 text-fg/80" />
@@ -150,7 +153,7 @@ export default async function DashboardHome() {
                       {inv.dueAt ? `Échéance le ${formatDate(inv.dueAt)}` : "À régler"}
                     </span>
                   </span>
-                  <span className="shrink-0 text-sm font-[650] tabular-nums text-fg">{formatMoney(ttc(inv.amountCents), inv.currency)}</span>
+                  <span className="shrink-0 text-sm font-[650] tabular-nums text-fg">{formatMoney(ttc(inv), inv.currency)}</span>
                 </Link>
               </li>
             ))}

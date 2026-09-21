@@ -8,71 +8,10 @@ import { appSettings } from "@/lib/db/schema";
  * and these are things that get changed in the middle of a working day.
  */
 
-/**
- * Who WICLOUD is on paper: the header, footer and signature of every devis and
- * facture PDF. One setting holding an object rather than twenty keys, because
- * it is edited as one form and read as one thing.
- *
- * The logo and signature are **attachment ids**, not URLs or keys: the files
- * live in the private bucket like every other upload, the PDF renderer reads
- * their bytes server-side, and the settings page previews them through the
- * same authorised `/api/uploads` route. PNG or JPEG only — the PDF engine
- * cannot embed WebP or GIF.
- */
-export type CompanyIdentity = {
-  name: string;
-  legalForm: string;
-  capital: string;
-  address: string;
-  city: string;
-  country: string;
-  phone: string;
-  email: string;
-  website: string;
-  /** Registre du commerce. */
-  rc: string;
-  nif: string;
-  nis: string;
-  /** Article d'imposition. */
-  ai: string;
-  bank: string;
-  rib: string;
-  logoAttachmentId: number | null;
-  signatureAttachmentId: number | null;
-  signatoryName: string;
-  signatoryTitle: string;
-  /** Percent. 0 hides the tax lines entirely. Line prices are always HT. */
-  vatRate: number;
-  quoteTerms: string;
-  invoiceTerms: string;
-  footerNote: string;
-};
-
-export const DEFAULT_COMPANY: CompanyIdentity = {
-  name: "WICLOUD",
-  legalForm: "",
-  capital: "",
-  address: "",
-  city: "",
-  country: "Algérie",
-  phone: "",
-  email: "",
-  website: "",
-  rc: "",
-  nif: "",
-  nis: "",
-  ai: "",
-  bank: "",
-  rib: "",
-  logoAttachmentId: null,
-  signatureAttachmentId: null,
-  signatoryName: "",
-  signatoryTitle: "",
-  vatRate: 0,
-  quoteTerms: "Devis valable 30 jours. Toute commande implique l'acceptation des présentes conditions.",
-  invoiceTerms: "Paiement à réception de facture, par virement bancaire.",
-  footerNote: "",
-};
+// The company identity type and defaults live in `lib/company.ts`, which has
+// no database import, so the document editor (a client component) can use them.
+import { DEFAULT_COMPANY, effectiveCompany, type CompanyIdentity, type CompanyOverrides } from "@/lib/company";
+export { DEFAULT_COMPANY, type CompanyIdentity } from "@/lib/company";
 
 export type Settings = {
   /** Global gate on magic-link sign-in. A user also needs their own flag on. */
@@ -148,6 +87,11 @@ export async function setSetting<K extends keyof Settings>(
 }
 
 /** The company identity with every field present, even ones added after it was saved. */
+/** The identity a given document prints: Paramètres plus its own overrides. */
+export async function getDocumentCompany(overrides: unknown): Promise<CompanyIdentity> {
+  return effectiveCompany(await getCompany(), (overrides ?? {}) as CompanyOverrides);
+}
+
 export async function getCompany(): Promise<CompanyIdentity> {
   const stored = await getSetting("company");
   return { ...DEFAULT_COMPANY, ...(stored ?? {}) };

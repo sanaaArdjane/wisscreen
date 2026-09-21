@@ -337,6 +337,10 @@ export const quotes = pgTable(
     status: text("status").default("brouillon").notNull(),
     validUntil: timestamp("valid_until"),
     note: text("note"),
+    /** This document's own version of any company field — legal IDs, bank,
+     *  VAT, signature, terms — over the Paramètres identity. Absent key = use
+     *  Paramètres. See `effectiveCompany` in `lib/company.ts`. */
+    overrides: jsonb("overrides").$type<Record<string, unknown>>().default({}).notNull(),
     /** Object key of the PDF the client was actually sent. Kept so "what did we
      *  send them?" is answerable months later, after the lines were edited. */
     pdfKey: text("pdf_key"),
@@ -365,6 +369,8 @@ export const invoices = pgTable(
      *  provider is wired in — a human moves this, which is deliberate. */
     status: text("status").default("brouillon").notNull(),
     note: text("note"),
+    /** See `quotes.overrides`. */
+    overrides: jsonb("overrides").$type<Record<string, unknown>>().default({}).notNull(),
     /** See `quotes.pdfKey`. */
     pdfKey: text("pdf_key"),
     sentAt: timestamp("sent_at"),

@@ -263,3 +263,12 @@ export async function listThread(requestId: number, includeInternal = false) {
     loose,
   };
 }
+
+/** Clients a devis or facture can be addressed to — with what the preview prints. */
+export async function listBillableClients() {
+  return db
+    .select({ id: user.id, name: user.name, email: user.email, company: user.company, phone: user.phone })
+    .from(user)
+    .where(sql`${user.role} <> 'staff'`)
+    .orderBy(user.name);
+}

@@ -4,7 +4,7 @@ import { attachments, invoices, quotes, user as userTable } from "@/lib/db/schem
 import { renderBillingPdf } from "@/lib/pdf/render";
 import { putObject, storageConfigured } from "@/lib/storage";
 import { sendEmail } from "@/lib/email";
-import { getCompany } from "@/lib/settings";
+import { getDocumentCompany } from "@/lib/settings";
 import { formatMoney, withVat } from "@/lib/money";
 import { formatDate } from "@/lib/format";
 import { SITE_URL } from "@/lib/site";
@@ -38,7 +38,7 @@ export async function emailBillingDocument(
     .limit(1);
   if (!row || !client) return { ok: false, error: "not_found" };
 
-  const company = await getCompany();
+  const company = await getDocumentCompany(row.overrides);
   const now = new Date();
   let pdfKey: string | null = null;
   if (storageConfigured()) {

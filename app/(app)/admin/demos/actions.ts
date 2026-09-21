@@ -77,7 +77,7 @@ const SecretInput = z.object({
  * Create or update a demo.
  *
  * **Blocks are posted as one JSON hidden input each, not as parallel arrays.**
- * `QuoteEditor` zips `label[]`/`quantity[]`/`unitCents[]` by index, which is
+ * The devis editor (`DocumentEditor`) zips `label[]`/`quantity[]`/`unitCents[]` by index, which is
  * safe only because every line posts the same three fields. Blocks are a
  * discriminated union: a link has no `host`, an SSH block has no `url`. One
  * conditionally-rendered input and every later block's fields shift by one —

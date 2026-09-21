@@ -15,6 +15,13 @@
       "when": 1789982669667,
       "tag": "0001_modern_darwin",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1789988098872,
+      "tag": "0002_nifty_maddog",
+      "breakpoints": true
     }
   ]
 }

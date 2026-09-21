@@ -4,7 +4,7 @@ import { createElement } from "react";
 import { eq } from "drizzle-orm";
 import { db } from "@/lib/db";
 import { attachments, invoices, quotes, user } from "@/lib/db/schema";
-import { getCompany } from "@/lib/settings";
+import { getDocumentCompany } from "@/lib/settings";
 import { getObjectBytes, storageConfigured } from "@/lib/storage";
 import { BillingDocument, type Assets, type BillingDoc } from "./BillingDocument";
 
@@ -34,9 +34,8 @@ async function loadImage(attachmentId: number | null): Promise<Assets["logo"]> {
 export type RenderedDocument = { filename: string; bytes: Buffer; ownerId: string; status: string };
 
 export async function renderBillingPdf(kind: "quote" | "invoice", id: number): Promise<RenderedDocument | null> {
-  const company = await getCompany();
-
   let doc: BillingDoc;
+  let overrides: unknown;
   let ownerId: string;
   if (kind === "quote") {
     const [row] = await db
@@ -47,6 +46,7 @@ export async function renderBillingPdf(kind: "quote" | "invoice", id: number): P
       .limit(1);
     if (!row) return null;
     ownerId = row.q.userId;
+    overrides = row.q.overrides;
     doc = {
       kind,
       ref: row.q.ref,
@@ -70,6 +70,7 @@ export async function renderBillingPdf(kind: "quote" | "invoice", id: number): P
       .limit(1);
     if (!row) return null;
     ownerId = row.i.userId;
+    overrides = row.i.overrides;
     doc = {
       kind,
       ref: row.i.ref,
@@ -86,6 +87,7 @@ export async function renderBillingPdf(kind: "quote" | "invoice", id: number): P
     };
   }
 
+  const company = await getDocumentCompany(overrides);
   const [logo, signature] = await Promise.all([
     loadImage(company.logoAttachmentId),
     loadImage(company.signatureAttachmentId),

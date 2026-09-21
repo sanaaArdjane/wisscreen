@@ -8,7 +8,7 @@ import { db } from "@/lib/db";
 import { invoices, quotes } from "@/lib/db/schema";
 import { requirePermission } from "@/lib/guard";
 import { logActivity, notify } from "@/lib/account";
-import { allocateRef, readLines } from "@/lib/billing-lines";
+import { allocateRef, readLines, readOverrides } from "@/lib/billing-lines";
 import { emailBillingDocument } from "@/lib/billing-send";
 import { formatMoney, totalCents } from "@/lib/money";
 import { fail, optionalText, parseForm, succeed, type ActionState } from "@/lib/actions";
@@ -43,6 +43,8 @@ export async function saveQuote(_prev: ActionState, formData: FormData): Promise
 
   const lines = readLines(formData);
   if (lines.length === 0) return fail("Ajoutez au moins une ligne au devis.");
+  const ov = await readOverrides(formData);
+  if (!ov.ok) return fail(ov.error);
 
   const amountCents = totalCents(lines);
   const base = {
@@ -54,6 +56,7 @@ export async function saveQuote(_prev: ActionState, formData: FormData): Promise
     currency: parsed.data.currency,
     lines,
     amountCents,
+    overrides: ov.overrides,
     updatedAt: new Date(),
   };
 
@@ -193,6 +196,8 @@ export async function invoiceFromQuote(formData: FormData): Promise<void> {
       lines: quote.lines,
       amountCents: quote.amountCents,
       currency: quote.currency,
+      // What the devis said about the issuer, the facture says too.
+      overrides: quote.overrides,
       status: "brouillon",
       createdById: staff.id,
     })

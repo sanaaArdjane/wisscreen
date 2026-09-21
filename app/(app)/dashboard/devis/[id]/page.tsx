@@ -11,7 +11,7 @@ import { MoneyLines } from "@/components/dashboard/MoneyLines";
 import { QuoteDecision } from "./QuoteDecision";
 import { QUOTE_LABELS, QUOTE_TONE, isQuoteExpired, isQuoteStatus } from "@/lib/billing";
 import { formatDate } from "@/lib/format";
-import { getCompany } from "@/lib/settings";
+import { getDocumentCompany } from "@/lib/settings";
 import { pillSmall } from "@/components/dashboard/pills";
 import { Icon } from "@/components/ui/Icon";
 
@@ -41,7 +41,7 @@ export default async function DevisDetailPage({ params }: PageProps<"/dashboard/
   if (!row) notFound();
 
   const { quote, request } = row;
-  const company = await getCompany();
+  const company = await getDocumentCompany(quote.overrides);
   const status = isQuoteStatus(quote.status) ? quote.status : "brouillon";
   const expired = isQuoteExpired(quote);
 

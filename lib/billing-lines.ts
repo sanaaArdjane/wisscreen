@@ -1,6 +1,7 @@
-import { like } from "drizzle-orm";
+import { inArray, like } from "drizzle-orm";
 import { db } from "@/lib/db";
-import { invoices, quotes, type MoneyLine } from "@/lib/db/schema";
+import { attachments, invoices, quotes, type MoneyLine } from "@/lib/db/schema";
+import { parseOverrides, type CompanyOverrides } from "@/lib/company";
 import { nextRef, refPeriod, type RefPrefix } from "@/lib/ref";
 import { parseMoneyToCents } from "@/lib/money";
 
@@ -39,4 +40,29 @@ export async function allocateRef(prefix: RefPrefix, table: typeof quotes | type
     prefix,
     existing.map((r) => r.ref),
   );
+}
+
+/**
+ * Read a document editor's `overrides` input and check any image it points at
+ * is an attachment that exists and is PNG/JPEG — the PDF engine embeds nothing
+ * else, and a bad logo should fail on save, not on the customer's download.
+ */
+export async function readOverrides(
+  formData: FormData,
+): Promise<{ ok: true; overrides: CompanyOverrides } | { ok: false; error: string }> {
+  const parsed = parseOverrides(formData.get("overrides"));
+  if (!parsed.ok) return parsed;
+  const ids = [parsed.overrides.logoAttachmentId, parsed.overrides.signatureAttachmentId].filter(
+    (v): v is number => typeof v === "number",
+  );
+  if (ids.length) {
+    const rows = await db
+      .select({ id: attachments.id, contentType: attachments.contentType })
+      .from(attachments)
+      .where(inArray(attachments.id, ids));
+    if (rows.length !== new Set(ids).size || rows.some((r) => !["image/png", "image/jpeg"].includes(r.contentType))) {
+      return { ok: false, error: "Le logo et la signature doivent être des images PNG ou JPEG." };
+    }
+  }
+  return parsed;
 }

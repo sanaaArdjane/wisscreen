@@ -31,7 +31,7 @@ import { saveDemo } from "./actions";
 /**
  * The demo editor — one form for "nouvelle" and "modifier".
  *
- * **Why each block posts itself as JSON** (and not `QuoteEditor`'s parallel
+ * **Why each block posts itself as JSON** (and not the devis editor's parallel
  * arrays) is written on `saveDemo`. The short version: blocks don't share
  * fields, so index-zipping them silently misaligns. Don't "simplify" this back.
  *

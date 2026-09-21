@@ -1135,7 +1135,7 @@ plausible-looking output. That file is gone.) The model is in `lib/demos.ts`:
   the wrong shape. A new block kind is a type member + a Zod member + an editor case
   (`app/(app)/admin/demos/DemoEditor.tsx`) + a renderer case
   (`components/dashboard/demos/DemoBlocks.tsx`). Never a migration.
-- **The editor posts each block as one JSON hidden input**, not `QuoteEditor`'s parallel
+- **The editor posts each block as one JSON hidden input**, not the devis editor's parallel
   arrays. Parallel arrays only work when every row posts the same fields; a union doesn't,
   and one conditional input silently shifts every later block's fields by one.
 - **Block ids are uuids minted on add, never indexes.** `demo_secrets.block_id` points at
@@ -1235,6 +1235,20 @@ e-mail attachment). The header, legal footer, bank details, signature and VAT co
   element.
 - Stored amounts are **HT**. `withVat()` (`lib/money.ts`) is the one formula for TTC, used by
   the PDF, `MoneyLines`, the customer totals and the e-mail body, so they never disagree.
+- **Every printed company field can be overridden per document** — legal IDs, bank, VAT,
+  logo, signature, terms. The override lives on the row (`quotes.overrides` /
+  `invoices.overrides`, jsonb), is validated by `CompanyOverridesSchema`, and is merged by
+  `effectiveCompany()` (`lib/company.ts`, database-free so the editor can use it). An absent
+  key follows Paramètres; an empty string blanks that line on that document only. **Any
+  code that prints or totals a document must go through the effective identity**, never
+  `getCompany()` alone — VAT differs per document, so client totals are computed per row.
+  A devis's overrides are copied onto the facture made from it.
+- **The editor is `components/dashboard/billing/DocumentEditor.tsx`**: form left, live
+  `DocumentPreview` right, one state. The preview is an HTML mirror of the PDF layout, drawn
+  at A4 width and scaled; each printed field is a `contentEditable` that commits on blur and
+  is remounted by `key={value}` when the left form changes it, so React and the DOM never
+  fight over its text. It is a mirror, not the PDF: "Aperçu PDF exact" renders the real
+  one. If you change the PDF layout, change the preview with it.
 - Sending (`lib/billing-send.ts`) archives the exact bytes sent (`pdf_key`, and as a
   document in the customer's space) and can be repeated; a quote used to be sendable once.
 - `tsx` can't render these (it resolves `@react-pdf/hyphenate` as CommonJS, which that
