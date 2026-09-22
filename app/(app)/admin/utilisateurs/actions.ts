@@ -1,12 +1,12 @@
 "use server";
 
-import { randomBytes } from "node:crypto";
 import { z } from "zod";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { and, eq, sql } from "drizzle-orm";
 import { db } from "@/lib/db";
+import { generatePassword, PASSWORD_RULES } from "@/lib/password";
 import { quotas, user as userTable } from "@/lib/db/schema";
 import { auth } from "@/lib/auth";
 import { requirePermission } from "@/lib/guard";
@@ -68,10 +68,13 @@ const CreateSchema = z.object({
   role: z.enum(ROLES),
   company: optionalText,
   phone: optionalText,
+  // Same bar as the public form; left blank the server generates one that meets it.
   password: z
     .string()
-    .min(10, "10 caractères minimum.")
     .max(200)
+    .refine((p) => PASSWORD_RULES.every((r) => r.test(p)), {
+      message: PASSWORD_RULES.map((r) => r.label.toLowerCase()).join(", ") + ".",
+    })
     .optional()
     .or(z.literal("").transform(() => undefined)),
   sendInvite: checkbox,
@@ -111,9 +114,11 @@ export async function createAccount(_prev: ActionState, formData: FormData): Pro
     .limit(1);
   if (existing) return fail("Un compte existe déjà avec cette adresse.");
 
-  // 18 bytes of base64url — long enough that nobody is tempted to keep it, and
-  // readable aloud over a phone.
-  const generated = parsed.data.password ?? randomBytes(18).toString("base64url");
+  // `generatePassword`, not raw base64url: `lib/auth.ts` now refuses any password that
+  // misses a rule in `lib/password.ts`, and base64url has no symbol in its alphabet — a
+  // generated one would be rejected on the admin's behalf. Same generator the sign-up
+  // form's "Générer" button uses, and it is built to satisfy every rule by construction.
+  const generated = parsed.data.password ?? generatePassword();
 
   let created;
   try {

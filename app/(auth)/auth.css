@@ -1,3 +1,46 @@
+/*
+ * Input chrome for the signed-out pages only.
+ *
+ * Scoped to `[data-auth]`, set by `app/(auth)/layout.tsx`. It cannot be scoped to
+ * `[data-wicloud-app]` — the dashboard shell carries that too, and these rules would
+ * then restyle every field in the back-office.
+ *
+ * The default HeroUI field is a fill with no border, which on this light textured ground
+ * read as a gap in the card rather than as something to type in. A white well with a real
+ * edge and a focus ring is what the rest of the page's chrome looks like.
+ *
+ * `input` matches both HeroUI's `Input` and the hand-rolled password field in
+ * `components/auth/AuthForms.tsx`, which is the point — the two have to look identical.
+ */
+[data-auth] input:not([type="checkbox"]):not([type="radio"]) {
+  background-color: var(--color-paper);
+  border: 1px solid color-mix(in srgb, var(--color-ink) 18%, transparent);
+  border-radius: 0.75rem;
+  padding: 0.625rem 0.875rem;
+  font-size: 0.9375rem;
+  color: var(--color-ink);
+  transition:
+    border-color 150ms ease,
+    box-shadow 150ms ease;
+}
+
+[data-auth] input:not([type="checkbox"]):not([type="radio"])::placeholder {
+  color: color-mix(in srgb, var(--color-ink) 45%, transparent);
+}
+
+[data-auth] input:not([type="checkbox"]):not([type="radio"]):hover {
+  border-color: color-mix(in srgb, var(--color-ink) 30%, transparent);
+}
+
+/* The ring is `signal-deep`, the only accent that clears its floor on paper, and it is
+   2px so the focused field is obvious without the border jumping a pixel. */
+[data-auth] input:not([type="checkbox"]):not([type="radio"]):focus,
+[data-auth] input:not([type="checkbox"]):not([type="radio"]):focus-visible {
+  outline: none;
+  border-color: var(--color-signal-deep);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-signal-deep) 18%, transparent);
+}
+
 .auth-flow {
   animation: auth-flow 9s linear infinite;
 }

@@ -1,4 +1,5 @@
 import { betterAuth } from "better-auth";
+import { APIError, createAuthMiddleware } from "better-auth/api";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { nextCookies } from "better-auth/next-js";
 import { admin as adminPlugin, magicLink } from "better-auth/plugins";
@@ -8,6 +9,7 @@ import * as schema from "@/lib/db/schema";
 import { sendEmail, adminEmail } from "@/lib/email";
 import { getSetting } from "@/lib/settings";
 import { SITE_URL } from "@/lib/site";
+import { passwordProblem } from "@/lib/password";
 
 /**
  * The auth instance. Email + password and Google are the primary paths; magic
@@ -121,6 +123,28 @@ export const auth = betterAuth({
     expiresIn: 60 * 60 * 24 * 30,
     updateAge: 60 * 60 * 24,
     cookieCache: { enabled: true, maxAge: 60 * 5 },
+  },
+
+  /*
+   * Password strength, enforced on the server.
+   *
+   * The sign-up form disables its button until every rule in `lib/password.ts` passes,
+   * but `/sign-up/email` and `/reset-password` are public endpoints and a disabled
+   * button is not a control. This is the one place every password-setting path goes
+   * through — the public form, the admin's `auth.api.createUser`, and a reset link — so
+   * the rule lives here rather than in each caller.
+   *
+   * `minPasswordLength: 10` above stays: it fires first for the length case with Better
+   * Auth's own code, which `describeError` already maps.
+   */
+  hooks: {
+    before: createAuthMiddleware(async (ctx) => {
+      if (!["/sign-up/email", "/reset-password"].includes(ctx.path)) return;
+      const password = (ctx.body as { password?: unknown } | undefined)?.password;
+      if (typeof password !== "string") return;
+      const problem = passwordProblem(password);
+      if (problem) throw new APIError("BAD_REQUEST", { message: problem, code: "PASSWORD_TOO_WEAK" });
+    }),
   },
 
   databaseHooks: {

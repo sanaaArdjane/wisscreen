@@ -2,11 +2,12 @@
 
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useState, type FormEvent, type ReactNode } from "react";
+import { useId, useState, type FormEvent, type ReactNode } from "react";
 import { Button, Spinner } from "@heroui/react";
 import { authClient } from "@/lib/auth-client";
 import { Field } from "@/components/dashboard/ui";
 import { Icon } from "@/components/ui/Icon";
+import { checkPassword, generatePassword, isStrongPassword } from "@/lib/password";
 
 /**
  * Every signed-out form.
@@ -38,6 +39,8 @@ function describeError(code: string | undefined, fallback: string): string {
       return "Un compte existe déjà avec cette adresse.";
     case "PASSWORD_TOO_SHORT":
       return "Le mot de passe doit contenir au moins 10 caractères.";
+    case "PASSWORD_TOO_WEAK":
+      return fallback;
     case "EMAIL_NOT_VERIFIED":
       return "Confirmez votre adresse e-mail avant de vous connecter.";
     case "USER_BANNED":
@@ -60,6 +63,94 @@ function Alert({ children, tone = "error" }: { children: ReactNode; tone?: "erro
     >
       {children}
     </p>
+  );
+}
+
+/**
+ * The sign-up password field: reveal toggle, a "Générer" button, and a live checklist
+ * of `lib/password.ts`'s rules.
+ *
+ * Hand-rolled rather than `Field` from `components/dashboard/ui`: that one is
+ * uncontrolled and has no slot for a trailing control, and widening a primitive the
+ * whole back-office uses for one caller is the wrong trade. `[data-auth] input` in
+ * `app/(auth)/auth.css` styles this and HeroUI's inputs the same way, so it does not
+ * look like a different field.
+ *
+ * Generating **reveals** the password in the same gesture. A generated secret the person
+ * cannot read is one they cannot save, and they are about to need it.
+ */
+function PasswordField({
+  value,
+  onChange,
+}: {
+  value: string;
+  onChange: (next: string) => void;
+}) {
+  const id = useId();
+  const [shown, setShown] = useState(false);
+  const checks = checkPassword(value);
+
+  return (
+    <div className="flex w-full flex-col gap-1.5">
+      <label htmlFor={id} className="text-sm font-medium text-ink">
+        Mot de passe <span aria-hidden className="text-danger-fg">*</span>
+      </label>
+
+      <div className="flex gap-2">
+        <div className="relative flex-1">
+          <input
+            id={id}
+            name="password"
+            type={shown ? "text" : "password"}
+            autoComplete="new-password"
+            required
+            value={value}
+            onChange={(e) => onChange(e.target.value)}
+            className="w-full pr-11"
+            aria-describedby={`${id}-rules`}
+          />
+          <button
+            type="button"
+            onClick={() => setShown((v) => !v)}
+            className="absolute inset-y-0 right-0 flex w-11 items-center justify-center rounded-r-xl text-ink/70 hover:text-ink"
+            aria-label={shown ? "Masquer le mot de passe" : "Afficher le mot de passe"}
+          >
+            <Icon name={shown ? "eye-off" : "eye"} className="size-4" />
+          </button>
+        </div>
+        <button
+          type="button"
+          onClick={() => {
+            onChange(generatePassword());
+            setShown(true);
+          }}
+          className="shrink-0 rounded-xl border border-ink/15 bg-mist px-3.5 text-sm font-medium text-ink transition-colors hover:bg-ink/10"
+        >
+          Générer
+        </button>
+      </div>
+
+      {/* `aria-live` so a screen reader hears a rule flip as it is typed, rather than
+          only on submit. The list is always rendered — a checklist that appears once
+          you have already failed is a scold, not a guide. */}
+      <ul id={`${id}-rules`} aria-live="polite" className="mt-1.5 grid gap-1 sm:grid-cols-2">
+        {checks.map(({ rule, ok }) => (
+          <li
+            key={rule.id}
+            className={`flex items-center gap-1.5 text-xs ${ok ? "text-signal-deep" : "text-ink/80"}`}
+          >
+            {/* A dot rather than a cross for the unmet state: the list is visible from
+                the first keystroke, so a cross would be scolding someone mid-word. */}
+            {ok ? (
+              <Icon name="check" className="size-3.5 shrink-0" />
+            ) : (
+              <span aria-hidden className="size-1.5 shrink-0 rounded-full bg-ink/40" />
+            )}
+            {rule.label}
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }
 
@@ -291,6 +382,8 @@ export function SignUpForm({
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
+  const [password, setPassword] = useState("");
+  const strong = isStrongPassword(password);
 
   if (!registrationOpen) {
     return (
@@ -313,11 +406,13 @@ export function SignUpForm({
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const form = new FormData(event.currentTarget);
-    const password = String(form.get("password") ?? "");
     setError(null);
 
-    if (password.length < 10) {
-      setError("Le mot de passe doit contenir au moins 10 caractères.");
+    // The button is disabled until this holds, so reaching here means a stale render or
+    // a form submitted by key — either way the server would refuse it (`lib/auth.ts`),
+    // and saying so here is faster than a round trip.
+    if (!strong) {
+      setError("Complétez les critères du mot de passe avant de continuer.");
       return;
     }
 
@@ -352,15 +447,8 @@ export function SignUpForm({
         {error && <Alert>{error}</Alert>}
         <Field name="name" label="Nom complet" autoComplete="name" isRequired />
         <Field name="email" label="Adresse e-mail" type="email" autoComplete="email" isRequired />
-        <Field
-          name="password"
-          label="Mot de passe"
-          type="password"
-          autoComplete="new-password"
-          description="10 caractères minimum."
-          isRequired
-        />
-        <Button type="submit" fullWidth isDisabled={busy}>
+        <PasswordField value={password} onChange={setPassword} />
+        <Button type="submit" fullWidth isDisabled={busy || !strong}>
           {busy && <Spinner className="size-4" />}
           Créer mon compte
         </Button>

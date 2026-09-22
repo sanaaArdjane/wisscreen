@@ -17,6 +17,8 @@ export const ICON_NAMES = [
   "store",
   "server",
   "lock",
+  "eye",
+  "eye-off",
   "check",
   "users",
   "cloud",

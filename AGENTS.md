@@ -1101,8 +1101,35 @@ app/
   layout.tsx            html/body/fonts/JsonLd
   (marketing)/          Navbar + Footer          → /  ·  /solutions/[slug]
   (auth)/               split-screen brand panel → /connexion /inscription …
+                        ground is `.texture-weave-soft` (see below)
   (app)/                heroui.css + noindex     → /dashboard/*  /admin/*
 ```
+
+### The auth shell's ground
+
+`app/(auth)/layout.tsx` wears `.texture-weave-soft`, a lighter cousin of the hero's
+`.texture-weave`: same 4px weave, a shallower ramp and a different angle, so the two read
+as the same material without being the same picture. The whole group inherits it —
+/connexion, /inscription, /mot-de-passe-oublie, /verification, /acces-refuse,
+/compte-suspendu.
+
+Both panels carry a `ring-1` and a soft shadow: on a textured ground a borderless panel
+has nothing separating it from the page or from the other panel. The form card is the
+heavier of the two so it still reads as the thing in front.
+
+Input chrome is `[data-auth] input` in `app/(auth)/auth.css` — a white well with a real
+border and a `signal-deep` focus ring, because HeroUI's default field is a fill with no
+border and on this ground it read as a gap in the card. **The hook is `data-auth`, not
+`data-wicloud-app`**: the dashboard shell carries the latter too, and the rules would
+restyle every field in the back-office. It matches the hand-rolled password input as well
+as HeroUI's, which is the point — the two have to look identical.
+
+**The ground has to stay light.** Both panels are translucent (the pitch panel is
+`bg-mist/85`, the form card `bg-paper/95`), so the ground composites *through* them, and
+`signal-deep` is already only 4.57:1 on `mist`. Most of the visible texture is therefore
+carried by the weave lines rather than the ramp: two 1px-in-4px ink lines average ~3% of
+darkening, which reads clearly in the page's margins and costs contrast almost nothing.
+Both pages report zero failures with the ancestor-compositing probe.
 
 ## Data layer
 
@@ -1280,6 +1307,31 @@ public** image/video attachments from the private bucket, passes `Range` through
 seeking, Safari needs 206), and caches for a year (ids are immutable). Everything else is
 still behind `/api/uploads`' checks. To `next/image` it is a local path, so it gets
 optimised.
+
+## Password strength lives in `lib/password.ts`
+
+The rules are **data, not a regex**, because three callers need them and two need the list:
+
+- `SignUpForm` renders a live checklist and keeps the button disabled until every rule
+  passes, with a **Générer** button (`generatePassword`) that fills a compliant password
+  and reveals it in the same gesture — a generated secret you cannot read is one you
+  cannot save, and you are about to need it.
+- **`lib/auth.ts` re-checks on the server**, in `hooks.before` on `/sign-up/email` and
+  `/reset-password`. A disabled button is not a control; those are public endpoints. It
+  throws `PASSWORD_TOO_WEAK`, which `describeError` passes straight through because the
+  server's message already names the missing rules.
+- `createAccount` (`/admin/utilisateurs/nouveau`) generates one when the admin leaves the
+  field blank. **It had to stop using `randomBytes(18).toString("base64url")`**: that
+  alphabet has no symbol, so the server would have refused the account the admin just
+  asked for. Same generator, and it seeds one character per class then shuffles, so it
+  satisfies every rule by construction rather than by luck (a rejection loop can in
+  principle never terminate).
+
+`minPasswordLength: 10` in `lib/auth.ts` stays and matches the length rule; raise both
+together or Better Auth's own error fires first with a different message. Ambiguous glyphs
+(`O`/`0`, `l`/`1`/`I`, `|`) are out of every set because an admin reads these aloud.
+
+`__tests__/password.test.ts` runs the generator 500 times against every rule.
 
 ## Demos are authored by the desk and granted to named customers
 
