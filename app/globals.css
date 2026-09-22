@@ -294,6 +294,28 @@ html[data-immersive] header {
   display: none;
 }
 
+/* The hero's ground: a pale cool gradient under a fine woven grid — lightest at the
+   top-left where the copy sits, deepening diagonally toward `aqua` behind the 3D scene.
+   Four layers in one shorthand, painted back to front: the two 1px repeating gradients
+   that make the weave, a white top-left highlight, then the mist -> steel-pale -> aqua
+   ramp.
+
+   The ramp stays in the STEEL half of the palette (mist -> steel-pale -> a shade of it),
+   not the teal half: `aqua` as the deep stop turned the whole ground green.
+
+   Contrast: `ink` clears 9:1 against every stop, so body copy is safe anywhere on it.
+   `signal-deep` is NOT — 4.5:1 on `mist`, ~2.9:1 on the deep stop — so accent text has to
+   stay in the light third. That is where the copy column is, and it is why the highlight
+   is placed at 18%/12% rather than centred. */
+.texture-weave {
+  background-color: var(--color-mist);
+  background-image:
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.55) 0 1px, transparent 1px 4px),
+    repeating-linear-gradient(90deg, rgba(53, 70, 102, 0.07) 0 1px, transparent 1px 4px),
+    radial-gradient(125% 95% at 18% 12%, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0) 58%),
+    linear-gradient(128deg, var(--color-mist) 0%, #d6e5ee 34%, var(--color-steel-pale) 66%, #86bcd3 100%);
+}
+
 /* Reusable "glass" chrome for cards floating over dark 3D scenes */
 .glass-panel {
   background: color-mix(in srgb, var(--color-ink) 55%, transparent);

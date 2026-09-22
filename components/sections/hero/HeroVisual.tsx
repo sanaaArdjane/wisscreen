@@ -32,7 +32,8 @@ const InfraStack = dynamic(() => import("@/components/three/InfraStack"), {
 });
 
 /**
- * The right-hand 70% of the hero. Five modes, one panel:
+ * The right-hand side of the hero (`visual.split`% of the width on `lg`, 60 by default).
+ * Five modes, one panel:
  *
  * | mode    | what fills the panel                                          |
  * | earth   | the 3D globe, solutions as markers (`EarthNetwork`)          |
@@ -41,8 +42,8 @@ const InfraStack = dynamic(() => import("@/components/three/InfraStack"), {
  * | video   | one looping muted clip, played only while on screen          |
  * | slides  | a carousel of photos and clips                                |
  *
- * The 3D modes are full-bleed with the vignette; the media modes sit in an inset,
- * rounded frame that clears the navbar.
+ * The 3D modes are full-bleed and transparent over the hero's light woven ground; the
+ * media modes sit in an inset, rounded dark frame that clears the navbar.
  */
 export function HeroVisual({ visual, solutions }: { visual: HeroContent["visual"]; solutions: Service[] }) {
   if (visual.mode === "earth" || visual.mode === "stack") {
@@ -116,9 +117,14 @@ function HeroScene({ mode, solutions }: { mode: "earth" | "stack"; solutions: Se
   const Fallback = mode === "earth" ? EarthNetworkFallback : InfraStackFallback;
   const Placeholder = mode === "earth" ? EarthSkyPlaceholder : InfraSkyPlaceholder;
 
+  // Full-bleed and transparent over the section's own `.texture-weave` ground: the canvas
+  // is `alpha: true`, the scene draws no sky of its own, and there is no dark panel and no
+  // vignette. The whole hero is one light surface and the stack sits on it like a
+  // technical drawing.
+  //
   // No z-index on this wrapper: an absolute element with `z-auto` creates no stacking
-  // context, so the label overlay (z-20) still layers above the vignette (z-10) while
-  // the canvas stays below both.
+  // context, so the label overlay (z-20) still layers above the copy scrim (z-5) while the
+  // canvas stays below it.
   return (
     <div className="absolute inset-0">
       {mountScene ? (
@@ -128,16 +134,6 @@ function HeroScene({ mode, solutions }: { mode: "earth" | "stack"; solutions: Se
       ) : (
         <Placeholder />
       )}
-      {/* Vignette: seats the scene in space instead of in a rectangle, and dissolves the
-          panel's left edge into the copy column so the split reads as one surface. */}
-      <div
-        className="pointer-events-none absolute inset-0 z-10"
-        style={{
-          background:
-            "radial-gradient(110% 90% at 55% 45%, transparent 45%, rgba(38,51,76,0.45) 75%, rgba(38,51,76,0.9) 100%)",
-        }}
-      />
-      <div className="pointer-events-none absolute inset-y-0 left-0 z-10 hidden w-40 bg-gradient-to-r from-abyss to-transparent lg:block" />
       {/* Portal target for the labels. It MUST share the canvas's exact bounds — drei
           positions labels relative to the canvas. */}
       <div ref={overlayRef} className="pointer-events-none absolute inset-0 z-20" />

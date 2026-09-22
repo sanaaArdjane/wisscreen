@@ -68,15 +68,17 @@ export function InfraStackFallback({ message }: { message?: string } = {}) {
             {[0, 1, 2, 3].map((i) => (
               <div
                 key={i}
-                className={`h-24 rounded-2xl border bg-[#1d2a42]/70 shadow-[0_0_24px_rgba(127,201,200,0.18)] ${
-                  i === 1 ? "border-signal/60" : "border-aqua/45"
+                className={`h-24 rounded-2xl border bg-[#1d2a42]/70 shadow-xl ${
+                  i === 1 ? "border-signal/60" : "border-steel/45"
                 }`}
               />
             ))}
           </div>
         </div>
+        {/* `text-ink`, not `text-aqua`: the hero's ground is light now, and aqua is 1.9:1
+            on it. Plain ink clears 9:1 against every stop of `.texture-weave`. */}
         {message && (
-          <p className="max-w-xs text-center text-xs uppercase tracking-[0.14em] text-aqua">
+          <p className="max-w-xs text-center text-xs uppercase tracking-[0.14em] text-ink">
             {message}
           </p>
         )}

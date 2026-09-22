@@ -222,7 +222,7 @@ export const HERO_VISUAL_FORM: Field[] = [
   {
     kind: "cards",
     key: "mode",
-    label: "Visuel à droite du texte (70 % de la largeur)",
+    label: "Visuel à droite du texte",
     where: heroWhere("Toute la partie droite du hero"),
     options: [
       { value: "earth", label: "Terre 3D", icon: "globe", description: "Le globe interactif, vos solutions en marqueurs." },
@@ -295,6 +295,16 @@ export const HERO_VISUAL_FORM: Field[] = [
       },
       { kind: "text", key: "caption", label: "Légende", where: heroWhere("Texte en bas de la diapositive"), help: "Facultative." },
     ],
+  },
+  {
+    kind: "number",
+    key: "split",
+    label: "Largeur du visuel (%)",
+    min: 30,
+    max: 80,
+    step: 5,
+    where: heroWhere("Partage entre le texte à gauche et le visuel à droite"),
+    help: "60 = visuel 60 %, texte 40 %. Sans effet sur mobile, où le visuel passe au-dessus du texte.",
   },
   {
     kind: "number",

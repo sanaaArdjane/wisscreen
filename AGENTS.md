@@ -285,8 +285,13 @@ scales gently on card hover. With no image set the card shows a placeholder stat
 
 ## Hero (`components/sections/Hero.tsx` + `hero/`)
 
-**Copy on the left 30%, a visual on the right 70%** (`lg` and up; below it the visual comes
-first, ~58svh, then the copy). The owner picks the visual in /admin/site/hero:
+**Copy on the left, a visual on the right** (`lg` and up; below it the visual comes first,
+~58svh, then the copy), on a **light** ground. The owner picks the visual *and the split*
+in /admin/site/hero — `visual.split` is the visual's share of the width as a percent,
+**60 by default**, and the copy takes the rest. It cannot be a static Tailwind class, so
+the two tracks go through a `--hero-split` variable and `lg:grid-cols-[var(--hero-split)]`;
+keeping the arbitrary value breakpoint-scoped is what preserves the single column below
+`lg`, where the two stack and the split does not apply.
 
 | mode | what fills the panel |
 | --- | --- |
@@ -302,8 +307,27 @@ first, ~58svh, then the copy). The owner picks the visual in /admin/site/hero:
   on purpose — importing a fallback from a scene file pulls three.js into the main bundle.
 - The idle-callback mount gate is kept: the scene mounts once the browser is idle (1.2s
   at the latest) so the copy and CTAs hydrate first.
-- 3D modes are full-bleed in the panel with the radial vignette and a left fade into the
-  copy column; media modes sit in an inset rounded frame that clears the navbar.
+- **The ground is `.texture-weave`** (`app/globals.css`): a pale cool gradient under a fine
+  1px woven grid, lightest at the top-left and deepening diagonally. The ramp stays in the
+  **steel** half of the palette (`mist` → `steel-pale` → a shade of it) — `aqua` as the deep
+  stop turns the whole ground green.
+- **The 3D modes are full-bleed and transparent on top of it.** The canvas is already
+  `alpha: true`, so there is no panel and no vignette; the media modes keep their inset dark
+  frame. The scene draws **no sky** — see the light-scene rules below.
+- The copy is `text-ink` / `text-ink/80` (not `/70`: ink at 70% is 4.12:1), the eyebrow and
+  the type caret resolve through the adaptive `--signal-text` (`signal-deep` on light), and
+  the type cycle is `.text-accent`, not a hardcoded `text-aqua`.
+- **Nothing washes the ground behind the copy, and that was measured, not assumed.** An
+  earlier pass put a `bg-paper` halo there; it turned the copy into a blank white card and
+  its edge drew a visible vertical line down the section. Evaluating the ramp at every text
+  element's centre (probe: reconstruct the `128deg` ramp plus the `18%/12%` highlight in JS,
+  composite the colour through a canvas, compare) says the bare gradient clears every floor
+  at 375 / 768 / 1024 / 1440 / 1920 — **except** `signal-deep` on the eyebrow badge on
+  mobile, where the copy sits below the visual and reaches the deep end: 3.71:1.
+- So the badge alone carries `bg-paper` (5.14:1 anywhere). One opaque chip instead of a
+  wash is what lets the weave run unbroken behind the copy. If you add accent-coloured text
+  to this section, re-run the probe rather than reaching for a background.
+- **The navbar adapts with it** — see its own section below.
 
 ### The two 3D scenes
 
@@ -317,6 +341,26 @@ first, ~58svh, then the copy). The owner picks the visual in /admin/site/hero:
   layers unfold from one `unfold` group's `scale.y`); modules are dark glass lit from
   within; the active label gets its own `zIndexRange`; `useFit` only shrinks on narrow
   panels now (the panel no longer sits behind the copy, so there is no lift).
+### Both scenes now render on a LIGHT ground
+
+`InfraStack` was built for `abyss` and had to be retuned; the rules that came out of it:
+
+- **There is no sky.** `StarField`, `BrightStars`, `Meteors` and the `NebulaCloud`s are not
+  rendered by `InfraStack` any more, and neither is the halo above the top layer. Stars on
+  a pale ground are not stars, and every one of those is additively blended, so it
+  composites toward white and vanishes. `sky.tsx` still exports them — `EarthNetwork` has
+  not been converted and would need the same pass before `earth` mode is usable again.
+- **Additive blending is fine over a plate, not over the background.** The plates are still
+  dark glass (`#1d2a42` at 0.62), so the etched pattern, the scan line, the status LEDs and
+  the modules' core lights all keep `AdditiveBlending` and still read as light. Everything
+  drawn over the *background* — layer edges, pillars and their packets, module links and
+  theirs, the floor grid, the rising motes — switched to normal blending and to `WIRE`
+  (`#366479`, steel) / `WIRE_HOT` (`#0D7D55`, signal-deep), the two cool values that hold
+  3:1 against the whole gradient. Don't "unify" the two sets.
+- **Glows that existed to light the dark became nothing.** Each layer's underglow sprite and
+  the floor's bloom are gone rather than recoloured: a bloom under a plate means nothing on
+  a light ground.
+- `InfraStackFallback`'s message is `text-ink`, not `text-aqua` (1.9:1 on this ground).
 - **The camera prop only applies on mount** — reload after changing it.
 - **Uniforms are written through a material ref**, and refs mutated in `useFrame` end in
   `Ref` when passed as props — the React Compiler lint rejects both otherwise.
@@ -751,26 +795,48 @@ the progress fill's inline width (`autoplay ? progress : 100`, so a literal `100
 "off" sentinel) rather than trusting a single reading: each tool call takes seconds while
 the countdown keeps ticking.
 
-## The hero → Section 2 seam (vignette)
+## The navbar wears the back-office's chrome
 
-The hero paints `ink` and `HighlightsReel` paints `abyss`, so the boundary was a visible
-colour step, and on `lg` the 3D canvas stops at `bottom-[16%]` and ended on a hard
-horizontal line. Three pieces fix it, and they only work together:
+`components/layout/Navbar.tsx` is shaped like `AppShell`'s header: a **floating rounded
+pill** inset from the edges, which on scroll snaps to a **full-width bar with a bottom
+border**. Both states are the same element, so it transitions rather than swaps.
 
-1. **Radial vignette** inside the canvas wrapper (`z-10`), so it covers exactly the canvas
-   bounds — above the canvas (`z-auto`), below the marker labels (`z-20`) and copy (`z-30`).
-   Darkens the frame so the stack sits in space rather than in a rectangle.
-2. **Section-level bottom falloff** on the hero (`h-[45%]`, fading to `abyss`). It must be
-   scoped to the *section*, not the canvas: on `lg` a canvas-scoped fade leaves a sliver of
-   the hero's own `ink` showing between it and the copy band's scrim.
-3. **Limb glow** at the top of `HighlightsReel`, so the scene's glow reads as continuing behind
-   the copy.
+- **Both states carry a `ring` *and* a `border-b`, one of them transparent.** Dropping
+  either in one state changes the box by a pixel and the whole bar jumps at the end of the
+  transition — the same trap as the solution hero's frame.
+- **The scrolled width is `max-w-[160rem]`, not `max-w-none`.** `none` is a discrete value,
+  so the width would snap while the padding and radius animate.
+- **The colour family follows the page's opening ground, not the scroll**: `dark =
+  pathname !== "/"`, because the homepage hero is light and every other page opens on
+  `section-ink`. Scroll changes only the shape. It replaced a bar that was `glass-panel`
+  (ink at 55%) whenever scrolled, which over a light section composited to
+  `rgb(134,146,166)` — `text-paper` on that is **3.15:1**. It is now `bg-paper/85` (ink at
+  13.8:1) or `bg-ink/85` (paper at 6.2:1).
+- `usePathname()` must not sit behind the `||` of a short-circuit — a conditional hook call
+  breaks the rules of hooks.
+- The mobile sheet matches the bar's ground and inset rather than always being dark glass,
+  so the two read as one piece of chrome; it carries `on-dark` only on the dark variant.
+- The outermost element is still `<header>`, which is what `html[data-immersive] header`
+  hides. Don't move the padding to a wrapper outside it: the immersive overlays would be
+  left with an invisible `fixed` strip across the top of the screen.
 
-Two traps, both of which drew the exact hard line the vignette exists to remove:
+## The hero → Section 2 seam
 
-- **Don't let the glow end opaque.** An opaque gradient hides *this* section's dot texture
-  while the hero's stays visible, and that texture discontinuity reads as a hard edge. The
-  glow block therefore sits **before** the dot overlay in the DOM, so the dots run unbroken.
+**The hero's bottom falloff is gone, and so is the reason for it.** It existed because the
+hero and `HighlightsReel` were both dark and the boundary was an invisible-but-visible step
+inside one colour family. The hero is paper now: the boundary is a deliberate light → dark
+change, and a gradient to `abyss` laid over a light section is only a dark smear. What is
+left:
+
+1. **Radial vignette** inside the visual panel (`z-10`), above the canvas (`z-auto`) and
+   below the marker labels (`z-20`). It seats the scene in space rather than in a rectangle;
+   it is no longer doing any seam work.
+2. **Limb glow** at the top of `HighlightsReel`, which keeps both of its own rules — each of which
+   drew a hard line when it was got wrong:
+
+- **Don't let the glow end opaque.** An opaque gradient hides *that* section's own dot
+  texture, and the texture stopping partway down reads as an edge. The glow block therefore
+  sits **before** the dot overlay in the DOM, so the dots run unbroken.
 - **Don't let the glow start at full strength.** Beginning it at the boundary steps from
   no-glow (hero side) to full-glow (this side). It's masked with
   `linear-gradient(to bottom, transparent 0%, black 42%, transparent 100%)` so both sides
@@ -1179,7 +1245,15 @@ per section); `site_solutions` one row per solution (`content` = a `services.ts`
 **Reads (`lib/content/index.ts`).** `getSiteContent()` / `getSolutions()` are
 `unstable_cache`d and tagged; stored blocks are **deep-merged over the defaults and
 re-validated**, so a field added in code later gets its default and a block that no
-longer parses falls back instead of breaking the page. The cached loaders *throw* on a
+longer parses falls back instead of breaking the page.
+
+**Only the raw database rows are cached — the merge and the parse run on every read.**
+Caching the *assembled* result instead breaks the sentence above: a deploy that adds a
+field serves `undefined` for it until the entry expires (an hour) or someone saves in
+/admin/site, because the cached object was assembled against the old defaults. That
+shipped once, when `visual.split` was added, and rendered a `NaN` into a grid template.
+Assembling is a deep merge and a Zod parse of a few KB of JSON — nothing next to the round
+trip the cache exists to avoid. `assemble()` / `assembleSolutions()` are the seam. The cached loaders *throw* on a
 database error and the fallback sits outside the cache — `unstable_cache` doesn't store a
 thrown result, so an outage (or a DB-less build) never pins the defaults for an hour. An
 empty `site_solutions` table means "use `SERVICES`"; the first solution write copies the

@@ -86,9 +86,15 @@ function assemble(rows: { key: string; value: unknown }[]): SiteContent {
 
 /* ───────────────────────────── Uncached reads (admin) ───────────────────────────── */
 
+type ContentRow = { key: string; value: unknown };
+
+/** The raw stored blocks. This, not the assembled result, is what gets cached. */
+async function loadContentRows(): Promise<ContentRow[]> {
+  return db.select({ key: siteContent.key, value: siteContent.value }).from(siteContent);
+}
+
 async function loadSiteContent(): Promise<SiteContent> {
-  const rows = await db.select({ key: siteContent.key, value: siteContent.value }).from(siteContent);
-  return assemble(rows);
+  return assemble(await loadContentRows());
 }
 
 /** Every block, merged over defaults. Uncached: the editor must see its own saves. */
@@ -138,10 +144,20 @@ function toRecord(row: typeof siteSolutions.$inferSelect): SolutionRecord | null
  * Every solution record, hidden ones included, in order. An empty table means the
  * owner has never edited one: the code defaults are returned (with `id: null`).
  */
-async function loadSolutionRecords(): Promise<{ records: SolutionRecord[]; fromDefaults: boolean }> {
-  const rows = await db.select().from(siteSolutions).orderBy(asc(siteSolutions.position), asc(siteSolutions.id));
+/** The raw stored rows. This, not the parsed records, is what gets cached. */
+async function loadSolutionRows() {
+  return db.select().from(siteSolutions).orderBy(asc(siteSolutions.position), asc(siteSolutions.id));
+}
+
+function assembleSolutions(
+  rows: (typeof siteSolutions.$inferSelect)[],
+): { records: SolutionRecord[]; fromDefaults: boolean } {
   if (rows.length === 0) return { records: DEFAULT_SOLUTIONS, fromDefaults: true };
   return { records: rows.map(toRecord).filter((r): r is SolutionRecord => r !== null), fromDefaults: false };
+}
+
+async function loadSolutionRecords(): Promise<{ records: SolutionRecord[]; fromDefaults: boolean }> {
+  return assembleSolutions(await loadSolutionRows());
 }
 
 export async function readSolutionRecords(): Promise<{ records: SolutionRecord[]; fromDefaults: boolean }> {
@@ -173,9 +189,17 @@ export function toService(record: SolutionRecord): Service {
  * cache: `unstable_cache` doesn't store a thrown result, so a database outage (or a
  * build with no database) serves the defaults without pinning them in the cache for
  * the next hour.
+ *
+ * **Only the raw database rows are cached — the merge over the defaults and the Zod
+ * parse happen on every read.** Caching the assembled result instead means a deploy that
+ * adds a field to the content model serves `undefined` for that field until the entry
+ * expires (an hour) or someone saves in /admin/site, because the cached object was
+ * assembled against the *old* defaults. That shipped once and rendered a `NaN` into a
+ * grid template. Assembling is a deep merge and a parse of a few KB of JSON, so it costs
+ * nothing next to the round trip the cache is there to avoid.
  */
 
-const cachedSiteContent = unstable_cache(loadSiteContent, ["site-content"], {
+const cachedContentRows = unstable_cache(loadContentRows, ["site-content"], {
   tags: [SITE_CONTENT_TAG],
   revalidate: 3600,
 });
@@ -183,32 +207,26 @@ const cachedSiteContent = unstable_cache(loadSiteContent, ["site-content"], {
 /** The whole editable site copy. Cached and tagged; see the file note. */
 export async function getSiteContent(): Promise<SiteContent> {
   try {
-    return await cachedSiteContent();
+    return assemble(await cachedContentRows());
   } catch {
     return DEFAULT_SITE_CONTENT;
   }
 }
 
-type CachedSolution = { service: Service; published: boolean };
-
-const cachedSolutions = unstable_cache(
-  async (): Promise<CachedSolution[]> => {
-    const { records } = await loadSolutionRecords();
-    return records.map((r) => ({ service: toService(r), published: r.published }));
-  },
-  ["site-solutions"],
-  { tags: [SITE_SOLUTIONS_TAG], revalidate: 3600 },
-);
+const cachedSolutionRows = unstable_cache(loadSolutionRows, ["site-solutions"], {
+  tags: [SITE_SOLUTIONS_TAG],
+  revalidate: 3600,
+});
 
 /** The solutions the public site shows, in order. Hidden ones only on request. */
 export async function getSolutions(opts: { includeHidden?: boolean } = {}): Promise<Service[]> {
-  let all: CachedSolution[];
+  let records: SolutionRecord[];
   try {
-    all = await cachedSolutions();
+    records = assembleSolutions(await cachedSolutionRows()).records;
   } catch {
-    all = DEFAULT_SOLUTIONS.map((r) => ({ service: toService(r), published: r.published }));
+    records = DEFAULT_SOLUTIONS;
   }
-  return all.filter((s) => opts.includeHidden || s.published).map((s) => s.service);
+  return records.filter((r) => opts.includeHidden || r.published).map(toService);
 }
 
 export async function getSolution(slug: string): Promise<Service | undefined> {

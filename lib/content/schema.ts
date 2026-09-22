@@ -103,6 +103,9 @@ export const HeroSchema = z.object({
     slides: z.array(HeroSlideSchema).max(12),
     /** Seconds per slide. */
     interval: z.number().min(2).max(30),
+    /** The visual panel's share of the width on `lg` and up, as a percent; the copy
+     *  column takes the rest. Below `lg` the two stack and this has no effect. */
+    split: z.number().min(30).max(80),
   }),
 });
 

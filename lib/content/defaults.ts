@@ -70,6 +70,7 @@ export const DEFAULT_HERO: HeroContent = {
       { kind: "image", src: "/photos/setycore.jpg", poster: "", caption: "" },
     ],
     interval: 6,
+    split: 60,
   },
 };
 

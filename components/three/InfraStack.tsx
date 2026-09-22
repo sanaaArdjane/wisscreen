@@ -26,19 +26,25 @@ import { Icon } from "@/components/ui/Icon";
 import { InfraStackFallback } from "./fallbacks";
 import {
   AQUA,
-  BrightStars,
-  Meteors,
-  NebulaCloud,
   PAPER,
   SIGNAL,
   SIGNAL_BRIGHT,
   SIGNAL_SOFT,
-  StarField,
   TEAL,
   hash,
   radialGlowTexture,
-  starTexture,
 } from "./sky";
+
+/* The hero's ground is LIGHT (`.texture-weave`), so this scene draws no sky at all and
+   anything drawn over the BACKGROUND has to be dark and normally blended — additive over
+   a pale ground composites toward white and disappears. `WIRE` / `WIRE_HOT` are those:
+   steel and signal-deep, the two cool values that hold 3:1 against the whole gradient.
+
+   Anything drawn ON a layer's own glass plate keeps additive blending, because the plate
+   is still dark: the etched pattern, the scan line, the status LEDs and the modules' core
+   lights all sit on `#1d2a42` and still read as light. Don't "unify" the two. */
+const WIRE = "#366479";
+const WIRE_HOT = "#0D7D55";
 
 const INTRO_DURATION = 1.4;
 const INTRO_DELAY = 0.5;
@@ -324,13 +330,11 @@ function Layer({
   index,
   pattern,
   active,
-  glow,
   still,
 }: {
   index: number;
   pattern: Pattern;
   active: boolean;
-  glow: THREE.CanvasTexture | null;
   still: boolean;
 }) {
   const etch = useMemo(
@@ -382,7 +386,7 @@ function Layer({
         />
       </mesh>
       <lineSegments geometry={edges}>
-        <lineBasicMaterial color={active ? SIGNAL_BRIGHT : AQUA} transparent opacity={active ? 0.95 : 0.55} />
+        <lineBasicMaterial color={active ? WIRE_HOT : WIRE} transparent opacity={active ? 1 : 0.7} />
       </lineSegments>
 
       {/* Etched pattern, as light in the top face */}
@@ -413,20 +417,6 @@ function Layer({
       </mesh>
 
       <Blinkers seed={index * 37 + 3} active={active} still={still} />
-
-      {/* Soft underglow, so each layer lights the one below it */}
-      {glow && (
-        <sprite position={[0, -0.25, 0]} scale={[LAYER_W * 1.3, 1.1, 1]}>
-          <spriteMaterial
-            map={glow}
-            color={active ? SIGNAL : TEAL}
-            transparent
-            opacity={active ? 0.3 : 0.1}
-            depthWrite={false}
-            blending={THREE.AdditiveBlending}
-          />
-        </sprite>
-      )}
     </group>
   );
 }
@@ -468,13 +458,7 @@ function Pillar({
     <>
       <mesh position={[x, (from + to) / 2, z]}>
         <cylinderGeometry args={[0.014, 0.014, to - from, 6, 1, true]} />
-        <meshBasicMaterial
-          color={AQUA}
-          transparent
-          opacity={0.32}
-          depthWrite={false}
-          blending={THREE.AdditiveBlending}
-        />
+        <meshBasicMaterial color={WIRE} transparent opacity={0.45} depthWrite={false} />
       </mesh>
       {glow &&
         [0, 1].map((k) => (
@@ -487,11 +471,10 @@ function Pillar({
           >
             <spriteMaterial
               map={glow}
-              color={k === 0 ? PAPER : AQUA}
+              color={k === 0 ? WIRE_HOT : WIRE}
               transparent
               opacity={0}
               depthWrite={false}
-              blending={THREE.AdditiveBlending}
             />
           </sprite>
         ))}
@@ -534,19 +517,18 @@ function ModuleLink({
     }
   });
 
-  const color = active ? SIGNAL_SOFT : TEAL;
+  const color = active ? WIRE_HOT : WIRE;
   return (
     <>
-      <Line points={points} color={color} transparent opacity={active ? 0.9 : 0.4} lineWidth={active ? 1.8 : 1.1} />
+      <Line points={points} color={color} transparent opacity={active ? 1 : 0.55} lineWidth={active ? 1.8 : 1.1} />
       {glow && (
         <sprite ref={packet} scale={[0.26, 0.26, 1]}>
           <spriteMaterial
             map={glow}
-            color={active ? SIGNAL_BRIGHT : AQUA}
+            color={active ? WIRE_HOT : WIRE}
             transparent
             opacity={0}
             depthWrite={false}
-            blending={THREE.AdditiveBlending}
           />
         </sprite>
       )}
@@ -554,34 +536,15 @@ function ModuleLink({
   );
 }
 
-function Floor({ glow }: { glow: THREE.CanvasTexture | null }) {
+function Floor() {
   const grid = useMemo(() => (typeof document !== "undefined" ? floorTexture() : null), []);
   return (
     <group position={[0, FLOOR, 0]}>
       {grid && (
         <mesh rotation={[-Math.PI / 2, 0, 0]}>
           <planeGeometry args={[8, 8]} />
-          <meshBasicMaterial
-            map={grid}
-            color={AQUA}
-            transparent
-            opacity={0.3}
-            depthWrite={false}
-            blending={THREE.AdditiveBlending}
-          />
+          <meshBasicMaterial map={grid} color={WIRE} transparent opacity={0.4} depthWrite={false} />
         </mesh>
-      )}
-      {glow && (
-        <sprite position={[0, 0.1, 0]} scale={[7, 1.6, 1]}>
-          <spriteMaterial
-            map={glow}
-            color={TEAL}
-            transparent
-            opacity={0.3}
-            depthWrite={false}
-            blending={THREE.AdditiveBlending}
-          />
-        </sprite>
       )}
     </group>
   );
@@ -611,8 +574,8 @@ function Uplink({ still }: { still: boolean }) {
     () => ({
       uTime: { value: 0 },
       uPixelRatio: { value: 1 },
-      uColorA: { value: new THREE.Color(AQUA) },
-      uColorB: { value: new THREE.Color(SIGNAL_SOFT) },
+      uColorA: { value: new THREE.Color(WIRE) },
+      uColorB: { value: new THREE.Color(WIRE_HOT) },
     }),
     [],
   );
@@ -637,7 +600,6 @@ function Uplink({ still }: { still: boolean }) {
         uniforms={uniforms}
         transparent
         depthWrite={false}
-        blending={THREE.AdditiveBlending}
         vertexShader={/* glsl */ `
           uniform float uTime;
           uniform float uPixelRatio;
@@ -879,7 +841,6 @@ function Scene({
   overlayRef?: RefObject<HTMLDivElement | null>;
 }) {
   const glow = useMemo(() => (typeof document !== "undefined" ? radialGlowTexture() : null), []);
-  const starMap = useMemo(() => (typeof document !== "undefined" ? starTexture() : null), []);
   const fit = useFit();
 
   const intro = useRef<THREE.Group>(null);
@@ -937,29 +898,13 @@ function Scene({
       {/* Low signal rim from below, so the modules aren't lit from one hue only. */}
       <pointLight position={[3, -6, 2]} intensity={26} color={SIGNAL} />
 
-      <StarField star={starMap} glow={glow} />
-      <BrightStars glow={glow} />
-      <Meteors glow={glow} />
-
-      {/* Deep gas, kept very faint: colour temperature for the frame, not scenery. */}
-      <NebulaCloud position={[0, 0.5, -12]} scale={30} color={AQUA} opacity={0.07} glow={glow} />
-      <NebulaCloud position={[-15, 2.5, -22]} scale={26} color={TEAL} opacity={0.055} glow={glow} />
-      <NebulaCloud position={[14, -3, -20]} scale={24} color={SIGNAL} opacity={0.06} glow={glow} />
-
       <group position={[0, fit.lift, 0]}>
         <group ref={intro} scale={still ? 1 : 0.0001}>
           <group scale={fit.scale}>
             <group ref={drift}>
               <group ref={spin} rotation={[0, -0.5, 0]}>
-                <Floor glow={glow} />
+                <Floor />
                 <Uplink still={still} />
-
-                {/* Halo above the top layer: the cloud the stack serves */}
-                {glow && (
-                  <sprite position={[0, TOP + 1.1, 0]} scale={[6.5, 2.2, 1]}>
-                    <spriteMaterial map={glow} color={AQUA} transparent opacity={0.14} depthWrite={false} blending={THREE.AdditiveBlending} />
-                  </sprite>
-                )}
 
                 {/* Everything positional lives in the unfold group, so the layers,
                     pillars, modules and links spring apart together and never
@@ -971,7 +916,6 @@ function Scene({
                         index={i}
                         pattern={layer.pattern}
                         active={hovered !== null && hovered % LAYERS.length === i}
-                        glow={glow}
                         still={still}
                       />
                     </group>
