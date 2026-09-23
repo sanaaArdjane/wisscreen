@@ -1732,7 +1732,7 @@
     {
       "path": "eslint.config.mjs",
       "language": "javascript",
-      "sizeLines": 18,
+      "sizeLines": 20,
       "fileCategory": "code"
     },
     {
@@ -3993,5 +3993,6 @@
     "skills-lock.json": [],
     "tsconfig.json": [],
     "vitest.config.mts": []
-  }
+  },
+  "contentDigest": "0e1748dfa7b642689a2855b161e364309c88e7414f6f89fca0fb810c98ca1824"
 }

@@ -1,0 +1,39 @@
+{
+  "version": "1.0.0",
+  "baseCommit": "48345f275c2a225701e015a7ae96e82acde52a9f",
+  "headCommit": "9769c994384581797943bfb67fc2ded01c05ac58",
+  "generatedAt": "2026-09-23T12:44:59.062Z",
+  "files": {
+    "eslint.config.mjs": {
+      "filePath": "eslint.config.mjs",
+      "contentHash": "2a937af16d6748c63fe4b4b3fb9fcfb042e7db144df4e9c0b429e2f1f0afe3f0",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "eslint/config",
+          "specifiers": [
+            "defineConfig",
+            "globalIgnores"
+          ]
+        },
+        {
+          "source": "eslint-config-next/core-web-vitals",
+          "specifiers": [
+            "nextVitals"
+          ]
+        },
+        {
+          "source": "eslint-config-next/typescript",
+          "specifiers": [
+            "nextTs"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 21,
+      "hasStructuralAnalysis": true
+    }
+  },
+  "deletedFiles": []
+}
