@@ -1,0 +1,901 @@
+{
+ "nodes": [
+  {
+   "id": "file:app/(app)/admin/notifications/envoyer/BroadcastForm.tsx",
+   "type": "file",
+   "name": "BroadcastForm.tsx",
+   "filePath": "app/(app)/admin/notifications/envoyer/BroadcastForm.tsx",
+   "summary": "Compose-a-broadcast form: picks a recipient segment (all active, clients only, team, recent signups, or a specific plan's customers) and shows the live recipient count computed server-side before sending a titled message with an optional e-mail copy.",
+   "tags": [
+    "client-component",
+    "admin",
+    "notifications",
+    "broadcast"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:app/(app)/admin/notifications/envoyer/segments.ts",
+   "type": "file",
+   "name": "segments.ts",
+   "filePath": "app/(app)/admin/notifications/envoyer/segments.ts",
+   "summary": "Shared constant list of broadcast recipient segments (tous, clients, équipe, nouveaux, plan) and their value union, pulled out of the '\"use server\"' actions file because a server-actions module may only export async functions.",
+   "tags": [
+    "constants",
+    "admin",
+    "notifications",
+    "shared-module"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:app/(app)/admin/parametres/CompanyForm.tsx",
+   "type": "file",
+   "name": "CompanyForm.tsx",
+   "filePath": "app/(app)/admin/parametres/CompanyForm.tsx",
+   "summary": "The header/footer/legal/bank identity printed on every devis and facture PDF: company name, legal IDs (RC/NIF/NIS/AI), bank details, VAT rate, logo/signature pickers, and free-text terms — every field optional so an admin can start sending quotes before the paperwork is fully collected.",
+   "tags": [
+    "client-component",
+    "admin",
+    "settings",
+    "billing",
+    "company-identity"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:app/(app)/admin/parametres/SettingsForm.tsx",
+   "type": "file",
+   "name": "SettingsForm.tsx",
+   "filePath": "app/(app)/admin/parametres/SettingsForm.tsx",
+   "summary": "Platform-wide switches form: magic-link sign-in, open registration, required e-mail verification, and the announcement banner shown across both dashboard shells.",
+   "tags": [
+    "client-component",
+    "admin",
+    "settings",
+    "feature-flags"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:app/(app)/admin/parametres/actions.ts",
+   "type": "file",
+   "name": "actions.ts",
+   "filePath": "app/(app)/admin/parametres/actions.ts",
+   "summary": "Server actions for platform settings: updateSettings writes each app_settings key individually so a switch un-ticking turns it off rather than leaving it untouched, and updateCompany validates the logo/signature are PNG or JPEG attachments (the PDF engine can't embed anything else) before saving the printed company identity.",
+   "tags": [
+    "server-action",
+    "admin",
+    "settings",
+    "billing",
+    "validation"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:app/(app)/admin/utilisateurs/[id]/UserControls.tsx",
+   "type": "file",
+   "name": "UserControls.tsx",
+   "filePath": "app/(app)/admin/utilisateurs/[id]/UserControls.tsx",
+   "summary": "Every control on the admin user detail page, one form per action: profile fields, role change, the permission-matrix editor (draft state reseeded on role change, only exceptions to the role's defaults are saved), per-metric quota grants, suspend/unsuspend, an internal message, impersonation, and a type-to-confirm irreversible account delete.",
+   "tags": [
+    "client-component",
+    "admin",
+    "permissions",
+    "user-management",
+    "quotas"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "file:app/(app)/admin/utilisateurs/nouveau/CreateUserForm.tsx",
+   "type": "file",
+   "name": "CreateUserForm.tsx",
+   "filePath": "app/(app)/admin/utilisateurs/nouveau/CreateUserForm.tsx",
+   "summary": "Opens a new client or staff account from the back-office; the password field is optional and left blank triggers a generated password shown once in the success banner, which is the whole reason this page exists instead of just sending a sign-up link.",
+   "tags": [
+    "client-component",
+    "admin",
+    "user-management",
+    "onboarding"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:app/(app)/admin/notifications/envoyer/BroadcastForm.tsx:BroadcastForm",
+   "type": "function",
+   "name": "BroadcastForm",
+   "filePath": "app/(app)/admin/notifications/envoyer/BroadcastForm.tsx",
+   "lineRange": [
+    23,
+    108
+   ],
+   "summary": "Compose-a-broadcast form: audience segment picker (including a specific plan's customers), a live server-computed recipient count next to the send button, title/body/link, and an optional e-mail copy.",
+   "tags": [
+    "react-component",
+    "notifications",
+    "broadcast"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:app/(app)/admin/parametres/CompanyForm.tsx:CompanyForm",
+   "type": "function",
+   "name": "CompanyForm",
+   "filePath": "app/(app)/admin/parametres/CompanyForm.tsx",
+   "lineRange": [
+    17,
+    95
+   ],
+   "summary": "The PDF-header/footer company identity form (name, legal IDs, bank, VAT rate, logo/signature, terms); every field is optional so an admin can start billing before all paperwork is collected.",
+   "tags": [
+    "react-component",
+    "settings",
+    "billing"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:app/(app)/admin/parametres/CompanyForm.tsx:StatefulPicker",
+   "type": "function",
+   "name": "StatefulPicker",
+   "filePath": "app/(app)/admin/parametres/CompanyForm.tsx",
+   "lineRange": [
+    98,
+    113
+   ],
+   "summary": "Wraps ImagePicker with local id state so the logo/signature attachment id posts as a form field.",
+   "tags": [
+    "react-component",
+    "settings",
+    "media"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:app/(app)/admin/parametres/SettingsForm.tsx:SettingsForm",
+   "type": "function",
+   "name": "SettingsForm",
+   "filePath": "app/(app)/admin/parametres/SettingsForm.tsx",
+   "lineRange": [
+    14,
+    59
+   ],
+   "summary": "Platform switches form: magic-link sign-in, open registration, required e-mail verification, and the cross-dashboard announcement banner text.",
+   "tags": [
+    "react-component",
+    "settings",
+    "feature-flags"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:app/(app)/admin/parametres/actions.ts:updateSettings",
+   "type": "function",
+   "name": "updateSettings",
+   "filePath": "app/(app)/admin/parametres/actions.ts",
+   "lineRange": [
+    31,
+    55
+   ],
+   "summary": "Writes each app_settings key individually (so app_settings stays queryable one row at a time) and revalidates every layout that shows the announcement banner or gates sign-in.",
+   "tags": [
+    "server-action",
+    "settings",
+    "feature-flags"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:app/(app)/admin/parametres/actions.ts:updateCompany",
+   "type": "function",
+   "name": "updateCompany",
+   "filePath": "app/(app)/admin/parametres/actions.ts",
+   "lineRange": [
+    92,
+    111
+   ],
+   "summary": "Validates that any chosen logo/signature attachment exists and is PNG or JPEG (the PDF engine can't embed anything else) before saving the company identity printed on future documents.",
+   "tags": [
+    "server-action",
+    "settings",
+    "billing",
+    "validation"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:app/(app)/admin/utilisateurs/[id]/UserControls.tsx:UserProfileForm",
+   "type": "function",
+   "name": "UserProfileForm",
+   "filePath": "app/(app)/admin/utilisateurs/[id]/UserControls.tsx",
+   "lineRange": [
+    43,
+    85
+   ],
+   "summary": "Edits a user's profile fields (name, phone, company, internal note) and whether magic-link sign-in is enabled for that individual account.",
+   "tags": [
+    "react-component",
+    "user-management"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:app/(app)/admin/utilisateurs/[id]/UserControls.tsx:RoleForm",
+   "type": "function",
+   "name": "RoleForm",
+   "filePath": "app/(app)/admin/utilisateurs/[id]/UserControls.tsx",
+   "lineRange": [
+    87,
+    118
+   ],
+   "summary": "Changes a user's role; refuses to render a submittable form for the signed-in admin's own account.",
+   "tags": [
+    "react-component",
+    "user-management",
+    "permissions"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:app/(app)/admin/utilisateurs/[id]/UserControls.tsx:PermissionMatrix",
+   "type": "function",
+   "name": "PermissionMatrix",
+   "filePath": "app/(app)/admin/utilisateurs/[id]/UserControls.tsx",
+   "lineRange": [
+    127,
+    257
+   ],
+   "summary": "Per-domain read/write/delete permission grid; only checkboxes that differ from the role's own default are visually flagged and only those exceptions are persisted, so a later role change lets the rest follow automatically. Draft state is reseeded whenever the parent remounts it on role change.",
+   "tags": [
+    "react-component",
+    "permissions",
+    "user-management"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "function:app/(app)/admin/utilisateurs/[id]/UserControls.tsx:QuotaForm",
+   "type": "function",
+   "name": "QuotaForm",
+   "filePath": "app/(app)/admin/utilisateurs/[id]/UserControls.tsx",
+   "lineRange": [
+    264,
+    346
+   ],
+   "summary": "One metered quota row, or (with metric omitted) the 'add a new metric' row, letting an admin hand-grant an allowance the client's plan never created; a submit-adjacent form calls deleteQuota to remove a grant.",
+   "tags": [
+    "react-component",
+    "quotas",
+    "user-management"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:app/(app)/admin/utilisateurs/[id]/UserControls.tsx:SuspendForm",
+   "type": "function",
+   "name": "SuspendForm",
+   "filePath": "app/(app)/admin/utilisateurs/[id]/UserControls.tsx",
+   "lineRange": [
+    348,
+    408
+   ],
+   "summary": "Two-step (armed, then confirmed) suspend control with a reason shown to the suspended person, or a one-click reactivate once banned; refuses to render for the admin's own account.",
+   "tags": [
+    "react-component",
+    "user-management",
+    "destructive-action"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:app/(app)/admin/utilisateurs/[id]/UserControls.tsx:MessageForm",
+   "type": "function",
+   "name": "MessageForm",
+   "filePath": "app/(app)/admin/utilisateurs/[id]/UserControls.tsx",
+   "lineRange": [
+    410,
+    429
+   ],
+   "summary": "Sends a titled internal-platform message to the user, optionally also by e-mail.",
+   "tags": [
+    "react-component",
+    "notifications",
+    "user-management"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:app/(app)/admin/utilisateurs/[id]/UserControls.tsx:ImpersonateButton",
+   "type": "function",
+   "name": "ImpersonateButton",
+   "filePath": "app/(app)/admin/utilisateurs/[id]/UserControls.tsx",
+   "lineRange": [
+    431,
+    441
+   ],
+   "summary": "One-click 'view the platform as this user' control; hidden for the admin's own account.",
+   "tags": [
+    "react-component",
+    "user-management",
+    "impersonation"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:app/(app)/admin/utilisateurs/[id]/UserControls.tsx:DeleteUserForm",
+   "type": "function",
+   "name": "DeleteUserForm",
+   "filePath": "app/(app)/admin/utilisateurs/[id]/UserControls.tsx",
+   "lineRange": [
+    443,
+    456
+   ],
+   "summary": "Type-the-email-to-confirm irreversible account delete, cascading to the user's requests, messages, devis, factures, services, documents and notifications.",
+   "tags": [
+    "react-component",
+    "user-management",
+    "destructive-action"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:app/(app)/admin/utilisateurs/nouveau/CreateUserForm.tsx:CreateUserForm",
+   "type": "function",
+   "name": "CreateUserForm",
+   "filePath": "app/(app)/admin/utilisateurs/nouveau/CreateUserForm.tsx",
+   "lineRange": [
+    25,
+    107
+   ],
+   "summary": "Opens a client or staff account; a blank password field triggers a server-generated one shown once in the success banner, and a link to the new account's fiche appears on success.",
+   "tags": [
+    "react-component",
+    "user-management",
+    "onboarding"
+   ],
+   "complexity": "moderate"
+  }
+ ],
+ "edges": [
+  {
+   "source": "file:app/(app)/admin/notifications/envoyer/BroadcastForm.tsx",
+   "target": "file:app/(app)/admin/notifications/envoyer/actions.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/notifications/envoyer/BroadcastForm.tsx",
+   "target": "file:app/(app)/admin/notifications/envoyer/segments.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/notifications/envoyer/BroadcastForm.tsx",
+   "target": "file:components/dashboard/ui.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/notifications/envoyer/BroadcastForm.tsx",
+   "target": "file:lib/actions.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/parametres/CompanyForm.tsx",
+   "target": "file:app/(app)/admin/parametres/actions.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/parametres/CompanyForm.tsx",
+   "target": "file:components/dashboard/billing/ImagePicker.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/parametres/CompanyForm.tsx",
+   "target": "file:components/dashboard/ui.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/parametres/CompanyForm.tsx",
+   "target": "file:lib/actions.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/parametres/CompanyForm.tsx",
+   "target": "file:lib/settings.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/parametres/SettingsForm.tsx",
+   "target": "file:app/(app)/admin/parametres/actions.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/parametres/SettingsForm.tsx",
+   "target": "file:components/dashboard/ui.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/parametres/SettingsForm.tsx",
+   "target": "file:lib/actions.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/parametres/SettingsForm.tsx",
+   "target": "file:lib/settings.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/parametres/actions.ts",
+   "target": "file:lib/account.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/parametres/actions.ts",
+   "target": "file:lib/actions.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/parametres/actions.ts",
+   "target": "file:lib/db/index.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/parametres/actions.ts",
+   "target": "file:lib/db/schema.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/parametres/actions.ts",
+   "target": "file:lib/guard.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/parametres/actions.ts",
+   "target": "file:lib/settings.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/utilisateurs/[id]/UserControls.tsx",
+   "target": "file:app/(app)/admin/utilisateurs/actions.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/utilisateurs/[id]/UserControls.tsx",
+   "target": "file:components/dashboard/ui.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/utilisateurs/[id]/UserControls.tsx",
+   "target": "file:components/ui/Icon.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/utilisateurs/[id]/UserControls.tsx",
+   "target": "file:lib/actions.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/utilisateurs/[id]/UserControls.tsx",
+   "target": "file:lib/cn.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/utilisateurs/[id]/UserControls.tsx",
+   "target": "file:lib/permissions.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/utilisateurs/nouveau/CreateUserForm.tsx",
+   "target": "file:app/(app)/admin/utilisateurs/actions.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/utilisateurs/nouveau/CreateUserForm.tsx",
+   "target": "file:components/dashboard/ui.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/utilisateurs/nouveau/CreateUserForm.tsx",
+   "target": "file:lib/actions.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/notifications/envoyer/BroadcastForm.tsx",
+   "target": "function:app/(app)/admin/notifications/envoyer/BroadcastForm.tsx:BroadcastForm",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:app/(app)/admin/parametres/CompanyForm.tsx",
+   "target": "function:app/(app)/admin/parametres/CompanyForm.tsx:CompanyForm",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:app/(app)/admin/parametres/CompanyForm.tsx",
+   "target": "function:app/(app)/admin/parametres/CompanyForm.tsx:StatefulPicker",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:app/(app)/admin/parametres/SettingsForm.tsx",
+   "target": "function:app/(app)/admin/parametres/SettingsForm.tsx:SettingsForm",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:app/(app)/admin/parametres/actions.ts",
+   "target": "function:app/(app)/admin/parametres/actions.ts:updateSettings",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:app/(app)/admin/parametres/actions.ts",
+   "target": "function:app/(app)/admin/parametres/actions.ts:updateCompany",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:app/(app)/admin/utilisateurs/[id]/UserControls.tsx",
+   "target": "function:app/(app)/admin/utilisateurs/[id]/UserControls.tsx:UserProfileForm",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:app/(app)/admin/utilisateurs/[id]/UserControls.tsx",
+   "target": "function:app/(app)/admin/utilisateurs/[id]/UserControls.tsx:RoleForm",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:app/(app)/admin/utilisateurs/[id]/UserControls.tsx",
+   "target": "function:app/(app)/admin/utilisateurs/[id]/UserControls.tsx:PermissionMatrix",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:app/(app)/admin/utilisateurs/[id]/UserControls.tsx",
+   "target": "function:app/(app)/admin/utilisateurs/[id]/UserControls.tsx:QuotaForm",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:app/(app)/admin/utilisateurs/[id]/UserControls.tsx",
+   "target": "function:app/(app)/admin/utilisateurs/[id]/UserControls.tsx:SuspendForm",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:app/(app)/admin/utilisateurs/[id]/UserControls.tsx",
+   "target": "function:app/(app)/admin/utilisateurs/[id]/UserControls.tsx:MessageForm",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:app/(app)/admin/utilisateurs/[id]/UserControls.tsx",
+   "target": "function:app/(app)/admin/utilisateurs/[id]/UserControls.tsx:ImpersonateButton",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:app/(app)/admin/utilisateurs/[id]/UserControls.tsx",
+   "target": "function:app/(app)/admin/utilisateurs/[id]/UserControls.tsx:DeleteUserForm",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:app/(app)/admin/utilisateurs/nouveau/CreateUserForm.tsx",
+   "target": "function:app/(app)/admin/utilisateurs/nouveau/CreateUserForm.tsx:CreateUserForm",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:app/(app)/admin/notifications/envoyer/BroadcastForm.tsx",
+   "target": "function:app/(app)/admin/notifications/envoyer/BroadcastForm.tsx:BroadcastForm",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:app/(app)/admin/parametres/CompanyForm.tsx",
+   "target": "function:app/(app)/admin/parametres/CompanyForm.tsx:CompanyForm",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:app/(app)/admin/parametres/SettingsForm.tsx",
+   "target": "function:app/(app)/admin/parametres/SettingsForm.tsx:SettingsForm",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:app/(app)/admin/parametres/actions.ts",
+   "target": "function:app/(app)/admin/parametres/actions.ts:updateSettings",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:app/(app)/admin/parametres/actions.ts",
+   "target": "function:app/(app)/admin/parametres/actions.ts:updateCompany",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:app/(app)/admin/utilisateurs/[id]/UserControls.tsx",
+   "target": "function:app/(app)/admin/utilisateurs/[id]/UserControls.tsx:UserProfileForm",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:app/(app)/admin/utilisateurs/[id]/UserControls.tsx",
+   "target": "function:app/(app)/admin/utilisateurs/[id]/UserControls.tsx:RoleForm",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:app/(app)/admin/utilisateurs/[id]/UserControls.tsx",
+   "target": "function:app/(app)/admin/utilisateurs/[id]/UserControls.tsx:PermissionMatrix",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:app/(app)/admin/utilisateurs/[id]/UserControls.tsx",
+   "target": "function:app/(app)/admin/utilisateurs/[id]/UserControls.tsx:QuotaForm",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:app/(app)/admin/utilisateurs/[id]/UserControls.tsx",
+   "target": "function:app/(app)/admin/utilisateurs/[id]/UserControls.tsx:SuspendForm",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:app/(app)/admin/utilisateurs/[id]/UserControls.tsx",
+   "target": "function:app/(app)/admin/utilisateurs/[id]/UserControls.tsx:MessageForm",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:app/(app)/admin/utilisateurs/[id]/UserControls.tsx",
+   "target": "function:app/(app)/admin/utilisateurs/[id]/UserControls.tsx:ImpersonateButton",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:app/(app)/admin/utilisateurs/[id]/UserControls.tsx",
+   "target": "function:app/(app)/admin/utilisateurs/[id]/UserControls.tsx:DeleteUserForm",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:app/(app)/admin/utilisateurs/nouveau/CreateUserForm.tsx",
+   "target": "function:app/(app)/admin/utilisateurs/nouveau/CreateUserForm.tsx:CreateUserForm",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/(app)/admin/parametres/CompanyForm.tsx:CompanyForm",
+   "target": "function:app/(app)/admin/parametres/actions.ts:updateCompany",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/(app)/admin/parametres/SettingsForm.tsx:SettingsForm",
+   "target": "function:app/(app)/admin/parametres/actions.ts:updateSettings",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/(app)/admin/notifications/envoyer/BroadcastForm.tsx:BroadcastForm",
+   "target": "function:app/(app)/admin/notifications/envoyer/actions.ts:broadcast",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/(app)/admin/utilisateurs/[id]/UserControls.tsx:UserProfileForm",
+   "target": "function:app/(app)/admin/utilisateurs/actions.ts:updateUser",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/(app)/admin/utilisateurs/[id]/UserControls.tsx:RoleForm",
+   "target": "function:app/(app)/admin/utilisateurs/actions.ts:changeRole",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/(app)/admin/utilisateurs/[id]/UserControls.tsx:PermissionMatrix",
+   "target": "function:app/(app)/admin/utilisateurs/actions.ts:updatePermissions",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/(app)/admin/utilisateurs/[id]/UserControls.tsx:QuotaForm",
+   "target": "function:app/(app)/admin/utilisateurs/actions.ts:setQuota",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/(app)/admin/utilisateurs/[id]/UserControls.tsx:QuotaForm",
+   "target": "function:app/(app)/admin/utilisateurs/actions.ts:deleteQuota",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/(app)/admin/utilisateurs/[id]/UserControls.tsx:SuspendForm",
+   "target": "function:app/(app)/admin/utilisateurs/actions.ts:suspendUser",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/(app)/admin/utilisateurs/[id]/UserControls.tsx:SuspendForm",
+   "target": "function:app/(app)/admin/utilisateurs/actions.ts:unsuspendUser",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/(app)/admin/utilisateurs/[id]/UserControls.tsx:MessageForm",
+   "target": "function:app/(app)/admin/utilisateurs/actions.ts:messageUser",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/(app)/admin/utilisateurs/[id]/UserControls.tsx:ImpersonateButton",
+   "target": "function:app/(app)/admin/utilisateurs/actions.ts:impersonate",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/(app)/admin/utilisateurs/[id]/UserControls.tsx:DeleteUserForm",
+   "target": "function:app/(app)/admin/utilisateurs/actions.ts:deleteUser",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/(app)/admin/utilisateurs/nouveau/CreateUserForm.tsx:CreateUserForm",
+   "target": "function:app/(app)/admin/utilisateurs/actions.ts:createAccount",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/(app)/admin/parametres/actions.ts:updateSettings",
+   "target": "function:lib/guard.ts:requirePermission",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/(app)/admin/parametres/actions.ts:updateSettings",
+   "target": "function:lib/settings.ts:setSetting",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/(app)/admin/parametres/actions.ts:updateSettings",
+   "target": "function:lib/account.ts:logActivity",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/(app)/admin/parametres/actions.ts:updateCompany",
+   "target": "function:lib/guard.ts:requirePermission",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/(app)/admin/parametres/actions.ts:updateCompany",
+   "target": "function:lib/settings.ts:setSetting",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/(app)/admin/parametres/actions.ts:updateCompany",
+   "target": "function:lib/account.ts:logActivity",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  }
+ ]
+}

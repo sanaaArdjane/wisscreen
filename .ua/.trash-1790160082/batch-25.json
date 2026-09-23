@@ -1,0 +1,463 @@
+{
+  "nodes": [
+    {
+      "id": "document:.agents/skills/neon-ai-gateway/SKILL.md",
+      "type": "document",
+      "name": "SKILL.md (neon-ai-gateway, .agents)",
+      "filePath": ".agents/skills/neon-ai-gateway/SKILL.md",
+      "summary": "Vendored Neon Agent Skill reference for the AI Gateway: when to use it, setup, Infrastructure-as-Code, environment variables, and how to build agents with the Vercel AI SDK, Mastra, or plain provider SDKs against Neon's one-API multi-model gateway.",
+      "tags": ["documentation", "ai-gateway", "vendored-skill", "neon", "llm"],
+      "complexity": "complex"
+    },
+    {
+      "id": "document:.agents/skills/neon-auth/SKILL.md",
+      "type": "document",
+      "name": "SKILL.md (neon-auth, .agents)",
+      "filePath": ".agents/skills/neon-auth/SKILL.md",
+      "summary": "Vendored Neon Agent Skill top-level reference for Neon Auth: when to use it, managed vs self-managed setup, Supabase Auth migration, plugin support, and trusted domains, pointing into the managed-auth.md and self-managed.md references for implementation detail.",
+      "tags": ["documentation", "authentication", "vendored-skill", "neon"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:.agents/skills/neon-auth/references/managed-auth.md",
+      "type": "document",
+      "name": "managed-auth.md (.agents)",
+      "filePath": ".agents/skills/neon-auth/references/managed-auth.md",
+      "summary": "Implementation reference for Managed Better Auth on Neon: required packages, environment setup, Next.js and React/Vite integration, organization invitations, UI wiring, and cross-subdomain vs bearer JWT identity handling for the Data API.",
+      "tags": ["documentation", "authentication", "vendored-skill", "better-auth"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:.agents/skills/neon-auth/references/self-managed.md",
+      "type": "document",
+      "name": "self-managed.md (.agents)",
+      "filePath": ".agents/skills/neon-auth/references/self-managed.md",
+      "summary": "Short reference covering how to keep an existing self-managed Better Auth setup or stand up a new self-managed auth server instead of Neon's Managed Better Auth.",
+      "tags": ["documentation", "authentication", "vendored-skill", "better-auth"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:.agents/skills/neon-functions/SKILL.md",
+      "type": "document",
+      "name": "SKILL.md (neon-functions, .agents)",
+      "filePath": ".agents/skills/neon-functions/SKILL.md",
+      "summary": "Vendored Neon Agent Skill reference for Neon Functions: long-running Node.js HTTP functions on a Neon branch, covering setup, deployment, environment variables, Postgres connections, timeouts, WebSocket/SSE servers, function triggers, MCP servers, and observability.",
+      "tags": ["documentation", "serverless", "vendored-skill", "neon"],
+      "complexity": "complex"
+    },
+    {
+      "id": "document:.agents/skills/neon-object-storage/SKILL.md",
+      "type": "document",
+      "name": "SKILL.md (neon-object-storage, .agents)",
+      "filePath": ".agents/skills/neon-object-storage/SKILL.md",
+      "summary": "Vendored Neon Agent Skill reference for Neon Object Storage: S3-compatible buckets that branch with the database, covering setup, IaC, environment variables, the Files SDK vs AWS S3 client, and pairing storage with a database branch.",
+      "tags": ["documentation", "object-storage", "vendored-skill", "neon"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:.agents/skills/neon-postgres-branches/SKILL.md",
+      "type": "document",
+      "name": "SKILL.md (neon-postgres-branches, .agents)",
+      "filePath": ".agents/skills/neon-postgres-branches/SKILL.md",
+      "summary": "Vendored Neon Agent Skill reference for Postgres branching: choosing normal vs schema-only branches, CLI/MCP tool selection, reset-from-parent, CI/CD branching workflows, and worked migration-testing examples.",
+      "tags": ["documentation", "database", "vendored-skill", "neon"],
+      "complexity": "complex"
+    },
+    {
+      "id": "document:.agents/skills/neon-postgres-egress-optimizer/SKILL.md",
+      "type": "document",
+      "name": "SKILL.md (neon-postgres-egress-optimizer, .agents)",
+      "filePath": ".agents/skills/neon-postgres-egress-optimizer/SKILL.md",
+      "summary": "Vendored Neon Agent Skill reference for diagnosing and fixing excessive Postgres egress: pg_stat_statements diagnostics, codebase analysis, and fixes for SELECT *, missing pagination, high-frequency static queries, app-side aggregation, and JOIN duplication.",
+      "tags": ["documentation", "performance", "vendored-skill", "neon"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:.agents/skills/neon-postgres/SKILL.md",
+      "type": "document",
+      "name": "SKILL.md (neon-postgres, .agents)",
+      "filePath": ".agents/skills/neon-postgres/SKILL.md",
+      "summary": "Vendored Neon Agent Skill reference for Lakebase Postgres itself: connection setup, pooled vs direct URLs, schema/migrations, performance troubleshooting, autoscaling, scale-to-zero, instant restore, read replicas, connection pooling, IP allow lists, logical replication, and Lakebase Search.",
+      "tags": ["documentation", "database", "vendored-skill", "neon"],
+      "complexity": "complex"
+    },
+    {
+      "id": "document:.agents/skills/neon/SKILL.md",
+      "type": "document",
+      "name": "SKILL.md (neon, .agents)",
+      "filePath": ".agents/skills/neon/SKILL.md",
+      "summary": "Top-level vendored Neon Agent Skill overview covering all backend primitives (Auth, Object Storage, Functions, AI Gateway), the CLI/MCP setup flow, neon.ts Infrastructure-as-Code, the branch-first dev flow, and how to pick a child skill.",
+      "tags": ["documentation", "vendored-skill", "neon", "overview"],
+      "complexity": "complex"
+    },
+    {
+      "id": "config:.claude/launch.json",
+      "type": "config",
+      "name": "launch.json",
+      "filePath": ".claude/launch.json",
+      "summary": "Claude Code dev-server launch configuration used by the browser preview tool, declaring how to start this project's local dev server (command, args, port).",
+      "tags": ["configuration", "dev-tooling", "claude-code"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:.claude/skills/DESIGN-mobbin.md",
+      "type": "document",
+      "name": "DESIGN-mobbin.md",
+      "filePath": ".claude/skills/DESIGN-mobbin.md",
+      "summary": "Design-system spec ('the Mobbin language in WICLOUD colours') defining the dashboard's colour tokens, typography, spacing, elevation, shape, and component conventions (buttons, cards, inputs, navigation), plus a mapping from these tokens onto the WICLOUD dashboard and explicit do's/don'ts. Referenced directly by app/(app)/heroui.css's theme block.",
+      "tags": ["documentation", "design-system", "dashboard", "theming"],
+      "complexity": "complex"
+    },
+    {
+      "id": "document:.claude/skills/neon-ai-gateway/SKILL.md",
+      "type": "document",
+      "name": "SKILL.md (neon-ai-gateway, .claude)",
+      "filePath": ".claude/skills/neon-ai-gateway/SKILL.md",
+      "summary": "Duplicate copy (under .claude/skills, mirroring .agents/skills) of the Neon Agent Skill reference for the AI Gateway: when to use it, setup, Infrastructure-as-Code, environment variables, and building agents with the Vercel AI SDK, Mastra, or plain provider SDKs.",
+      "tags": ["documentation", "ai-gateway", "vendored-skill", "neon"],
+      "complexity": "complex"
+    },
+    {
+      "id": "document:.claude/skills/neon-auth/SKILL.md",
+      "type": "document",
+      "name": "SKILL.md (neon-auth, .claude)",
+      "filePath": ".claude/skills/neon-auth/SKILL.md",
+      "summary": "Duplicate copy (under .claude/skills) of the Neon Agent Skill top-level reference for Neon Auth: when to use it, managed vs self-managed setup, Supabase Auth migration, plugin support, and trusted domains.",
+      "tags": ["documentation", "authentication", "vendored-skill", "neon"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:.claude/skills/neon-auth/references/managed-auth.md",
+      "type": "document",
+      "name": "managed-auth.md (.claude)",
+      "filePath": ".claude/skills/neon-auth/references/managed-auth.md",
+      "summary": "Duplicate copy (under .claude/skills) of the implementation reference for Managed Better Auth on Neon: packages, environment, Next.js and React/Vite integration, organization invitations, UI, and cross-subdomain vs bearer JWT identity handling.",
+      "tags": ["documentation", "authentication", "vendored-skill", "better-auth"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:.claude/skills/neon-auth/references/self-managed.md",
+      "type": "document",
+      "name": "self-managed.md (.claude)",
+      "filePath": ".claude/skills/neon-auth/references/self-managed.md",
+      "summary": "Duplicate copy (under .claude/skills) of the short reference on keeping an existing self-managed Better Auth setup or standing up a new self-managed auth server.",
+      "tags": ["documentation", "authentication", "vendored-skill", "better-auth"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:.claude/skills/neon-functions/SKILL.md",
+      "type": "document",
+      "name": "SKILL.md (neon-functions, .claude)",
+      "filePath": ".claude/skills/neon-functions/SKILL.md",
+      "summary": "Duplicate copy (under .claude/skills) of the Neon Functions reference: long-running Node.js HTTP functions on a Neon branch, setup, deployment, environment variables, Postgres connections, timeouts, WebSocket/SSE servers, function triggers, MCP servers, and observability.",
+      "tags": ["documentation", "serverless", "vendored-skill", "neon"],
+      "complexity": "complex"
+    },
+    {
+      "id": "document:.claude/skills/neon-object-storage/SKILL.md",
+      "type": "document",
+      "name": "SKILL.md (neon-object-storage, .claude)",
+      "filePath": ".claude/skills/neon-object-storage/SKILL.md",
+      "summary": "Duplicate copy (under .claude/skills) of the Neon Object Storage reference: S3-compatible buckets that branch with the database, setup, IaC, environment variables, and Files SDK vs AWS S3 client usage.",
+      "tags": ["documentation", "object-storage", "vendored-skill", "neon"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:.claude/skills/neon-postgres-branches/SKILL.md",
+      "type": "document",
+      "name": "SKILL.md (neon-postgres-branches, .claude)",
+      "filePath": ".claude/skills/neon-postgres-branches/SKILL.md",
+      "summary": "Duplicate copy (under .claude/skills) of the Postgres branching reference: normal vs schema-only branches, CLI/MCP tool selection, reset-from-parent, CI/CD branching workflows, and worked examples.",
+      "tags": ["documentation", "database", "vendored-skill", "neon"],
+      "complexity": "complex"
+    },
+    {
+      "id": "document:.claude/skills/neon-postgres-egress-optimizer/SKILL.md",
+      "type": "document",
+      "name": "SKILL.md (neon-postgres-egress-optimizer, .claude)",
+      "filePath": ".claude/skills/neon-postgres-egress-optimizer/SKILL.md",
+      "summary": "Duplicate copy (under .claude/skills) of the Postgres egress optimizer reference: pg_stat_statements diagnostics, codebase analysis, and fixes for overfetching, missing pagination, and JOIN duplication.",
+      "tags": ["documentation", "performance", "vendored-skill", "neon"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:.claude/skills/neon-postgres/SKILL.md",
+      "type": "document",
+      "name": "SKILL.md (neon-postgres, .claude)",
+      "filePath": ".claude/skills/neon-postgres/SKILL.md",
+      "summary": "Duplicate copy (under .claude/skills) of the Lakebase Postgres reference: connection setup, pooled vs direct URLs, migrations, performance troubleshooting, autoscaling, scale-to-zero, instant restore, read replicas, and Lakebase Search.",
+      "tags": ["documentation", "database", "vendored-skill", "neon"],
+      "complexity": "complex"
+    },
+    {
+      "id": "document:.claude/skills/neon/SKILL.md",
+      "type": "document",
+      "name": "SKILL.md (neon, .claude)",
+      "filePath": ".claude/skills/neon/SKILL.md",
+      "summary": "Duplicate copy (under .claude/skills) of the top-level Neon overview covering all backend primitives, CLI/MCP setup, neon.ts Infrastructure-as-Code, and the branch-first dev flow.",
+      "tags": ["documentation", "vendored-skill", "neon", "overview"],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:app/(app)/admin/site/loading.tsx",
+      "type": "file",
+      "name": "loading.tsx",
+      "filePath": "app/(app)/admin/site/loading.tsx",
+      "summary": "Next.js route-segment loading UI for /admin/site: renders a skeleton placeholder (three pulsing blocks) shown while the site-content editor page streams in.",
+      "tags": ["loading-state", "admin", "dashboard", "skeleton"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:app/(app)/admin/site/loading.tsx:Loading",
+      "type": "function",
+      "name": "Loading",
+      "filePath": "app/(app)/admin/site/loading.tsx",
+      "lineRange": [6, 19],
+      "summary": "Default-exported Next.js loading component for /admin/site that renders a fixed set of animated skeleton blocks as a placeholder while the real page's data loads.",
+      "tags": ["loading-state", "skeleton", "react-component"],
+      "complexity": "simple"
+    },
+    {
+      "id": "service:app/(app)/heroui.css",
+      "type": "service",
+      "name": "heroui.css",
+      "filePath": "app/(app)/heroui.css",
+      "summary": "HeroUI v3 stylesheet scoped exclusively to the signed-in (/dashboard, /admin) route group: imports @heroui/styles/css, declares light-dark() theme tokens implementing the Mobbin design spec (.claude/skills/DESIGN-mobbin.md) under [data-wicloud-app], and pins HeroUI's --primary/--secondary/--default/--muted/--danger variables so the dashboard's contrast requirements hold. Imported only by app/(app)/layout.tsx so the marketing pages never download it.",
+      "tags": ["stylesheet", "theming", "dashboard", "design-tokens", "heroui"],
+      "complexity": "complex",
+      "languageNotes": "Uses CSS light-dark() with a data-theme attribute driving color-scheme, avoiding a client-side flash-of-unstyled-theme; @source directives are needed because the Tailwind entry lives in node_modules via @heroui/styles/css."
+    },
+    {
+      "id": "file:app/(app)/layout.tsx",
+      "type": "file",
+      "name": "layout.tsx",
+      "filePath": "app/(app)/layout.tsx",
+      "summary": "Root layout for the signed-in app route group ((app)): a deliberately thin pass-through that imports heroui.css and sets noindex/nofollow metadata, leaving actual navigation/guards/data to each dashboard's own AppShell.",
+      "tags": ["layout", "entry-point", "dashboard", "route-group"],
+      "complexity": "simple",
+      "languageNotes": "Importing heroui.css here rather than in the document root layout is what keeps the marketing site's CSS bundle from including HeroUI's non-JIT-purged component styles."
+    },
+    {
+      "id": "function:app/(app)/layout.tsx:AppLayout",
+      "type": "function",
+      "name": "AppLayout",
+      "filePath": "app/(app)/layout.tsx",
+      "lineRange": [17, 19],
+      "summary": "Default-exported layout component for the (app) route group that simply renders its children, delegating all real shell/navigation work to the dashboard- and admin-specific AppShell components.",
+      "tags": ["layout", "react-component", "pass-through"],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:app/(app)/layout.tsx",
+      "target": "service:app/(app)/heroui.css",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/layout.tsx",
+      "target": "function:app/(app)/layout.tsx:AppLayout",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:app/(app)/layout.tsx",
+      "target": "function:app/(app)/layout.tsx:AppLayout",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/(app)/admin/site/loading.tsx",
+      "target": "function:app/(app)/admin/site/loading.tsx:Loading",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:app/(app)/admin/site/loading.tsx",
+      "target": "function:app/(app)/admin/site/loading.tsx:Loading",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "service:app/(app)/heroui.css",
+      "target": "document:.claude/skills/DESIGN-mobbin.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:.agents/skills/neon-ai-gateway/SKILL.md",
+      "target": "document:.claude/skills/neon-ai-gateway/SKILL.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:.agents/skills/neon-auth/SKILL.md",
+      "target": "document:.claude/skills/neon-auth/SKILL.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:.agents/skills/neon-auth/references/managed-auth.md",
+      "target": "document:.claude/skills/neon-auth/references/managed-auth.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:.agents/skills/neon-auth/references/self-managed.md",
+      "target": "document:.claude/skills/neon-auth/references/self-managed.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:.agents/skills/neon-functions/SKILL.md",
+      "target": "document:.claude/skills/neon-functions/SKILL.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:.agents/skills/neon-object-storage/SKILL.md",
+      "target": "document:.claude/skills/neon-object-storage/SKILL.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:.agents/skills/neon-postgres-branches/SKILL.md",
+      "target": "document:.claude/skills/neon-postgres-branches/SKILL.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:.agents/skills/neon-postgres-egress-optimizer/SKILL.md",
+      "target": "document:.claude/skills/neon-postgres-egress-optimizer/SKILL.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:.agents/skills/neon-postgres/SKILL.md",
+      "target": "document:.claude/skills/neon-postgres/SKILL.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:.agents/skills/neon/SKILL.md",
+      "target": "document:.claude/skills/neon/SKILL.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:.agents/skills/neon/SKILL.md",
+      "target": "document:.agents/skills/neon-ai-gateway/SKILL.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:.agents/skills/neon/SKILL.md",
+      "target": "document:.agents/skills/neon-auth/SKILL.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:.agents/skills/neon/SKILL.md",
+      "target": "document:.agents/skills/neon-functions/SKILL.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:.agents/skills/neon/SKILL.md",
+      "target": "document:.agents/skills/neon-object-storage/SKILL.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:.agents/skills/neon/SKILL.md",
+      "target": "document:.agents/skills/neon-postgres/SKILL.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:.agents/skills/neon-auth/SKILL.md",
+      "target": "document:.agents/skills/neon-auth/references/managed-auth.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:.agents/skills/neon-auth/SKILL.md",
+      "target": "document:.agents/skills/neon-auth/references/self-managed.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:.claude/skills/neon/SKILL.md",
+      "target": "document:.claude/skills/neon-ai-gateway/SKILL.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:.claude/skills/neon/SKILL.md",
+      "target": "document:.claude/skills/neon-auth/SKILL.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:.claude/skills/neon/SKILL.md",
+      "target": "document:.claude/skills/neon-functions/SKILL.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:.claude/skills/neon/SKILL.md",
+      "target": "document:.claude/skills/neon-object-storage/SKILL.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:.claude/skills/neon/SKILL.md",
+      "target": "document:.claude/skills/neon-postgres/SKILL.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:.claude/skills/neon-auth/SKILL.md",
+      "target": "document:.claude/skills/neon-auth/references/managed-auth.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:.claude/skills/neon-auth/SKILL.md",
+      "target": "document:.claude/skills/neon-auth/references/self-managed.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    }
+  ]
+}

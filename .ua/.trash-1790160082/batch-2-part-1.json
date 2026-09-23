@@ -1,0 +1,958 @@
+{
+ "nodes": [
+  {
+   "id": "file:__tests__/ui.test.tsx",
+   "type": "file",
+   "name": "ui.test.tsx",
+   "filePath": "__tests__/ui.test.tsx",
+   "summary": "Vitest + Testing Library unit tests for the shared components/ui primitives (Button, Badge, Container, Icon, SectionHeading, Tabs, Accordion, HandUnderline, ErrorBoundary, StatCounter, TypeCycle, isRemote) plus the site Footer, asserting rendered markup and accessibility state.",
+   "tags": [
+    "test",
+    "unit-test",
+    "ui-components",
+    "accessibility"
+   ],
+   "complexity": "moderate",
+   "languageNotes": "Mocks lib/gsap and next/link so GSAP-driven reveal/animation components render their settled, server-visible state deterministically under jsdom."
+  },
+  {
+   "id": "file:app/(app)/admin/site/page.tsx",
+   "type": "file",
+   "name": "page.tsx",
+   "filePath": "app/(app)/admin/site/page.tsx",
+   "summary": "Overview page for /admin/site: renders four cards (Hero, homepage sections, Solutions, G\u00e9n\u00e9ral & footer) summarizing current site content and last-modified timestamps, each linking into its dedicated sub-editor.",
+   "tags": [
+    "admin-page",
+    "cms",
+    "dashboard",
+    "server-component"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:app/(app)/admin/site/page.tsx:SiteOverviewPage",
+   "type": "function",
+   "name": "SiteOverviewPage",
+   "filePath": "app/(app)/admin/site/page.tsx",
+   "lineRange": [
+    24,
+    120
+   ],
+   "summary": "Default-exported async server component that fetches site content, per-section update timestamps and solution records in parallel, then renders the four /admin/site overview cards with modification banners for defaults/unconfigured storage.",
+   "tags": [
+    "admin",
+    "server-component",
+    "entry-point"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:app/(marketing)/page.tsx",
+   "type": "file",
+   "name": "page.tsx",
+   "filePath": "app/(marketing)/page.tsx",
+   "summary": "The public homepage route: an async server component that reads site content and solutions once via getSiteContent()/getSolutions() and composes the ~20 Apple-style marketing sections in order, skipping any section marked hidden.",
+   "tags": [
+    "entry-point",
+    "homepage",
+    "composition",
+    "server-component"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:app/(marketing)/page.tsx:Home",
+   "type": "function",
+   "name": "Home",
+   "filePath": "app/(marketing)/page.tsx",
+   "lineRange": [
+    53,
+    88
+   ],
+   "summary": "Default-exported async homepage component; awaits getSiteContent()/getSolutions() once and renders every marketing section in the fixed Apple-style order, skipping sections flagged hidden.",
+   "tags": [
+    "entry-point",
+    "server-component",
+    "composition"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:app/(marketing)/solutions/[slug]/page.tsx",
+   "type": "file",
+   "name": "page.tsx",
+   "filePath": "app/(marketing)/solutions/[slug]/page.tsx",
+   "summary": "Per-solution sub-landing page route: generates static params from every solution, builds SEO metadata and JSON-LD schemas, and composes the solution's hero/story/features/steps/sub-projects/video/media/FAQ/contact/related sections.",
+   "tags": [
+    "entry-point",
+    "dynamic-route",
+    "seo",
+    "composition"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:app/(marketing)/solutions/[slug]/page.tsx:generateStaticParams",
+   "type": "function",
+   "name": "generateStaticParams",
+   "filePath": "app/(marketing)/solutions/[slug]/page.tsx",
+   "lineRange": [
+    28,
+    30
+   ],
+   "summary": "Next.js static params generator returning one { slug } per solution from getSolutions() so every published solution page is pre-rendered at build time.",
+   "tags": [
+    "ssg",
+    "routing"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:app/(marketing)/solutions/[slug]/page.tsx:generateMetadata",
+   "type": "function",
+   "name": "generateMetadata",
+   "filePath": "app/(marketing)/solutions/[slug]/page.tsx",
+   "lineRange": [
+    32,
+    64
+   ],
+   "summary": "Builds the per-solution page's SEO metadata (title, description, keywords, canonical URL, OpenGraph and Twitter card) from the resolved solution, returning an empty object for an unknown slug.",
+   "tags": [
+    "seo",
+    "metadata"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:app/(marketing)/solutions/[slug]/page.tsx:SolutionPage",
+   "type": "function",
+   "name": "SolutionPage",
+   "filePath": "app/(marketing)/solutions/[slug]/page.tsx",
+   "lineRange": [
+    66,
+    91
+   ],
+   "summary": "Default-exported async page component: resolves the solution by slug (404 if unknown), emits JSON-LD for service/breadcrumb/FAQ schemas, and composes every solution sub-landing section in order.",
+   "tags": [
+    "entry-point",
+    "server-component",
+    "seo"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:components/dashboard/site/IconPicker.tsx",
+   "type": "file",
+   "name": "IconPicker.tsx",
+   "filePath": "components/dashboard/site/IconPicker.tsx",
+   "summary": "Client-side icon chooser used by the /admin/site content editors: shows the current icon as a toggle button and an expandable grid of selectable icons, excluding icons reserved for dashboard chrome only.",
+   "tags": [
+    "dashboard",
+    "form-control",
+    "admin",
+    "client-component"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:components/dashboard/site/IconPicker.tsx:IconPicker",
+   "type": "function",
+   "name": "IconPicker",
+   "filePath": "components/dashboard/site/IconPicker.tsx",
+   "lineRange": [
+    27,
+    67
+   ],
+   "summary": "Renders the current icon as a toggle button and, when open, an accessible listbox grid of selectable icon choices (chrome-only icons excluded) that calls onChange and closes on selection.",
+   "tags": [
+    "dashboard",
+    "form-control",
+    "client-component"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:components/dashboard/site/SectionCard.tsx",
+   "type": "file",
+   "name": "SectionCard.tsx",
+   "filePath": "components/dashboard/site/SectionCard.tsx",
+   "summary": "Collapsible wrapper for one homepage section inside /admin/site/accueil; shows an index, title, hidden/modified badges and a live-page link, and only mounts its section editor once expanded to keep the page fast to interact with.",
+   "tags": [
+    "dashboard",
+    "ui-component",
+    "lazy-mount",
+    "admin"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:components/dashboard/site/SectionCard.tsx:SectionCard",
+   "type": "function",
+   "name": "SectionCard",
+   "filePath": "components/dashboard/site/SectionCard.tsx",
+   "lineRange": [
+    12,
+    72
+   ],
+   "summary": "Collapsible list item for one homepage section: header shows index, title, hidden/modified badges and an external link to the live section; children (the section's editor) render only while open.",
+   "tags": [
+    "dashboard",
+    "lazy-mount",
+    "client-component"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:components/dashboard/site/SiteTabs.tsx",
+   "type": "file",
+   "name": "SiteTabs.tsx",
+   "filePath": "components/dashboard/site/SiteTabs.tsx",
+   "summary": "Sub-navigation pill tab bar for the /admin/site editor pages (Overview, Hero, Homepage sections, Solutions, G\u00e9n\u00e9ral), highlighting the active tab from the current pathname and scrolling sideways on narrow screens.",
+   "tags": [
+    "dashboard",
+    "navigation",
+    "admin",
+    "client-component"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:components/dashboard/site/SiteTabs.tsx:SiteTabs",
+   "type": "function",
+   "name": "SiteTabs",
+   "filePath": "components/dashboard/site/SiteTabs.tsx",
+   "lineRange": [
+    18,
+    44
+   ],
+   "summary": "Renders the /admin/site sub-navigation pill bar, marking the tab active via exact or prefix match against the current pathname from usePathname().",
+   "tags": [
+    "dashboard",
+    "navigation",
+    "client-component"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:components/layout/Footer.tsx",
+   "type": "file",
+   "name": "Footer.tsx",
+   "filePath": "components/layout/Footer.tsx",
+   "summary": "Site-wide footer shared by the marketing pages: renders the owner-edited blurb, link columns (optionally including every published solution), contact details, social icons and the copyright/tagline line.",
+   "tags": [
+    "layout",
+    "footer",
+    "marketing",
+    "content-driven"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:components/layout/Footer.tsx:Footer",
+   "type": "function",
+   "name": "Footer",
+   "filePath": "components/layout/Footer.tsx",
+   "lineRange": [
+    12,
+    124
+   ],
+   "summary": "Renders the shared site footer: brand mark, owner-edited blurb, contact links (email/phone/WhatsApp/address), social icons, per-column link lists (optionally including every published solution), and the copyright/tagline line.",
+   "tags": [
+    "layout",
+    "footer",
+    "content-driven"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:components/sections/AudienceTabs.tsx",
+   "type": "file",
+   "name": "AudienceTabs.tsx",
+   "filePath": "components/sections/AudienceTabs.tsx",
+   "summary": "Homepage section (\"Pour qui\") listing solutions grouped by audience \u2014 banks, enterprises, partners, individuals \u2014 via a tabbed filter over the solutions list.",
+   "tags": [
+    "marketing-section",
+    "tabs",
+    "client-component"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:components/sections/AudienceTabs.tsx:AudienceTabs",
+   "type": "function",
+   "name": "AudienceTabs",
+   "filePath": "components/sections/AudienceTabs.tsx",
+   "lineRange": [
+    13,
+    65
+   ],
+   "summary": "Builds the audience tab list from solutions present in each audience, then renders a filtered grid of solution cards per active audience tab.",
+   "tags": [
+    "marketing-section",
+    "tabs",
+    "client-component"
+   ],
+   "complexity": "moderate"
+  }
+ ],
+ "edges": [
+  {
+   "source": "file:__tests__/ui.test.tsx",
+   "target": "file:components/layout/Footer.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:__tests__/ui.test.tsx",
+   "target": "file:components/ui/Accordion.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:__tests__/ui.test.tsx",
+   "target": "file:components/ui/Badge.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:__tests__/ui.test.tsx",
+   "target": "file:components/ui/Button.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:__tests__/ui.test.tsx",
+   "target": "file:components/ui/Container.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:__tests__/ui.test.tsx",
+   "target": "file:components/ui/ErrorBoundary.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:__tests__/ui.test.tsx",
+   "target": "file:components/ui/HandUnderline.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:__tests__/ui.test.tsx",
+   "target": "file:components/ui/Icon.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:__tests__/ui.test.tsx",
+   "target": "file:components/ui/LoadingImage.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:__tests__/ui.test.tsx",
+   "target": "file:components/ui/SectionHeading.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:__tests__/ui.test.tsx",
+   "target": "file:components/ui/StatCounter.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:__tests__/ui.test.tsx",
+   "target": "file:components/ui/Tabs.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:__tests__/ui.test.tsx",
+   "target": "file:components/ui/TypeCycle.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:__tests__/ui.test.tsx",
+   "target": "file:lib/content/defaults.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:__tests__/ui.test.tsx",
+   "target": "file:lib/data/services.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/site/page.tsx",
+   "target": "file:components/ui/Icon.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/site/page.tsx",
+   "target": "file:lib/content/index.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/site/page.tsx",
+   "target": "file:lib/content/schema.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/site/page.tsx",
+   "target": "file:lib/storage.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/site/page.tsx",
+   "target": "file:lib/types.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(marketing)/page.tsx",
+   "target": "file:components/sections/ConnectedSolutions.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(marketing)/page.tsx",
+   "target": "file:components/sections/Contact.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(marketing)/page.tsx",
+   "target": "file:components/sections/DataCommitment.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(marketing)/page.tsx",
+   "target": "file:components/sections/DataIntelligence.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(marketing)/page.tsx",
+   "target": "file:components/sections/FAQHome.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(marketing)/page.tsx",
+   "target": "file:components/sections/Hero.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(marketing)/page.tsx",
+   "target": "file:components/sections/HighlightsReel.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(marketing)/page.tsx",
+   "target": "file:components/sections/Integrations.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(marketing)/page.tsx",
+   "target": "file:components/sections/MigrationProgram.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(marketing)/page.tsx",
+   "target": "file:components/sections/OcrDemo.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(marketing)/page.tsx",
+   "target": "file:components/sections/PerformanceMetrics.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(marketing)/page.tsx",
+   "target": "file:components/sections/PlatformShowcase.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(marketing)/page.tsx",
+   "target": "file:components/sections/Reliability.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(marketing)/page.tsx",
+   "target": "file:components/sections/ScaleSpecs.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(marketing)/page.tsx",
+   "target": "file:components/sections/Security.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(marketing)/page.tsx",
+   "target": "file:components/sections/SolutionFinder.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(marketing)/page.tsx",
+   "target": "file:components/sections/SolutionsGrid.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(marketing)/page.tsx",
+   "target": "file:components/sections/Values.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(marketing)/page.tsx",
+   "target": "file:components/sections/WhyUs.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(marketing)/page.tsx",
+   "target": "file:components/seo/JsonLd.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(marketing)/page.tsx",
+   "target": "file:lib/content/index.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(marketing)/page.tsx",
+   "target": "file:lib/seo/schema.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(marketing)/solutions/[slug]/page.tsx",
+   "target": "file:components/sections/solution/SolutionContact.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(marketing)/solutions/[slug]/page.tsx",
+   "target": "file:components/sections/solution/SolutionFAQ.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(marketing)/solutions/[slug]/page.tsx",
+   "target": "file:components/sections/solution/SolutionFeatures.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(marketing)/solutions/[slug]/page.tsx",
+   "target": "file:components/sections/solution/SolutionHero.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(marketing)/solutions/[slug]/page.tsx",
+   "target": "file:components/sections/solution/SolutionMedia.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(marketing)/solutions/[slug]/page.tsx",
+   "target": "file:components/sections/solution/SolutionRelated.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(marketing)/solutions/[slug]/page.tsx",
+   "target": "file:components/sections/solution/SolutionSteps.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(marketing)/solutions/[slug]/page.tsx",
+   "target": "file:components/sections/solution/SolutionStory.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(marketing)/solutions/[slug]/page.tsx",
+   "target": "file:components/sections/solution/SolutionSubProjects.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(marketing)/solutions/[slug]/page.tsx",
+   "target": "file:components/sections/solution/SolutionVideoReveal.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(marketing)/solutions/[slug]/page.tsx",
+   "target": "file:components/seo/JsonLd.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(marketing)/solutions/[slug]/page.tsx",
+   "target": "file:lib/content/index.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(marketing)/solutions/[slug]/page.tsx",
+   "target": "file:lib/seo/schema.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/dashboard/site/IconPicker.tsx",
+   "target": "file:components/ui/Icon.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/dashboard/site/IconPicker.tsx",
+   "target": "file:lib/cn.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/dashboard/site/IconPicker.tsx",
+   "target": "file:lib/types.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/dashboard/site/SectionCard.tsx",
+   "target": "file:components/ui/Icon.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/dashboard/site/SectionCard.tsx",
+   "target": "file:lib/cn.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/dashboard/site/SiteTabs.tsx",
+   "target": "file:components/ui/Icon.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/dashboard/site/SiteTabs.tsx",
+   "target": "file:lib/cn.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/dashboard/site/SiteTabs.tsx",
+   "target": "file:lib/types.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/layout/Footer.tsx",
+   "target": "file:components/ui/Container.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/layout/Footer.tsx",
+   "target": "file:components/ui/Icon.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/layout/Footer.tsx",
+   "target": "file:components/ui/SocialIcon.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/layout/Footer.tsx",
+   "target": "file:lib/content/schema.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/AudienceTabs.tsx",
+   "target": "file:components/ui/Container.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/AudienceTabs.tsx",
+   "target": "file:components/ui/Icon.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/AudienceTabs.tsx",
+   "target": "file:components/ui/SectionHeading.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/AudienceTabs.tsx",
+   "target": "file:components/ui/Tabs.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/AudienceTabs.tsx",
+   "target": "file:lib/content/schema.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/AudienceTabs.tsx",
+   "target": "file:lib/types.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/site/page.tsx",
+   "target": "function:app/(app)/admin/site/page.tsx:SiteOverviewPage",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:app/(marketing)/page.tsx",
+   "target": "function:app/(marketing)/page.tsx:Home",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:app/(marketing)/solutions/[slug]/page.tsx",
+   "target": "function:app/(marketing)/solutions/[slug]/page.tsx:generateStaticParams",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:app/(marketing)/solutions/[slug]/page.tsx",
+   "target": "function:app/(marketing)/solutions/[slug]/page.tsx:generateMetadata",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:app/(marketing)/solutions/[slug]/page.tsx",
+   "target": "function:app/(marketing)/solutions/[slug]/page.tsx:SolutionPage",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:components/dashboard/site/IconPicker.tsx",
+   "target": "function:components/dashboard/site/IconPicker.tsx:IconPicker",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:components/dashboard/site/SectionCard.tsx",
+   "target": "function:components/dashboard/site/SectionCard.tsx:SectionCard",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:components/dashboard/site/SiteTabs.tsx",
+   "target": "function:components/dashboard/site/SiteTabs.tsx:SiteTabs",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:components/layout/Footer.tsx",
+   "target": "function:components/layout/Footer.tsx:Footer",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:components/sections/AudienceTabs.tsx",
+   "target": "function:components/sections/AudienceTabs.tsx:AudienceTabs",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:app/(app)/admin/site/page.tsx",
+   "target": "function:app/(app)/admin/site/page.tsx:SiteOverviewPage",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:app/(marketing)/page.tsx",
+   "target": "function:app/(marketing)/page.tsx:Home",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:app/(marketing)/solutions/[slug]/page.tsx",
+   "target": "function:app/(marketing)/solutions/[slug]/page.tsx:generateStaticParams",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:app/(marketing)/solutions/[slug]/page.tsx",
+   "target": "function:app/(marketing)/solutions/[slug]/page.tsx:generateMetadata",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:app/(marketing)/solutions/[slug]/page.tsx",
+   "target": "function:app/(marketing)/solutions/[slug]/page.tsx:SolutionPage",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:components/dashboard/site/IconPicker.tsx",
+   "target": "function:components/dashboard/site/IconPicker.tsx:IconPicker",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:components/dashboard/site/SectionCard.tsx",
+   "target": "function:components/dashboard/site/SectionCard.tsx:SectionCard",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:components/dashboard/site/SiteTabs.tsx",
+   "target": "function:components/dashboard/site/SiteTabs.tsx:SiteTabs",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:components/layout/Footer.tsx",
+   "target": "function:components/layout/Footer.tsx:Footer",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:components/sections/AudienceTabs.tsx",
+   "target": "function:components/sections/AudienceTabs.tsx:AudienceTabs",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:components/layout/Footer.tsx",
+   "target": "file:__tests__/ui.test.tsx",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  }
+ ]
+}

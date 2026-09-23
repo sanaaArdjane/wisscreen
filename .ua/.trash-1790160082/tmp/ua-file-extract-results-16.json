@@ -1,0 +1,635 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 4,
+  "filesSkipped": [],
+  "filesUnreadable": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 4,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 0,
+      "failed": 0,
+      "skipped": 4
+    }
+  },
+  "results": [
+    {
+      "path": "lib/db/migrations/0000_needy_jackal.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 260,
+      "nonEmptyLines": 260,
+      "definitions": [
+        {
+          "name": "account",
+          "kind": "table",
+          "fields": [
+            "id",
+            "account_id",
+            "provider_id",
+            "user_id",
+            "access_token",
+            "refresh_token",
+            "id_token",
+            "access_token_expires_at",
+            "refresh_token_expires_at",
+            "scope",
+            "password",
+            "created_at",
+            "updated_at"
+          ],
+          "startLine": 1,
+          "endLine": 15
+        },
+        {
+          "name": "activity_log",
+          "kind": "table",
+          "fields": [
+            "id",
+            "actor_id",
+            "action",
+            "entity",
+            "entity_id",
+            "meta",
+            "created_at"
+          ],
+          "startLine": 17,
+          "endLine": 25
+        },
+        {
+          "name": "app_settings",
+          "kind": "table",
+          "fields": [
+            "key",
+            "value",
+            "updated_at",
+            "updated_by_id"
+          ],
+          "startLine": 27,
+          "endLine": 32
+        },
+        {
+          "name": "attachments",
+          "kind": "table",
+          "fields": [
+            "id",
+            "key",
+            "filename",
+            "content_type",
+            "size_bytes",
+            "uploaded_by_id",
+            "owner_id",
+            "request_id",
+            "message_id",
+            "internal",
+            "created_at"
+          ],
+          "startLine": 34,
+          "endLine": 46
+        },
+        {
+          "name": "contact_leads",
+          "kind": "table",
+          "fields": [
+            "id",
+            "name",
+            "email",
+            "message",
+            "solution",
+            "status",
+            "user_id",
+            "created_at"
+          ],
+          "startLine": 48,
+          "endLine": 57
+        },
+        {
+          "name": "demo_runs",
+          "kind": "table",
+          "fields": [
+            "id",
+            "user_id",
+            "service_slug",
+            "input",
+            "result",
+            "outcome",
+            "duration_ms",
+            "created_at"
+          ],
+          "startLine": 59,
+          "endLine": 68
+        },
+        {
+          "name": "invoices",
+          "kind": "table",
+          "fields": [
+            "id",
+            "ref",
+            "user_id",
+            "quote_id",
+            "title",
+            "lines",
+            "amount_cents",
+            "currency",
+            "status",
+            "issued_at",
+            "due_at",
+            "paid_at",
+            "created_by_id",
+            "created_at",
+            "updated_at"
+          ],
+          "startLine": 70,
+          "endLine": 87
+        },
+        {
+          "name": "notifications",
+          "kind": "table",
+          "fields": [
+            "id",
+            "user_id",
+            "type",
+            "title",
+            "body",
+            "href",
+            "read_at",
+            "created_at"
+          ],
+          "startLine": 89,
+          "endLine": 98
+        },
+        {
+          "name": "plans",
+          "kind": "table",
+          "fields": [
+            "slug",
+            "name",
+            "description",
+            "price_cents",
+            "currency",
+            "features",
+            "default_quotas",
+            "sort_order",
+            "active"
+          ],
+          "startLine": 100,
+          "endLine": 110
+        },
+        {
+          "name": "quotas",
+          "kind": "table",
+          "fields": [
+            "id",
+            "user_id",
+            "metric",
+            "limit",
+            "used",
+            "resets_at",
+            "updated_at"
+          ],
+          "startLine": 112,
+          "endLine": 120
+        },
+        {
+          "name": "quotes",
+          "kind": "table",
+          "fields": [
+            "id",
+            "ref",
+            "user_id",
+            "request_id",
+            "title",
+            "lines",
+            "amount_cents",
+            "currency",
+            "status",
+            "valid_until",
+            "note",
+            "created_by_id",
+            "created_at",
+            "updated_at"
+          ],
+          "startLine": 122,
+          "endLine": 138
+        },
+        {
+          "name": "request_messages",
+          "kind": "table",
+          "fields": [
+            "id",
+            "request_id",
+            "author_id",
+            "body",
+            "internal",
+            "created_at"
+          ],
+          "startLine": 140,
+          "endLine": 147
+        },
+        {
+          "name": "requests",
+          "kind": "table",
+          "fields": [
+            "id",
+            "ref",
+            "user_id",
+            "service_slug",
+            "type",
+            "title",
+            "details",
+            "status",
+            "priority",
+            "assigned_to_id",
+            "budget_cents",
+            "created_at",
+            "updated_at",
+            "closed_at"
+          ],
+          "startLine": 149,
+          "endLine": 165
+        },
+        {
+          "name": "session",
+          "kind": "table",
+          "fields": [
+            "id",
+            "expires_at",
+            "token",
+            "created_at",
+            "updated_at",
+            "ip_address",
+            "user_agent",
+            "user_id",
+            "impersonated_by"
+          ],
+          "startLine": 167,
+          "endLine": 178
+        },
+        {
+          "name": "subscriptions",
+          "kind": "table",
+          "fields": [
+            "id",
+            "user_id",
+            "plan_slug",
+            "status",
+            "period_start",
+            "period_end",
+            "cancel_at_period_end",
+            "note",
+            "created_at",
+            "updated_at"
+          ],
+          "startLine": 180,
+          "endLine": 191
+        },
+        {
+          "name": "user",
+          "kind": "table",
+          "fields": [
+            "id",
+            "name",
+            "email",
+            "email_verified",
+            "image",
+            "created_at",
+            "updated_at",
+            "role",
+            "banned",
+            "ban_reason",
+            "ban_expires",
+            "permissions",
+            "magic_link_enabled",
+            "phone",
+            "company",
+            "admin_note",
+            "last_seen_at"
+          ],
+          "startLine": 193,
+          "endLine": 212
+        },
+        {
+          "name": "verification",
+          "kind": "table",
+          "fields": [
+            "id",
+            "identifier",
+            "value",
+            "expires_at",
+            "created_at",
+            "updated_at"
+          ],
+          "startLine": 214,
+          "endLine": 221
+        },
+        {
+          "name": "activity_log_created_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 247,
+          "endLine": 247
+        },
+        {
+          "name": "attachments_owner_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 248,
+          "endLine": 248
+        },
+        {
+          "name": "contact_leads_status_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 249,
+          "endLine": 249
+        },
+        {
+          "name": "demo_runs_user_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 250,
+          "endLine": 250
+        },
+        {
+          "name": "invoices_user_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 251,
+          "endLine": 251
+        },
+        {
+          "name": "invoices_status_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 252,
+          "endLine": 252
+        },
+        {
+          "name": "notifications_user_unread_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 253,
+          "endLine": 253
+        },
+        {
+          "name": "quotas_user_metric_key",
+          "kind": "index",
+          "fields": [],
+          "startLine": 254,
+          "endLine": 254
+        },
+        {
+          "name": "quotes_user_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 255,
+          "endLine": 255
+        },
+        {
+          "name": "request_messages_request_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 256,
+          "endLine": 256
+        },
+        {
+          "name": "requests_user_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 257,
+          "endLine": 257
+        },
+        {
+          "name": "requests_status_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 258,
+          "endLine": 258
+        },
+        {
+          "name": "subscriptions_user_key",
+          "kind": "index",
+          "fields": [],
+          "startLine": 259,
+          "endLine": 259
+        },
+        {
+          "name": "user_role_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 260,
+          "endLine": 260
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 31
+      }
+    },
+    {
+      "path": "lib/db/migrations/0001_modern_darwin.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 125,
+      "nonEmptyLines": 125,
+      "definitions": [
+        {
+          "name": "demo_access",
+          "kind": "table",
+          "fields": [
+            "id",
+            "demo_id",
+            "user_id",
+            "granted_by_id",
+            "note",
+            "expires_at",
+            "revoked_at",
+            "last_access_at",
+            "created_at"
+          ],
+          "startLine": 1,
+          "endLine": 11
+        },
+        {
+          "name": "demo_secrets",
+          "kind": "table",
+          "fields": [
+            "id",
+            "demo_id",
+            "block_id",
+            "label",
+            "ciphertext",
+            "reveal_count",
+            "created_by_id",
+            "created_at",
+            "updated_at"
+          ],
+          "startLine": 13,
+          "endLine": 23
+        },
+        {
+          "name": "demos",
+          "kind": "table",
+          "fields": [
+            "id",
+            "slug",
+            "title",
+            "summary",
+            "category",
+            "service_slug",
+            "blocks",
+            "status",
+            "visibility",
+            "expires_at",
+            "created_by_id",
+            "created_at",
+            "updated_at"
+          ],
+          "startLine": 25,
+          "endLine": 40
+        },
+        {
+          "name": "demo_access_demo_user_key",
+          "kind": "index",
+          "fields": [],
+          "startLine": 81,
+          "endLine": 81
+        },
+        {
+          "name": "demo_access_user_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 82,
+          "endLine": 82
+        },
+        {
+          "name": "demo_secrets_block_label_key",
+          "kind": "index",
+          "fields": [],
+          "startLine": 83,
+          "endLine": 83
+        },
+        {
+          "name": "demos_status_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 84,
+          "endLine": 84
+        },
+        {
+          "name": "attachments_demo_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 94,
+          "endLine": 94
+        },
+        {
+          "name": "attachments_demo_run_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 95,
+          "endLine": 95
+        },
+        {
+          "name": "demo_runs_demo_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 96,
+          "endLine": 96
+        },
+        {
+          "name": "subscriptions_user_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 97,
+          "endLine": 97
+        },
+        {
+          "name": "subscriptions_status_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 98,
+          "endLine": 98
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 12
+      }
+    },
+    {
+      "path": "lib/db/migrations/0002_nifty_maddog.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 2,
+      "nonEmptyLines": 2,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "lib/db/migrations/0003_sour_infant_terrible.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 23,
+      "nonEmptyLines": 23,
+      "definitions": [
+        {
+          "name": "site_content",
+          "kind": "table",
+          "fields": [
+            "key",
+            "value",
+            "updated_at",
+            "updated_by_id"
+          ],
+          "startLine": 1,
+          "endLine": 6
+        },
+        {
+          "name": "site_solutions",
+          "kind": "table",
+          "fields": [
+            "id",
+            "slug",
+            "position",
+            "published",
+            "content",
+            "media",
+            "created_at",
+            "updated_at",
+            "updated_by_id"
+          ],
+          "startLine": 8,
+          "endLine": 18
+        },
+        {
+          "name": "site_solutions_slug_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 23,
+          "endLine": 23
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 3
+      }
+    }
+  ]
+}

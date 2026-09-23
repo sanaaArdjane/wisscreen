@@ -1,0 +1,71 @@
+{
+  "nodes": [
+    {
+      "id": "service:Dockerfile",
+      "type": "service",
+      "name": "Dockerfile",
+      "filePath": "Dockerfile",
+      "summary": "Multi-stage Docker build for the production Next.js 16 image: installs dependencies with a frozen pnpm lockfile, builds the standalone output with the public NEXT_PUBLIC_* build args, then ships a minimal Alpine runtime that runs as a non-root user on port 3000.",
+      "tags": ["containerization", "infrastructure", "deployment", "nextjs"],
+      "complexity": "moderate",
+      "languageNotes": "Four stages (base/deps/builder/runner) built around Next's `output: \"standalone\"`, so the final image only carries traced runtime deps and server.js rather than the build toolchain or full node_modules."
+    },
+    {
+      "id": "service:Dockerfile:base",
+      "type": "service",
+      "name": "base",
+      "summary": "Base stage: node:22-alpine with libc6-compat installed (for native deps expecting glibc symbols on musl) and Corepack enabled for pnpm; every later stage builds from it.",
+      "tags": ["docker-stage", "base-image"],
+      "complexity": "simple"
+    },
+    {
+      "id": "service:Dockerfile:deps",
+      "type": "service",
+      "name": "deps",
+      "summary": "Installs dependencies with `pnpm install --frozen-lockfile` from only the lockfile-affecting files (package.json, pnpm-lock.yaml, pnpm-workspace.yaml), so this layer caches across source-only changes.",
+      "tags": ["docker-stage", "dependency-install"],
+      "complexity": "simple"
+    },
+    {
+      "id": "service:Dockerfile:builder",
+      "type": "service",
+      "name": "builder",
+      "summary": "Copies node_modules from deps plus the full source, injects NEXT_PUBLIC_SITE_URL and NEXT_PUBLIC_TURNSTILE_SITE_KEY as build ARGs (Next inlines NEXT_PUBLIC_* vars into the client bundle at build time, not at container start), and runs `pnpm build`.",
+      "tags": ["docker-stage", "build"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "service:Dockerfile:runner",
+      "type": "service",
+      "name": "runner",
+      "summary": "Minimal runtime stage: creates an unprivileged nextjs user, copies public/ and the traced standalone server plus static assets from builder, and runs `node server.js` on port 3000.",
+      "tags": ["docker-stage", "runtime", "security"],
+      "complexity": "simple"
+    },
+    {
+      "id": "service:.dockerignore",
+      "type": "service",
+      "name": ".dockerignore",
+      "filePath": ".dockerignore",
+      "summary": "Build-context exclusions for the Docker image: strips node_modules, build output, VCS/CI/editor files, local tooling/docs, and every .env* secret except .env.example, so none of it is baked into an image layer.",
+      "tags": ["containerization", "infrastructure", "security"],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    { "source": "service:Dockerfile", "target": "service:Dockerfile:base", "type": "contains", "direction": "forward", "weight": 1.0 },
+    { "source": "service:Dockerfile", "target": "service:Dockerfile:deps", "type": "contains", "direction": "forward", "weight": 1.0 },
+    { "source": "service:Dockerfile", "target": "service:Dockerfile:builder", "type": "contains", "direction": "forward", "weight": 1.0 },
+    { "source": "service:Dockerfile", "target": "service:Dockerfile:runner", "type": "contains", "direction": "forward", "weight": 1.0 },
+
+    { "source": "service:Dockerfile:deps", "target": "service:Dockerfile:base", "type": "depends_on", "direction": "forward", "weight": 0.6 },
+    { "source": "service:Dockerfile:builder", "target": "service:Dockerfile:base", "type": "depends_on", "direction": "forward", "weight": 0.6 },
+    { "source": "service:Dockerfile:builder", "target": "service:Dockerfile:deps", "type": "depends_on", "direction": "forward", "weight": 0.6 },
+    { "source": "service:Dockerfile:runner", "target": "service:Dockerfile:base", "type": "depends_on", "direction": "forward", "weight": 0.6 },
+    { "source": "service:Dockerfile:runner", "target": "service:Dockerfile:builder", "type": "depends_on", "direction": "forward", "weight": 0.6 },
+
+    { "source": "service:Dockerfile", "target": "service:.dockerignore", "type": "depends_on", "direction": "forward", "weight": 0.6 },
+
+    { "source": "service:Dockerfile", "target": "file:app/layout.tsx", "type": "deploys", "direction": "forward", "weight": 0.7 }
+  ]
+}

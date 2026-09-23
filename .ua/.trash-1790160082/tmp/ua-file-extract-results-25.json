@@ -1,0 +1,2413 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 24,
+  "filesSkipped": [
+    "app/(app)/heroui.css"
+  ],
+  "filesUnreadable": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 24,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 2,
+      "failed": 0,
+      "skipped": 22
+    }
+  },
+  "results": [
+    {
+      "path": ".agents/skills/neon-ai-gateway/SKILL.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 313,
+      "nonEmptyLines": 232,
+      "sections": [
+        {
+          "heading": "Neon AI Gateway",
+          "level": 1,
+          "line": 28
+        },
+        {
+          "heading": "When to Use",
+          "level": 2,
+          "line": 36
+        },
+        {
+          "heading": "What It Does",
+          "level": 2,
+          "line": 47
+        },
+        {
+          "heading": "Availability",
+          "level": 2,
+          "line": 54
+        },
+        {
+          "heading": "Enabling the gateway: plan and model-catalog gating",
+          "level": 3,
+          "line": 60
+        },
+        {
+          "heading": "Setup",
+          "level": 2,
+          "line": 69
+        },
+        {
+          "heading": "Neon Infrastructure as Code (`neon.ts`)",
+          "level": 2,
+          "line": 86
+        },
+        {
+          "heading": "Environment Variables",
+          "level": 2,
+          "line": 98
+        },
+        {
+          "heading": "Build Agents with the Vercel AI SDK (Recommended)",
+          "level": 2,
+          "line": 120
+        },
+        {
+          "heading": "Build Agents with Mastra (Recommended)",
+          "level": 2,
+          "line": 180
+        },
+        {
+          "heading": "Use with Plain SDKs (Lower-Level)",
+          "level": 2,
+          "line": 201
+        },
+        {
+          "heading": "Model Identifiers",
+          "level": 2,
+          "line": 235
+        },
+        {
+          "heading": "List Available Models at Runtime (`/v1/models`)",
+          "level": 2,
+          "line": 242
+        },
+        {
+          "heading": "Neon Documentation",
+          "level": 2,
+          "line": 299
+        },
+        {
+          "heading": "Further Reading",
+          "level": 2,
+          "line": 303
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 15
+      }
+    },
+    {
+      "path": ".agents/skills/neon-auth/SKILL.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 155,
+      "nonEmptyLines": 106,
+      "sections": [
+        {
+          "heading": "Neon Auth",
+          "level": 1,
+          "line": 26
+        },
+        {
+          "heading": "When to Use",
+          "level": 2,
+          "line": 32
+        },
+        {
+          "heading": "What It Does",
+          "level": 2,
+          "line": 50
+        },
+        {
+          "heading": "Availability",
+          "level": 2,
+          "line": 58
+        },
+        {
+          "heading": "Managed setup",
+          "level": 2,
+          "line": 64
+        },
+        {
+          "heading": "Supabase Auth",
+          "level": 2,
+          "line": 87
+        },
+        {
+          "heading": "Verification",
+          "level": 2,
+          "line": 101
+        },
+        {
+          "heading": "Plugin support",
+          "level": 2,
+          "line": 107
+        },
+        {
+          "heading": "Trusted domains",
+          "level": 2,
+          "line": 133
+        },
+        {
+          "heading": "Functions and Data API",
+          "level": 2,
+          "line": 149
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 10
+      }
+    },
+    {
+      "path": ".agents/skills/neon-auth/references/managed-auth.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 173,
+      "nonEmptyLines": 112,
+      "sections": [
+        {
+          "heading": "Managed Better Auth: implement login",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Auth emails",
+          "level": 2,
+          "line": 14
+        },
+        {
+          "heading": "Packages",
+          "level": 2,
+          "line": 22
+        },
+        {
+          "heading": "Environment",
+          "level": 2,
+          "line": 34
+        },
+        {
+          "heading": "Next.js",
+          "level": 2,
+          "line": 45
+        },
+        {
+          "heading": "Organization invitations",
+          "level": 2,
+          "line": 112
+        },
+        {
+          "heading": "React / Vite",
+          "level": 2,
+          "line": 116
+        },
+        {
+          "heading": "UI",
+          "level": 2,
+          "line": 133
+        },
+        {
+          "heading": "Cross-subdomain vs bearer JWT",
+          "level": 2,
+          "line": 146
+        },
+        {
+          "heading": "Data API identity",
+          "level": 2,
+          "line": 150
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 10
+      }
+    },
+    {
+      "path": ".agents/skills/neon-auth/references/self-managed.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 25,
+      "nonEmptyLines": 14,
+      "sections": [
+        {
+          "heading": "Self-managed Better Auth",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Keep existing Better Auth",
+          "level": 2,
+          "line": 5
+        },
+        {
+          "heading": "New self-managed server",
+          "level": 2,
+          "line": 9
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 3
+      }
+    },
+    {
+      "path": ".agents/skills/neon-functions/SKILL.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 645,
+      "nonEmptyLines": 490,
+      "sections": [
+        {
+          "heading": "Neon Functions",
+          "level": 1,
+          "line": 31
+        },
+        {
+          "heading": "When to Use",
+          "level": 2,
+          "line": 39
+        },
+        {
+          "heading": "What It Does",
+          "level": 2,
+          "line": 53
+        },
+        {
+          "heading": "Availability",
+          "level": 2,
+          "line": 62
+        },
+        {
+          "heading": "Architecture: Where Functions Fit",
+          "level": 2,
+          "line": 66
+        },
+        {
+          "heading": "Setup",
+          "level": 2,
+          "line": 77
+        },
+        {
+          "heading": "Develop Locally and Deploy",
+          "level": 2,
+          "line": 137
+        },
+        {
+          "heading": "Neon Infrastructure as Code (`neon.ts`)",
+          "level": 2,
+          "line": 150
+        },
+        {
+          "heading": "Environment Variables",
+          "level": 2,
+          "line": 173
+        },
+        {
+          "heading": "Connecting to Postgres",
+          "level": 2,
+          "line": 206
+        },
+        {
+          "heading": "Timeouts and Runtime Limits",
+          "level": 2,
+          "line": 235
+        },
+        {
+          "heading": "Functions as an Agent Backend (Next.js and Similar Frameworks)",
+          "level": 2,
+          "line": 245
+        },
+        {
+          "heading": "WebSocket Servers",
+          "level": 2,
+          "line": 316
+        },
+        {
+          "heading": "Heartbeat (keep the socket alive)",
+          "level": 3,
+          "line": 419
+        },
+        {
+          "heading": "Keeping clients in sync across isolates (do not skip this)",
+          "level": 3,
+          "line": 438
+        },
+        {
+          "heading": "Client must reconnect",
+          "level": 3,
+          "line": 527
+        },
+        {
+          "heading": "Server-Sent Events (SSE)",
+          "level": 2,
+          "line": 557
+        },
+        {
+          "heading": "Function Triggers",
+          "level": 2,
+          "line": 593
+        },
+        {
+          "heading": "MCP Servers",
+          "level": 2,
+          "line": 599
+        },
+        {
+          "heading": "Integrations and Observability",
+          "level": 2,
+          "line": 615
+        },
+        {
+          "heading": "Built-in branch logs",
+          "level": 3,
+          "line": 617
+        },
+        {
+          "heading": "Application instrumentation",
+          "level": 3,
+          "line": 625
+        },
+        {
+          "heading": "Neon Documentation",
+          "level": 2,
+          "line": 632
+        },
+        {
+          "heading": "Further Reading",
+          "level": 2,
+          "line": 636
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 24
+      }
+    },
+    {
+      "path": ".agents/skills/neon-object-storage/SKILL.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 227,
+      "nonEmptyLines": 160,
+      "sections": [
+        {
+          "heading": "Neon Object Storage",
+          "level": 1,
+          "line": 28
+        },
+        {
+          "heading": "When to Use",
+          "level": 2,
+          "line": 36
+        },
+        {
+          "heading": "What It Does",
+          "level": 2,
+          "line": 47
+        },
+        {
+          "heading": "Availability",
+          "level": 2,
+          "line": 54
+        },
+        {
+          "heading": "Architecture: Where Object Storage Fits",
+          "level": 2,
+          "line": 58
+        },
+        {
+          "heading": "Setup",
+          "level": 2,
+          "line": 65
+        },
+        {
+          "heading": "Neon Infrastructure as Code (`neon.ts`)",
+          "level": 2,
+          "line": 87
+        },
+        {
+          "heading": "Environment Variables",
+          "level": 2,
+          "line": 99
+        },
+        {
+          "heading": "Working with Objects: the Files SDK (Recommended)",
+          "level": 2,
+          "line": 120
+        },
+        {
+          "heading": "Working with Objects: the AWS S3 Client (Alternative)",
+          "level": 2,
+          "line": 153
+        },
+        {
+          "heading": "Pairing Storage with the Database on a Branch",
+          "level": 2,
+          "line": 197
+        },
+        {
+          "heading": "CLI Bucket and Object Commands",
+          "level": 2,
+          "line": 201
+        },
+        {
+          "heading": "Built-in Branch Logs",
+          "level": 2,
+          "line": 205
+        },
+        {
+          "heading": "Neon Documentation",
+          "level": 2,
+          "line": 213
+        },
+        {
+          "heading": "Further Reading",
+          "level": 2,
+          "line": 217
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 15
+      }
+    },
+    {
+      "path": ".agents/skills/neon-postgres-branches/SKILL.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 292,
+      "nonEmptyLines": 209,
+      "sections": [
+        {
+          "heading": "Lakebase Postgres Branching",
+          "level": 1,
+          "line": 25
+        },
+        {
+          "heading": "Branch Type Decision",
+          "level": 2,
+          "line": 32
+        },
+        {
+          "heading": "Tool Selection: CLI or MCP",
+          "level": 2,
+          "line": 42
+        },
+        {
+          "heading": "Selection order",
+          "level": 3,
+          "line": 49
+        },
+        {
+          "heading": "MCP branch flow",
+          "level": 3,
+          "line": 60
+        },
+        {
+          "heading": "Create a Normal Branch (Preferred for Real-Data Migration Testing)",
+          "level": 2,
+          "line": 67
+        },
+        {
+          "heading": "Steps",
+          "level": 3,
+          "line": 74
+        },
+        {
+          "heading": "Create a Schema-Only Branch (Beta, Sensitive Data)",
+          "level": 2,
+          "line": 93
+        },
+        {
+          "heading": "Steps",
+          "level": 3,
+          "line": 99
+        },
+        {
+          "heading": "Beta Support Guidance (Mandatory)",
+          "level": 3,
+          "line": 123
+        },
+        {
+          "heading": "Reset from Parent",
+          "level": 2,
+          "line": 132
+        },
+        {
+          "heading": "What it does",
+          "level": 3,
+          "line": 138
+        },
+        {
+          "heading": "When to recommend it",
+          "level": 3,
+          "line": 144
+        },
+        {
+          "heading": "Hard constraints and blockers",
+          "level": 3,
+          "line": 150
+        },
+        {
+          "heading": "CLI usage",
+          "level": 3,
+          "line": 157
+        },
+        {
+          "heading": "Console and API usage",
+          "level": 3,
+          "line": 177
+        },
+        {
+          "heading": "Notes and Caveats",
+          "level": 2,
+          "line": 182
+        },
+        {
+          "heading": "Useful Workflow Patterns",
+          "level": 2,
+          "line": 192
+        },
+        {
+          "heading": "Post-creation environment update prompt",
+          "level": 3,
+          "line": 202
+        },
+        {
+          "heading": "Neon Infrastructure as Code (`neon.ts`)",
+          "level": 2,
+          "line": 211
+        },
+        {
+          "heading": "Branching in CI/CD",
+          "level": 2,
+          "line": 249
+        },
+        {
+          "heading": "Examples",
+          "level": 2,
+          "line": 257
+        },
+        {
+          "heading": "Example 1: Migration testing with realistic data",
+          "level": 3,
+          "line": 259
+        },
+        {
+          "heading": "Example 2: Sensitive data development workflow",
+          "level": 3,
+          "line": 272
+        },
+        {
+          "heading": "Further Reading",
+          "level": 2,
+          "line": 287
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 25
+      }
+    },
+    {
+      "path": ".agents/skills/neon-postgres-egress-optimizer/SKILL.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 266,
+      "nonEmptyLines": 184,
+      "sections": [
+        {
+          "heading": "Postgres Egress Optimizer",
+          "level": 1,
+          "line": 25
+        },
+        {
+          "heading": "Step 1: Diagnose",
+          "level": 2,
+          "line": 31
+        },
+        {
+          "heading": "Check if pg_stat_statements is available",
+          "level": 3,
+          "line": 35
+        },
+        {
+          "heading": "Handle empty stats",
+          "level": 3,
+          "line": 49
+        },
+        {
+          "heading": "Diagnostic queries",
+          "level": 3,
+          "line": 59
+        },
+        {
+          "heading": "Interpret the results",
+          "level": 3,
+          "line": 104
+        },
+        {
+          "heading": "Step 2: Analyze the Codebase",
+          "level": 2,
+          "line": 112
+        },
+        {
+          "heading": "Step 3: Fix",
+          "level": 2,
+          "line": 122
+        },
+        {
+          "heading": "Unused columns (SELECT \\*)",
+          "level": 3,
+          "line": 126
+        },
+        {
+          "heading": "Missing pagination",
+          "level": 3,
+          "line": 144
+        },
+        {
+          "heading": "High-frequency queries on static data",
+          "level": 3,
+          "line": 168
+        },
+        {
+          "heading": "Application-side aggregation",
+          "level": 3,
+          "line": 176
+        },
+        {
+          "heading": "JOIN duplication",
+          "level": 3,
+          "line": 195
+        },
+        {
+          "heading": "Step 4: Verify",
+          "level": 2,
+          "line": 220
+        },
+        {
+          "heading": "Neon Infrastructure as Code (`neon.ts`)",
+          "level": 2,
+          "line": 228
+        },
+        {
+          "heading": "Further Reading",
+          "level": 2,
+          "line": 263
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 16
+      }
+    },
+    {
+      "path": ".agents/skills/neon-postgres/SKILL.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 279,
+      "nonEmptyLines": 178,
+      "sections": [
+        {
+          "heading": "Lakebase Postgres",
+          "level": 1,
+          "line": 26
+        },
+        {
+          "heading": "Setup Flow",
+          "level": 2,
+          "line": 34
+        },
+        {
+          "heading": "1. Select the organization and project",
+          "level": 3,
+          "line": 36
+        },
+        {
+          "heading": "2. Get the connection string",
+          "level": 3,
+          "line": 42
+        },
+        {
+          "heading": "When to use pooled vs direct connections",
+          "level": 4,
+          "line": 48
+        },
+        {
+          "heading": "3. Pick the connection method and driver",
+          "level": 3,
+          "line": 60
+        },
+        {
+          "heading": "4. Set up the schema",
+          "level": 3,
+          "line": 71
+        },
+        {
+          "heading": "Branching",
+          "level": 2,
+          "line": 77
+        },
+        {
+          "heading": "Migrations",
+          "level": 2,
+          "line": 95
+        },
+        {
+          "heading": "Troubleshooting and Neon-Specific Performance",
+          "level": 2,
+          "line": 101
+        },
+        {
+          "heading": "Choose CLI or MCP",
+          "level": 3,
+          "line": 114
+        },
+        {
+          "heading": "Pick the Diagnostic",
+          "level": 3,
+          "line": 126
+        },
+        {
+          "heading": "Interpret Results Safely",
+          "level": 3,
+          "line": 147
+        },
+        {
+          "heading": "Inspect Neon Cache Behavior Per Query",
+          "level": 3,
+          "line": 156
+        },
+        {
+          "heading": "Performance Workflow",
+          "level": 3,
+          "line": 175
+        },
+        {
+          "heading": "Autoscaling",
+          "level": 2,
+          "line": 185
+        },
+        {
+          "heading": "Scale to Zero",
+          "level": 2,
+          "line": 191
+        },
+        {
+          "heading": "Instant Restore",
+          "level": 2,
+          "line": 203
+        },
+        {
+          "heading": "Read Replicas",
+          "level": 2,
+          "line": 215
+        },
+        {
+          "heading": "Connection Pooling",
+          "level": 2,
+          "line": 227
+        },
+        {
+          "heading": "IP Allow Lists",
+          "level": 2,
+          "line": 239
+        },
+        {
+          "heading": "Logical Replication",
+          "level": 2,
+          "line": 245
+        },
+        {
+          "heading": "Lakebase Search",
+          "level": 2,
+          "line": 256
+        },
+        {
+          "heading": "Gotchas",
+          "level": 2,
+          "line": 270
+        },
+        {
+          "heading": "Pooled vs direct connections: use the direct URL for migrations, dumps, and replication",
+          "level": 3,
+          "line": 272
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 25
+      }
+    },
+    {
+      "path": ".agents/skills/neon/SKILL.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 474,
+      "nonEmptyLines": 318,
+      "sections": [
+        {
+          "heading": "Neon",
+          "level": 1,
+          "line": 19
+        },
+        {
+          "heading": "Backend Primitives",
+          "level": 2,
+          "line": 29
+        },
+        {
+          "heading": "Region availability",
+          "level": 3,
+          "line": 40
+        },
+        {
+          "heading": "Architecture: How to Use Neon",
+          "level": 2,
+          "line": 44
+        },
+        {
+          "heading": "Convert an app onto Neon",
+          "level": 2,
+          "line": 62
+        },
+        {
+          "heading": "Neon Documentation",
+          "level": 2,
+          "line": 92
+        },
+        {
+          "heading": "Finding the Right Page",
+          "level": 3,
+          "line": 96
+        },
+        {
+          "heading": "Fetching Docs as Markdown",
+          "level": 3,
+          "line": 104
+        },
+        {
+          "heading": "Choosing the Right Skill",
+          "level": 2,
+          "line": 113
+        },
+        {
+          "heading": "Installing the Right Skill",
+          "level": 3,
+          "line": 133
+        },
+        {
+          "heading": "Updating Skills",
+          "level": 3,
+          "line": 163
+        },
+        {
+          "heading": "Getting Started with Neon",
+          "level": 2,
+          "line": 169
+        },
+        {
+          "heading": "Check the CLI, then credentials",
+          "level": 3,
+          "line": 173
+        },
+        {
+          "heading": "Combined setup: `neon init`",
+          "level": 3,
+          "line": 195
+        },
+        {
+          "heading": "1. Install the Neon CLI",
+          "level": 3,
+          "line": 220
+        },
+        {
+          "heading": "2. Install the Neon MCP Server",
+          "level": 3,
+          "line": 224
+        },
+        {
+          "heading": "3. Install Neon Agent Skills",
+          "level": 3,
+          "line": 236
+        },
+        {
+          "heading": "4. Link Your Project and Get Started",
+          "level": 3,
+          "line": 250
+        },
+        {
+          "heading": "Useful CLI Commands",
+          "level": 4,
+          "line": 263
+        },
+        {
+          "heading": "Bootstrap a New Project",
+          "level": 3,
+          "line": 272
+        },
+        {
+          "heading": "Starting without a Neon account",
+          "level": 2,
+          "line": 280
+        },
+        {
+          "heading": "Neon Infrastructure as Code",
+          "level": 2,
+          "line": 288
+        },
+        {
+          "heading": "Provision services with neon config",
+          "level": 3,
+          "line": 316
+        },
+        {
+          "heading": "Function env and `neon deploy`",
+          "level": 3,
+          "line": 342
+        },
+        {
+          "heading": "Function Triggers",
+          "level": 3,
+          "line": 352
+        },
+        {
+          "heading": "Type-safe env vars with parseEnv",
+          "level": 3,
+          "line": 356
+        },
+        {
+          "heading": "Branch configuration",
+          "level": 3,
+          "line": 360
+        },
+        {
+          "heading": "Type-safe config: invalid setups don't compile",
+          "level": 3,
+          "line": 394
+        },
+        {
+          "heading": "Branch-First Dev Flow",
+          "level": 2,
+          "line": 423
+        },
+        {
+          "heading": "How checkout composes with neon.ts",
+          "level": 3,
+          "line": 440
+        },
+        {
+          "heading": "Opting out of local env vars",
+          "level": 3,
+          "line": 444
+        },
+        {
+          "heading": "Observability",
+          "level": 2,
+          "line": 457
+        },
+        {
+          "heading": "Manage Neon Resources",
+          "level": 2,
+          "line": 468
+        },
+        {
+          "heading": "Neon for (Agentic) Platforms",
+          "level": 3,
+          "line": 472
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 34
+      }
+    },
+    {
+      "path": ".claude/launch.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 14,
+      "nonEmptyLines": 14,
+      "sections": [
+        {
+          "heading": "version",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "configurations",
+          "level": 1,
+          "line": 3
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": ".claude/skills/DESIGN-mobbin.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 594,
+      "nonEmptyLines": 480,
+      "sections": [
+        {
+          "heading": "Every value below is a globals.css token or an exact tint of one. Introduce no other hue.",
+          "level": 1,
+          "line": 6
+        },
+        {
+          "heading": "Tints are ink composited over paper: ink/8 = #eff0f3 · ink/10 = #ebedf0 · ink/15 = #e1e3e8 · ink/80 = #5d6b85.",
+          "level": 1,
+          "line": 7
+        },
+        {
+          "heading": "Overview",
+          "level": 2,
+          "line": 283
+        },
+        {
+          "heading": "Colors",
+          "level": 2,
+          "line": 300
+        },
+        {
+          "heading": "Brand & Accent",
+          "level": 3,
+          "line": 304
+        },
+        {
+          "heading": "Surface",
+          "level": 3,
+          "line": 308
+        },
+        {
+          "heading": "Text",
+          "level": 3,
+          "line": 315
+        },
+        {
+          "heading": "Semantic",
+          "level": 3,
+          "line": 321
+        },
+        {
+          "heading": "Typography",
+          "level": 2,
+          "line": 324
+        },
+        {
+          "heading": "Font Family",
+          "level": 3,
+          "line": 326
+        },
+        {
+          "heading": "Hierarchy",
+          "level": 3,
+          "line": 330
+        },
+        {
+          "heading": "Principles",
+          "level": 3,
+          "line": 347
+        },
+        {
+          "heading": "Note on Font Substitutes",
+          "level": 3,
+          "line": 354
+        },
+        {
+          "heading": "Layout",
+          "level": 2,
+          "line": 358
+        },
+        {
+          "heading": "Spacing System",
+          "level": 3,
+          "line": 360
+        },
+        {
+          "heading": "Grid & Container",
+          "level": 3,
+          "line": 366
+        },
+        {
+          "heading": "Whitespace Philosophy",
+          "level": 3,
+          "line": 371
+        },
+        {
+          "heading": "Responsive Strategy",
+          "level": 3,
+          "line": 375
+        },
+        {
+          "heading": "Breakpoints",
+          "level": 4,
+          "line": 377
+        },
+        {
+          "heading": "Touch Targets",
+          "level": 4,
+          "line": 388
+        },
+        {
+          "heading": "Collapsing Strategy",
+          "level": 4,
+          "line": 392
+        },
+        {
+          "heading": "Image Behavior",
+          "level": 4,
+          "line": 397
+        },
+        {
+          "heading": "Elevation & Depth",
+          "level": 2,
+          "line": 402
+        },
+        {
+          "heading": "Decorative Depth",
+          "level": 3,
+          "line": 414
+        },
+        {
+          "heading": "Shapes",
+          "level": 2,
+          "line": 419
+        },
+        {
+          "heading": "Border Radius Scale",
+          "level": 3,
+          "line": 421
+        },
+        {
+          "heading": "Photography Geometry",
+          "level": 3,
+          "line": 430
+        },
+        {
+          "heading": "Components",
+          "level": 2,
+          "line": 436
+        },
+        {
+          "heading": "Buttons",
+          "level": 3,
+          "line": 438
+        },
+        {
+          "heading": "Cards & Containers",
+          "level": 3,
+          "line": 452
+        },
+        {
+          "heading": "Inputs & Forms",
+          "level": 3,
+          "line": 474
+        },
+        {
+          "heading": "Navigation",
+          "level": 3,
+          "line": 482
+        },
+        {
+          "heading": "Signature Components",
+          "level": 3,
+          "line": 494
+        },
+        {
+          "heading": "Examples (illustrative)",
+          "level": 3,
+          "line": 512
+        },
+        {
+          "heading": "WICLOUD dashboard mapping",
+          "level": 2,
+          "line": 547
+        },
+        {
+          "heading": "Do's and Don'ts",
+          "level": 2,
+          "line": 574
+        },
+        {
+          "heading": "Do",
+          "level": 3,
+          "line": 576
+        },
+        {
+          "heading": "Don't",
+          "level": 3,
+          "line": 586
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 38
+      }
+    },
+    {
+      "path": ".claude/skills/neon-ai-gateway/SKILL.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 313,
+      "nonEmptyLines": 232,
+      "sections": [
+        {
+          "heading": "Neon AI Gateway",
+          "level": 1,
+          "line": 28
+        },
+        {
+          "heading": "When to Use",
+          "level": 2,
+          "line": 36
+        },
+        {
+          "heading": "What It Does",
+          "level": 2,
+          "line": 47
+        },
+        {
+          "heading": "Availability",
+          "level": 2,
+          "line": 54
+        },
+        {
+          "heading": "Enabling the gateway: plan and model-catalog gating",
+          "level": 3,
+          "line": 60
+        },
+        {
+          "heading": "Setup",
+          "level": 2,
+          "line": 69
+        },
+        {
+          "heading": "Neon Infrastructure as Code (`neon.ts`)",
+          "level": 2,
+          "line": 86
+        },
+        {
+          "heading": "Environment Variables",
+          "level": 2,
+          "line": 98
+        },
+        {
+          "heading": "Build Agents with the Vercel AI SDK (Recommended)",
+          "level": 2,
+          "line": 120
+        },
+        {
+          "heading": "Build Agents with Mastra (Recommended)",
+          "level": 2,
+          "line": 180
+        },
+        {
+          "heading": "Use with Plain SDKs (Lower-Level)",
+          "level": 2,
+          "line": 201
+        },
+        {
+          "heading": "Model Identifiers",
+          "level": 2,
+          "line": 235
+        },
+        {
+          "heading": "List Available Models at Runtime (`/v1/models`)",
+          "level": 2,
+          "line": 242
+        },
+        {
+          "heading": "Neon Documentation",
+          "level": 2,
+          "line": 299
+        },
+        {
+          "heading": "Further Reading",
+          "level": 2,
+          "line": 303
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 15
+      }
+    },
+    {
+      "path": ".claude/skills/neon-auth/SKILL.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 155,
+      "nonEmptyLines": 106,
+      "sections": [
+        {
+          "heading": "Neon Auth",
+          "level": 1,
+          "line": 26
+        },
+        {
+          "heading": "When to Use",
+          "level": 2,
+          "line": 32
+        },
+        {
+          "heading": "What It Does",
+          "level": 2,
+          "line": 50
+        },
+        {
+          "heading": "Availability",
+          "level": 2,
+          "line": 58
+        },
+        {
+          "heading": "Managed setup",
+          "level": 2,
+          "line": 64
+        },
+        {
+          "heading": "Supabase Auth",
+          "level": 2,
+          "line": 87
+        },
+        {
+          "heading": "Verification",
+          "level": 2,
+          "line": 101
+        },
+        {
+          "heading": "Plugin support",
+          "level": 2,
+          "line": 107
+        },
+        {
+          "heading": "Trusted domains",
+          "level": 2,
+          "line": 133
+        },
+        {
+          "heading": "Functions and Data API",
+          "level": 2,
+          "line": 149
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 10
+      }
+    },
+    {
+      "path": ".claude/skills/neon-auth/references/managed-auth.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 173,
+      "nonEmptyLines": 112,
+      "sections": [
+        {
+          "heading": "Managed Better Auth: implement login",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Auth emails",
+          "level": 2,
+          "line": 14
+        },
+        {
+          "heading": "Packages",
+          "level": 2,
+          "line": 22
+        },
+        {
+          "heading": "Environment",
+          "level": 2,
+          "line": 34
+        },
+        {
+          "heading": "Next.js",
+          "level": 2,
+          "line": 45
+        },
+        {
+          "heading": "Organization invitations",
+          "level": 2,
+          "line": 112
+        },
+        {
+          "heading": "React / Vite",
+          "level": 2,
+          "line": 116
+        },
+        {
+          "heading": "UI",
+          "level": 2,
+          "line": 133
+        },
+        {
+          "heading": "Cross-subdomain vs bearer JWT",
+          "level": 2,
+          "line": 146
+        },
+        {
+          "heading": "Data API identity",
+          "level": 2,
+          "line": 150
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 10
+      }
+    },
+    {
+      "path": ".claude/skills/neon-auth/references/self-managed.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 25,
+      "nonEmptyLines": 14,
+      "sections": [
+        {
+          "heading": "Self-managed Better Auth",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Keep existing Better Auth",
+          "level": 2,
+          "line": 5
+        },
+        {
+          "heading": "New self-managed server",
+          "level": 2,
+          "line": 9
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 3
+      }
+    },
+    {
+      "path": ".claude/skills/neon-functions/SKILL.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 645,
+      "nonEmptyLines": 490,
+      "sections": [
+        {
+          "heading": "Neon Functions",
+          "level": 1,
+          "line": 31
+        },
+        {
+          "heading": "When to Use",
+          "level": 2,
+          "line": 39
+        },
+        {
+          "heading": "What It Does",
+          "level": 2,
+          "line": 53
+        },
+        {
+          "heading": "Availability",
+          "level": 2,
+          "line": 62
+        },
+        {
+          "heading": "Architecture: Where Functions Fit",
+          "level": 2,
+          "line": 66
+        },
+        {
+          "heading": "Setup",
+          "level": 2,
+          "line": 77
+        },
+        {
+          "heading": "Develop Locally and Deploy",
+          "level": 2,
+          "line": 137
+        },
+        {
+          "heading": "Neon Infrastructure as Code (`neon.ts`)",
+          "level": 2,
+          "line": 150
+        },
+        {
+          "heading": "Environment Variables",
+          "level": 2,
+          "line": 173
+        },
+        {
+          "heading": "Connecting to Postgres",
+          "level": 2,
+          "line": 206
+        },
+        {
+          "heading": "Timeouts and Runtime Limits",
+          "level": 2,
+          "line": 235
+        },
+        {
+          "heading": "Functions as an Agent Backend (Next.js and Similar Frameworks)",
+          "level": 2,
+          "line": 245
+        },
+        {
+          "heading": "WebSocket Servers",
+          "level": 2,
+          "line": 316
+        },
+        {
+          "heading": "Heartbeat (keep the socket alive)",
+          "level": 3,
+          "line": 419
+        },
+        {
+          "heading": "Keeping clients in sync across isolates (do not skip this)",
+          "level": 3,
+          "line": 438
+        },
+        {
+          "heading": "Client must reconnect",
+          "level": 3,
+          "line": 527
+        },
+        {
+          "heading": "Server-Sent Events (SSE)",
+          "level": 2,
+          "line": 557
+        },
+        {
+          "heading": "Function Triggers",
+          "level": 2,
+          "line": 593
+        },
+        {
+          "heading": "MCP Servers",
+          "level": 2,
+          "line": 599
+        },
+        {
+          "heading": "Integrations and Observability",
+          "level": 2,
+          "line": 615
+        },
+        {
+          "heading": "Built-in branch logs",
+          "level": 3,
+          "line": 617
+        },
+        {
+          "heading": "Application instrumentation",
+          "level": 3,
+          "line": 625
+        },
+        {
+          "heading": "Neon Documentation",
+          "level": 2,
+          "line": 632
+        },
+        {
+          "heading": "Further Reading",
+          "level": 2,
+          "line": 636
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 24
+      }
+    },
+    {
+      "path": ".claude/skills/neon-object-storage/SKILL.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 227,
+      "nonEmptyLines": 160,
+      "sections": [
+        {
+          "heading": "Neon Object Storage",
+          "level": 1,
+          "line": 28
+        },
+        {
+          "heading": "When to Use",
+          "level": 2,
+          "line": 36
+        },
+        {
+          "heading": "What It Does",
+          "level": 2,
+          "line": 47
+        },
+        {
+          "heading": "Availability",
+          "level": 2,
+          "line": 54
+        },
+        {
+          "heading": "Architecture: Where Object Storage Fits",
+          "level": 2,
+          "line": 58
+        },
+        {
+          "heading": "Setup",
+          "level": 2,
+          "line": 65
+        },
+        {
+          "heading": "Neon Infrastructure as Code (`neon.ts`)",
+          "level": 2,
+          "line": 87
+        },
+        {
+          "heading": "Environment Variables",
+          "level": 2,
+          "line": 99
+        },
+        {
+          "heading": "Working with Objects: the Files SDK (Recommended)",
+          "level": 2,
+          "line": 120
+        },
+        {
+          "heading": "Working with Objects: the AWS S3 Client (Alternative)",
+          "level": 2,
+          "line": 153
+        },
+        {
+          "heading": "Pairing Storage with the Database on a Branch",
+          "level": 2,
+          "line": 197
+        },
+        {
+          "heading": "CLI Bucket and Object Commands",
+          "level": 2,
+          "line": 201
+        },
+        {
+          "heading": "Built-in Branch Logs",
+          "level": 2,
+          "line": 205
+        },
+        {
+          "heading": "Neon Documentation",
+          "level": 2,
+          "line": 213
+        },
+        {
+          "heading": "Further Reading",
+          "level": 2,
+          "line": 217
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 15
+      }
+    },
+    {
+      "path": ".claude/skills/neon-postgres-branches/SKILL.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 292,
+      "nonEmptyLines": 209,
+      "sections": [
+        {
+          "heading": "Lakebase Postgres Branching",
+          "level": 1,
+          "line": 25
+        },
+        {
+          "heading": "Branch Type Decision",
+          "level": 2,
+          "line": 32
+        },
+        {
+          "heading": "Tool Selection: CLI or MCP",
+          "level": 2,
+          "line": 42
+        },
+        {
+          "heading": "Selection order",
+          "level": 3,
+          "line": 49
+        },
+        {
+          "heading": "MCP branch flow",
+          "level": 3,
+          "line": 60
+        },
+        {
+          "heading": "Create a Normal Branch (Preferred for Real-Data Migration Testing)",
+          "level": 2,
+          "line": 67
+        },
+        {
+          "heading": "Steps",
+          "level": 3,
+          "line": 74
+        },
+        {
+          "heading": "Create a Schema-Only Branch (Beta, Sensitive Data)",
+          "level": 2,
+          "line": 93
+        },
+        {
+          "heading": "Steps",
+          "level": 3,
+          "line": 99
+        },
+        {
+          "heading": "Beta Support Guidance (Mandatory)",
+          "level": 3,
+          "line": 123
+        },
+        {
+          "heading": "Reset from Parent",
+          "level": 2,
+          "line": 132
+        },
+        {
+          "heading": "What it does",
+          "level": 3,
+          "line": 138
+        },
+        {
+          "heading": "When to recommend it",
+          "level": 3,
+          "line": 144
+        },
+        {
+          "heading": "Hard constraints and blockers",
+          "level": 3,
+          "line": 150
+        },
+        {
+          "heading": "CLI usage",
+          "level": 3,
+          "line": 157
+        },
+        {
+          "heading": "Console and API usage",
+          "level": 3,
+          "line": 177
+        },
+        {
+          "heading": "Notes and Caveats",
+          "level": 2,
+          "line": 182
+        },
+        {
+          "heading": "Useful Workflow Patterns",
+          "level": 2,
+          "line": 192
+        },
+        {
+          "heading": "Post-creation environment update prompt",
+          "level": 3,
+          "line": 202
+        },
+        {
+          "heading": "Neon Infrastructure as Code (`neon.ts`)",
+          "level": 2,
+          "line": 211
+        },
+        {
+          "heading": "Branching in CI/CD",
+          "level": 2,
+          "line": 249
+        },
+        {
+          "heading": "Examples",
+          "level": 2,
+          "line": 257
+        },
+        {
+          "heading": "Example 1: Migration testing with realistic data",
+          "level": 3,
+          "line": 259
+        },
+        {
+          "heading": "Example 2: Sensitive data development workflow",
+          "level": 3,
+          "line": 272
+        },
+        {
+          "heading": "Further Reading",
+          "level": 2,
+          "line": 287
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 25
+      }
+    },
+    {
+      "path": ".claude/skills/neon-postgres-egress-optimizer/SKILL.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 266,
+      "nonEmptyLines": 184,
+      "sections": [
+        {
+          "heading": "Postgres Egress Optimizer",
+          "level": 1,
+          "line": 25
+        },
+        {
+          "heading": "Step 1: Diagnose",
+          "level": 2,
+          "line": 31
+        },
+        {
+          "heading": "Check if pg_stat_statements is available",
+          "level": 3,
+          "line": 35
+        },
+        {
+          "heading": "Handle empty stats",
+          "level": 3,
+          "line": 49
+        },
+        {
+          "heading": "Diagnostic queries",
+          "level": 3,
+          "line": 59
+        },
+        {
+          "heading": "Interpret the results",
+          "level": 3,
+          "line": 104
+        },
+        {
+          "heading": "Step 2: Analyze the Codebase",
+          "level": 2,
+          "line": 112
+        },
+        {
+          "heading": "Step 3: Fix",
+          "level": 2,
+          "line": 122
+        },
+        {
+          "heading": "Unused columns (SELECT \\*)",
+          "level": 3,
+          "line": 126
+        },
+        {
+          "heading": "Missing pagination",
+          "level": 3,
+          "line": 144
+        },
+        {
+          "heading": "High-frequency queries on static data",
+          "level": 3,
+          "line": 168
+        },
+        {
+          "heading": "Application-side aggregation",
+          "level": 3,
+          "line": 176
+        },
+        {
+          "heading": "JOIN duplication",
+          "level": 3,
+          "line": 195
+        },
+        {
+          "heading": "Step 4: Verify",
+          "level": 2,
+          "line": 220
+        },
+        {
+          "heading": "Neon Infrastructure as Code (`neon.ts`)",
+          "level": 2,
+          "line": 228
+        },
+        {
+          "heading": "Further Reading",
+          "level": 2,
+          "line": 263
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 16
+      }
+    },
+    {
+      "path": ".claude/skills/neon-postgres/SKILL.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 279,
+      "nonEmptyLines": 178,
+      "sections": [
+        {
+          "heading": "Lakebase Postgres",
+          "level": 1,
+          "line": 26
+        },
+        {
+          "heading": "Setup Flow",
+          "level": 2,
+          "line": 34
+        },
+        {
+          "heading": "1. Select the organization and project",
+          "level": 3,
+          "line": 36
+        },
+        {
+          "heading": "2. Get the connection string",
+          "level": 3,
+          "line": 42
+        },
+        {
+          "heading": "When to use pooled vs direct connections",
+          "level": 4,
+          "line": 48
+        },
+        {
+          "heading": "3. Pick the connection method and driver",
+          "level": 3,
+          "line": 60
+        },
+        {
+          "heading": "4. Set up the schema",
+          "level": 3,
+          "line": 71
+        },
+        {
+          "heading": "Branching",
+          "level": 2,
+          "line": 77
+        },
+        {
+          "heading": "Migrations",
+          "level": 2,
+          "line": 95
+        },
+        {
+          "heading": "Troubleshooting and Neon-Specific Performance",
+          "level": 2,
+          "line": 101
+        },
+        {
+          "heading": "Choose CLI or MCP",
+          "level": 3,
+          "line": 114
+        },
+        {
+          "heading": "Pick the Diagnostic",
+          "level": 3,
+          "line": 126
+        },
+        {
+          "heading": "Interpret Results Safely",
+          "level": 3,
+          "line": 147
+        },
+        {
+          "heading": "Inspect Neon Cache Behavior Per Query",
+          "level": 3,
+          "line": 156
+        },
+        {
+          "heading": "Performance Workflow",
+          "level": 3,
+          "line": 175
+        },
+        {
+          "heading": "Autoscaling",
+          "level": 2,
+          "line": 185
+        },
+        {
+          "heading": "Scale to Zero",
+          "level": 2,
+          "line": 191
+        },
+        {
+          "heading": "Instant Restore",
+          "level": 2,
+          "line": 203
+        },
+        {
+          "heading": "Read Replicas",
+          "level": 2,
+          "line": 215
+        },
+        {
+          "heading": "Connection Pooling",
+          "level": 2,
+          "line": 227
+        },
+        {
+          "heading": "IP Allow Lists",
+          "level": 2,
+          "line": 239
+        },
+        {
+          "heading": "Logical Replication",
+          "level": 2,
+          "line": 245
+        },
+        {
+          "heading": "Lakebase Search",
+          "level": 2,
+          "line": 256
+        },
+        {
+          "heading": "Gotchas",
+          "level": 2,
+          "line": 270
+        },
+        {
+          "heading": "Pooled vs direct connections: use the direct URL for migrations, dumps, and replication",
+          "level": 3,
+          "line": 272
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 25
+      }
+    },
+    {
+      "path": ".claude/skills/neon/SKILL.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 474,
+      "nonEmptyLines": 318,
+      "sections": [
+        {
+          "heading": "Neon",
+          "level": 1,
+          "line": 19
+        },
+        {
+          "heading": "Backend Primitives",
+          "level": 2,
+          "line": 29
+        },
+        {
+          "heading": "Region availability",
+          "level": 3,
+          "line": 40
+        },
+        {
+          "heading": "Architecture: How to Use Neon",
+          "level": 2,
+          "line": 44
+        },
+        {
+          "heading": "Convert an app onto Neon",
+          "level": 2,
+          "line": 62
+        },
+        {
+          "heading": "Neon Documentation",
+          "level": 2,
+          "line": 92
+        },
+        {
+          "heading": "Finding the Right Page",
+          "level": 3,
+          "line": 96
+        },
+        {
+          "heading": "Fetching Docs as Markdown",
+          "level": 3,
+          "line": 104
+        },
+        {
+          "heading": "Choosing the Right Skill",
+          "level": 2,
+          "line": 113
+        },
+        {
+          "heading": "Installing the Right Skill",
+          "level": 3,
+          "line": 133
+        },
+        {
+          "heading": "Updating Skills",
+          "level": 3,
+          "line": 163
+        },
+        {
+          "heading": "Getting Started with Neon",
+          "level": 2,
+          "line": 169
+        },
+        {
+          "heading": "Check the CLI, then credentials",
+          "level": 3,
+          "line": 173
+        },
+        {
+          "heading": "Combined setup: `neon init`",
+          "level": 3,
+          "line": 195
+        },
+        {
+          "heading": "1. Install the Neon CLI",
+          "level": 3,
+          "line": 220
+        },
+        {
+          "heading": "2. Install the Neon MCP Server",
+          "level": 3,
+          "line": 224
+        },
+        {
+          "heading": "3. Install Neon Agent Skills",
+          "level": 3,
+          "line": 236
+        },
+        {
+          "heading": "4. Link Your Project and Get Started",
+          "level": 3,
+          "line": 250
+        },
+        {
+          "heading": "Useful CLI Commands",
+          "level": 4,
+          "line": 263
+        },
+        {
+          "heading": "Bootstrap a New Project",
+          "level": 3,
+          "line": 272
+        },
+        {
+          "heading": "Starting without a Neon account",
+          "level": 2,
+          "line": 280
+        },
+        {
+          "heading": "Neon Infrastructure as Code",
+          "level": 2,
+          "line": 288
+        },
+        {
+          "heading": "Provision services with neon config",
+          "level": 3,
+          "line": 316
+        },
+        {
+          "heading": "Function env and `neon deploy`",
+          "level": 3,
+          "line": 342
+        },
+        {
+          "heading": "Function Triggers",
+          "level": 3,
+          "line": 352
+        },
+        {
+          "heading": "Type-safe env vars with parseEnv",
+          "level": 3,
+          "line": 356
+        },
+        {
+          "heading": "Branch configuration",
+          "level": 3,
+          "line": 360
+        },
+        {
+          "heading": "Type-safe config: invalid setups don't compile",
+          "level": 3,
+          "line": 394
+        },
+        {
+          "heading": "Branch-First Dev Flow",
+          "level": 2,
+          "line": 423
+        },
+        {
+          "heading": "How checkout composes with neon.ts",
+          "level": 3,
+          "line": 440
+        },
+        {
+          "heading": "Opting out of local env vars",
+          "level": 3,
+          "line": 444
+        },
+        {
+          "heading": "Observability",
+          "level": 2,
+          "line": 457
+        },
+        {
+          "heading": "Manage Neon Resources",
+          "level": 2,
+          "line": 468
+        },
+        {
+          "heading": "Neon for (Agentic) Platforms",
+          "level": 3,
+          "line": 472
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 34
+      }
+    },
+    {
+      "path": "app/(app)/admin/site/loading.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 19,
+      "nonEmptyLines": 19,
+      "functions": [
+        {
+          "name": "Loading",
+          "startLine": 6,
+          "endLine": 19,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "Loading",
+          "line": 6,
+          "isDefault": true
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "Loading",
+          "callee": "[0, 1, 2].map",
+          "lineNumber": 9
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/(app)/layout.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 19,
+      "nonEmptyLines": 17,
+      "functions": [
+        {
+          "name": "AppLayout",
+          "startLine": 17,
+          "endLine": 19,
+          "params": [
+            "{ children }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "metadata",
+          "line": 13,
+          "isDefault": false
+        },
+        {
+          "name": "AppLayout",
+          "line": 17,
+          "isDefault": true
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 2,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    }
+  ]
+}

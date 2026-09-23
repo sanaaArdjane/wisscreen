@@ -1,0 +1,1143 @@
+{
+  "nodes": [
+    {
+      "id": "file:components/auth/AuthForms.tsx",
+      "type": "file",
+      "name": "AuthForms.tsx",
+      "filePath": "components/auth/AuthForms.tsx",
+      "summary": "Client components for every auth form (sign-in, sign-up, forgot/reset password, sign-out) plus shared UI pieces (password strength field with generator, Google button, alerts); each form calls Better Auth's client directly and routes by role on success.",
+      "tags": [
+        "auth",
+        "form",
+        "client-component",
+        "validation"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:components/auth/AuthForms.tsx:destinationFor",
+      "type": "function",
+      "name": "destinationFor",
+      "filePath": "components/auth/AuthForms.tsx",
+      "lineRange": [
+        30,
+        32
+      ],
+      "summary": "Maps a user role to its post-login destination: staff/admin to /admin, everyone else to /dashboard.",
+      "tags": [
+        "routing",
+        "utility",
+        "role-based"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:components/auth/AuthForms.tsx:describeError",
+      "type": "function",
+      "name": "describeError",
+      "filePath": "components/auth/AuthForms.tsx",
+      "lineRange": [
+        34,
+        52
+      ],
+      "summary": "Translates a Better Auth error code into a French, user-facing message, falling back to a generic message and passing PASSWORD_TOO_WEAK's server message through verbatim.",
+      "tags": [
+        "error-handling",
+        "utility",
+        "i18n"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:components/auth/AuthForms.tsx:PasswordField",
+      "type": "function",
+      "name": "PasswordField",
+      "filePath": "components/auth/AuthForms.tsx",
+      "lineRange": [
+        82,
+        155
+      ],
+      "summary": "Password input with a live strength checklist driven by checkPassword, a show/hide toggle, and a G\u00e9n\u00e9rer button that fills and reveals a generatePassword() result in one gesture.",
+      "tags": [
+        "form",
+        "validation",
+        "component"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:components/auth/AuthForms.tsx:SignInForm",
+      "type": "function",
+      "name": "SignInForm",
+      "filePath": "components/auth/AuthForms.tsx",
+      "lineRange": [
+        221,
+        371
+      ],
+      "summary": "Exported sign-in form supporting password and magic-link modes plus optional Google sign-in; on success routes via destinationFor and honors an explicit ?next= override.",
+      "tags": [
+        "form",
+        "auth",
+        "exported",
+        "client-component"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:components/auth/AuthForms.tsx:SignUpForm",
+      "type": "function",
+      "name": "SignUpForm",
+      "filePath": "components/auth/AuthForms.tsx",
+      "lineRange": [
+        375,
+        465
+      ],
+      "summary": "Exported client sign-up form gated by registrationOpen/googleEnabled flags, validating password strength client-side with isStrongPassword before calling authClient.signUp.email.",
+      "tags": [
+        "form",
+        "auth",
+        "exported",
+        "client-component"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:components/auth/AuthForms.tsx:ForgotPasswordForm",
+      "type": "function",
+      "name": "ForgotPasswordForm",
+      "filePath": "components/auth/AuthForms.tsx",
+      "lineRange": [
+        469,
+        523
+      ],
+      "summary": "Exported form that calls authClient.requestPasswordReset and shows a confirmation state once the reset email is requested.",
+      "tags": [
+        "form",
+        "auth",
+        "exported"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:components/auth/AuthForms.tsx:ResetPasswordForm",
+      "type": "function",
+      "name": "ResetPasswordForm",
+      "filePath": "components/auth/AuthForms.tsx",
+      "lineRange": [
+        525,
+        599
+      ],
+      "summary": "Exported form that reads the reset token from the URL, submits a new password through authClient.resetPassword, and redirects to sign-in on success.",
+      "tags": [
+        "form",
+        "auth",
+        "exported"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:components/auth/AuthForms.tsx:SignOutLink",
+      "type": "function",
+      "name": "SignOutLink",
+      "filePath": "components/auth/AuthForms.tsx",
+      "lineRange": [
+        603,
+        619
+      ],
+      "summary": "Exported link/button that calls authClient.signOut and redirects to home, refreshing the router afterward.",
+      "tags": [
+        "auth",
+        "exported",
+        "component"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:components/dashboard/AppShell.tsx",
+      "type": "file",
+      "name": "AppShell.tsx",
+      "filePath": "components/dashboard/AppShell.tsx",
+      "summary": "The shared chrome for /dashboard and /admin: collapsible sidebar (open/closed/hover), top bar with avatar, theme toggle, notification bell and impersonation banner; full-bleed row with the width cap only on the main content per the platform's layout rule.",
+      "tags": [
+        "layout",
+        "component",
+        "dashboard",
+        "navigation"
+      ],
+      "complexity": "complex",
+      "languageNotes": "Client component using IntersectionObserver/ResizeObserver for scroll/sidebar-fit state and theming via CSS variables on [data-wicloud-app]."
+    },
+    {
+      "id": "function:components/dashboard/AppShell.tsx:AppShell",
+      "type": "function",
+      "name": "AppShell",
+      "filePath": "components/dashboard/AppShell.tsx",
+      "lineRange": [
+        35,
+        403
+      ],
+      "summary": "Exported root shell component rendering the collapsible sidebar, top bar, mobile sheet, theme toggle, sign-out and impersonation-stop controls around the page's children.",
+      "tags": [
+        "exported",
+        "layout",
+        "client-component"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:components/dashboard/AppShell.tsx:ShellLink",
+      "type": "function",
+      "name": "ShellLink",
+      "filePath": "components/dashboard/AppShell.tsx",
+      "lineRange": [
+        405,
+        428
+      ],
+      "summary": "Sidebar navigation link that reflects active state and adapts its label visibility to the current sidebar mode (open/closed/hover).",
+      "tags": [
+        "navigation",
+        "component"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:components/dashboard/AppShell.tsx:ThemeToggle",
+      "type": "function",
+      "name": "ThemeToggle",
+      "filePath": "components/dashboard/AppShell.tsx",
+      "lineRange": [
+        445,
+        478
+      ],
+      "summary": "Light/dark/system theme switch rendered in the sidebar, resolving the active icon via isDarkTheme and calling back on change.",
+      "tags": [
+        "theme",
+        "component"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:components/dashboard/AppShell.tsx:Avatar",
+      "type": "function",
+      "name": "Avatar",
+      "filePath": "components/dashboard/AppShell.tsx",
+      "lineRange": [
+        480,
+        497
+      ],
+      "summary": "Renders the user's profile image or a two-letter initials fallback derived from their name.",
+      "tags": [
+        "component",
+        "utility"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:components/dashboard/AppShell.tsx:BellLink",
+      "type": "function",
+      "name": "BellLink",
+      "filePath": "components/dashboard/AppShell.tsx",
+      "lineRange": [
+        504,
+        516
+      ],
+      "summary": "Notification bell link that reads the live unread count from useRealtime and links to the notifications feed.",
+      "tags": [
+        "component",
+        "realtime"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:components/dashboard/RealtimeProvider.tsx",
+      "type": "file",
+      "name": "RealtimeProvider.tsx",
+      "filePath": "components/dashboard/RealtimeProvider.tsx",
+      "summary": "Client-side SSE consumer: opens one EventSource per tab against /api/realtime, keeps the unread notification count and a toast stack in sync, and debounces router.refresh on incoming events.",
+      "tags": [
+        "realtime",
+        "sse",
+        "provider",
+        "client-component"
+      ],
+      "complexity": "complex",
+      "languageNotes": "Uses Postgres LISTEN/NOTIFY-backed SSE with reconnect-on-visibility handling and a context hook (useRealtime)."
+    },
+    {
+      "id": "function:components/dashboard/RealtimeProvider.tsx:useRealtime",
+      "type": "function",
+      "name": "useRealtime",
+      "filePath": "components/dashboard/RealtimeProvider.tsx",
+      "lineRange": [
+        42,
+        44
+      ],
+      "summary": "Exported hook returning the realtime context (unread count, toasts, connection state) provided by RealtimeProvider.",
+      "tags": [
+        "hook",
+        "exported",
+        "context"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:components/dashboard/RealtimeProvider.tsx:RealtimeProvider",
+      "type": "function",
+      "name": "RealtimeProvider",
+      "filePath": "components/dashboard/RealtimeProvider.tsx",
+      "lineRange": [
+        50,
+        160
+      ],
+      "summary": "Exported provider that opens the /api/realtime EventSource, syncs unread count and toasts on notification events, reconnects on tab visibility, and exposes state via context.",
+      "tags": [
+        "exported",
+        "provider",
+        "realtime",
+        "client-component"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:components/dashboard/RealtimeProvider.tsx:ToastStack",
+      "type": "function",
+      "name": "ToastStack",
+      "filePath": "components/dashboard/RealtimeProvider.tsx",
+      "lineRange": [
+        162,
+        203
+      ],
+      "summary": "Renders the stack of transient notification toasts with dismiss controls.",
+      "tags": [
+        "component",
+        "toast"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:components/dashboard/RealtimeProvider.tsx:UnreadBadge",
+      "type": "function",
+      "name": "UnreadBadge",
+      "filePath": "components/dashboard/RealtimeProvider.tsx",
+      "lineRange": [
+        206,
+        214
+      ],
+      "summary": "Exported small badge component showing the current unread count from useRealtime.",
+      "tags": [
+        "exported",
+        "component",
+        "realtime"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:components/dashboard/nav.ts",
+      "type": "file",
+      "name": "nav.ts",
+      "filePath": "components/dashboard/nav.ts",
+      "summary": "Declares the client (CLIENT_NAV) and staff/admin (ADMIN_NAV, including Mon profil) navigation trees consumed by AppShell, plus the isActive path-matching helper.",
+      "tags": [
+        "navigation",
+        "data",
+        "config"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:components/dashboard/nav.ts:isActive",
+      "type": "function",
+      "name": "isActive",
+      "filePath": "components/dashboard/nav.ts",
+      "lineRange": [
+        100,
+        102
+      ],
+      "summary": "Exported helper that determines whether a nav item is the active route by prefix-matching the current pathname.",
+      "tags": [
+        "exported",
+        "utility",
+        "navigation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:lib/auth-client.ts",
+      "type": "file",
+      "name": "auth-client.ts",
+      "filePath": "lib/auth-client.ts",
+      "summary": "Better Auth React client instance configured with the admin and magic-link plugins, re-exporting signIn/signUp/signOut/useSession/getSession for use across auth forms and dashboard components.",
+      "tags": [
+        "auth",
+        "client-sdk",
+        "entry-point"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:lib/auth.ts",
+      "type": "file",
+      "name": "auth.ts",
+      "filePath": "lib/auth.ts",
+      "summary": "The Better Auth server instance: Drizzle Postgres adapter, email+password and optional Google sign-in, gated magic link, a before-hook enforcing passwordProblem on sign-up/reset, and a databaseHooks.user.create.before that promotes the ADMIN_EMAIL sign-up to admin.",
+      "tags": [
+        "auth",
+        "entry-point",
+        "server-config",
+        "security"
+      ],
+      "complexity": "complex",
+      "languageNotes": "Uses Better Auth's admin and magicLink plugins plus nextCookies() (must stay last) so server actions can set the session cookie."
+    },
+    {
+      "id": "function:lib/auth.ts:isOwnerEmail",
+      "type": "function",
+      "name": "isOwnerEmail",
+      "filePath": "lib/auth.ts",
+      "lineRange": [
+        31,
+        33
+      ],
+      "summary": "Case-insensitively compares an email against adminEmail(), resolved fresh per call (not at module import) so a changed ADMIN_EMAIL env value takes effect without restarting a stale process.",
+      "tags": [
+        "utility",
+        "security",
+        "auth"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:lib/password.ts",
+      "type": "file",
+      "name": "password.ts",
+      "filePath": "lib/password.ts",
+      "summary": "Single source of truth for password strength rules (as data, not a regex) plus a crypto.getRandomValues-based generator that satisfies every rule by construction; consumed by the sign-up form, the server-side auth hook, and admin account creation.",
+      "tags": [
+        "security",
+        "validation",
+        "utility",
+        "shared"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:lib/password.ts:checkPassword",
+      "type": "function",
+      "name": "checkPassword",
+      "filePath": "lib/password.ts",
+      "lineRange": [
+        36,
+        38
+      ],
+      "summary": "Exported function returning each PASSWORD_RULES entry paired with its pass/fail verdict for a given password, used to render the live checklist.",
+      "tags": [
+        "exported",
+        "validation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:lib/password.ts:isStrongPassword",
+      "type": "function",
+      "name": "isStrongPassword",
+      "filePath": "lib/password.ts",
+      "lineRange": [
+        40,
+        42
+      ],
+      "summary": "Exported predicate that returns true only if every PASSWORD_RULES test passes.",
+      "tags": [
+        "exported",
+        "validation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:lib/password.ts:passwordProblem",
+      "type": "function",
+      "name": "passwordProblem",
+      "filePath": "lib/password.ts",
+      "lineRange": [
+        45,
+        51
+      ],
+      "summary": "Exported function returning a French sentence naming every unmet rule, or null if the password is strong; used as the server-side rejection message in lib/auth.ts.",
+      "tags": [
+        "exported",
+        "validation",
+        "error-handling"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:lib/password.ts:generatePassword",
+      "type": "function",
+      "name": "generatePassword",
+      "filePath": "lib/password.ts",
+      "lineRange": [
+        75,
+        90
+      ],
+      "summary": "Exported generator that seeds one character from each character class (via the private pick helper) then Fisher-Yates shuffles, guaranteeing every PASSWORD_RULES check passes without a rejection loop.",
+      "tags": [
+        "exported",
+        "security",
+        "generator"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:lib/theme-server.ts",
+      "type": "file",
+      "name": "theme-server.ts",
+      "filePath": "lib/theme-server.ts",
+      "summary": "Server-side helper that reads the theme cookie and parses it into a valid THEMES value for use in server-rendered layouts.",
+      "tags": [
+        "theme",
+        "server",
+        "utility"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:lib/theme-server.ts:getTheme",
+      "type": "function",
+      "name": "getTheme",
+      "filePath": "lib/theme-server.ts",
+      "lineRange": [
+        5,
+        7
+      ],
+      "summary": "Exported async function reading the theme cookie via next/headers cookies() and validating it with parseTheme.",
+      "tags": [
+        "exported",
+        "theme",
+        "server"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:lib/theme.ts",
+      "type": "file",
+      "name": "theme.ts",
+      "filePath": "lib/theme.ts",
+      "summary": "Shared theme constants (cookie name, THEMES tuple) and pure helpers to validate a stored theme value and resolve whether the effective theme is dark, including system-preference detection.",
+      "tags": [
+        "theme",
+        "utility",
+        "shared"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:lib/theme.ts:parseTheme",
+      "type": "function",
+      "name": "parseTheme",
+      "filePath": "lib/theme.ts",
+      "lineRange": [
+        22,
+        24
+      ],
+      "summary": "Exported function validating an unknown cookie value against THEMES, defaulting to \"system\".",
+      "tags": [
+        "exported",
+        "theme",
+        "validation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:lib/theme.ts:isDarkTheme",
+      "type": "function",
+      "name": "isDarkTheme",
+      "filePath": "lib/theme.ts",
+      "lineRange": [
+        30,
+        34
+      ],
+      "summary": "Exported function resolving whether the effective theme is dark, checking window.matchMedia for \"system\" mode.",
+      "tags": [
+        "exported",
+        "theme",
+        "utility"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:components/auth/AuthForms.tsx",
+      "target": "function:components/auth/AuthForms.tsx:destinationFor",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:components/auth/AuthForms.tsx",
+      "target": "function:components/auth/AuthForms.tsx:describeError",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:components/auth/AuthForms.tsx",
+      "target": "function:components/auth/AuthForms.tsx:PasswordField",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:components/auth/AuthForms.tsx",
+      "target": "function:components/auth/AuthForms.tsx:SignInForm",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:components/auth/AuthForms.tsx",
+      "target": "function:components/auth/AuthForms.tsx:SignUpForm",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:components/auth/AuthForms.tsx",
+      "target": "function:components/auth/AuthForms.tsx:ForgotPasswordForm",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:components/auth/AuthForms.tsx",
+      "target": "function:components/auth/AuthForms.tsx:ResetPasswordForm",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:components/auth/AuthForms.tsx",
+      "target": "function:components/auth/AuthForms.tsx:SignOutLink",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:components/auth/AuthForms.tsx",
+      "target": "function:components/auth/AuthForms.tsx:SignInForm",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:components/auth/AuthForms.tsx",
+      "target": "function:components/auth/AuthForms.tsx:SignUpForm",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:components/auth/AuthForms.tsx",
+      "target": "function:components/auth/AuthForms.tsx:ForgotPasswordForm",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:components/auth/AuthForms.tsx",
+      "target": "function:components/auth/AuthForms.tsx:ResetPasswordForm",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:components/auth/AuthForms.tsx",
+      "target": "function:components/auth/AuthForms.tsx:SignOutLink",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:components/auth/AuthForms.tsx",
+      "target": "file:components/dashboard/ui.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:components/auth/AuthForms.tsx",
+      "target": "file:components/ui/Icon.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:components/auth/AuthForms.tsx",
+      "target": "file:lib/auth-client.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:components/auth/AuthForms.tsx",
+      "target": "file:lib/password.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "function:components/auth/AuthForms.tsx:PasswordField",
+      "target": "function:lib/password.ts:checkPassword",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:components/auth/AuthForms.tsx:PasswordField",
+      "target": "function:lib/password.ts:generatePassword",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:components/auth/AuthForms.tsx:SignUpForm",
+      "target": "function:lib/password.ts:isStrongPassword",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:components/auth/AuthForms.tsx:SignInForm",
+      "target": "function:components/auth/AuthForms.tsx:destinationFor",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:components/auth/AuthForms.tsx:SignInForm",
+      "target": "function:components/auth/AuthForms.tsx:describeError",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:components/auth/AuthForms.tsx:SignUpForm",
+      "target": "function:components/auth/AuthForms.tsx:describeError",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:components/auth/AuthForms.tsx:ResetPasswordForm",
+      "target": "function:components/auth/AuthForms.tsx:describeError",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:components/dashboard/AppShell.tsx",
+      "target": "function:components/dashboard/AppShell.tsx:AppShell",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:components/dashboard/AppShell.tsx",
+      "target": "function:components/dashboard/AppShell.tsx:ShellLink",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:components/dashboard/AppShell.tsx",
+      "target": "function:components/dashboard/AppShell.tsx:ThemeToggle",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:components/dashboard/AppShell.tsx",
+      "target": "function:components/dashboard/AppShell.tsx:Avatar",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:components/dashboard/AppShell.tsx",
+      "target": "function:components/dashboard/AppShell.tsx:BellLink",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:components/dashboard/AppShell.tsx",
+      "target": "function:components/dashboard/AppShell.tsx:AppShell",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:components/dashboard/AppShell.tsx",
+      "target": "file:components/dashboard/RealtimeProvider.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:components/dashboard/AppShell.tsx",
+      "target": "file:components/dashboard/nav.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:components/dashboard/AppShell.tsx",
+      "target": "file:components/ui/Icon.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:components/dashboard/AppShell.tsx",
+      "target": "file:lib/auth-client.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:components/dashboard/AppShell.tsx",
+      "target": "file:lib/cn.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:components/dashboard/AppShell.tsx",
+      "target": "file:lib/theme.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "function:components/dashboard/AppShell.tsx:AppShell",
+      "target": "function:lib/theme.ts:isDarkTheme",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:components/dashboard/AppShell.tsx:BellLink",
+      "target": "function:components/dashboard/RealtimeProvider.tsx:useRealtime",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:components/dashboard/AppShell.tsx:ThemeToggle",
+      "target": "function:lib/theme.ts:isDarkTheme",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:components/dashboard/RealtimeProvider.tsx",
+      "target": "function:components/dashboard/RealtimeProvider.tsx:useRealtime",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:components/dashboard/RealtimeProvider.tsx",
+      "target": "function:components/dashboard/RealtimeProvider.tsx:RealtimeProvider",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:components/dashboard/RealtimeProvider.tsx",
+      "target": "function:components/dashboard/RealtimeProvider.tsx:ToastStack",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:components/dashboard/RealtimeProvider.tsx",
+      "target": "function:components/dashboard/RealtimeProvider.tsx:UnreadBadge",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:components/dashboard/RealtimeProvider.tsx",
+      "target": "function:components/dashboard/RealtimeProvider.tsx:useRealtime",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:components/dashboard/RealtimeProvider.tsx",
+      "target": "function:components/dashboard/RealtimeProvider.tsx:RealtimeProvider",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:components/dashboard/RealtimeProvider.tsx",
+      "target": "function:components/dashboard/RealtimeProvider.tsx:UnreadBadge",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:components/dashboard/RealtimeProvider.tsx",
+      "target": "file:components/ui/Icon.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "function:components/dashboard/RealtimeProvider.tsx:UnreadBadge",
+      "target": "function:components/dashboard/RealtimeProvider.tsx:useRealtime",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:components/dashboard/nav.ts",
+      "target": "function:components/dashboard/nav.ts:isActive",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:components/dashboard/nav.ts",
+      "target": "function:components/dashboard/nav.ts:isActive",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:components/dashboard/nav.ts",
+      "target": "file:lib/permissions.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:components/dashboard/nav.ts",
+      "target": "file:lib/types.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:lib/auth-client.ts",
+      "target": "file:lib/auth.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:lib/auth-client.ts",
+      "target": "file:lib/auth.ts",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:lib/auth.ts",
+      "target": "function:lib/auth.ts:isOwnerEmail",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:lib/auth.ts",
+      "target": "file:lib/db/index.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:lib/auth.ts",
+      "target": "file:lib/db/schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:lib/auth.ts",
+      "target": "file:lib/email.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:lib/auth.ts",
+      "target": "file:lib/password.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:lib/auth.ts",
+      "target": "file:lib/settings.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:lib/auth.ts",
+      "target": "file:lib/site.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "function:lib/auth.ts:isOwnerEmail",
+      "target": "function:lib/email.ts:adminEmail",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/auth.ts",
+      "target": "function:lib/password.ts:passwordProblem",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/auth.ts",
+      "target": "function:lib/settings.ts:getSetting",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/auth.ts",
+      "target": "function:lib/email.ts:sendEmail",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/password.ts",
+      "target": "function:lib/password.ts:checkPassword",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:lib/password.ts",
+      "target": "function:lib/password.ts:isStrongPassword",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:lib/password.ts",
+      "target": "function:lib/password.ts:passwordProblem",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:lib/password.ts",
+      "target": "function:lib/password.ts:generatePassword",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:lib/password.ts",
+      "target": "function:lib/password.ts:checkPassword",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/password.ts",
+      "target": "function:lib/password.ts:isStrongPassword",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/password.ts",
+      "target": "function:lib/password.ts:passwordProblem",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/password.ts",
+      "target": "function:lib/password.ts:generatePassword",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:lib/password.ts:checkPassword",
+      "target": "function:lib/password.ts:passwordProblem",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:lib/theme-server.ts",
+      "target": "function:lib/theme-server.ts:getTheme",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:lib/theme-server.ts",
+      "target": "function:lib/theme-server.ts:getTheme",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/theme-server.ts",
+      "target": "file:lib/theme.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "function:lib/theme-server.ts:getTheme",
+      "target": "function:lib/theme.ts:parseTheme",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/theme.ts",
+      "target": "function:lib/theme.ts:parseTheme",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:lib/theme.ts",
+      "target": "function:lib/theme.ts:isDarkTheme",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:lib/theme.ts",
+      "target": "function:lib/theme.ts:parseTheme",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/theme.ts",
+      "target": "function:lib/theme.ts:isDarkTheme",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    }
+  ]
+}

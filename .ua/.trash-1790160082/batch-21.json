@@ -1,0 +1,32 @@
+{
+  "nodes": [
+    {
+      "id": "document:.claude/skills/neon-postgres/references/full-text-search.md",
+      "type": "document",
+      "name": "full-text-search.md",
+      "filePath": ".claude/skills/neon-postgres/references/full-text-search.md",
+      "summary": "Reference for BM25-ranked full-text search on Neon Postgres using the lakebase_text extension and lakebase_bm25 index over tsvector columns, covering indexing, querying and interpreting scores, candidate limits, prefiltering, and parameter tuning.",
+      "tags": ["documentation", "reference", "sql", "full-text-search", "database"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:.claude/skills/neon-postgres/references/hybrid-search.md",
+      "type": "document",
+      "name": "hybrid-search.md",
+      "filePath": ".claude/skills/neon-postgres/references/hybrid-search.md",
+      "summary": "Reference for combining Lakebase Search's vector (lakebase_vector) and BM25 (lakebase_text) retrieval into hybrid search via a reciprocal rank fusion example, since Lakebase Search has no built-in hybrid function.",
+      "tags": ["documentation", "reference", "sql", "hybrid-search", "database"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:.claude/skills/neon-postgres/references/vector-search.md",
+      "type": "document",
+      "name": "vector-search.md",
+      "filePath": ".claude/skills/neon-postgres/references/vector-search.md",
+      "summary": "Reference for approximate nearest-neighbor semantic search on Neon Postgres with the lakebase_vector extension (pgvector-compatible), covering extension setup, embedding columns, building and tuning the lakebase_ann index, querying, and selective prefiltering.",
+      "tags": ["documentation", "reference", "sql", "vector-search", "database"],
+      "complexity": "moderate"
+    }
+  ],
+  "edges": []
+}

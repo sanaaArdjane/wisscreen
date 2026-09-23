@@ -1,0 +1,4798 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 24,
+  "filesSkipped": [],
+  "filesUnreadable": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 24,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 24,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "results": [
+    {
+      "path": "app/(app)/admin/notifications/page.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 65,
+      "nonEmptyLines": 59,
+      "functions": [
+        {
+          "name": "AdminNotificationsPage",
+          "startLine": 26,
+          "endLine": 65,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "metadata",
+          "line": 13,
+          "isDefault": false
+        },
+        {
+          "name": "AdminNotificationsPage",
+          "line": 26,
+          "isDefault": true
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "AdminNotificationsPage",
+          "callee": "requireStaff",
+          "lineNumber": 27
+        },
+        {
+          "caller": "AdminNotificationsPage",
+          "callee": "db\n    .select()\n    .from(notifications)\n    .where(eq(notifications.userId, staff.id))\n    .orderBy(desc(notifications.createdAt))\n    .limit",
+          "lineNumber": 29
+        },
+        {
+          "caller": "AdminNotificationsPage",
+          "callee": "db\n    .select()\n    .from(notifications)\n    .where(eq(notifications.userId, staff.id))\n    .orderBy",
+          "lineNumber": 29
+        },
+        {
+          "caller": "AdminNotificationsPage",
+          "callee": "db\n    .select()\n    .from(notifications)\n    .where",
+          "lineNumber": 29
+        },
+        {
+          "caller": "AdminNotificationsPage",
+          "callee": "db\n    .select()\n    .from",
+          "lineNumber": 29
+        },
+        {
+          "caller": "AdminNotificationsPage",
+          "callee": "db\n    .select",
+          "lineNumber": 29
+        },
+        {
+          "caller": "AdminNotificationsPage",
+          "callee": "eq",
+          "lineNumber": 32
+        },
+        {
+          "caller": "AdminNotificationsPage",
+          "callee": "desc",
+          "lineNumber": 33
+        },
+        {
+          "caller": "AdminNotificationsPage",
+          "callee": "rows.filter",
+          "lineNumber": 36
+        },
+        {
+          "caller": "AdminNotificationsPage",
+          "callee": "can",
+          "lineNumber": 46
+        }
+      ],
+      "metrics": {
+        "importCount": 8,
+        "exportCount": 2,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/(app)/admin/page.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 221,
+      "nonEmptyLines": 212,
+      "functions": [
+        {
+          "name": "AdminHome",
+          "startLine": 19,
+          "endLine": 221,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "metadata",
+          "line": 17,
+          "isDefault": false
+        },
+        {
+          "name": "AdminHome",
+          "line": 19,
+          "isDefault": true
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "AdminHome",
+          "callee": "requireStaff",
+          "lineNumber": 20
+        },
+        {
+          "caller": "AdminHome",
+          "callee": "Promise.all",
+          "lineNumber": 24
+        },
+        {
+          "caller": "AdminHome",
+          "callee": "can",
+          "lineNumber": 25
+        },
+        {
+          "caller": "AdminHome",
+          "callee": "can",
+          "lineNumber": 25
+        },
+        {
+          "caller": "AdminHome",
+          "callee": "adminCounters",
+          "lineNumber": 25
+        },
+        {
+          "caller": "AdminHome",
+          "callee": "can",
+          "lineNumber": 26
+        },
+        {
+          "caller": "AdminHome",
+          "callee": "openRequestsQueue",
+          "lineNumber": 26
+        },
+        {
+          "caller": "AdminHome",
+          "callee": "can",
+          "lineNumber": 27
+        },
+        {
+          "caller": "AdminHome",
+          "callee": "db\n          .select({\n            id: userTable.id,\n            name: userTable.name,\n            email: userTable.email,\n            createdAt: userTable.createdAt,\n            role: userTable.role,\n          })\n          .from(userTable)\n          .orderBy(desc(userTable.createdAt))\n          .limit",
+          "lineNumber": 28
+        },
+        {
+          "caller": "AdminHome",
+          "callee": "db\n          .select({\n            id: userTable.id,\n            name: userTable.name,\n            email: userTable.email,\n            createdAt: userTable.createdAt,\n            role: userTable.role,\n          })\n          .from(userTable)\n          .orderBy",
+          "lineNumber": 28
+        },
+        {
+          "caller": "AdminHome",
+          "callee": "db\n          .select({\n            id: userTable.id,\n            name: userTable.name,\n            email: userTable.email,\n            createdAt: userTable.createdAt,\n            role: userTable.role,\n          })\n          .from",
+          "lineNumber": 28
+        },
+        {
+          "caller": "AdminHome",
+          "callee": "db\n          .select",
+          "lineNumber": 28
+        },
+        {
+          "caller": "AdminHome",
+          "callee": "desc",
+          "lineNumber": 37
+        },
+        {
+          "caller": "AdminHome",
+          "callee": "can",
+          "lineNumber": 40
+        },
+        {
+          "caller": "AdminHome",
+          "callee": "db\n          .select({ log: activityLog, actor: userTable })\n          .from(activityLog)\n          .leftJoin(userTable, eq(userTable.id, activityLog.actorId))\n          .orderBy(desc(activityLog.createdAt))\n          .limit",
+          "lineNumber": 41
+        },
+        {
+          "caller": "AdminHome",
+          "callee": "db\n          .select({ log: activityLog, actor: userTable })\n          .from(activityLog)\n          .leftJoin(userTable, eq(userTable.id, activityLog.actorId))\n          .orderBy",
+          "lineNumber": 41
+        },
+        {
+          "caller": "AdminHome",
+          "callee": "db\n          .select({ log: activityLog, actor: userTable })\n          .from(activityLog)\n          .leftJoin",
+          "lineNumber": 41
+        },
+        {
+          "caller": "AdminHome",
+          "callee": "db\n          .select({ log: activityLog, actor: userTable })\n          .from",
+          "lineNumber": 41
+        },
+        {
+          "caller": "AdminHome",
+          "callee": "db\n          .select",
+          "lineNumber": 41
+        },
+        {
+          "caller": "AdminHome",
+          "callee": "eq",
+          "lineNumber": 44
+        },
+        {
+          "caller": "AdminHome",
+          "callee": "desc",
+          "lineNumber": 45
+        },
+        {
+          "caller": "AdminHome",
+          "callee": "formatMoney",
+          "lineNumber": 76
+        },
+        {
+          "caller": "AdminHome",
+          "callee": "can",
+          "lineNumber": 92
+        },
+        {
+          "caller": "AdminHome",
+          "callee": "can",
+          "lineNumber": 108
+        },
+        {
+          "caller": "AdminHome",
+          "callee": "queue.map",
+          "lineNumber": 127
+        },
+        {
+          "caller": "AdminHome",
+          "callee": "relativeTime",
+          "lineNumber": 136
+        },
+        {
+          "caller": "AdminHome",
+          "callee": "can",
+          "lineNumber": 153
+        },
+        {
+          "caller": "AdminHome",
+          "callee": "recentUsers.map",
+          "lineNumber": 170
+        },
+        {
+          "caller": "AdminHome",
+          "callee": "relativeTime",
+          "lineNumber": 178
+        },
+        {
+          "caller": "AdminHome",
+          "callee": "can",
+          "lineNumber": 188
+        },
+        {
+          "caller": "AdminHome",
+          "callee": "activity.map",
+          "lineNumber": 205
+        },
+        {
+          "caller": "AdminHome",
+          "callee": "relativeTime",
+          "lineNumber": 209
+        }
+      ],
+      "metrics": {
+        "importCount": 11,
+        "exportCount": 2,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/(app)/admin/profil/page.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 107,
+      "nonEmptyLines": 95,
+      "functions": [
+        {
+          "name": "AdminProfilPage",
+          "startLine": 32,
+          "endLine": 98,
+          "params": []
+        },
+        {
+          "name": "Row",
+          "startLine": 100,
+          "endLine": 107,
+          "params": [
+            "{ label, value }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "metadata",
+          "line": 16,
+          "isDefault": false
+        },
+        {
+          "name": "AdminProfilPage",
+          "line": 32,
+          "isDefault": true
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "AdminProfilPage",
+          "callee": "requireStaff",
+          "lineNumber": 33
+        },
+        {
+          "caller": "AdminProfilPage",
+          "callee": "getCurrentSession",
+          "lineNumber": 34
+        },
+        {
+          "caller": "AdminProfilPage",
+          "callee": "db\n    .select({ id: account.id })\n    .from(account)\n    .where(and(eq(account.userId, staff.id), eq(account.providerId, \"credential\")))\n    .limit",
+          "lineNumber": 36
+        },
+        {
+          "caller": "AdminProfilPage",
+          "callee": "db\n    .select({ id: account.id })\n    .from(account)\n    .where",
+          "lineNumber": 36
+        },
+        {
+          "caller": "AdminProfilPage",
+          "callee": "db\n    .select({ id: account.id })\n    .from",
+          "lineNumber": 36
+        },
+        {
+          "caller": "AdminProfilPage",
+          "callee": "db\n    .select",
+          "lineNumber": 36
+        },
+        {
+          "caller": "AdminProfilPage",
+          "callee": "and",
+          "lineNumber": 39
+        },
+        {
+          "caller": "AdminProfilPage",
+          "callee": "eq",
+          "lineNumber": 39
+        },
+        {
+          "caller": "AdminProfilPage",
+          "callee": "eq",
+          "lineNumber": 39
+        },
+        {
+          "caller": "AdminProfilPage",
+          "callee": "Object.values(effectivePermissions(staff)).filter",
+          "lineNumber": 42
+        },
+        {
+          "caller": "AdminProfilPage",
+          "callee": "Object.values",
+          "lineNumber": 42
+        },
+        {
+          "caller": "AdminProfilPage",
+          "callee": "effectivePermissions",
+          "lineNumber": 42
+        },
+        {
+          "caller": "AdminProfilPage",
+          "callee": "Boolean",
+          "lineNumber": 66
+        },
+        {
+          "caller": "AdminProfilPage",
+          "callee": "formatDate",
+          "lineNumber": 88
+        }
+      ],
+      "metrics": {
+        "importCount": 7,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/(app)/admin/site/layout.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 34,
+      "nonEmptyLines": 33,
+      "functions": [
+        {
+          "name": "SiteLayout",
+          "startLine": 10,
+          "endLine": 34,
+          "params": [
+            "{ children }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "SiteLayout",
+          "line": 10,
+          "isDefault": true
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "SiteLayout",
+          "callee": "requirePermission",
+          "lineNumber": 11
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/(app)/admin/utilisateurs/[id]/page.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 313,
+      "nonEmptyLines": 295,
+      "functions": [
+        {
+          "name": "UserDetailPage",
+          "startLine": 43,
+          "endLine": 313,
+          "params": [
+            "{ params }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "metadata",
+          "line": 35,
+          "isDefault": false
+        },
+        {
+          "name": "UserDetailPage",
+          "line": 43,
+          "isDefault": true
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "UserDetailPage",
+          "callee": "requirePermission",
+          "lineNumber": 45
+        },
+        {
+          "caller": "UserDetailPage",
+          "callee": "db.select().from(userTable).where(eq(userTable.id, id)).limit",
+          "lineNumber": 47
+        },
+        {
+          "caller": "UserDetailPage",
+          "callee": "db.select().from(userTable).where",
+          "lineNumber": 47
+        },
+        {
+          "caller": "UserDetailPage",
+          "callee": "db.select().from",
+          "lineNumber": 47
+        },
+        {
+          "caller": "UserDetailPage",
+          "callee": "db.select",
+          "lineNumber": 47
+        },
+        {
+          "caller": "UserDetailPage",
+          "callee": "eq",
+          "lineNumber": 47
+        },
+        {
+          "caller": "UserDetailPage",
+          "callee": "notFound",
+          "lineNumber": 48
+        },
+        {
+          "caller": "UserDetailPage",
+          "callee": "Promise.all",
+          "lineNumber": 50
+        },
+        {
+          "caller": "UserDetailPage",
+          "callee": "listSubscriptions",
+          "lineNumber": 51
+        },
+        {
+          "caller": "UserDetailPage",
+          "callee": "listQuotas",
+          "lineNumber": 52
+        },
+        {
+          "caller": "UserDetailPage",
+          "callee": "db\n      .select()\n      .from(requests)\n      .where(eq(requests.userId, target.id))\n      .orderBy(desc(requests.updatedAt))\n      .limit",
+          "lineNumber": 53
+        },
+        {
+          "caller": "UserDetailPage",
+          "callee": "db\n      .select()\n      .from(requests)\n      .where(eq(requests.userId, target.id))\n      .orderBy",
+          "lineNumber": 53
+        },
+        {
+          "caller": "UserDetailPage",
+          "callee": "db\n      .select()\n      .from(requests)\n      .where",
+          "lineNumber": 53
+        },
+        {
+          "caller": "UserDetailPage",
+          "callee": "db\n      .select()\n      .from",
+          "lineNumber": 53
+        },
+        {
+          "caller": "UserDetailPage",
+          "callee": "db\n      .select",
+          "lineNumber": 53
+        },
+        {
+          "caller": "UserDetailPage",
+          "callee": "eq",
+          "lineNumber": 56
+        },
+        {
+          "caller": "UserDetailPage",
+          "callee": "desc",
+          "lineNumber": 57
+        },
+        {
+          "caller": "UserDetailPage",
+          "callee": "can",
+          "lineNumber": 62
+        },
+        {
+          "caller": "UserDetailPage",
+          "callee": "can",
+          "lineNumber": 63
+        },
+        {
+          "caller": "UserDetailPage",
+          "callee": "can",
+          "lineNumber": 64
+        },
+        {
+          "caller": "UserDetailPage",
+          "callee": "formatDate",
+          "lineNumber": 70
+        },
+        {
+          "caller": "UserDetailPage",
+          "callee": "services.filter",
+          "lineNumber": 96
+        },
+        {
+          "caller": "UserDetailPage",
+          "callee": "relativeTime",
+          "lineNumber": 107
+        },
+        {
+          "caller": "UserDetailPage",
+          "callee": "ROLES.map",
+          "lineNumber": 136
+        },
+        {
+          "caller": "UserDetailPage",
+          "callee": "effectivePermissions",
+          "lineNumber": 146
+        },
+        {
+          "caller": "UserDetailPage",
+          "callee": "services.map",
+          "lineNumber": 168
+        },
+        {
+          "caller": "UserDetailPage",
+          "callee": "formatMoney",
+          "lineNumber": 181
+        },
+        {
+          "caller": "UserDetailPage",
+          "callee": "formatDate",
+          "lineNumber": 182
+        },
+        {
+          "caller": "UserDetailPage",
+          "callee": "quotaRows.map",
+          "lineNumber": 211
+        },
+        {
+          "caller": "UserDetailPage",
+          "callee": "can",
+          "lineNumber": 219
+        },
+        {
+          "caller": "UserDetailPage",
+          "callee": "Object.entries(METRIC_LABELS)\n                      .filter(([m]) => !quotaRows.some((q) => q.metric === m))\n                      .map",
+          "lineNumber": 225
+        },
+        {
+          "caller": "UserDetailPage",
+          "callee": "Object.entries(METRIC_LABELS)\n                      .filter",
+          "lineNumber": 225
+        },
+        {
+          "caller": "UserDetailPage",
+          "callee": "Object.entries",
+          "lineNumber": 225
+        },
+        {
+          "caller": "UserDetailPage",
+          "callee": "quotaRows.some",
+          "lineNumber": 226
+        },
+        {
+          "caller": "UserDetailPage",
+          "callee": "quotaRows.map",
+          "lineNumber": 235
+        },
+        {
+          "caller": "UserDetailPage",
+          "callee": "userRequests.map",
+          "lineNumber": 247
+        },
+        {
+          "caller": "UserDetailPage",
+          "callee": "formatDateTime",
+          "lineNumber": 256
+        },
+        {
+          "caller": "UserDetailPage",
+          "callee": "can",
+          "lineNumber": 272
+        },
+        {
+          "caller": "UserDetailPage",
+          "callee": "Boolean",
+          "lineNumber": 290
+        },
+        {
+          "caller": "UserDetailPage",
+          "callee": "can",
+          "lineNumber": 298
+        }
+      ],
+      "metrics": {
+        "importCount": 13,
+        "exportCount": 2,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/(app)/admin/utilisateurs/actions.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 555,
+      "nonEmptyLines": 481,
+      "functions": [
+        {
+          "name": "adminCount",
+          "startLine": 36,
+          "endLine": 45,
+          "params": []
+        },
+        {
+          "name": "isLastAdmin",
+          "startLine": 47,
+          "endLine": 55,
+          "params": [
+            "userId"
+          ]
+        },
+        {
+          "name": "refresh",
+          "startLine": 57,
+          "endLine": 61,
+          "params": [
+            "userId"
+          ]
+        },
+        {
+          "name": "createAccount",
+          "startLine": 101,
+          "endLine": 192,
+          "params": [
+            "_prev",
+            "formData"
+          ]
+        },
+        {
+          "name": "suspendUser",
+          "startLine": 201,
+          "endLine": 231,
+          "params": [
+            "_prev",
+            "formData"
+          ]
+        },
+        {
+          "name": "unsuspendUser",
+          "startLine": 233,
+          "endLine": 246,
+          "params": [
+            "formData"
+          ]
+        },
+        {
+          "name": "updateUser",
+          "startLine": 259,
+          "endLine": 285,
+          "params": [
+            "_prev",
+            "formData"
+          ]
+        },
+        {
+          "name": "changeRole",
+          "startLine": 294,
+          "endLine": 326,
+          "params": [
+            "_prev",
+            "formData"
+          ]
+        },
+        {
+          "name": "updatePermissions",
+          "startLine": 340,
+          "endLine": 386,
+          "params": [
+            "_prev",
+            "formData"
+          ]
+        },
+        {
+          "name": "setQuota",
+          "startLine": 401,
+          "endLine": 431,
+          "params": [
+            "_prev",
+            "formData"
+          ]
+        },
+        {
+          "name": "deleteQuota",
+          "startLine": 434,
+          "endLine": 449,
+          "params": [
+            "formData"
+          ]
+        },
+        {
+          "name": "messageUser",
+          "startLine": 460,
+          "endLine": 498,
+          "params": [
+            "_prev",
+            "formData"
+          ]
+        },
+        {
+          "name": "impersonate",
+          "startLine": 500,
+          "endLine": 514,
+          "params": [
+            "formData"
+          ]
+        },
+        {
+          "name": "deleteUser",
+          "startLine": 521,
+          "endLine": 555,
+          "params": [
+            "_prev",
+            "formData"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "createAccount",
+          "line": 101,
+          "isDefault": false
+        },
+        {
+          "name": "suspendUser",
+          "line": 201,
+          "isDefault": false
+        },
+        {
+          "name": "unsuspendUser",
+          "line": 233,
+          "isDefault": false
+        },
+        {
+          "name": "updateUser",
+          "line": 259,
+          "isDefault": false
+        },
+        {
+          "name": "changeRole",
+          "line": 294,
+          "isDefault": false
+        },
+        {
+          "name": "updatePermissions",
+          "line": 340,
+          "isDefault": false
+        },
+        {
+          "name": "setQuota",
+          "line": 401,
+          "isDefault": false
+        },
+        {
+          "name": "deleteQuota",
+          "line": 434,
+          "isDefault": false
+        },
+        {
+          "name": "messageUser",
+          "line": 460,
+          "isDefault": false
+        },
+        {
+          "name": "impersonate",
+          "line": 500,
+          "isDefault": false
+        },
+        {
+          "name": "deleteUser",
+          "line": 521,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "adminCount",
+          "callee": "db\n    .select({ n: sql<number>`count(*)::int` })\n    .from(userTable)\n    // `is not true`, not `= false`: `banned` is nullable, and `NULL = false` is\n    // NULL — an admin who has never been banned would not be counted, and the\n    // \"last admin\" guard would let the real last admin be demoted.\n    .where",
+          "lineNumber": 37
+        },
+        {
+          "caller": "adminCount",
+          "callee": "db\n    .select({ n: sql<number>`count(*)::int` })\n    .from",
+          "lineNumber": 37
+        },
+        {
+          "caller": "adminCount",
+          "callee": "db\n    .select",
+          "lineNumber": 37
+        },
+        {
+          "caller": "adminCount",
+          "callee": "and",
+          "lineNumber": 43
+        },
+        {
+          "caller": "adminCount",
+          "callee": "eq",
+          "lineNumber": 43
+        },
+        {
+          "caller": "adminCount",
+          "callee": "sql",
+          "lineNumber": 43
+        },
+        {
+          "caller": "isLastAdmin",
+          "callee": "db\n    .select({ role: userTable.role, banned: userTable.banned })\n    .from(userTable)\n    .where(eq(userTable.id, userId))\n    .limit",
+          "lineNumber": 48
+        },
+        {
+          "caller": "isLastAdmin",
+          "callee": "db\n    .select({ role: userTable.role, banned: userTable.banned })\n    .from(userTable)\n    .where",
+          "lineNumber": 48
+        },
+        {
+          "caller": "isLastAdmin",
+          "callee": "db\n    .select({ role: userTable.role, banned: userTable.banned })\n    .from",
+          "lineNumber": 48
+        },
+        {
+          "caller": "isLastAdmin",
+          "callee": "db\n    .select",
+          "lineNumber": 48
+        },
+        {
+          "caller": "isLastAdmin",
+          "callee": "eq",
+          "lineNumber": 51
+        },
+        {
+          "caller": "isLastAdmin",
+          "callee": "adminCount",
+          "lineNumber": 54
+        },
+        {
+          "caller": "refresh",
+          "callee": "revalidatePath",
+          "lineNumber": 58
+        },
+        {
+          "caller": "refresh",
+          "callee": "revalidatePath",
+          "lineNumber": 59
+        },
+        {
+          "caller": "refresh",
+          "callee": "revalidatePath",
+          "lineNumber": 60
+        },
+        {
+          "caller": "createAccount",
+          "callee": "requirePermission",
+          "lineNumber": 102
+        },
+        {
+          "caller": "createAccount",
+          "callee": "parseForm",
+          "lineNumber": 103
+        },
+        {
+          "caller": "createAccount",
+          "callee": "can",
+          "lineNumber": 106
+        },
+        {
+          "caller": "createAccount",
+          "callee": "fail",
+          "lineNumber": 107
+        },
+        {
+          "caller": "createAccount",
+          "callee": "db\n    .select({ id: userTable.id })\n    .from(userTable)\n    .where(eq(userTable.email, parsed.data.email))\n    .limit",
+          "lineNumber": 110
+        },
+        {
+          "caller": "createAccount",
+          "callee": "db\n    .select({ id: userTable.id })\n    .from(userTable)\n    .where",
+          "lineNumber": 110
+        },
+        {
+          "caller": "createAccount",
+          "callee": "db\n    .select({ id: userTable.id })\n    .from",
+          "lineNumber": 110
+        },
+        {
+          "caller": "createAccount",
+          "callee": "db\n    .select",
+          "lineNumber": 110
+        },
+        {
+          "caller": "createAccount",
+          "callee": "eq",
+          "lineNumber": 113
+        },
+        {
+          "caller": "createAccount",
+          "callee": "fail",
+          "lineNumber": 115
+        },
+        {
+          "caller": "createAccount",
+          "callee": "generatePassword",
+          "lineNumber": 121
+        },
+        {
+          "caller": "createAccount",
+          "callee": "auth.api.createUser",
+          "lineNumber": 128
+        },
+        {
+          "caller": "createAccount",
+          "callee": "headers",
+          "lineNumber": 145
+        },
+        {
+          "caller": "createAccount",
+          "callee": "console.error",
+          "lineNumber": 148
+        },
+        {
+          "caller": "createAccount",
+          "callee": "fail",
+          "lineNumber": 149
+        },
+        {
+          "caller": "createAccount",
+          "callee": "db\n      .update(userTable)\n      .set({ role: parsed.data.role, updatedAt: new Date() })\n      .where",
+          "lineNumber": 155
+        },
+        {
+          "caller": "createAccount",
+          "callee": "db\n      .update(userTable)\n      .set",
+          "lineNumber": 155
+        },
+        {
+          "caller": "createAccount",
+          "callee": "db\n      .update",
+          "lineNumber": 155
+        },
+        {
+          "caller": "createAccount",
+          "callee": "eq",
+          "lineNumber": 158
+        },
+        {
+          "caller": "createAccount",
+          "callee": "logActivity",
+          "lineNumber": 164
+        },
+        {
+          "caller": "createAccount",
+          "callee": "sendEmail",
+          "lineNumber": 173
+        },
+        {
+          "caller": "createAccount",
+          "callee": "revalidatePath",
+          "lineNumber": 181
+        },
+        {
+          "caller": "createAccount",
+          "callee": "revalidatePath",
+          "lineNumber": 182
+        },
+        {
+          "caller": "suspendUser",
+          "callee": "requirePermission",
+          "lineNumber": 202
+        },
+        {
+          "caller": "suspendUser",
+          "callee": "parseForm",
+          "lineNumber": 203
+        },
+        {
+          "caller": "suspendUser",
+          "callee": "fail",
+          "lineNumber": 206
+        },
+        {
+          "caller": "suspendUser",
+          "callee": "isLastAdmin",
+          "lineNumber": 207
+        },
+        {
+          "caller": "suspendUser",
+          "callee": "fail",
+          "lineNumber": 208
+        },
+        {
+          "caller": "suspendUser",
+          "callee": "auth.api.banUser",
+          "lineNumber": 216
+        },
+        {
+          "caller": "suspendUser",
+          "callee": "headers",
+          "lineNumber": 218
+        },
+        {
+          "caller": "suspendUser",
+          "callee": "logActivity",
+          "lineNumber": 221
+        },
+        {
+          "caller": "suspendUser",
+          "callee": "refresh",
+          "lineNumber": 229
+        },
+        {
+          "caller": "suspendUser",
+          "callee": "succeed",
+          "lineNumber": 230
+        },
+        {
+          "caller": "unsuspendUser",
+          "callee": "requirePermission",
+          "lineNumber": 234
+        },
+        {
+          "caller": "unsuspendUser",
+          "callee": "String",
+          "lineNumber": 235
+        },
+        {
+          "caller": "unsuspendUser",
+          "callee": "formData.get",
+          "lineNumber": 235
+        },
+        {
+          "caller": "unsuspendUser",
+          "callee": "auth.api.unbanUser",
+          "lineNumber": 238
+        },
+        {
+          "caller": "unsuspendUser",
+          "callee": "headers",
+          "lineNumber": 238
+        },
+        {
+          "caller": "unsuspendUser",
+          "callee": "logActivity",
+          "lineNumber": 239
+        },
+        {
+          "caller": "unsuspendUser",
+          "callee": "refresh",
+          "lineNumber": 245
+        },
+        {
+          "caller": "updateUser",
+          "callee": "requirePermission",
+          "lineNumber": 260
+        },
+        {
+          "caller": "updateUser",
+          "callee": "parseForm",
+          "lineNumber": 261
+        },
+        {
+          "caller": "updateUser",
+          "callee": "db\n    .update(userTable)\n    .set({\n      name: parsed.data.name,\n      phone: parsed.data.phone ?? null,\n      company: parsed.data.company ?? null,\n      adminNote: parsed.data.adminNote ?? null,\n      magicLinkEnabled: parsed.data.magicLinkEnabled,\n      updatedAt: new Date(),\n    })\n    .where",
+          "lineNumber": 264
+        },
+        {
+          "caller": "updateUser",
+          "callee": "db\n    .update(userTable)\n    .set",
+          "lineNumber": 264
+        },
+        {
+          "caller": "updateUser",
+          "callee": "db\n    .update",
+          "lineNumber": 264
+        },
+        {
+          "caller": "updateUser",
+          "callee": "eq",
+          "lineNumber": 274
+        },
+        {
+          "caller": "updateUser",
+          "callee": "logActivity",
+          "lineNumber": 276
+        },
+        {
+          "caller": "updateUser",
+          "callee": "refresh",
+          "lineNumber": 283
+        },
+        {
+          "caller": "updateUser",
+          "callee": "succeed",
+          "lineNumber": 284
+        },
+        {
+          "caller": "changeRole",
+          "callee": "requirePermission",
+          "lineNumber": 295
+        },
+        {
+          "caller": "changeRole",
+          "callee": "parseForm",
+          "lineNumber": 296
+        },
+        {
+          "caller": "changeRole",
+          "callee": "fail",
+          "lineNumber": 299
+        },
+        {
+          "caller": "changeRole",
+          "callee": "isLastAdmin",
+          "lineNumber": 300
+        },
+        {
+          "caller": "changeRole",
+          "callee": "fail",
+          "lineNumber": 301
+        },
+        {
+          "caller": "changeRole",
+          "callee": "db\n    .update(userTable)\n    .set({ role: parsed.data.role, updatedAt: new Date() })\n    .where",
+          "lineNumber": 304
+        },
+        {
+          "caller": "changeRole",
+          "callee": "db\n    .update(userTable)\n    .set",
+          "lineNumber": 304
+        },
+        {
+          "caller": "changeRole",
+          "callee": "db\n    .update",
+          "lineNumber": 304
+        },
+        {
+          "caller": "changeRole",
+          "callee": "eq",
+          "lineNumber": 307
+        },
+        {
+          "caller": "changeRole",
+          "callee": "logActivity",
+          "lineNumber": 309
+        },
+        {
+          "caller": "changeRole",
+          "callee": "notify",
+          "lineNumber": 317
+        },
+        {
+          "caller": "changeRole",
+          "callee": "refresh",
+          "lineNumber": 324
+        },
+        {
+          "caller": "changeRole",
+          "callee": "succeed",
+          "lineNumber": 325
+        },
+        {
+          "caller": "updatePermissions",
+          "callee": "requirePermission",
+          "lineNumber": 344
+        },
+        {
+          "caller": "updatePermissions",
+          "callee": "String",
+          "lineNumber": 345
+        },
+        {
+          "caller": "updatePermissions",
+          "callee": "formData.get",
+          "lineNumber": 345
+        },
+        {
+          "caller": "updatePermissions",
+          "callee": "fail",
+          "lineNumber": 346
+        },
+        {
+          "caller": "updatePermissions",
+          "callee": "fail",
+          "lineNumber": 347
+        },
+        {
+          "caller": "updatePermissions",
+          "callee": "db\n    .select({ role: userTable.role })\n    .from(userTable)\n    .where(eq(userTable.id, userId))\n    .limit",
+          "lineNumber": 349
+        },
+        {
+          "caller": "updatePermissions",
+          "callee": "db\n    .select({ role: userTable.role })\n    .from(userTable)\n    .where",
+          "lineNumber": 349
+        },
+        {
+          "caller": "updatePermissions",
+          "callee": "db\n    .select({ role: userTable.role })\n    .from",
+          "lineNumber": 349
+        },
+        {
+          "caller": "updatePermissions",
+          "callee": "db\n    .select",
+          "lineNumber": 349
+        },
+        {
+          "caller": "updatePermissions",
+          "callee": "eq",
+          "lineNumber": 352
+        },
+        {
+          "caller": "updatePermissions",
+          "callee": "fail",
+          "lineNumber": 354
+        },
+        {
+          "caller": "updatePermissions",
+          "callee": "formData.get",
+          "lineNumber": 358
+        },
+        {
+          "caller": "updatePermissions",
+          "callee": "isRoleDefault",
+          "lineNumber": 359
+        },
+        {
+          "caller": "updatePermissions",
+          "callee": "db\n    .update(userTable)\n    .set({\n      permissions: Object.keys(overrides).length ? overrides : null,\n      updatedAt: new Date(),\n    })\n    .where",
+          "lineNumber": 364
+        },
+        {
+          "caller": "updatePermissions",
+          "callee": "db\n    .update(userTable)\n    .set",
+          "lineNumber": 364
+        },
+        {
+          "caller": "updatePermissions",
+          "callee": "db\n    .update",
+          "lineNumber": 364
+        },
+        {
+          "caller": "updatePermissions",
+          "callee": "Object.keys",
+          "lineNumber": 367
+        },
+        {
+          "caller": "updatePermissions",
+          "callee": "eq",
+          "lineNumber": 370
+        },
+        {
+          "caller": "updatePermissions",
+          "callee": "logActivity",
+          "lineNumber": 372
+        },
+        {
+          "caller": "updatePermissions",
+          "callee": "refresh",
+          "lineNumber": 380
+        },
+        {
+          "caller": "updatePermissions",
+          "callee": "succeed",
+          "lineNumber": 381
+        },
+        {
+          "caller": "updatePermissions",
+          "callee": "Object.keys",
+          "lineNumber": 382
+        },
+        {
+          "caller": "updatePermissions",
+          "callee": "Object.keys",
+          "lineNumber": 383
+        },
+        {
+          "caller": "setQuota",
+          "callee": "requirePermission",
+          "lineNumber": 402
+        },
+        {
+          "caller": "setQuota",
+          "callee": "parseForm",
+          "lineNumber": 403
+        },
+        {
+          "caller": "setQuota",
+          "callee": "db\n    .insert(quotas)\n    .values({\n      userId: parsed.data.userId,\n      metric: parsed.data.metric,\n      limit: parsed.data.limit,\n      used: parsed.data.used,\n      resetsAt: isStandingMetric(parsed.data.metric) ? null : nextPeriodReset(),\n    })\n    .onConflictDoUpdate",
+          "lineNumber": 406
+        },
+        {
+          "caller": "setQuota",
+          "callee": "db\n    .insert(quotas)\n    .values",
+          "lineNumber": 406
+        },
+        {
+          "caller": "setQuota",
+          "callee": "db\n    .insert",
+          "lineNumber": 406
+        },
+        {
+          "caller": "setQuota",
+          "callee": "isStandingMetric",
+          "lineNumber": 413
+        },
+        {
+          "caller": "setQuota",
+          "callee": "nextPeriodReset",
+          "lineNumber": 413
+        },
+        {
+          "caller": "setQuota",
+          "callee": "logActivity",
+          "lineNumber": 420
+        },
+        {
+          "caller": "setQuota",
+          "callee": "refresh",
+          "lineNumber": 428
+        },
+        {
+          "caller": "setQuota",
+          "callee": "revalidatePath",
+          "lineNumber": 429
+        },
+        {
+          "caller": "setQuota",
+          "callee": "succeed",
+          "lineNumber": 430
+        },
+        {
+          "caller": "deleteQuota",
+          "callee": "requirePermission",
+          "lineNumber": 435
+        },
+        {
+          "caller": "deleteQuota",
+          "callee": "String",
+          "lineNumber": 436
+        },
+        {
+          "caller": "deleteQuota",
+          "callee": "formData.get",
+          "lineNumber": 436
+        },
+        {
+          "caller": "deleteQuota",
+          "callee": "String",
+          "lineNumber": 437
+        },
+        {
+          "caller": "deleteQuota",
+          "callee": "formData.get",
+          "lineNumber": 437
+        },
+        {
+          "caller": "deleteQuota",
+          "callee": "db.delete(quotas).where",
+          "lineNumber": 439
+        },
+        {
+          "caller": "deleteQuota",
+          "callee": "db.delete",
+          "lineNumber": 439
+        },
+        {
+          "caller": "deleteQuota",
+          "callee": "and",
+          "lineNumber": 439
+        },
+        {
+          "caller": "deleteQuota",
+          "callee": "eq",
+          "lineNumber": 439
+        },
+        {
+          "caller": "deleteQuota",
+          "callee": "eq",
+          "lineNumber": 439
+        },
+        {
+          "caller": "deleteQuota",
+          "callee": "logActivity",
+          "lineNumber": 440
+        },
+        {
+          "caller": "deleteQuota",
+          "callee": "refresh",
+          "lineNumber": 447
+        },
+        {
+          "caller": "deleteQuota",
+          "callee": "revalidatePath",
+          "lineNumber": 448
+        },
+        {
+          "caller": "messageUser",
+          "callee": "requirePermission",
+          "lineNumber": 461
+        },
+        {
+          "caller": "messageUser",
+          "callee": "parseForm",
+          "lineNumber": 462
+        },
+        {
+          "caller": "messageUser",
+          "callee": "db\n    .select({ email: userTable.email, name: userTable.name })\n    .from(userTable)\n    .where(eq(userTable.id, parsed.data.userId))\n    .limit",
+          "lineNumber": 465
+        },
+        {
+          "caller": "messageUser",
+          "callee": "db\n    .select({ email: userTable.email, name: userTable.name })\n    .from(userTable)\n    .where",
+          "lineNumber": 465
+        },
+        {
+          "caller": "messageUser",
+          "callee": "db\n    .select({ email: userTable.email, name: userTable.name })\n    .from",
+          "lineNumber": 465
+        },
+        {
+          "caller": "messageUser",
+          "callee": "db\n    .select",
+          "lineNumber": 465
+        },
+        {
+          "caller": "messageUser",
+          "callee": "eq",
+          "lineNumber": 468
+        },
+        {
+          "caller": "messageUser",
+          "callee": "fail",
+          "lineNumber": 470
+        },
+        {
+          "caller": "messageUser",
+          "callee": "notify",
+          "lineNumber": 472
+        },
+        {
+          "caller": "messageUser",
+          "callee": "sendEmail",
+          "lineNumber": 480
+        },
+        {
+          "caller": "messageUser",
+          "callee": "logActivity",
+          "lineNumber": 488
+        },
+        {
+          "caller": "messageUser",
+          "callee": "refresh",
+          "lineNumber": 496
+        },
+        {
+          "caller": "messageUser",
+          "callee": "succeed",
+          "lineNumber": 497
+        },
+        {
+          "caller": "impersonate",
+          "callee": "requirePermission",
+          "lineNumber": 501
+        },
+        {
+          "caller": "impersonate",
+          "callee": "String",
+          "lineNumber": 502
+        },
+        {
+          "caller": "impersonate",
+          "callee": "formData.get",
+          "lineNumber": 502
+        },
+        {
+          "caller": "impersonate",
+          "callee": "auth.api.impersonateUser",
+          "lineNumber": 505
+        },
+        {
+          "caller": "impersonate",
+          "callee": "headers",
+          "lineNumber": 505
+        },
+        {
+          "caller": "impersonate",
+          "callee": "logActivity",
+          "lineNumber": 506
+        },
+        {
+          "caller": "impersonate",
+          "callee": "redirect",
+          "lineNumber": 513
+        },
+        {
+          "caller": "deleteUser",
+          "callee": "requirePermission",
+          "lineNumber": 522
+        },
+        {
+          "caller": "deleteUser",
+          "callee": "parseForm",
+          "lineNumber": 523
+        },
+        {
+          "caller": "deleteUser",
+          "callee": "db\n    .select({ email: userTable.email, name: userTable.name })\n    .from(userTable)\n    .where(eq(userTable.id, parsed.data.userId))\n    .limit",
+          "lineNumber": 526
+        },
+        {
+          "caller": "deleteUser",
+          "callee": "db\n    .select({ email: userTable.email, name: userTable.name })\n    .from(userTable)\n    .where",
+          "lineNumber": 526
+        },
+        {
+          "caller": "deleteUser",
+          "callee": "db\n    .select({ email: userTable.email, name: userTable.name })\n    .from",
+          "lineNumber": 526
+        },
+        {
+          "caller": "deleteUser",
+          "callee": "db\n    .select",
+          "lineNumber": 526
+        },
+        {
+          "caller": "deleteUser",
+          "callee": "eq",
+          "lineNumber": 529
+        },
+        {
+          "caller": "deleteUser",
+          "callee": "fail",
+          "lineNumber": 531
+        },
+        {
+          "caller": "deleteUser",
+          "callee": "parsed.data.confirm.trim().toLowerCase",
+          "lineNumber": 535
+        },
+        {
+          "caller": "deleteUser",
+          "callee": "parsed.data.confirm.trim",
+          "lineNumber": 535
+        },
+        {
+          "caller": "deleteUser",
+          "callee": "target.email.toLowerCase",
+          "lineNumber": 535
+        },
+        {
+          "caller": "deleteUser",
+          "callee": "fail",
+          "lineNumber": 536
+        },
+        {
+          "caller": "deleteUser",
+          "callee": "fail",
+          "lineNumber": 538
+        },
+        {
+          "caller": "deleteUser",
+          "callee": "isLastAdmin",
+          "lineNumber": 539
+        },
+        {
+          "caller": "deleteUser",
+          "callee": "fail",
+          "lineNumber": 540
+        },
+        {
+          "caller": "deleteUser",
+          "callee": "db.delete(userTable).where",
+          "lineNumber": 543
+        },
+        {
+          "caller": "deleteUser",
+          "callee": "db.delete",
+          "lineNumber": 543
+        },
+        {
+          "caller": "deleteUser",
+          "callee": "eq",
+          "lineNumber": 543
+        },
+        {
+          "caller": "deleteUser",
+          "callee": "logActivity",
+          "lineNumber": 545
+        },
+        {
+          "caller": "deleteUser",
+          "callee": "revalidatePath",
+          "lineNumber": 553
+        },
+        {
+          "caller": "deleteUser",
+          "callee": "redirect",
+          "lineNumber": 554
+        }
+      ],
+      "metrics": {
+        "importCount": 11,
+        "exportCount": 11,
+        "functionCount": 14,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/(app)/admin/utilisateurs/nouveau/page.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 58,
+      "nonEmptyLines": 53,
+      "functions": [
+        {
+          "name": "NouvelUtilisateurPage",
+          "startLine": 16,
+          "endLine": 58,
+          "params": [
+            "{\n  searchParams,\n}"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "metadata",
+          "line": 8,
+          "isDefault": false
+        },
+        {
+          "name": "NouvelUtilisateurPage",
+          "line": 16,
+          "isDefault": true
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "NouvelUtilisateurPage",
+          "callee": "requirePermission",
+          "lineNumber": 25
+        },
+        {
+          "caller": "NouvelUtilisateurPage",
+          "callee": "can",
+          "lineNumber": 26
+        },
+        {
+          "caller": "NouvelUtilisateurPage",
+          "callee": "ROLES.filter((r) => canCreateStaff || r === \"user\").map",
+          "lineNumber": 43
+        },
+        {
+          "caller": "NouvelUtilisateurPage",
+          "callee": "ROLES.filter",
+          "lineNumber": 43
+        },
+        {
+          "caller": "NouvelUtilisateurPage",
+          "callee": "emailConfigured",
+          "lineNumber": 48
+        }
+      ],
+      "metrics": {
+        "importCount": 5,
+        "exportCount": 2,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/(app)/admin/utilisateurs/page.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 156,
+      "nonEmptyLines": 144,
+      "functions": [
+        {
+          "name": "UtilisateursPage",
+          "startLine": 29,
+          "endLine": 156,
+          "params": [
+            "{ searchParams }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "metadata",
+          "line": 15,
+          "isDefault": false
+        },
+        {
+          "name": "UtilisateursPage",
+          "line": 29,
+          "isDefault": true
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "UtilisateursPage",
+          "callee": "requirePermission",
+          "lineNumber": 30
+        },
+        {
+          "caller": "UtilisateursPage",
+          "callee": "filters.push",
+          "lineNumber": 36
+        },
+        {
+          "caller": "UtilisateursPage",
+          "callee": "eq",
+          "lineNumber": 36
+        },
+        {
+          "caller": "UtilisateursPage",
+          "callee": "filters.push",
+          "lineNumber": 39
+        },
+        {
+          "caller": "UtilisateursPage",
+          "callee": "sql",
+          "lineNumber": 39
+        },
+        {
+          "caller": "UtilisateursPage",
+          "callee": "filters.push",
+          "lineNumber": 40
+        },
+        {
+          "caller": "UtilisateursPage",
+          "callee": "sql",
+          "lineNumber": 40
+        },
+        {
+          "caller": "UtilisateursPage",
+          "callee": "q.trim",
+          "lineNumber": 42
+        },
+        {
+          "caller": "UtilisateursPage",
+          "callee": "filters.push",
+          "lineNumber": 45
+        },
+        {
+          "caller": "UtilisateursPage",
+          "callee": "or",
+          "lineNumber": 46
+        },
+        {
+          "caller": "UtilisateursPage",
+          "callee": "ilike",
+          "lineNumber": 47
+        },
+        {
+          "caller": "UtilisateursPage",
+          "callee": "ilike",
+          "lineNumber": 48
+        },
+        {
+          "caller": "UtilisateursPage",
+          "callee": "ilike",
+          "lineNumber": 49
+        },
+        {
+          "caller": "UtilisateursPage",
+          "callee": "db\n    .select({\n      user: userTable,\n      planName: plans.name,\n    })\n    .from(userTable)\n    .leftJoin(subscriptions, eq(subscriptions.userId, userTable.id))\n    .leftJoin(plans, eq(plans.slug, subscriptions.planSlug))\n    .where(filters.length ? and(...filters) : undefined)\n    .orderBy(desc(userTable.createdAt))\n    .limit",
+          "lineNumber": 54
+        },
+        {
+          "caller": "UtilisateursPage",
+          "callee": "db\n    .select({\n      user: userTable,\n      planName: plans.name,\n    })\n    .from(userTable)\n    .leftJoin(subscriptions, eq(subscriptions.userId, userTable.id))\n    .leftJoin(plans, eq(plans.slug, subscriptions.planSlug))\n    .where(filters.length ? and(...filters) : undefined)\n    .orderBy",
+          "lineNumber": 54
+        },
+        {
+          "caller": "UtilisateursPage",
+          "callee": "db\n    .select({\n      user: userTable,\n      planName: plans.name,\n    })\n    .from(userTable)\n    .leftJoin(subscriptions, eq(subscriptions.userId, userTable.id))\n    .leftJoin(plans, eq(plans.slug, subscriptions.planSlug))\n    .where",
+          "lineNumber": 54
+        },
+        {
+          "caller": "UtilisateursPage",
+          "callee": "db\n    .select({\n      user: userTable,\n      planName: plans.name,\n    })\n    .from(userTable)\n    .leftJoin(subscriptions, eq(subscriptions.userId, userTable.id))\n    .leftJoin",
+          "lineNumber": 54
+        },
+        {
+          "caller": "UtilisateursPage",
+          "callee": "db\n    .select({\n      user: userTable,\n      planName: plans.name,\n    })\n    .from(userTable)\n    .leftJoin",
+          "lineNumber": 54
+        },
+        {
+          "caller": "UtilisateursPage",
+          "callee": "db\n    .select({\n      user: userTable,\n      planName: plans.name,\n    })\n    .from",
+          "lineNumber": 54
+        },
+        {
+          "caller": "UtilisateursPage",
+          "callee": "db\n    .select",
+          "lineNumber": 54
+        },
+        {
+          "caller": "UtilisateursPage",
+          "callee": "eq",
+          "lineNumber": 60
+        },
+        {
+          "caller": "UtilisateursPage",
+          "callee": "eq",
+          "lineNumber": 61
+        },
+        {
+          "caller": "UtilisateursPage",
+          "callee": "and",
+          "lineNumber": 62
+        },
+        {
+          "caller": "UtilisateursPage",
+          "callee": "desc",
+          "lineNumber": 63
+        },
+        {
+          "caller": "UtilisateursPage",
+          "callee": "can",
+          "lineNumber": 72
+        },
+        {
+          "caller": "UtilisateursPage",
+          "callee": "rows.map",
+          "lineNumber": 117
+        },
+        {
+          "caller": "UtilisateursPage",
+          "callee": "relativeTime",
+          "lineNumber": 135
+        },
+        {
+          "caller": "UtilisateursPage",
+          "callee": "formatDate",
+          "lineNumber": 141
+        }
+      ],
+      "metrics": {
+        "importCount": 10,
+        "exportCount": 2,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/(app)/dashboard/abonnement/page.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 220,
+      "nonEmptyLines": 208,
+      "functions": [
+        {
+          "name": "price",
+          "startLine": 26,
+          "endLine": 30,
+          "params": [
+            "cents",
+            "currency",
+            "period"
+          ]
+        },
+        {
+          "name": "MesServicesPage",
+          "startLine": 40,
+          "endLine": 220,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "metadata",
+          "line": 24,
+          "isDefault": false
+        },
+        {
+          "name": "MesServicesPage",
+          "line": 40,
+          "isDefault": true
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "price",
+          "callee": "formatMoney",
+          "lineNumber": 29
+        },
+        {
+          "caller": "MesServicesPage",
+          "callee": "requireUser",
+          "lineNumber": 41
+        },
+        {
+          "caller": "MesServicesPage",
+          "callee": "Promise.all",
+          "lineNumber": 42
+        },
+        {
+          "caller": "MesServicesPage",
+          "callee": "listSubscriptions",
+          "lineNumber": 43
+        },
+        {
+          "caller": "MesServicesPage",
+          "callee": "listQuotas",
+          "lineNumber": 44
+        },
+        {
+          "caller": "MesServicesPage",
+          "callee": "db.select().from(plans).where(eq(plans.active, true)).orderBy",
+          "lineNumber": 45
+        },
+        {
+          "caller": "MesServicesPage",
+          "callee": "db.select().from(plans).where",
+          "lineNumber": 45
+        },
+        {
+          "caller": "MesServicesPage",
+          "callee": "db.select().from",
+          "lineNumber": 45
+        },
+        {
+          "caller": "MesServicesPage",
+          "callee": "db.select",
+          "lineNumber": 45
+        },
+        {
+          "caller": "MesServicesPage",
+          "callee": "eq",
+          "lineNumber": 45
+        },
+        {
+          "caller": "MesServicesPage",
+          "callee": "asc",
+          "lineNumber": 45
+        },
+        {
+          "caller": "MesServicesPage",
+          "callee": "asc",
+          "lineNumber": 45
+        },
+        {
+          "caller": "MesServicesPage",
+          "callee": "services.filter",
+          "lineNumber": 48
+        },
+        {
+          "caller": "MesServicesPage",
+          "callee": "services.filter",
+          "lineNumber": 49
+        },
+        {
+          "caller": "MesServicesPage",
+          "callee": "Object.keys(CATEGORY_LABELS)\n    .map((cat) => ({ cat, items: catalogue.filter((p) => p.category === cat) }))\n    .filter",
+          "lineNumber": 50
+        },
+        {
+          "caller": "MesServicesPage",
+          "callee": "Object.keys(CATEGORY_LABELS)\n    .map",
+          "lineNumber": 50
+        },
+        {
+          "caller": "MesServicesPage",
+          "callee": "Object.keys",
+          "lineNumber": 50
+        },
+        {
+          "caller": "MesServicesPage",
+          "callee": "catalogue.filter",
+          "lineNumber": 51
+        },
+        {
+          "caller": "MesServicesPage",
+          "callee": "live.map",
+          "lineNumber": 79
+        },
+        {
+          "caller": "MesServicesPage",
+          "callee": "Object.entries",
+          "lineNumber": 80
+        },
+        {
+          "caller": "MesServicesPage",
+          "callee": "price",
+          "lineNumber": 89
+        },
+        {
+          "caller": "MesServicesPage",
+          "callee": "spec.map",
+          "lineNumber": 96
+        },
+        {
+          "caller": "MesServicesPage",
+          "callee": "formatDate",
+          "lineNumber": 113
+        },
+        {
+          "caller": "MesServicesPage",
+          "callee": "formatDate",
+          "lineNumber": 114
+        },
+        {
+          "caller": "MesServicesPage",
+          "callee": "encodeURIComponent",
+          "lineNumber": 117
+        },
+        {
+          "caller": "MesServicesPage",
+          "callee": "usage.map",
+          "lineNumber": 131
+        },
+        {
+          "caller": "MesServicesPage",
+          "callee": "groups.map",
+          "lineNumber": 145
+        },
+        {
+          "caller": "MesServicesPage",
+          "callee": "g.items.map",
+          "lineNumber": 149
+        },
+        {
+          "caller": "MesServicesPage",
+          "callee": "live.some",
+          "lineNumber": 150
+        },
+        {
+          "caller": "MesServicesPage",
+          "callee": "price",
+          "lineNumber": 161
+        },
+        {
+          "caller": "MesServicesPage",
+          "callee": "Object.keys",
+          "lineNumber": 162
+        },
+        {
+          "caller": "MesServicesPage",
+          "callee": "Object.entries(p.specs).map",
+          "lineNumber": 164
+        },
+        {
+          "caller": "MesServicesPage",
+          "callee": "Object.entries",
+          "lineNumber": 164
+        },
+        {
+          "caller": "MesServicesPage",
+          "callee": "p.features.map",
+          "lineNumber": 174
+        },
+        {
+          "caller": "MesServicesPage",
+          "callee": "Object.keys",
+          "lineNumber": 182
+        },
+        {
+          "caller": "MesServicesPage",
+          "callee": "Object.entries(p.defaultQuotas)\n                              .map(([m, n]) => `${n === null ? \"illimité\" : n.toLocaleString(\"fr-FR\")} ${METRIC_LABELS[m]?.toLowerCase() ?? m}`)\n                              .join",
+          "lineNumber": 185
+        },
+        {
+          "caller": "MesServicesPage",
+          "callee": "Object.entries(p.defaultQuotas)\n                              .map",
+          "lineNumber": 185
+        },
+        {
+          "caller": "MesServicesPage",
+          "callee": "Object.entries",
+          "lineNumber": 185
+        },
+        {
+          "caller": "MesServicesPage",
+          "callee": "n.toLocaleString",
+          "lineNumber": 186
+        },
+        {
+          "caller": "MesServicesPage",
+          "callee": "METRIC_LABELS[m]?.toLowerCase",
+          "lineNumber": 186
+        },
+        {
+          "caller": "MesServicesPage",
+          "callee": "encodeURIComponent",
+          "lineNumber": 191
+        },
+        {
+          "caller": "MesServicesPage",
+          "callee": "past.map",
+          "lineNumber": 209
+        },
+        {
+          "caller": "MesServicesPage",
+          "callee": "formatDate",
+          "lineNumber": 212
+        }
+      ],
+      "metrics": {
+        "importCount": 11,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/(app)/dashboard/demandes/actions.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 262,
+      "nonEmptyLines": 238,
+      "functions": [
+        {
+          "name": "isKnownSolution",
+          "startLine": 32,
+          "endLine": 35,
+          "params": [
+            "slug"
+          ]
+        },
+        {
+          "name": "insertWithRef",
+          "startLine": 45,
+          "endLine": 70,
+          "params": [
+            "values"
+          ]
+        },
+        {
+          "name": "createRequest",
+          "startLine": 72,
+          "endLine": 122,
+          "params": [
+            "_prev",
+            "formData"
+          ]
+        },
+        {
+          "name": "replyToRequest",
+          "startLine": 131,
+          "endLine": 190,
+          "params": [
+            "_prev",
+            "formData"
+          ]
+        },
+        {
+          "name": "markThreadRead",
+          "startLine": 197,
+          "endLine": 220,
+          "params": [
+            "requestId"
+          ]
+        },
+        {
+          "name": "closeOwnRequest",
+          "startLine": 223,
+          "endLine": 262,
+          "params": [
+            "formData"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "createRequest",
+          "line": 72,
+          "isDefault": false
+        },
+        {
+          "name": "replyToRequest",
+          "line": 131,
+          "isDefault": false
+        },
+        {
+          "name": "markThreadRead",
+          "line": 197,
+          "isDefault": false
+        },
+        {
+          "name": "closeOwnRequest",
+          "line": 223,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "isKnownSolution",
+          "callee": "(await getSolutions({ includeHidden: true })).some",
+          "lineNumber": 34
+        },
+        {
+          "caller": "isKnownSolution",
+          "callee": "getSolutions",
+          "lineNumber": 34
+        },
+        {
+          "caller": "insertWithRef",
+          "callee": "db\n      .select({ ref: requests.ref })\n      .from(requests)\n      .where",
+          "lineNumber": 49
+        },
+        {
+          "caller": "insertWithRef",
+          "callee": "db\n      .select({ ref: requests.ref })\n      .from",
+          "lineNumber": 49
+        },
+        {
+          "caller": "insertWithRef",
+          "callee": "db\n      .select",
+          "lineNumber": 49
+        },
+        {
+          "caller": "insertWithRef",
+          "callee": "like",
+          "lineNumber": 52
+        },
+        {
+          "caller": "insertWithRef",
+          "callee": "refPeriod",
+          "lineNumber": 52
+        },
+        {
+          "caller": "insertWithRef",
+          "callee": "nextRef",
+          "lineNumber": 53
+        },
+        {
+          "caller": "insertWithRef",
+          "callee": "existing.map",
+          "lineNumber": 55
+        },
+        {
+          "caller": "insertWithRef",
+          "callee": "db\n        .insert(requests)\n        .values({ ...values, ref })\n        .returning",
+          "lineNumber": 58
+        },
+        {
+          "caller": "insertWithRef",
+          "callee": "db\n        .insert(requests)\n        .values",
+          "lineNumber": 58
+        },
+        {
+          "caller": "insertWithRef",
+          "callee": "db\n        .insert",
+          "lineNumber": 58
+        },
+        {
+          "caller": "createRequest",
+          "callee": "requireUser",
+          "lineNumber": 76
+        },
+        {
+          "caller": "createRequest",
+          "callee": "parseForm",
+          "lineNumber": 77
+        },
+        {
+          "caller": "createRequest",
+          "callee": "isKnownSolution",
+          "lineNumber": 79
+        },
+        {
+          "caller": "createRequest",
+          "callee": "fail",
+          "lineNumber": 80
+        },
+        {
+          "caller": "createRequest",
+          "callee": "insertWithRef",
+          "lineNumber": 86
+        },
+        {
+          "caller": "createRequest",
+          "callee": "logActivity",
+          "lineNumber": 94
+        },
+        {
+          "caller": "createRequest",
+          "callee": "notifyStaff",
+          "lineNumber": 104
+        },
+        {
+          "caller": "createRequest",
+          "callee": "sendEmail",
+          "lineNumber": 114
+        },
+        {
+          "caller": "createRequest",
+          "callee": "adminEmail",
+          "lineNumber": 115
+        },
+        {
+          "caller": "createRequest",
+          "callee": "redirect",
+          "lineNumber": 121
+        },
+        {
+          "caller": "replyToRequest",
+          "callee": "requireUser",
+          "lineNumber": 135
+        },
+        {
+          "caller": "replyToRequest",
+          "callee": "parseForm",
+          "lineNumber": 136
+        },
+        {
+          "caller": "replyToRequest",
+          "callee": "db\n    .select()\n    .from(requests)\n    .where(and(eq(requests.id, parsed.data.requestId), eq(requests.userId, user.id)))\n    .limit",
+          "lineNumber": 141
+        },
+        {
+          "caller": "replyToRequest",
+          "callee": "db\n    .select()\n    .from(requests)\n    .where",
+          "lineNumber": 141
+        },
+        {
+          "caller": "replyToRequest",
+          "callee": "db\n    .select()\n    .from",
+          "lineNumber": 141
+        },
+        {
+          "caller": "replyToRequest",
+          "callee": "db\n    .select",
+          "lineNumber": 141
+        },
+        {
+          "caller": "replyToRequest",
+          "callee": "and",
+          "lineNumber": 144
+        },
+        {
+          "caller": "replyToRequest",
+          "callee": "eq",
+          "lineNumber": 144
+        },
+        {
+          "caller": "replyToRequest",
+          "callee": "eq",
+          "lineNumber": 144
+        },
+        {
+          "caller": "replyToRequest",
+          "callee": "fail",
+          "lineNumber": 146
+        },
+        {
+          "caller": "replyToRequest",
+          "callee": "fail",
+          "lineNumber": 148
+        },
+        {
+          "caller": "replyToRequest",
+          "callee": "fail",
+          "lineNumber": 151
+        },
+        {
+          "caller": "replyToRequest",
+          "callee": "db\n    .insert(requestMessages)\n    .values({ requestId: request.id, authorId: user.id, body })\n    .returning",
+          "lineNumber": 153
+        },
+        {
+          "caller": "replyToRequest",
+          "callee": "db\n    .insert(requestMessages)\n    .values",
+          "lineNumber": 153
+        },
+        {
+          "caller": "replyToRequest",
+          "callee": "db\n    .insert",
+          "lineNumber": 153
+        },
+        {
+          "caller": "replyToRequest",
+          "callee": "db\n    .update(requests)\n    .set({ updatedAt: new Date() })\n    .where",
+          "lineNumber": 157
+        },
+        {
+          "caller": "replyToRequest",
+          "callee": "db\n    .update(requests)\n    .set",
+          "lineNumber": 157
+        },
+        {
+          "caller": "replyToRequest",
+          "callee": "db\n    .update",
+          "lineNumber": 157
+        },
+        {
+          "caller": "replyToRequest",
+          "callee": "eq",
+          "lineNumber": 160
+        },
+        {
+          "caller": "replyToRequest",
+          "callee": "body.slice",
+          "lineNumber": 167
+        },
+        {
+          "caller": "replyToRequest",
+          "callee": "notify",
+          "lineNumber": 174
+        },
+        {
+          "caller": "replyToRequest",
+          "callee": "notifyStaff",
+          "lineNumber": 176
+        },
+        {
+          "caller": "replyToRequest",
+          "callee": "sendEmail",
+          "lineNumber": 179
+        },
+        {
+          "caller": "replyToRequest",
+          "callee": "adminEmail",
+          "lineNumber": 180
+        },
+        {
+          "caller": "replyToRequest",
+          "callee": "revalidatePath",
+          "lineNumber": 186
+        },
+        {
+          "caller": "replyToRequest",
+          "callee": "revalidatePath",
+          "lineNumber": 187
+        },
+        {
+          "caller": "replyToRequest",
+          "callee": "String",
+          "lineNumber": 189
+        },
+        {
+          "caller": "markThreadRead",
+          "callee": "requireUser",
+          "lineNumber": 198
+        },
+        {
+          "caller": "markThreadRead",
+          "callee": "db\n    .select({ id: requests.id, assignedToId: requests.assignedToId })\n    .from(requests)\n    .where(and(eq(requests.id, requestId), eq(requests.userId, user.id)))\n    .limit",
+          "lineNumber": 199
+        },
+        {
+          "caller": "markThreadRead",
+          "callee": "db\n    .select({ id: requests.id, assignedToId: requests.assignedToId })\n    .from(requests)\n    .where",
+          "lineNumber": 199
+        },
+        {
+          "caller": "markThreadRead",
+          "callee": "db\n    .select({ id: requests.id, assignedToId: requests.assignedToId })\n    .from",
+          "lineNumber": 199
+        },
+        {
+          "caller": "markThreadRead",
+          "callee": "db\n    .select",
+          "lineNumber": 199
+        },
+        {
+          "caller": "markThreadRead",
+          "callee": "and",
+          "lineNumber": 202
+        },
+        {
+          "caller": "markThreadRead",
+          "callee": "eq",
+          "lineNumber": 202
+        },
+        {
+          "caller": "markThreadRead",
+          "callee": "eq",
+          "lineNumber": 202
+        },
+        {
+          "caller": "markThreadRead",
+          "callee": "db\n    .update(requestMessages)\n    .set({ readAt: new Date() })\n    .where(\n      and(\n        eq(requestMessages.requestId, request.id),\n        eq(requestMessages.internal, false),\n        isNull(requestMessages.readAt),\n        or(isNull(requestMessages.authorId), ne(requestMessages.authorId, user.id)),\n      ),\n    )\n    .returning",
+          "lineNumber": 205
+        },
+        {
+          "caller": "markThreadRead",
+          "callee": "db\n    .update(requestMessages)\n    .set({ readAt: new Date() })\n    .where",
+          "lineNumber": 205
+        },
+        {
+          "caller": "markThreadRead",
+          "callee": "db\n    .update(requestMessages)\n    .set",
+          "lineNumber": 205
+        },
+        {
+          "caller": "markThreadRead",
+          "callee": "db\n    .update",
+          "lineNumber": 205
+        },
+        {
+          "caller": "markThreadRead",
+          "callee": "and",
+          "lineNumber": 209
+        },
+        {
+          "caller": "markThreadRead",
+          "callee": "eq",
+          "lineNumber": 210
+        },
+        {
+          "caller": "markThreadRead",
+          "callee": "eq",
+          "lineNumber": 211
+        },
+        {
+          "caller": "markThreadRead",
+          "callee": "isNull",
+          "lineNumber": 212
+        },
+        {
+          "caller": "markThreadRead",
+          "callee": "or",
+          "lineNumber": 213
+        },
+        {
+          "caller": "markThreadRead",
+          "callee": "isNull",
+          "lineNumber": 213
+        },
+        {
+          "caller": "markThreadRead",
+          "callee": "ne",
+          "lineNumber": 213
+        },
+        {
+          "caller": "markThreadRead",
+          "callee": "staffWith",
+          "lineNumber": 218
+        },
+        {
+          "caller": "markThreadRead",
+          "callee": "publishMany",
+          "lineNumber": 219
+        },
+        {
+          "caller": "markThreadRead",
+          "callee": "String",
+          "lineNumber": 219
+        },
+        {
+          "caller": "closeOwnRequest",
+          "callee": "requireUser",
+          "lineNumber": 224
+        },
+        {
+          "caller": "closeOwnRequest",
+          "callee": "Number",
+          "lineNumber": 225
+        },
+        {
+          "caller": "closeOwnRequest",
+          "callee": "formData.get",
+          "lineNumber": 225
+        },
+        {
+          "caller": "closeOwnRequest",
+          "callee": "Number.isInteger",
+          "lineNumber": 226
+        },
+        {
+          "caller": "closeOwnRequest",
+          "callee": "db\n    .select()\n    .from(requests)\n    .where(and(eq(requests.id, id), eq(requests.userId, user.id)))\n    .limit",
+          "lineNumber": 228
+        },
+        {
+          "caller": "closeOwnRequest",
+          "callee": "db\n    .select()\n    .from(requests)\n    .where",
+          "lineNumber": 228
+        },
+        {
+          "caller": "closeOwnRequest",
+          "callee": "db\n    .select()\n    .from",
+          "lineNumber": 228
+        },
+        {
+          "caller": "closeOwnRequest",
+          "callee": "db\n    .select",
+          "lineNumber": 228
+        },
+        {
+          "caller": "closeOwnRequest",
+          "callee": "and",
+          "lineNumber": 231
+        },
+        {
+          "caller": "closeOwnRequest",
+          "callee": "eq",
+          "lineNumber": 231
+        },
+        {
+          "caller": "closeOwnRequest",
+          "callee": "eq",
+          "lineNumber": 231
+        },
+        {
+          "caller": "closeOwnRequest",
+          "callee": "db\n    .update(requests)\n    .set({ status: \"terminee\", closedAt: new Date(), updatedAt: new Date() })\n    .where",
+          "lineNumber": 235
+        },
+        {
+          "caller": "closeOwnRequest",
+          "callee": "db\n    .update(requests)\n    .set",
+          "lineNumber": 235
+        },
+        {
+          "caller": "closeOwnRequest",
+          "callee": "db\n    .update",
+          "lineNumber": 235
+        },
+        {
+          "caller": "closeOwnRequest",
+          "callee": "eq",
+          "lineNumber": 238
+        },
+        {
+          "caller": "closeOwnRequest",
+          "callee": "logActivity",
+          "lineNumber": 240
+        },
+        {
+          "caller": "closeOwnRequest",
+          "callee": "notify",
+          "lineNumber": 257
+        },
+        {
+          "caller": "closeOwnRequest",
+          "callee": "notifyStaff",
+          "lineNumber": 258
+        },
+        {
+          "caller": "closeOwnRequest",
+          "callee": "revalidatePath",
+          "lineNumber": 260
+        },
+        {
+          "caller": "closeOwnRequest",
+          "callee": "revalidatePath",
+          "lineNumber": 261
+        }
+      ],
+      "metrics": {
+        "importCount": 11,
+        "exportCount": 4,
+        "functionCount": 6,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/(app)/dashboard/demandes/nouvelle/page.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 59,
+      "nonEmptyLines": 54,
+      "functions": [
+        {
+          "name": "NouvelleDemandePage",
+          "startLine": 10,
+          "endLine": 59,
+          "params": [
+            "{\n  searchParams,\n}"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "metadata",
+          "line": 8,
+          "isDefault": false
+        },
+        {
+          "name": "NouvelleDemandePage",
+          "line": 10,
+          "isDefault": true
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "NouvelleDemandePage",
+          "callee": "requireUser",
+          "lineNumber": 13
+        },
+        {
+          "caller": "NouvelleDemandePage",
+          "callee": "REQUEST_TYPES.map",
+          "lineNumber": 28
+        },
+        {
+          "caller": "NouvelleDemandePage",
+          "callee": "(await getSolutions()).map",
+          "lineNumber": 29
+        },
+        {
+          "caller": "NouvelleDemandePage",
+          "callee": "getSolutions",
+          "lineNumber": 29
+        },
+        {
+          "caller": "NouvelleDemandePage",
+          "callee": "title.slice",
+          "lineNumber": 32
+        },
+        {
+          "caller": "NouvelleDemandePage",
+          "callee": "[\n                \"Votre demande arrive immédiatement dans notre back-office.\",\n                \"Un membre de l'équipe se l'attribue et vous répond dans le fil.\",\n                \"Si elle nécessite un chiffrage, un devis vous est adressé ici même, en PDF.\",\n                \"Un service souscrit (serveur, SMTP, IA…) apparaît ensuite dans « Mes services ».\",\n                \"Vous suivez l'avancement jusqu'à la clôture, sans échange d'e-mails.\",\n              ].map",
+          "lineNumber": 39
+        }
+      ],
+      "metrics": {
+        "importCount": 5,
+        "exportCount": 2,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/(app)/dashboard/demandes/page.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 85,
+      "nonEmptyLines": 81,
+      "functions": [
+        {
+          "name": "DemandesPage",
+          "startLine": 15,
+          "endLine": 85,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "metadata",
+          "line": 13,
+          "isDefault": false
+        },
+        {
+          "name": "DemandesPage",
+          "line": 15,
+          "isDefault": true
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "DemandesPage",
+          "callee": "(await getSolutions({ includeHidden: true })).map",
+          "lineNumber": 16
+        },
+        {
+          "caller": "DemandesPage",
+          "callee": "getSolutions",
+          "lineNumber": 16
+        },
+        {
+          "caller": "DemandesPage",
+          "callee": "requireUser",
+          "lineNumber": 17
+        },
+        {
+          "caller": "DemandesPage",
+          "callee": "listRequests",
+          "lineNumber": 18
+        },
+        {
+          "caller": "DemandesPage",
+          "callee": "rows.map",
+          "lineNumber": 55
+        },
+        {
+          "caller": "DemandesPage",
+          "callee": "SERVICE_NAMES.get",
+          "lineNumber": 65
+        },
+        {
+          "caller": "DemandesPage",
+          "callee": "formatDate",
+          "lineNumber": 69
+        },
+        {
+          "caller": "DemandesPage",
+          "callee": "relativeTime",
+          "lineNumber": 70
+        }
+      ],
+      "metrics": {
+        "importCount": 9,
+        "exportCount": 2,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/(app)/dashboard/demos/actions.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 127,
+      "nonEmptyLines": 114,
+      "functions": [
+        {
+          "name": "startDemoRun",
+          "startLine": 21,
+          "endLine": 82,
+          "params": [
+            "formData"
+          ]
+        },
+        {
+          "name": "submitDemoRun",
+          "startLine": 85,
+          "endLine": 127,
+          "params": [
+            "formData"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "startDemoRun",
+          "line": 21,
+          "isDefault": false
+        },
+        {
+          "name": "submitDemoRun",
+          "line": 85,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "startDemoRun",
+          "callee": "requireUser",
+          "lineNumber": 22
+        },
+        {
+          "caller": "startDemoRun",
+          "callee": "Number",
+          "lineNumber": 23
+        },
+        {
+          "caller": "startDemoRun",
+          "callee": "formData.get",
+          "lineNumber": 23
+        },
+        {
+          "caller": "startDemoRun",
+          "callee": "Number.isInteger",
+          "lineNumber": 24
+        },
+        {
+          "caller": "startDemoRun",
+          "callee": "getEntitledDemo",
+          "lineNumber": 26
+        },
+        {
+          "caller": "startDemoRun",
+          "callee": "entitled.blocks.some",
+          "lineNumber": 27
+        },
+        {
+          "caller": "startDemoRun",
+          "callee": "db\n    .select({ id: demoRuns.id })\n    .from(demoRuns)\n    .where(\n      and(\n        eq(demoRuns.userId, user.id),\n        eq(demoRuns.demoId, demoId),\n        sql`${demoRuns.outcome} in ('en_attente', 'en_cours')`,\n      ),\n    )\n    .limit",
+          "lineNumber": 30
+        },
+        {
+          "caller": "startDemoRun",
+          "callee": "db\n    .select({ id: demoRuns.id })\n    .from(demoRuns)\n    .where",
+          "lineNumber": 30
+        },
+        {
+          "caller": "startDemoRun",
+          "callee": "db\n    .select({ id: demoRuns.id })\n    .from",
+          "lineNumber": 30
+        },
+        {
+          "caller": "startDemoRun",
+          "callee": "db\n    .select",
+          "lineNumber": 30
+        },
+        {
+          "caller": "startDemoRun",
+          "callee": "and",
+          "lineNumber": 34
+        },
+        {
+          "caller": "startDemoRun",
+          "callee": "eq",
+          "lineNumber": 35
+        },
+        {
+          "caller": "startDemoRun",
+          "callee": "eq",
+          "lineNumber": 36
+        },
+        {
+          "caller": "startDemoRun",
+          "callee": "sql",
+          "lineNumber": 37
+        },
+        {
+          "caller": "startDemoRun",
+          "callee": "consume",
+          "lineNumber": 47
+        },
+        {
+          "caller": "startDemoRun",
+          "callee": "db.insert(demoRuns).values",
+          "lineNumber": 49
+        },
+        {
+          "caller": "startDemoRun",
+          "callee": "db.insert",
+          "lineNumber": 49
+        },
+        {
+          "caller": "startDemoRun",
+          "callee": "revalidatePath",
+          "lineNumber": 56
+        },
+        {
+          "caller": "startDemoRun",
+          "callee": "db\n    .insert(demoRuns)\n    .values({\n      userId: user.id,\n      demoId,\n      serviceSlug: entitled.demo.serviceSlug ?? entitled.demo.slug,\n      demoAccessId: entitled.grant?.id,\n      outcome: \"en_attente\",\n    })\n    .returning",
+          "lineNumber": 60
+        },
+        {
+          "caller": "startDemoRun",
+          "callee": "db\n    .insert(demoRuns)\n    .values",
+          "lineNumber": 60
+        },
+        {
+          "caller": "startDemoRun",
+          "callee": "db\n    .insert",
+          "lineNumber": 60
+        },
+        {
+          "caller": "startDemoRun",
+          "callee": "db.update(demoAccess).set({ lastAccessAt: new Date() }).where",
+          "lineNumber": 72
+        },
+        {
+          "caller": "startDemoRun",
+          "callee": "db.update(demoAccess).set",
+          "lineNumber": 72
+        },
+        {
+          "caller": "startDemoRun",
+          "callee": "db.update",
+          "lineNumber": 72
+        },
+        {
+          "caller": "startDemoRun",
+          "callee": "eq",
+          "lineNumber": 72
+        },
+        {
+          "caller": "startDemoRun",
+          "callee": "logActivity",
+          "lineNumber": 74
+        },
+        {
+          "caller": "startDemoRun",
+          "callee": "revalidatePath",
+          "lineNumber": 81
+        },
+        {
+          "caller": "submitDemoRun",
+          "callee": "requireUser",
+          "lineNumber": 86
+        },
+        {
+          "caller": "submitDemoRun",
+          "callee": "Number",
+          "lineNumber": 87
+        },
+        {
+          "caller": "submitDemoRun",
+          "callee": "formData.get",
+          "lineNumber": 87
+        },
+        {
+          "caller": "submitDemoRun",
+          "callee": "Number.isInteger",
+          "lineNumber": 88
+        },
+        {
+          "caller": "submitDemoRun",
+          "callee": "db\n    .select()\n    .from(demoRuns)\n    .where(and(eq(demoRuns.id, runId), eq(demoRuns.userId, user.id), eq(demoRuns.outcome, \"en_attente\")))\n    .limit",
+          "lineNumber": 90
+        },
+        {
+          "caller": "submitDemoRun",
+          "callee": "db\n    .select()\n    .from(demoRuns)\n    .where",
+          "lineNumber": 90
+        },
+        {
+          "caller": "submitDemoRun",
+          "callee": "db\n    .select()\n    .from",
+          "lineNumber": 90
+        },
+        {
+          "caller": "submitDemoRun",
+          "callee": "db\n    .select",
+          "lineNumber": 90
+        },
+        {
+          "caller": "submitDemoRun",
+          "callee": "and",
+          "lineNumber": 93
+        },
+        {
+          "caller": "submitDemoRun",
+          "callee": "eq",
+          "lineNumber": 93
+        },
+        {
+          "caller": "submitDemoRun",
+          "callee": "eq",
+          "lineNumber": 93
+        },
+        {
+          "caller": "submitDemoRun",
+          "callee": "eq",
+          "lineNumber": 93
+        },
+        {
+          "caller": "submitDemoRun",
+          "callee": "getEntitledDemo",
+          "lineNumber": 96
+        },
+        {
+          "caller": "submitDemoRun",
+          "callee": "db\n    .select({ n: sql<number>`count(*)::int` })\n    .from(attachments)\n    .where",
+          "lineNumber": 99
+        },
+        {
+          "caller": "submitDemoRun",
+          "callee": "db\n    .select({ n: sql<number>`count(*)::int` })\n    .from",
+          "lineNumber": 99
+        },
+        {
+          "caller": "submitDemoRun",
+          "callee": "db\n    .select",
+          "lineNumber": 99
+        },
+        {
+          "caller": "submitDemoRun",
+          "callee": "eq",
+          "lineNumber": 102
+        },
+        {
+          "caller": "submitDemoRun",
+          "callee": "db\n    .update(demoRuns)\n    .set({ outcome: \"en_cours\", input: `${n} fichier${n > 1 ? \"s\" : \"\"}`, updatedAt: new Date() })\n    .where",
+          "lineNumber": 105
+        },
+        {
+          "caller": "submitDemoRun",
+          "callee": "db\n    .update(demoRuns)\n    .set",
+          "lineNumber": 105
+        },
+        {
+          "caller": "submitDemoRun",
+          "callee": "db\n    .update",
+          "lineNumber": 105
+        },
+        {
+          "caller": "submitDemoRun",
+          "callee": "eq",
+          "lineNumber": 108
+        },
+        {
+          "caller": "submitDemoRun",
+          "callee": "notifyStaff",
+          "lineNumber": 110
+        },
+        {
+          "caller": "submitDemoRun",
+          "callee": "logActivity",
+          "lineNumber": 119
+        },
+        {
+          "caller": "submitDemoRun",
+          "callee": "revalidatePath",
+          "lineNumber": 126
+        }
+      ],
+      "metrics": {
+        "importCount": 6,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/(app)/dashboard/devis/[id]/actions.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 89,
+      "nonEmptyLines": 79,
+      "functions": [
+        {
+          "name": "respondToQuote",
+          "startLine": 27,
+          "endLine": 89,
+          "params": [
+            "_prev",
+            "formData"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "respondToQuote",
+          "line": 27,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "respondToQuote",
+          "callee": "requireUser",
+          "lineNumber": 31
+        },
+        {
+          "caller": "respondToQuote",
+          "callee": "parseForm",
+          "lineNumber": 32
+        },
+        {
+          "caller": "respondToQuote",
+          "callee": "db\n    .update(quotes)\n    .set({ status: parsed.data.decision, updatedAt: new Date() })\n    .where(\n      and(\n        eq(quotes.id, parsed.data.quoteId),\n        eq(quotes.userId, user.id),\n        eq(quotes.status, \"envoye\"),\n      ),\n    )\n    .returning",
+          "lineNumber": 35
+        },
+        {
+          "caller": "respondToQuote",
+          "callee": "db\n    .update(quotes)\n    .set({ status: parsed.data.decision, updatedAt: new Date() })\n    .where",
+          "lineNumber": 35
+        },
+        {
+          "caller": "respondToQuote",
+          "callee": "db\n    .update(quotes)\n    .set",
+          "lineNumber": 35
+        },
+        {
+          "caller": "respondToQuote",
+          "callee": "db\n    .update",
+          "lineNumber": 35
+        },
+        {
+          "caller": "respondToQuote",
+          "callee": "and",
+          "lineNumber": 39
+        },
+        {
+          "caller": "respondToQuote",
+          "callee": "eq",
+          "lineNumber": 40
+        },
+        {
+          "caller": "respondToQuote",
+          "callee": "eq",
+          "lineNumber": 41
+        },
+        {
+          "caller": "respondToQuote",
+          "callee": "eq",
+          "lineNumber": 42
+        },
+        {
+          "caller": "respondToQuote",
+          "callee": "fail",
+          "lineNumber": 48
+        },
+        {
+          "caller": "respondToQuote",
+          "callee": "logActivity",
+          "lineNumber": 54
+        },
+        {
+          "caller": "respondToQuote",
+          "callee": "notifyStaff",
+          "lineNumber": 64
+        },
+        {
+          "caller": "respondToQuote",
+          "callee": "formatMoney",
+          "lineNumber": 67
+        },
+        {
+          "caller": "respondToQuote",
+          "callee": "sendEmail",
+          "lineNumber": 74
+        },
+        {
+          "caller": "respondToQuote",
+          "callee": "adminEmail",
+          "lineNumber": 75
+        },
+        {
+          "caller": "respondToQuote",
+          "callee": "formatMoney",
+          "lineNumber": 77
+        },
+        {
+          "caller": "respondToQuote",
+          "callee": "revalidatePath",
+          "lineNumber": 81
+        },
+        {
+          "caller": "respondToQuote",
+          "callee": "revalidatePath",
+          "lineNumber": 82
+        }
+      ],
+      "metrics": {
+        "importCount": 8,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/(app)/dashboard/documents/page.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 97,
+      "nonEmptyLines": 90,
+      "functions": [
+        {
+          "name": "DocumentsPage",
+          "startLine": 16,
+          "endLine": 97,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "metadata",
+          "line": 14,
+          "isDefault": false
+        },
+        {
+          "name": "DocumentsPage",
+          "line": 16,
+          "isDefault": true
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "DocumentsPage",
+          "callee": "requireUser",
+          "lineNumber": 17
+        },
+        {
+          "caller": "DocumentsPage",
+          "callee": "Promise.all",
+          "lineNumber": 18
+        },
+        {
+          "caller": "DocumentsPage",
+          "callee": "listOwnDocuments",
+          "lineNumber": 18
+        },
+        {
+          "caller": "DocumentsPage",
+          "callee": "listQuotas",
+          "lineNumber": 18
+        },
+        {
+          "caller": "DocumentsPage",
+          "callee": "quotas.find",
+          "lineNumber": 19
+        },
+        {
+          "caller": "DocumentsPage",
+          "callee": "rows.reduce",
+          "lineNumber": 21
+        },
+        {
+          "caller": "DocumentsPage",
+          "callee": "rows.map",
+          "lineNumber": 39
+        },
+        {
+          "caller": "DocumentsPage",
+          "callee": "formatBytes",
+          "lineNumber": 47
+        },
+        {
+          "caller": "DocumentsPage",
+          "callee": "formatDateTime",
+          "lineNumber": 47
+        },
+        {
+          "caller": "DocumentsPage",
+          "callee": "storageConfigured",
+          "lineNumber": 78
+        },
+        {
+          "caller": "DocumentsPage",
+          "callee": "formatBytes",
+          "lineNumber": 90
+        }
+      ],
+      "metrics": {
+        "importCount": 10,
+        "exportCount": 2,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/(app)/dashboard/notifications/MarkAllReadButton.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 26,
+      "nonEmptyLines": 23,
+      "functions": [
+        {
+          "name": "MarkAllReadButton",
+          "startLine": 7,
+          "endLine": 15,
+          "params": []
+        },
+        {
+          "name": "ClearReadButton",
+          "startLine": 17,
+          "endLine": 26,
+          "params": [
+            "{ count }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "MarkAllReadButton",
+          "line": 7,
+          "isDefault": false
+        },
+        {
+          "name": "ClearReadButton",
+          "line": 17,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/(app)/dashboard/notifications/actions.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 63,
+      "nonEmptyLines": 57,
+      "functions": [
+        {
+          "name": "done",
+          "startLine": 18,
+          "endLine": 22,
+          "params": [
+            "userId"
+          ]
+        },
+        {
+          "name": "markAllRead",
+          "startLine": 24,
+          "endLine": 31,
+          "params": []
+        },
+        {
+          "name": "markRead",
+          "startLine": 33,
+          "endLine": 42,
+          "params": [
+            "formData"
+          ]
+        },
+        {
+          "name": "deleteNotification",
+          "startLine": 44,
+          "endLine": 52,
+          "params": [
+            "formData"
+          ]
+        },
+        {
+          "name": "clearRead",
+          "startLine": 57,
+          "endLine": 63,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "markAllRead",
+          "line": 24,
+          "isDefault": false
+        },
+        {
+          "name": "markRead",
+          "line": 33,
+          "isDefault": false
+        },
+        {
+          "name": "deleteNotification",
+          "line": 44,
+          "isDefault": false
+        },
+        {
+          "name": "clearRead",
+          "line": 57,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "done",
+          "callee": "publish",
+          "lineNumber": 19
+        },
+        {
+          "caller": "done",
+          "callee": "revalidatePath",
+          "lineNumber": 20
+        },
+        {
+          "caller": "done",
+          "callee": "revalidatePath",
+          "lineNumber": 21
+        },
+        {
+          "caller": "markAllRead",
+          "callee": "requireUser",
+          "lineNumber": 25
+        },
+        {
+          "caller": "markAllRead",
+          "callee": "db\n    .update(notifications)\n    .set({ readAt: new Date() })\n    .where",
+          "lineNumber": 26
+        },
+        {
+          "caller": "markAllRead",
+          "callee": "db\n    .update(notifications)\n    .set",
+          "lineNumber": 26
+        },
+        {
+          "caller": "markAllRead",
+          "callee": "db\n    .update",
+          "lineNumber": 26
+        },
+        {
+          "caller": "markAllRead",
+          "callee": "and",
+          "lineNumber": 29
+        },
+        {
+          "caller": "markAllRead",
+          "callee": "eq",
+          "lineNumber": 29
+        },
+        {
+          "caller": "markAllRead",
+          "callee": "isNull",
+          "lineNumber": 29
+        },
+        {
+          "caller": "markAllRead",
+          "callee": "done",
+          "lineNumber": 30
+        },
+        {
+          "caller": "markRead",
+          "callee": "requireUser",
+          "lineNumber": 34
+        },
+        {
+          "caller": "markRead",
+          "callee": "Number",
+          "lineNumber": 35
+        },
+        {
+          "caller": "markRead",
+          "callee": "formData.get",
+          "lineNumber": 35
+        },
+        {
+          "caller": "markRead",
+          "callee": "Number.isInteger",
+          "lineNumber": 36
+        },
+        {
+          "caller": "markRead",
+          "callee": "db\n    .update(notifications)\n    .set({ readAt: new Date() })\n    .where",
+          "lineNumber": 37
+        },
+        {
+          "caller": "markRead",
+          "callee": "db\n    .update(notifications)\n    .set",
+          "lineNumber": 37
+        },
+        {
+          "caller": "markRead",
+          "callee": "db\n    .update",
+          "lineNumber": 37
+        },
+        {
+          "caller": "markRead",
+          "callee": "and",
+          "lineNumber": 40
+        },
+        {
+          "caller": "markRead",
+          "callee": "eq",
+          "lineNumber": 40
+        },
+        {
+          "caller": "markRead",
+          "callee": "eq",
+          "lineNumber": 40
+        },
+        {
+          "caller": "markRead",
+          "callee": "done",
+          "lineNumber": 41
+        },
+        {
+          "caller": "deleteNotification",
+          "callee": "requireUser",
+          "lineNumber": 45
+        },
+        {
+          "caller": "deleteNotification",
+          "callee": "Number",
+          "lineNumber": 46
+        },
+        {
+          "caller": "deleteNotification",
+          "callee": "formData.get",
+          "lineNumber": 46
+        },
+        {
+          "caller": "deleteNotification",
+          "callee": "Number.isInteger",
+          "lineNumber": 47
+        },
+        {
+          "caller": "deleteNotification",
+          "callee": "db\n    .delete(notifications)\n    .where",
+          "lineNumber": 48
+        },
+        {
+          "caller": "deleteNotification",
+          "callee": "db\n    .delete",
+          "lineNumber": 48
+        },
+        {
+          "caller": "deleteNotification",
+          "callee": "and",
+          "lineNumber": 50
+        },
+        {
+          "caller": "deleteNotification",
+          "callee": "eq",
+          "lineNumber": 50
+        },
+        {
+          "caller": "deleteNotification",
+          "callee": "eq",
+          "lineNumber": 50
+        },
+        {
+          "caller": "deleteNotification",
+          "callee": "done",
+          "lineNumber": 51
+        },
+        {
+          "caller": "clearRead",
+          "callee": "requireUser",
+          "lineNumber": 58
+        },
+        {
+          "caller": "clearRead",
+          "callee": "db\n    .delete(notifications)\n    .where",
+          "lineNumber": 59
+        },
+        {
+          "caller": "clearRead",
+          "callee": "db\n    .delete",
+          "lineNumber": 59
+        },
+        {
+          "caller": "clearRead",
+          "callee": "and",
+          "lineNumber": 61
+        },
+        {
+          "caller": "clearRead",
+          "callee": "eq",
+          "lineNumber": 61
+        },
+        {
+          "caller": "clearRead",
+          "callee": "isNotNull",
+          "lineNumber": 61
+        },
+        {
+          "caller": "clearRead",
+          "callee": "done",
+          "lineNumber": 62
+        }
+      ],
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 4,
+        "functionCount": 5,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/(app)/dashboard/notifications/page.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 38,
+      "nonEmptyLines": 33,
+      "functions": [
+        {
+          "name": "NotificationsPage",
+          "startLine": 11,
+          "endLine": 38,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "metadata",
+          "line": 9,
+          "isDefault": false
+        },
+        {
+          "name": "NotificationsPage",
+          "line": 11,
+          "isDefault": true
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "NotificationsPage",
+          "callee": "requireUser",
+          "lineNumber": 12
+        },
+        {
+          "caller": "NotificationsPage",
+          "callee": "db\n    .select()\n    .from(notifications)\n    .where(eq(notifications.userId, user.id))\n    .orderBy(desc(notifications.createdAt))\n    .limit",
+          "lineNumber": 14
+        },
+        {
+          "caller": "NotificationsPage",
+          "callee": "db\n    .select()\n    .from(notifications)\n    .where(eq(notifications.userId, user.id))\n    .orderBy",
+          "lineNumber": 14
+        },
+        {
+          "caller": "NotificationsPage",
+          "callee": "db\n    .select()\n    .from(notifications)\n    .where",
+          "lineNumber": 14
+        },
+        {
+          "caller": "NotificationsPage",
+          "callee": "db\n    .select()\n    .from",
+          "lineNumber": 14
+        },
+        {
+          "caller": "NotificationsPage",
+          "callee": "db\n    .select",
+          "lineNumber": 14
+        },
+        {
+          "caller": "NotificationsPage",
+          "callee": "eq",
+          "lineNumber": 17
+        },
+        {
+          "caller": "NotificationsPage",
+          "callee": "desc",
+          "lineNumber": 18
+        },
+        {
+          "caller": "NotificationsPage",
+          "callee": "rows.filter",
+          "lineNumber": 21
+        }
+      ],
+      "metrics": {
+        "importCount": 5,
+        "exportCount": 2,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/(app)/dashboard/page.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 303,
+      "nonEmptyLines": 292,
+      "functions": [
+        {
+          "name": "DashboardHome",
+          "startLine": 37,
+          "endLine": 303,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "metadata",
+          "line": 28,
+          "isDefault": false
+        },
+        {
+          "name": "DashboardHome",
+          "line": 37,
+          "isDefault": true
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "DashboardHome",
+          "callee": "requireUser",
+          "lineNumber": 38
+        },
+        {
+          "caller": "DashboardHome",
+          "callee": "Promise.all",
+          "lineNumber": 41
+        },
+        {
+          "caller": "DashboardHome",
+          "callee": "clientCounters",
+          "lineNumber": 42
+        },
+        {
+          "caller": "DashboardHome",
+          "callee": "listRequests",
+          "lineNumber": 43
+        },
+        {
+          "caller": "DashboardHome",
+          "callee": "listSubscriptions",
+          "lineNumber": 44
+        },
+        {
+          "caller": "DashboardHome",
+          "callee": "listQuotas",
+          "lineNumber": 45
+        },
+        {
+          "caller": "DashboardHome",
+          "callee": "listEntitledDemos",
+          "lineNumber": 46
+        },
+        {
+          "caller": "DashboardHome",
+          "callee": "recentNotifications",
+          "lineNumber": 47
+        },
+        {
+          "caller": "DashboardHome",
+          "callee": "db\n        .select()\n        .from(quotes)\n        .where(and(eq(quotes.userId, user.id), eq(quotes.status, \"envoye\")))\n        .orderBy(desc(quotes.updatedAt))\n        .limit",
+          "lineNumber": 48
+        },
+        {
+          "caller": "DashboardHome",
+          "callee": "db\n        .select()\n        .from(quotes)\n        .where(and(eq(quotes.userId, user.id), eq(quotes.status, \"envoye\")))\n        .orderBy",
+          "lineNumber": 48
+        },
+        {
+          "caller": "DashboardHome",
+          "callee": "db\n        .select()\n        .from(quotes)\n        .where",
+          "lineNumber": 48
+        },
+        {
+          "caller": "DashboardHome",
+          "callee": "db\n        .select()\n        .from",
+          "lineNumber": 48
+        },
+        {
+          "caller": "DashboardHome",
+          "callee": "db\n        .select",
+          "lineNumber": 48
+        },
+        {
+          "caller": "DashboardHome",
+          "callee": "and",
+          "lineNumber": 51
+        },
+        {
+          "caller": "DashboardHome",
+          "callee": "eq",
+          "lineNumber": 51
+        },
+        {
+          "caller": "DashboardHome",
+          "callee": "eq",
+          "lineNumber": 51
+        },
+        {
+          "caller": "DashboardHome",
+          "callee": "desc",
+          "lineNumber": 52
+        },
+        {
+          "caller": "DashboardHome",
+          "callee": "db\n        .select()\n        .from(invoices)\n        .where(and(eq(invoices.userId, user.id), inArray(invoices.status, [\"envoyee\", \"en_retard\"])))\n        .orderBy",
+          "lineNumber": 54
+        },
+        {
+          "caller": "DashboardHome",
+          "callee": "db\n        .select()\n        .from(invoices)\n        .where",
+          "lineNumber": 54
+        },
+        {
+          "caller": "DashboardHome",
+          "callee": "db\n        .select()\n        .from",
+          "lineNumber": 54
+        },
+        {
+          "caller": "DashboardHome",
+          "callee": "db\n        .select",
+          "lineNumber": 54
+        },
+        {
+          "caller": "DashboardHome",
+          "callee": "and",
+          "lineNumber": 57
+        },
+        {
+          "caller": "DashboardHome",
+          "callee": "eq",
+          "lineNumber": 57
+        },
+        {
+          "caller": "DashboardHome",
+          "callee": "inArray",
+          "lineNumber": 57
+        },
+        {
+          "caller": "DashboardHome",
+          "callee": "getCompany",
+          "lineNumber": 59
+        },
+        {
+          "caller": "ttc",
+          "callee": "withVat",
+          "lineNumber": 63
+        },
+        {
+          "caller": "ttc",
+          "callee": "effectiveCompany",
+          "lineNumber": 63
+        },
+        {
+          "caller": "DashboardHome",
+          "callee": "unpaid.reduce",
+          "lineNumber": 64
+        },
+        {
+          "caller": "DashboardHome",
+          "callee": "ttc",
+          "lineNumber": 64
+        },
+        {
+          "caller": "DashboardHome",
+          "callee": "services.filter",
+          "lineNumber": 66
+        },
+        {
+          "caller": "DashboardHome",
+          "callee": "services.filter",
+          "lineNumber": 67
+        },
+        {
+          "caller": "DashboardHome",
+          "callee": "usage.filter",
+          "lineNumber": 68
+        },
+        {
+          "caller": "DashboardHome",
+          "callee": "Math.min",
+          "lineNumber": 69
+        },
+        {
+          "caller": "DashboardHome",
+          "callee": "user.name.split",
+          "lineNumber": 75
+        },
+        {
+          "caller": "DashboardHome",
+          "callee": "formatMoney",
+          "lineNumber": 107
+        },
+        {
+          "caller": "DashboardHome",
+          "callee": "pendingQuotes.map",
+          "lineNumber": 132
+        },
+        {
+          "caller": "DashboardHome",
+          "callee": "formatDate",
+          "lineNumber": 139
+        },
+        {
+          "caller": "DashboardHome",
+          "callee": "formatMoney",
+          "lineNumber": 142
+        },
+        {
+          "caller": "DashboardHome",
+          "callee": "ttc",
+          "lineNumber": 142
+        },
+        {
+          "caller": "DashboardHome",
+          "callee": "unpaid.slice(0, 5).map",
+          "lineNumber": 146
+        },
+        {
+          "caller": "DashboardHome",
+          "callee": "unpaid.slice",
+          "lineNumber": 146
+        },
+        {
+          "caller": "DashboardHome",
+          "callee": "formatDate",
+          "lineNumber": 153
+        },
+        {
+          "caller": "DashboardHome",
+          "callee": "formatMoney",
+          "lineNumber": 156
+        },
+        {
+          "caller": "DashboardHome",
+          "callee": "ttc",
+          "lineNumber": 156
+        },
+        {
+          "caller": "DashboardHome",
+          "callee": "recent.map",
+          "lineNumber": 183
+        },
+        {
+          "caller": "DashboardHome",
+          "callee": "relativeTime",
+          "lineNumber": 189
+        },
+        {
+          "caller": "DashboardHome",
+          "callee": "liveServices.slice(0, 5).map",
+          "lineNumber": 217
+        },
+        {
+          "caller": "DashboardHome",
+          "callee": "liveServices.slice",
+          "lineNumber": 217
+        },
+        {
+          "caller": "DashboardHome",
+          "callee": "formatMoney",
+          "lineNumber": 223
+        },
+        {
+          "caller": "DashboardHome",
+          "callee": "formatDate",
+          "lineNumber": 224
+        },
+        {
+          "caller": "DashboardHome",
+          "callee": "hot.slice(0, 3).map",
+          "lineNumber": 234
+        },
+        {
+          "caller": "DashboardHome",
+          "callee": "hot.slice",
+          "lineNumber": 234
+        },
+        {
+          "caller": "DashboardHome",
+          "callee": "demos.slice(0, 4).map",
+          "lineNumber": 258
+        },
+        {
+          "caller": "DashboardHome",
+          "callee": "demos.slice",
+          "lineNumber": 258
+        },
+        {
+          "caller": "DashboardHome",
+          "callee": "Math.ceil",
+          "lineNumber": 259
+        },
+        {
+          "caller": "DashboardHome",
+          "callee": "expiresAt.getTime",
+          "lineNumber": 259
+        },
+        {
+          "caller": "DashboardHome",
+          "callee": "now.getTime",
+          "lineNumber": 259
+        },
+        {
+          "caller": "DashboardHome",
+          "callee": "notifications.map",
+          "lineNumber": 285
+        },
+        {
+          "caller": "DashboardHome",
+          "callee": "relativeTime",
+          "lineNumber": 291
+        }
+      ],
+      "metrics": {
+        "importCount": 17,
+        "exportCount": 2,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/(app)/dashboard/profil/actions.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 52,
+      "nonEmptyLines": 46,
+      "functions": [
+        {
+          "name": "updateProfile",
+          "startLine": 27,
+          "endLine": 52,
+          "params": [
+            "_prev",
+            "formData"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "updateProfile",
+          "line": 27,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "updateProfile",
+          "callee": "requireUser",
+          "lineNumber": 31
+        },
+        {
+          "caller": "updateProfile",
+          "callee": "parseForm",
+          "lineNumber": 32
+        },
+        {
+          "caller": "updateProfile",
+          "callee": "db\n    .update(userTable)\n    .set({\n      name: parsed.data.name,\n      phone: parsed.data.phone ?? null,\n      company: parsed.data.company ?? null,\n      updatedAt: new Date(),\n    })\n    .where",
+          "lineNumber": 35
+        },
+        {
+          "caller": "updateProfile",
+          "callee": "db\n    .update(userTable)\n    .set",
+          "lineNumber": 35
+        },
+        {
+          "caller": "updateProfile",
+          "callee": "db\n    .update",
+          "lineNumber": 35
+        },
+        {
+          "caller": "updateProfile",
+          "callee": "eq",
+          "lineNumber": 43
+        },
+        {
+          "caller": "updateProfile",
+          "callee": "logActivity",
+          "lineNumber": 45
+        },
+        {
+          "caller": "updateProfile",
+          "callee": "revalidatePath",
+          "lineNumber": 49
+        },
+        {
+          "caller": "updateProfile",
+          "callee": "revalidatePath",
+          "lineNumber": 50
+        },
+        {
+          "caller": "updateProfile",
+          "callee": "succeed",
+          "lineNumber": 51
+        }
+      ],
+      "metrics": {
+        "importCount": 5,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/(app)/dashboard/profil/page.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 90,
+      "nonEmptyLines": 79,
+      "functions": [
+        {
+          "name": "ProfilPage",
+          "startLine": 18,
+          "endLine": 81,
+          "params": []
+        },
+        {
+          "name": "Row",
+          "startLine": 83,
+          "endLine": 90,
+          "params": [
+            "{ label, value }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "metadata",
+          "line": 10,
+          "isDefault": false
+        },
+        {
+          "name": "ProfilPage",
+          "line": 18,
+          "isDefault": true
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "ProfilPage",
+          "callee": "requireUser",
+          "lineNumber": 19
+        },
+        {
+          "caller": "ProfilPage",
+          "callee": "getCurrentSession",
+          "lineNumber": 20
+        },
+        {
+          "caller": "ProfilPage",
+          "callee": "db\n    .select({ id: account.id })\n    .from(account)\n    .where(and(eq(account.userId, user.id), eq(account.providerId, \"credential\")))\n    .limit",
+          "lineNumber": 24
+        },
+        {
+          "caller": "ProfilPage",
+          "callee": "db\n    .select({ id: account.id })\n    .from(account)\n    .where",
+          "lineNumber": 24
+        },
+        {
+          "caller": "ProfilPage",
+          "callee": "db\n    .select({ id: account.id })\n    .from",
+          "lineNumber": 24
+        },
+        {
+          "caller": "ProfilPage",
+          "callee": "db\n    .select",
+          "lineNumber": 24
+        },
+        {
+          "caller": "ProfilPage",
+          "callee": "and",
+          "lineNumber": 27
+        },
+        {
+          "caller": "ProfilPage",
+          "callee": "eq",
+          "lineNumber": 27
+        },
+        {
+          "caller": "ProfilPage",
+          "callee": "eq",
+          "lineNumber": 27
+        },
+        {
+          "caller": "ProfilPage",
+          "callee": "Boolean",
+          "lineNumber": 52
+        },
+        {
+          "caller": "ProfilPage",
+          "callee": "formatDate",
+          "lineNumber": 71
+        }
+      ],
+      "metrics": {
+        "importCount": 6,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/(auth)/acces-refuse/page.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 43,
+      "nonEmptyLines": 40,
+      "functions": [
+        {
+          "name": "AccesRefusePage",
+          "startLine": 13,
+          "endLine": 43,
+          "params": [
+            "{ searchParams }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "metadata",
+          "line": 5,
+          "isDefault": false
+        },
+        {
+          "name": "AccesRefusePage",
+          "line": 13,
+          "isDefault": true
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "AccesRefusePage",
+          "callee": "(key ?? \"\").split",
+          "lineNumber": 16
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 2,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/api/contact/route.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 110,
+      "nonEmptyLines": 97,
+      "functions": [
+        {
+          "name": "verifyTurnstile",
+          "startLine": 34,
+          "endLine": 53,
+          "params": [
+            "token",
+            "remoteIp"
+          ]
+        },
+        {
+          "name": "POST",
+          "startLine": 55,
+          "endLine": 110,
+          "params": [
+            "request"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "POST",
+          "line": 55,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "verifyTurnstile",
+          "callee": "body.set",
+          "lineNumber": 40
+        },
+        {
+          "caller": "verifyTurnstile",
+          "callee": "fetch",
+          "lineNumber": 43
+        },
+        {
+          "caller": "verifyTurnstile",
+          "callee": "AbortSignal.timeout",
+          "lineNumber": 46
+        },
+        {
+          "caller": "verifyTurnstile",
+          "callee": "res.json",
+          "lineNumber": 48
+        },
+        {
+          "caller": "POST",
+          "callee": "request.formData",
+          "lineNumber": 56
+        },
+        {
+          "caller": "POST",
+          "callee": "ContactSchema.safeParse",
+          "lineNumber": 58
+        },
+        {
+          "caller": "POST",
+          "callee": "formData.get",
+          "lineNumber": 59
+        },
+        {
+          "caller": "POST",
+          "callee": "formData.get",
+          "lineNumber": 60
+        },
+        {
+          "caller": "POST",
+          "callee": "formData.get",
+          "lineNumber": 61
+        },
+        {
+          "caller": "POST",
+          "callee": "formData.get",
+          "lineNumber": 62
+        },
+        {
+          "caller": "POST",
+          "callee": "Response.json",
+          "lineNumber": 65
+        },
+        {
+          "caller": "POST",
+          "callee": "formData.get",
+          "lineNumber": 68
+        },
+        {
+          "caller": "POST",
+          "callee": "request.headers.get(\"x-forwarded-for\")?.split(\",\")[0]?.trim",
+          "lineNumber": 69
+        },
+        {
+          "caller": "POST",
+          "callee": "request.headers.get(\"x-forwarded-for\")?.split",
+          "lineNumber": 69
+        },
+        {
+          "caller": "POST",
+          "callee": "request.headers.get",
+          "lineNumber": 69
+        },
+        {
+          "caller": "POST",
+          "callee": "verifyTurnstile",
+          "lineNumber": 70
+        },
+        {
+          "caller": "POST",
+          "callee": "Response.json",
+          "lineNumber": 72
+        },
+        {
+          "caller": "POST",
+          "callee": "db\n      .insert(contactLeads)\n      .values({\n        name: parsed.data.name,\n        email: parsed.data.email,\n        message: parsed.data.message,\n        solution: parsed.data.solution,\n      })\n      .returning",
+          "lineNumber": 76
+        },
+        {
+          "caller": "POST",
+          "callee": "db\n      .insert(contactLeads)\n      .values",
+          "lineNumber": 76
+        },
+        {
+          "caller": "POST",
+          "callee": "db\n      .insert",
+          "lineNumber": 76
+        },
+        {
+          "caller": "POST",
+          "callee": "notifyStaff",
+          "lineNumber": 86
+        },
+        {
+          "caller": "POST",
+          "callee": "parsed.data.message.slice",
+          "lineNumber": 89
+        },
+        {
+          "caller": "POST",
+          "callee": "sendEmail",
+          "lineNumber": 98
+        },
+        {
+          "caller": "POST",
+          "callee": "adminEmail",
+          "lineNumber": 99
+        },
+        {
+          "caller": "POST",
+          "callee": "Response.json",
+          "lineNumber": 105
+        },
+        {
+          "caller": "POST",
+          "callee": "console.error",
+          "lineNumber": 107
+        },
+        {
+          "caller": "POST",
+          "callee": "Response.json",
+          "lineNumber": 108
+        }
+      ],
+      "metrics": {
+        "importCount": 5,
+        "exportCount": 1,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/api/demos/secret/route.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 104,
+      "nonEmptyLines": 91,
+      "functions": [
+        {
+          "name": "POST",
+          "startLine": 34,
+          "endLine": 104,
+          "params": [
+            "request"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "POST",
+          "line": 34,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "POST",
+          "callee": "getCurrentUser",
+          "lineNumber": 35
+        },
+        {
+          "caller": "POST",
+          "callee": "Response.json",
+          "lineNumber": 36
+        },
+        {
+          "caller": "POST",
+          "callee": "encryptionConfigured",
+          "lineNumber": 37
+        },
+        {
+          "caller": "POST",
+          "callee": "Response.json",
+          "lineNumber": 38
+        },
+        {
+          "caller": "POST",
+          "callee": "Schema.safeParse",
+          "lineNumber": 41
+        },
+        {
+          "caller": "POST",
+          "callee": "request.json().catch",
+          "lineNumber": 41
+        },
+        {
+          "caller": "POST",
+          "callee": "request.json",
+          "lineNumber": 41
+        },
+        {
+          "caller": "POST",
+          "callee": "Response.json",
+          "lineNumber": 42
+        },
+        {
+          "caller": "POST",
+          "callee": "can",
+          "lineNumber": 45
+        },
+        {
+          "caller": "POST",
+          "callee": "getEntitledDemo",
+          "lineNumber": 46
+        },
+        {
+          "caller": "POST",
+          "callee": "Response.json",
+          "lineNumber": 48
+        },
+        {
+          "caller": "POST",
+          "callee": "db.select({ blocks: demos.blocks }).from(demos).where(eq(demos.id, demoId)).limit",
+          "lineNumber": 53
+        },
+        {
+          "caller": "POST",
+          "callee": "db.select({ blocks: demos.blocks }).from(demos).where",
+          "lineNumber": 53
+        },
+        {
+          "caller": "POST",
+          "callee": "db.select({ blocks: demos.blocks }).from",
+          "lineNumber": 53
+        },
+        {
+          "caller": "POST",
+          "callee": "db.select",
+          "lineNumber": 53
+        },
+        {
+          "caller": "POST",
+          "callee": "eq",
+          "lineNumber": 53
+        },
+        {
+          "caller": "POST",
+          "callee": "Response.json",
+          "lineNumber": 54
+        },
+        {
+          "caller": "POST",
+          "callee": "parseBlocks",
+          "lineNumber": 55
+        },
+        {
+          "caller": "POST",
+          "callee": "declaredSecrets(blocks).some",
+          "lineNumber": 58
+        },
+        {
+          "caller": "POST",
+          "callee": "declaredSecrets",
+          "lineNumber": 58
+        },
+        {
+          "caller": "POST",
+          "callee": "Response.json",
+          "lineNumber": 59
+        },
+        {
+          "caller": "POST",
+          "callee": "blocks.find",
+          "lineNumber": 63
+        },
+        {
+          "caller": "POST",
+          "callee": "isExpired",
+          "lineNumber": 65
+        },
+        {
+          "caller": "POST",
+          "callee": "effectiveExpiry",
+          "lineNumber": 65
+        },
+        {
+          "caller": "POST",
+          "callee": "Response.json",
+          "lineNumber": 66
+        },
+        {
+          "caller": "POST",
+          "callee": "db\n    .select()\n    .from(demoSecrets)\n    .where(\n      and(eq(demoSecrets.demoId, demoId), eq(demoSecrets.blockId, blockId), eq(demoSecrets.label, label)),\n    )\n    .limit",
+          "lineNumber": 70
+        },
+        {
+          "caller": "POST",
+          "callee": "db\n    .select()\n    .from(demoSecrets)\n    .where",
+          "lineNumber": 70
+        },
+        {
+          "caller": "POST",
+          "callee": "db\n    .select()\n    .from",
+          "lineNumber": 70
+        },
+        {
+          "caller": "POST",
+          "callee": "db\n    .select",
+          "lineNumber": 70
+        },
+        {
+          "caller": "POST",
+          "callee": "and",
+          "lineNumber": 74
+        },
+        {
+          "caller": "POST",
+          "callee": "eq",
+          "lineNumber": 74
+        },
+        {
+          "caller": "POST",
+          "callee": "eq",
+          "lineNumber": 74
+        },
+        {
+          "caller": "POST",
+          "callee": "eq",
+          "lineNumber": 74
+        },
+        {
+          "caller": "POST",
+          "callee": "Response.json",
+          "lineNumber": 77
+        },
+        {
+          "caller": "POST",
+          "callee": "decryptSecret",
+          "lineNumber": 81
+        },
+        {
+          "caller": "POST",
+          "callee": "demoSecretAad",
+          "lineNumber": 81
+        },
+        {
+          "caller": "POST",
+          "callee": "Response.json",
+          "lineNumber": 85
+        },
+        {
+          "caller": "POST",
+          "callee": "db\n    .update(demoSecrets)\n    .set({ revealCount: sql`${demoSecrets.revealCount} + 1` })\n    .where",
+          "lineNumber": 88
+        },
+        {
+          "caller": "POST",
+          "callee": "db\n    .update(demoSecrets)\n    .set",
+          "lineNumber": 88
+        },
+        {
+          "caller": "POST",
+          "callee": "db\n    .update",
+          "lineNumber": 88
+        },
+        {
+          "caller": "POST",
+          "callee": "sql",
+          "lineNumber": 90
+        },
+        {
+          "caller": "POST",
+          "callee": "eq",
+          "lineNumber": 91
+        },
+        {
+          "caller": "POST",
+          "callee": "db.update(demoAccess).set({ lastAccessAt: new Date() }).where",
+          "lineNumber": 93
+        },
+        {
+          "caller": "POST",
+          "callee": "db.update(demoAccess).set",
+          "lineNumber": 93
+        },
+        {
+          "caller": "POST",
+          "callee": "db.update",
+          "lineNumber": 93
+        },
+        {
+          "caller": "POST",
+          "callee": "eq",
+          "lineNumber": 93
+        },
+        {
+          "caller": "POST",
+          "callee": "logActivity",
+          "lineNumber": 95
+        },
+        {
+          "caller": "POST",
+          "callee": "Response.json",
+          "lineNumber": 103
+        }
+      ],
+      "metrics": {
+        "importCount": 8,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    }
+  ]
+}

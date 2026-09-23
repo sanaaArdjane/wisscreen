@@ -1,0 +1,59 @@
+{
+  "nodes": [
+    {
+      "id": "document:.agents/skills/neon-functions/references/ai-sdk.md",
+      "type": "document",
+      "name": "ai-sdk.md",
+      "filePath": ".agents/skills/neon-functions/references/ai-sdk.md",
+      "summary": "Vendored Neon plugin reference showing how to deploy a Vercel AI SDK tool-calling agent as a Neon Function against the Neon AI Gateway, including image generation and streaming the response directly to the client.",
+      "tags": ["documentation", "vendored", "neon", "ai-sdk"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:.agents/skills/neon-functions/references/function-triggers.md",
+      "type": "document",
+      "name": "function-triggers.md",
+      "filePath": ".agents/skills/neon-functions/references/function-triggers.md",
+      "summary": "Vendored Neon plugin reference for Function Triggers: declaring cron/object-storage triggers in neon.ts or the CLI, the delivery payload shape, and the parseTrigger* helpers for Hono and fetch handlers.",
+      "tags": ["documentation", "vendored", "neon", "ci-cd", "cron"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:.agents/skills/neon-functions/references/mastra-studio.md",
+      "type": "document",
+      "name": "mastra-studio.md",
+      "filePath": ".agents/skills/neon-functions/references/mastra-studio.md",
+      "summary": "Vendored Neon plugin reference for wiring a Mastra agent (defined against the Neon AI Gateway) to Mastra Studio observability, including structured output and passing credentials via neon.ts.",
+      "tags": ["documentation", "vendored", "neon", "observability"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:.agents/skills/neon-functions/references/mcp.md",
+      "type": "document",
+      "name": "mcp.md",
+      "filePath": ".agents/skills/neon-functions/references/mcp.md",
+      "summary": "Vendored Neon plugin reference for hosting an MCP server on a Neon Function, covering both OAuth (Better Auth MCP plugin) and API-key/session-JWT authentication options plus how to test the server.",
+      "tags": ["documentation", "vendored", "neon", "mcp"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:.agents/skills/neon-functions/references/sentry.md",
+      "type": "document",
+      "name": "sentry.md",
+      "filePath": ".agents/skills/neon-functions/references/sentry.md",
+      "summary": "Vendored Neon plugin reference for wiring Sentry error, log, and trace monitoring into a Neon Function, including request spans, deploy-time DSN secrets, and tracing an agent's own calls.",
+      "tags": ["documentation", "vendored", "neon", "monitoring", "sentry"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:.agents/skills/neon-functions/references/sse.md",
+      "type": "document",
+      "name": "sse.md",
+      "filePath": ".agents/skills/neon-functions/references/sse.md",
+      "summary": "Vendored Neon plugin reference for server-sent events on Neon Functions: a minimal SSE endpoint, a Hono variant, cross-isolate broadcast, the wire format, and a client example with caveats.",
+      "tags": ["documentation", "vendored", "neon", "sse", "realtime"],
+      "complexity": "moderate"
+    }
+  ],
+  "edges": []
+}

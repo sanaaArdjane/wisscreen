@@ -1,0 +1,101 @@
+{
+  "nodes": [
+    {
+      "id": "config:lib/db/migrations/meta/0000_snapshot.json",
+      "type": "config",
+      "name": "0000_snapshot.json",
+      "filePath": "lib/db/migrations/meta/0000_snapshot.json",
+      "summary": "Initial Drizzle ORM schema snapshot (migration 0000_needy_jackal, prevId all-zero) capturing the baseline Postgres schema: Better Auth tables (user, session, account, verification) plus the core platform tables (requests, request_messages, quotes, invoices, subscriptions, plans, quotas, notifications, activity_log, attachments, app_settings, contact_leads, demo_runs).",
+      "tags": ["database", "migration", "schema-definition", "drizzle-orm", "postgres"],
+      "complexity": "complex",
+      "languageNotes": "Drizzle-kit generated snapshot JSON, not hand-authored; diffed against the previous snapshot (by `id`/`prevId`) to produce each SQL migration file."
+    },
+    {
+      "id": "config:lib/db/migrations/meta/0001_snapshot.json",
+      "type": "config",
+      "name": "0001_snapshot.json",
+      "filePath": "lib/db/migrations/meta/0001_snapshot.json",
+      "summary": "Second Drizzle schema snapshot (migration 0001_modern_darwin) adding the demos data model: demos, demo_access, and demo_secrets tables backing owner-authored, per-customer product demos.",
+      "tags": ["database", "migration", "schema-definition", "drizzle-orm", "postgres"],
+      "complexity": "complex"
+    },
+    {
+      "id": "config:lib/db/migrations/meta/0002_snapshot.json",
+      "type": "config",
+      "name": "0002_snapshot.json",
+      "filePath": "lib/db/migrations/meta/0002_snapshot.json",
+      "summary": "Third Drizzle schema snapshot (migration 0002_nifty_maddog) refining column/constraint definitions across the existing platform tables introduced in 0000/0001, with the same table set as 0001.",
+      "tags": ["database", "migration", "schema-definition", "drizzle-orm", "postgres"],
+      "complexity": "complex"
+    },
+    {
+      "id": "config:lib/db/migrations/meta/0003_snapshot.json",
+      "type": "config",
+      "name": "0003_snapshot.json",
+      "filePath": "lib/db/migrations/meta/0003_snapshot.json",
+      "summary": "Fourth Drizzle schema snapshot (migration 0003_sour_infant_terrible) adding site_content and site_solutions tables that back the /admin/site owner-editable content model (hero, footer, homepage sections, per-solution copy and media).",
+      "tags": ["database", "migration", "schema-definition", "drizzle-orm", "postgres"],
+      "complexity": "complex"
+    },
+    {
+      "id": "config:lib/db/migrations/meta/_journal.json",
+      "type": "config",
+      "name": "_journal.json",
+      "filePath": "lib/db/migrations/meta/_journal.json",
+      "summary": "Drizzle migration journal (postgresql dialect, format version 7) listing the four applied migrations in order — 0000_needy_jackal, 0001_modern_darwin, 0002_nifty_maddog, 0003_sour_infant_terrible — each with its applied timestamp, used by drizzle-kit to track migration history.",
+      "tags": ["database", "migration", "journal", "drizzle-orm"],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "config:lib/db/migrations/meta/0001_snapshot.json",
+      "target": "config:lib/db/migrations/meta/0000_snapshot.json",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:lib/db/migrations/meta/0002_snapshot.json",
+      "target": "config:lib/db/migrations/meta/0001_snapshot.json",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:lib/db/migrations/meta/0003_snapshot.json",
+      "target": "config:lib/db/migrations/meta/0002_snapshot.json",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:lib/db/migrations/meta/_journal.json",
+      "target": "config:lib/db/migrations/meta/0000_snapshot.json",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:lib/db/migrations/meta/_journal.json",
+      "target": "config:lib/db/migrations/meta/0001_snapshot.json",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:lib/db/migrations/meta/_journal.json",
+      "target": "config:lib/db/migrations/meta/0002_snapshot.json",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:lib/db/migrations/meta/_journal.json",
+      "target": "config:lib/db/migrations/meta/0003_snapshot.json",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    }
+  ]
+}

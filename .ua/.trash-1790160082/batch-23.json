@@ -1,0 +1,196 @@
+{
+  "nodes": [
+    {
+      "id": "document:AGENTS.md",
+      "type": "document",
+      "name": "AGENTS.md",
+      "filePath": "AGENTS.md",
+      "summary": "The project's primary AI-agent instructions and architecture reference for WICLOUD: stack decisions, the cool/signal color system and its contrast rules, the content model (site_content/site_solutions, lib/data/services.ts + media.ts), the full homepage section-by-section build notes (Hero, UniverseReveal, DeviceShowcase, etc.), and the /dashboard + /admin platform (auth, permissions, billing, demos, quotas, realtime).",
+      "tags": ["documentation", "entry-point", "architecture", "design-system", "agent-instructions"],
+      "complexity": "complex",
+      "languageNotes": "Regenerated in part by `next dev` (a block at the top is machine-managed); the rest is hand-written, load-bearing tribal knowledge with explicit 'don't simplify this back' warnings throughout."
+    },
+    {
+      "id": "document:CLAUDE.md",
+      "type": "document",
+      "name": "CLAUDE.md",
+      "filePath": "CLAUDE.md",
+      "summary": "One-line pointer (`@AGENTS.md`) that makes Claude Code load AGENTS.md as the project's instructions.",
+      "tags": ["documentation", "configuration", "agent-instructions"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "README.md",
+      "summary": "Default create-next-app boilerplate readme (getting-started dev command, links to Next.js docs, and Vercel deploy instructions); not updated for the WICLOUD-specific stack or route groups.",
+      "tags": ["documentation", "boilerplate", "getting-started", "nextjs"],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:package.json",
+      "type": "config",
+      "name": "package.json",
+      "filePath": "package.json",
+      "summary": "Root package manifest for the wisscreen (WICLOUD) Next.js 16 app: dev/build/lint/test/typecheck scripts, Drizzle migration and Neon-deploy scripts, and the dependency set (HeroUI v3, Drizzle ORM, Better Auth, @react-three/fiber, GSAP, @neon/config, @neon/env, @react-pdf/renderer, Resend).",
+      "tags": ["configuration", "build-system", "dependencies", "nextjs"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "config:pnpm-workspace.yaml",
+      "type": "config",
+      "name": "pnpm-workspace.yaml",
+      "filePath": "pnpm-workspace.yaml",
+      "summary": "pnpm install-policy configuration only (not a true monorepo): allows esbuild's postinstall build script while blocking sharp/unrs-resolver, and excludes the pinned Next.js 16.3.2 packages from pnpm's minimum-release-age quarantine.",
+      "tags": ["configuration", "package-manager", "pnpm", "build-system"],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:skills-lock.json",
+      "type": "config",
+      "name": "skills-lock.json",
+      "filePath": "skills-lock.json",
+      "summary": "Lock file pinning the source and content hash of each installed Neon agent-skill (neon, neon-auth, neon-postgres, neon-postgres-branches, neon-postgres-egress-optimizer, neon-functions, neon-object-storage, neon-ai-gateway), all sourced from the neondatabase/agent-skills GitHub repo.",
+      "tags": ["configuration", "lock-file", "agent-skills", "neon"],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:tsconfig.json",
+      "type": "config",
+      "name": "tsconfig.json",
+      "filePath": "tsconfig.json",
+      "summary": "TypeScript compiler configuration for the Next.js App Router project: ES2017 target, strict mode, bundler module resolution, the Next.js TS plugin, and the `@/*` path alias to the repo root.",
+      "tags": ["configuration", "typescript", "build-system", "path-alias"],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "document:CLAUDE.md",
+      "target": "document:AGENTS.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:README.md",
+      "target": "file:app/(marketing)/page.tsx",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:AGENTS.md",
+      "target": "file:app/(marketing)/page.tsx",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:AGENTS.md",
+      "target": "file:lib/data/services.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:AGENTS.md",
+      "target": "file:lib/data/media.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:AGENTS.md",
+      "target": "file:lib/permissions.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:AGENTS.md",
+      "target": "file:lib/guard.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:AGENTS.md",
+      "target": "file:lib/auth.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:AGENTS.md",
+      "target": "file:lib/db/schema.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:AGENTS.md",
+      "target": "file:proxy.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:AGENTS.md",
+      "target": "file:lib/content/index.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:AGENTS.md",
+      "target": "file:lib/demos.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:AGENTS.md",
+      "target": "file:lib/quotas.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:AGENTS.md",
+      "target": "file:lib/realtime.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:AGENTS.md",
+      "target": "file:components/layout/Navbar.tsx",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:AGENTS.md",
+      "target": "file:components/sections/Hero.tsx",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "config:tsconfig.json",
+      "target": "file:app/(marketing)/page.tsx",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:package.json",
+      "target": "file:app/(marketing)/page.tsx",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    }
+  ]
+}

@@ -1,0 +1,494 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 7,
+  "filesSkipped": [],
+  "filesUnreadable": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 7,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 0,
+      "failed": 0,
+      "skipped": 7
+    }
+  },
+  "results": [
+    {
+      "path": "AGENTS.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 1543,
+      "nonEmptyLines": 1304,
+      "sections": [
+        {
+          "heading": "This is NOT the Next.js you know",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "WICLOUD — marketing site + platform",
+          "level": 1,
+          "line": 14
+        },
+        {
+          "heading": "Stack decisions",
+          "level": 2,
+          "line": 20
+        },
+        {
+          "heading": "The signal accent, and why it stays rare",
+          "level": 3,
+          "line": 50
+        },
+        {
+          "heading": "`.on-dark-raised` — why the highlight cards need their own tints",
+          "level": 3,
+          "line": 113
+        },
+        {
+          "heading": "Accent colours are ground-adaptive, and that is not optional",
+          "level": 3,
+          "line": 127
+        },
+        {
+          "heading": "Content model",
+          "level": 2,
+          "line": 184
+        },
+        {
+          "heading": "Every link, photo and video is in `lib/data/media.ts`",
+          "level": 3,
+          "line": 197
+        },
+        {
+          "heading": "Hero (`components/sections/Hero.tsx` + `hero/`)",
+          "level": 2,
+          "line": 286
+        },
+        {
+          "heading": "The two 3D scenes",
+          "level": 3,
+          "line": 332
+        },
+        {
+          "heading": "Both scenes now render on a LIGHT ground",
+          "level": 3,
+          "line": 344
+        },
+        {
+          "heading": "The background sky (`components/three/sky.tsx`)",
+          "level": 2,
+          "line": 384
+        },
+        {
+          "heading": "`PerformanceMetrics` is a textured light section",
+          "level": 2,
+          "line": 420
+        },
+        {
+          "heading": "`UniverseReveal` — the video the word clips into",
+          "level": 2,
+          "line": 445
+        },
+        {
+          "heading": "The layout is the finale; the scroll holds the word below it",
+          "level": 3,
+          "line": 467
+        },
+        {
+          "heading": "`ZOOM_CHAR` and the counter constants",
+          "level": 3,
+          "line": 478
+        },
+        {
+          "heading": "Two hard limits on how far the zoom can go",
+          "level": 3,
+          "line": 503
+        },
+        {
+          "heading": "The pitch is staggered, and the numbers have to close",
+          "level": 3,
+          "line": 531
+        },
+        {
+          "heading": "The ghost, and why it has to clear before the copy lands",
+          "level": 3,
+          "line": 539
+        },
+        {
+          "heading": "The video is graded on the same ramp, because it ends up as type",
+          "level": 3,
+          "line": 558
+        },
+        {
+          "heading": "Things that will break if \"simplified\"",
+          "level": 3,
+          "line": 576
+        },
+        {
+          "heading": "`DeviceShowcase` — the solutions on a laptop and a phone",
+          "level": 2,
+          "line": 611
+        },
+        {
+          "heading": "Live previews — `Service.previewUrl` and `components/ui/LivePreview.tsx`",
+          "level": 3,
+          "line": 638
+        },
+        {
+          "heading": "`mix-blend-screen` on mockups, and the stacking-context trap",
+          "level": 3,
+          "line": 684
+        },
+        {
+          "heading": "The screens are navigable, and each device zooms",
+          "level": 3,
+          "line": 699
+        },
+        {
+          "heading": "Nothing ever remounts, so tabs never reload",
+          "level": 3,
+          "line": 726
+        },
+        {
+          "heading": "Section 2 autoplay is gated on visibility",
+          "level": 2,
+          "line": 777
+        },
+        {
+          "heading": "The navbar wears the back-office's chrome",
+          "level": 2,
+          "line": 798
+        },
+        {
+          "heading": "The hero → Section 2 seam",
+          "level": 2,
+          "line": 823
+        },
+        {
+          "heading": "Homepage section map (Apple `/macbook-pro` → WICLOUD)",
+          "level": 2,
+          "line": 848
+        },
+        {
+          "heading": "Sub-landing page",
+          "level": 2,
+          "line": 858
+        },
+        {
+          "heading": "The hero is a browser window the visitor can stretch",
+          "level": 3,
+          "line": 864
+        },
+        {
+          "heading": "`SolutionVideoReveal` — the video that stretches open",
+          "level": 3,
+          "line": 957
+        },
+        {
+          "heading": "Real assets in the gallery — `MediaSlot.src`",
+          "level": 3,
+          "line": 1003
+        },
+        {
+          "heading": "The platform — `/dashboard` and `/admin`",
+          "level": 1,
+          "line": 1021
+        },
+        {
+          "heading": "How people get in",
+          "level": 2,
+          "line": 1027
+        },
+        {
+          "heading": "One account, one sidebar",
+          "level": 3,
+          "line": 1058
+        },
+        {
+          "heading": "The shell is full-bleed; only the content is capped",
+          "level": 3,
+          "line": 1082
+        },
+        {
+          "heading": "Route groups, and why the marketing pages moved",
+          "level": 2,
+          "line": 1090
+        },
+        {
+          "heading": "The auth shell's ground",
+          "level": 3,
+          "line": 1108
+        },
+        {
+          "heading": "Data layer",
+          "level": 2,
+          "line": 1134
+        },
+        {
+          "heading": "Authorization is `can()`, and nothing else",
+          "level": 2,
+          "line": 1155
+        },
+        {
+          "heading": "Everything external degrades instead of failing",
+          "level": 2,
+          "line": 1189
+        },
+        {
+          "heading": "HeroUI v3, and the two things it got wrong",
+          "level": 2,
+          "line": 1208
+        },
+        {
+          "heading": "Contrast, re-audited",
+          "level": 2,
+          "line": 1233
+        },
+        {
+          "heading": "Configuration du site — `/admin/site`",
+          "level": 2,
+          "line": 1259
+        },
+        {
+          "heading": "Password strength lives in `lib/password.ts`",
+          "level": 2,
+          "line": 1311
+        },
+        {
+          "heading": "Demos are authored by the desk and granted to named customers",
+          "level": 2,
+          "line": 1336
+        },
+        {
+          "heading": "Services, subscriptions and quotas",
+          "level": 2,
+          "line": 1377
+        },
+        {
+          "heading": "Realtime — SSE over Postgres LISTEN/NOTIFY",
+          "level": 2,
+          "line": 1406
+        },
+        {
+          "heading": "Devis and factures are documents",
+          "level": 2,
+          "line": 1434
+        },
+        {
+          "heading": "The request thread",
+          "level": 2,
+          "line": 1469
+        },
+        {
+          "heading": "Reference codes",
+          "level": 2,
+          "line": 1478
+        },
+        {
+          "heading": "The contact form finally goes somewhere",
+          "level": 2,
+          "line": 1486
+        },
+        {
+          "heading": "Known environment quirk",
+          "level": 2,
+          "line": 1492
+        },
+        {
+          "heading": "Open items",
+          "level": 2,
+          "line": 1520
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 56
+      }
+    },
+    {
+      "path": "CLAUDE.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 1,
+      "nonEmptyLines": 1,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 0
+      }
+    },
+    {
+      "path": "README.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 36,
+      "nonEmptyLines": 23,
+      "sections": [
+        {
+          "heading": "Getting Started",
+          "level": 2,
+          "line": 3
+        },
+        {
+          "heading": "Learn More",
+          "level": 2,
+          "line": 23
+        },
+        {
+          "heading": "Deploy on Vercel",
+          "level": 2,
+          "line": 32
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 3
+      }
+    },
+    {
+      "path": "package.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 66,
+      "nonEmptyLines": 66,
+      "sections": [
+        {
+          "heading": "name",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "version",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "private",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "scripts",
+          "level": 1,
+          "line": 5
+        },
+        {
+          "heading": "dependencies",
+          "level": 1,
+          "line": 20
+        },
+        {
+          "heading": "devDependencies",
+          "level": 1,
+          "line": 45
+        },
+        {
+          "heading": "packageManager",
+          "level": 1,
+          "line": 65
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 7
+      }
+    },
+    {
+      "path": "pnpm-workspace.yaml",
+      "language": "yaml",
+      "fileCategory": "config",
+      "totalLines": 15,
+      "nonEmptyLines": 15,
+      "sections": [
+        {
+          "heading": "allowBuilds",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "minimumReleaseAgeExclude",
+          "level": 1,
+          "line": 5
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "skills-lock.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 53,
+      "nonEmptyLines": 53,
+      "sections": [
+        {
+          "heading": "version",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "skills",
+          "level": 1,
+          "line": 3
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "tsconfig.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 34,
+      "nonEmptyLines": 34,
+      "sections": [
+        {
+          "heading": "compilerOptions",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "include",
+          "level": 1,
+          "line": 25
+        },
+        {
+          "heading": "exclude",
+          "level": 1,
+          "line": 33
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 3
+      }
+    }
+  ]
+}

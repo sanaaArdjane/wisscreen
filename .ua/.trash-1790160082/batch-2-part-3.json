@@ -1,0 +1,574 @@
+{
+ "nodes": [
+  {
+   "id": "file:components/sections/MigrationProgram.tsx",
+   "type": "file",
+   "name": "MigrationProgram.tsx",
+   "filePath": "components/sections/MigrationProgram.tsx",
+   "summary": "Homepage section presenting the migration program as a numbered step grid with a heading and an optional secondary CTA.",
+   "tags": [
+    "marketing-section",
+    "content-driven"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:components/sections/MigrationProgram.tsx:MigrationProgram",
+   "type": "function",
+   "name": "MigrationProgram",
+   "filePath": "components/sections/MigrationProgram.tsx",
+   "lineRange": [
+    7,
+    38
+   ],
+   "summary": "Renders the migration program section: heading plus optional CTA, and a numbered four-column grid of migration steps.",
+   "tags": [
+    "marketing-section",
+    "content-driven"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:components/sections/OcrDemo.tsx",
+   "type": "file",
+   "name": "OcrDemo.tsx",
+   "filePath": "components/sections/OcrDemo.tsx",
+   "summary": "Homepage section pairing the OCR solution's first gallery media with a list of extracted field/value rows to demonstrate the OCR data-extraction product; renders nothing if the OCR solution is absent.",
+   "tags": [
+    "marketing-section",
+    "content-driven"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:components/sections/OcrDemo.tsx:OcrDemo",
+   "type": "function",
+   "name": "OcrDemo",
+   "filePath": "components/sections/OcrDemo.tsx",
+   "lineRange": [
+    9,
+    49
+   ],
+   "summary": "Renders the OCR solution's first gallery media beside a list of extracted field/value rows; returns null when the OCR solution is not supplied.",
+   "tags": [
+    "marketing-section",
+    "content-driven"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:components/sections/PerformanceMetrics.tsx",
+   "type": "file",
+   "name": "PerformanceMetrics.tsx",
+   "filePath": "components/sections/PerformanceMetrics.tsx",
+   "summary": "Homepage stats section rendered on a textured white ground (ink dot grid over mist washes) with dark `bg-ink` data tiles presenting key performance numbers.",
+   "tags": [
+    "marketing-section",
+    "stats"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:components/sections/PerformanceMetrics.tsx:PerformanceMetrics",
+   "type": "function",
+   "name": "PerformanceMetrics",
+   "filePath": "components/sections/PerformanceMetrics.tsx",
+   "lineRange": [
+    9,
+    69
+   ],
+   "summary": "Renders the textured white performance-metrics section with its ink dot grid/mist wash background and a row of dark `bg-ink` StatCounter data tiles.",
+   "tags": [
+    "marketing-section",
+    "stats"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:components/sections/PlatformShowcase.tsx",
+   "type": "file",
+   "name": "PlatformShowcase.tsx",
+   "filePath": "components/sections/PlatformShowcase.tsx",
+   "summary": "Homepage \"La plateforme\" section rendering one panel per platform solution (WIFACILITY/SETYCORE/WICLOUD) with its cover media and supporting copy.",
+   "tags": [
+    "marketing-section",
+    "content-driven"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:components/sections/PlatformShowcase.tsx:PlatformShowcase",
+   "type": "function",
+   "name": "PlatformShowcase",
+   "filePath": "components/sections/PlatformShowcase.tsx",
+   "lineRange": [
+    8,
+    45
+   ],
+   "summary": "Renders one panel per configured platform solution (matched by slug), each showing its hero cover media, title and text.",
+   "tags": [
+    "marketing-section",
+    "content-driven"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:components/sections/Reliability.tsx",
+   "type": "file",
+   "name": "Reliability.tsx",
+   "filePath": "components/sections/Reliability.tsx",
+   "summary": "Homepage reliability section on a dark ground: a signal-accented eyebrow badge, a large animated stat counter, a supporting paragraph, and a row of supporting reliability points.",
+   "tags": [
+    "marketing-section",
+    "stats",
+    "hero"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:components/sections/Reliability.tsx:Reliability",
+   "type": "function",
+   "name": "Reliability",
+   "filePath": "components/sections/Reliability.tsx",
+   "lineRange": [
+    7,
+    46
+   ],
+   "summary": "Renders the reliability section: a signal-accented eyebrow badge, a large animated StatCounter, a supporting paragraph, and a row of supporting reliability points over blurred glow accents.",
+   "tags": [
+    "marketing-section",
+    "stats"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:components/sections/ScaleSpecs.tsx",
+   "type": "file",
+   "name": "ScaleSpecs.tsx",
+   "filePath": "components/sections/ScaleSpecs.tsx",
+   "summary": "Homepage section presenting scale specifications as a grid of icon/value/label tiles on a dark ground.",
+   "tags": [
+    "marketing-section",
+    "stats"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:components/sections/ScaleSpecs.tsx:ScaleSpecs",
+   "type": "function",
+   "name": "ScaleSpecs",
+   "filePath": "components/sections/ScaleSpecs.tsx",
+   "lineRange": [
+    7,
+    32
+   ],
+   "summary": "Renders the scale specifications section as a reveal-animated grid of icon/value/label spec tiles.",
+   "tags": [
+    "marketing-section",
+    "stats"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:components/sections/Security.tsx",
+   "type": "file",
+   "name": "Security.tsx",
+   "filePath": "components/sections/Security.tsx",
+   "summary": "Homepage section listing security pillars as a centered icon/title/text grid on a light ground.",
+   "tags": [
+    "marketing-section",
+    "content-driven"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:components/sections/Security.tsx:Security",
+   "type": "function",
+   "name": "Security",
+   "filePath": "components/sections/Security.tsx",
+   "lineRange": [
+    7,
+    32
+   ],
+   "summary": "Renders the security section as a centered, reveal-animated grid of security pillar icon/title/text items.",
+   "tags": [
+    "marketing-section",
+    "content-driven"
+   ],
+   "complexity": "simple"
+  }
+ ],
+ "edges": [
+  {
+   "source": "file:components/sections/MigrationProgram.tsx",
+   "target": "file:components/ui/Button.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/MigrationProgram.tsx",
+   "target": "file:components/ui/Container.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/MigrationProgram.tsx",
+   "target": "file:components/ui/Reveal.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/MigrationProgram.tsx",
+   "target": "file:components/ui/SectionHeading.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/MigrationProgram.tsx",
+   "target": "file:lib/content/schema.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/OcrDemo.tsx",
+   "target": "file:components/ui/Container.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/OcrDemo.tsx",
+   "target": "file:components/ui/Icon.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/OcrDemo.tsx",
+   "target": "file:components/ui/MediaSlot.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/OcrDemo.tsx",
+   "target": "file:components/ui/Reveal.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/OcrDemo.tsx",
+   "target": "file:components/ui/SectionHeading.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/OcrDemo.tsx",
+   "target": "file:lib/content/schema.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/OcrDemo.tsx",
+   "target": "file:lib/types.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/PerformanceMetrics.tsx",
+   "target": "file:components/ui/Container.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/PerformanceMetrics.tsx",
+   "target": "file:components/ui/Reveal.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/PerformanceMetrics.tsx",
+   "target": "file:components/ui/SectionHeading.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/PerformanceMetrics.tsx",
+   "target": "file:components/ui/StatCounter.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/PerformanceMetrics.tsx",
+   "target": "file:lib/content/schema.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/PerformanceMetrics.tsx",
+   "target": "file:lib/types.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/PlatformShowcase.tsx",
+   "target": "file:components/ui/Container.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/PlatformShowcase.tsx",
+   "target": "file:components/ui/MediaSlot.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/PlatformShowcase.tsx",
+   "target": "file:components/ui/Reveal.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/PlatformShowcase.tsx",
+   "target": "file:components/ui/SectionHeading.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/PlatformShowcase.tsx",
+   "target": "file:lib/content/schema.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/PlatformShowcase.tsx",
+   "target": "file:lib/types.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/Reliability.tsx",
+   "target": "file:components/ui/Badge.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/Reliability.tsx",
+   "target": "file:components/ui/Container.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/Reliability.tsx",
+   "target": "file:components/ui/Reveal.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/Reliability.tsx",
+   "target": "file:components/ui/StatCounter.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/Reliability.tsx",
+   "target": "file:lib/content/schema.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/ScaleSpecs.tsx",
+   "target": "file:components/ui/Container.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/ScaleSpecs.tsx",
+   "target": "file:components/ui/Icon.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/ScaleSpecs.tsx",
+   "target": "file:components/ui/Reveal.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/ScaleSpecs.tsx",
+   "target": "file:components/ui/SectionHeading.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/ScaleSpecs.tsx",
+   "target": "file:lib/content/schema.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/Security.tsx",
+   "target": "file:components/ui/Container.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/Security.tsx",
+   "target": "file:components/ui/Icon.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/Security.tsx",
+   "target": "file:components/ui/Reveal.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/Security.tsx",
+   "target": "file:components/ui/SectionHeading.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/Security.tsx",
+   "target": "file:lib/content/schema.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/MigrationProgram.tsx",
+   "target": "function:components/sections/MigrationProgram.tsx:MigrationProgram",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:components/sections/OcrDemo.tsx",
+   "target": "function:components/sections/OcrDemo.tsx:OcrDemo",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:components/sections/PerformanceMetrics.tsx",
+   "target": "function:components/sections/PerformanceMetrics.tsx:PerformanceMetrics",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:components/sections/PlatformShowcase.tsx",
+   "target": "function:components/sections/PlatformShowcase.tsx:PlatformShowcase",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:components/sections/Reliability.tsx",
+   "target": "function:components/sections/Reliability.tsx:Reliability",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:components/sections/ScaleSpecs.tsx",
+   "target": "function:components/sections/ScaleSpecs.tsx:ScaleSpecs",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:components/sections/Security.tsx",
+   "target": "function:components/sections/Security.tsx:Security",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:components/sections/MigrationProgram.tsx",
+   "target": "function:components/sections/MigrationProgram.tsx:MigrationProgram",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:components/sections/OcrDemo.tsx",
+   "target": "function:components/sections/OcrDemo.tsx:OcrDemo",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:components/sections/PerformanceMetrics.tsx",
+   "target": "function:components/sections/PerformanceMetrics.tsx:PerformanceMetrics",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:components/sections/PlatformShowcase.tsx",
+   "target": "function:components/sections/PlatformShowcase.tsx:PlatformShowcase",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:components/sections/Reliability.tsx",
+   "target": "function:components/sections/Reliability.tsx:Reliability",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:components/sections/ScaleSpecs.tsx",
+   "target": "function:components/sections/ScaleSpecs.tsx:ScaleSpecs",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:components/sections/Security.tsx",
+   "target": "function:components/sections/Security.tsx:Security",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  }
+ ]
+}

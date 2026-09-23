@@ -1,0 +1,11 @@
+{
+  "projectRoot": "/home/raouf-filali/Desktop/wisscreen",
+  "batchFiles": [
+    {"path": "lib/db/migrations/meta/0000_snapshot.json", "language": "json", "sizeLines": 1879, "fileCategory": "config"},
+    {"path": "lib/db/migrations/meta/0001_snapshot.json", "language": "json", "sizeLines": 2622, "fileCategory": "config"},
+    {"path": "lib/db/migrations/meta/0002_snapshot.json", "language": "json", "sizeLines": 2636, "fileCategory": "config"},
+    {"path": "lib/db/migrations/meta/0003_snapshot.json", "language": "json", "sizeLines": 2796, "fileCategory": "config"},
+    {"path": "lib/db/migrations/meta/_journal.json", "language": "json", "sizeLines": 33, "fileCategory": "config"}
+  ],
+  "batchImportData": {"lib/db/migrations/meta/0000_snapshot.json": [], "lib/db/migrations/meta/0001_snapshot.json": [], "lib/db/migrations/meta/0002_snapshot.json": [], "lib/db/migrations/meta/0003_snapshot.json": [], "lib/db/migrations/meta/_journal.json": []}
+}

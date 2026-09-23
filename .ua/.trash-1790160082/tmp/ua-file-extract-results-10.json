@@ -1,0 +1,2122 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 18,
+  "filesSkipped": [],
+  "filesUnreadable": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 18,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 18,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "results": [
+    {
+      "path": "__tests__/password.test.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 43,
+      "nonEmptyLines": 39,
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/(app)/admin/layout.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 44,
+      "nonEmptyLines": 40,
+      "functions": [
+        {
+          "name": "AdminLayout",
+          "startLine": 19,
+          "endLine": 44,
+          "params": [
+            "{ children }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "AdminLayout",
+          "line": 19,
+          "isDefault": true
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "AdminLayout",
+          "callee": "requireStaff",
+          "lineNumber": 20
+        },
+        {
+          "caller": "AdminLayout",
+          "callee": "Promise.all",
+          "lineNumber": 22
+        },
+        {
+          "caller": "AdminLayout",
+          "callee": "unreadCount",
+          "lineNumber": 23
+        },
+        {
+          "caller": "AdminLayout",
+          "callee": "getSetting",
+          "lineNumber": 24
+        },
+        {
+          "caller": "AdminLayout",
+          "callee": "isImpersonating",
+          "lineNumber": 25
+        },
+        {
+          "caller": "AdminLayout",
+          "callee": "getTheme",
+          "lineNumber": 26
+        },
+        {
+          "caller": "AdminLayout",
+          "callee": "ADMIN_NAV.filter",
+          "lineNumber": 29
+        },
+        {
+          "caller": "AdminLayout",
+          "callee": "can",
+          "lineNumber": 29
+        }
+      ],
+      "metrics": {
+        "importCount": 7,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/(app)/dashboard/layout.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 51,
+      "nonEmptyLines": 47,
+      "functions": [
+        {
+          "name": "DashboardLayout",
+          "startLine": 16,
+          "endLine": 51,
+          "params": [
+            "{ children }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "DashboardLayout",
+          "line": 16,
+          "isDefault": true
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "DashboardLayout",
+          "callee": "requireUser",
+          "lineNumber": 17
+        },
+        {
+          "caller": "DashboardLayout",
+          "callee": "isStaff",
+          "lineNumber": 29
+        },
+        {
+          "caller": "DashboardLayout",
+          "callee": "redirect",
+          "lineNumber": 29
+        },
+        {
+          "caller": "DashboardLayout",
+          "callee": "Promise.all",
+          "lineNumber": 31
+        },
+        {
+          "caller": "DashboardLayout",
+          "callee": "unreadCount",
+          "lineNumber": 32
+        },
+        {
+          "caller": "DashboardLayout",
+          "callee": "getSetting",
+          "lineNumber": 33
+        },
+        {
+          "caller": "DashboardLayout",
+          "callee": "isImpersonating",
+          "lineNumber": 34
+        },
+        {
+          "caller": "DashboardLayout",
+          "callee": "getTheme",
+          "lineNumber": 35
+        }
+      ],
+      "metrics": {
+        "importCount": 7,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/(auth)/compte-suspendu/page.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 34,
+      "nonEmptyLines": 31,
+      "functions": [
+        {
+          "name": "CompteSuspenduPage",
+          "startLine": 8,
+          "endLine": 34,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "metadata",
+          "line": 6,
+          "isDefault": false
+        },
+        {
+          "name": "CompteSuspenduPage",
+          "line": 8,
+          "isDefault": true
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "CompteSuspenduPage",
+          "callee": "getCurrentUser",
+          "lineNumber": 9
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 2,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/(auth)/connexion/page.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 25,
+      "nonEmptyLines": 22,
+      "functions": [
+        {
+          "name": "ConnexionPage",
+          "startLine": 10,
+          "endLine": 25,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "metadata",
+          "line": 8,
+          "isDefault": false
+        },
+        {
+          "name": "ConnexionPage",
+          "line": 10,
+          "isDefault": true
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "ConnexionPage",
+          "callee": "getCurrentUser",
+          "lineNumber": 12
+        },
+        {
+          "caller": "ConnexionPage",
+          "callee": "redirect",
+          "lineNumber": 13
+        },
+        {
+          "caller": "ConnexionPage",
+          "callee": "Boolean",
+          "lineNumber": 20
+        },
+        {
+          "caller": "ConnexionPage",
+          "callee": "getSetting",
+          "lineNumber": 21
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 2,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/(auth)/inscription/page.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 19,
+      "nonEmptyLines": 16,
+      "functions": [
+        {
+          "name": "InscriptionPage",
+          "startLine": 9,
+          "endLine": 19,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "metadata",
+          "line": 7,
+          "isDefault": false
+        },
+        {
+          "name": "InscriptionPage",
+          "line": 9,
+          "isDefault": true
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "InscriptionPage",
+          "callee": "getCurrentUser",
+          "lineNumber": 10
+        },
+        {
+          "caller": "InscriptionPage",
+          "callee": "redirect",
+          "lineNumber": 11
+        },
+        {
+          "caller": "InscriptionPage",
+          "callee": "Boolean",
+          "lineNumber": 15
+        },
+        {
+          "caller": "InscriptionPage",
+          "callee": "getSetting",
+          "lineNumber": 16
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 2,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/(auth)/mot-de-passe-oublie/page.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 8,
+      "nonEmptyLines": 6,
+      "functions": [
+        {
+          "name": "MotDePasseOubliePage",
+          "startLine": 6,
+          "endLine": 8,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "metadata",
+          "line": 4,
+          "isDefault": false
+        },
+        {
+          "name": "MotDePasseOubliePage",
+          "line": 6,
+          "isDefault": true
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 2,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/(auth)/reinitialiser/page.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 13,
+      "nonEmptyLines": 11,
+      "functions": [
+        {
+          "name": "ReinitialiserPage",
+          "startLine": 7,
+          "endLine": 13,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "metadata",
+          "line": 5,
+          "isDefault": false
+        },
+        {
+          "name": "ReinitialiserPage",
+          "line": 7,
+          "isDefault": true
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 2,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/api/auth/[...all]/route.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 5,
+      "nonEmptyLines": 4,
+      "exports": [
+        {
+          "name": "{ GET, POST }",
+          "line": 5,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "components/auth/AuthForms.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 619,
+      "nonEmptyLines": 571,
+      "functions": [
+        {
+          "name": "destinationFor",
+          "startLine": 30,
+          "endLine": 32,
+          "params": [
+            "role"
+          ]
+        },
+        {
+          "name": "describeError",
+          "startLine": 34,
+          "endLine": 52,
+          "params": [
+            "code",
+            "fallback"
+          ]
+        },
+        {
+          "name": "Alert",
+          "startLine": 54,
+          "endLine": 67,
+          "params": [
+            "{ children, tone = \"error\" }"
+          ]
+        },
+        {
+          "name": "PasswordField",
+          "startLine": 82,
+          "endLine": 155,
+          "params": [
+            "{\n  value,\n  onChange,\n}"
+          ]
+        },
+        {
+          "name": "Heading",
+          "startLine": 157,
+          "endLine": 164,
+          "params": [
+            "{ title, subtitle }"
+          ]
+        },
+        {
+          "name": "GoogleButton",
+          "startLine": 166,
+          "endLine": 184,
+          "params": [
+            "{ callbackURL }"
+          ]
+        },
+        {
+          "name": "GoogleMark",
+          "startLine": 186,
+          "endLine": 207,
+          "params": []
+        },
+        {
+          "name": "Divider",
+          "startLine": 209,
+          "endLine": 217,
+          "params": []
+        },
+        {
+          "name": "SignInForm",
+          "startLine": 221,
+          "endLine": 371,
+          "params": [
+            "{\n  googleEnabled,\n  magicLinkEnabled,\n}"
+          ]
+        },
+        {
+          "name": "SignUpForm",
+          "startLine": 375,
+          "endLine": 465,
+          "params": [
+            "{\n  googleEnabled,\n  registrationOpen,\n}"
+          ]
+        },
+        {
+          "name": "ForgotPasswordForm",
+          "startLine": 469,
+          "endLine": 523,
+          "params": []
+        },
+        {
+          "name": "ResetPasswordForm",
+          "startLine": 525,
+          "endLine": 599,
+          "params": []
+        },
+        {
+          "name": "SignOutLink",
+          "startLine": 603,
+          "endLine": 619,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "SignInForm",
+          "line": 221,
+          "isDefault": false
+        },
+        {
+          "name": "SignUpForm",
+          "line": 375,
+          "isDefault": false
+        },
+        {
+          "name": "ForgotPasswordForm",
+          "line": 469,
+          "isDefault": false
+        },
+        {
+          "name": "ResetPasswordForm",
+          "line": 525,
+          "isDefault": false
+        },
+        {
+          "name": "SignOutLink",
+          "line": 603,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "PasswordField",
+          "callee": "useId",
+          "lineNumber": 89
+        },
+        {
+          "caller": "PasswordField",
+          "callee": "useState",
+          "lineNumber": 90
+        },
+        {
+          "caller": "PasswordField",
+          "callee": "checkPassword",
+          "lineNumber": 91
+        },
+        {
+          "caller": "PasswordField",
+          "callee": "onChange",
+          "lineNumber": 108
+        },
+        {
+          "caller": "PasswordField",
+          "callee": "setShown",
+          "lineNumber": 114
+        },
+        {
+          "caller": "PasswordField",
+          "callee": "onChange",
+          "lineNumber": 124
+        },
+        {
+          "caller": "PasswordField",
+          "callee": "generatePassword",
+          "lineNumber": 124
+        },
+        {
+          "caller": "PasswordField",
+          "callee": "setShown",
+          "lineNumber": 125
+        },
+        {
+          "caller": "PasswordField",
+          "callee": "checks.map",
+          "lineNumber": 137
+        },
+        {
+          "caller": "GoogleButton",
+          "callee": "useState",
+          "lineNumber": 167
+        },
+        {
+          "caller": "GoogleButton",
+          "callee": "setBusy",
+          "lineNumber": 174
+        },
+        {
+          "caller": "GoogleButton",
+          "callee": "authClient.signIn.social",
+          "lineNumber": 175
+        },
+        {
+          "caller": "SignInForm",
+          "callee": "useRouter",
+          "lineNumber": 231
+        },
+        {
+          "caller": "SignInForm",
+          "callee": "useSearchParams",
+          "lineNumber": 232
+        },
+        {
+          "caller": "SignInForm",
+          "callee": "params.get",
+          "lineNumber": 242
+        },
+        {
+          "caller": "SignInForm",
+          "callee": "useState",
+          "lineNumber": 243
+        },
+        {
+          "caller": "SignInForm",
+          "callee": "useState",
+          "lineNumber": 244
+        },
+        {
+          "caller": "SignInForm",
+          "callee": "useState",
+          "lineNumber": 245
+        },
+        {
+          "caller": "SignInForm",
+          "callee": "useState",
+          "lineNumber": 246
+        },
+        {
+          "caller": "onSubmit",
+          "callee": "event.preventDefault",
+          "lineNumber": 249
+        },
+        {
+          "caller": "onSubmit",
+          "callee": "String",
+          "lineNumber": 251
+        },
+        {
+          "caller": "onSubmit",
+          "callee": "form.get",
+          "lineNumber": 251
+        },
+        {
+          "caller": "onSubmit",
+          "callee": "setError",
+          "lineNumber": 252
+        },
+        {
+          "caller": "onSubmit",
+          "callee": "setBusy",
+          "lineNumber": 253
+        },
+        {
+          "caller": "onSubmit",
+          "callee": "authClient.signIn.magicLink",
+          "lineNumber": 258
+        },
+        {
+          "caller": "onSubmit",
+          "callee": "setBusy",
+          "lineNumber": 262
+        },
+        {
+          "caller": "onSubmit",
+          "callee": "setError",
+          "lineNumber": 264
+        },
+        {
+          "caller": "onSubmit",
+          "callee": "setSentTo",
+          "lineNumber": 269
+        },
+        {
+          "caller": "onSubmit",
+          "callee": "authClient.signIn.email",
+          "lineNumber": 273
+        },
+        {
+          "caller": "onSubmit",
+          "callee": "String",
+          "lineNumber": 275
+        },
+        {
+          "caller": "onSubmit",
+          "callee": "form.get",
+          "lineNumber": 275
+        },
+        {
+          "caller": "onSubmit",
+          "callee": "setBusy",
+          "lineNumber": 278
+        },
+        {
+          "caller": "onSubmit",
+          "callee": "setError",
+          "lineNumber": 280
+        },
+        {
+          "caller": "onSubmit",
+          "callee": "describeError",
+          "lineNumber": 280
+        },
+        {
+          "caller": "onSubmit",
+          "callee": "router.push",
+          "lineNumber": 283
+        },
+        {
+          "caller": "onSubmit",
+          "callee": "destinationFor",
+          "lineNumber": 283
+        },
+        {
+          "caller": "onSubmit",
+          "callee": "router.refresh",
+          "lineNumber": 284
+        },
+        {
+          "caller": "SignInForm",
+          "callee": "setSentTo",
+          "lineNumber": 297
+        },
+        {
+          "caller": "SignInForm",
+          "callee": "setMode",
+          "lineNumber": 345
+        },
+        {
+          "caller": "SignInForm",
+          "callee": "setError",
+          "lineNumber": 346
+        },
+        {
+          "caller": "SignUpForm",
+          "callee": "useRouter",
+          "lineNumber": 382
+        },
+        {
+          "caller": "SignUpForm",
+          "callee": "useState",
+          "lineNumber": 383
+        },
+        {
+          "caller": "SignUpForm",
+          "callee": "useState",
+          "lineNumber": 384
+        },
+        {
+          "caller": "SignUpForm",
+          "callee": "useState",
+          "lineNumber": 385
+        },
+        {
+          "caller": "SignUpForm",
+          "callee": "isStrongPassword",
+          "lineNumber": 386
+        },
+        {
+          "caller": "onSubmit",
+          "callee": "event.preventDefault",
+          "lineNumber": 407
+        },
+        {
+          "caller": "onSubmit",
+          "callee": "setError",
+          "lineNumber": 409
+        },
+        {
+          "caller": "onSubmit",
+          "callee": "setError",
+          "lineNumber": 415
+        },
+        {
+          "caller": "onSubmit",
+          "callee": "setBusy",
+          "lineNumber": 419
+        },
+        {
+          "caller": "onSubmit",
+          "callee": "authClient.signUp.email",
+          "lineNumber": 420
+        },
+        {
+          "caller": "onSubmit",
+          "callee": "String(form.get(\"name\") ?? \"\").trim",
+          "lineNumber": 421
+        },
+        {
+          "caller": "onSubmit",
+          "callee": "String",
+          "lineNumber": 421
+        },
+        {
+          "caller": "onSubmit",
+          "callee": "form.get",
+          "lineNumber": 421
+        },
+        {
+          "caller": "onSubmit",
+          "callee": "String",
+          "lineNumber": 422
+        },
+        {
+          "caller": "onSubmit",
+          "callee": "form.get",
+          "lineNumber": 422
+        },
+        {
+          "caller": "onSubmit",
+          "callee": "setBusy",
+          "lineNumber": 426
+        },
+        {
+          "caller": "onSubmit",
+          "callee": "setError",
+          "lineNumber": 428
+        },
+        {
+          "caller": "onSubmit",
+          "callee": "describeError",
+          "lineNumber": 428
+        },
+        {
+          "caller": "onSubmit",
+          "callee": "router.push",
+          "lineNumber": 431
+        },
+        {
+          "caller": "onSubmit",
+          "callee": "router.refresh",
+          "lineNumber": 432
+        },
+        {
+          "caller": "ForgotPasswordForm",
+          "callee": "useState",
+          "lineNumber": 470
+        },
+        {
+          "caller": "ForgotPasswordForm",
+          "callee": "useState",
+          "lineNumber": 471
+        },
+        {
+          "caller": "onSubmit",
+          "callee": "event.preventDefault",
+          "lineNumber": 474
+        },
+        {
+          "caller": "onSubmit",
+          "callee": "String",
+          "lineNumber": 475
+        },
+        {
+          "caller": "onSubmit",
+          "callee": "new FormData(event.currentTarget).get",
+          "lineNumber": 475
+        },
+        {
+          "caller": "onSubmit",
+          "callee": "setBusy",
+          "lineNumber": 476
+        },
+        {
+          "caller": "onSubmit",
+          "callee": "authClient.requestPasswordReset",
+          "lineNumber": 477
+        },
+        {
+          "caller": "onSubmit",
+          "callee": "setBusy",
+          "lineNumber": 478
+        },
+        {
+          "caller": "onSubmit",
+          "callee": "setSent",
+          "lineNumber": 481
+        },
+        {
+          "caller": "ResetPasswordForm",
+          "callee": "useRouter",
+          "lineNumber": 526
+        },
+        {
+          "caller": "ResetPasswordForm",
+          "callee": "useSearchParams",
+          "lineNumber": 527
+        },
+        {
+          "caller": "ResetPasswordForm",
+          "callee": "params.get",
+          "lineNumber": 528
+        },
+        {
+          "caller": "ResetPasswordForm",
+          "callee": "useState",
+          "lineNumber": 529
+        },
+        {
+          "caller": "ResetPasswordForm",
+          "callee": "useState",
+          "lineNumber": 530
+        },
+        {
+          "caller": "onSubmit",
+          "callee": "event.preventDefault",
+          "lineNumber": 550
+        },
+        {
+          "caller": "onSubmit",
+          "callee": "String",
+          "lineNumber": 552
+        },
+        {
+          "caller": "onSubmit",
+          "callee": "form.get",
+          "lineNumber": 552
+        },
+        {
+          "caller": "onSubmit",
+          "callee": "String",
+          "lineNumber": 553
+        },
+        {
+          "caller": "onSubmit",
+          "callee": "form.get",
+          "lineNumber": 553
+        },
+        {
+          "caller": "onSubmit",
+          "callee": "setError",
+          "lineNumber": 554
+        },
+        {
+          "caller": "onSubmit",
+          "callee": "setError",
+          "lineNumber": 558
+        },
+        {
+          "caller": "onSubmit",
+          "callee": "setError",
+          "lineNumber": 561
+        },
+        {
+          "caller": "onSubmit",
+          "callee": "setBusy",
+          "lineNumber": 562
+        },
+        {
+          "caller": "onSubmit",
+          "callee": "authClient.resetPassword",
+          "lineNumber": 563
+        },
+        {
+          "caller": "onSubmit",
+          "callee": "setBusy",
+          "lineNumber": 564
+        },
+        {
+          "caller": "onSubmit",
+          "callee": "setError",
+          "lineNumber": 566
+        },
+        {
+          "caller": "onSubmit",
+          "callee": "router.push",
+          "lineNumber": 569
+        },
+        {
+          "caller": "SignOutLink",
+          "callee": "useRouter",
+          "lineNumber": 604
+        },
+        {
+          "caller": "SignOutLink",
+          "callee": "authClient.signOut",
+          "lineNumber": 609
+        },
+        {
+          "caller": "SignOutLink",
+          "callee": "router.push",
+          "lineNumber": 610
+        },
+        {
+          "caller": "SignOutLink",
+          "callee": "router.refresh",
+          "lineNumber": 611
+        }
+      ],
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 5,
+        "functionCount": 13,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "components/dashboard/AppShell.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 516,
+      "nonEmptyLines": 487,
+      "functions": [
+        {
+          "name": "AppShell",
+          "startLine": 35,
+          "endLine": 403,
+          "params": [
+            "{\n  nav,\n  user,\n  area,\n  unread,\n  announcement,\n  impersonating,\n  theme: initialTheme = \"system\",\n  children,\n}"
+          ]
+        },
+        {
+          "name": "ShellLink",
+          "startLine": 405,
+          "endLine": 428,
+          "params": [
+            "{\n  href,\n  icon,\n  label,\n  onNavigate,\n  sidebarMode,\n}"
+          ]
+        },
+        {
+          "name": "ThemeToggle",
+          "startLine": 445,
+          "endLine": 478,
+          "params": [
+            "{\n  theme,\n  onChange,\n  sidebarMode,\n}"
+          ]
+        },
+        {
+          "name": "Avatar",
+          "startLine": 480,
+          "endLine": 497,
+          "params": [
+            "{ name, image }"
+          ]
+        },
+        {
+          "name": "BellLink",
+          "startLine": 504,
+          "endLine": 516,
+          "params": [
+            "{ href }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "AppShell",
+          "line": 35,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "AppShell",
+          "callee": "usePathname",
+          "lineNumber": 57
+        },
+        {
+          "caller": "AppShell",
+          "callee": "useRouter",
+          "lineNumber": 58
+        },
+        {
+          "caller": "AppShell",
+          "callee": "useState",
+          "lineNumber": 59
+        },
+        {
+          "caller": "AppShell",
+          "callee": "useState",
+          "lineNumber": 60
+        },
+        {
+          "caller": "AppShell",
+          "callee": "useState",
+          "lineNumber": 62
+        },
+        {
+          "caller": "AppShell",
+          "callee": "useState",
+          "lineNumber": 66
+        },
+        {
+          "caller": "AppShell",
+          "callee": "useRef",
+          "lineNumber": 67
+        },
+        {
+          "caller": "AppShell",
+          "callee": "useState",
+          "lineNumber": 71
+        },
+        {
+          "caller": "AppShell",
+          "callee": "useRef",
+          "lineNumber": 72
+        },
+        {
+          "caller": "AppShell",
+          "callee": "useRef",
+          "lineNumber": 73
+        },
+        {
+          "caller": "AppShell",
+          "callee": "useState",
+          "lineNumber": 81
+        },
+        {
+          "caller": "AppShell",
+          "callee": "useState",
+          "lineNumber": 82
+        },
+        {
+          "caller": "AppShell",
+          "callee": "setLastPath",
+          "lineNumber": 84
+        },
+        {
+          "caller": "AppShell",
+          "callee": "setPending",
+          "lineNumber": 85
+        },
+        {
+          "caller": "AppShell",
+          "callee": "nav.find",
+          "lineNumber": 87
+        },
+        {
+          "caller": "AppShell",
+          "callee": "isActive",
+          "lineNumber": 87
+        },
+        {
+          "caller": "AppShell",
+          "callee": "useEffect",
+          "lineNumber": 89
+        },
+        {
+          "caller": "AppShell",
+          "callee": "setScrolled",
+          "lineNumber": 92
+        },
+        {
+          "caller": "AppShell",
+          "callee": "io.observe",
+          "lineNumber": 93
+        },
+        {
+          "caller": "AppShell",
+          "callee": "io.disconnect",
+          "lineNumber": 94
+        },
+        {
+          "caller": "AppShell",
+          "callee": "useEffect",
+          "lineNumber": 97
+        },
+        {
+          "caller": "update",
+          "callee": "setMore",
+          "lineNumber": 103
+        },
+        {
+          "caller": "AppShell",
+          "callee": "update",
+          "lineNumber": 104
+        },
+        {
+          "caller": "AppShell",
+          "callee": "el.addEventListener",
+          "lineNumber": 105
+        },
+        {
+          "caller": "AppShell",
+          "callee": "ro.observe",
+          "lineNumber": 109
+        },
+        {
+          "caller": "AppShell",
+          "callee": "ro.observe",
+          "lineNumber": 110
+        },
+        {
+          "caller": "AppShell",
+          "callee": "el.removeEventListener",
+          "lineNumber": 112
+        },
+        {
+          "caller": "AppShell",
+          "callee": "ro.disconnect",
+          "lineNumber": 113
+        },
+        {
+          "caller": "close",
+          "callee": "setOpen",
+          "lineNumber": 121
+        },
+        {
+          "caller": "setTheme",
+          "callee": "setThemeState",
+          "lineNumber": 126
+        },
+        {
+          "caller": "signOut",
+          "callee": "authClient.signOut",
+          "lineNumber": 130
+        },
+        {
+          "caller": "signOut",
+          "callee": "router.push",
+          "lineNumber": 131
+        },
+        {
+          "caller": "signOut",
+          "callee": "router.refresh",
+          "lineNumber": 132
+        },
+        {
+          "caller": "stopImpersonating",
+          "callee": "authClient.admin.stopImpersonating",
+          "lineNumber": 136
+        },
+        {
+          "caller": "stopImpersonating",
+          "callee": "router.push",
+          "lineNumber": 137
+        },
+        {
+          "caller": "stopImpersonating",
+          "callee": "router.refresh",
+          "lineNumber": 138
+        },
+        {
+          "caller": "AppShell",
+          "callee": "cn",
+          "lineNumber": 174
+        },
+        {
+          "caller": "AppShell",
+          "callee": "cn",
+          "lineNumber": 182
+        },
+        {
+          "caller": "AppShell",
+          "callee": "cn",
+          "lineNumber": 184
+        },
+        {
+          "caller": "AppShell",
+          "callee": "setSidebarMode",
+          "lineNumber": 190
+        },
+        {
+          "caller": "AppShell",
+          "callee": "setSidebarMode",
+          "lineNumber": 193
+        },
+        {
+          "caller": "AppShell",
+          "callee": "cn",
+          "lineNumber": 195
+        },
+        {
+          "caller": "AppShell",
+          "callee": "cn",
+          "lineNumber": 230
+        },
+        {
+          "caller": "AppShell",
+          "callee": "cn",
+          "lineNumber": 243
+        },
+        {
+          "caller": "AppShell",
+          "callee": "nav.map",
+          "lineNumber": 246
+        },
+        {
+          "caller": "AppShell",
+          "callee": "setPending",
+          "lineNumber": 256
+        },
+        {
+          "caller": "AppShell",
+          "callee": "close",
+          "lineNumber": 257
+        },
+        {
+          "caller": "AppShell",
+          "callee": "isActive",
+          "lineNumber": 259
+        },
+        {
+          "caller": "AppShell",
+          "callee": "cn",
+          "lineNumber": 260
+        },
+        {
+          "caller": "AppShell",
+          "callee": "cn",
+          "lineNumber": 280
+        },
+        {
+          "caller": "AppShell",
+          "callee": "cn",
+          "lineNumber": 293
+        },
+        {
+          "caller": "AppShell",
+          "callee": "cn",
+          "lineNumber": 313
+        },
+        {
+          "caller": "AppShell",
+          "callee": "cn",
+          "lineNumber": 343
+        },
+        {
+          "caller": "AppShell",
+          "callee": "cn",
+          "lineNumber": 349
+        },
+        {
+          "caller": "AppShell",
+          "callee": "setOpen",
+          "lineNumber": 358
+        },
+        {
+          "caller": "ShellLink",
+          "callee": "cn",
+          "lineNumber": 425
+        },
+        {
+          "caller": "ThemeToggle",
+          "callee": "onChange",
+          "lineNumber": 460
+        },
+        {
+          "caller": "ThemeToggle",
+          "callee": "isDarkTheme",
+          "lineNumber": 460
+        },
+        {
+          "caller": "ThemeToggle",
+          "callee": "cn",
+          "lineNumber": 475
+        },
+        {
+          "caller": "Avatar",
+          "callee": "name\n    .split(/\\s+/)\n    .slice(0, 2)\n    .map((w) => w[0]?.toUpperCase() ?? \"\")\n    .join",
+          "lineNumber": 487
+        },
+        {
+          "caller": "Avatar",
+          "callee": "name\n    .split(/\\s+/)\n    .slice(0, 2)\n    .map",
+          "lineNumber": 487
+        },
+        {
+          "caller": "Avatar",
+          "callee": "name\n    .split(/\\s+/)\n    .slice",
+          "lineNumber": 487
+        },
+        {
+          "caller": "Avatar",
+          "callee": "name\n    .split",
+          "lineNumber": 487
+        },
+        {
+          "caller": "Avatar",
+          "callee": "w[0]?.toUpperCase",
+          "lineNumber": 490
+        },
+        {
+          "caller": "BellLink",
+          "callee": "useRealtime",
+          "lineNumber": 505
+        }
+      ],
+      "metrics": {
+        "importCount": 6,
+        "exportCount": 1,
+        "functionCount": 5,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "components/dashboard/RealtimeProvider.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 214,
+      "nonEmptyLines": 193,
+      "functions": [
+        {
+          "name": "useRealtime",
+          "startLine": 42,
+          "endLine": 44,
+          "params": []
+        },
+        {
+          "name": "RealtimeProvider",
+          "startLine": 50,
+          "endLine": 160,
+          "params": [
+            "{\n  initialUnread,\n  children,\n}"
+          ]
+        },
+        {
+          "name": "ToastStack",
+          "startLine": 162,
+          "endLine": 203,
+          "params": [
+            "{ toasts, onDismiss }"
+          ]
+        },
+        {
+          "name": "UnreadBadge",
+          "startLine": 206,
+          "endLine": 214,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "useRealtime",
+          "line": 42,
+          "isDefault": false
+        },
+        {
+          "name": "RealtimeProvider",
+          "line": 50,
+          "isDefault": false
+        },
+        {
+          "name": "UnreadBadge",
+          "line": 206,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "useRealtime",
+          "callee": "useContext",
+          "lineNumber": 43
+        },
+        {
+          "caller": "RealtimeProvider",
+          "callee": "useRouter",
+          "lineNumber": 58
+        },
+        {
+          "caller": "RealtimeProvider",
+          "callee": "useState",
+          "lineNumber": 59
+        },
+        {
+          "caller": "RealtimeProvider",
+          "callee": "useState",
+          "lineNumber": 60
+        },
+        {
+          "caller": "RealtimeProvider",
+          "callee": "useState",
+          "lineNumber": 61
+        },
+        {
+          "caller": "RealtimeProvider",
+          "callee": "useRef",
+          "lineNumber": 66
+        },
+        {
+          "caller": "RealtimeProvider",
+          "callee": "useRef",
+          "lineNumber": 67
+        },
+        {
+          "caller": "RealtimeProvider",
+          "callee": "useState",
+          "lineNumber": 71
+        },
+        {
+          "caller": "RealtimeProvider",
+          "callee": "setLastInitial",
+          "lineNumber": 73
+        },
+        {
+          "caller": "RealtimeProvider",
+          "callee": "setUnread",
+          "lineNumber": 74
+        },
+        {
+          "caller": "RealtimeProvider",
+          "callee": "useCallback",
+          "lineNumber": 77
+        },
+        {
+          "caller": "RealtimeProvider",
+          "callee": "setToasts",
+          "lineNumber": 78
+        },
+        {
+          "caller": "RealtimeProvider",
+          "callee": "all.filter",
+          "lineNumber": 78
+        },
+        {
+          "caller": "RealtimeProvider",
+          "callee": "useCallback",
+          "lineNumber": 81
+        },
+        {
+          "caller": "RealtimeProvider",
+          "callee": "fetch",
+          "lineNumber": 84
+        },
+        {
+          "caller": "RealtimeProvider",
+          "callee": "res.json",
+          "lineNumber": 86
+        },
+        {
+          "caller": "RealtimeProvider",
+          "callee": "setUnread",
+          "lineNumber": 87
+        },
+        {
+          "caller": "RealtimeProvider",
+          "callee": "data.latest.reduce",
+          "lineNumber": 89
+        },
+        {
+          "caller": "RealtimeProvider",
+          "callee": "Math.max",
+          "lineNumber": 89
+        },
+        {
+          "caller": "RealtimeProvider",
+          "callee": "data.latest.filter((n) => n.id > seen && !n.read).reverse",
+          "lineNumber": 95
+        },
+        {
+          "caller": "RealtimeProvider",
+          "callee": "data.latest.filter",
+          "lineNumber": 95
+        },
+        {
+          "caller": "RealtimeProvider",
+          "callee": "Math.max",
+          "lineNumber": 96
+        },
+        {
+          "caller": "RealtimeProvider",
+          "callee": "setToasts",
+          "lineNumber": 99
+        },
+        {
+          "caller": "RealtimeProvider",
+          "callee": "[...all, ...fresh.map((n) => ({ id: n.id, title: n.title, body: n.body, href: n.href }))].slice",
+          "lineNumber": 99
+        },
+        {
+          "caller": "RealtimeProvider",
+          "callee": "fresh.map",
+          "lineNumber": 99
+        },
+        {
+          "caller": "RealtimeProvider",
+          "callee": "setTimeout",
+          "lineNumber": 100
+        },
+        {
+          "caller": "RealtimeProvider",
+          "callee": "dismiss",
+          "lineNumber": 100
+        },
+        {
+          "caller": "RealtimeProvider",
+          "callee": "useCallback",
+          "lineNumber": 108
+        },
+        {
+          "caller": "RealtimeProvider",
+          "callee": "clearTimeout",
+          "lineNumber": 109
+        },
+        {
+          "caller": "RealtimeProvider",
+          "callee": "setTimeout",
+          "lineNumber": 110
+        },
+        {
+          "caller": "RealtimeProvider",
+          "callee": "router.refresh",
+          "lineNumber": 110
+        },
+        {
+          "caller": "RealtimeProvider",
+          "callee": "useEffect",
+          "lineNumber": 113
+        },
+        {
+          "caller": "RealtimeProvider",
+          "callee": "setConnected",
+          "lineNumber": 119
+        },
+        {
+          "caller": "RealtimeProvider",
+          "callee": "sync",
+          "lineNumber": 121
+        },
+        {
+          "caller": "RealtimeProvider",
+          "callee": "setConnected",
+          "lineNumber": 124
+        },
+        {
+          "caller": "RealtimeProvider",
+          "callee": "source.addEventListener",
+          "lineNumber": 125
+        },
+        {
+          "caller": "RealtimeProvider",
+          "callee": "setUnread",
+          "lineNumber": 127
+        },
+        {
+          "caller": "RealtimeProvider",
+          "callee": "JSON.parse",
+          "lineNumber": 127
+        },
+        {
+          "caller": "RealtimeProvider",
+          "callee": "source.addEventListener",
+          "lineNumber": 132
+        },
+        {
+          "caller": "RealtimeProvider",
+          "callee": "sync",
+          "lineNumber": 133
+        },
+        {
+          "caller": "RealtimeProvider",
+          "callee": "refreshSoon",
+          "lineNumber": 134
+        },
+        {
+          "caller": "onVisible",
+          "callee": "sync",
+          "lineNumber": 142
+        },
+        {
+          "caller": "onVisible",
+          "callee": "refreshSoon",
+          "lineNumber": 143
+        },
+        {
+          "caller": "RealtimeProvider",
+          "callee": "document.addEventListener",
+          "lineNumber": 145
+        },
+        {
+          "caller": "RealtimeProvider",
+          "callee": "source.close",
+          "lineNumber": 148
+        },
+        {
+          "caller": "RealtimeProvider",
+          "callee": "document.removeEventListener",
+          "lineNumber": 149
+        },
+        {
+          "caller": "RealtimeProvider",
+          "callee": "clearTimeout",
+          "lineNumber": 150
+        },
+        {
+          "caller": "ToastStack",
+          "callee": "toasts.map",
+          "lineNumber": 170
+        },
+        {
+          "caller": "ToastStack",
+          "callee": "onDismiss",
+          "lineNumber": 181
+        },
+        {
+          "caller": "ToastStack",
+          "callee": "onDismiss",
+          "lineNumber": 193
+        },
+        {
+          "caller": "UnreadBadge",
+          "callee": "useRealtime",
+          "lineNumber": 207
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 3,
+        "functionCount": 4,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "components/dashboard/nav.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 102,
+      "nonEmptyLines": 97,
+      "functions": [
+        {
+          "name": "isActive",
+          "startLine": 100,
+          "endLine": 102,
+          "params": [
+            "pathname",
+            "item"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "CLIENT_NAV",
+          "line": 24,
+          "isDefault": false
+        },
+        {
+          "name": "ADMIN_NAV",
+          "line": 36,
+          "isDefault": false
+        },
+        {
+          "name": "isActive",
+          "line": 100,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "isActive",
+          "callee": "pathname.startsWith",
+          "lineNumber": 101
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 3,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "lib/auth-client.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 20,
+      "nonEmptyLines": 17,
+      "exports": [
+        {
+          "name": "authClient",
+          "line": 16,
+          "isDefault": false
+        },
+        {
+          "name": "{ signIn, signUp, signOut, useSession, getSession }",
+          "line": 20,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 2,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "lib/auth.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 209,
+      "nonEmptyLines": 193,
+      "functions": [
+        {
+          "name": "isOwnerEmail",
+          "startLine": 31,
+          "endLine": 33,
+          "params": [
+            "email"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "auth",
+          "line": 35,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "isOwnerEmail",
+          "callee": "email.toLowerCase",
+          "lineNumber": 32
+        },
+        {
+          "caller": "isOwnerEmail",
+          "callee": "adminEmail().toLowerCase",
+          "lineNumber": 32
+        },
+        {
+          "caller": "isOwnerEmail",
+          "callee": "adminEmail",
+          "lineNumber": 32
+        }
+      ],
+      "metrics": {
+        "importCount": 6,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "lib/password.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 90,
+      "nonEmptyLines": 81,
+      "functions": [
+        {
+          "name": "checkPassword",
+          "startLine": 36,
+          "endLine": 38,
+          "params": [
+            "password"
+          ]
+        },
+        {
+          "name": "isStrongPassword",
+          "startLine": 40,
+          "endLine": 42,
+          "params": [
+            "password"
+          ]
+        },
+        {
+          "name": "passwordProblem",
+          "startLine": 45,
+          "endLine": 51,
+          "params": [
+            "password"
+          ]
+        },
+        {
+          "name": "pick",
+          "startLine": 69,
+          "endLine": 73,
+          "params": [
+            "set",
+            "n"
+          ]
+        },
+        {
+          "name": "generatePassword",
+          "startLine": 75,
+          "endLine": 90,
+          "params": [
+            "length"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "PASSWORD_RULES",
+          "line": 27,
+          "isDefault": false
+        },
+        {
+          "name": "checkPassword",
+          "line": 36,
+          "isDefault": false
+        },
+        {
+          "name": "isStrongPassword",
+          "line": 40,
+          "isDefault": false
+        },
+        {
+          "name": "passwordProblem",
+          "line": 45,
+          "isDefault": false
+        },
+        {
+          "name": "generatePassword",
+          "line": 75,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "checkPassword",
+          "callee": "PASSWORD_RULES.map",
+          "lineNumber": 37
+        },
+        {
+          "caller": "checkPassword",
+          "callee": "rule.test",
+          "lineNumber": 37
+        },
+        {
+          "caller": "isStrongPassword",
+          "callee": "PASSWORD_RULES.every",
+          "lineNumber": 41
+        },
+        {
+          "caller": "isStrongPassword",
+          "callee": "rule.test",
+          "lineNumber": 41
+        },
+        {
+          "caller": "passwordProblem",
+          "callee": "PASSWORD_RULES.filter",
+          "lineNumber": 46
+        },
+        {
+          "caller": "passwordProblem",
+          "callee": "rule.test",
+          "lineNumber": 46
+        },
+        {
+          "caller": "passwordProblem",
+          "callee": "failed\n    .map((r) => r.label.toLowerCase())\n    .join",
+          "lineNumber": 48
+        },
+        {
+          "caller": "passwordProblem",
+          "callee": "failed\n    .map",
+          "lineNumber": 48
+        },
+        {
+          "caller": "passwordProblem",
+          "callee": "r.label.toLowerCase",
+          "lineNumber": 49
+        },
+        {
+          "caller": "pick",
+          "callee": "crypto.getRandomValues",
+          "lineNumber": 71
+        },
+        {
+          "caller": "pick",
+          "callee": "Array.from",
+          "lineNumber": 72
+        },
+        {
+          "caller": "generatePassword",
+          "callee": "SETS.map",
+          "lineNumber": 79
+        },
+        {
+          "caller": "generatePassword",
+          "callee": "pick",
+          "lineNumber": 79
+        },
+        {
+          "caller": "generatePassword",
+          "callee": "chars.push",
+          "lineNumber": 80
+        },
+        {
+          "caller": "generatePassword",
+          "callee": "pick",
+          "lineNumber": 80
+        },
+        {
+          "caller": "generatePassword",
+          "callee": "SETS.join",
+          "lineNumber": 80
+        },
+        {
+          "caller": "generatePassword",
+          "callee": "Math.max",
+          "lineNumber": 80
+        },
+        {
+          "caller": "generatePassword",
+          "callee": "crypto.getRandomValues",
+          "lineNumber": 84
+        },
+        {
+          "caller": "generatePassword",
+          "callee": "chars.join",
+          "lineNumber": 89
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 5,
+        "functionCount": 5,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "lib/theme-server.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 7,
+      "nonEmptyLines": 6,
+      "functions": [
+        {
+          "name": "getTheme",
+          "startLine": 5,
+          "endLine": 7,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "getTheme",
+          "line": 5,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "getTheme",
+          "callee": "parseTheme",
+          "lineNumber": 6
+        },
+        {
+          "caller": "getTheme",
+          "callee": "(await cookies()).get",
+          "lineNumber": 6
+        },
+        {
+          "caller": "getTheme",
+          "callee": "cookies",
+          "lineNumber": 6
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "lib/theme.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 34,
+      "nonEmptyLines": 31,
+      "functions": [
+        {
+          "name": "parseTheme",
+          "startLine": 22,
+          "endLine": 24,
+          "params": [
+            "value"
+          ]
+        },
+        {
+          "name": "isDarkTheme",
+          "startLine": 30,
+          "endLine": 34,
+          "params": [
+            "theme"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "THEME_COOKIE",
+          "line": 18,
+          "isDefault": false
+        },
+        {
+          "name": "THEMES",
+          "line": 19,
+          "isDefault": false
+        },
+        {
+          "name": "parseTheme",
+          "line": 22,
+          "isDefault": false
+        },
+        {
+          "name": "isDarkTheme",
+          "line": 30,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "parseTheme",
+          "callee": "(THEMES as readonly string[]).includes",
+          "lineNumber": 23
+        },
+        {
+          "caller": "isDarkTheme",
+          "callee": "window.matchMedia",
+          "lineNumber": 32
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 4,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    }
+  ]
+}

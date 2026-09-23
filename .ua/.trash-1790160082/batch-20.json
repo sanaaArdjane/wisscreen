@@ -1,0 +1,59 @@
+{
+  "nodes": [
+    {
+      "id": "document:.claude/skills/neon-functions/references/ai-sdk.md",
+      "type": "document",
+      "name": "ai-sdk.md",
+      "filePath": ".claude/skills/neon-functions/references/ai-sdk.md",
+      "summary": "Walkthrough for building a Vercel AI SDK tool-calling agent on Neon Functions against the Neon AI Gateway, covering neon.ts declaration, a streaming fetch handler, image generation with Object Storage persistence, and client-side streaming.",
+      "tags": ["documentation", "reference", "ai-sdk", "serverless", "streaming"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:.claude/skills/neon-functions/references/function-triggers.md",
+      "type": "document",
+      "name": "function-triggers.md",
+      "filePath": ".claude/skills/neon-functions/references/function-triggers.md",
+      "summary": "Detailed Function Triggers reference for Neon Functions: supported trigger types (schedule, storage_object_created), neon.ts and CLI declaration, delivery payload shape, the parseTriggerDelivery/parseTrigger/parseTriggerInvocation helpers, local neon dev behavior, inheritance across branches, and trigger logs.",
+      "tags": ["documentation", "reference", "cron", "serverless", "webhooks"],
+      "complexity": "complex"
+    },
+    {
+      "id": "document:.claude/skills/neon-functions/references/mastra-studio.md",
+      "type": "document",
+      "name": "mastra-studio.md",
+      "filePath": ".claude/skills/neon-functions/references/mastra-studio.md",
+      "summary": "Guide to running a Mastra agent on Neon Functions against the Neon AI Gateway while shipping trace observability to a Mastra Studio (Mastra Cloud) project, including structured output and CLI project/token setup.",
+      "tags": ["documentation", "reference", "observability", "ai-agent", "serverless"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:.claude/skills/neon-functions/references/mcp.md",
+      "type": "document",
+      "name": "mcp.md",
+      "filePath": ".claude/skills/neon-functions/references/mcp.md",
+      "summary": "Reference for hosting a Model Context Protocol server as a Neon Function using @modelcontextprotocol/sdk and @hono/mcp over streamable HTTP, plus two authentication options (Better Auth MCP OAuth plugin, or API key/session JWT) and testing guidance.",
+      "tags": ["documentation", "reference", "mcp", "serverless", "authentication"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:.claude/skills/neon-functions/references/sentry.md",
+      "type": "document",
+      "name": "sentry.md",
+      "filePath": ".claude/skills/neon-functions/references/sentry.md",
+      "summary": "Guide to wiring Sentry (@sentry/node) error, log, and trace monitoring into a Neon Function's long-lived Node process, including required env vars, request span setup, AI-agent tracing, and a template for other Node SDK integrations.",
+      "tags": ["documentation", "reference", "observability", "error-monitoring", "serverless"],
+      "complexity": "complex"
+    },
+    {
+      "id": "document:.claude/skills/neon-functions/references/sse.md",
+      "type": "document",
+      "name": "sse.md",
+      "filePath": ".claude/skills/neon-functions/references/sse.md",
+      "summary": "Reference for building server-sent-events endpoints on Neon Functions, from a minimal framework-free handler and a Hono version to cross-isolate broadcast, wire format, client usage, and caveats.",
+      "tags": ["documentation", "reference", "sse", "streaming", "serverless"],
+      "complexity": "moderate"
+    }
+  ],
+  "edges": []
+}

@@ -1,0 +1,613 @@
+{
+  "nodes": [
+    {
+      "id": "file:components/ui/Accordion.tsx",
+      "type": "file",
+      "name": "Accordion.tsx",
+      "filePath": "components/ui/Accordion.tsx",
+      "summary": "Expandable FAQ/accordion list primitive with GSAP-animated open/close height transitions and single-item-open behavior.",
+      "tags": ["component", "ui-primitive", "gsap", "accordion"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:components/ui/Accordion.tsx:Accordion",
+      "type": "function",
+      "name": "Accordion",
+      "filePath": "components/ui/Accordion.tsx",
+      "lineRange": [14, 87],
+      "summary": "Renders a list of expandable items, animating height/opacity with GSAP timelines as the open index changes.",
+      "tags": ["component", "gsap", "state"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:components/ui/Badge.tsx",
+      "type": "file",
+      "name": "Badge.tsx",
+      "filePath": "components/ui/Badge.tsx",
+      "summary": "Small pill-shaped label primitive used for eyebrow/mini-title badges across marketing sections.",
+      "tags": ["component", "ui-primitive", "badge"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:components/ui/Badge.tsx:Badge",
+      "type": "function",
+      "name": "Badge",
+      "filePath": "components/ui/Badge.tsx",
+      "lineRange": [4, 16],
+      "summary": "Renders an uppercase, bordered pill span, forwarding native span props and className.",
+      "tags": ["component", "ui-primitive"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:components/ui/Button.tsx",
+      "type": "file",
+      "name": "Button.tsx",
+      "filePath": "components/ui/Button.tsx",
+      "summary": "Primary button/link primitive with primary/secondary/ghost variants and an optional animated trailing arrow icon.",
+      "tags": ["component", "ui-primitive", "button", "cta"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:components/ui/Button.tsx:Button",
+      "type": "function",
+      "name": "Button",
+      "filePath": "components/ui/Button.tsx",
+      "lineRange": [14, 60],
+      "summary": "Renders either a Next.js Link or a native button depending on whether an href is supplied, sharing the same variant styling and arrow icon.",
+      "tags": ["component", "cta", "navigation"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:components/ui/Container.tsx",
+      "type": "file",
+      "name": "Container.tsx",
+      "filePath": "components/ui/Container.tsx",
+      "summary": "Centered max-width layout wrapper (1280px) with responsive horizontal padding, used to align section content site-wide.",
+      "tags": ["component", "ui-primitive", "layout"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:components/ui/Container.tsx:Container",
+      "type": "function",
+      "name": "Container",
+      "filePath": "components/ui/Container.tsx",
+      "lineRange": [4, 8],
+      "summary": "Wraps children in a centered, width-capped, padded div.",
+      "tags": ["component", "layout"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:components/ui/ErrorBoundary.tsx",
+      "type": "file",
+      "name": "ErrorBoundary.tsx",
+      "filePath": "components/ui/ErrorBoundary.tsx",
+      "summary": "Class-based React error boundary that swaps in a fallback UI when a non-essential widget (e.g. the WebGL hero scene) throws, instead of crashing the page.",
+      "tags": ["component", "error-handling", "resilience"],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:components/ui/ErrorBoundary.tsx:ErrorBoundary",
+      "type": "class",
+      "name": "ErrorBoundary",
+      "filePath": "components/ui/ErrorBoundary.tsx",
+      "lineRange": [13, 31],
+      "summary": "React class component implementing getDerivedStateFromError/componentDidCatch to catch render errors in children and render a fallback, logging the error for debugging.",
+      "tags": ["error-boundary", "class-component", "resilience"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:components/ui/HandUnderline.tsx",
+      "type": "file",
+      "name": "HandUnderline.tsx",
+      "filePath": "components/ui/HandUnderline.tsx",
+      "summary": "Shared hand-drawn SVG underline used to accent key words (e.g. in HighlightsReel and DeviceShowcase); fills with the signal accent color and lets the caller control the draw-in animation via className.",
+      "tags": ["component", "ui-primitive", "svg", "brand-accent"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:components/ui/HandUnderline.tsx:HandUnderline",
+      "type": "function",
+      "name": "HandUnderline",
+      "filePath": "components/ui/HandUnderline.tsx",
+      "lineRange": [15, 29],
+      "summary": "Renders the shared hand-drawn underline path as an absolutely positioned inline SVG filled with the signal accent.",
+      "tags": ["component", "svg"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:components/ui/Icon.tsx",
+      "type": "file",
+      "name": "Icon.tsx",
+      "filePath": "components/ui/Icon.tsx",
+      "summary": "Shared stroke-icon component rendering a 24x24 SVG path from a hand-drawn registry covering both marketing icons and dashboard chrome icons (bell, settings, panel-left-close, sun/moon, etc.), keyed by IconName.",
+      "tags": ["component", "ui-primitive", "svg", "icon-registry"],
+      "complexity": "moderate",
+      "languageNotes": "A single Record<IconName, string> holds every path so marketing and dashboard icons share one visual language (24x24 grid, 1.6 stroke) without a second icon dependency."
+    },
+    {
+      "id": "function:components/ui/Icon.tsx:Icon",
+      "type": "function",
+      "name": "Icon",
+      "filePath": "components/ui/Icon.tsx",
+      "lineRange": [65, 91],
+      "summary": "Renders the SVG path for the requested icon name with configurable stroke width and className.",
+      "tags": ["component", "svg"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:components/ui/LivePreview.tsx",
+      "type": "file",
+      "name": "LivePreview.tsx",
+      "filePath": "components/ui/LivePreview.tsx",
+      "summary": "Iframe component that embeds a live external site at a real desktop/mobile viewport and scales it down to fit its box, layered over a fallback and gated by a server-side embeddability check plus a load timeout.",
+      "tags": ["component", "iframe", "live-preview", "device-showcase"],
+      "complexity": "complex",
+      "languageNotes": "Scales an iframe rendered at a real logical viewport (1440x900 / 390x845) down via CSS transform rather than shrinking the iframe's own width, so embedded responsive sites don't collapse to their mobile layout inside a laptop frame."
+    },
+    {
+      "id": "function:components/ui/LivePreview.tsx:LivePreview",
+      "type": "function",
+      "name": "LivePreview",
+      "filePath": "components/ui/LivePreview.tsx",
+      "lineRange": [64, 240],
+      "summary": "Measures its container, computes a cover-fit scale for the iframe's logical viewport, checks /api/preview-status before mounting the frame, and swaps between loading/live/failed states with a timeout.",
+      "tags": ["component", "iframe", "resize-observer", "fetch"],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:components/ui/LoadingImage.tsx",
+      "type": "file",
+      "name": "LoadingImage.tsx",
+      "filePath": "components/ui/LoadingImage.tsx",
+      "summary": "next/image wrapper that covers image decode with an opaque skeleton sweep, cross-fades the photo in on load, and renders nothing on error so the mock underneath shows through instead of a broken image.",
+      "tags": ["component", "image", "loading-state", "fallback"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:components/ui/LoadingImage.tsx:LoadingImage",
+      "type": "function",
+      "name": "LoadingImage",
+      "filePath": "components/ui/LoadingImage.tsx",
+      "lineRange": [26, 73],
+      "summary": "Renders a skeleton panel plus a next/image that fades in on load and disappears on error, picking `unoptimized` automatically for remote URLs.",
+      "tags": ["component", "image", "loading-state"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:components/ui/LoadingImage.tsx:isRemote",
+      "type": "function",
+      "name": "isRemote",
+      "filePath": "components/ui/LoadingImage.tsx",
+      "lineRange": [76, 76],
+      "summary": "Tests whether a src string is an absolute http(s) URL, deciding whether next/image optimization is bypassed.",
+      "tags": ["utility"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:components/ui/MediaSlot.tsx",
+      "type": "file",
+      "name": "MediaSlot.tsx",
+      "filePath": "components/ui/MediaSlot.tsx",
+      "summary": "Renders one media frame for a solution's gallery/hero slot: a generated on-brand mock (dashboard, scan, chart, video, or image style) always underneath, with the real asset layered on top via LoadingImage when set.",
+      "tags": ["component", "media", "placeholder", "gallery"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:components/ui/MediaSlot.tsx:MediaSlot",
+      "type": "function",
+      "name": "MediaSlot",
+      "filePath": "components/ui/MediaSlot.tsx",
+      "lineRange": [20, 85],
+      "summary": "Picks and renders the mock variant matching the slot's kind, then layers the real asset over it via LoadingImage/native video when a src is present.",
+      "tags": ["component", "media", "placeholder"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:components/ui/MediaSlot.tsx:DashboardMock",
+      "type": "function",
+      "name": "DashboardMock",
+      "filePath": "components/ui/MediaSlot.tsx",
+      "lineRange": [87, 110],
+      "summary": "Generated on-brand placeholder resembling a dashboard UI, used when no real screenshot is set for a mock-dashboard slot.",
+      "tags": ["placeholder", "mock"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:components/ui/MediaSlot.tsx:ScanMock",
+      "type": "function",
+      "name": "ScanMock",
+      "filePath": "components/ui/MediaSlot.tsx",
+      "lineRange": [112, 126],
+      "summary": "Generated on-brand placeholder resembling a document scan/OCR UI for mock-scan slots.",
+      "tags": ["placeholder", "mock"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:components/ui/MediaSlot.tsx:ChartMock",
+      "type": "function",
+      "name": "ChartMock",
+      "filePath": "components/ui/MediaSlot.tsx",
+      "lineRange": [128, 140],
+      "summary": "Generated on-brand placeholder resembling a bar chart for mock-chart slots.",
+      "tags": ["placeholder", "mock"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:components/ui/MediaSlot.tsx:VideoMock",
+      "type": "function",
+      "name": "VideoMock",
+      "filePath": "components/ui/MediaSlot.tsx",
+      "lineRange": [142, 152],
+      "summary": "Generated on-brand placeholder shown for video-slot media before a real video is set.",
+      "tags": ["placeholder", "mock"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:components/ui/MediaSlot.tsx:ImageMock",
+      "type": "function",
+      "name": "ImageMock",
+      "filePath": "components/ui/MediaSlot.tsx",
+      "lineRange": [154, 160],
+      "summary": "Generated on-brand placeholder shown for image-slot media before a real image is set.",
+      "tags": ["placeholder", "mock"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:components/ui/Reveal.tsx",
+      "type": "file",
+      "name": "Reveal.tsx",
+      "filePath": "components/ui/Reveal.tsx",
+      "summary": "Generic GSAP + ScrollTrigger scroll-reveal wrapper: animates [data-reveal-item] descendants (or the wrapper itself) in with a stagger as they enter the viewport, rendering fully visible on the server for SEO/no-JS safety.",
+      "tags": ["component", "gsap", "scroll-reveal", "animation"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:components/ui/Reveal.tsx:Reveal",
+      "type": "function",
+      "name": "Reveal",
+      "filePath": "components/ui/Reveal.tsx",
+      "lineRange": [14, 63],
+      "summary": "Sets up a GSAP context that animates marked children or the wrapper from a y-offset/opacity-0 state into place on scroll, cleaning up via ctx.revert.",
+      "tags": ["component", "gsap", "scroll-reveal"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:components/ui/SectionHeading.tsx",
+      "type": "file",
+      "name": "SectionHeading.tsx",
+      "filePath": "components/ui/SectionHeading.tsx",
+      "summary": "Standard homepage section heading: optional signal-accent eyebrow Badge, large display h2 title, and optional description paragraph, wrapped in Reveal for scroll-in animation.",
+      "tags": ["component", "ui-primitive", "heading", "section-header"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:components/ui/SectionHeading.tsx:SectionHeading",
+      "type": "function",
+      "name": "SectionHeading",
+      "filePath": "components/ui/SectionHeading.tsx",
+      "lineRange": [6, 54],
+      "summary": "Composes an eyebrow Badge, h2 title, and description paragraph inside a Reveal wrapper, supporting left or center alignment.",
+      "tags": ["component", "heading"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:components/ui/SocialIcon.tsx",
+      "type": "file",
+      "name": "SocialIcon.tsx",
+      "filePath": "components/ui/SocialIcon.tsx",
+      "summary": "Filled-glyph social network icon set (LinkedIn, Facebook, Instagram, X, YouTube, TikTok) plus their display labels, used by the footer's social links which are edited in /admin/site.",
+      "tags": ["component", "ui-primitive", "svg", "social"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:components/ui/SocialIcon.tsx:SocialIcon",
+      "type": "function",
+      "name": "SocialIcon",
+      "filePath": "components/ui/SocialIcon.tsx",
+      "lineRange": [29, 35],
+      "summary": "Renders the filled SVG glyph for the requested social network key.",
+      "tags": ["component", "svg"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:components/ui/StatCounter.tsx",
+      "type": "file",
+      "name": "StatCounter.tsx",
+      "filePath": "components/ui/StatCounter.tsx",
+      "summary": "Animates the leading number inside a stat string (e.g. \"99,2%\", \"< 2 s\", \"24/7\") counting up from 0 once it scrolls into view, preserving prefix/suffix text and decimal formatting.",
+      "tags": ["component", "gsap", "scroll-trigger", "counter", "stat-tile"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:components/ui/StatCounter.tsx:StatCounter",
+      "type": "function",
+      "name": "StatCounter",
+      "filePath": "components/ui/StatCounter.tsx",
+      "lineRange": [11, 54],
+      "summary": "Parses the numeric portion of a stat value, sets up a one-time ScrollTrigger, and tweens a proxy value into the DOM text on entry, re-formatting with the original prefix/suffix and decimal precision.",
+      "tags": ["gsap", "scroll-trigger", "animation"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:components/ui/Tabs.tsx",
+      "type": "file",
+      "name": "Tabs.tsx",
+      "filePath": "components/ui/Tabs.tsx",
+      "summary": "Simple tabbed content primitive: renders tab buttons plus a render-prop child fed the active tab id, used for audience/solution tab switchers.",
+      "tags": ["component", "ui-primitive", "tabs", "render-prop"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:components/ui/Tabs.tsx:Tabs",
+      "type": "function",
+      "name": "Tabs",
+      "filePath": "components/ui/Tabs.tsx",
+      "lineRange": [12, 48],
+      "summary": "Manages the active tab id in state, renders the tab button row (control-accent for the active tab), and calls the children render-prop with the current active id.",
+      "tags": ["component", "tabs", "state"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:components/ui/Turnstile.tsx",
+      "type": "file",
+      "name": "Turnstile.tsx",
+      "filePath": "components/ui/Turnstile.tsx",
+      "summary": "Cloudflare Turnstile CAPTCHA widget wrapper, explicit-rendered for a real callback/widget id, with reset-on-resubmit support so a stale single-use token doesn't silently fail a second form submission.",
+      "tags": ["component", "captcha", "security", "form", "cloudflare"],
+      "complexity": "moderate",
+      "languageNotes": "Uses next/script's onReady (not onLoad) so the widget re-renders correctly after a client-side navigation remounts the component while the script is already cached."
+    },
+    {
+      "id": "function:components/ui/Turnstile.tsx:Turnstile",
+      "type": "function",
+      "name": "Turnstile",
+      "filePath": "components/ui/Turnstile.tsx",
+      "lineRange": [44, 93],
+      "summary": "Loads the Cloudflare Turnstile script, explicit-renders the widget into a container ref, and resets it whenever resetKey changes; cleans up the widget on unmount.",
+      "tags": ["captcha", "form", "effect"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:components/ui/TypeCycle.tsx",
+      "type": "file",
+      "name": "TypeCycle.tsx",
+      "filePath": "components/ui/TypeCycle.tsx",
+      "summary": "Typewriter-effect component that types and deletes a rotating list of words character by character behind a glowing caret, rendering the first word statically on the server to avoid layout shift for crawlers.",
+      "tags": ["component", "animation", "typewriter", "hero"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:components/ui/TypeCycle.tsx:TypeCycle",
+      "type": "function",
+      "name": "TypeCycle",
+      "filePath": "components/ui/TypeCycle.tsx",
+      "lineRange": [16, 79],
+      "summary": "Drives a holding/deleting/typing state machine via chained setTimeouts to type and erase each word in the `words` list, cycling indefinitely.",
+      "tags": ["animation", "state-machine", "effect"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:lib/cn.ts",
+      "type": "file",
+      "name": "cn.ts",
+      "filePath": "lib/cn.ts",
+      "summary": "Tiny classnames-joining utility that filters out falsy values and joins the rest with a space; used throughout components/ui and sections instead of a classnames dependency.",
+      "tags": ["utility", "classnames", "styling"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:lib/cn.ts:cn",
+      "type": "function",
+      "name": "cn",
+      "filePath": "lib/cn.ts",
+      "lineRange": [1, 3],
+      "summary": "Joins a variadic list of class name strings, dropping falsy entries.",
+      "tags": ["utility"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:lib/content/schema.ts",
+      "type": "file",
+      "name": "schema.ts",
+      "filePath": "lib/content/schema.ts",
+      "summary": "Zod schemas defining the full editable shape of the public site's content (general/SEO/socials, hero, footer, every homepage section, and solution copy/media) — shared by the /admin/site client editors, server actions, and the read-time validators in lib/content/index.ts.",
+      "tags": ["validation", "schema", "cms", "admin-site"],
+      "complexity": "complex",
+      "languageNotes": "No database import by design: the same Zod schemas validate client-side as the owner types, server-side on save, and again on read, so a field renamed in code falls back to its default instead of breaking the page."
+    },
+    {
+      "id": "function:lib/content/schema.ts:text",
+      "type": "function",
+      "name": "text",
+      "filePath": "lib/content/schema.ts",
+      "lineRange": [16, 16],
+      "summary": "Factory for a short bounded-length Zod string schema (default max 400 chars), used across every content field.",
+      "tags": ["schema-helper", "validation"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:lib/content/schema.ts:longText",
+      "type": "function",
+      "name": "longText",
+      "filePath": "lib/content/schema.ts",
+      "lineRange": [17, 17],
+      "summary": "Factory for a longer bounded-length Zod string schema (default max 3000 chars), used for paragraph/body fields.",
+      "tags": ["schema-helper", "validation"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:lib/content/schema.ts:section",
+      "type": "function",
+      "name": "section",
+      "filePath": "lib/content/schema.ts",
+      "lineRange": [53, 53],
+      "summary": "Wraps a homepage section's field shape in a Zod object that also carries a `hidden` boolean, so any section block can be toggled off from the admin editor.",
+      "tags": ["schema-helper", "validation"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:lib/gsap.ts",
+      "type": "file",
+      "name": "gsap.ts",
+      "filePath": "lib/gsap.ts",
+      "summary": "Registers the GSAP ScrollTrigger plugin once on the client and re-exports gsap/ScrollTrigger for use across animated components.",
+      "tags": ["gsap", "animation", "setup"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:lib/palette.ts",
+      "type": "file",
+      "name": "palette.ts",
+      "filePath": "lib/palette.ts",
+      "summary": "Maps each solution's PaletteToken (teal/aqua/steel) to fill, ground-adaptive text, and border Tailwind classes, keeping each solution's per-identity color consistent across the site.",
+      "tags": ["utility", "theming", "palette", "accessibility"],
+      "complexity": "simple",
+      "languageNotes": "paletteText resolves through ground-adaptive `.pt-*` CSS variables rather than a fixed hex, since the raw brand mid-tones fail WCAG AA on at least one background."
+    },
+    {
+      "id": "file:lib/scrollLock.ts",
+      "type": "file",
+      "name": "scrollLock.ts",
+      "filePath": "lib/scrollLock.ts",
+      "summary": "Freezes page scroll for a full-screen overlay by setting body overflow:hidden and compensating the scrollbar-width gap with right padding, avoiding a layout reflow on open/close; returns an undo function.",
+      "tags": ["utility", "scroll-lock", "modal", "layout-stability"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:lib/scrollLock.ts:lockScroll",
+      "type": "function",
+      "name": "lockScroll",
+      "filePath": "lib/scrollLock.ts",
+      "lineRange": [14, 26],
+      "summary": "Hides body overflow and pads for the removed scrollbar width, returning a function that restores the previous inline styles.",
+      "tags": ["scroll-lock", "modal"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:lib/types.ts",
+      "type": "file",
+      "name": "types.ts",
+      "filePath": "lib/types.ts",
+      "summary": "Core marketing-site type definitions: the IconName registry (runtime array + type), MediaSlot descriptor, and the full Service interface describing every solution's copy, structure, and media fields (including highlight/showcase/preview slots).",
+      "tags": ["type-definition", "domain-model", "solutions"],
+      "complexity": "complex",
+      "languageNotes": "ICON_NAMES is exported as a runtime `as const` array (not just a type) specifically so the /admin/site icon picker can validate and enumerate choices at runtime."
+    }
+  ],
+  "edges": [
+    { "source": "file:components/ui/Accordion.tsx", "target": "function:components/ui/Accordion.tsx:Accordion", "type": "contains", "direction": "forward", "weight": 1.0 },
+    { "source": "file:components/ui/Accordion.tsx", "target": "function:components/ui/Accordion.tsx:Accordion", "type": "exports", "direction": "forward", "weight": 0.8 },
+    { "source": "file:components/ui/Accordion.tsx", "target": "file:components/ui/Icon.tsx", "type": "imports", "direction": "forward", "weight": 0.7 },
+    { "source": "file:components/ui/Accordion.tsx", "target": "file:lib/cn.ts", "type": "imports", "direction": "forward", "weight": 0.7 },
+    { "source": "file:components/ui/Accordion.tsx", "target": "file:lib/gsap.ts", "type": "imports", "direction": "forward", "weight": 0.7 },
+    { "source": "function:components/ui/Accordion.tsx:Accordion", "target": "file:lib/cn.ts", "type": "calls", "direction": "forward", "weight": 0.8 },
+
+    { "source": "file:components/ui/Badge.tsx", "target": "function:components/ui/Badge.tsx:Badge", "type": "contains", "direction": "forward", "weight": 1.0 },
+    { "source": "file:components/ui/Badge.tsx", "target": "function:components/ui/Badge.tsx:Badge", "type": "exports", "direction": "forward", "weight": 0.8 },
+    { "source": "file:components/ui/Badge.tsx", "target": "file:lib/cn.ts", "type": "imports", "direction": "forward", "weight": 0.7 },
+    { "source": "function:components/ui/Badge.tsx:Badge", "target": "file:lib/cn.ts", "type": "calls", "direction": "forward", "weight": 0.8 },
+
+    { "source": "file:components/ui/Button.tsx", "target": "function:components/ui/Button.tsx:Button", "type": "contains", "direction": "forward", "weight": 1.0 },
+    { "source": "file:components/ui/Button.tsx", "target": "function:components/ui/Button.tsx:Button", "type": "exports", "direction": "forward", "weight": 0.8 },
+    { "source": "file:components/ui/Button.tsx", "target": "file:components/ui/Icon.tsx", "type": "imports", "direction": "forward", "weight": 0.7 },
+    { "source": "file:components/ui/Button.tsx", "target": "file:lib/cn.ts", "type": "imports", "direction": "forward", "weight": 0.7 },
+    { "source": "function:components/ui/Button.tsx:Button", "target": "function:components/ui/Icon.tsx:Icon", "type": "calls", "direction": "forward", "weight": 0.8 },
+
+    { "source": "file:components/ui/Container.tsx", "target": "function:components/ui/Container.tsx:Container", "type": "contains", "direction": "forward", "weight": 1.0 },
+    { "source": "file:components/ui/Container.tsx", "target": "function:components/ui/Container.tsx:Container", "type": "exports", "direction": "forward", "weight": 0.8 },
+    { "source": "file:components/ui/Container.tsx", "target": "file:lib/cn.ts", "type": "imports", "direction": "forward", "weight": 0.7 },
+
+    { "source": "file:components/ui/ErrorBoundary.tsx", "target": "class:components/ui/ErrorBoundary.tsx:ErrorBoundary", "type": "contains", "direction": "forward", "weight": 1.0 },
+    { "source": "file:components/ui/ErrorBoundary.tsx", "target": "class:components/ui/ErrorBoundary.tsx:ErrorBoundary", "type": "exports", "direction": "forward", "weight": 0.8 },
+
+    { "source": "file:components/ui/HandUnderline.tsx", "target": "function:components/ui/HandUnderline.tsx:HandUnderline", "type": "contains", "direction": "forward", "weight": 1.0 },
+    { "source": "file:components/ui/HandUnderline.tsx", "target": "function:components/ui/HandUnderline.tsx:HandUnderline", "type": "exports", "direction": "forward", "weight": 0.8 },
+    { "source": "file:components/ui/HandUnderline.tsx", "target": "file:lib/cn.ts", "type": "imports", "direction": "forward", "weight": 0.7 },
+
+    { "source": "file:components/ui/Icon.tsx", "target": "function:components/ui/Icon.tsx:Icon", "type": "contains", "direction": "forward", "weight": 1.0 },
+    { "source": "file:components/ui/Icon.tsx", "target": "function:components/ui/Icon.tsx:Icon", "type": "exports", "direction": "forward", "weight": 0.8 },
+    { "source": "file:components/ui/Icon.tsx", "target": "file:lib/types.ts", "type": "imports", "direction": "forward", "weight": 0.7 },
+
+    { "source": "file:components/ui/LivePreview.tsx", "target": "function:components/ui/LivePreview.tsx:LivePreview", "type": "contains", "direction": "forward", "weight": 1.0 },
+    { "source": "file:components/ui/LivePreview.tsx", "target": "function:components/ui/LivePreview.tsx:LivePreview", "type": "exports", "direction": "forward", "weight": 0.8 },
+    { "source": "file:components/ui/LivePreview.tsx", "target": "file:lib/cn.ts", "type": "imports", "direction": "forward", "weight": 0.7 },
+    { "source": "function:components/ui/LivePreview.tsx:LivePreview", "target": "file:lib/cn.ts", "type": "calls", "direction": "forward", "weight": 0.8 },
+
+    { "source": "file:components/ui/LoadingImage.tsx", "target": "function:components/ui/LoadingImage.tsx:LoadingImage", "type": "contains", "direction": "forward", "weight": 1.0 },
+    { "source": "file:components/ui/LoadingImage.tsx", "target": "function:components/ui/LoadingImage.tsx:isRemote", "type": "contains", "direction": "forward", "weight": 1.0 },
+    { "source": "file:components/ui/LoadingImage.tsx", "target": "function:components/ui/LoadingImage.tsx:LoadingImage", "type": "exports", "direction": "forward", "weight": 0.8 },
+    { "source": "file:components/ui/LoadingImage.tsx", "target": "function:components/ui/LoadingImage.tsx:isRemote", "type": "exports", "direction": "forward", "weight": 0.8 },
+    { "source": "file:components/ui/LoadingImage.tsx", "target": "file:lib/cn.ts", "type": "imports", "direction": "forward", "weight": 0.7 },
+    { "source": "function:components/ui/LoadingImage.tsx:LoadingImage", "target": "function:components/ui/LoadingImage.tsx:isRemote", "type": "calls", "direction": "forward", "weight": 0.8 },
+
+    { "source": "file:components/ui/MediaSlot.tsx", "target": "function:components/ui/MediaSlot.tsx:MediaSlot", "type": "contains", "direction": "forward", "weight": 1.0 },
+    { "source": "file:components/ui/MediaSlot.tsx", "target": "function:components/ui/MediaSlot.tsx:DashboardMock", "type": "contains", "direction": "forward", "weight": 1.0 },
+    { "source": "file:components/ui/MediaSlot.tsx", "target": "function:components/ui/MediaSlot.tsx:ScanMock", "type": "contains", "direction": "forward", "weight": 1.0 },
+    { "source": "file:components/ui/MediaSlot.tsx", "target": "function:components/ui/MediaSlot.tsx:ChartMock", "type": "contains", "direction": "forward", "weight": 1.0 },
+    { "source": "file:components/ui/MediaSlot.tsx", "target": "function:components/ui/MediaSlot.tsx:VideoMock", "type": "contains", "direction": "forward", "weight": 1.0 },
+    { "source": "file:components/ui/MediaSlot.tsx", "target": "function:components/ui/MediaSlot.tsx:ImageMock", "type": "contains", "direction": "forward", "weight": 1.0 },
+    { "source": "file:components/ui/MediaSlot.tsx", "target": "function:components/ui/MediaSlot.tsx:MediaSlot", "type": "exports", "direction": "forward", "weight": 0.8 },
+    { "source": "file:components/ui/MediaSlot.tsx", "target": "file:components/ui/Icon.tsx", "type": "imports", "direction": "forward", "weight": 0.7 },
+    { "source": "file:components/ui/MediaSlot.tsx", "target": "file:components/ui/LoadingImage.tsx", "type": "imports", "direction": "forward", "weight": 0.7 },
+    { "source": "file:components/ui/MediaSlot.tsx", "target": "file:lib/cn.ts", "type": "imports", "direction": "forward", "weight": 0.7 },
+    { "source": "file:components/ui/MediaSlot.tsx", "target": "file:lib/palette.ts", "type": "imports", "direction": "forward", "weight": 0.7 },
+    { "source": "file:components/ui/MediaSlot.tsx", "target": "file:lib/types.ts", "type": "imports", "direction": "forward", "weight": 0.7 },
+    { "source": "function:components/ui/MediaSlot.tsx:MediaSlot", "target": "function:components/ui/MediaSlot.tsx:DashboardMock", "type": "calls", "direction": "forward", "weight": 0.8 },
+    { "source": "function:components/ui/MediaSlot.tsx:MediaSlot", "target": "function:components/ui/MediaSlot.tsx:ScanMock", "type": "calls", "direction": "forward", "weight": 0.8 },
+    { "source": "function:components/ui/MediaSlot.tsx:MediaSlot", "target": "function:components/ui/MediaSlot.tsx:ChartMock", "type": "calls", "direction": "forward", "weight": 0.8 },
+    { "source": "function:components/ui/MediaSlot.tsx:MediaSlot", "target": "function:components/ui/MediaSlot.tsx:VideoMock", "type": "calls", "direction": "forward", "weight": 0.8 },
+    { "source": "function:components/ui/MediaSlot.tsx:MediaSlot", "target": "function:components/ui/MediaSlot.tsx:ImageMock", "type": "calls", "direction": "forward", "weight": 0.8 },
+    { "source": "function:components/ui/MediaSlot.tsx:MediaSlot", "target": "function:components/ui/LoadingImage.tsx:LoadingImage", "type": "calls", "direction": "forward", "weight": 0.8 },
+
+    { "source": "file:components/ui/Reveal.tsx", "target": "function:components/ui/Reveal.tsx:Reveal", "type": "contains", "direction": "forward", "weight": 1.0 },
+    { "source": "file:components/ui/Reveal.tsx", "target": "function:components/ui/Reveal.tsx:Reveal", "type": "exports", "direction": "forward", "weight": 0.8 },
+    { "source": "file:components/ui/Reveal.tsx", "target": "file:lib/cn.ts", "type": "imports", "direction": "forward", "weight": 0.7 },
+    { "source": "file:components/ui/Reveal.tsx", "target": "file:lib/gsap.ts", "type": "imports", "direction": "forward", "weight": 0.7 },
+    { "source": "function:components/ui/Reveal.tsx:Reveal", "target": "file:lib/cn.ts", "type": "calls", "direction": "forward", "weight": 0.8 },
+
+    { "source": "file:components/ui/SectionHeading.tsx", "target": "function:components/ui/SectionHeading.tsx:SectionHeading", "type": "contains", "direction": "forward", "weight": 1.0 },
+    { "source": "file:components/ui/SectionHeading.tsx", "target": "function:components/ui/SectionHeading.tsx:SectionHeading", "type": "exports", "direction": "forward", "weight": 0.8 },
+    { "source": "file:components/ui/SectionHeading.tsx", "target": "file:components/ui/Badge.tsx", "type": "imports", "direction": "forward", "weight": 0.7 },
+    { "source": "file:components/ui/SectionHeading.tsx", "target": "file:components/ui/Reveal.tsx", "type": "imports", "direction": "forward", "weight": 0.7 },
+    { "source": "file:components/ui/SectionHeading.tsx", "target": "file:lib/cn.ts", "type": "imports", "direction": "forward", "weight": 0.7 },
+    { "source": "function:components/ui/SectionHeading.tsx:SectionHeading", "target": "function:components/ui/Badge.tsx:Badge", "type": "calls", "direction": "forward", "weight": 0.8 },
+    { "source": "function:components/ui/SectionHeading.tsx:SectionHeading", "target": "function:components/ui/Reveal.tsx:Reveal", "type": "calls", "direction": "forward", "weight": 0.8 },
+
+    { "source": "file:components/ui/SocialIcon.tsx", "target": "function:components/ui/SocialIcon.tsx:SocialIcon", "type": "contains", "direction": "forward", "weight": 1.0 },
+    { "source": "file:components/ui/SocialIcon.tsx", "target": "function:components/ui/SocialIcon.tsx:SocialIcon", "type": "exports", "direction": "forward", "weight": 0.8 },
+    { "source": "file:components/ui/SocialIcon.tsx", "target": "file:lib/content/schema.ts", "type": "imports", "direction": "forward", "weight": 0.7 },
+
+    { "source": "file:components/ui/StatCounter.tsx", "target": "function:components/ui/StatCounter.tsx:StatCounter", "type": "contains", "direction": "forward", "weight": 1.0 },
+    { "source": "file:components/ui/StatCounter.tsx", "target": "function:components/ui/StatCounter.tsx:StatCounter", "type": "exports", "direction": "forward", "weight": 0.8 },
+    { "source": "file:components/ui/StatCounter.tsx", "target": "file:lib/cn.ts", "type": "imports", "direction": "forward", "weight": 0.7 },
+    { "source": "file:components/ui/StatCounter.tsx", "target": "file:lib/gsap.ts", "type": "imports", "direction": "forward", "weight": 0.7 },
+    { "source": "function:components/ui/StatCounter.tsx:StatCounter", "target": "file:lib/cn.ts", "type": "calls", "direction": "forward", "weight": 0.8 },
+
+    { "source": "file:components/ui/Tabs.tsx", "target": "function:components/ui/Tabs.tsx:Tabs", "type": "contains", "direction": "forward", "weight": 1.0 },
+    { "source": "file:components/ui/Tabs.tsx", "target": "function:components/ui/Tabs.tsx:Tabs", "type": "exports", "direction": "forward", "weight": 0.8 },
+    { "source": "file:components/ui/Tabs.tsx", "target": "file:lib/cn.ts", "type": "imports", "direction": "forward", "weight": 0.7 },
+    { "source": "function:components/ui/Tabs.tsx:Tabs", "target": "file:lib/cn.ts", "type": "calls", "direction": "forward", "weight": 0.8 },
+
+    { "source": "file:components/ui/Turnstile.tsx", "target": "function:components/ui/Turnstile.tsx:Turnstile", "type": "contains", "direction": "forward", "weight": 1.0 },
+    { "source": "file:components/ui/Turnstile.tsx", "target": "function:components/ui/Turnstile.tsx:Turnstile", "type": "exports", "direction": "forward", "weight": 0.8 },
+
+    { "source": "file:components/ui/TypeCycle.tsx", "target": "function:components/ui/TypeCycle.tsx:TypeCycle", "type": "contains", "direction": "forward", "weight": 1.0 },
+    { "source": "file:components/ui/TypeCycle.tsx", "target": "function:components/ui/TypeCycle.tsx:TypeCycle", "type": "exports", "direction": "forward", "weight": 0.8 },
+    { "source": "file:components/ui/TypeCycle.tsx", "target": "file:lib/cn.ts", "type": "imports", "direction": "forward", "weight": 0.7 },
+    { "source": "function:components/ui/TypeCycle.tsx:TypeCycle", "target": "file:lib/cn.ts", "type": "calls", "direction": "forward", "weight": 0.8 },
+
+    { "source": "file:lib/cn.ts", "target": "function:lib/cn.ts:cn", "type": "contains", "direction": "forward", "weight": 1.0 },
+    { "source": "file:lib/cn.ts", "target": "function:lib/cn.ts:cn", "type": "exports", "direction": "forward", "weight": 0.8 },
+
+    { "source": "file:lib/content/schema.ts", "target": "function:lib/content/schema.ts:text", "type": "contains", "direction": "forward", "weight": 1.0 },
+    { "source": "file:lib/content/schema.ts", "target": "function:lib/content/schema.ts:longText", "type": "contains", "direction": "forward", "weight": 1.0 },
+    { "source": "file:lib/content/schema.ts", "target": "function:lib/content/schema.ts:section", "type": "contains", "direction": "forward", "weight": 1.0 },
+    { "source": "file:lib/content/schema.ts", "target": "file:lib/types.ts", "type": "imports", "direction": "forward", "weight": 0.7 },
+    { "source": "function:lib/content/schema.ts:section", "target": "function:lib/content/schema.ts:text", "type": "calls", "direction": "forward", "weight": 0.6 },
+
+    { "source": "file:lib/palette.ts", "target": "file:lib/types.ts", "type": "imports", "direction": "forward", "weight": 0.7 },
+
+    { "source": "file:lib/scrollLock.ts", "target": "function:lib/scrollLock.ts:lockScroll", "type": "contains", "direction": "forward", "weight": 1.0 },
+    { "source": "file:lib/scrollLock.ts", "target": "function:lib/scrollLock.ts:lockScroll", "type": "exports", "direction": "forward", "weight": 0.8 }
+  ]
+}

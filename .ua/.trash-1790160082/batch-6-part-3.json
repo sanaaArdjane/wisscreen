@@ -1,0 +1,1466 @@
+{
+  "nodes": [
+    {
+      "id": "file:lib/email.ts",
+      "type": "file",
+      "name": "email.ts",
+      "filePath": "lib/email.ts",
+      "summary": "Thin wrapper around the Resend API for transactional email: degrades to console-logging the message (including any verification/reset links) when RESEND_API_KEY is unset, so the whole sign-up flow stays completable with no mailbox.",
+      "tags": [
+        "email",
+        "integration",
+        "graceful-degradation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:lib/format.ts",
+      "type": "file",
+      "name": "format.ts",
+      "filePath": "lib/format.ts",
+      "summary": "Small collection of locale-aware date, relative-time and byte-size formatting helpers (Africa/Algiers timezone, fr-FR locale) shared across the dashboard and admin UI.",
+      "tags": [
+        "utility",
+        "formatting",
+        "i18n"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:lib/guard.ts",
+      "type": "file",
+      "name": "guard.ts",
+      "filePath": "lib/guard.ts",
+      "summary": "Server-side auth guards used by every dashboard/admin page and server action: reading the current session/user, requiring sign-in or staff role, requiring a specific permission (with a named redirect), and asserting ownership-or-permission for a resource.",
+      "tags": [
+        "authorization",
+        "authentication",
+        "guard"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:lib/kv.ts",
+      "type": "file",
+      "name": "kv.ts",
+      "filePath": "lib/kv.ts",
+      "summary": "Parsing/formatting helpers for the simple 'key: value' text-area format used by a few admin forms (free-form specs and quota grants), including validation of quota grant syntax.",
+      "tags": [
+        "parsing",
+        "utility",
+        "forms"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:lib/permissions.ts",
+      "type": "file",
+      "name": "permissions.ts",
+      "filePath": "lib/permissions.ts",
+      "summary": "The authorization core: role/permission domain definitions and admin-UI labels, plus can()/isStaff()/effectivePermissions(), which resolve a permission by layering an account's explicit permissions jsonb over its role's defaults.",
+      "tags": [
+        "authorization",
+        "rbac",
+        "permissions"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:lib/quotas.ts",
+      "type": "file",
+      "name": "quotas.ts",
+      "filePath": "lib/quotas.ts",
+      "summary": "Consumable-quota engine: granting/revoking a plan's quota metrics to a user, atomically consuming and refunding usage with lazy period resets, and listing a user's quotas and provisioned subscriptions.",
+      "tags": [
+        "quotas",
+        "billing",
+        "database"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:lib/realtime.ts",
+      "type": "file",
+      "name": "realtime.ts",
+      "filePath": "lib/realtime.ts",
+      "summary": "Server-Sent-Events backbone built on Postgres LISTEN/NOTIFY: publish()/publishMany() NOTIFY a per-user channel after a DB write, and subscribe() (used by the SSE route) registers a callback and lazily owns one dedicated, auto-reconnecting LISTEN client on the unpooled connection.",
+      "tags": [
+        "realtime",
+        "postgres",
+        "pubsub",
+        "sse"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:lib/requests.ts",
+      "type": "file",
+      "name": "requests.ts",
+      "filePath": "lib/requests.ts",
+      "summary": "Domain constants and helpers for support requests: status/type/priority enums and their French labels, the allowed status transition graph, and status-badge color tones.",
+      "tags": [
+        "constants",
+        "domain-model",
+        "requests"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:lib/email.ts:emailConfigured",
+      "type": "function",
+      "name": "emailConfigured",
+      "filePath": "lib/email.ts",
+      "lineRange": [
+        23,
+        25
+      ],
+      "summary": "Reports whether a Resend API key is configured.",
+      "tags": [
+        "email",
+        "configuration"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:lib/email.ts:adminEmail",
+      "type": "function",
+      "name": "adminEmail",
+      "filePath": "lib/email.ts",
+      "lineRange": [
+        33,
+        35
+      ],
+      "summary": "Reads the configured admin notification email address from the environment.",
+      "tags": [
+        "email",
+        "configuration"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:lib/email.ts:sendEmail",
+      "type": "function",
+      "name": "sendEmail",
+      "filePath": "lib/email.ts",
+      "lineRange": [
+        37,
+        79
+      ],
+      "summary": "Sends an email via Resend (subject, wrapped HTML body, optional attachments and reply-to); if no API key is set, logs the message and its links to the console instead of sending.",
+      "tags": [
+        "email",
+        "integration",
+        "graceful-degradation"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:lib/email.ts:wrap",
+      "type": "function",
+      "name": "wrap",
+      "filePath": "lib/email.ts",
+      "lineRange": [
+        87,
+        112
+      ],
+      "summary": "Wraps a plain-text message body in the shared branded HTML email template, splitting paragraphs and optionally adding a call-to-action button.",
+      "tags": [
+        "email",
+        "templating"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:lib/format.ts:formatDate",
+      "type": "function",
+      "name": "formatDate",
+      "filePath": "lib/format.ts",
+      "lineRange": [
+        37,
+        40
+      ],
+      "summary": "Formats a date as a short French date string.",
+      "tags": [
+        "formatting",
+        "date"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:lib/format.ts:formatDateTime",
+      "type": "function",
+      "name": "formatDateTime",
+      "filePath": "lib/format.ts",
+      "lineRange": [
+        42,
+        45
+      ],
+      "summary": "Formats a date as a French date+time string.",
+      "tags": [
+        "formatting",
+        "date"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:lib/format.ts:toDateInput",
+      "type": "function",
+      "name": "toDateInput",
+      "filePath": "lib/format.ts",
+      "lineRange": [
+        47,
+        50
+      ],
+      "summary": "Formats a date as an ISO yyyy-mm-dd string suitable for an <input type=date> value.",
+      "tags": [
+        "formatting",
+        "date"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:lib/format.ts:relativeTime",
+      "type": "function",
+      "name": "relativeTime",
+      "filePath": "lib/format.ts",
+      "lineRange": [
+        53,
+        71
+      ],
+      "summary": "Formats a date as a relative French phrase (e.g. 'il y a 3 jours') using Intl.RelativeTimeFormat, picking the coarsest unit that fits.",
+      "tags": [
+        "formatting",
+        "date",
+        "relative-time"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:lib/format.ts:formatBytes",
+      "type": "function",
+      "name": "formatBytes",
+      "filePath": "lib/format.ts",
+      "lineRange": [
+        73,
+        83
+      ],
+      "summary": "Formats a byte count as a human-readable size string (o/Ko/Mo/Go).",
+      "tags": [
+        "formatting",
+        "bytes"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:lib/format.ts:daysAgo",
+      "type": "function",
+      "name": "daysAgo",
+      "filePath": "lib/format.ts",
+      "lineRange": [
+        89,
+        91
+      ],
+      "summary": "Returns a Date offset a given number of days before now, used for building relative-time test/demo data.",
+      "tags": [
+        "utility",
+        "date"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:lib/guard.ts:getCurrentSession",
+      "type": "function",
+      "name": "getCurrentSession",
+      "filePath": "lib/guard.ts",
+      "lineRange": [
+        16,
+        18
+      ],
+      "summary": "Reads the current Better Auth session from the request headers.",
+      "tags": [
+        "authentication"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:lib/guard.ts:getCurrentUser",
+      "type": "function",
+      "name": "getCurrentUser",
+      "filePath": "lib/guard.ts",
+      "lineRange": [
+        20,
+        23
+      ],
+      "summary": "Returns the current session's user, or null if signed out.",
+      "tags": [
+        "authentication"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:lib/guard.ts:isImpersonating",
+      "type": "function",
+      "name": "isImpersonating",
+      "filePath": "lib/guard.ts",
+      "lineRange": [
+        31,
+        34
+      ],
+      "summary": "Reports whether the current session is a staff member impersonating another user.",
+      "tags": [
+        "authentication",
+        "impersonation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:lib/guard.ts:requireUser",
+      "type": "function",
+      "name": "requireUser",
+      "filePath": "lib/guard.ts",
+      "lineRange": [
+        37,
+        44
+      ],
+      "summary": "Redirects to /connexion (preserving a return path) if there's no signed-in user, otherwise returns them; used at the top of every protected page.",
+      "tags": [
+        "authorization",
+        "guard"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:lib/guard.ts:requireStaff",
+      "type": "function",
+      "name": "requireStaff",
+      "filePath": "lib/guard.ts",
+      "lineRange": [
+        47,
+        51
+      ],
+      "summary": "Requires a signed-in user and redirects home if they aren't staff or admin.",
+      "tags": [
+        "authorization",
+        "guard"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:lib/guard.ts:requirePermission",
+      "type": "function",
+      "name": "requirePermission",
+      "filePath": "lib/guard.ts",
+      "lineRange": [
+        60,
+        64
+      ],
+      "summary": "Requires a signed-in user holding a specific permission key, redirecting to /acces-refuse naming the missing permission otherwise.",
+      "tags": [
+        "authorization",
+        "guard"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:lib/guard.ts:assertOwnerOrPermission",
+      "type": "function",
+      "name": "assertOwnerOrPermission",
+      "filePath": "lib/guard.ts",
+      "lineRange": [
+        73,
+        81
+      ],
+      "summary": "Guards a resource-detail page: returns normally if the current user owns the resource or holds the given permission, otherwise triggers a Next.js notFound() rather than revealing the resource exists.",
+      "tags": [
+        "authorization",
+        "guard"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:lib/guard.ts:allowed",
+      "type": "function",
+      "name": "allowed",
+      "filePath": "lib/guard.ts",
+      "lineRange": [
+        84,
+        86
+      ],
+      "summary": "Boolean permission check for a possibly-null principal, used in server components/actions that need a plain yes/no instead of a redirect.",
+      "tags": [
+        "authorization"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:lib/kv.ts:parseLines",
+      "type": "function",
+      "name": "parseLines",
+      "filePath": "lib/kv.ts",
+      "lineRange": [
+        12,
+        24
+      ],
+      "summary": "Parses 'key: value' lines from a textarea into an ordered array of [key, value] pairs, ignoring blank lines and lines without a colon.",
+      "tags": [
+        "parsing",
+        "utility"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:lib/kv.ts:formatLines",
+      "type": "function",
+      "name": "formatLines",
+      "filePath": "lib/kv.ts",
+      "lineRange": [
+        26,
+        30
+      ],
+      "summary": "Formats a metric->limit map back into 'key: value' lines, rendering a null limit as 'illimité'.",
+      "tags": [
+        "formatting",
+        "utility"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:lib/kv.ts:parseGrants",
+      "type": "function",
+      "name": "parseGrants",
+      "filePath": "lib/kv.ts",
+      "lineRange": [
+        36,
+        55
+      ],
+      "summary": "Parses and validates a 'metric: limit' textarea into a metric->limit map, accepting 'illimité'/'unlimited'/'∞' as null and rejecting malformed keys or non-integer limits.",
+      "tags": [
+        "parsing",
+        "validation",
+        "quotas"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:lib/kv.ts:listLines",
+      "type": "function",
+      "name": "listLines",
+      "filePath": "lib/kv.ts",
+      "lineRange": [
+        57,
+        62
+      ],
+      "summary": "Parses a free-text list (one item per line, optional bullet marker) into a trimmed, non-empty array of strings.",
+      "tags": [
+        "parsing",
+        "utility"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:lib/permissions.ts:can",
+      "type": "function",
+      "name": "can",
+      "filePath": "lib/permissions.ts",
+      "lineRange": [
+        116,
+        126
+      ],
+      "summary": "Answers whether a principal (user row or role string) has a given permission key: an explicit true/false override in the account's permissions jsonb wins, otherwise falls back to the role's default set.",
+      "tags": [
+        "authorization",
+        "rbac"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:lib/permissions.ts:isStaff",
+      "type": "function",
+      "name": "isStaff",
+      "filePath": "lib/permissions.ts",
+      "lineRange": [
+        129,
+        134
+      ],
+      "summary": "Reports whether a principal holds any permission at all beyond the plain 'user' defaults — the practical definition of 'is staff'.",
+      "tags": [
+        "authorization",
+        "rbac"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:lib/permissions.ts:effectivePermissions",
+      "type": "function",
+      "name": "effectivePermissions",
+      "filePath": "lib/permissions.ts",
+      "lineRange": [
+        137,
+        142
+      ],
+      "summary": "Computes the full resolved permission map (every key -> boolean) for a principal, used to render the admin permissions editor.",
+      "tags": [
+        "authorization",
+        "rbac"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:lib/permissions.ts:isRoleDefault",
+      "type": "function",
+      "name": "isRoleDefault",
+      "filePath": "lib/permissions.ts",
+      "lineRange": [
+        145,
+        149
+      ],
+      "summary": "Reports whether a permission key is part of a given role's default set, used to show which admin-UI checkboxes are role-inherited vs explicitly overridden.",
+      "tags": [
+        "authorization",
+        "rbac"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:lib/quotas.ts:nextPeriodReset",
+      "type": "function",
+      "name": "nextPeriodReset",
+      "filePath": "lib/quotas.ts",
+      "lineRange": [
+        45,
+        47
+      ],
+      "summary": "Computes the UTC timestamp for the first of next month, used as a quota's next reset date.",
+      "tags": [
+        "quotas",
+        "date"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:lib/quotas.ts:describe",
+      "type": "function",
+      "name": "describe",
+      "filePath": "lib/quotas.ts",
+      "lineRange": [
+        49,
+        66
+      ],
+      "summary": "Turns a raw quota row into a display-ready shape: percentage used, remaining, and whether it's unlimited/exhausted.",
+      "tags": [
+        "quotas",
+        "formatting"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:lib/quotas.ts:listQuotas",
+      "type": "function",
+      "name": "listQuotas",
+      "filePath": "lib/quotas.ts",
+      "lineRange": [
+        68,
+        71
+      ],
+      "summary": "Lists a user's quotas, described and sorted by label.",
+      "tags": [
+        "quotas"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:lib/quotas.ts:grantServiceQuotas",
+      "type": "function",
+      "name": "grantServiceQuotas",
+      "filePath": "lib/quotas.ts",
+      "lineRange": [
+        84,
+        104
+      ],
+      "summary": "Upserts (adds to, never replaces) a set of metric grants for a user when a service is provisioned, using a standing (never-expiring) reset for metrics like storage and a monthly reset for consumable ones.",
+      "tags": [
+        "quotas",
+        "billing"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:lib/quotas.ts:revokeServiceQuotas",
+      "type": "function",
+      "name": "revokeServiceQuotas",
+      "filePath": "lib/quotas.ts",
+      "lineRange": [
+        107,
+        118
+      ],
+      "summary": "Reduces a user's quota limits by a service's grants when it's cancelled, floored at zero.",
+      "tags": [
+        "quotas",
+        "billing"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:lib/quotas.ts:consume",
+      "type": "function",
+      "name": "consume",
+      "filePath": "lib/quotas.ts",
+      "lineRange": [
+        131,
+        168
+      ],
+      "summary": "Atomically increments a quota's usage in one UPDATE ... WHERE that also enforces the limit, so two concurrent requests can never both succeed past capacity; lazily resets an expired period in the same statement. Returns ok/unlimited/exceeded.",
+      "tags": [
+        "quotas",
+        "concurrency",
+        "database"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:lib/quotas.ts:refund",
+      "type": "function",
+      "name": "refund",
+      "filePath": "lib/quotas.ts",
+      "lineRange": [
+        171,
+        176
+      ],
+      "summary": "Decrements a quota's usage (e.g. after a failed operation), floored at zero.",
+      "tags": [
+        "quotas"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:lib/quotas.ts:listSubscriptions",
+      "type": "function",
+      "name": "listSubscriptions",
+      "filePath": "lib/quotas.ts",
+      "lineRange": [
+        183,
+        190
+      ],
+      "summary": "Lists a user's provisioned services (subscriptions joined with their plan), newest first.",
+      "tags": [
+        "quotas",
+        "billing"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:lib/realtime.ts:channelFor",
+      "type": "function",
+      "name": "channelFor",
+      "filePath": "lib/realtime.ts",
+      "lineRange": [
+        41,
+        43
+      ],
+      "summary": "Derives a Postgres NOTIFY channel name from a user id.",
+      "tags": [
+        "realtime",
+        "postgres"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:lib/realtime.ts:publish",
+      "type": "function",
+      "name": "publish",
+      "filePath": "lib/realtime.ts",
+      "lineRange": [
+        53,
+        63
+      ],
+      "summary": "NOTIFYs a single user's realtime channel with a JSON-encoded event, through the pooled connection (fine for NOTIFY, unlike LISTEN).",
+      "tags": [
+        "realtime",
+        "postgres"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:lib/realtime.ts:publishMany",
+      "type": "function",
+      "name": "publishMany",
+      "filePath": "lib/realtime.ts",
+      "lineRange": [
+        66,
+        81
+      ],
+      "summary": "NOTIFYs several users' channels with the same event in one batched SQL statement.",
+      "tags": [
+        "realtime",
+        "postgres",
+        "bulk-operation"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:lib/realtime.ts:ensureClient",
+      "type": "function",
+      "name": "ensureClient",
+      "filePath": "lib/realtime.ts",
+      "lineRange": [
+        105,
+        169
+      ],
+      "summary": "Lazily opens (or reuses) the dedicated pg.Client used for LISTEN, on the unpooled DATABASE_URL — required because Neon's pooled endpoint hands connections back between statements and a LISTEN there never receives anything. Wires notification/error/end handlers, with reconnect-with-backoff on drop.",
+      "tags": [
+        "realtime",
+        "postgres",
+        "connection-management"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:lib/realtime.ts:resubscribeAll",
+      "type": "function",
+      "name": "resubscribeAll",
+      "filePath": "lib/realtime.ts",
+      "lineRange": [
+        178,
+        187
+      ],
+      "summary": "Re-issues LISTEN for every channel with active subscribers, used after the LISTEN client reconnects following a dropped connection.",
+      "tags": [
+        "realtime",
+        "postgres",
+        "reconnection"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:lib/realtime.ts:subscribe",
+      "type": "function",
+      "name": "subscribe",
+      "filePath": "lib/realtime.ts",
+      "lineRange": [
+        202,
+        231
+      ],
+      "summary": "Registers a callback for a user's realtime events, issuing LISTEN on first subscriber and UNLISTEN when the last one for that user unsubscribes; returns an unsubscribe function.",
+      "tags": [
+        "realtime",
+        "postgres",
+        "pubsub"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:lib/requests.ts:canTransition",
+      "type": "function",
+      "name": "canTransition",
+      "filePath": "lib/requests.ts",
+      "lineRange": [
+        61,
+        64
+      ],
+      "summary": "Checks whether a request status transition is legal per the fixed TRANSITIONS graph.",
+      "tags": [
+        "domain-model",
+        "state-machine"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:lib/requests.ts:isRequestStatus",
+      "type": "function",
+      "name": "isRequestStatus",
+      "filePath": "lib/requests.ts",
+      "lineRange": [
+        66,
+        68
+      ],
+      "summary": "Type guard checking a string is one of the valid request statuses.",
+      "tags": [
+        "type-guard",
+        "validation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:lib/requests.ts:isClosed",
+      "type": "function",
+      "name": "isClosed",
+      "filePath": "lib/requests.ts",
+      "lineRange": [
+        71,
+        73
+      ],
+      "summary": "Reports whether a request status is a terminal (closed) one.",
+      "tags": [
+        "domain-model"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:lib/email.ts",
+      "target": "function:lib/email.ts:emailConfigured",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:lib/email.ts",
+      "target": "function:lib/email.ts:emailConfigured",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/email.ts",
+      "target": "function:lib/email.ts:adminEmail",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:lib/email.ts",
+      "target": "function:lib/email.ts:adminEmail",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/email.ts",
+      "target": "function:lib/email.ts:sendEmail",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:lib/email.ts",
+      "target": "function:lib/email.ts:sendEmail",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/email.ts",
+      "target": "function:lib/email.ts:wrap",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:lib/format.ts",
+      "target": "function:lib/format.ts:formatDate",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:lib/format.ts",
+      "target": "function:lib/format.ts:formatDate",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/format.ts",
+      "target": "function:lib/format.ts:formatDateTime",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:lib/format.ts",
+      "target": "function:lib/format.ts:formatDateTime",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/format.ts",
+      "target": "function:lib/format.ts:toDateInput",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:lib/format.ts",
+      "target": "function:lib/format.ts:toDateInput",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/format.ts",
+      "target": "function:lib/format.ts:relativeTime",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:lib/format.ts",
+      "target": "function:lib/format.ts:relativeTime",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/format.ts",
+      "target": "function:lib/format.ts:formatBytes",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:lib/format.ts",
+      "target": "function:lib/format.ts:formatBytes",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/format.ts",
+      "target": "function:lib/format.ts:daysAgo",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:lib/format.ts",
+      "target": "function:lib/format.ts:daysAgo",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/guard.ts",
+      "target": "function:lib/guard.ts:getCurrentSession",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:lib/guard.ts",
+      "target": "function:lib/guard.ts:getCurrentSession",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/guard.ts",
+      "target": "function:lib/guard.ts:getCurrentUser",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:lib/guard.ts",
+      "target": "function:lib/guard.ts:getCurrentUser",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/guard.ts",
+      "target": "function:lib/guard.ts:isImpersonating",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:lib/guard.ts",
+      "target": "function:lib/guard.ts:isImpersonating",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/guard.ts",
+      "target": "function:lib/guard.ts:requireUser",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:lib/guard.ts",
+      "target": "function:lib/guard.ts:requireUser",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/guard.ts",
+      "target": "function:lib/guard.ts:requireStaff",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:lib/guard.ts",
+      "target": "function:lib/guard.ts:requireStaff",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/guard.ts",
+      "target": "function:lib/guard.ts:requirePermission",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:lib/guard.ts",
+      "target": "function:lib/guard.ts:requirePermission",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/guard.ts",
+      "target": "function:lib/guard.ts:assertOwnerOrPermission",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:lib/guard.ts",
+      "target": "function:lib/guard.ts:assertOwnerOrPermission",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/guard.ts",
+      "target": "function:lib/guard.ts:allowed",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:lib/guard.ts",
+      "target": "function:lib/guard.ts:allowed",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/kv.ts",
+      "target": "function:lib/kv.ts:parseLines",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:lib/kv.ts",
+      "target": "function:lib/kv.ts:parseLines",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/kv.ts",
+      "target": "function:lib/kv.ts:formatLines",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:lib/kv.ts",
+      "target": "function:lib/kv.ts:formatLines",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/kv.ts",
+      "target": "function:lib/kv.ts:parseGrants",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:lib/kv.ts",
+      "target": "function:lib/kv.ts:parseGrants",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/kv.ts",
+      "target": "function:lib/kv.ts:listLines",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:lib/kv.ts",
+      "target": "function:lib/kv.ts:listLines",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/permissions.ts",
+      "target": "function:lib/permissions.ts:can",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:lib/permissions.ts",
+      "target": "function:lib/permissions.ts:can",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/permissions.ts",
+      "target": "function:lib/permissions.ts:isStaff",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:lib/permissions.ts",
+      "target": "function:lib/permissions.ts:isStaff",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/permissions.ts",
+      "target": "function:lib/permissions.ts:effectivePermissions",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:lib/permissions.ts",
+      "target": "function:lib/permissions.ts:effectivePermissions",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/permissions.ts",
+      "target": "function:lib/permissions.ts:isRoleDefault",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:lib/permissions.ts",
+      "target": "function:lib/permissions.ts:isRoleDefault",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/quotas.ts",
+      "target": "function:lib/quotas.ts:nextPeriodReset",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:lib/quotas.ts",
+      "target": "function:lib/quotas.ts:nextPeriodReset",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/quotas.ts",
+      "target": "function:lib/quotas.ts:describe",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:lib/quotas.ts",
+      "target": "function:lib/quotas.ts:describe",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/quotas.ts",
+      "target": "function:lib/quotas.ts:listQuotas",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:lib/quotas.ts",
+      "target": "function:lib/quotas.ts:listQuotas",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/quotas.ts",
+      "target": "function:lib/quotas.ts:grantServiceQuotas",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:lib/quotas.ts",
+      "target": "function:lib/quotas.ts:grantServiceQuotas",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/quotas.ts",
+      "target": "function:lib/quotas.ts:revokeServiceQuotas",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:lib/quotas.ts",
+      "target": "function:lib/quotas.ts:revokeServiceQuotas",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/quotas.ts",
+      "target": "function:lib/quotas.ts:consume",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:lib/quotas.ts",
+      "target": "function:lib/quotas.ts:consume",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/quotas.ts",
+      "target": "function:lib/quotas.ts:refund",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:lib/quotas.ts",
+      "target": "function:lib/quotas.ts:refund",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/quotas.ts",
+      "target": "function:lib/quotas.ts:listSubscriptions",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:lib/quotas.ts",
+      "target": "function:lib/quotas.ts:listSubscriptions",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/realtime.ts",
+      "target": "function:lib/realtime.ts:channelFor",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:lib/realtime.ts",
+      "target": "function:lib/realtime.ts:channelFor",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/realtime.ts",
+      "target": "function:lib/realtime.ts:publish",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:lib/realtime.ts",
+      "target": "function:lib/realtime.ts:publish",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/realtime.ts",
+      "target": "function:lib/realtime.ts:publishMany",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:lib/realtime.ts",
+      "target": "function:lib/realtime.ts:publishMany",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/realtime.ts",
+      "target": "function:lib/realtime.ts:ensureClient",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:lib/realtime.ts",
+      "target": "function:lib/realtime.ts:resubscribeAll",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:lib/realtime.ts",
+      "target": "function:lib/realtime.ts:subscribe",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:lib/realtime.ts",
+      "target": "function:lib/realtime.ts:subscribe",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/requests.ts",
+      "target": "function:lib/requests.ts:canTransition",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:lib/requests.ts",
+      "target": "function:lib/requests.ts:canTransition",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/requests.ts",
+      "target": "function:lib/requests.ts:isRequestStatus",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:lib/requests.ts",
+      "target": "function:lib/requests.ts:isRequestStatus",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/requests.ts",
+      "target": "function:lib/requests.ts:isClosed",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:lib/requests.ts",
+      "target": "function:lib/requests.ts:isClosed",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/email.ts",
+      "target": "file:lib/site.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:lib/guard.ts",
+      "target": "file:lib/auth.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:lib/guard.ts",
+      "target": "file:lib/permissions.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:lib/quotas.ts",
+      "target": "file:lib/db/index.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:lib/quotas.ts",
+      "target": "file:lib/db/schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:lib/quotas.ts",
+      "target": "file:lib/quota-labels.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:lib/realtime.ts",
+      "target": "file:lib/db/index.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "function:lib/guard.ts:requireStaff",
+      "target": "function:lib/permissions.ts:isStaff",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:lib/guard.ts:requirePermission",
+      "target": "function:lib/permissions.ts:can",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:lib/guard.ts:assertOwnerOrPermission",
+      "target": "function:lib/permissions.ts:can",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:lib/guard.ts:allowed",
+      "target": "function:lib/permissions.ts:can",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:lib/quotas.ts:grantServiceQuotas",
+      "target": "function:lib/quota-labels.ts:isStandingMetric",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    }
+  ]
+}

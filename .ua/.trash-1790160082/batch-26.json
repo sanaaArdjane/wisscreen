@@ -1,0 +1,324 @@
+{
+  "nodes": [
+    {
+      "id": "file:app/(auth)/AuthScene.tsx",
+      "type": "file",
+      "name": "AuthScene.tsx",
+      "filePath": "app/(auth)/AuthScene.tsx",
+      "summary": "Client-only decorative 3D network scene (react-three-fiber) rendered on the auth pages, showing animated nodes/links with travelling data pulses. Fades in via onCreated and reports readiness through an onReady callback.",
+      "tags": ["component", "three-js", "decorative", "client-component", "auth"],
+      "complexity": "moderate",
+      "languageNotes": "Uses low-power WebGL settings (antialias off, dpr capped at 1.5) since it's purely decorative chrome behind the auth forms."
+    },
+    {
+      "id": "file:app/(auth)/auth.css",
+      "type": "file",
+      "name": "auth.css",
+      "filePath": "app/(auth)/auth.css",
+      "summary": "Input chrome and decorative keyframe animations scoped to [data-auth], giving HeroUI fields and the hand-rolled password input on the sign-in/sign-up pages an identical white-well, signal-ring focus style.",
+      "tags": ["styling", "css", "auth", "input-chrome", "animation"],
+      "complexity": "moderate",
+      "languageNotes": "Scoped to [data-auth] rather than [data-wicloud-app] so the same rules don't leak into the dashboard's HeroUI fields; respects prefers-reduced-motion for all keyframes."
+    },
+    {
+      "id": "file:app/(auth)/verification/page.tsx",
+      "type": "file",
+      "name": "page.tsx",
+      "filePath": "app/(auth)/verification/page.tsx",
+      "summary": "Static route rendering the 'confirm your address' instructional page shown after sign-up, telling the visitor to check their inbox before the dashboard becomes accessible.",
+      "tags": ["page-component", "auth-flow", "static-page", "verification"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/apple-icon.tsx",
+      "type": "file",
+      "name": "apple-icon.tsx",
+      "filePath": "app/apple-icon.tsx",
+      "summary": "Build-time generated 180x180 Apple touch icon (via next/og ImageResponse), reusing the same signal-green ring-and-satellite brand mark as the favicon, scaled up for iOS's home-screen size.",
+      "tags": ["icon-generation", "metadata", "next-og", "branding"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/globals.css",
+      "type": "file",
+      "name": "globals.css",
+      "filePath": "app/globals.css",
+      "summary": "Site-wide design tokens and global styles: the cool/signal color palette as CSS variables, ground-adaptive accent resolution (--accent-text/--signal-text/--pt-*) for light vs dark sections, the hero/auth texture gradients, scrollbar styling, section rhythm classes, and shared animation keyframes (hero-rise, underline-draw, skeleton-sweep, target-flash).",
+      "tags": ["design-tokens", "theming", "global-styles", "css-variables", "accessibility"],
+      "complexity": "complex",
+      "languageNotes": "Ground-adaptive tokens (--accent-text, --signal-text, --pt-*) are re-declared per selector (.section-ink, .bg-abyss, .on-dark, .on-dark-raised) so the same utility class resolves to a WCAG-compliant value on whichever background it's nested in, rather than needing separate light/dark component variants."
+    },
+    {
+      "id": "file:app/icon.tsx",
+      "type": "file",
+      "name": "icon.tsx",
+      "filePath": "app/icon.tsx",
+      "summary": "Build-time generated 32x32 favicon (via next/og ImageResponse) drawing a signal-green orbit ring with a satellite dot on a near-black ground, echoing the 3D hero globe's shape.",
+      "tags": ["icon-generation", "metadata", "next-og", "favicon"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:drizzle.config.ts",
+      "type": "file",
+      "name": "drizzle.config.ts",
+      "filePath": "drizzle.config.ts",
+      "summary": "Drizzle Kit configuration pointing at the Postgres schema and migrations folder, using the unpooled Neon connection string for DDL to avoid PgBouncer prepared-statement errors.",
+      "tags": ["database", "orm-config", "migrations", "drizzle", "configuration"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:eslint.config.mjs",
+      "type": "file",
+      "name": "eslint.config.mjs",
+      "filePath": "eslint.config.mjs",
+      "summary": "Flat ESLint configuration extending Next.js's core-web-vitals and TypeScript presets, with default build-output directories re-declared as ignored.",
+      "tags": ["linting", "configuration", "eslint", "code-quality"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:neon.ts",
+      "type": "file",
+      "name": "neon.ts",
+      "filePath": "neon.ts",
+      "summary": "Neon infrastructure-as-code declaration applied via `pnpm neon:deploy`: disables Neon Auth (Better Auth runs against the same Postgres instead) and provisions a private 'documents' object-storage bucket for dashboard attachments.",
+      "tags": ["infrastructure", "neon", "object-storage", "configuration", "deployment"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:next.config.ts",
+      "type": "file",
+      "name": "next.config.ts",
+      "filePath": "next.config.ts",
+      "summary": "Next.js configuration setting standalone server output (for the slim Docker runtime image) and the allowlist of remote image hostnames (Apple's macbook-pro CDN, Unsplash, a placeholder CDN).",
+      "tags": ["nextjs-config", "build-system", "images", "docker", "configuration"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:postcss.config.mjs",
+      "type": "file",
+      "name": "postcss.config.mjs",
+      "filePath": "postcss.config.mjs",
+      "summary": "Minimal PostCSS configuration enabling only the @tailwindcss/postcss plugin for Tailwind v4 processing.",
+      "tags": ["postcss", "tailwind", "build-system", "configuration"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:proxy.ts",
+      "type": "file",
+      "name": "proxy.ts",
+      "filePath": "proxy.ts",
+      "summary": "Next 16 proxy (the renamed middleware.ts) that optimistically checks for a Better Auth session cookie on /dashboard and /admin routes, redirecting anonymous requests to /connexion with a ?next= return path. Deliberately not the real authorization boundary — that's lib/guard.ts.",
+      "tags": ["middleware", "auth-guard", "routing", "session-check", "security"],
+      "complexity": "simple",
+      "languageNotes": "Reads the session cookie by literal name instead of Better Auth's getSessionCookie helper, because better-auth/cookies' dev-source export condition breaks `next dev` resolution."
+    },
+    {
+      "id": "file:public/videos/lp_video.webm",
+      "type": "file",
+      "name": "lp_video.webm",
+      "filePath": "public/videos/lp_video.webm",
+      "summary": "Full-bleed WebM footage used by the homepage UniverseReveal section, playing continuously inside the SVG-masked WICLOUD wordmark as the scroll-driven letter zoom resolves.",
+      "tags": ["video-asset", "media", "homepage", "binary"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:public/videos/ocr_video.webm",
+      "type": "file",
+      "name": "ocr_video.webm",
+      "filePath": "public/videos/ocr_video.webm",
+      "summary": "Presentation WebM footage for the OCR solution, played by SolutionVideoReveal's pinned-scroll stretch-to-fullbleed sequence on the OCR sub-landing page.",
+      "tags": ["video-asset", "media", "ocr", "binary"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:scripts/docker-push.ps1",
+      "type": "file",
+      "name": "docker-push.ps1",
+      "filePath": "scripts/docker-push.ps1",
+      "summary": "Windows/PowerShell deployment script that loads Docker Hub credentials from .env.local, builds the WICLOUD image tagged with the git short SHA (or a supplied -Tag) plus :latest, logs in, and pushes both tags.",
+      "tags": ["deployment", "docker", "powershell", "ci-cd", "script"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:scripts/docker-push.sh",
+      "type": "file",
+      "name": "docker-push.sh",
+      "filePath": "scripts/docker-push.sh",
+      "summary": "Bash equivalent of docker-push.ps1 for Linux/macOS: parses .env.local for Docker Hub credentials without sourcing it (avoiding shell-injection from stray characters), builds, tags with the git short SHA or a supplied argument, and pushes both tags.",
+      "tags": ["deployment", "docker", "shell", "ci-cd", "script"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:vitest.config.mts",
+      "type": "file",
+      "name": "vitest.config.mts",
+      "filePath": "vitest.config.mts",
+      "summary": "Vitest configuration using jsdom, the tsconfig-paths plugin (so tests resolve the @/* alias like the app does) and the React plugin, restricted to the project's own *.test.ts(x)/*.spec.ts(x) files.",
+      "tags": ["testing", "vitest", "configuration", "jsdom"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:app/(auth)/AuthScene.tsx:DataPulse",
+      "type": "function",
+      "name": "DataPulse",
+      "filePath": "app/(auth)/AuthScene.tsx",
+      "lineRange": [24, 35],
+      "summary": "Animates a small emissive cube travelling along a given Catmull-Rom curve using useFrame, representing a pulse of data flowing along one network link.",
+      "tags": ["three-js", "animation", "use-frame"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:app/(auth)/AuthScene.tsx:Network",
+      "type": "function",
+      "name": "Network",
+      "filePath": "app/(auth)/AuthScene.tsx",
+      "lineRange": [37, 84],
+      "summary": "Renders the decorative node-and-link network group: four curved links each with a DataPulse, four detailed node boxes (etched sub-panels), a central hub box, and a subtle continuous rotation/bob animation via useFrame.",
+      "tags": ["three-js", "scene-graph", "animation"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:app/(auth)/AuthScene.tsx:AuthScene",
+      "type": "function",
+      "name": "AuthScene",
+      "filePath": "app/(auth)/AuthScene.tsx",
+      "lineRange": [86, 104],
+      "summary": "Default-exported component mounting the react-three-fiber Canvas with the Network scene; fades the canvas in once WebGL context creation completes and calls the onReady callback at that point.",
+      "tags": ["three-js", "canvas", "entry-component"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:app/(auth)/verification/page.tsx:VerificationPage",
+      "type": "function",
+      "name": "VerificationPage",
+      "filePath": "app/(auth)/verification/page.tsx",
+      "lineRange": [7, 27],
+      "summary": "Default-exported page component rendering the post-sign-up 'confirm your email' instructions and a link back to /connexion.",
+      "tags": ["page-component", "auth-flow"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:app/apple-icon.tsx:AppleIcon",
+      "type": "function",
+      "name": "AppleIcon",
+      "filePath": "app/apple-icon.tsx",
+      "lineRange": [8, 47],
+      "summary": "Default-exported generator that returns an ImageResponse drawing the 180x180 Apple touch icon: a signal-green ring with a satellite dot on a near-black square.",
+      "tags": ["icon-generation", "next-og"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:app/icon.tsx:Icon",
+      "type": "function",
+      "name": "Icon",
+      "filePath": "app/icon.tsx",
+      "lineRange": [13, 52],
+      "summary": "Default-exported generator that returns an ImageResponse drawing the 32x32 favicon: a scaled-down version of the same signal-green ring-and-satellite mark.",
+      "tags": ["icon-generation", "next-og"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:proxy.ts:proxy",
+      "type": "function",
+      "name": "proxy",
+      "filePath": "proxy.ts",
+      "lineRange": [28, 35],
+      "summary": "Checks the request for a Better Auth session cookie (plain or __Secure- prefixed); passes the request through if present, otherwise redirects to /connexion with a next= return path. Matched only against /dashboard/:path* and /admin/:path* via the exported config.",
+      "tags": ["middleware", "auth-guard", "redirect"],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:app/(auth)/AuthScene.tsx",
+      "target": "function:app/(auth)/AuthScene.tsx:DataPulse",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:app/(auth)/AuthScene.tsx",
+      "target": "function:app/(auth)/AuthScene.tsx:Network",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:app/(auth)/AuthScene.tsx",
+      "target": "function:app/(auth)/AuthScene.tsx:AuthScene",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:app/(auth)/AuthScene.tsx",
+      "target": "function:app/(auth)/AuthScene.tsx:AuthScene",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/(auth)/verification/page.tsx",
+      "target": "function:app/(auth)/verification/page.tsx:VerificationPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:app/(auth)/verification/page.tsx",
+      "target": "function:app/(auth)/verification/page.tsx:VerificationPage",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/apple-icon.tsx",
+      "target": "function:app/apple-icon.tsx:AppleIcon",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:app/apple-icon.tsx",
+      "target": "function:app/apple-icon.tsx:AppleIcon",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/icon.tsx",
+      "target": "function:app/icon.tsx:Icon",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:app/icon.tsx",
+      "target": "function:app/icon.tsx:Icon",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:proxy.ts",
+      "target": "function:proxy.ts:proxy",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:proxy.ts",
+      "target": "function:proxy.ts:proxy",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:drizzle.config.ts",
+      "target": "file:lib/db/schema.ts",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    }
+  ]
+}

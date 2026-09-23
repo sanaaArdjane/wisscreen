@@ -1,0 +1,157 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 3,
+  "filesSkipped": [],
+  "filesUnreadable": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 3,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 0,
+      "failed": 0,
+      "skipped": 3
+    }
+  },
+  "results": [
+    {
+      "path": ".claude/skills/neon-postgres/references/full-text-search.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 99,
+      "nonEmptyLines": 71,
+      "sections": [
+        {
+          "heading": "Full-Text Search with BM25 Ranking",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Prepare and Index Text",
+          "level": 2,
+          "line": 13
+        },
+        {
+          "heading": "Query and Interpret Scores",
+          "level": 2,
+          "line": 43
+        },
+        {
+          "heading": "Set the Candidate Limit",
+          "level": 2,
+          "line": 62
+        },
+        {
+          "heading": "Use Prefilter Selectively",
+          "level": 2,
+          "line": 66
+        },
+        {
+          "heading": "Set Parameters at Build Time or Per Query",
+          "level": 2,
+          "line": 89
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 6
+      }
+    },
+    {
+      "path": ".claude/skills/neon-postgres/references/hybrid-search.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 90,
+      "nonEmptyLines": 71,
+      "sections": [
+        {
+          "heading": "Hybrid Search",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "RRF Example",
+          "level": 2,
+          "line": 33
+        },
+        {
+          "heading": "Adapt the Hybrid Search",
+          "level": 2,
+          "line": 80
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 3
+      }
+    },
+    {
+      "path": ".claude/skills/neon-postgres/references/vector-search.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 137,
+      "nonEmptyLines": 95,
+      "sections": [
+        {
+          "heading": "Semantic Vector Search",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Contents",
+          "level": 2,
+          "line": 5
+        },
+        {
+          "heading": "Create the Extension",
+          "level": 2,
+          "line": 15
+        },
+        {
+          "heading": "Prepare Embeddings",
+          "level": 2,
+          "line": 25
+        },
+        {
+          "heading": "Build the Index",
+          "level": 2,
+          "line": 40
+        },
+        {
+          "heading": "Tune the Index",
+          "level": 2,
+          "line": 55
+        },
+        {
+          "heading": "Query",
+          "level": 2,
+          "line": 80
+        },
+        {
+          "heading": "Tune Search",
+          "level": 2,
+          "line": 105
+        },
+        {
+          "heading": "Use Prefilter Selectively",
+          "level": 3,
+          "line": 119
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 9
+      }
+    }
+  ]
+}

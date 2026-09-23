@@ -1,0 +1,157 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 3,
+  "filesSkipped": [],
+  "filesUnreadable": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 3,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 3,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "results": [
+    {
+      "path": "app/(auth)/AuthBackdrop.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 52,
+      "nonEmptyLines": 47,
+      "functions": [
+        {
+          "name": "AuthBackdrop",
+          "startLine": 8,
+          "endLine": 52,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "AuthBackdrop",
+          "line": 8,
+          "isDefault": true
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "AuthBackdrop",
+          "callee": "useState",
+          "lineNumber": 9
+        },
+        {
+          "caller": "AuthBackdrop",
+          "callee": "useState",
+          "lineNumber": 10
+        },
+        {
+          "caller": "AuthBackdrop",
+          "callee": "useEffect",
+          "lineNumber": 12
+        },
+        {
+          "caller": "AuthBackdrop",
+          "callee": "window.matchMedia",
+          "lineNumber": 13
+        },
+        {
+          "caller": "update",
+          "callee": "setEnabled",
+          "lineNumber": 15
+        },
+        {
+          "caller": "update",
+          "callee": "setReady",
+          "lineNumber": 16
+        },
+        {
+          "caller": "AuthBackdrop",
+          "callee": "update",
+          "lineNumber": 18
+        },
+        {
+          "caller": "AuthBackdrop",
+          "callee": "media.addEventListener",
+          "lineNumber": 19
+        },
+        {
+          "caller": "AuthBackdrop",
+          "callee": "media.removeEventListener",
+          "lineNumber": 20
+        },
+        {
+          "caller": "AuthBackdrop",
+          "callee": "setReady",
+          "lineNumber": 49
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/(auth)/AuthVisual.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 39,
+      "nonEmptyLines": 39,
+      "functions": [
+        {
+          "name": "AuthVisual",
+          "startLine": 1,
+          "endLine": 39,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "AuthVisual",
+          "line": 1,
+          "isDefault": true
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/(auth)/layout.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 53,
+      "nonEmptyLines": 50,
+      "functions": [
+        {
+          "name": "AuthLayout",
+          "startLine": 7,
+          "endLine": 53,
+          "params": [
+            "{ children }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "AuthLayout",
+          "line": 7,
+          "isDefault": true
+        }
+      ],
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    }
+  ]
+}

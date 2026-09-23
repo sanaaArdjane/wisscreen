@@ -1,0 +1,327 @@
+{
+  "nodes": [
+    {
+      "id": "table:lib/db/migrations/0000_needy_jackal.sql:account",
+      "type": "table",
+      "name": "account",
+      "filePath": "lib/db/migrations/0000_needy_jackal.sql",
+      "lineRange": [1, 15],
+      "summary": "Better Auth OAuth/credential account table linking a provider identity (tokens, password hash) to a user.",
+      "tags": ["database", "migration", "auth", "better-auth"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "table:lib/db/migrations/0000_needy_jackal.sql:activity_log",
+      "type": "table",
+      "name": "activity_log",
+      "filePath": "lib/db/migrations/0000_needy_jackal.sql",
+      "lineRange": [17, 25],
+      "summary": "Audit trail table recording who did what to which entity, used across the admin back-office.",
+      "tags": ["database", "migration", "audit-log"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "table:lib/db/migrations/0000_needy_jackal.sql:app_settings",
+      "type": "table",
+      "name": "app_settings",
+      "filePath": "lib/db/migrations/0000_needy_jackal.sql",
+      "lineRange": [27, 32],
+      "summary": "Generic key/value settings table for platform-wide configuration edited from /admin/parametres.",
+      "tags": ["database", "migration", "configuration"],
+      "complexity": "simple"
+    },
+    {
+      "id": "table:lib/db/migrations/0000_needy_jackal.sql:attachments",
+      "type": "table",
+      "name": "attachments",
+      "filePath": "lib/db/migrations/0000_needy_jackal.sql",
+      "lineRange": [34, 46],
+      "summary": "Uploaded file metadata table (Neon Object Storage keys) linked to a request or message, with an internal-only flag.",
+      "tags": ["database", "migration", "storage", "attachments"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "table:lib/db/migrations/0000_needy_jackal.sql:contact_leads",
+      "type": "table",
+      "name": "contact_leads",
+      "filePath": "lib/db/migrations/0000_needy_jackal.sql",
+      "lineRange": [48, 57],
+      "summary": "Inbox table for public contact-form submissions, replacing the earlier drop-on-the-floor behaviour.",
+      "tags": ["database", "migration", "contact-form"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "table:lib/db/migrations/0000_needy_jackal.sql:demo_runs",
+      "type": "table",
+      "name": "demo_runs",
+      "filePath": "lib/db/migrations/0000_needy_jackal.sql",
+      "lineRange": [59, 68],
+      "summary": "Record of a single demo execution (input, result, outcome, duration) tied to a user and a service slug.",
+      "tags": ["database", "migration", "demos"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "table:lib/db/migrations/0000_needy_jackal.sql:invoices",
+      "type": "table",
+      "name": "invoices",
+      "filePath": "lib/db/migrations/0000_needy_jackal.sql",
+      "lineRange": [70, 87],
+      "summary": "Billing invoice table storing HT line items, amount, status, and issue/due/paid timestamps, generated from a quote.",
+      "tags": ["database", "migration", "billing", "invoices"],
+      "complexity": "complex"
+    },
+    {
+      "id": "table:lib/db/migrations/0000_needy_jackal.sql:notifications",
+      "type": "table",
+      "name": "notifications",
+      "filePath": "lib/db/migrations/0000_needy_jackal.sql",
+      "lineRange": [89, 98],
+      "summary": "Per-user notification feed row, written by the realtime notify() helper and surfaced via SSE.",
+      "tags": ["database", "migration", "notifications", "realtime"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "table:lib/db/migrations/0000_needy_jackal.sql:plans",
+      "type": "table",
+      "name": "plans",
+      "filePath": "lib/db/migrations/0000_needy_jackal.sql",
+      "lineRange": [100, 110],
+      "summary": "Service catalogue table listing what WICLOUD sells (price, features, default quota grants) shown in /admin/catalogue.",
+      "tags": ["database", "migration", "billing", "catalogue"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "table:lib/db/migrations/0000_needy_jackal.sql:quotas",
+      "type": "table",
+      "name": "quotas",
+      "filePath": "lib/db/migrations/0000_needy_jackal.sql",
+      "lineRange": [112, 120],
+      "summary": "Per-user consumable metering table (limit vs used, with a lazy reset timestamp) enforced by lib/quotas.ts.",
+      "tags": ["database", "migration", "quotas", "billing"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "table:lib/db/migrations/0000_needy_jackal.sql:quotes",
+      "type": "table",
+      "name": "quotes",
+      "filePath": "lib/db/migrations/0000_needy_jackal.sql",
+      "lineRange": [122, 138],
+      "summary": "Billing quote (devis) table with HT line items, status, and validity date, the document a facture is generated from.",
+      "tags": ["database", "migration", "billing", "quotes"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "table:lib/db/migrations/0000_needy_jackal.sql:request_messages",
+      "type": "table",
+      "name": "request_messages",
+      "filePath": "lib/db/migrations/0000_needy_jackal.sql",
+      "lineRange": [140, 147],
+      "summary": "Thread message table for a client request, with an internal-only flag for staff-only notes.",
+      "tags": ["database", "migration", "messaging", "requests"],
+      "complexity": "simple"
+    },
+    {
+      "id": "table:lib/db/migrations/0000_needy_jackal.sql:requests",
+      "type": "table",
+      "name": "requests",
+      "filePath": "lib/db/migrations/0000_needy_jackal.sql",
+      "lineRange": [149, 165],
+      "summary": "Client request/demande table (type, status, priority, assignment, budget) that anchors the request thread and its quotes/invoices.",
+      "tags": ["database", "migration", "requests"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "table:lib/db/migrations/0000_needy_jackal.sql:session",
+      "type": "table",
+      "name": "session",
+      "filePath": "lib/db/migrations/0000_needy_jackal.sql",
+      "lineRange": [167, 178],
+      "summary": "Better Auth session table, including impersonated_by for the admin impersonation feature.",
+      "tags": ["database", "migration", "auth", "better-auth"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "table:lib/db/migrations/0000_needy_jackal.sql:subscriptions",
+      "type": "table",
+      "name": "subscriptions",
+      "filePath": "lib/db/migrations/0000_needy_jackal.sql",
+      "lineRange": [180, 191],
+      "summary": "One row per provisioned service (originally one per account); tracks plan, status and billing period, later reshaped by migration 0001.",
+      "tags": ["database", "migration", "billing", "subscriptions"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "table:lib/db/migrations/0000_needy_jackal.sql:user",
+      "type": "table",
+      "name": "user",
+      "filePath": "lib/db/migrations/0000_needy_jackal.sql",
+      "lineRange": [193, 212],
+      "summary": "Core user/account table (Better Auth base fields plus role, ban state, jsonb permissions overrides, and profile fields) that every other table hangs off.",
+      "tags": ["database", "migration", "auth", "permissions"],
+      "complexity": "complex"
+    },
+    {
+      "id": "table:lib/db/migrations/0000_needy_jackal.sql:verification",
+      "type": "table",
+      "name": "verification",
+      "filePath": "lib/db/migrations/0000_needy_jackal.sql",
+      "lineRange": [214, 221],
+      "summary": "Better Auth verification table for email verification and password-reset tokens.",
+      "tags": ["database", "migration", "auth", "better-auth"],
+      "complexity": "simple"
+    },
+    {
+      "id": "table:lib/db/migrations/0001_modern_darwin.sql:demo_access",
+      "type": "table",
+      "name": "demo_access",
+      "filePath": "lib/db/migrations/0001_modern_darwin.sql",
+      "lineRange": [1, 11],
+      "summary": "Entitlement table granting a named customer access to a demo, soft-revoked with a timestamp and an optional expiry.",
+      "tags": ["database", "migration", "demos", "entitlements"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "table:lib/db/migrations/0001_modern_darwin.sql:demo_secrets",
+      "type": "table",
+      "name": "demo_secrets",
+      "filePath": "lib/db/migrations/0001_modern_darwin.sql",
+      "lineRange": [13, 23],
+      "summary": "AES-256-GCM encrypted credential storage for a demo block, keyed to demo+block+label so ciphertext cannot be replayed against another row.",
+      "tags": ["database", "migration", "demos", "security"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "table:lib/db/migrations/0001_modern_darwin.sql:demos",
+      "type": "table",
+      "name": "demos",
+      "filePath": "lib/db/migrations/0001_modern_darwin.sql",
+      "lineRange": [25, 40],
+      "summary": "Owner-authored demo definition table: an ordered jsonb list of typed blocks (link, credentials, markdown, file, ssh, upload) shown to entitled customers.",
+      "tags": ["database", "migration", "demos"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "table:lib/db/migrations/0002_nifty_maddog.sql",
+      "type": "table",
+      "name": "0002_nifty_maddog.sql",
+      "filePath": "lib/db/migrations/0002_nifty_maddog.sql",
+      "lineRange": [1, 2],
+      "summary": "Two-line migration adding an overrides jsonb column to invoices and quotes, backing the per-document company identity override feature.",
+      "tags": ["database", "migration", "billing"],
+      "complexity": "simple"
+    },
+    {
+      "id": "table:lib/db/migrations/0003_sour_infant_terrible.sql:site_content",
+      "type": "table",
+      "name": "site_content",
+      "filePath": "lib/db/migrations/0003_sour_infant_terrible.sql",
+      "lineRange": [1, 6],
+      "summary": "Key/value jsonb table holding one row per editable homepage block (hero, footer, sections) for the owner's /admin/site content editor.",
+      "tags": ["database", "migration", "cms", "site-content"],
+      "complexity": "simple"
+    },
+    {
+      "id": "table:lib/db/migrations/0003_sour_infant_terrible.sql:site_solutions",
+      "type": "table",
+      "name": "site_solutions",
+      "filePath": "lib/db/migrations/0003_sour_infant_terrible.sql",
+      "lineRange": [8, 18],
+      "summary": "Owner-editable solutions table (content + media jsonb, position, published) that overrides the SERVICES defaults from lib/data/services.ts.",
+      "tags": ["database", "migration", "cms", "site-content"],
+      "complexity": "moderate"
+    }
+  ],
+  "edges": [
+    {
+      "source": "table:lib/db/migrations/0001_modern_darwin.sql:demos",
+      "target": "table:lib/db/migrations/0000_needy_jackal.sql:subscriptions",
+      "type": "migrates",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "table:lib/db/migrations/0001_modern_darwin.sql:demos",
+      "target": "table:lib/db/migrations/0000_needy_jackal.sql:attachments",
+      "type": "migrates",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "table:lib/db/migrations/0001_modern_darwin.sql:demos",
+      "target": "table:lib/db/migrations/0000_needy_jackal.sql:demo_runs",
+      "type": "migrates",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "table:lib/db/migrations/0001_modern_darwin.sql:demos",
+      "target": "table:lib/db/migrations/0000_needy_jackal.sql:invoices",
+      "type": "migrates",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "table:lib/db/migrations/0001_modern_darwin.sql:demos",
+      "target": "table:lib/db/migrations/0000_needy_jackal.sql:notifications",
+      "type": "migrates",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "table:lib/db/migrations/0001_modern_darwin.sql:demos",
+      "target": "table:lib/db/migrations/0000_needy_jackal.sql:plans",
+      "type": "migrates",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "table:lib/db/migrations/0001_modern_darwin.sql:demos",
+      "target": "table:lib/db/migrations/0000_needy_jackal.sql:quotes",
+      "type": "migrates",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "table:lib/db/migrations/0001_modern_darwin.sql:demos",
+      "target": "table:lib/db/migrations/0000_needy_jackal.sql:request_messages",
+      "type": "migrates",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "table:lib/db/migrations/0002_nifty_maddog.sql",
+      "target": "table:lib/db/migrations/0000_needy_jackal.sql:invoices",
+      "type": "migrates",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "table:lib/db/migrations/0002_nifty_maddog.sql",
+      "target": "table:lib/db/migrations/0000_needy_jackal.sql:quotes",
+      "type": "migrates",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "table:lib/db/migrations/0003_sour_infant_terrible.sql:site_solutions",
+      "target": "table:lib/db/migrations/0000_needy_jackal.sql:attachments",
+      "type": "migrates",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "table:lib/db/migrations/0003_sour_infant_terrible.sql:site_content",
+      "target": "table:lib/db/migrations/0000_needy_jackal.sql:user",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "table:lib/db/migrations/0003_sour_infant_terrible.sql:site_solutions",
+      "target": "table:lib/db/migrations/0000_needy_jackal.sql:user",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    }
+  ]
+}

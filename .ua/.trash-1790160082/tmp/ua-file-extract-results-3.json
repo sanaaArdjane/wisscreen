@@ -1,0 +1,4808 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 25,
+  "filesSkipped": [],
+  "filesUnreadable": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 25,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 25,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "results": [
+    {
+      "path": "components/sections/SolutionFinder.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 38,
+      "nonEmptyLines": 36,
+      "functions": [
+        {
+          "name": "SolutionFinder",
+          "startLine": 8,
+          "endLine": 38,
+          "params": [
+            "{ content }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "SolutionFinder",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "SolutionFinder",
+          "callee": "content.profiles.map",
+          "lineNumber": 19
+        },
+        {
+          "caller": "SolutionFinder",
+          "callee": "profile.solutions.map",
+          "lineNumber": 24
+        }
+      ],
+      "metrics": {
+        "importCount": 5,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "components/sections/SolutionsGrid.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 60,
+      "nonEmptyLines": 58,
+      "functions": [
+        {
+          "name": "SolutionsGrid",
+          "startLine": 11,
+          "endLine": 60,
+          "params": [
+            "{\n  content,\n  solutions,\n}"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "SolutionsGrid",
+          "line": 11,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "SolutionsGrid",
+          "callee": "solutions.map",
+          "lineNumber": 29
+        },
+        {
+          "caller": "SolutionsGrid",
+          "callee": "service.audiences.map",
+          "lineNumber": 40
+        }
+      ],
+      "metrics": {
+        "importCount": 8,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "components/sections/UniverseReveal.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 407,
+      "nonEmptyLines": 361,
+      "functions": [
+        {
+          "name": "subscribeReduceMotion",
+          "startLine": 118,
+          "endLine": 122,
+          "params": [
+            "onChange"
+          ]
+        },
+        {
+          "name": "getReduceMotion",
+          "startLine": 123,
+          "endLine": 123,
+          "params": []
+        },
+        {
+          "name": "getReduceMotionOnServer",
+          "startLine": 124,
+          "endLine": 124,
+          "params": []
+        },
+        {
+          "name": "ramp",
+          "startLine": 126,
+          "endLine": 126,
+          "params": [
+            "p",
+            "[a, b]"
+          ]
+        },
+        {
+          "name": "easeInOutSine",
+          "startLine": 127,
+          "endLine": 127,
+          "params": [
+            "t"
+          ]
+        },
+        {
+          "name": "UniverseReveal",
+          "startLine": 131,
+          "endLine": 407,
+          "params": [
+            "{ content }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "UniverseReveal",
+          "line": 131,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "subscribeReduceMotion",
+          "callee": "window.matchMedia",
+          "lineNumber": 119
+        },
+        {
+          "caller": "subscribeReduceMotion",
+          "callee": "query.addEventListener",
+          "lineNumber": 120
+        },
+        {
+          "caller": "subscribeReduceMotion",
+          "callee": "query.removeEventListener",
+          "lineNumber": 121
+        },
+        {
+          "caller": "getReduceMotion",
+          "callee": "window.matchMedia",
+          "lineNumber": 123
+        },
+        {
+          "caller": "ramp",
+          "callee": "Math.min",
+          "lineNumber": 126
+        },
+        {
+          "caller": "ramp",
+          "callee": "Math.max",
+          "lineNumber": 126
+        },
+        {
+          "caller": "easeInOutSine",
+          "callee": "Math.cos",
+          "lineNumber": 127
+        },
+        {
+          "caller": "UniverseReveal",
+          "callee": "useSyncExternalStore",
+          "lineNumber": 133
+        },
+        {
+          "caller": "UniverseReveal",
+          "callee": "useRef",
+          "lineNumber": 135
+        },
+        {
+          "caller": "UniverseReveal",
+          "callee": "useRef",
+          "lineNumber": 136
+        },
+        {
+          "caller": "UniverseReveal",
+          "callee": "useRef",
+          "lineNumber": 137
+        },
+        {
+          "caller": "UniverseReveal",
+          "callee": "useRef",
+          "lineNumber": 138
+        },
+        {
+          "caller": "UniverseReveal",
+          "callee": "useRef",
+          "lineNumber": 139
+        },
+        {
+          "caller": "UniverseReveal",
+          "callee": "useRef",
+          "lineNumber": 140
+        },
+        {
+          "caller": "UniverseReveal",
+          "callee": "useRef",
+          "lineNumber": 141
+        },
+        {
+          "caller": "UniverseReveal",
+          "callee": "useRef",
+          "lineNumber": 142
+        },
+        {
+          "caller": "UniverseReveal",
+          "callee": "useRef",
+          "lineNumber": 143
+        },
+        {
+          "caller": "UniverseReveal",
+          "callee": "useRef",
+          "lineNumber": 144
+        },
+        {
+          "caller": "UniverseReveal",
+          "callee": "useId().replace",
+          "lineNumber": 147
+        },
+        {
+          "caller": "UniverseReveal",
+          "callee": "useId",
+          "lineNumber": 147
+        },
+        {
+          "caller": "UniverseReveal",
+          "callee": "useState",
+          "lineNumber": 151
+        },
+        {
+          "caller": "UniverseReveal",
+          "callee": "useState",
+          "lineNumber": 154
+        },
+        {
+          "caller": "UniverseReveal",
+          "callee": "useCallback",
+          "lineNumber": 159
+        },
+        {
+          "caller": "UniverseReveal",
+          "callee": "stage.getBoundingClientRect",
+          "lineNumber": 164
+        },
+        {
+          "caller": "UniverseReveal",
+          "callee": "heading.getBoundingClientRect",
+          "lineNumber": 165
+        },
+        {
+          "caller": "UniverseReveal",
+          "callee": "parseFloat",
+          "lineNumber": 166
+        },
+        {
+          "caller": "UniverseReveal",
+          "callee": "getComputedStyle",
+          "lineNumber": 166
+        },
+        {
+          "caller": "UniverseReveal",
+          "callee": "document.createRange",
+          "lineNumber": 175
+        },
+        {
+          "caller": "UniverseReveal",
+          "callee": "range.setStart",
+          "lineNumber": 176
+        },
+        {
+          "caller": "UniverseReveal",
+          "callee": "range.setEnd",
+          "lineNumber": 177
+        },
+        {
+          "caller": "UniverseReveal",
+          "callee": "range.getBoundingClientRect",
+          "lineNumber": 178
+        },
+        {
+          "caller": "UniverseReveal",
+          "callee": "Math.max",
+          "lineNumber": 188
+        },
+        {
+          "caller": "UniverseReveal",
+          "callee": "Math.min",
+          "lineNumber": 190
+        },
+        {
+          "caller": "UniverseReveal",
+          "callee": "wordTextRef.current?.setAttribute",
+          "lineNumber": 209
+        },
+        {
+          "caller": "UniverseReveal",
+          "callee": "(left + hb.width / 2 - m.zx).toFixed",
+          "lineNumber": 209
+        },
+        {
+          "caller": "UniverseReveal",
+          "callee": "wordTextRef.current?.setAttribute",
+          "lineNumber": 210
+        },
+        {
+          "caller": "UniverseReveal",
+          "callee": "(midY - m.zy).toFixed",
+          "lineNumber": 210
+        },
+        {
+          "caller": "UniverseReveal",
+          "callee": "useCallback",
+          "lineNumber": 213
+        },
+        {
+          "caller": "UniverseReveal",
+          "callee": "easeInOutSine",
+          "lineNumber": 222
+        },
+        {
+          "caller": "UniverseReveal",
+          "callee": "ramp",
+          "lineNumber": 222
+        },
+        {
+          "caller": "UniverseReveal",
+          "callee": "easeInOutSine",
+          "lineNumber": 223
+        },
+        {
+          "caller": "UniverseReveal",
+          "callee": "ramp",
+          "lineNumber": 223
+        },
+        {
+          "caller": "UniverseReveal",
+          "callee": "easeInOutSine",
+          "lineNumber": 224
+        },
+        {
+          "caller": "UniverseReveal",
+          "callee": "ramp",
+          "lineNumber": 224
+        },
+        {
+          "caller": "UniverseReveal",
+          "callee": "ramp",
+          "lineNumber": 225
+        },
+        {
+          "caller": "UniverseReveal",
+          "callee": "Math.pow",
+          "lineNumber": 229
+        },
+        {
+          "caller": "UniverseReveal",
+          "callee": "word.setAttribute",
+          "lineNumber": 233
+        },
+        {
+          "caller": "UniverseReveal",
+          "callee": "m.zx.toFixed",
+          "lineNumber": 235
+        },
+        {
+          "caller": "UniverseReveal",
+          "callee": "(m.zy + drop).toFixed",
+          "lineNumber": 235
+        },
+        {
+          "caller": "UniverseReveal",
+          "callee": "scale.toFixed",
+          "lineNumber": 235
+        },
+        {
+          "caller": "UniverseReveal",
+          "callee": "String",
+          "lineNumber": 240
+        },
+        {
+          "caller": "UniverseReveal",
+          "callee": "(1 - VIDEO_DIM * veiled).toFixed",
+          "lineNumber": 243
+        },
+        {
+          "caller": "UniverseReveal",
+          "callee": "(1 + VIDEO_PUNCH * veiled).toFixed",
+          "lineNumber": 243
+        },
+        {
+          "caller": "UniverseReveal",
+          "callee": "String",
+          "lineNumber": 247
+        },
+        {
+          "caller": "UniverseReveal",
+          "callee": "((1 - lifted) * 18).toFixed",
+          "lineNumber": 248
+        },
+        {
+          "caller": "UniverseReveal",
+          "callee": "pitchRefs.current.forEach",
+          "lineNumber": 250
+        },
+        {
+          "caller": "UniverseReveal",
+          "callee": "easeInOutSine",
+          "lineNumber": 253
+        },
+        {
+          "caller": "UniverseReveal",
+          "callee": "ramp",
+          "lineNumber": 253
+        },
+        {
+          "caller": "UniverseReveal",
+          "callee": "String",
+          "lineNumber": 254
+        },
+        {
+          "caller": "UniverseReveal",
+          "callee": "((1 - t) * 28).toFixed",
+          "lineNumber": 255
+        },
+        {
+          "caller": "UniverseReveal",
+          "callee": "useLayoutEffect",
+          "lineNumber": 259
+        },
+        {
+          "caller": "UniverseReveal",
+          "callee": "measure",
+          "lineNumber": 263
+        },
+        {
+          "caller": "UniverseReveal",
+          "callee": "paint",
+          "lineNumber": 264
+        },
+        {
+          "caller": "UniverseReveal",
+          "callee": "ScrollTrigger.create",
+          "lineNumber": 269
+        },
+        {
+          "caller": "UniverseReveal",
+          "callee": "paint",
+          "lineNumber": 273
+        },
+        {
+          "caller": "UniverseReveal",
+          "callee": "measure",
+          "lineNumber": 275
+        },
+        {
+          "caller": "UniverseReveal",
+          "callee": "paint",
+          "lineNumber": 276
+        },
+        {
+          "caller": "UniverseReveal",
+          "callee": "document.fonts?.ready.then",
+          "lineNumber": 282
+        },
+        {
+          "caller": "UniverseReveal",
+          "callee": "ScrollTrigger.refresh",
+          "lineNumber": 282
+        },
+        {
+          "caller": "UniverseReveal",
+          "callee": "trigger.kill",
+          "lineNumber": 284
+        },
+        {
+          "caller": "UniverseReveal",
+          "callee": "useEffect",
+          "lineNumber": 287
+        },
+        {
+          "caller": "UniverseReveal",
+          "callee": "setInView",
+          "lineNumber": 291
+        },
+        {
+          "caller": "UniverseReveal",
+          "callee": "observer.observe",
+          "lineNumber": 295
+        },
+        {
+          "caller": "UniverseReveal",
+          "callee": "observer.disconnect",
+          "lineNumber": 296
+        },
+        {
+          "caller": "UniverseReveal",
+          "callee": "useEffect",
+          "lineNumber": 299
+        },
+        {
+          "caller": "UniverseReveal",
+          "callee": "video.play().catch",
+          "lineNumber": 305
+        },
+        {
+          "caller": "UniverseReveal",
+          "callee": "video.play",
+          "lineNumber": 305
+        },
+        {
+          "caller": "UniverseReveal",
+          "callee": "video.pause",
+          "lineNumber": 306
+        },
+        {
+          "caller": "UniverseReveal",
+          "callee": "PITCH.map",
+          "lineNumber": 368
+        },
+        {
+          "caller": "UniverseReveal",
+          "callee": "setOverride",
+          "lineNumber": 389
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 1,
+        "functionCount": 6,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "components/sections/Values.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 32,
+      "nonEmptyLines": 30,
+      "functions": [
+        {
+          "name": "Values",
+          "startLine": 7,
+          "endLine": 32,
+          "params": [
+            "{ content }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "Values",
+          "line": 7,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "Values",
+          "callee": "content.items.map",
+          "lineNumber": 19
+        }
+      ],
+      "metrics": {
+        "importCount": 5,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "components/sections/WhyUs.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 19,
+      "nonEmptyLines": 18,
+      "functions": [
+        {
+          "name": "WhyUs",
+          "startLine": 6,
+          "endLine": 19,
+          "params": [
+            "{ content }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "WhyUs",
+          "line": 6,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "components/sections/hero/HeroSlides.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 130,
+      "nonEmptyLines": 122,
+      "functions": [
+        {
+          "name": "subscribe",
+          "startLine": 12,
+          "endLine": 16,
+          "params": [
+            "onChange"
+          ]
+        },
+        {
+          "name": "HeroSlides",
+          "startLine": 27,
+          "endLine": 130,
+          "params": [
+            "{ slides, interval }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "HeroSlides",
+          "line": 27,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "subscribe",
+          "callee": "window.matchMedia",
+          "lineNumber": 13
+        },
+        {
+          "caller": "subscribe",
+          "callee": "q.addEventListener",
+          "lineNumber": 14
+        },
+        {
+          "caller": "subscribe",
+          "callee": "q.removeEventListener",
+          "lineNumber": 15
+        },
+        {
+          "caller": "HeroSlides",
+          "callee": "useEmblaCarousel",
+          "lineNumber": 28
+        },
+        {
+          "caller": "HeroSlides",
+          "callee": "useState",
+          "lineNumber": 29
+        },
+        {
+          "caller": "HeroSlides",
+          "callee": "useState",
+          "lineNumber": 30
+        },
+        {
+          "caller": "HeroSlides",
+          "callee": "useSyncExternalStore",
+          "lineNumber": 31
+        },
+        {
+          "caller": "HeroSlides",
+          "callee": "window.matchMedia",
+          "lineNumber": 31
+        },
+        {
+          "caller": "HeroSlides",
+          "callee": "useCallback",
+          "lineNumber": 33
+        },
+        {
+          "caller": "HeroSlides",
+          "callee": "setSelected",
+          "lineNumber": 34
+        },
+        {
+          "caller": "HeroSlides",
+          "callee": "embla.selectedScrollSnap",
+          "lineNumber": 34
+        },
+        {
+          "caller": "HeroSlides",
+          "callee": "useEffect",
+          "lineNumber": 37
+        },
+        {
+          "caller": "HeroSlides",
+          "callee": "embla.on",
+          "lineNumber": 39
+        },
+        {
+          "caller": "HeroSlides",
+          "callee": "embla.off",
+          "lineNumber": 41
+        },
+        {
+          "caller": "HeroSlides",
+          "callee": "useEffect",
+          "lineNumber": 45
+        },
+        {
+          "caller": "HeroSlides",
+          "callee": "window.setInterval",
+          "lineNumber": 47
+        },
+        {
+          "caller": "HeroSlides",
+          "callee": "embla.scrollNext",
+          "lineNumber": 47
+        },
+        {
+          "caller": "HeroSlides",
+          "callee": "window.clearInterval",
+          "lineNumber": 48
+        },
+        {
+          "caller": "HeroSlides",
+          "callee": "setHovered",
+          "lineNumber": 54
+        },
+        {
+          "caller": "HeroSlides",
+          "callee": "setHovered",
+          "lineNumber": 55
+        },
+        {
+          "caller": "HeroSlides",
+          "callee": "setHovered",
+          "lineNumber": 56
+        },
+        {
+          "caller": "HeroSlides",
+          "callee": "setHovered",
+          "lineNumber": 57
+        },
+        {
+          "caller": "HeroSlides",
+          "callee": "slides.map",
+          "lineNumber": 64
+        },
+        {
+          "caller": "HeroSlides",
+          "callee": "slides.map",
+          "lineNumber": 96
+        },
+        {
+          "caller": "HeroSlides",
+          "callee": "embla?.scrollTo",
+          "lineNumber": 100
+        },
+        {
+          "caller": "HeroSlides",
+          "callee": "cn",
+          "lineNumber": 103
+        },
+        {
+          "caller": "HeroSlides",
+          "callee": "embla?.scrollPrev",
+          "lineNumber": 112
+        },
+        {
+          "caller": "HeroSlides",
+          "callee": "embla?.scrollNext",
+          "lineNumber": 120
+        }
+      ],
+      "metrics": {
+        "importCount": 5,
+        "exportCount": 1,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "components/sections/hero/HeroVideo.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 93,
+      "nonEmptyLines": 87,
+      "functions": [
+        {
+          "name": "subscribe",
+          "startLine": 7,
+          "endLine": 11,
+          "params": [
+            "onChange"
+          ]
+        },
+        {
+          "name": "HeroVideo",
+          "startLine": 24,
+          "endLine": 93,
+          "params": [
+            "{\n  src,\n  poster,\n  active = true,\n  className,\n}"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "HeroVideo",
+          "line": 24,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "subscribe",
+          "callee": "window.matchMedia",
+          "lineNumber": 8
+        },
+        {
+          "caller": "subscribe",
+          "callee": "q.addEventListener",
+          "lineNumber": 9
+        },
+        {
+          "caller": "subscribe",
+          "callee": "q.removeEventListener",
+          "lineNumber": 10
+        },
+        {
+          "caller": "HeroVideo",
+          "callee": "useRef",
+          "lineNumber": 36
+        },
+        {
+          "caller": "HeroVideo",
+          "callee": "useSyncExternalStore",
+          "lineNumber": 37
+        },
+        {
+          "caller": "HeroVideo",
+          "callee": "window.matchMedia",
+          "lineNumber": 37
+        },
+        {
+          "caller": "HeroVideo",
+          "callee": "useState",
+          "lineNumber": 38
+        },
+        {
+          "caller": "HeroVideo",
+          "callee": "useState",
+          "lineNumber": 39
+        },
+        {
+          "caller": "HeroVideo",
+          "callee": "useEffect",
+          "lineNumber": 42
+        },
+        {
+          "caller": "HeroVideo",
+          "callee": "setInView",
+          "lineNumber": 46
+        },
+        {
+          "caller": "HeroVideo",
+          "callee": "Boolean",
+          "lineNumber": 46
+        },
+        {
+          "caller": "HeroVideo",
+          "callee": "observer.observe",
+          "lineNumber": 49
+        },
+        {
+          "caller": "HeroVideo",
+          "callee": "observer.disconnect",
+          "lineNumber": 50
+        },
+        {
+          "caller": "HeroVideo",
+          "callee": "useEffect",
+          "lineNumber": 53
+        },
+        {
+          "caller": "HeroVideo",
+          "callee": "video.play().catch",
+          "lineNumber": 56
+        },
+        {
+          "caller": "HeroVideo",
+          "callee": "video.play",
+          "lineNumber": 56
+        },
+        {
+          "caller": "HeroVideo",
+          "callee": "video.pause",
+          "lineNumber": 57
+        },
+        {
+          "caller": "HeroVideo",
+          "callee": "setOverride",
+          "lineNumber": 77
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "components/sections/hero/HeroVisual.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 142,
+      "nonEmptyLines": 133,
+      "functions": [
+        {
+          "name": "HeroVisual",
+          "startLine": 48,
+          "endLine": 84,
+          "params": [
+            "{ visual, solutions }"
+          ]
+        },
+        {
+          "name": "EmptyMedia",
+          "startLine": 87,
+          "endLine": 96,
+          "params": [
+            "{ label }"
+          ]
+        },
+        {
+          "name": "HeroScene",
+          "startLine": 98,
+          "endLine": 142,
+          "params": [
+            "{ mode, solutions }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "HeroVisual",
+          "line": 48,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "HeroVisual",
+          "callee": "visual.slides.some",
+          "lineNumber": 76
+        },
+        {
+          "caller": "HeroVisual",
+          "callee": "visual.slides.filter",
+          "lineNumber": 77
+        },
+        {
+          "caller": "HeroScene",
+          "callee": "useRouter",
+          "lineNumber": 99
+        },
+        {
+          "caller": "HeroScene",
+          "callee": "useRef",
+          "lineNumber": 100
+        },
+        {
+          "caller": "HeroScene",
+          "callee": "useState",
+          "lineNumber": 105
+        },
+        {
+          "caller": "HeroScene",
+          "callee": "useEffect",
+          "lineNumber": 107
+        },
+        {
+          "caller": "HeroScene",
+          "callee": "window.requestIdleCallback",
+          "lineNumber": 109
+        },
+        {
+          "caller": "HeroScene",
+          "callee": "setMountScene",
+          "lineNumber": 109
+        },
+        {
+          "caller": "HeroScene",
+          "callee": "window.cancelIdleCallback",
+          "lineNumber": 110
+        },
+        {
+          "caller": "HeroScene",
+          "callee": "window.setTimeout",
+          "lineNumber": 112
+        },
+        {
+          "caller": "HeroScene",
+          "callee": "setMountScene",
+          "lineNumber": 112
+        },
+        {
+          "caller": "HeroScene",
+          "callee": "window.clearTimeout",
+          "lineNumber": 113
+        },
+        {
+          "caller": "HeroScene",
+          "callee": "router.push",
+          "lineNumber": 132
+        }
+      ],
+      "metrics": {
+        "importCount": 7,
+        "exportCount": 1,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "components/sections/solution/PaletteAura.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 43,
+      "nonEmptyLines": 39,
+      "functions": [
+        {
+          "name": "PaletteAura",
+          "startLine": 9,
+          "endLine": 43,
+          "params": [
+            "{ primary, secondary }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "PaletteAura",
+          "line": 9,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "PaletteAura",
+          "callee": "useRef",
+          "lineNumber": 10
+        },
+        {
+          "caller": "PaletteAura",
+          "callee": "useRef",
+          "lineNumber": 11
+        },
+        {
+          "caller": "PaletteAura",
+          "callee": "useLayoutEffect",
+          "lineNumber": 13
+        },
+        {
+          "caller": "PaletteAura",
+          "callee": "gsap.context",
+          "lineNumber": 14
+        },
+        {
+          "caller": "PaletteAura",
+          "callee": "gsap.to",
+          "lineNumber": 15
+        },
+        {
+          "caller": "PaletteAura",
+          "callee": "gsap.to",
+          "lineNumber": 23
+        },
+        {
+          "caller": "PaletteAura",
+          "callee": "ctx.revert",
+          "lineNumber": 33
+        },
+        {
+          "caller": "PaletteAura",
+          "callee": "cn",
+          "lineNumber": 38
+        },
+        {
+          "caller": "PaletteAura",
+          "callee": "cn",
+          "lineNumber": 39
+        }
+      ],
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "components/sections/solution/SolutionContact.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 93,
+      "nonEmptyLines": 87,
+      "functions": [
+        {
+          "name": "SolutionContact",
+          "startLine": 16,
+          "endLine": 93,
+          "params": [
+            "{ service }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "SolutionContact",
+          "line": 16,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "SolutionContact",
+          "callee": "useState",
+          "lineNumber": 17
+        },
+        {
+          "caller": "SolutionContact",
+          "callee": "useState",
+          "lineNumber": 18
+        },
+        {
+          "caller": "SolutionContact",
+          "callee": "useState",
+          "lineNumber": 19
+        },
+        {
+          "caller": "SolutionContact",
+          "callee": "useState",
+          "lineNumber": 20
+        },
+        {
+          "caller": "SolutionContact",
+          "callee": "useState",
+          "lineNumber": 21
+        },
+        {
+          "caller": "onSubmit",
+          "callee": "event.preventDefault",
+          "lineNumber": 24
+        },
+        {
+          "caller": "onSubmit",
+          "callee": "setSending",
+          "lineNumber": 26
+        },
+        {
+          "caller": "onSubmit",
+          "callee": "setError",
+          "lineNumber": 27
+        },
+        {
+          "caller": "onSubmit",
+          "callee": "fetch",
+          "lineNumber": 29
+        },
+        {
+          "caller": "onSubmit",
+          "callee": "setSent",
+          "lineNumber": 34
+        },
+        {
+          "caller": "onSubmit",
+          "callee": "form.reset",
+          "lineNumber": 35
+        },
+        {
+          "caller": "onSubmit",
+          "callee": "setError",
+          "lineNumber": 37
+        },
+        {
+          "caller": "onSubmit",
+          "callee": "setSending",
+          "lineNumber": 39
+        },
+        {
+          "caller": "onSubmit",
+          "callee": "setVerified",
+          "lineNumber": 40
+        },
+        {
+          "caller": "onSubmit",
+          "callee": "setResetKey",
+          "lineNumber": 41
+        },
+        {
+          "caller": "SolutionContact",
+          "callee": "setVerified",
+          "lineNumber": 73
+        },
+        {
+          "caller": "SolutionContact",
+          "callee": "Boolean",
+          "lineNumber": 79
+        }
+      ],
+      "metrics": {
+        "importCount": 5,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "components/sections/solution/SolutionFAQ.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 15,
+      "nonEmptyLines": 14,
+      "functions": [
+        {
+          "name": "SolutionFAQ",
+          "startLine": 6,
+          "endLine": 15,
+          "params": [
+            "{ service }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "SolutionFAQ",
+          "line": 6,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "SolutionFAQ",
+          "callee": "service.faq.map",
+          "lineNumber": 11
+        }
+      ],
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "components/sections/solution/SolutionFeatures.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 28,
+      "nonEmptyLines": 26,
+      "functions": [
+        {
+          "name": "SolutionFeatures",
+          "startLine": 8,
+          "endLine": 28,
+          "params": [
+            "{ service }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "SolutionFeatures",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "SolutionFeatures",
+          "callee": "service.features.map",
+          "lineNumber": 15
+        }
+      ],
+      "metrics": {
+        "importCount": 6,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "components/sections/solution/SolutionHero.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 72,
+      "nonEmptyLines": 66,
+      "functions": [
+        {
+          "name": "SolutionHero",
+          "startLine": 23,
+          "endLine": 72,
+          "params": [
+            "{ service }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "SolutionHero",
+          "line": 23,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "SolutionHero",
+          "callee": "service.audiences.map",
+          "lineNumber": 29
+        }
+      ],
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "components/sections/solution/SolutionHeroStage.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 446,
+      "nonEmptyLines": 417,
+      "functions": [
+        {
+          "name": "subscribeMobile",
+          "startLine": 74,
+          "endLine": 78,
+          "params": [
+            "onChange"
+          ]
+        },
+        {
+          "name": "getMobile",
+          "startLine": 79,
+          "endLine": 79,
+          "params": []
+        },
+        {
+          "name": "getMobileOnServer",
+          "startLine": 80,
+          "endLine": 80,
+          "params": []
+        },
+        {
+          "name": "hostOf",
+          "startLine": 83,
+          "endLine": 90,
+          "params": [
+            "url"
+          ]
+        },
+        {
+          "name": "SolutionHeroStage",
+          "startLine": 92,
+          "endLine": 338,
+          "params": [
+            "{\n  service,\n  children,\n}"
+          ]
+        },
+        {
+          "name": "FrameChrome",
+          "startLine": 341,
+          "endLine": 414,
+          "params": [
+            "{\n  host,\n  loading,\n  mode,\n  url,\n  onToggleStretch,\n  onToggleFull,\n}"
+          ]
+        },
+        {
+          "name": "FrameMock",
+          "startLine": 421,
+          "endLine": 446,
+          "params": [
+            "{ service }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "SolutionHeroStage",
+          "line": 92,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "subscribeMobile",
+          "callee": "window.matchMedia",
+          "lineNumber": 75
+        },
+        {
+          "caller": "subscribeMobile",
+          "callee": "query.addEventListener",
+          "lineNumber": 76
+        },
+        {
+          "caller": "subscribeMobile",
+          "callee": "query.removeEventListener",
+          "lineNumber": 77
+        },
+        {
+          "caller": "getMobile",
+          "callee": "window.matchMedia",
+          "lineNumber": 79
+        },
+        {
+          "caller": "hostOf",
+          "callee": "url.replace(/^https?:\\/\\//i, \"\").split",
+          "lineNumber": 88
+        },
+        {
+          "caller": "hostOf",
+          "callee": "url.replace",
+          "lineNumber": 88
+        },
+        {
+          "caller": "SolutionHeroStage",
+          "callee": "useSyncExternalStore",
+          "lineNumber": 100
+        },
+        {
+          "caller": "SolutionHeroStage",
+          "callee": "useState",
+          "lineNumber": 101
+        },
+        {
+          "caller": "SolutionHeroStage",
+          "callee": "useState",
+          "lineNumber": 102
+        },
+        {
+          "caller": "SolutionHeroStage",
+          "callee": "useState",
+          "lineNumber": 107
+        },
+        {
+          "caller": "SolutionHeroStage",
+          "callee": "useRef",
+          "lineNumber": 108
+        },
+        {
+          "caller": "SolutionHeroStage",
+          "callee": "useRef",
+          "lineNumber": 111
+        },
+        {
+          "caller": "SolutionHeroStage",
+          "callee": "hostOf",
+          "lineNumber": 114
+        },
+        {
+          "caller": "SolutionHeroStage",
+          "callee": "useCallback",
+          "lineNumber": 116
+        },
+        {
+          "caller": "SolutionHeroStage",
+          "callee": "setMode",
+          "lineNumber": 117
+        },
+        {
+          "caller": "SolutionHeroStage",
+          "callee": "frameRef.current?.requestFullscreen?.().catch",
+          "lineNumber": 122
+        },
+        {
+          "caller": "SolutionHeroStage",
+          "callee": "frameRef.current?.requestFullscreen",
+          "lineNumber": 122
+        },
+        {
+          "caller": "SolutionHeroStage",
+          "callee": "useCallback",
+          "lineNumber": 125
+        },
+        {
+          "caller": "SolutionHeroStage",
+          "callee": "document.exitFullscreen().catch",
+          "lineNumber": 126
+        },
+        {
+          "caller": "SolutionHeroStage",
+          "callee": "document.exitFullscreen",
+          "lineNumber": 126
+        },
+        {
+          "caller": "SolutionHeroStage",
+          "callee": "setMode",
+          "lineNumber": 127
+        },
+        {
+          "caller": "SolutionHeroStage",
+          "callee": "setInteracting",
+          "lineNumber": 129
+        },
+        {
+          "caller": "SolutionHeroStage",
+          "callee": "useEffect",
+          "lineNumber": 134
+        },
+        {
+          "caller": "onKey",
+          "callee": "setInteracting",
+          "lineNumber": 137
+        },
+        {
+          "caller": "SolutionHeroStage",
+          "callee": "window.addEventListener",
+          "lineNumber": 139
+        },
+        {
+          "caller": "SolutionHeroStage",
+          "callee": "window.removeEventListener",
+          "lineNumber": 140
+        },
+        {
+          "caller": "SolutionHeroStage",
+          "callee": "useEffect",
+          "lineNumber": 147
+        },
+        {
+          "caller": "onChange",
+          "callee": "setMode",
+          "lineNumber": 150
+        },
+        {
+          "caller": "SolutionHeroStage",
+          "callee": "document.addEventListener",
+          "lineNumber": 152
+        },
+        {
+          "caller": "SolutionHeroStage",
+          "callee": "document.removeEventListener",
+          "lineNumber": 153
+        },
+        {
+          "caller": "SolutionHeroStage",
+          "callee": "useEffect",
+          "lineNumber": 161
+        },
+        {
+          "caller": "SolutionHeroStage",
+          "callee": "lockScroll",
+          "lineNumber": 163
+        },
+        {
+          "caller": "onKey",
+          "callee": "exitFull",
+          "lineNumber": 167
+        },
+        {
+          "caller": "SolutionHeroStage",
+          "callee": "window.addEventListener",
+          "lineNumber": 169
+        },
+        {
+          "caller": "SolutionHeroStage",
+          "callee": "unlock",
+          "lineNumber": 171
+        },
+        {
+          "caller": "SolutionHeroStage",
+          "callee": "window.removeEventListener",
+          "lineNumber": 173
+        },
+        {
+          "caller": "SolutionHeroStage",
+          "callee": "cn",
+          "lineNumber": 180
+        },
+        {
+          "caller": "SolutionHeroStage",
+          "callee": "cn",
+          "lineNumber": 220
+        },
+        {
+          "caller": "SolutionHeroStage",
+          "callee": "cn",
+          "lineNumber": 237
+        },
+        {
+          "caller": "SolutionHeroStage",
+          "callee": "cn",
+          "lineNumber": 252
+        },
+        {
+          "caller": "SolutionHeroStage",
+          "callee": "Boolean",
+          "lineNumber": 266
+        },
+        {
+          "caller": "SolutionHeroStage",
+          "callee": "setMode",
+          "lineNumber": 270
+        },
+        {
+          "caller": "SolutionHeroStage",
+          "callee": "setInteracting",
+          "lineNumber": 271
+        },
+        {
+          "caller": "SolutionHeroStage",
+          "callee": "exitFull",
+          "lineNumber": 273
+        },
+        {
+          "caller": "SolutionHeroStage",
+          "callee": "enterFull",
+          "lineNumber": 273
+        },
+        {
+          "caller": "SolutionHeroStage",
+          "callee": "setInteracting",
+          "lineNumber": 278
+        },
+        {
+          "caller": "SolutionHeroStage",
+          "callee": "setInteracting",
+          "lineNumber": 312
+        },
+        {
+          "caller": "SolutionHeroStage",
+          "callee": "setInteracting",
+          "lineNumber": 326
+        },
+        {
+          "caller": "FrameMock",
+          "callee": "cn",
+          "lineNumber": 425
+        },
+        {
+          "caller": "FrameMock",
+          "callee": "cn",
+          "lineNumber": 431
+        }
+      ],
+      "metrics": {
+        "importCount": 8,
+        "exportCount": 1,
+        "functionCount": 7,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "components/sections/solution/SolutionMedia.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 60,
+      "nonEmptyLines": 56,
+      "functions": [
+        {
+          "name": "SolutionMedia",
+          "startLine": 10,
+          "endLine": 60,
+          "params": [
+            "{ service }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "SolutionMedia",
+          "line": 10,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "SolutionMedia",
+          "callee": "service.media.gallery.every",
+          "lineNumber": 13
+        },
+        {
+          "caller": "SolutionMedia",
+          "callee": "service.media.gallery.map",
+          "lineNumber": 29
+        }
+      ],
+      "metrics": {
+        "importCount": 8,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "components/sections/solution/SolutionRelated.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 38,
+      "nonEmptyLines": 35,
+      "functions": [
+        {
+          "name": "SolutionRelated",
+          "startLine": 10,
+          "endLine": 38,
+          "params": [
+            "{ others }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "SolutionRelated",
+          "line": 10,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "SolutionRelated",
+          "callee": "others.map",
+          "lineNumber": 19
+        }
+      ],
+      "metrics": {
+        "importCount": 6,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "components/sections/solution/SolutionSteps.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 27,
+      "nonEmptyLines": 25,
+      "functions": [
+        {
+          "name": "SolutionSteps",
+          "startLine": 7,
+          "endLine": 27,
+          "params": [
+            "{ service }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "SolutionSteps",
+          "line": 7,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "SolutionSteps",
+          "callee": "service.steps.map",
+          "lineNumber": 14
+        }
+      ],
+      "metrics": {
+        "importCount": 5,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "components/sections/solution/SolutionStory.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 33,
+      "nonEmptyLines": 31,
+      "functions": [
+        {
+          "name": "SolutionStory",
+          "startLine": 7,
+          "endLine": 33,
+          "params": [
+            "{ service }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "SolutionStory",
+          "line": 7,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "SolutionStory",
+          "callee": "service.description.map",
+          "lineNumber": 14
+        },
+        {
+          "caller": "SolutionStory",
+          "callee": "service.stats.map",
+          "lineNumber": 23
+        }
+      ],
+      "metrics": {
+        "importCount": 5,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "components/sections/solution/SolutionSubProjects.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 32,
+      "nonEmptyLines": 29,
+      "functions": [
+        {
+          "name": "SolutionSubProjects",
+          "startLine": 6,
+          "endLine": 32,
+          "params": [
+            "{ service }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "SolutionSubProjects",
+          "line": 6,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "SolutionSubProjects",
+          "callee": "service.subProjects.map",
+          "lineNumber": 19
+        }
+      ],
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "components/sections/solution/SolutionVideoReveal.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 519,
+      "nonEmptyLines": 477,
+      "functions": [
+        {
+          "name": "subscribeReduceMotion",
+          "startLine": 76,
+          "endLine": 80,
+          "params": [
+            "onChange"
+          ]
+        },
+        {
+          "name": "getReduceMotion",
+          "startLine": 81,
+          "endLine": 81,
+          "params": []
+        },
+        {
+          "name": "getReduceMotionOnServer",
+          "startLine": 82,
+          "endLine": 82,
+          "params": []
+        },
+        {
+          "name": "ramp",
+          "startLine": 86,
+          "endLine": 86,
+          "params": [
+            "p",
+            "[a, b]"
+          ]
+        },
+        {
+          "name": "easeInOutSine",
+          "startLine": 87,
+          "endLine": 87,
+          "params": [
+            "t"
+          ]
+        },
+        {
+          "name": "SolutionVideoReveal",
+          "startLine": 89,
+          "endLine": 473,
+          "params": [
+            "{ service }"
+          ]
+        },
+        {
+          "name": "VideoMock",
+          "startLine": 480,
+          "endLine": 519,
+          "params": [
+            "{\n  service,\n  foregroundRef,\n}"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "SolutionVideoReveal",
+          "line": 89,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "subscribeReduceMotion",
+          "callee": "window.matchMedia",
+          "lineNumber": 77
+        },
+        {
+          "caller": "subscribeReduceMotion",
+          "callee": "query.addEventListener",
+          "lineNumber": 78
+        },
+        {
+          "caller": "subscribeReduceMotion",
+          "callee": "query.removeEventListener",
+          "lineNumber": 79
+        },
+        {
+          "caller": "getReduceMotion",
+          "callee": "window.matchMedia",
+          "lineNumber": 81
+        },
+        {
+          "caller": "ramp",
+          "callee": "Math.min",
+          "lineNumber": 86
+        },
+        {
+          "caller": "ramp",
+          "callee": "Math.max",
+          "lineNumber": 86
+        },
+        {
+          "caller": "easeInOutSine",
+          "callee": "Math.cos",
+          "lineNumber": 87
+        },
+        {
+          "caller": "SolutionVideoReveal",
+          "callee": "useSyncExternalStore",
+          "lineNumber": 90
+        },
+        {
+          "caller": "SolutionVideoReveal",
+          "callee": "useRef",
+          "lineNumber": 92
+        },
+        {
+          "caller": "SolutionVideoReveal",
+          "callee": "useRef",
+          "lineNumber": 93
+        },
+        {
+          "caller": "SolutionVideoReveal",
+          "callee": "useRef",
+          "lineNumber": 94
+        },
+        {
+          "caller": "SolutionVideoReveal",
+          "callee": "useRef",
+          "lineNumber": 95
+        },
+        {
+          "caller": "SolutionVideoReveal",
+          "callee": "useRef",
+          "lineNumber": 96
+        },
+        {
+          "caller": "SolutionVideoReveal",
+          "callee": "useRef",
+          "lineNumber": 99
+        },
+        {
+          "caller": "SolutionVideoReveal",
+          "callee": "useRef",
+          "lineNumber": 100
+        },
+        {
+          "caller": "SolutionVideoReveal",
+          "callee": "useRef",
+          "lineNumber": 102
+        },
+        {
+          "caller": "SolutionVideoReveal",
+          "callee": "useRef",
+          "lineNumber": 103
+        },
+        {
+          "caller": "SolutionVideoReveal",
+          "callee": "useRef",
+          "lineNumber": 104
+        },
+        {
+          "caller": "SolutionVideoReveal",
+          "callee": "useState",
+          "lineNumber": 106
+        },
+        {
+          "caller": "SolutionVideoReveal",
+          "callee": "useState",
+          "lineNumber": 109
+        },
+        {
+          "caller": "SolutionVideoReveal",
+          "callee": "useState",
+          "lineNumber": 110
+        },
+        {
+          "caller": "SolutionVideoReveal",
+          "callee": "useState",
+          "lineNumber": 113
+        },
+        {
+          "caller": "SolutionVideoReveal",
+          "callee": "useState",
+          "lineNumber": 114
+        },
+        {
+          "caller": "SolutionVideoReveal",
+          "callee": "useState",
+          "lineNumber": 117
+        },
+        {
+          "caller": "SolutionVideoReveal",
+          "callee": "useState",
+          "lineNumber": 118
+        },
+        {
+          "caller": "SolutionVideoReveal",
+          "callee": "Boolean",
+          "lineNumber": 120
+        },
+        {
+          "caller": "SolutionVideoReveal",
+          "callee": "useCallback",
+          "lineNumber": 123
+        },
+        {
+          "caller": "SolutionVideoReveal",
+          "callee": "Math.min",
+          "lineNumber": 131
+        },
+        {
+          "caller": "SolutionVideoReveal",
+          "callee": "easeInOutSine",
+          "lineNumber": 132
+        },
+        {
+          "caller": "SolutionVideoReveal",
+          "callee": "ramp",
+          "lineNumber": 132
+        },
+        {
+          "caller": "SolutionVideoReveal",
+          "callee": "Math.min",
+          "lineNumber": 139
+        },
+        {
+          "caller": "SolutionVideoReveal",
+          "callee": "easeInOutSine",
+          "lineNumber": 146
+        },
+        {
+          "caller": "SolutionVideoReveal",
+          "callee": "ramp",
+          "lineNumber": 146
+        },
+        {
+          "caller": "SolutionVideoReveal",
+          "callee": "String",
+          "lineNumber": 148
+        },
+        {
+          "caller": "SolutionVideoReveal",
+          "callee": "((1 - copy) * 28).toFixed",
+          "lineNumber": 149
+        },
+        {
+          "caller": "SolutionVideoReveal",
+          "callee": "String",
+          "lineNumber": 153
+        },
+        {
+          "caller": "SolutionVideoReveal",
+          "callee": "String",
+          "lineNumber": 157
+        },
+        {
+          "caller": "SolutionVideoReveal",
+          "callee": "setStretched",
+          "lineNumber": 162
+        },
+        {
+          "caller": "SolutionVideoReveal",
+          "callee": "useLayoutEffect",
+          "lineNumber": 166
+        },
+        {
+          "caller": "SolutionVideoReveal",
+          "callee": "paint",
+          "lineNumber": 170
+        },
+        {
+          "caller": "SolutionVideoReveal",
+          "callee": "ScrollTrigger.create",
+          "lineNumber": 177
+        },
+        {
+          "caller": "SolutionVideoReveal",
+          "callee": "paint",
+          "lineNumber": 181
+        },
+        {
+          "caller": "SolutionVideoReveal",
+          "callee": "paint",
+          "lineNumber": 182
+        },
+        {
+          "caller": "SolutionVideoReveal",
+          "callee": "trigger.kill",
+          "lineNumber": 184
+        },
+        {
+          "caller": "SolutionVideoReveal",
+          "callee": "useEffect",
+          "lineNumber": 188
+        },
+        {
+          "caller": "SolutionVideoReveal",
+          "callee": "setInView",
+          "lineNumber": 191
+        },
+        {
+          "caller": "SolutionVideoReveal",
+          "callee": "observer.observe",
+          "lineNumber": 194
+        },
+        {
+          "caller": "SolutionVideoReveal",
+          "callee": "observer.disconnect",
+          "lineNumber": 195
+        },
+        {
+          "caller": "SolutionVideoReveal",
+          "callee": "useEffect",
+          "lineNumber": 198
+        },
+        {
+          "caller": "SolutionVideoReveal",
+          "callee": "video.play().catch",
+          "lineNumber": 204
+        },
+        {
+          "caller": "SolutionVideoReveal",
+          "callee": "video.play",
+          "lineNumber": 204
+        },
+        {
+          "caller": "SolutionVideoReveal",
+          "callee": "video.pause",
+          "lineNumber": 205
+        },
+        {
+          "caller": "SolutionVideoReveal",
+          "callee": "useCallback",
+          "lineNumber": 208
+        },
+        {
+          "caller": "SolutionVideoReveal",
+          "callee": "setIsFull",
+          "lineNumber": 212
+        },
+        {
+          "caller": "SolutionVideoReveal",
+          "callee": "frame.requestFullscreen?.().catch",
+          "lineNumber": 221
+        },
+        {
+          "caller": "SolutionVideoReveal",
+          "callee": "frame.requestFullscreen",
+          "lineNumber": 221
+        },
+        {
+          "caller": "SolutionVideoReveal",
+          "callee": "useCallback",
+          "lineNumber": 224
+        },
+        {
+          "caller": "SolutionVideoReveal",
+          "callee": "document.exitFullscreen().catch",
+          "lineNumber": 225
+        },
+        {
+          "caller": "SolutionVideoReveal",
+          "callee": "document.exitFullscreen",
+          "lineNumber": 225
+        },
+        {
+          "caller": "SolutionVideoReveal",
+          "callee": "setIsFull",
+          "lineNumber": 227
+        },
+        {
+          "caller": "SolutionVideoReveal",
+          "callee": "paint",
+          "lineNumber": 228
+        },
+        {
+          "caller": "SolutionVideoReveal",
+          "callee": "useEffect",
+          "lineNumber": 233
+        },
+        {
+          "caller": "onChange",
+          "callee": "setIsFull",
+          "lineNumber": 238
+        },
+        {
+          "caller": "onChange",
+          "callee": "paint",
+          "lineNumber": 239
+        },
+        {
+          "caller": "SolutionVideoReveal",
+          "callee": "document.addEventListener",
+          "lineNumber": 241
+        },
+        {
+          "caller": "SolutionVideoReveal",
+          "callee": "document.removeEventListener",
+          "lineNumber": 242
+        },
+        {
+          "caller": "SolutionVideoReveal",
+          "callee": "useEffect",
+          "lineNumber": 249
+        },
+        {
+          "caller": "SolutionVideoReveal",
+          "callee": "lockScroll",
+          "lineNumber": 251
+        },
+        {
+          "caller": "onKey",
+          "callee": "exitFull",
+          "lineNumber": 255
+        },
+        {
+          "caller": "SolutionVideoReveal",
+          "callee": "window.addEventListener",
+          "lineNumber": 257
+        },
+        {
+          "caller": "SolutionVideoReveal",
+          "callee": "unlock",
+          "lineNumber": 259
+        },
+        {
+          "caller": "SolutionVideoReveal",
+          "callee": "window.removeEventListener",
+          "lineNumber": 261
+        },
+        {
+          "caller": "toggleStretch",
+          "callee": "setManual",
+          "lineNumber": 271
+        },
+        {
+          "caller": "SolutionVideoReveal",
+          "callee": "cn",
+          "lineNumber": 284
+        },
+        {
+          "caller": "SolutionVideoReveal",
+          "callee": "cn",
+          "lineNumber": 291
+        },
+        {
+          "caller": "SolutionVideoReveal",
+          "callee": "cn",
+          "lineNumber": 322
+        },
+        {
+          "caller": "SolutionVideoReveal",
+          "callee": "setReady",
+          "lineNumber": 343
+        },
+        {
+          "caller": "SolutionVideoReveal",
+          "callee": "setOverride",
+          "lineNumber": 398
+        },
+        {
+          "caller": "SolutionVideoReveal",
+          "callee": "setMuted",
+          "lineNumber": 416
+        },
+        {
+          "caller": "SolutionVideoReveal",
+          "callee": "exitFull",
+          "lineNumber": 461
+        },
+        {
+          "caller": "SolutionVideoReveal",
+          "callee": "enterFull",
+          "lineNumber": 461
+        },
+        {
+          "caller": "VideoMock",
+          "callee": "cn",
+          "lineNumber": 491
+        },
+        {
+          "caller": "VideoMock",
+          "callee": "cn",
+          "lineNumber": 497
+        }
+      ],
+      "metrics": {
+        "importCount": 7,
+        "exportCount": 1,
+        "functionCount": 7,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "components/seo/JsonLd.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 15,
+      "nonEmptyLines": 15,
+      "functions": [
+        {
+          "name": "JsonLd",
+          "startLine": 7,
+          "endLine": 15,
+          "params": [
+            "{ data }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "JsonLd",
+          "line": 7,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "JsonLd",
+          "callee": "JSON.stringify(data).replace",
+          "lineNumber": 8
+        },
+        {
+          "caller": "JsonLd",
+          "callee": "JSON.stringify",
+          "lineNumber": 8
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "components/three/EarthNetwork.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 771,
+      "nonEmptyLines": 719,
+      "functions": [
+        {
+          "name": "easeOutBack",
+          "startLine": 37,
+          "endLine": 41,
+          "params": [
+            "x"
+          ]
+        },
+        {
+          "name": "sphericalToCartesian",
+          "startLine": 51,
+          "endLine": 64,
+          "params": [
+            "phiDeg",
+            "thetaDeg",
+            "radius"
+          ]
+        },
+        {
+          "name": "fibonacciSphere",
+          "startLine": 66,
+          "endLine": 79,
+          "params": [
+            "count",
+            "radius",
+            "offset"
+          ]
+        },
+        {
+          "name": "circlePoints",
+          "startLine": 81,
+          "endLine": 88,
+          "params": [
+            "radius",
+            "y",
+            "segments"
+          ]
+        },
+        {
+          "name": "Atmosphere",
+          "startLine": 91,
+          "endLine": 134,
+          "params": []
+        },
+        {
+          "name": "GlobeBody",
+          "startLine": 139,
+          "endLine": 212,
+          "params": []
+        },
+        {
+          "name": "ServiceMarker",
+          "startLine": 214,
+          "endLine": 459,
+          "params": [
+            "{\n  service,\n  index,\n  position,\n  hovered,\n  onHover,\n  onSelect,\n  overlayRef,\n  glow,\n  showLabel,\n}"
+          ]
+        },
+        {
+          "name": "ServiceArc",
+          "startLine": 463,
+          "endLine": 525,
+          "params": [
+            "{\n  from,\n  to,\n  isActive,\n  glow,\n  index,\n}"
+          ]
+        },
+        {
+          "name": "Scene",
+          "startLine": 527,
+          "endLine": 692,
+          "params": [
+            "{\n  services,\n  hovered,\n  onHover,\n  onSelect,\n  paused,\n  overlayRef,\n}"
+          ]
+        },
+        {
+          "name": "EarthNetwork",
+          "startLine": 694,
+          "endLine": 771,
+          "params": [
+            "{\n  services,\n  overlayRef,\n  onSelect,\n}"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "EarthNetwork",
+          "line": 694,
+          "isDefault": true
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "easeOutBack",
+          "callee": "Math.pow",
+          "lineNumber": 40
+        },
+        {
+          "caller": "easeOutBack",
+          "callee": "Math.pow",
+          "lineNumber": 40
+        },
+        {
+          "caller": "sphericalToCartesian",
+          "callee": "THREE.MathUtils.degToRad",
+          "lineNumber": 56
+        },
+        {
+          "caller": "sphericalToCartesian",
+          "callee": "THREE.MathUtils.degToRad",
+          "lineNumber": 57
+        },
+        {
+          "caller": "sphericalToCartesian",
+          "callee": "Math.sin",
+          "lineNumber": 58
+        },
+        {
+          "caller": "sphericalToCartesian",
+          "callee": "Math.cos",
+          "lineNumber": 60
+        },
+        {
+          "caller": "sphericalToCartesian",
+          "callee": "Math.cos",
+          "lineNumber": 61
+        },
+        {
+          "caller": "sphericalToCartesian",
+          "callee": "Math.sin",
+          "lineNumber": 62
+        },
+        {
+          "caller": "fibonacciSphere",
+          "callee": "Math.sqrt",
+          "lineNumber": 68
+        },
+        {
+          "caller": "fibonacciSphere",
+          "callee": "Math.sqrt",
+          "lineNumber": 71
+        },
+        {
+          "caller": "fibonacciSphere",
+          "callee": "Math.max",
+          "lineNumber": 71
+        },
+        {
+          "caller": "fibonacciSphere",
+          "callee": "positions.set",
+          "lineNumber": 73
+        },
+        {
+          "caller": "fibonacciSphere",
+          "callee": "Math.cos",
+          "lineNumber": 74
+        },
+        {
+          "caller": "fibonacciSphere",
+          "callee": "Math.sin",
+          "lineNumber": 74
+        },
+        {
+          "caller": "circlePoints",
+          "callee": "pts.push",
+          "lineNumber": 85
+        },
+        {
+          "caller": "circlePoints",
+          "callee": "Math.cos",
+          "lineNumber": 85
+        },
+        {
+          "caller": "circlePoints",
+          "callee": "Math.sin",
+          "lineNumber": 85
+        },
+        {
+          "caller": "Atmosphere",
+          "callee": "useMemo",
+          "lineNumber": 92
+        },
+        {
+          "caller": "GlobeBody",
+          "callee": "useMemo",
+          "lineNumber": 140
+        },
+        {
+          "caller": "GlobeBody",
+          "callee": "fibonacciSphere",
+          "lineNumber": 140
+        },
+        {
+          "caller": "GlobeBody",
+          "callee": "useMemo",
+          "lineNumber": 141
+        },
+        {
+          "caller": "GlobeBody",
+          "callee": "fibonacciSphere",
+          "lineNumber": 142
+        },
+        {
+          "caller": "GlobeBody",
+          "callee": "useMemo",
+          "lineNumber": 146
+        },
+        {
+          "caller": "GlobeBody",
+          "callee": "[-0.5, 0, 0.5].map",
+          "lineNumber": 148
+        },
+        {
+          "caller": "GlobeBody",
+          "callee": "Math.sqrt",
+          "lineNumber": 152
+        },
+        {
+          "caller": "GlobeBody",
+          "callee": "Math.max",
+          "lineNumber": 152
+        },
+        {
+          "caller": "GlobeBody",
+          "callee": "bands.map",
+          "lineNumber": 198
+        },
+        {
+          "caller": "GlobeBody",
+          "callee": "circlePoints",
+          "lineNumber": 201
+        },
+        {
+          "caller": "ServiceMarker",
+          "callee": "useRef",
+          "lineNumber": 240
+        },
+        {
+          "caller": "ServiceMarker",
+          "callee": "useRef",
+          "lineNumber": 241
+        },
+        {
+          "caller": "ServiceMarker",
+          "callee": "useRef",
+          "lineNumber": 242
+        },
+        {
+          "caller": "ServiceMarker",
+          "callee": "useRef",
+          "lineNumber": 243
+        },
+        {
+          "caller": "ServiceMarker",
+          "callee": "useRef",
+          "lineNumber": 244
+        },
+        {
+          "caller": "ServiceMarker",
+          "callee": "useRef",
+          "lineNumber": 245
+        },
+        {
+          "caller": "ServiceMarker",
+          "callee": "hash",
+          "lineNumber": 245
+        },
+        {
+          "caller": "ServiceMarker",
+          "callee": "useMemo",
+          "lineNumber": 250
+        },
+        {
+          "caller": "ServiceMarker",
+          "callee": "position.clone().normalize",
+          "lineNumber": 250
+        },
+        {
+          "caller": "ServiceMarker",
+          "callee": "position.clone",
+          "lineNumber": 250
+        },
+        {
+          "caller": "ServiceMarker",
+          "callee": "useMemo",
+          "lineNumber": 251
+        },
+        {
+          "caller": "ServiceMarker",
+          "callee": "normal.clone().multiplyScalar",
+          "lineNumber": 252
+        },
+        {
+          "caller": "ServiceMarker",
+          "callee": "normal.clone",
+          "lineNumber": 252
+        },
+        {
+          "caller": "ServiceMarker",
+          "callee": "useMemo",
+          "lineNumber": 256
+        },
+        {
+          "caller": "ServiceMarker",
+          "callee": "new THREE.Quaternion().setFromUnitVectors",
+          "lineNumber": 258
+        },
+        {
+          "caller": "ServiceMarker",
+          "callee": "useFrame",
+          "lineNumber": 265
+        },
+        {
+          "caller": "ServiceMarker",
+          "callee": "orb.current.scale.setScalar",
+          "lineNumber": 271
+        },
+        {
+          "caller": "ServiceMarker",
+          "callee": "THREE.MathUtils.lerp",
+          "lineNumber": 272
+        },
+        {
+          "caller": "ServiceMarker",
+          "callee": "pulse.current.scale.setScalar",
+          "lineNumber": 279
+        },
+        {
+          "caller": "ServiceMarker",
+          "callee": "THREE.MathUtils.lerp",
+          "lineNumber": 279
+        },
+        {
+          "caller": "ServiceMarker",
+          "callee": "anchor.current.getWorldPosition",
+          "lineNumber": 288
+        },
+        {
+          "caller": "ServiceMarker",
+          "callee": "camera.position.clone().sub(world.current).normalize",
+          "lineNumber": 289
+        },
+        {
+          "caller": "ServiceMarker",
+          "callee": "camera.position.clone().sub",
+          "lineNumber": 289
+        },
+        {
+          "caller": "ServiceMarker",
+          "callee": "camera.position.clone",
+          "lineNumber": 289
+        },
+        {
+          "caller": "ServiceMarker",
+          "callee": "world.current.clone().normalize",
+          "lineNumber": 290
+        },
+        {
+          "caller": "ServiceMarker",
+          "callee": "world.current.clone",
+          "lineNumber": 290
+        },
+        {
+          "caller": "ServiceMarker",
+          "callee": "outward.dot",
+          "lineNumber": 291
+        },
+        {
+          "caller": "ServiceMarker",
+          "callee": "e.stopPropagation",
+          "lineNumber": 338
+        },
+        {
+          "caller": "ServiceMarker",
+          "callee": "onHover",
+          "lineNumber": 339
+        },
+        {
+          "caller": "ServiceMarker",
+          "callee": "e.stopPropagation",
+          "lineNumber": 342
+        },
+        {
+          "caller": "ServiceMarker",
+          "callee": "onHover",
+          "lineNumber": 343
+        },
+        {
+          "caller": "ServiceMarker",
+          "callee": "e.stopPropagation",
+          "lineNumber": 346
+        },
+        {
+          "caller": "ServiceMarker",
+          "callee": "onSelect",
+          "lineNumber": 347
+        },
+        {
+          "caller": "ServiceMarker",
+          "callee": "onHover",
+          "lineNumber": 386
+        },
+        {
+          "caller": "ServiceMarker",
+          "callee": "onHover",
+          "lineNumber": 387
+        },
+        {
+          "caller": "ServiceMarker",
+          "callee": "onSelect",
+          "lineNumber": 388
+        },
+        {
+          "caller": "ServiceArc",
+          "callee": "useRef",
+          "lineNumber": 476
+        },
+        {
+          "caller": "ServiceArc",
+          "callee": "useRef",
+          "lineNumber": 477
+        },
+        {
+          "caller": "ServiceArc",
+          "callee": "hash",
+          "lineNumber": 477
+        },
+        {
+          "caller": "ServiceArc",
+          "callee": "useMemo",
+          "lineNumber": 479
+        },
+        {
+          "caller": "ServiceArc",
+          "callee": "from.length",
+          "lineNumber": 483
+        },
+        {
+          "caller": "ServiceArc",
+          "callee": "from.angleTo",
+          "lineNumber": 484
+        },
+        {
+          "caller": "ServiceArc",
+          "callee": "from.clone().add(to).multiplyScalar",
+          "lineNumber": 485
+        },
+        {
+          "caller": "ServiceArc",
+          "callee": "from.clone().add",
+          "lineNumber": 485
+        },
+        {
+          "caller": "ServiceArc",
+          "callee": "from.clone",
+          "lineNumber": 485
+        },
+        {
+          "caller": "ServiceArc",
+          "callee": "mid\n      .normalize()\n      .multiplyScalar",
+          "lineNumber": 486
+        },
+        {
+          "caller": "ServiceArc",
+          "callee": "mid\n      .normalize",
+          "lineNumber": 486
+        },
+        {
+          "caller": "ServiceArc",
+          "callee": "Math.max",
+          "lineNumber": 488
+        },
+        {
+          "caller": "ServiceArc",
+          "callee": "Math.cos",
+          "lineNumber": 488
+        },
+        {
+          "caller": "ServiceArc",
+          "callee": "useMemo",
+          "lineNumber": 492
+        },
+        {
+          "caller": "ServiceArc",
+          "callee": "curve.getPoints",
+          "lineNumber": 492
+        },
+        {
+          "caller": "ServiceArc",
+          "callee": "useFrame",
+          "lineNumber": 494
+        },
+        {
+          "caller": "ServiceArc",
+          "callee": "travel.current.position.copy",
+          "lineNumber": 497
+        },
+        {
+          "caller": "ServiceArc",
+          "callee": "curve.getPointAt",
+          "lineNumber": 498
+        },
+        {
+          "caller": "Scene",
+          "callee": "useMemo",
+          "lineNumber": 542
+        },
+        {
+          "caller": "Scene",
+          "callee": "radialGlowTexture",
+          "lineNumber": 543
+        },
+        {
+          "caller": "Scene",
+          "callee": "useMemo",
+          "lineNumber": 546
+        },
+        {
+          "caller": "Scene",
+          "callee": "starTexture",
+          "lineNumber": 547
+        },
+        {
+          "caller": "Scene",
+          "callee": "useRef",
+          "lineNumber": 550
+        },
+        {
+          "caller": "Scene",
+          "callee": "useRef",
+          "lineNumber": 551
+        },
+        {
+          "caller": "Scene",
+          "callee": "useRef",
+          "lineNumber": 552
+        },
+        {
+          "caller": "Scene",
+          "callee": "useRef",
+          "lineNumber": 553
+        },
+        {
+          "caller": "Scene",
+          "callee": "useRef",
+          "lineNumber": 554
+        },
+        {
+          "caller": "Scene",
+          "callee": "useState",
+          "lineNumber": 555
+        },
+        {
+          "caller": "Scene",
+          "callee": "useMemo",
+          "lineNumber": 557
+        },
+        {
+          "caller": "Scene",
+          "callee": "services.map",
+          "lineNumber": 559
+        },
+        {
+          "caller": "Scene",
+          "callee": "sphericalToCartesian",
+          "lineNumber": 561
+        },
+        {
+          "caller": "Scene",
+          "callee": "useFrame",
+          "lineNumber": 566
+        },
+        {
+          "caller": "Scene",
+          "callee": "Math.min",
+          "lineNumber": 576
+        },
+        {
+          "caller": "Scene",
+          "callee": "easeOutBack",
+          "lineNumber": 580
+        },
+        {
+          "caller": "Scene",
+          "callee": "intro.current.scale.setScalar",
+          "lineNumber": 581
+        },
+        {
+          "caller": "Scene",
+          "callee": "Math.max",
+          "lineNumber": 581
+        },
+        {
+          "caller": "Scene",
+          "callee": "setIntroDone",
+          "lineNumber": 582
+        },
+        {
+          "caller": "Scene",
+          "callee": "Math.sin",
+          "lineNumber": 591
+        },
+        {
+          "caller": "Scene",
+          "callee": "Math.cos",
+          "lineNumber": 592
+        },
+        {
+          "caller": "Scene",
+          "callee": "services.map",
+          "lineNumber": 644
+        },
+        {
+          "caller": "Scene",
+          "callee": "services.map",
+          "lineNumber": 658
+        },
+        {
+          "caller": "EarthNetwork",
+          "callee": "useState",
+          "lineNumber": 703
+        },
+        {
+          "caller": "EarthNetwork",
+          "callee": "useState",
+          "lineNumber": 704
+        },
+        {
+          "caller": "EarthNetwork",
+          "callee": "useState",
+          "lineNumber": 705
+        },
+        {
+          "caller": "EarthNetwork",
+          "callee": "setReady",
+          "lineNumber": 727
+        },
+        {
+          "caller": "EarthNetwork",
+          "callee": "setPaused",
+          "lineNumber": 731
+        },
+        {
+          "caller": "EarthNetwork",
+          "callee": "setPaused",
+          "lineNumber": 733
+        },
+        {
+          "caller": "EarthNetwork",
+          "callee": "setHovered",
+          "lineNumber": 734
+        },
+        {
+          "caller": "EarthNetwork",
+          "callee": "onSelect",
+          "lineNumber": 741
+        }
+      ],
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 1,
+        "functionCount": 10,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "components/three/InfraStack.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 1059,
+      "nonEmptyLines": 992,
+      "functions": [
+        {
+          "name": "easeOutBack",
+          "startLine": 57,
+          "endLine": 61,
+          "params": [
+            "x"
+          ]
+        },
+        {
+          "name": "patternTexture",
+          "startLine": 104,
+          "endLine": 201,
+          "params": [
+            "pattern"
+          ]
+        },
+        {
+          "name": "floorTexture",
+          "startLine": 204,
+          "endLine": 233,
+          "params": []
+        },
+        {
+          "name": "Blinkers",
+          "startLine": 250,
+          "endLine": 327,
+          "params": [
+            "{ seed, active, still }"
+          ]
+        },
+        {
+          "name": "Layer",
+          "startLine": 329,
+          "endLine": 422,
+          "params": [
+            "{\n  index,\n  pattern,\n  active,\n  still,\n}"
+          ]
+        },
+        {
+          "name": "Pillar",
+          "startLine": 429,
+          "endLine": 483,
+          "params": [
+            "{\n  x,\n  z,\n  index,\n  glow,\n  still,\n}"
+          ]
+        },
+        {
+          "name": "ModuleLink",
+          "startLine": 486,
+          "endLine": 537,
+          "params": [
+            "{\n  from,\n  to,\n  active,\n  glow,\n  index,\n  still,\n}"
+          ]
+        },
+        {
+          "name": "Floor",
+          "startLine": 539,
+          "endLine": 551,
+          "params": []
+        },
+        {
+          "name": "Uplink",
+          "startLine": 555,
+          "endLine": 627,
+          "params": [
+            "{ still }"
+          ]
+        },
+        {
+          "name": "ServiceModule",
+          "startLine": 633,
+          "endLine": 809,
+          "params": [
+            "{\n  service,\n  index,\n  position,\n  hovered,\n  onHover,\n  onSelect,\n  overlayRef,\n  glow,\n  showLabel,\n}"
+          ]
+        },
+        {
+          "name": "useFit",
+          "startLine": 821,
+          "endLine": 824,
+          "params": []
+        },
+        {
+          "name": "Scene",
+          "startLine": 826,
+          "endLine": 977,
+          "params": [
+            "{\n  services,\n  hovered,\n  onHover,\n  onSelect,\n  paused,\n  still,\n  overlayRef,\n}"
+          ]
+        },
+        {
+          "name": "useReducedMotion",
+          "startLine": 979,
+          "endLine": 990,
+          "params": []
+        },
+        {
+          "name": "InfraStack",
+          "startLine": 992,
+          "endLine": 1059,
+          "params": [
+            "{\n  services,\n  overlayRef,\n  onSelect,\n}"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "InfraStack",
+          "line": 992,
+          "isDefault": true
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "easeOutBack",
+          "callee": "Math.pow",
+          "lineNumber": 60
+        },
+        {
+          "caller": "easeOutBack",
+          "callee": "Math.pow",
+          "lineNumber": 60
+        },
+        {
+          "caller": "patternTexture",
+          "callee": "Math.round",
+          "lineNumber": 106
+        },
+        {
+          "caller": "patternTexture",
+          "callee": "document.createElement",
+          "lineNumber": 107
+        },
+        {
+          "caller": "patternTexture",
+          "callee": "canvas.getContext",
+          "lineNumber": 110
+        },
+        {
+          "caller": "patternTexture",
+          "callee": "ctx.beginPath",
+          "lineNumber": 118
+        },
+        {
+          "caller": "patternTexture",
+          "callee": "ctx.roundRect",
+          "lineNumber": 119
+        },
+        {
+          "caller": "patternTexture",
+          "callee": "ctx.stroke",
+          "lineNumber": 120
+        },
+        {
+          "caller": "r",
+          "callee": "hash",
+          "lineNumber": 123
+        },
+        {
+          "caller": "patternTexture",
+          "callee": "r",
+          "lineNumber": 136
+        },
+        {
+          "caller": "patternTexture",
+          "callee": "ctx.beginPath",
+          "lineNumber": 137
+        },
+        {
+          "caller": "patternTexture",
+          "callee": "ctx.roundRect",
+          "lineNumber": 138
+        },
+        {
+          "caller": "patternTexture",
+          "callee": "ctx.stroke",
+          "lineNumber": 139
+        },
+        {
+          "caller": "patternTexture",
+          "callee": "ctx.fillRect",
+          "lineNumber": 140
+        },
+        {
+          "caller": "patternTexture",
+          "callee": "r",
+          "lineNumber": 140
+        },
+        {
+          "caller": "patternTexture",
+          "callee": "r",
+          "lineNumber": 150
+        },
+        {
+          "caller": "patternTexture",
+          "callee": "ctx.beginPath",
+          "lineNumber": 151
+        },
+        {
+          "caller": "patternTexture",
+          "callee": "ctx.arc",
+          "lineNumber": 152
+        },
+        {
+          "caller": "patternTexture",
+          "callee": "ctx.stroke",
+          "lineNumber": 153
+        },
+        {
+          "caller": "patternTexture",
+          "callee": "ctx.beginPath",
+          "lineNumber": 154
+        },
+        {
+          "caller": "patternTexture",
+          "callee": "ctx.arc",
+          "lineNumber": 155
+        },
+        {
+          "caller": "patternTexture",
+          "callee": "ctx.stroke",
+          "lineNumber": 156
+        },
+        {
+          "caller": "patternTexture",
+          "callee": "ctx.strokeRect",
+          "lineNumber": 166
+        },
+        {
+          "caller": "patternTexture",
+          "callee": "r",
+          "lineNumber": 169
+        },
+        {
+          "caller": "patternTexture",
+          "callee": "ctx.fillRect",
+          "lineNumber": 170
+        },
+        {
+          "caller": "patternTexture",
+          "callee": "ctx.fillRect",
+          "lineNumber": 171
+        },
+        {
+          "caller": "patternTexture",
+          "callee": "ctx.fillRect",
+          "lineNumber": 178
+        },
+        {
+          "caller": "patternTexture",
+          "callee": "Math.floor",
+          "lineNumber": 180
+        },
+        {
+          "caller": "patternTexture",
+          "callee": "r",
+          "lineNumber": 180
+        },
+        {
+          "caller": "patternTexture",
+          "callee": "Math.floor",
+          "lineNumber": 181
+        },
+        {
+          "caller": "patternTexture",
+          "callee": "r",
+          "lineNumber": 181
+        },
+        {
+          "caller": "patternTexture",
+          "callee": "r",
+          "lineNumber": 182
+        },
+        {
+          "caller": "patternTexture",
+          "callee": "ctx.beginPath",
+          "lineNumber": 183
+        },
+        {
+          "caller": "patternTexture",
+          "callee": "ctx.moveTo",
+          "lineNumber": 184
+        },
+        {
+          "caller": "patternTexture",
+          "callee": "Math.floor",
+          "lineNumber": 186
+        },
+        {
+          "caller": "patternTexture",
+          "callee": "r",
+          "lineNumber": 186
+        },
+        {
+          "caller": "patternTexture",
+          "callee": "Math.min",
+          "lineNumber": 187
+        },
+        {
+          "caller": "patternTexture",
+          "callee": "Math.max",
+          "lineNumber": 187
+        },
+        {
+          "caller": "patternTexture",
+          "callee": "r",
+          "lineNumber": 187
+        },
+        {
+          "caller": "patternTexture",
+          "callee": "Math.min",
+          "lineNumber": 188
+        },
+        {
+          "caller": "patternTexture",
+          "callee": "Math.max",
+          "lineNumber": 188
+        },
+        {
+          "caller": "patternTexture",
+          "callee": "r",
+          "lineNumber": 188
+        },
+        {
+          "caller": "patternTexture",
+          "callee": "ctx.lineTo",
+          "lineNumber": 189
+        },
+        {
+          "caller": "patternTexture",
+          "callee": "ctx.stroke",
+          "lineNumber": 191
+        },
+        {
+          "caller": "patternTexture",
+          "callee": "ctx.beginPath",
+          "lineNumber": 192
+        },
+        {
+          "caller": "patternTexture",
+          "callee": "ctx.arc",
+          "lineNumber": 193
+        },
+        {
+          "caller": "patternTexture",
+          "callee": "ctx.fill",
+          "lineNumber": 194
+        },
+        {
+          "caller": "floorTexture",
+          "callee": "document.createElement",
+          "lineNumber": 206
+        },
+        {
+          "caller": "floorTexture",
+          "callee": "canvas.getContext",
+          "lineNumber": 209
+        },
+        {
+          "caller": "floorTexture",
+          "callee": "ctx.beginPath",
+          "lineNumber": 216
+        },
+        {
+          "caller": "floorTexture",
+          "callee": "ctx.arc",
+          "lineNumber": 217
+        },
+        {
+          "caller": "floorTexture",
+          "callee": "ctx.stroke",
+          "lineNumber": 218
+        },
+        {
+          "caller": "floorTexture",
+          "callee": "ctx.createLinearGradient",
+          "lineNumber": 222
+        },
+        {
+          "caller": "floorTexture",
+          "callee": "Math.cos",
+          "lineNumber": 222
+        },
+        {
+          "caller": "floorTexture",
+          "callee": "Math.sin",
+          "lineNumber": 222
+        },
+        {
+          "caller": "floorTexture",
+          "callee": "g.addColorStop",
+          "lineNumber": 223
+        },
+        {
+          "caller": "floorTexture",
+          "callee": "g.addColorStop",
+          "lineNumber": 224
+        },
+        {
+          "caller": "floorTexture",
+          "callee": "ctx.beginPath",
+          "lineNumber": 227
+        },
+        {
+          "caller": "floorTexture",
+          "callee": "ctx.moveTo",
+          "lineNumber": 228
+        },
+        {
+          "caller": "floorTexture",
+          "callee": "ctx.lineTo",
+          "lineNumber": 229
+        },
+        {
+          "caller": "floorTexture",
+          "callee": "Math.cos",
+          "lineNumber": 229
+        },
+        {
+          "caller": "floorTexture",
+          "callee": "Math.sin",
+          "lineNumber": 229
+        },
+        {
+          "caller": "floorTexture",
+          "callee": "ctx.stroke",
+          "lineNumber": 230
+        },
+        {
+          "caller": "Blinkers",
+          "callee": "useThree",
+          "lineNumber": 252
+        },
+        {
+          "caller": "Blinkers",
+          "callee": "useRef",
+          "lineNumber": 253
+        },
+        {
+          "caller": "Blinkers",
+          "callee": "useMemo",
+          "lineNumber": 254
+        },
+        {
+          "caller": "Blinkers",
+          "callee": "positions.set",
+          "lineNumber": 261
+        },
+        {
+          "caller": "Blinkers",
+          "callee": "hash",
+          "lineNumber": 263
+        },
+        {
+          "caller": "Blinkers",
+          "callee": "hash",
+          "lineNumber": 265
+        },
+        {
+          "caller": "Blinkers",
+          "callee": "hash",
+          "lineNumber": 269
+        },
+        {
+          "caller": "Blinkers",
+          "callee": "colors.set",
+          "lineNumber": 270
+        },
+        {
+          "caller": "Blinkers",
+          "callee": "hash",
+          "lineNumber": 271
+        },
+        {
+          "caller": "Blinkers",
+          "callee": "useMemo",
+          "lineNumber": 275
+        },
+        {
+          "caller": "Blinkers",
+          "callee": "useRef",
+          "lineNumber": 279
+        },
+        {
+          "caller": "Blinkers",
+          "callee": "useFrame",
+          "lineNumber": 281
+        },
+        {
+          "caller": "Blinkers",
+          "callee": "THREE.MathUtils.lerp",
+          "lineNumber": 287
+        },
+        {
+          "caller": "Layer",
+          "callee": "useMemo",
+          "lineNumber": 340
+        },
+        {
+          "caller": "Layer",
+          "callee": "patternTexture",
+          "lineNumber": 341
+        },
+        {
+          "caller": "Layer",
+          "callee": "useMemo",
+          "lineNumber": 344
+        },
+        {
+          "caller": "Layer",
+          "callee": "useRef",
+          "lineNumber": 348
+        },
+        {
+          "caller": "Layer",
+          "callee": "useRef",
+          "lineNumber": 349
+        },
+        {
+          "caller": "Layer",
+          "callee": "useRef",
+          "lineNumber": 350
+        },
+        {
+          "caller": "Layer",
+          "callee": "hash",
+          "lineNumber": 350
+        },
+        {
+          "caller": "Layer",
+          "callee": "useFrame",
+          "lineNumber": 352
+        },
+        {
+          "caller": "Layer",
+          "callee": "Math.sin",
+          "lineNumber": 359
+        },
+        {
+          "caller": "Layer",
+          "callee": "THREE.MathUtils.lerp",
+          "lineNumber": 362
+        },
+        {
+          "caller": "Pillar",
+          "callee": "useRef",
+          "lineNumber": 442
+        },
+        {
+          "caller": "Pillar",
+          "callee": "useRef",
+          "lineNumber": 443
+        },
+        {
+          "caller": "Pillar",
+          "callee": "hash",
+          "lineNumber": 443
+        },
+        {
+          "caller": "Pillar",
+          "callee": "useFrame",
+          "lineNumber": 447
+        },
+        {
+          "caller": "Pillar",
+          "callee": "packets.current.forEach",
+          "lineNumber": 449
+        },
+        {
+          "caller": "Pillar",
+          "callee": "s.position.set",
+          "lineNumber": 452
+        },
+        {
+          "caller": "Pillar",
+          "callee": "Math.sin",
+          "lineNumber": 453
+        },
+        {
+          "caller": "Pillar",
+          "callee": "[0, 1].map",
+          "lineNumber": 464
+        },
+        {
+          "caller": "ModuleLink",
+          "callee": "useRef",
+          "lineNumber": 501
+        },
+        {
+          "caller": "ModuleLink",
+          "callee": "useRef",
+          "lineNumber": 502
+        },
+        {
+          "caller": "ModuleLink",
+          "callee": "hash",
+          "lineNumber": 502
+        },
+        {
+          "caller": "ModuleLink",
+          "callee": "useMemo",
+          "lineNumber": 504
+        },
+        {
+          "caller": "ModuleLink",
+          "callee": "from.clone().add(to).multiplyScalar",
+          "lineNumber": 505
+        },
+        {
+          "caller": "ModuleLink",
+          "callee": "from.clone().add",
+          "lineNumber": 505
+        },
+        {
+          "caller": "ModuleLink",
+          "callee": "from.clone",
+          "lineNumber": 505
+        },
+        {
+          "caller": "ModuleLink",
+          "callee": "useMemo",
+          "lineNumber": 509
+        },
+        {
+          "caller": "ModuleLink",
+          "callee": "curve.getPoints",
+          "lineNumber": 509
+        },
+        {
+          "caller": "ModuleLink",
+          "callee": "useFrame",
+          "lineNumber": 511
+        },
+        {
+          "caller": "ModuleLink",
+          "callee": "packet.current.position.copy",
+          "lineNumber": 515
+        },
+        {
+          "caller": "ModuleLink",
+          "callee": "curve.getPointAt",
+          "lineNumber": 515
+        },
+        {
+          "caller": "ModuleLink",
+          "callee": "Math.sin",
+          "lineNumber": 516
+        },
+        {
+          "caller": "Floor",
+          "callee": "useMemo",
+          "lineNumber": 540
+        },
+        {
+          "caller": "Floor",
+          "callee": "floorTexture",
+          "lineNumber": 540
+        },
+        {
+          "caller": "Uplink",
+          "callee": "useThree",
+          "lineNumber": 557
+        },
+        {
+          "caller": "Uplink",
+          "callee": "useRef",
+          "lineNumber": 558
+        },
+        {
+          "caller": "Uplink",
+          "callee": "useMemo",
+          "lineNumber": 559
+        },
+        {
+          "caller": "Uplink",
+          "callee": "positions.set",
+          "lineNumber": 564
+        },
+        {
+          "caller": "Uplink",
+          "callee": "hash",
+          "lineNumber": 565
+        },
+        {
+          "caller": "Uplink",
+          "callee": "hash",
+          "lineNumber": 565
+        },
+        {
+          "caller": "Uplink",
+          "callee": "hash",
+          "lineNumber": 568
+        },
+        {
+          "caller": "Uplink",
+          "callee": "hash",
+          "lineNumber": 569
+        },
+        {
+          "caller": "Uplink",
+          "callee": "useMemo",
+          "lineNumber": 573
+        },
+        {
+          "caller": "Uplink",
+          "callee": "useFrame",
+          "lineNumber": 583
+        },
+        {
+          "caller": "Uplink",
+          "callee": "FLOOR.toFixed",
+          "lineNumber": 615
+        },
+        {
+          "caller": "Uplink",
+          "callee": "(TOP + 0.9).toFixed",
+          "lineNumber": 615
+        },
+        {
+          "caller": "ServiceModule",
+          "callee": "useRef",
+          "lineNumber": 662
+        },
+        {
+          "caller": "ServiceModule",
+          "callee": "useRef",
+          "lineNumber": 663
+        },
+        {
+          "caller": "ServiceModule",
+          "callee": "useRef",
+          "lineNumber": 664
+        },
+        {
+          "caller": "ServiceModule",
+          "callee": "hash",
+          "lineNumber": 664
+        },
+        {
+          "caller": "ServiceModule",
+          "callee": "useFrame",
+          "lineNumber": 666
+        },
+        {
+          "caller": "ServiceModule",
+          "callee": "THREE.MathUtils.lerp",
+          "lineNumber": 669
+        },
+        {
+          "caller": "ServiceModule",
+          "callee": "body.current.scale.setScalar",
+          "lineNumber": 670
+        },
+        {
+          "caller": "ServiceModule",
+          "callee": "Math.sin",
+          "lineNumber": 672
+        },
+        {
+          "caller": "ServiceModule",
+          "callee": "Math.sin",
+          "lineNumber": 675
+        },
+        {
+          "caller": "ServiceModule",
+          "callee": "e.stopPropagation",
+          "lineNumber": 687
+        },
+        {
+          "caller": "ServiceModule",
+          "callee": "onHover",
+          "lineNumber": 688
+        },
+        {
+          "caller": "ServiceModule",
+          "callee": "e.stopPropagation",
+          "lineNumber": 691
+        },
+        {
+          "caller": "ServiceModule",
+          "callee": "onHover",
+          "lineNumber": 692
+        },
+        {
+          "caller": "ServiceModule",
+          "callee": "e.stopPropagation",
+          "lineNumber": 695
+        },
+        {
+          "caller": "ServiceModule",
+          "callee": "onSelect",
+          "lineNumber": 696
+        },
+        {
+          "caller": "ServiceModule",
+          "callee": "onHover",
+          "lineNumber": 744
+        },
+        {
+          "caller": "ServiceModule",
+          "callee": "onHover",
+          "lineNumber": 745
+        },
+        {
+          "caller": "ServiceModule",
+          "callee": "onSelect",
+          "lineNumber": 746
+        },
+        {
+          "caller": "useFit",
+          "callee": "useThree",
+          "lineNumber": 822
+        },
+        {
+          "caller": "useFit",
+          "callee": "Math.max",
+          "lineNumber": 822
+        },
+        {
+          "caller": "useFit",
+          "callee": "THREE.MathUtils.clamp",
+          "lineNumber": 823
+        },
+        {
+          "caller": "Scene",
+          "callee": "useMemo",
+          "lineNumber": 843
+        },
+        {
+          "caller": "Scene",
+          "callee": "radialGlowTexture",
+          "lineNumber": 843
+        },
+        {
+          "caller": "Scene",
+          "callee": "useFit",
+          "lineNumber": 844
+        },
+        {
+          "caller": "Scene",
+          "callee": "useRef",
+          "lineNumber": 846
+        },
+        {
+          "caller": "Scene",
+          "callee": "useRef",
+          "lineNumber": 847
+        },
+        {
+          "caller": "Scene",
+          "callee": "useRef",
+          "lineNumber": 848
+        },
+        {
+          "caller": "Scene",
+          "callee": "useRef",
+          "lineNumber": 849
+        },
+        {
+          "caller": "Scene",
+          "callee": "useRef",
+          "lineNumber": 850
+        },
+        {
+          "caller": "Scene",
+          "callee": "useState",
+          "lineNumber": 851
+        },
+        {
+          "caller": "Scene",
+          "callee": "useMemo",
+          "lineNumber": 854
+        },
+        {
+          "caller": "Scene",
+          "callee": "services.map",
+          "lineNumber": 856
+        },
+        {
+          "caller": "Scene",
+          "callee": "useFrame",
+          "lineNumber": 864
+        },
+        {
+          "caller": "Scene",
+          "callee": "THREE.MathUtils.clamp",
+          "lineNumber": 872
+        },
+        {
+          "caller": "Scene",
+          "callee": "intro.current.scale.setScalar",
+          "lineNumber": 873
+        },
+        {
+          "caller": "Scene",
+          "callee": "Math.max",
+          "lineNumber": 873
+        },
+        {
+          "caller": "Scene",
+          "callee": "easeOutBack",
+          "lineNumber": 873
+        },
+        {
+          "caller": "Scene",
+          "callee": "THREE.MathUtils.clamp",
+          "lineNumber": 876
+        },
+        {
+          "caller": "Scene",
+          "callee": "easeOutBack",
+          "lineNumber": 877
+        },
+        {
+          "caller": "Scene",
+          "callee": "setIntroDone",
+          "lineNumber": 878
+        },
+        {
+          "caller": "Scene",
+          "callee": "Math.sin",
+          "lineNumber": 886
+        },
+        {
+          "caller": "Scene",
+          "callee": "Math.cos",
+          "lineNumber": 887
+        },
+        {
+          "caller": "Scene",
+          "callee": "Math.sin",
+          "lineNumber": 888
+        },
+        {
+          "caller": "Scene",
+          "callee": "LAYERS.map",
+          "lineNumber": 913
+        },
+        {
+          "caller": "Scene",
+          "callee": "PILLARS.map",
+          "lineNumber": 924
+        },
+        {
+          "caller": "Scene",
+          "callee": "docks.slice(0, -1).map",
+          "lineNumber": 928
+        },
+        {
+          "caller": "Scene",
+          "callee": "docks.slice",
+          "lineNumber": 928
+        },
+        {
+          "caller": "Scene",
+          "callee": "from.clone().setY",
+          "lineNumber": 932
+        },
+        {
+          "caller": "Scene",
+          "callee": "from.clone",
+          "lineNumber": 932
+        },
+        {
+          "caller": "Scene",
+          "callee": "docks[i + 1].clone().setY",
+          "lineNumber": 933
+        },
+        {
+          "caller": "Scene",
+          "callee": "docks[i + 1].clone",
+          "lineNumber": 933
+        },
+        {
+          "caller": "Scene",
+          "callee": "services.map",
+          "lineNumber": 940
+        },
+        {
+          "caller": "useReducedMotion",
+          "callee": "useState",
+          "lineNumber": 980
+        },
+        {
+          "caller": "useReducedMotion",
+          "callee": "window.matchMedia",
+          "lineNumber": 981
+        },
+        {
+          "caller": "useReducedMotion",
+          "callee": "useEffect",
+          "lineNumber": 983
+        },
+        {
+          "caller": "useReducedMotion",
+          "callee": "window.matchMedia",
+          "lineNumber": 984
+        },
+        {
+          "caller": "on",
+          "callee": "setReduce",
+          "lineNumber": 985
+        },
+        {
+          "caller": "useReducedMotion",
+          "callee": "mq.addEventListener",
+          "lineNumber": 986
+        },
+        {
+          "caller": "useReducedMotion",
+          "callee": "mq.removeEventListener",
+          "lineNumber": 987
+        },
+        {
+          "caller": "InfraStack",
+          "callee": "useState",
+          "lineNumber": 1001
+        },
+        {
+          "caller": "InfraStack",
+          "callee": "useState",
+          "lineNumber": 1002
+        },
+        {
+          "caller": "InfraStack",
+          "callee": "useState",
+          "lineNumber": 1003
+        },
+        {
+          "caller": "InfraStack",
+          "callee": "useReducedMotion",
+          "lineNumber": 1004
+        },
+        {
+          "caller": "InfraStack",
+          "callee": "setReady",
+          "lineNumber": 1015
+        },
+        {
+          "caller": "InfraStack",
+          "callee": "setPaused",
+          "lineNumber": 1019
+        },
+        {
+          "caller": "InfraStack",
+          "callee": "setPaused",
+          "lineNumber": 1021
+        },
+        {
+          "caller": "InfraStack",
+          "callee": "setHovered",
+          "lineNumber": 1022
+        },
+        {
+          "caller": "InfraStack",
+          "callee": "onSelect",
+          "lineNumber": 1029
+        }
+      ],
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 1,
+        "functionCount": 14,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "components/three/fallbacks.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 101,
+      "nonEmptyLines": 95,
+      "functions": [
+        {
+          "name": "EarthNetworkFallback",
+          "startLine": 16,
+          "endLine": 39,
+          "params": [
+            "{ message }"
+          ]
+        },
+        {
+          "name": "EarthSkyPlaceholder",
+          "startLine": 47,
+          "endLine": 54,
+          "params": []
+        },
+        {
+          "name": "InfraStackFallback",
+          "startLine": 61,
+          "endLine": 88,
+          "params": [
+            "{ message }"
+          ]
+        },
+        {
+          "name": "InfraSkyPlaceholder",
+          "startLine": 94,
+          "endLine": 101,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "EarthNetworkFallback",
+          "line": 16,
+          "isDefault": false
+        },
+        {
+          "name": "EarthSkyPlaceholder",
+          "line": 47,
+          "isDefault": false
+        },
+        {
+          "name": "InfraStackFallback",
+          "line": 61,
+          "isDefault": false
+        },
+        {
+          "name": "InfraSkyPlaceholder",
+          "line": 94,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "InfraStackFallback",
+          "callee": "[0, 1, 2, 3].map",
+          "lineNumber": 68
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 4,
+        "functionCount": 4,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "components/three/sky.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 538,
+      "nonEmptyLines": 508,
+      "functions": [
+        {
+          "name": "hash",
+          "startLine": 29,
+          "endLine": 32,
+          "params": [
+            "n"
+          ]
+        },
+        {
+          "name": "radialGlowTexture",
+          "startLine": 34,
+          "endLine": 56,
+          "params": []
+        },
+        {
+          "name": "starTexture",
+          "startLine": 64,
+          "endLine": 85,
+          "params": []
+        },
+        {
+          "name": "writeStarColor",
+          "startLine": 93,
+          "endLine": 114,
+          "params": [
+            "i",
+            "seed",
+            "out"
+          ]
+        },
+        {
+          "name": "buildStarLayer",
+          "startLine": 117,
+          "endLine": 135,
+          "params": [
+            "count",
+            "min",
+            "max",
+            "seed"
+          ]
+        },
+        {
+          "name": "buildStarBand",
+          "startLine": 138,
+          "endLine": 165,
+          "params": [
+            "count",
+            "min",
+            "max",
+            "seed",
+            "flatten"
+          ]
+        },
+        {
+          "name": "StarLayer",
+          "startLine": 168,
+          "endLine": 205,
+          "params": [
+            "{\n  data,\n  size,\n  opacity,\n  star,\n}"
+          ]
+        },
+        {
+          "name": "StarField",
+          "startLine": 212,
+          "endLine": 304,
+          "params": [
+            "{\n  star,\n  glow,\n}"
+          ]
+        },
+        {
+          "name": "BrightStars",
+          "startLine": 313,
+          "endLine": 393,
+          "params": [
+            "{ glow }"
+          ]
+        },
+        {
+          "name": "ShootingStar",
+          "startLine": 396,
+          "endLine": 471,
+          "params": [
+            "{\n  start,\n  dir,\n  speed,\n  offset,\n  distance,\n  glow,\n}"
+          ]
+        },
+        {
+          "name": "NebulaCloud",
+          "startLine": 475,
+          "endLine": 501,
+          "params": [
+            "{\n  position,\n  scale,\n  color,\n  opacity,\n  glow,\n}"
+          ]
+        },
+        {
+          "name": "Meteors",
+          "startLine": 509,
+          "endLine": 538,
+          "params": [
+            "{ glow }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "AQUA",
+          "line": 14,
+          "isDefault": false
+        },
+        {
+          "name": "TEAL",
+          "line": 15,
+          "isDefault": false
+        },
+        {
+          "name": "PAPER",
+          "line": 16,
+          "isDefault": false
+        },
+        {
+          "name": "SIGNAL_BRIGHT",
+          "line": 22,
+          "isDefault": false
+        },
+        {
+          "name": "SIGNAL_SOFT",
+          "line": 23,
+          "isDefault": false
+        },
+        {
+          "name": "SIGNAL",
+          "line": 25,
+          "isDefault": false
+        },
+        {
+          "name": "hash",
+          "line": 29,
+          "isDefault": false
+        },
+        {
+          "name": "radialGlowTexture",
+          "line": 34,
+          "isDefault": false
+        },
+        {
+          "name": "starTexture",
+          "line": 64,
+          "isDefault": false
+        },
+        {
+          "name": "StarField",
+          "line": 212,
+          "isDefault": false
+        },
+        {
+          "name": "BrightStars",
+          "line": 313,
+          "isDefault": false
+        },
+        {
+          "name": "NebulaCloud",
+          "line": 475,
+          "isDefault": false
+        },
+        {
+          "name": "Meteors",
+          "line": 509,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "hash",
+          "callee": "Math.sin",
+          "lineNumber": 30
+        },
+        {
+          "caller": "hash",
+          "callee": "Math.floor",
+          "lineNumber": 31
+        },
+        {
+          "caller": "radialGlowTexture",
+          "callee": "document.createElement",
+          "lineNumber": 36
+        },
+        {
+          "caller": "radialGlowTexture",
+          "callee": "canvas.getContext",
+          "lineNumber": 39
+        },
+        {
+          "caller": "radialGlowTexture",
+          "callee": "ctx.createRadialGradient",
+          "lineNumber": 41
+        },
+        {
+          "caller": "radialGlowTexture",
+          "callee": "g.addColorStop",
+          "lineNumber": 49
+        },
+        {
+          "caller": "radialGlowTexture",
+          "callee": "g.addColorStop",
+          "lineNumber": 50
+        },
+        {
+          "caller": "radialGlowTexture",
+          "callee": "g.addColorStop",
+          "lineNumber": 51
+        },
+        {
+          "caller": "radialGlowTexture",
+          "callee": "ctx.fillRect",
+          "lineNumber": 53
+        },
+        {
+          "caller": "starTexture",
+          "callee": "document.createElement",
+          "lineNumber": 66
+        },
+        {
+          "caller": "starTexture",
+          "callee": "canvas.getContext",
+          "lineNumber": 69
+        },
+        {
+          "caller": "starTexture",
+          "callee": "ctx.createRadialGradient",
+          "lineNumber": 73
+        },
+        {
+          "caller": "starTexture",
+          "callee": "g.addColorStop",
+          "lineNumber": 74
+        },
+        {
+          "caller": "starTexture",
+          "callee": "g.addColorStop",
+          "lineNumber": 75
+        },
+        {
+          "caller": "starTexture",
+          "callee": "g.addColorStop",
+          "lineNumber": 76
+        },
+        {
+          "caller": "starTexture",
+          "callee": "g.addColorStop",
+          "lineNumber": 77
+        },
+        {
+          "caller": "starTexture",
+          "callee": "g.addColorStop",
+          "lineNumber": 78
+        },
+        {
+          "caller": "starTexture",
+          "callee": "ctx.fillRect",
+          "lineNumber": 80
+        },
+        {
+          "caller": "writeStarColor",
+          "callee": "hash",
+          "lineNumber": 94
+        },
+        {
+          "caller": "writeStarColor",
+          "callee": "hash",
+          "lineNumber": 111
+        },
+        {
+          "caller": "writeStarColor",
+          "callee": "Math.pow",
+          "lineNumber": 112
+        },
+        {
+          "caller": "writeStarColor",
+          "callee": "out.set",
+          "lineNumber": 113
+        },
+        {
+          "caller": "buildStarLayer",
+          "callee": "hash",
+          "lineNumber": 121
+        },
+        {
+          "caller": "buildStarLayer",
+          "callee": "hash",
+          "lineNumber": 122
+        },
+        {
+          "caller": "buildStarLayer",
+          "callee": "Math.acos",
+          "lineNumber": 123
+        },
+        {
+          "caller": "buildStarLayer",
+          "callee": "hash",
+          "lineNumber": 123
+        },
+        {
+          "caller": "buildStarLayer",
+          "callee": "positions.set",
+          "lineNumber": 124
+        },
+        {
+          "caller": "buildStarLayer",
+          "callee": "Math.sin",
+          "lineNumber": 126
+        },
+        {
+          "caller": "buildStarLayer",
+          "callee": "Math.cos",
+          "lineNumber": 126
+        },
+        {
+          "caller": "buildStarLayer",
+          "callee": "Math.sin",
+          "lineNumber": 127
+        },
+        {
+          "caller": "buildStarLayer",
+          "callee": "Math.sin",
+          "lineNumber": 127
+        },
+        {
+          "caller": "buildStarLayer",
+          "callee": "Math.cos",
+          "lineNumber": 128
+        },
+        {
+          "caller": "buildStarLayer",
+          "callee": "writeStarColor",
+          "lineNumber": 132
+        },
+        {
+          "caller": "buildStarBand",
+          "callee": "hash",
+          "lineNumber": 149
+        },
+        {
+          "caller": "buildStarBand",
+          "callee": "hash",
+          "lineNumber": 150
+        },
+        {
+          "caller": "buildStarBand",
+          "callee": "Math.acos",
+          "lineNumber": 151
+        },
+        {
+          "caller": "buildStarBand",
+          "callee": "hash",
+          "lineNumber": 151
+        },
+        {
+          "caller": "buildStarBand",
+          "callee": "v.set",
+          "lineNumber": 152
+        },
+        {
+          "caller": "buildStarBand",
+          "callee": "Math.sin",
+          "lineNumber": 153
+        },
+        {
+          "caller": "buildStarBand",
+          "callee": "Math.cos",
+          "lineNumber": 153
+        },
+        {
+          "caller": "buildStarBand",
+          "callee": "Math.sin",
+          "lineNumber": 154
+        },
+        {
+          "caller": "buildStarBand",
+          "callee": "Math.sin",
+          "lineNumber": 154
+        },
+        {
+          "caller": "buildStarBand",
+          "callee": "Math.cos",
+          "lineNumber": 155
+        },
+        {
+          "caller": "buildStarBand",
+          "callee": "v.normalize().multiplyScalar",
+          "lineNumber": 160
+        },
+        {
+          "caller": "buildStarBand",
+          "callee": "v.normalize",
+          "lineNumber": 160
+        },
+        {
+          "caller": "buildStarBand",
+          "callee": "positions.set",
+          "lineNumber": 161
+        },
+        {
+          "caller": "buildStarBand",
+          "callee": "writeStarColor",
+          "lineNumber": 162
+        },
+        {
+          "caller": "StarField",
+          "callee": "useRef",
+          "lineNumber": 219
+        },
+        {
+          "caller": "StarField",
+          "callee": "useRef",
+          "lineNumber": 220
+        },
+        {
+          "caller": "StarField",
+          "callee": "useRef",
+          "lineNumber": 221
+        },
+        {
+          "caller": "StarField",
+          "callee": "useRef",
+          "lineNumber": 222
+        },
+        {
+          "caller": "StarField",
+          "callee": "useMemo",
+          "lineNumber": 224
+        },
+        {
+          "caller": "StarField",
+          "callee": "buildStarLayer",
+          "lineNumber": 224
+        },
+        {
+          "caller": "StarField",
+          "callee": "useMemo",
+          "lineNumber": 225
+        },
+        {
+          "caller": "StarField",
+          "callee": "buildStarLayer",
+          "lineNumber": 225
+        },
+        {
+          "caller": "StarField",
+          "callee": "useMemo",
+          "lineNumber": 226
+        },
+        {
+          "caller": "StarField",
+          "callee": "buildStarLayer",
+          "lineNumber": 226
+        },
+        {
+          "caller": "StarField",
+          "callee": "useMemo",
+          "lineNumber": 227
+        },
+        {
+          "caller": "StarField",
+          "callee": "buildStarLayer",
+          "lineNumber": 227
+        },
+        {
+          "caller": "StarField",
+          "callee": "useMemo",
+          "lineNumber": 228
+        },
+        {
+          "caller": "StarField",
+          "callee": "buildStarBand",
+          "lineNumber": 228
+        },
+        {
+          "caller": "StarField",
+          "callee": "useFrame",
+          "lineNumber": 230
+        },
+        {
+          "caller": "BrightStars",
+          "callee": "useMemo",
+          "lineNumber": 314
+        },
+        {
+          "caller": "BrightStars",
+          "callee": "stars.map",
+          "lineNumber": 344
+        },
+        {
+          "caller": "ShootingStar",
+          "callee": "useRef",
+          "lineNumber": 411
+        },
+        {
+          "caller": "ShootingStar",
+          "callee": "useRef",
+          "lineNumber": 412
+        },
+        {
+          "caller": "ShootingStar",
+          "callee": "useRef",
+          "lineNumber": 413
+        },
+        {
+          "caller": "ShootingStar",
+          "callee": "useRef",
+          "lineNumber": 414
+        },
+        {
+          "caller": "ShootingStar",
+          "callee": "useMemo",
+          "lineNumber": 416
+        },
+        {
+          "caller": "ShootingStar",
+          "callee": "dir.clone().normalize",
+          "lineNumber": 416
+        },
+        {
+          "caller": "ShootingStar",
+          "callee": "dir.clone",
+          "lineNumber": 416
+        },
+        {
+          "caller": "ShootingStar",
+          "callee": "useMemo",
+          "lineNumber": 417
+        },
+        {
+          "caller": "ShootingStar",
+          "callee": "new THREE.Quaternion().setFromUnitVectors",
+          "lineNumber": 419
+        },
+        {
+          "caller": "ShootingStar",
+          "callee": "useFrame",
+          "lineNumber": 426
+        },
+        {
+          "caller": "ShootingStar",
+          "callee": "group.current.position\n        .copy(start)\n        .addScaledVector",
+          "lineNumber": 431
+        },
+        {
+          "caller": "ShootingStar",
+          "callee": "group.current.position\n        .copy",
+          "lineNumber": 431
+        },
+        {
+          "caller": "ShootingStar",
+          "callee": "Math.sin",
+          "lineNumber": 436
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 13,
+        "functionCount": 12,
+        "classCount": 0
+      }
+    }
+  ]
+}

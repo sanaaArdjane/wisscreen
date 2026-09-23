@@ -1,0 +1,1078 @@
+{
+ "nodes": [
+  {
+   "id": "file:components/dashboard/billing/ImagePicker.tsx",
+   "type": "file",
+   "name": "ImagePicker.tsx",
+   "filePath": "components/dashboard/billing/ImagePicker.tsx",
+   "summary": "Logo/signature upload control for the document editor: validates PNG/JPEG, uploads via `uploadFile`, and shows a preview with a reset option.",
+   "tags": [
+    "client-component",
+    "upload",
+    "billing",
+    "form"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:components/dashboard/ui.tsx",
+   "type": "file",
+   "name": "ui.tsx",
+   "filePath": "components/dashboard/ui.tsx",
+   "summary": "Shared dashboard form/UI primitives \u2014 labeled inputs, textareas, checkboxes, selects, a submit button, an action-state alert, status chips, an empty state, and a two-step destructive `ConfirmButton` \u2014 plus a re-export of HeroUI's `Button`/`Chip`.",
+   "tags": [
+    "component",
+    "ui-primitives",
+    "dashboard",
+    "form",
+    "barrel"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "file:lib/actions.ts",
+   "type": "file",
+   "name": "actions.ts",
+   "filePath": "lib/actions.ts",
+   "summary": "Shared server-action plumbing: the `ActionState` shape every dashboard action returns, a `parseForm` helper that validates `FormData` against a Zod schema while preserving typed values on failure, and small `fail`/`succeed` result builders plus reusable Zod fragments for optional text and checkboxes.",
+   "tags": [
+    "server-action",
+    "validation",
+    "form",
+    "zod",
+    "utility"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:lib/billing-lines.ts",
+   "type": "file",
+   "name": "billing-lines.ts",
+   "filePath": "lib/billing-lines.ts",
+   "summary": "Form-parsing helpers for billing documents: reads parallel line-item fields from `FormData` into typed lines, allocates the next sequential document reference for a given prefix/table, and parses/validates company identity overrides including logo/signature attachment checks.",
+   "tags": [
+    "server-action",
+    "billing",
+    "form",
+    "database"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:lib/billing-preview.ts",
+   "type": "file",
+   "name": "billing-preview.ts",
+   "filePath": "lib/billing-preview.ts",
+   "summary": "Converts persisted billing lines/cents into the string-based shape the editable `DocumentPreview` form uses, and builds a full preview document object from draft input.",
+   "tags": [
+    "billing",
+    "utility",
+    "preview"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:lib/billing-send.ts",
+   "type": "file",
+   "name": "billing-send.ts",
+   "filePath": "lib/billing-send.ts",
+   "summary": "Renders a quote or invoice to PDF, stores it as an attachment when object storage is configured, and e-mails it to the client with a themed message and an in-app link, then stamps `sentAt`/`pdfKey` on the source row.",
+   "tags": [
+    "billing",
+    "email",
+    "pdf",
+    "server-action"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:lib/billing.ts",
+   "type": "file",
+   "name": "billing.ts",
+   "filePath": "lib/billing.ts",
+   "summary": "Status vocabulary and small predicates for quotes and invoices: valid status lists, French labels and status-chip tones, quote-expiry and invoice-overdue detection.",
+   "tags": [
+    "billing",
+    "constants",
+    "domain-model"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:lib/company.ts",
+   "type": "file",
+   "name": "company.ts",
+   "filePath": "lib/company.ts",
+   "summary": "The default company identity used on billing documents, the field keys that can be overridden per document, a length-capped Zod schema for those overrides, and `effectiveCompany`/`parseOverrides` to merge and validate them.",
+   "tags": [
+    "billing",
+    "config",
+    "zod",
+    "domain-model"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:components/dashboard/billing/ImagePicker.tsx:ImagePicker",
+   "type": "function",
+   "name": "ImagePicker",
+   "filePath": "components/dashboard/billing/ImagePicker.tsx",
+   "lineRange": [
+    13,
+    94
+   ],
+   "summary": "File-picker control that validates a PNG/JPEG selection, uploads it via `uploadFile`, and reports the resulting URL/attachment id to the caller, with a reset button back to the default.",
+   "tags": [
+    "react-component",
+    "upload",
+    "form"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "function:components/dashboard/ui.tsx:Field",
+   "type": "function",
+   "name": "Field",
+   "filePath": "components/dashboard/ui.tsx",
+   "lineRange": [
+    49,
+    86
+   ],
+   "summary": "Labeled single-line text input wrapping HeroUI's `TextField`, with description/error/required styling shared across dashboard forms.",
+   "tags": [
+    "react-component",
+    "form",
+    "ui-primitive"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:components/dashboard/ui.tsx:TextAreaField",
+   "type": "function",
+   "name": "TextAreaField",
+   "filePath": "components/dashboard/ui.tsx",
+   "lineRange": [
+    88,
+    115
+   ],
+   "summary": "Labeled multi-line textarea variant of `Field` for longer free-text inputs.",
+   "tags": [
+    "react-component",
+    "form",
+    "ui-primitive"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:components/dashboard/ui.tsx:CheckboxField",
+   "type": "function",
+   "name": "CheckboxField",
+   "filePath": "components/dashboard/ui.tsx",
+   "lineRange": [
+    131,
+    181
+   ],
+   "summary": "A real `<input type=checkbox>`-backed field (not HeroUI's ARIA-only `Checkbox`, whose `name`/`value` are silently dropped), used everywhere the dashboard needs a checkbox that actually posts.",
+   "tags": [
+    "react-component",
+    "form",
+    "ui-primitive",
+    "bugfix"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:components/dashboard/ui.tsx:SelectField",
+   "type": "function",
+   "name": "SelectField",
+   "filePath": "components/dashboard/ui.tsx",
+   "lineRange": [
+    185,
+    226
+   ],
+   "summary": "Labeled dropdown wrapping HeroUI's `Select`/`ListBox`, rendering a list of `{value,label}` options.",
+   "tags": [
+    "react-component",
+    "form",
+    "ui-primitive"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:components/dashboard/ui.tsx:SubmitButton",
+   "type": "function",
+   "name": "SubmitButton",
+   "filePath": "components/dashboard/ui.tsx",
+   "lineRange": [
+    236,
+    272
+   ],
+   "summary": "Submit button that reads `useFormStatus` to show a pending spinner and disable itself while its form is submitting.",
+   "tags": [
+    "react-component",
+    "form",
+    "ui-primitive"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:components/dashboard/ui.tsx:FormAlert",
+   "type": "function",
+   "name": "FormAlert",
+   "filePath": "components/dashboard/ui.tsx",
+   "lineRange": [
+    279,
+    298
+   ],
+   "summary": "Renders a server action's `ActionState` (success or failure message) as a styled banner.",
+   "tags": [
+    "react-component",
+    "form",
+    "ui-primitive"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:components/dashboard/ui.tsx:StatusChip",
+   "type": "function",
+   "name": "StatusChip",
+   "filePath": "components/dashboard/ui.tsx",
+   "lineRange": [
+    302,
+    313
+   ],
+   "summary": "Small colored pill for a status label, toned by the caller (e.g. quote/invoice/subscription state).",
+   "tags": [
+    "react-component",
+    "ui-primitive",
+    "status"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:components/dashboard/ui.tsx:EmptyState",
+   "type": "function",
+   "name": "EmptyState",
+   "filePath": "components/dashboard/ui.tsx",
+   "lineRange": [
+    315,
+    331
+   ],
+   "summary": "Generic empty-list placeholder with a title, description and optional call-to-action.",
+   "tags": [
+    "react-component",
+    "ui-primitive",
+    "empty-state"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:components/dashboard/ui.tsx:ConfirmButton",
+   "type": "function",
+   "name": "ConfirmButton",
+   "filePath": "components/dashboard/ui.tsx",
+   "lineRange": [
+    352,
+    430
+   ],
+   "summary": "Two-step destructive action button: an unarmed press reveals a confirmation panel (optionally requiring a typed confirmation phrase) before the real, red submit fires.",
+   "tags": [
+    "react-component",
+    "form",
+    "destructive-action",
+    "ui-primitive"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:lib/actions.ts:parseForm",
+   "type": "function",
+   "name": "parseForm",
+   "filePath": "lib/actions.ts",
+   "lineRange": [
+    28,
+    63
+   ],
+   "summary": "Validates `FormData` against a Zod schema, collapsing repeated keys into arrays for multi-selects; on failure returns per-field error messages plus the raw values so the form can repopulate itself.",
+   "tags": [
+    "validation",
+    "zod",
+    "server-action"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:lib/actions.ts:fail",
+   "type": "function",
+   "name": "fail",
+   "filePath": "lib/actions.ts",
+   "lineRange": [
+    65,
+    67
+   ],
+   "summary": "Builds a failed `ActionState` with a message and optional field errors.",
+   "tags": [
+    "utility",
+    "server-action"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:lib/actions.ts:succeed",
+   "type": "function",
+   "name": "succeed",
+   "filePath": "lib/actions.ts",
+   "lineRange": [
+    69,
+    71
+   ],
+   "summary": "Builds a successful `ActionState` with a message.",
+   "tags": [
+    "utility",
+    "server-action"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:lib/billing-lines.ts:readLines",
+   "type": "function",
+   "name": "readLines",
+   "filePath": "lib/billing-lines.ts",
+   "lineRange": [
+    18,
+    32
+   ],
+   "summary": "Reads the parallel `label`/`quantity`/`unitCents` fields posted by the line-item form into typed `{label, quantity, unitCents}` rows, dropping blank labels.",
+   "tags": [
+    "form-parsing",
+    "billing"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:lib/billing-lines.ts:allocateRef",
+   "type": "function",
+   "name": "allocateRef",
+   "filePath": "lib/billing-lines.ts",
+   "lineRange": [
+    34,
+    43
+   ],
+   "summary": "Looks up existing references for the current period on a table and returns the next sequential ref for the given prefix (`nextRef`), to be inserted under a unique-index retry.",
+   "tags": [
+    "billing",
+    "database",
+    "reference-codes"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:lib/billing-lines.ts:readOverrides",
+   "type": "function",
+   "name": "readOverrides",
+   "filePath": "lib/billing-lines.ts",
+   "lineRange": [
+    50,
+    68
+   ],
+   "summary": "Parses the posted company-override JSON and, for any referenced logo/signature attachment ids, confirms in the database that they exist and are PNG/JPEG before accepting them.",
+   "tags": [
+    "form-parsing",
+    "billing",
+    "validation"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:lib/billing-preview.ts:toPreviewLines",
+   "type": "function",
+   "name": "toPreviewLines",
+   "filePath": "lib/billing-preview.ts",
+   "lineRange": [
+    5,
+    11
+   ],
+   "summary": "Converts stored cents-based billing lines into the string-valued shape the editable preview form binds to.",
+   "tags": [
+    "utility",
+    "billing",
+    "money"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:lib/billing-preview.ts:previewDoc",
+   "type": "function",
+   "name": "previewDoc",
+   "filePath": "lib/billing-preview.ts",
+   "lineRange": [
+    14,
+    38
+   ],
+   "summary": "Assembles a full preview `doc` object (dates, lines, computed total) from draft input for the live document preview.",
+   "tags": [
+    "utility",
+    "billing",
+    "preview"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:lib/billing-send.ts:emailBillingDocument",
+   "type": "function",
+   "name": "emailBillingDocument",
+   "filePath": "lib/billing-send.ts",
+   "lineRange": [
+    23,
+    98
+   ],
+   "summary": "Renders a quote/invoice to PDF, optionally stores it as an attachment when object storage is configured, e-mails the client with amount/date summary and an in-app link, and stamps the row as sent.",
+   "tags": [
+    "email",
+    "pdf",
+    "billing",
+    "server-action"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:lib/billing.ts:isQuoteExpired",
+   "type": "function",
+   "name": "isQuoteExpired",
+   "filePath": "lib/billing.ts",
+   "lineRange": [
+    66,
+    72
+   ],
+   "summary": "True when a quote has a `validUntil` date that has passed.",
+   "tags": [
+    "predicate",
+    "billing"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:lib/billing.ts:isQuoteStatus",
+   "type": "function",
+   "name": "isQuoteStatus",
+   "filePath": "lib/billing.ts",
+   "lineRange": [
+    74,
+    76
+   ],
+   "summary": "Type guard narrowing a string to a known `QuoteStatus`.",
+   "tags": [
+    "type-guard",
+    "billing"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:lib/billing.ts:isInvoiceStatus",
+   "type": "function",
+   "name": "isInvoiceStatus",
+   "filePath": "lib/billing.ts",
+   "lineRange": [
+    78,
+    80
+   ],
+   "summary": "Type guard narrowing a string to a known `InvoiceStatus`.",
+   "tags": [
+    "type-guard",
+    "billing"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:lib/billing.ts:effectiveInvoiceStatus",
+   "type": "function",
+   "name": "effectiveInvoiceStatus",
+   "filePath": "lib/billing.ts",
+   "lineRange": [
+    87,
+    96
+   ],
+   "summary": "Returns an invoice's stored status, upgraded to `en_retard` when it's still `envoyee` past its due date.",
+   "tags": [
+    "billing",
+    "domain-model"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:lib/company.ts:effectiveCompany",
+   "type": "function",
+   "name": "effectiveCompany",
+   "filePath": "lib/company.ts",
+   "lineRange": [
+    80,
+    90
+   ],
+   "summary": "Merges a document's per-field overrides onto the base company identity, keeping the base value wherever no override is set.",
+   "tags": [
+    "utility",
+    "billing",
+    "domain-model"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:lib/company.ts:parseOverrides",
+   "type": "function",
+   "name": "parseOverrides",
+   "filePath": "lib/company.ts",
+   "lineRange": [
+    130,
+    146
+   ],
+   "summary": "Parses a raw JSON string of company overrides and validates it against `CompanyOverridesSchema`, returning either the parsed overrides or a field-level error message.",
+   "tags": [
+    "validation",
+    "zod",
+    "billing"
+   ],
+   "complexity": "simple"
+  }
+ ],
+ "edges": [
+  {
+   "source": "file:components/dashboard/billing/ImagePicker.tsx",
+   "target": "function:components/dashboard/billing/ImagePicker.tsx:ImagePicker",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:components/dashboard/billing/ImagePicker.tsx",
+   "target": "function:components/dashboard/billing/ImagePicker.tsx:ImagePicker",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:components/dashboard/ui.tsx",
+   "target": "function:components/dashboard/ui.tsx:Field",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:components/dashboard/ui.tsx",
+   "target": "function:components/dashboard/ui.tsx:Field",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:components/dashboard/ui.tsx",
+   "target": "function:components/dashboard/ui.tsx:TextAreaField",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:components/dashboard/ui.tsx",
+   "target": "function:components/dashboard/ui.tsx:TextAreaField",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:components/dashboard/ui.tsx",
+   "target": "function:components/dashboard/ui.tsx:CheckboxField",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:components/dashboard/ui.tsx",
+   "target": "function:components/dashboard/ui.tsx:CheckboxField",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:components/dashboard/ui.tsx",
+   "target": "function:components/dashboard/ui.tsx:SelectField",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:components/dashboard/ui.tsx",
+   "target": "function:components/dashboard/ui.tsx:SelectField",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:components/dashboard/ui.tsx",
+   "target": "function:components/dashboard/ui.tsx:SubmitButton",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:components/dashboard/ui.tsx",
+   "target": "function:components/dashboard/ui.tsx:SubmitButton",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:components/dashboard/ui.tsx",
+   "target": "function:components/dashboard/ui.tsx:FormAlert",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:components/dashboard/ui.tsx",
+   "target": "function:components/dashboard/ui.tsx:FormAlert",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:components/dashboard/ui.tsx",
+   "target": "function:components/dashboard/ui.tsx:StatusChip",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:components/dashboard/ui.tsx",
+   "target": "function:components/dashboard/ui.tsx:StatusChip",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:components/dashboard/ui.tsx",
+   "target": "function:components/dashboard/ui.tsx:EmptyState",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:components/dashboard/ui.tsx",
+   "target": "function:components/dashboard/ui.tsx:EmptyState",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:components/dashboard/ui.tsx",
+   "target": "function:components/dashboard/ui.tsx:ConfirmButton",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:components/dashboard/ui.tsx",
+   "target": "function:components/dashboard/ui.tsx:ConfirmButton",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:lib/actions.ts",
+   "target": "function:lib/actions.ts:parseForm",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:lib/actions.ts",
+   "target": "function:lib/actions.ts:parseForm",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:lib/actions.ts",
+   "target": "function:lib/actions.ts:fail",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:lib/actions.ts",
+   "target": "function:lib/actions.ts:fail",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:lib/actions.ts",
+   "target": "function:lib/actions.ts:succeed",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:lib/actions.ts",
+   "target": "function:lib/actions.ts:succeed",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:lib/billing-lines.ts",
+   "target": "function:lib/billing-lines.ts:readLines",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:lib/billing-lines.ts",
+   "target": "function:lib/billing-lines.ts:readLines",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:lib/billing-lines.ts",
+   "target": "function:lib/billing-lines.ts:allocateRef",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:lib/billing-lines.ts",
+   "target": "function:lib/billing-lines.ts:allocateRef",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:lib/billing-lines.ts",
+   "target": "function:lib/billing-lines.ts:readOverrides",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:lib/billing-lines.ts",
+   "target": "function:lib/billing-lines.ts:readOverrides",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:lib/billing-preview.ts",
+   "target": "function:lib/billing-preview.ts:toPreviewLines",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:lib/billing-preview.ts",
+   "target": "function:lib/billing-preview.ts:toPreviewLines",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:lib/billing-preview.ts",
+   "target": "function:lib/billing-preview.ts:previewDoc",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:lib/billing-preview.ts",
+   "target": "function:lib/billing-preview.ts:previewDoc",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:lib/billing-send.ts",
+   "target": "function:lib/billing-send.ts:emailBillingDocument",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:lib/billing-send.ts",
+   "target": "function:lib/billing-send.ts:emailBillingDocument",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:lib/billing.ts",
+   "target": "function:lib/billing.ts:isQuoteExpired",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:lib/billing.ts",
+   "target": "function:lib/billing.ts:isQuoteExpired",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:lib/billing.ts",
+   "target": "function:lib/billing.ts:isQuoteStatus",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:lib/billing.ts",
+   "target": "function:lib/billing.ts:isQuoteStatus",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:lib/billing.ts",
+   "target": "function:lib/billing.ts:isInvoiceStatus",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:lib/billing.ts",
+   "target": "function:lib/billing.ts:isInvoiceStatus",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:lib/billing.ts",
+   "target": "function:lib/billing.ts:effectiveInvoiceStatus",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:lib/billing.ts",
+   "target": "function:lib/billing.ts:effectiveInvoiceStatus",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:lib/company.ts",
+   "target": "function:lib/company.ts:effectiveCompany",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:lib/company.ts",
+   "target": "function:lib/company.ts:effectiveCompany",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:lib/company.ts",
+   "target": "function:lib/company.ts:parseOverrides",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:lib/company.ts",
+   "target": "function:lib/company.ts:parseOverrides",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:components/dashboard/billing/ImagePicker.tsx",
+   "target": "file:components/ui/Icon.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/dashboard/billing/ImagePicker.tsx",
+   "target": "file:lib/upload-client.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/dashboard/ui.tsx",
+   "target": "file:lib/actions.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/dashboard/ui.tsx",
+   "target": "file:lib/cn.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:lib/billing-lines.ts",
+   "target": "file:lib/company.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:lib/billing-lines.ts",
+   "target": "file:lib/db/index.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:lib/billing-lines.ts",
+   "target": "file:lib/db/schema.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:lib/billing-lines.ts",
+   "target": "file:lib/money.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:lib/billing-lines.ts",
+   "target": "file:lib/ref.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:lib/billing-preview.ts",
+   "target": "file:components/dashboard/billing/DocumentPreview.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:lib/billing-preview.ts",
+   "target": "file:lib/db/schema.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:lib/billing-send.ts",
+   "target": "file:lib/db/index.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:lib/billing-send.ts",
+   "target": "file:lib/db/schema.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:lib/billing-send.ts",
+   "target": "file:lib/email.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:lib/billing-send.ts",
+   "target": "file:lib/format.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:lib/billing-send.ts",
+   "target": "file:lib/money.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:lib/billing-send.ts",
+   "target": "file:lib/pdf/render.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:lib/billing-send.ts",
+   "target": "file:lib/settings.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:lib/billing-send.ts",
+   "target": "file:lib/site.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:lib/billing-send.ts",
+   "target": "file:lib/storage.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "function:lib/billing-lines.ts:allocateRef",
+   "target": "function:lib/ref.ts:nextRef",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:lib/billing-lines.ts:allocateRef",
+   "target": "function:lib/ref.ts:refPeriod",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:lib/billing-lines.ts:readOverrides",
+   "target": "function:lib/company.ts:parseOverrides",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:lib/billing-preview.ts:previewDoc",
+   "target": "function:lib/billing-preview.ts:toPreviewLines",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:lib/billing-send.ts:emailBillingDocument",
+   "target": "function:lib/pdf/render.ts:renderBillingPdf",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:lib/billing-send.ts:emailBillingDocument",
+   "target": "function:lib/settings.ts:getDocumentCompany",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:lib/billing-send.ts:emailBillingDocument",
+   "target": "function:lib/money.ts:withVat",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  }
+ ]
+}

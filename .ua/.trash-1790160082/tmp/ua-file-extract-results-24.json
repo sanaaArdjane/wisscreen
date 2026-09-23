@@ -1,0 +1,354 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 5,
+  "filesSkipped": [],
+  "filesUnreadable": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 5,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 0,
+      "failed": 0,
+      "skipped": 5
+    }
+  },
+  "results": [
+    {
+      "path": "lib/db/migrations/meta/0000_snapshot.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 1880,
+      "nonEmptyLines": 1880,
+      "sections": [
+        {
+          "heading": "id",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "prevId",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "version",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "dialect",
+          "level": 1,
+          "line": 5
+        },
+        {
+          "heading": "tables",
+          "level": 1,
+          "line": 6
+        },
+        {
+          "heading": "enums",
+          "level": 1,
+          "line": 1869
+        },
+        {
+          "heading": "schemas",
+          "level": 1,
+          "line": 1870
+        },
+        {
+          "heading": "sequences",
+          "level": 1,
+          "line": 1871
+        },
+        {
+          "heading": "roles",
+          "level": 1,
+          "line": 1872
+        },
+        {
+          "heading": "policies",
+          "level": 1,
+          "line": 108
+        },
+        {
+          "heading": "views",
+          "level": 1,
+          "line": 1874
+        },
+        {
+          "heading": "_meta",
+          "level": 1,
+          "line": 1875
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 12
+      }
+    },
+    {
+      "path": "lib/db/migrations/meta/0001_snapshot.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 2623,
+      "nonEmptyLines": 2623,
+      "sections": [
+        {
+          "heading": "id",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "prevId",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "version",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "dialect",
+          "level": 1,
+          "line": 5
+        },
+        {
+          "heading": "tables",
+          "level": 1,
+          "line": 6
+        },
+        {
+          "heading": "enums",
+          "level": 1,
+          "line": 2612
+        },
+        {
+          "heading": "schemas",
+          "level": 1,
+          "line": 2613
+        },
+        {
+          "heading": "sequences",
+          "level": 1,
+          "line": 2614
+        },
+        {
+          "heading": "roles",
+          "level": 1,
+          "line": 2615
+        },
+        {
+          "heading": "policies",
+          "level": 1,
+          "line": 108
+        },
+        {
+          "heading": "views",
+          "level": 1,
+          "line": 2617
+        },
+        {
+          "heading": "_meta",
+          "level": 1,
+          "line": 2618
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 12
+      }
+    },
+    {
+      "path": "lib/db/migrations/meta/0002_snapshot.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 2637,
+      "nonEmptyLines": 2637,
+      "sections": [
+        {
+          "heading": "id",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "prevId",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "version",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "dialect",
+          "level": 1,
+          "line": 5
+        },
+        {
+          "heading": "tables",
+          "level": 1,
+          "line": 6
+        },
+        {
+          "heading": "enums",
+          "level": 1,
+          "line": 2626
+        },
+        {
+          "heading": "schemas",
+          "level": 1,
+          "line": 2627
+        },
+        {
+          "heading": "sequences",
+          "level": 1,
+          "line": 2628
+        },
+        {
+          "heading": "roles",
+          "level": 1,
+          "line": 2629
+        },
+        {
+          "heading": "policies",
+          "level": 1,
+          "line": 108
+        },
+        {
+          "heading": "views",
+          "level": 1,
+          "line": 2631
+        },
+        {
+          "heading": "_meta",
+          "level": 1,
+          "line": 2632
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 12
+      }
+    },
+    {
+      "path": "lib/db/migrations/meta/0003_snapshot.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 2797,
+      "nonEmptyLines": 2797,
+      "sections": [
+        {
+          "heading": "id",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "prevId",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "version",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "dialect",
+          "level": 1,
+          "line": 5
+        },
+        {
+          "heading": "tables",
+          "level": 1,
+          "line": 6
+        },
+        {
+          "heading": "enums",
+          "level": 1,
+          "line": 2786
+        },
+        {
+          "heading": "schemas",
+          "level": 1,
+          "line": 2787
+        },
+        {
+          "heading": "sequences",
+          "level": 1,
+          "line": 2788
+        },
+        {
+          "heading": "roles",
+          "level": 1,
+          "line": 2789
+        },
+        {
+          "heading": "policies",
+          "level": 1,
+          "line": 108
+        },
+        {
+          "heading": "views",
+          "level": 1,
+          "line": 2791
+        },
+        {
+          "heading": "_meta",
+          "level": 1,
+          "line": 2792
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 12
+      }
+    },
+    {
+      "path": "lib/db/migrations/meta/_journal.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 34,
+      "nonEmptyLines": 34,
+      "sections": [
+        {
+          "heading": "version",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "dialect",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "entries",
+          "level": 1,
+          "line": 4
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 3
+      }
+    }
+  ]
+}

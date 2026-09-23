@@ -1,0 +1,12 @@
+{
+  "projectRoot": "/home/raouf-filali/Desktop/wisscreen",
+  "batchFiles": [
+    {"path": ".claude/skills/neon/references/auth.md", "language": "markdown", "sizeLines": 12, "fileCategory": "docs"},
+    {"path": ".claude/skills/neon/references/claimable-neon.md", "language": "markdown", "sizeLines": 117, "fileCategory": "docs"},
+    {"path": ".claude/skills/neon/references/function-triggers.md", "language": "markdown", "sizeLines": 53, "fileCategory": "docs"},
+    {"path": ".claude/skills/neon/references/logs-loki.md", "language": "markdown", "sizeLines": 61, "fileCategory": "docs"},
+    {"path": ".claude/skills/neon/references/parse-env.md", "language": "markdown", "sizeLines": 32, "fileCategory": "docs"},
+    {"path": ".claude/skills/neon/references/sdk.md", "language": "markdown", "sizeLines": 7, "fileCategory": "docs"}
+  ],
+  "batchImportData": {".claude/skills/neon/references/auth.md": [], ".claude/skills/neon/references/claimable-neon.md": [], ".claude/skills/neon/references/function-triggers.md": [], ".claude/skills/neon/references/logs-loki.md": [], ".claude/skills/neon/references/parse-env.md": [], ".claude/skills/neon/references/sdk.md": []}
+}

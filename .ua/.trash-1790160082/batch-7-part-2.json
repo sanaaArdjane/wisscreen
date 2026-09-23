@@ -1,0 +1,1389 @@
+{
+ "nodes": [
+  {
+   "id": "file:app/(app)/admin/devis/actions.ts",
+   "type": "file",
+   "name": "actions.ts",
+   "filePath": "app/(app)/admin/devis/actions.ts",
+   "summary": "Server actions for the lifecycle of a quote (devis): save (draft create/update, refuses edits once the client has answered), send/resend by e-mail with PDF attached and client notification, convert an accepted quote into an invoice by copying its lines, and delete (plain confirm for drafts, reference-typed confirm once sent).",
+   "tags": [
+    "server-action",
+    "admin",
+    "billing",
+    "quotes",
+    "workflow"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "file:app/(app)/admin/devis/nouveau/page.tsx",
+   "type": "file",
+   "name": "page.tsx",
+   "filePath": "app/(app)/admin/devis/nouveau/page.tsx",
+   "summary": "New-quote admin page: checks quotes:write, loads billable clients and the company identity, optionally prefilling from a linked request id in the query string, and renders the DocumentEditor for a blank devis.",
+   "tags": [
+    "server-component",
+    "admin",
+    "billing",
+    "quotes",
+    "page"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:app/(app)/admin/factures/InvoiceActions.tsx",
+   "type": "file",
+   "name": "InvoiceActions.tsx",
+   "filePath": "app/(app)/admin/factures/InvoiceActions.tsx",
+   "summary": "Invoice-detail action panel: PDF preview/download links, send/resend by e-mail (issues the invoice on first send), and a confirm-to-delete that requires the reference once the invoice has been emitted.",
+   "tags": [
+    "client-component",
+    "admin",
+    "billing",
+    "invoices",
+    "workflow"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:app/(app)/admin/factures/InvoiceControls.tsx",
+   "type": "file",
+   "name": "InvoiceControls.tsx",
+   "filePath": "app/(app)/admin/factures/InvoiceControls.tsx",
+   "summary": "Small inline form to move an invoice through its statuses (mainly marking it paid) and adjust its due date, since there is no payment provider and a human sets invoice state by hand.",
+   "tags": [
+    "client-component",
+    "admin",
+    "billing",
+    "invoices"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:app/(app)/admin/factures/[id]/page.tsx",
+   "type": "file",
+   "name": "page.tsx",
+   "filePath": "app/(app)/admin/factures/[id]/page.tsx",
+   "summary": "Admin invoice detail page: loads the invoice with its client and originating quote, resolves the effective per-document company identity, and renders the live DocumentEditor for an editable invoice or a read-only DocumentPreview for a closed one, alongside client, status controls and action panels.",
+   "tags": [
+    "server-component",
+    "admin",
+    "billing",
+    "invoices",
+    "page"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "file:app/(app)/admin/factures/actions.ts",
+   "type": "file",
+   "name": "actions.ts",
+   "filePath": "app/(app)/admin/factures/actions.ts",
+   "summary": "Server actions for the invoice lifecycle: save (create/update, refuses paid/cancelled invoices), send/resend by e-mail (issues on first send, stamps issuedAt), status transitions (stamps issuedAt/paidAt on the transition rather than recomputing, notifies the client when marked paid), and delete (plain confirm for drafts, reference-typed confirm once emitted).",
+   "tags": [
+    "server-action",
+    "admin",
+    "billing",
+    "invoices",
+    "workflow"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "file:app/(app)/admin/factures/nouveau/page.tsx",
+   "type": "file",
+   "name": "page.tsx",
+   "filePath": "app/(app)/admin/factures/nouveau/page.tsx",
+   "summary": "New-invoice admin page: checks invoices:write, loads billable clients and the company identity, and renders the DocumentEditor for a blank facture.",
+   "tags": [
+    "server-component",
+    "admin",
+    "billing",
+    "invoices",
+    "page"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:app/(app)/admin/journal/PurgeForm.tsx",
+   "type": "file",
+   "name": "PurgeForm.tsx",
+   "filePath": "app/(app)/admin/journal/PurgeForm.tsx",
+   "summary": "Confirm-gated form that purges activity-log entries older than a chosen date; the purge action itself stays recorded in the journal.",
+   "tags": [
+    "client-component",
+    "admin",
+    "activity-log",
+    "destructive-action"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:app/(app)/admin/devis/actions.ts:saveQuote",
+   "type": "function",
+   "name": "saveQuote",
+   "filePath": "app/(app)/admin/devis/actions.ts",
+   "lineRange": [
+    39,
+    104
+   ],
+   "summary": "Creates or updates a quote draft; refuses to edit a quote the client has already answered since it is a document of record, and allocates the DV- reference only on creation.",
+   "tags": [
+    "server-action",
+    "billing",
+    "validation"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:app/(app)/admin/devis/actions.ts:sendQuote",
+   "type": "function",
+   "name": "sendQuote",
+   "filePath": "app/(app)/admin/devis/actions.ts",
+   "lineRange": [
+    114,
+    163
+   ],
+   "summary": "E-mails the quote's PDF; from a draft this is the first time the client can see it (moves status to envoye and notifies), from any later state it is a plain resend with no status change.",
+   "tags": [
+    "server-action",
+    "billing",
+    "notifications",
+    "email"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:app/(app)/admin/devis/actions.ts:invoiceFromQuote",
+   "type": "function",
+   "name": "invoiceFromQuote",
+   "filePath": "app/(app)/admin/devis/actions.ts",
+   "lineRange": [
+    171,
+    216
+   ],
+   "summary": "Turns an accepted quote into an invoice by copying its lines and overrides (never referencing them, so a later quote correction cannot retroactively change what was billed); redirects to an existing invoice if one was already created from this quote.",
+   "tags": [
+    "server-action",
+    "billing",
+    "workflow"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:app/(app)/admin/devis/actions.ts:deleteQuote",
+   "type": "function",
+   "name": "deleteQuote",
+   "filePath": "app/(app)/admin/devis/actions.ts",
+   "lineRange": [
+    228,
+    251
+   ],
+   "summary": "Deletes a quote; a draft needs only a plain confirm, one the client has seen requires typing the reference. An invoice already made from it survives with quoteId set to null.",
+   "tags": [
+    "server-action",
+    "billing",
+    "destructive-action"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:app/(app)/admin/devis/nouveau/page.tsx:NouveauDevisPage",
+   "type": "function",
+   "name": "NouveauDevisPage",
+   "filePath": "app/(app)/admin/devis/nouveau/page.tsx",
+   "lineRange": [
+    14,
+    50
+   ],
+   "summary": "Loads billable clients and the company identity for a blank quote editor, optionally prefilling the linked request from a `demande` query parameter.",
+   "tags": [
+    "server-component",
+    "page",
+    "billing"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:app/(app)/admin/factures/InvoiceActions.tsx:InvoiceActions",
+   "type": "function",
+   "name": "InvoiceActions",
+   "filePath": "app/(app)/admin/factures/InvoiceActions.tsx",
+   "lineRange": [
+    9,
+    81
+   ],
+   "summary": "PDF preview/download links, send/resend by e-mail, and a reference-gated confirm delete for an invoice.",
+   "tags": [
+    "react-component",
+    "billing",
+    "workflow"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:app/(app)/admin/factures/InvoiceControls.tsx:InvoiceControls",
+   "type": "function",
+   "name": "InvoiceControls",
+   "filePath": "app/(app)/admin/factures/InvoiceControls.tsx",
+   "lineRange": [
+    9,
+    39
+   ],
+   "summary": "Inline status/due-date form driving setInvoiceStatus — the manual substitute for a payment provider.",
+   "tags": [
+    "react-component",
+    "billing",
+    "workflow"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:app/(app)/admin/factures/[id]/page.tsx:AdminInvoicePage",
+   "type": "function",
+   "name": "AdminInvoicePage",
+   "filePath": "app/(app)/admin/factures/[id]/page.tsx",
+   "lineRange": [
+    26,
+    150
+   ],
+   "summary": "Loads an invoice with its client and originating quote, resolves the effective per-document company identity, and renders the live editor or a frozen read-only preview depending on invoice status, plus client/status/action panels.",
+   "tags": [
+    "server-component",
+    "page",
+    "billing"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "function:app/(app)/admin/factures/actions.ts:saveInvoice",
+   "type": "function",
+   "name": "saveInvoice",
+   "filePath": "app/(app)/admin/factures/actions.ts",
+   "lineRange": [
+    47,
+    108
+   ],
+   "summary": "Creates or updates an invoice draft; a paid or cancelled invoice is a closed accounting record and cannot be edited (an avoir or new invoice is the way out).",
+   "tags": [
+    "server-action",
+    "billing",
+    "validation"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:app/(app)/admin/factures/actions.ts:insertWithRef",
+   "type": "function",
+   "name": "insertWithRef",
+   "filePath": "app/(app)/admin/factures/actions.ts",
+   "lineRange": [
+    111,
+    126
+   ],
+   "summary": "Allocates an FA-YYMM-NNNN reference and inserts the invoice, retrying up to twice on the reference's unique-index collision.",
+   "tags": [
+    "server-action",
+    "billing",
+    "concurrency"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:app/(app)/admin/factures/actions.ts:sendInvoice",
+   "type": "function",
+   "name": "sendInvoice",
+   "filePath": "app/(app)/admin/factures/actions.ts",
+   "lineRange": [
+    132,
+    179
+   ],
+   "summary": "E-mails the invoice's PDF; from a draft this also issues it (status envoyee, issuedAt stamped) and notifies the client, otherwise it is a plain resend.",
+   "tags": [
+    "server-action",
+    "billing",
+    "notifications",
+    "email"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:app/(app)/admin/factures/actions.ts:setInvoiceStatus",
+   "type": "function",
+   "name": "setInvoiceStatus",
+   "filePath": "app/(app)/admin/factures/actions.ts",
+   "lineRange": [
+    191,
+    237
+   ],
+   "summary": "Moves an invoice through its states by hand — the whole billing workflow given there is no payment provider — stamping issuedAt/paidAt on the transition itself and notifying the client when marked paid.",
+   "tags": [
+    "server-action",
+    "billing",
+    "workflow"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:app/(app)/admin/factures/actions.ts:deleteInvoice",
+   "type": "function",
+   "name": "deleteInvoice",
+   "filePath": "app/(app)/admin/factures/actions.ts",
+   "lineRange": [
+    244,
+    263
+   ],
+   "summary": "Deletes an invoice; a draft needs only a plain confirm, one already sent requires typing the reference (cancelling is usually the better move for a paid invoice, since it keeps the record).",
+   "tags": [
+    "server-action",
+    "billing",
+    "destructive-action"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:app/(app)/admin/factures/nouveau/page.tsx:NewInvoicePage",
+   "type": "function",
+   "name": "NewInvoicePage",
+   "filePath": "app/(app)/admin/factures/nouveau/page.tsx",
+   "lineRange": [
+    11,
+    35
+   ],
+   "summary": "Loads billable clients and the company identity for a blank invoice editor.",
+   "tags": [
+    "server-component",
+    "page",
+    "billing"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:app/(app)/admin/journal/PurgeForm.tsx:PurgeForm",
+   "type": "function",
+   "name": "PurgeForm",
+   "filePath": "app/(app)/admin/journal/PurgeForm.tsx",
+   "lineRange": [
+    8,
+    23
+   ],
+   "summary": "Confirm-gated form purging activity-log entries older than a chosen date.",
+   "tags": [
+    "react-component",
+    "activity-log",
+    "destructive-action"
+   ],
+   "complexity": "simple"
+  }
+ ],
+ "edges": [
+  {
+   "source": "file:app/(app)/admin/devis/actions.ts",
+   "target": "file:lib/account.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/devis/actions.ts",
+   "target": "file:lib/actions.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/devis/actions.ts",
+   "target": "file:lib/billing-lines.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/devis/actions.ts",
+   "target": "file:lib/billing-send.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/devis/actions.ts",
+   "target": "file:lib/db/index.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/devis/actions.ts",
+   "target": "file:lib/db/schema.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/devis/actions.ts",
+   "target": "file:lib/guard.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/devis/actions.ts",
+   "target": "file:lib/money.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/devis/nouveau/page.tsx",
+   "target": "file:components/dashboard/PageHeader.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/devis/nouveau/page.tsx",
+   "target": "file:components/dashboard/billing/DocumentEditor.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/devis/nouveau/page.tsx",
+   "target": "file:lib/db/index.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/devis/nouveau/page.tsx",
+   "target": "file:lib/db/schema.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/devis/nouveau/page.tsx",
+   "target": "file:lib/guard.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/devis/nouveau/page.tsx",
+   "target": "file:lib/server/queries.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/devis/nouveau/page.tsx",
+   "target": "file:lib/settings.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/devis/nouveau/page.tsx",
+   "target": "file:lib/storage.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/factures/InvoiceActions.tsx",
+   "target": "file:app/(app)/admin/factures/actions.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/factures/InvoiceActions.tsx",
+   "target": "file:components/dashboard/ui.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/factures/InvoiceActions.tsx",
+   "target": "file:components/ui/Icon.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/factures/InvoiceActions.tsx",
+   "target": "file:lib/actions.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/factures/InvoiceControls.tsx",
+   "target": "file:app/(app)/admin/factures/actions.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/factures/InvoiceControls.tsx",
+   "target": "file:components/dashboard/ui.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/factures/InvoiceControls.tsx",
+   "target": "file:lib/actions.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/factures/InvoiceControls.tsx",
+   "target": "file:lib/billing.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/factures/[id]/page.tsx",
+   "target": "file:app/(app)/admin/factures/InvoiceActions.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/factures/[id]/page.tsx",
+   "target": "file:app/(app)/admin/factures/InvoiceControls.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/factures/[id]/page.tsx",
+   "target": "file:components/dashboard/PageHeader.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/factures/[id]/page.tsx",
+   "target": "file:components/dashboard/billing/DocumentEditor.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/factures/[id]/page.tsx",
+   "target": "file:components/dashboard/billing/DocumentPreview.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/factures/[id]/page.tsx",
+   "target": "file:components/dashboard/ui.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/factures/[id]/page.tsx",
+   "target": "file:lib/billing-preview.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/factures/[id]/page.tsx",
+   "target": "file:lib/billing.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/factures/[id]/page.tsx",
+   "target": "file:lib/company.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/factures/[id]/page.tsx",
+   "target": "file:lib/db/index.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/factures/[id]/page.tsx",
+   "target": "file:lib/db/schema.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/factures/[id]/page.tsx",
+   "target": "file:lib/format.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/factures/[id]/page.tsx",
+   "target": "file:lib/guard.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/factures/[id]/page.tsx",
+   "target": "file:lib/money.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/factures/[id]/page.tsx",
+   "target": "file:lib/permissions.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/factures/[id]/page.tsx",
+   "target": "file:lib/server/queries.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/factures/[id]/page.tsx",
+   "target": "file:lib/settings.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/factures/[id]/page.tsx",
+   "target": "file:lib/storage.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/factures/actions.ts",
+   "target": "file:lib/account.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/factures/actions.ts",
+   "target": "file:lib/actions.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/factures/actions.ts",
+   "target": "file:lib/billing-lines.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/factures/actions.ts",
+   "target": "file:lib/billing-send.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/factures/actions.ts",
+   "target": "file:lib/billing.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/factures/actions.ts",
+   "target": "file:lib/db/index.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/factures/actions.ts",
+   "target": "file:lib/db/schema.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/factures/actions.ts",
+   "target": "file:lib/guard.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/factures/actions.ts",
+   "target": "file:lib/money.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/factures/nouveau/page.tsx",
+   "target": "file:components/dashboard/PageHeader.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/factures/nouveau/page.tsx",
+   "target": "file:components/dashboard/billing/DocumentEditor.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/factures/nouveau/page.tsx",
+   "target": "file:lib/guard.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/factures/nouveau/page.tsx",
+   "target": "file:lib/server/queries.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/factures/nouveau/page.tsx",
+   "target": "file:lib/settings.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/factures/nouveau/page.tsx",
+   "target": "file:lib/storage.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/journal/PurgeForm.tsx",
+   "target": "file:app/(app)/admin/journal/actions.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/journal/PurgeForm.tsx",
+   "target": "file:components/dashboard/ui.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/journal/PurgeForm.tsx",
+   "target": "file:lib/actions.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/devis/actions.ts",
+   "target": "function:app/(app)/admin/devis/actions.ts:saveQuote",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:app/(app)/admin/devis/actions.ts",
+   "target": "function:app/(app)/admin/devis/actions.ts:sendQuote",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:app/(app)/admin/devis/actions.ts",
+   "target": "function:app/(app)/admin/devis/actions.ts:invoiceFromQuote",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:app/(app)/admin/devis/actions.ts",
+   "target": "function:app/(app)/admin/devis/actions.ts:deleteQuote",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:app/(app)/admin/devis/nouveau/page.tsx",
+   "target": "function:app/(app)/admin/devis/nouveau/page.tsx:NouveauDevisPage",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:app/(app)/admin/factures/InvoiceActions.tsx",
+   "target": "function:app/(app)/admin/factures/InvoiceActions.tsx:InvoiceActions",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:app/(app)/admin/factures/InvoiceControls.tsx",
+   "target": "function:app/(app)/admin/factures/InvoiceControls.tsx:InvoiceControls",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:app/(app)/admin/factures/[id]/page.tsx",
+   "target": "function:app/(app)/admin/factures/[id]/page.tsx:AdminInvoicePage",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:app/(app)/admin/factures/actions.ts",
+   "target": "function:app/(app)/admin/factures/actions.ts:saveInvoice",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:app/(app)/admin/factures/actions.ts",
+   "target": "function:app/(app)/admin/factures/actions.ts:insertWithRef",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:app/(app)/admin/factures/actions.ts",
+   "target": "function:app/(app)/admin/factures/actions.ts:sendInvoice",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:app/(app)/admin/factures/actions.ts",
+   "target": "function:app/(app)/admin/factures/actions.ts:setInvoiceStatus",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:app/(app)/admin/factures/actions.ts",
+   "target": "function:app/(app)/admin/factures/actions.ts:deleteInvoice",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:app/(app)/admin/factures/nouveau/page.tsx",
+   "target": "function:app/(app)/admin/factures/nouveau/page.tsx:NewInvoicePage",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:app/(app)/admin/journal/PurgeForm.tsx",
+   "target": "function:app/(app)/admin/journal/PurgeForm.tsx:PurgeForm",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:app/(app)/admin/devis/actions.ts",
+   "target": "function:app/(app)/admin/devis/actions.ts:saveQuote",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:app/(app)/admin/devis/actions.ts",
+   "target": "function:app/(app)/admin/devis/actions.ts:sendQuote",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:app/(app)/admin/devis/actions.ts",
+   "target": "function:app/(app)/admin/devis/actions.ts:invoiceFromQuote",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:app/(app)/admin/devis/actions.ts",
+   "target": "function:app/(app)/admin/devis/actions.ts:deleteQuote",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:app/(app)/admin/devis/nouveau/page.tsx",
+   "target": "function:app/(app)/admin/devis/nouveau/page.tsx:NouveauDevisPage",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:app/(app)/admin/factures/InvoiceActions.tsx",
+   "target": "function:app/(app)/admin/factures/InvoiceActions.tsx:InvoiceActions",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:app/(app)/admin/factures/InvoiceControls.tsx",
+   "target": "function:app/(app)/admin/factures/InvoiceControls.tsx:InvoiceControls",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:app/(app)/admin/factures/[id]/page.tsx",
+   "target": "function:app/(app)/admin/factures/[id]/page.tsx:AdminInvoicePage",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:app/(app)/admin/factures/actions.ts",
+   "target": "function:app/(app)/admin/factures/actions.ts:saveInvoice",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:app/(app)/admin/factures/actions.ts",
+   "target": "function:app/(app)/admin/factures/actions.ts:sendInvoice",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:app/(app)/admin/factures/actions.ts",
+   "target": "function:app/(app)/admin/factures/actions.ts:setInvoiceStatus",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:app/(app)/admin/factures/actions.ts",
+   "target": "function:app/(app)/admin/factures/actions.ts:deleteInvoice",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:app/(app)/admin/factures/nouveau/page.tsx",
+   "target": "function:app/(app)/admin/factures/nouveau/page.tsx:NewInvoicePage",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:app/(app)/admin/journal/PurgeForm.tsx",
+   "target": "function:app/(app)/admin/journal/PurgeForm.tsx:PurgeForm",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/(app)/admin/factures/[id]/page.tsx:AdminInvoicePage",
+   "target": "function:app/(app)/admin/factures/InvoiceActions.tsx:InvoiceActions",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "function:app/(app)/admin/factures/[id]/page.tsx:AdminInvoicePage",
+   "target": "function:app/(app)/admin/factures/InvoiceControls.tsx:InvoiceControls",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "function:app/(app)/admin/factures/InvoiceActions.tsx:InvoiceActions",
+   "target": "function:app/(app)/admin/factures/actions.ts:sendInvoice",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/(app)/admin/factures/InvoiceActions.tsx:InvoiceActions",
+   "target": "function:app/(app)/admin/factures/actions.ts:deleteInvoice",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/(app)/admin/factures/InvoiceControls.tsx:InvoiceControls",
+   "target": "function:app/(app)/admin/factures/actions.ts:setInvoiceStatus",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/(app)/admin/journal/PurgeForm.tsx:PurgeForm",
+   "target": "function:app/(app)/admin/journal/actions.ts:purgeActivity",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/(app)/admin/devis/actions.ts:saveQuote",
+   "target": "function:lib/guard.ts:requirePermission",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/(app)/admin/devis/actions.ts:saveQuote",
+   "target": "function:lib/billing-lines.ts:readLines",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/(app)/admin/devis/actions.ts:saveQuote",
+   "target": "function:lib/billing-lines.ts:readOverrides",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/(app)/admin/devis/actions.ts:saveQuote",
+   "target": "function:lib/money.ts:totalCents",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/(app)/admin/devis/actions.ts:saveQuote",
+   "target": "function:lib/account.ts:logActivity",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/(app)/admin/devis/actions.ts:saveQuote",
+   "target": "function:lib/billing-lines.ts:allocateRef",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/(app)/admin/devis/actions.ts:sendQuote",
+   "target": "function:lib/guard.ts:requirePermission",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/(app)/admin/devis/actions.ts:sendQuote",
+   "target": "function:lib/billing-send.ts:emailBillingDocument",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/(app)/admin/devis/actions.ts:sendQuote",
+   "target": "function:lib/account.ts:notify",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/(app)/admin/devis/actions.ts:sendQuote",
+   "target": "function:lib/money.ts:formatMoney",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/(app)/admin/devis/actions.ts:sendQuote",
+   "target": "function:lib/account.ts:logActivity",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/(app)/admin/devis/actions.ts:invoiceFromQuote",
+   "target": "function:lib/guard.ts:requirePermission",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/(app)/admin/devis/actions.ts:invoiceFromQuote",
+   "target": "function:lib/billing-lines.ts:allocateRef",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/(app)/admin/devis/actions.ts:invoiceFromQuote",
+   "target": "function:lib/account.ts:logActivity",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/(app)/admin/devis/actions.ts:deleteQuote",
+   "target": "function:lib/guard.ts:requirePermission",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/(app)/admin/devis/actions.ts:deleteQuote",
+   "target": "function:lib/account.ts:logActivity",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/(app)/admin/devis/nouveau/page.tsx:NouveauDevisPage",
+   "target": "function:lib/guard.ts:requirePermission",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/(app)/admin/devis/nouveau/page.tsx:NouveauDevisPage",
+   "target": "function:lib/server/queries.ts:listBillableClients",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/(app)/admin/devis/nouveau/page.tsx:NouveauDevisPage",
+   "target": "function:lib/settings.ts:getCompany",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/(app)/admin/devis/nouveau/page.tsx:NouveauDevisPage",
+   "target": "function:lib/storage.ts:storageConfigured",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/(app)/admin/factures/[id]/page.tsx:AdminInvoicePage",
+   "target": "function:lib/guard.ts:requirePermission",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/(app)/admin/factures/[id]/page.tsx:AdminInvoicePage",
+   "target": "function:lib/settings.ts:getCompany",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/(app)/admin/factures/[id]/page.tsx:AdminInvoicePage",
+   "target": "function:lib/company.ts:effectiveCompany",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/(app)/admin/factures/[id]/page.tsx:AdminInvoicePage",
+   "target": "function:lib/permissions.ts:can",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/(app)/admin/factures/[id]/page.tsx:AdminInvoicePage",
+   "target": "function:lib/server/queries.ts:listBillableClients",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/(app)/admin/factures/[id]/page.tsx:AdminInvoicePage",
+   "target": "function:lib/storage.ts:storageConfigured",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/(app)/admin/factures/[id]/page.tsx:AdminInvoicePage",
+   "target": "function:lib/billing-preview.ts:previewDoc",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/(app)/admin/factures/[id]/page.tsx:AdminInvoicePage",
+   "target": "function:lib/money.ts:formatMoney",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/(app)/admin/factures/actions.ts:saveInvoice",
+   "target": "function:lib/guard.ts:requirePermission",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/(app)/admin/factures/actions.ts:saveInvoice",
+   "target": "function:lib/billing-lines.ts:readLines",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/(app)/admin/factures/actions.ts:saveInvoice",
+   "target": "function:lib/billing-lines.ts:readOverrides",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/(app)/admin/factures/actions.ts:saveInvoice",
+   "target": "function:lib/money.ts:totalCents",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/(app)/admin/factures/actions.ts:saveInvoice",
+   "target": "function:lib/account.ts:logActivity",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/(app)/admin/factures/actions.ts:insertWithRef",
+   "target": "function:lib/billing-lines.ts:allocateRef",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/(app)/admin/factures/actions.ts:sendInvoice",
+   "target": "function:lib/guard.ts:requirePermission",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/(app)/admin/factures/actions.ts:sendInvoice",
+   "target": "function:lib/billing-send.ts:emailBillingDocument",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/(app)/admin/factures/actions.ts:sendInvoice",
+   "target": "function:lib/account.ts:notify",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/(app)/admin/factures/actions.ts:sendInvoice",
+   "target": "function:lib/money.ts:formatMoney",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/(app)/admin/factures/actions.ts:sendInvoice",
+   "target": "function:lib/account.ts:logActivity",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/(app)/admin/factures/actions.ts:setInvoiceStatus",
+   "target": "function:lib/guard.ts:requirePermission",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/(app)/admin/factures/actions.ts:setInvoiceStatus",
+   "target": "function:lib/account.ts:logActivity",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/(app)/admin/factures/actions.ts:setInvoiceStatus",
+   "target": "function:lib/account.ts:notify",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/(app)/admin/factures/actions.ts:setInvoiceStatus",
+   "target": "function:lib/money.ts:formatMoney",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/(app)/admin/factures/actions.ts:deleteInvoice",
+   "target": "function:lib/guard.ts:requirePermission",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/(app)/admin/factures/actions.ts:deleteInvoice",
+   "target": "function:lib/account.ts:logActivity",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/(app)/admin/factures/nouveau/page.tsx:NewInvoicePage",
+   "target": "function:lib/guard.ts:requirePermission",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/(app)/admin/factures/nouveau/page.tsx:NewInvoicePage",
+   "target": "function:lib/server/queries.ts:listBillableClients",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/(app)/admin/factures/nouveau/page.tsx:NewInvoicePage",
+   "target": "function:lib/settings.ts:getCompany",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/(app)/admin/factures/nouveau/page.tsx:NewInvoicePage",
+   "target": "function:lib/storage.ts:storageConfigured",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  }
+ ]
+}

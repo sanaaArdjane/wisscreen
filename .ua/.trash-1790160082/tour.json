@@ -1,0 +1,74 @@
+[
+  {
+    "order": 1,
+    "title": "Project Overview",
+    "description": "AGENTS.md is the project's real README: it lays out WICLOUD as a dual-product codebase — a French-copy, GSAP/3D-heavy marketing site plus a client/admin platform on Neon Postgres and Better Auth. It documents the stack decisions (App Router, Tailwind v4, HeroUI scoped to the platform only), the strict brand palette with WCAG contrast rules, and the content model that lets the site owner edit copy from an admin panel. Read this first — every later step in this tour refers back to conventions defined here.",
+    "nodeIds": ["document:AGENTS.md"]
+  },
+  {
+    "order": 2,
+    "title": "Root Layout — The Real Entry Point",
+    "description": "app/layout.tsx is the document shell for the whole app: it builds global metadata (title, OG image, icons) from site content, loads fonts, and wraps every route. It is intentionally thin — Navbar and Footer are NOT here, because they only belong to the marketing pages, which live in their own route group. This file is what every page in the app, marketing or platform, ultimately renders inside.",
+    "nodeIds": ["file:app/layout.tsx"],
+    "languageLesson": "Next.js App Router: `app/layout.tsx` is the root layout and applies to every route. Route groups like `(marketing)` and `(app)` let child folders add their own nested layout (chrome, data fetching) without changing the URL — the parenthesized segment is stripped from the path."
+  },
+  {
+    "order": 3,
+    "title": "Marketing Homepage Composition",
+    "description": "app/(marketing)/layout.tsx fetches the owner-editable site content and solutions once and wraps every marketing page with the Navbar and Footer that the root layout deliberately omitted. app/(marketing)/page.tsx is the homepage itself: an async server component that reads that content once and composes roughly twenty sections in order (Hero, HighlightsReel, PerformanceMetrics, UniverseReveal, DeviceShowcase, and more), skipping any section the owner has hidden. This is the highest fan-out file in the codebase — a good sign it's the project's true overview page.",
+    "nodeIds": ["file:app/(marketing)/layout.tsx", "file:app/(marketing)/page.tsx"]
+  },
+  {
+    "order": 4,
+    "title": "Two Homepage Sections in Practice",
+    "description": "Hero.tsx is the opening section: copy on the left, a 3D visual (globe or infrastructure stack) or media on the right, with the owner choosing both the visual mode and the width split in /admin/site. HighlightsReel is 'Section 2' — an auto-advancing carousel cycling through each solution as a stats card or a full-bleed image, gated to only autoplay while the section is actually on screen. Together they show the pattern the rest of the homepage follows: server-rendered copy, a client component for anything that needs to hydrate (animation, 3D, carousel state).",
+    "nodeIds": ["file:components/sections/Hero.tsx", "file:components/sections/HighlightsReel.tsx"],
+    "languageLesson": "GSAP + ScrollTrigger drive the scroll-linked reveals; the 3D scenes (`@react-three/fiber` + `drei`) are loaded via `next/dynamic` so only the chosen scene's chunk is ever fetched, and both mount only once the browser is idle so text and CTAs hydrate first."
+  },
+  {
+    "order": 5,
+    "title": "The Content Model — Copy and Media, Separated",
+    "description": "lib/data/services.ts exports SERVICES, the default copy and structure for the four solutions (OCR, Cloud Infrastructure, WIFACILITY, SETYCORE) — but it holds no media paths at all. lib/data/media.ts is the single registry of every photo, video, and external link on the site; a `withMedia()` helper copies those assets onto each service as SERVICES is built. This split means filling the site with real assets is a one-file change, and there is exactly one place to look when something renders a placeholder instead of a real image.",
+    "nodeIds": ["file:lib/data/services.ts", "file:lib/data/media.ts"]
+  },
+  {
+    "order": 6,
+    "title": "The CMS Override Layer",
+    "description": "The defaults from Step 5 are just fallbacks — the real site content is owner-editable from /admin/site. lib/content/schema.ts defines Zod schemas for every editable field; lib/content/defaults.ts mirrors the component defaults (lifted verbatim from services.ts and the homepage sections); lib/content/index.ts is the read path that deep-merges whatever is stored in the database over those defaults and re-validates the result. Only the raw database rows are cached, not the merged object — so a newly-added field still gets its default immediately instead of serving `undefined` until a cache expires.",
+    "nodeIds": ["file:lib/content/schema.ts", "file:lib/content/defaults.ts", "file:lib/content/index.ts"],
+    "languageLesson": "Zod schemas double as runtime validators and TypeScript types — the same schema that types a form in the admin editor also re-validates whatever comes back out of the database, so a malformed stored row falls back to defaults instead of breaking the page."
+  },
+  {
+    "order": 7,
+    "title": "Authentication and Role-Based Routing",
+    "description": "lib/auth.ts is the Better Auth server instance (Drizzle Postgres adapter, email+password, optional Google sign-in) — the single source of truth for who a visitor is. proxy.ts (Next 16's renamed middleware.ts) does only an optimistic cookie check to keep anonymous traffic off dashboard renders; it decides nothing about permissions. AuthForms.tsx renders every sign-in/sign-up form and routes a signed-in user by role: staff and admin land on /admin, everyone else on /dashboard. This is the seam between the public marketing site from Steps 3-4 and the platform the rest of the tour covers.",
+    "nodeIds": ["file:lib/auth.ts", "file:proxy.ts", "file:components/auth/AuthForms.tsx"]
+  },
+  {
+    "order": 8,
+    "title": "The Platform Shell and Authorization",
+    "description": "AppShell.tsx is the shared chrome for both /dashboard and /admin — a collapsible sidebar and top bar that renders one interface for a client and a different one for staff, from the same component. lib/guard.ts holds the server-side guards (requireUser, requireStaff, requirePermission) that every platform page and server action calls before doing anything. lib/permissions.ts is the authorization core beneath those guards: a role supplies default capabilities, and an account's own permissions JSON can override individual keys — every server action re-checks this, because a page rendering a control is never itself an authorization.",
+    "nodeIds": ["file:components/dashboard/AppShell.tsx", "file:lib/guard.ts", "file:lib/permissions.ts"]
+  },
+  {
+    "order": 9,
+    "title": "The Data Layer",
+    "description": "lib/db/schema.ts is the entire Drizzle ORM schema in one file — Better Auth's own tables plus every business table (requests, quotes, invoices, subscriptions, demos, notifications). lib/db/index.ts wraps the Postgres pool in a Proxy so it is only constructed on first use, not at module load — necessary because CI builds the app with no DATABASE_URL at all. The site_content table is where Step 6's CMS overrides actually live: one jsonb row per editable homepage block, deep-merged over the code defaults on every read.",
+    "nodeIds": ["file:lib/db/schema.ts", "file:lib/db/index.ts", "table:lib/db/migrations/0003_sour_infant_terrible.sql:site_content"],
+    "languageLesson": "Lazy initialization behind a Proxy defers the real work (opening a connection pool) until the first property access, letting a module be imported safely in environments — like a database-less CI build — where constructing it eagerly would fail."
+  },
+  {
+    "order": 10,
+    "title": "Platform Feature Areas: Billing, Demos, Realtime",
+    "description": "Three subsystems built on the authorization and data layers from Steps 8-9. BillingDocument.tsx renders a devis or facture as a styled PDF with @react-pdf/renderer, using money and company-identity values that can be overridden per document. lib/demos.ts models an owner-authored demo as an ordered list of typed blocks (link, credentials, upload, etc.) granted to named customers rather than a generic sandbox. lib/realtime.ts is the SSE backbone built on Postgres LISTEN/NOTIFY that pushes live notifications, thread messages, and page refreshes to the browser whenever any of these subsystems write a change.",
+    "nodeIds": ["file:lib/pdf/BillingDocument.tsx", "file:lib/demos.ts", "file:lib/realtime.ts"],
+    "languageLesson": "Server-Sent Events over Postgres LISTEN/NOTIFY: the payload is only a pointer (kind + entity id), never content, so the browser refetches the real data on each event — this keeps the realtime channel simple and avoids ever sending stale or oversized data down it."
+  },
+  {
+    "order": 11,
+    "title": "Containerization and CI/CD",
+    "description": "The Dockerfile is a multi-stage build for the production image: install dependencies with a frozen pnpm lockfile, build the Next.js app, then copy only the traced standalone output into a minimal Alpine runtime stage running as an unprivileged user. The GitHub Actions workflow verifies every push and pull request against main — lint, test, build — before a separate job publishes the image, gated on that verification passing and only running on pushes to main. Both stages ultimately run the scripts declared in package.json, closing the loop from source code back to a deployed container.",
+    "nodeIds": ["service:Dockerfile", "pipeline:.github/workflows/ci-cd.yml", "config:package.json"],
+    "languageLesson": "Multi-stage Docker builds use multiple FROM statements: a builder stage carries dev dependencies and compiles the app, while the final stage copies only the runtime artifacts across, keeping the shipped image small and free of build tooling."
+  }
+]

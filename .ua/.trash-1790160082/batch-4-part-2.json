@@ -1,0 +1,1210 @@
+{
+  "nodes": [
+    {
+      "id": "file:app/(app)/admin/catalogue/nouveau/page.tsx",
+      "type": "file",
+      "name": "page.tsx",
+      "filePath": "app/(app)/admin/catalogue/nouveau/page.tsx",
+      "summary": "Admin page for creating a new service-catalogue entry, rendering the empty CatalogueForm.",
+      "tags": [
+        "admin",
+        "catalogue-create",
+        "server-component"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:app/(app)/admin/catalogue/nouveau/page.tsx:NewCatalogueItemPage",
+      "type": "function",
+      "name": "NewCatalogueItemPage",
+      "filePath": "app/(app)/admin/catalogue/nouveau/page.tsx",
+      "lineRange": [
+        8,
+        18
+      ],
+      "summary": "Server component that checks catalogue:write and renders CatalogueForm with no initial values for creating a new plan.",
+      "tags": [
+        "server-component",
+        "authorization",
+        "form"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/(app)/admin/catalogue/page.tsx",
+      "type": "file",
+      "name": "page.tsx",
+      "filePath": "app/(app)/admin/catalogue/page.tsx",
+      "summary": "Admin list page for the full service catalogue (`plans`) \u2014 what WICLOUD sells \u2014 with pricing and quota columns and a link to add a new item.",
+      "tags": [
+        "admin",
+        "catalogue-list",
+        "server-component",
+        "billing"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:app/(app)/admin/catalogue/page.tsx:CataloguePage",
+      "type": "function",
+      "name": "CataloguePage",
+      "filePath": "app/(app)/admin/catalogue/page.tsx",
+      "lineRange": [
+        17,
+        87
+      ],
+      "summary": "Server component enforcing catalogue:read, listing every plan with its price and quota grants, and linking each row to its edit page.",
+      "tags": [
+        "server-component",
+        "authorization",
+        "data-fetching"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:app/(app)/admin/demandes/[id]/page.tsx",
+      "type": "file",
+      "name": "page.tsx",
+      "filePath": "app/(app)/admin/demandes/[id]/page.tsx",
+      "summary": "Admin detail page for one client request (demande): shows the request thread, status/assignment controls, attachments and the edit/delete forms, wired to realtime updates.",
+      "tags": [
+        "admin",
+        "request-detail",
+        "server-component",
+        "realtime"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:app/(app)/admin/demandes/[id]/page.tsx:AdminRequestPage",
+      "type": "function",
+      "name": "AdminRequestPage",
+      "filePath": "app/(app)/admin/demandes/[id]/page.tsx",
+      "lineRange": [
+        32,
+        221
+      ],
+      "summary": "Server component that loads a request with its thread and attachments, enforces requests:read, and renders the PageHeader, StatusControl/AssignControl, Thread and ChatComposer for staff to work the ticket.",
+      "tags": [
+        "server-component",
+        "authorization",
+        "data-fetching",
+        "requests"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:app/(app)/admin/demandes/[id]/page.tsx:Row",
+      "type": "function",
+      "name": "Row",
+      "filePath": "app/(app)/admin/demandes/[id]/page.tsx",
+      "lineRange": [
+        223,
+        230
+      ],
+      "summary": "Small presentational helper rendering a label/value row in the request detail panel.",
+      "tags": [
+        "utility",
+        "presentation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/(app)/admin/demandes/actions.ts",
+      "type": "file",
+      "name": "actions.ts",
+      "filePath": "app/(app)/admin/demandes/actions.ts",
+      "summary": "Server actions covering the full lifecycle of a client request (demande): status transitions, staff assignment, staff replies in the thread, marking the thread read, editing and deleting a request \u2014 each notifying the customer and publishing realtime events.",
+      "tags": [
+        "server-action",
+        "requests",
+        "realtime",
+        "notification"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:app/(app)/admin/demandes/actions.ts:loadRequest",
+      "type": "function",
+      "name": "loadRequest",
+      "filePath": "app/(app)/admin/demandes/actions.ts",
+      "lineRange": [
+        28,
+        31
+      ],
+      "summary": "Fetches a single request row by id, used before mutating actions to check ownership/state.",
+      "tags": [
+        "data-fetching",
+        "utility"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:app/(app)/admin/demandes/actions.ts:refresh",
+      "type": "function",
+      "name": "refresh",
+      "filePath": "app/(app)/admin/demandes/actions.ts",
+      "lineRange": [
+        33,
+        38
+      ],
+      "summary": "Revalidates the request list and detail paths after a mutation so both admin and the customer's dashboard reflect the change.",
+      "tags": [
+        "cache-invalidation",
+        "utility"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:app/(app)/admin/demandes/actions.ts:changeStatus",
+      "type": "function",
+      "name": "changeStatus",
+      "filePath": "app/(app)/admin/demandes/actions.ts",
+      "lineRange": [
+        45,
+        94
+      ],
+      "summary": "Validates and applies a request status transition (checking canTransition), notifies the customer by e-mail/in-app, publishes a realtime event, and logs the change.",
+      "tags": [
+        "server-action",
+        "requests",
+        "state-machine",
+        "realtime"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:app/(app)/admin/demandes/actions.ts:assignRequest",
+      "type": "function",
+      "name": "assignRequest",
+      "filePath": "app/(app)/admin/demandes/actions.ts",
+      "lineRange": [
+        103,
+        143
+      ],
+      "summary": "Assigns or reassigns a request to a staff member, notifying the new assignee and logging the action.",
+      "tags": [
+        "server-action",
+        "requests",
+        "assignment"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:app/(app)/admin/demandes/actions.ts:staffReply",
+      "type": "function",
+      "name": "staffReply",
+      "filePath": "app/(app)/admin/demandes/actions.ts",
+      "lineRange": [
+        152,
+        217
+      ],
+      "summary": "Posts a staff message into the request thread, optionally e-mails the customer, and publishes the new message over realtime so the customer's open thread updates live.",
+      "tags": [
+        "server-action",
+        "requests",
+        "messaging",
+        "realtime"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:app/(app)/admin/demandes/actions.ts:markThreadReadByStaff",
+      "type": "function",
+      "name": "markThreadReadByStaff",
+      "filePath": "app/(app)/admin/demandes/actions.ts",
+      "lineRange": [
+        220,
+        238
+      ],
+      "summary": "Marks the customer's messages in a thread as read by staff, powering the \"Lu\" read receipt shown to the customer.",
+      "tags": [
+        "server-action",
+        "requests",
+        "read-receipt"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:app/(app)/admin/demandes/actions.ts:updateRequest",
+      "type": "function",
+      "name": "updateRequest",
+      "filePath": "app/(app)/admin/demandes/actions.ts",
+      "lineRange": [
+        257,
+        285
+      ],
+      "summary": "Edits a request's editable fields (e.g. type, priority) after re-checking permission, then logs and revalidates.",
+      "tags": [
+        "server-action",
+        "requests",
+        "validation"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:app/(app)/admin/demandes/actions.ts:deleteRequest",
+      "type": "function",
+      "name": "deleteRequest",
+      "filePath": "app/(app)/admin/demandes/actions.ts",
+      "lineRange": [
+        295,
+        318
+      ],
+      "summary": "Deletes a request after checking permission and logging the action, then redirects to the request list.",
+      "tags": [
+        "server-action",
+        "requests",
+        "authorization"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/(app)/admin/demandes/page.tsx",
+      "type": "file",
+      "name": "page.tsx",
+      "filePath": "app/(app)/admin/demandes/page.tsx",
+      "summary": "Admin list page for all client requests (demandes) across the desk, with status/type/priority filters and stat tiles summarizing the open queue.",
+      "tags": [
+        "admin",
+        "request-list",
+        "server-component"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:app/(app)/admin/demandes/page.tsx:AdminDemandesPage",
+      "type": "function",
+      "name": "AdminDemandesPage",
+      "filePath": "app/(app)/admin/demandes/page.tsx",
+      "lineRange": [
+        22,
+        140
+      ],
+      "summary": "Server component enforcing requests:read, listing requests with their filters applied, and rendering the table with status/type pills and counters.",
+      "tags": [
+        "server-component",
+        "authorization",
+        "filtering",
+        "data-fetching"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:app/(app)/admin/demos/page.tsx",
+      "type": "file",
+      "name": "page.tsx",
+      "filePath": "app/(app)/admin/demos/page.tsx",
+      "summary": "Admin list page for authored demos (typed-block evaluation packages granted to named customers) with status filters and a link to each demo's editor.",
+      "tags": [
+        "admin",
+        "demos",
+        "server-component"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:app/(app)/admin/demos/page.tsx:AdminDemosPage",
+      "type": "function",
+      "name": "AdminDemosPage",
+      "filePath": "app/(app)/admin/demos/page.tsx",
+      "lineRange": [
+        33,
+        230
+      ],
+      "summary": "Server component enforcing demos:read, listing every demo with its access grants and status, and rendering the table with tone-coded status chips.",
+      "tags": [
+        "server-component",
+        "authorization",
+        "data-fetching",
+        "demos"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:app/(app)/admin/devis/page.tsx",
+      "type": "file",
+      "name": "page.tsx",
+      "filePath": "app/(app)/admin/devis/page.tsx",
+      "summary": "Admin list page for all quotes (devis) with status filters, totals and links to each quote's billing document editor.",
+      "tags": [
+        "admin",
+        "billing",
+        "quotes",
+        "server-component"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:app/(app)/admin/devis/page.tsx:AdminDevisPage",
+      "type": "function",
+      "name": "AdminDevisPage",
+      "filePath": "app/(app)/admin/devis/page.tsx",
+      "lineRange": [
+        19,
+        112
+      ],
+      "summary": "Server component enforcing billing:read, listing quotes with computed TTC totals and expiry status, and rendering the quotes table.",
+      "tags": [
+        "server-component",
+        "authorization",
+        "data-fetching",
+        "billing"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:app/(app)/admin/equipe/page.tsx",
+      "type": "file",
+      "name": "page.tsx",
+      "filePath": "app/(app)/admin/equipe/page.tsx",
+      "summary": "Admin page listing staff and admin accounts (the team), their roles and permission overrides, with a link to create a new staff account.",
+      "tags": [
+        "admin",
+        "team-management",
+        "server-component",
+        "permissions"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:app/(app)/admin/equipe/page.tsx:EquipePage",
+      "type": "function",
+      "name": "EquipePage",
+      "filePath": "app/(app)/admin/equipe/page.tsx",
+      "lineRange": [
+        39,
+        198
+      ],
+      "summary": "Server component enforcing team:read, listing staff/admin accounts with role and permission summaries, and linking to /admin/utilisateurs/nouveau for onboarding.",
+      "tags": [
+        "server-component",
+        "authorization",
+        "data-fetching",
+        "team"
+      ],
+      "complexity": "moderate"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:app/(app)/admin/catalogue/nouveau/page.tsx",
+      "target": "file:app/(app)/admin/catalogue/CatalogueForm.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/catalogue/nouveau/page.tsx",
+      "target": "file:components/dashboard/PageHeader.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/catalogue/nouveau/page.tsx",
+      "target": "file:lib/guard.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/catalogue/nouveau/page.tsx",
+      "target": "function:app/(app)/admin/catalogue/nouveau/page.tsx:NewCatalogueItemPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:app/(app)/admin/catalogue/nouveau/page.tsx",
+      "target": "function:app/(app)/admin/catalogue/nouveau/page.tsx:NewCatalogueItemPage",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/(app)/admin/catalogue/page.tsx",
+      "target": "file:components/dashboard/PageHeader.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/catalogue/page.tsx",
+      "target": "file:components/dashboard/pills.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/catalogue/page.tsx",
+      "target": "file:components/dashboard/ui.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/catalogue/page.tsx",
+      "target": "file:components/ui/Icon.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/catalogue/page.tsx",
+      "target": "file:lib/db/index.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/catalogue/page.tsx",
+      "target": "file:lib/db/schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/catalogue/page.tsx",
+      "target": "file:lib/guard.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/catalogue/page.tsx",
+      "target": "file:lib/money.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/catalogue/page.tsx",
+      "target": "file:lib/permissions.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/catalogue/page.tsx",
+      "target": "file:lib/quotas.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/catalogue/page.tsx",
+      "target": "function:app/(app)/admin/catalogue/page.tsx:CataloguePage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:app/(app)/admin/catalogue/page.tsx",
+      "target": "function:app/(app)/admin/catalogue/page.tsx:CataloguePage",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/(app)/admin/catalogue/page.tsx",
+      "target": "file:app/(app)/admin/catalogue/[slug]/page.tsx",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:app/(app)/admin/catalogue/page.tsx",
+      "target": "file:app/(app)/admin/catalogue/nouveau/page.tsx",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:app/(app)/admin/demandes/[id]/page.tsx",
+      "target": "file:app/(app)/admin/demandes/[id]/RequestControls.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/demandes/[id]/page.tsx",
+      "target": "file:app/(app)/admin/demandes/actions.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/demandes/[id]/page.tsx",
+      "target": "file:components/dashboard/ChatComposer.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/demandes/[id]/page.tsx",
+      "target": "file:components/dashboard/FileUpload.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/demandes/[id]/page.tsx",
+      "target": "file:components/dashboard/PageHeader.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/demandes/[id]/page.tsx",
+      "target": "file:components/dashboard/Thread.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/demandes/[id]/page.tsx",
+      "target": "file:components/dashboard/pills.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/demandes/[id]/page.tsx",
+      "target": "file:components/dashboard/ui.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/demandes/[id]/page.tsx",
+      "target": "file:lib/content/index.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/demandes/[id]/page.tsx",
+      "target": "file:lib/format.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/demandes/[id]/page.tsx",
+      "target": "file:lib/guard.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/demandes/[id]/page.tsx",
+      "target": "file:lib/permissions.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/demandes/[id]/page.tsx",
+      "target": "file:lib/requests.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/demandes/[id]/page.tsx",
+      "target": "file:lib/server/queries.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/demandes/[id]/page.tsx",
+      "target": "file:lib/storage.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/demandes/[id]/page.tsx",
+      "target": "function:app/(app)/admin/demandes/[id]/page.tsx:AdminRequestPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:app/(app)/admin/demandes/[id]/page.tsx",
+      "target": "function:app/(app)/admin/demandes/[id]/page.tsx:Row",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:app/(app)/admin/demandes/[id]/page.tsx",
+      "target": "function:app/(app)/admin/demandes/[id]/page.tsx:AdminRequestPage",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:app/(app)/admin/demandes/[id]/page.tsx:AdminRequestPage",
+      "target": "function:lib/server/queries.ts:getRequestById",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:app/(app)/admin/demandes/[id]/page.tsx:AdminRequestPage",
+      "target": "function:lib/server/queries.ts:listThread",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/(app)/admin/demandes/actions.ts",
+      "target": "file:lib/account.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/demandes/actions.ts",
+      "target": "file:lib/actions.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/demandes/actions.ts",
+      "target": "file:lib/db/index.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/demandes/actions.ts",
+      "target": "file:lib/db/schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/demandes/actions.ts",
+      "target": "file:lib/email.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/demandes/actions.ts",
+      "target": "file:lib/guard.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/demandes/actions.ts",
+      "target": "file:lib/money.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/demandes/actions.ts",
+      "target": "file:lib/realtime.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/demandes/actions.ts",
+      "target": "file:lib/requests.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/demandes/actions.ts",
+      "target": "file:lib/site.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/demandes/actions.ts",
+      "target": "function:app/(app)/admin/demandes/actions.ts:loadRequest",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:app/(app)/admin/demandes/actions.ts",
+      "target": "function:app/(app)/admin/demandes/actions.ts:refresh",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:app/(app)/admin/demandes/actions.ts",
+      "target": "function:app/(app)/admin/demandes/actions.ts:changeStatus",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:app/(app)/admin/demandes/actions.ts",
+      "target": "function:app/(app)/admin/demandes/actions.ts:assignRequest",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:app/(app)/admin/demandes/actions.ts",
+      "target": "function:app/(app)/admin/demandes/actions.ts:staffReply",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:app/(app)/admin/demandes/actions.ts",
+      "target": "function:app/(app)/admin/demandes/actions.ts:markThreadReadByStaff",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:app/(app)/admin/demandes/actions.ts",
+      "target": "function:app/(app)/admin/demandes/actions.ts:updateRequest",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:app/(app)/admin/demandes/actions.ts",
+      "target": "function:app/(app)/admin/demandes/actions.ts:deleteRequest",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:app/(app)/admin/demandes/actions.ts",
+      "target": "function:app/(app)/admin/demandes/actions.ts:changeStatus",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/(app)/admin/demandes/actions.ts",
+      "target": "function:app/(app)/admin/demandes/actions.ts:assignRequest",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/(app)/admin/demandes/actions.ts",
+      "target": "function:app/(app)/admin/demandes/actions.ts:staffReply",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/(app)/admin/demandes/actions.ts",
+      "target": "function:app/(app)/admin/demandes/actions.ts:markThreadReadByStaff",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/(app)/admin/demandes/actions.ts",
+      "target": "function:app/(app)/admin/demandes/actions.ts:updateRequest",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/(app)/admin/demandes/actions.ts",
+      "target": "function:app/(app)/admin/demandes/actions.ts:deleteRequest",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:app/(app)/admin/demandes/actions.ts:staffReply",
+      "target": "function:lib/realtime.ts:publish",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:app/(app)/admin/demandes/actions.ts:changeStatus",
+      "target": "function:lib/email.ts:sendEmail",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:app/(app)/admin/demandes/actions.ts:assignRequest",
+      "target": "function:lib/account.ts:notify",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/(app)/admin/demandes/page.tsx",
+      "target": "file:components/dashboard/FilterBar.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/demandes/page.tsx",
+      "target": "file:components/dashboard/PageHeader.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/demandes/page.tsx",
+      "target": "file:components/dashboard/ui.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/demandes/page.tsx",
+      "target": "file:lib/db/index.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/demandes/page.tsx",
+      "target": "file:lib/db/schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/demandes/page.tsx",
+      "target": "file:lib/format.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/demandes/page.tsx",
+      "target": "file:lib/guard.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/demandes/page.tsx",
+      "target": "file:lib/requests.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/demandes/page.tsx",
+      "target": "function:app/(app)/admin/demandes/page.tsx:AdminDemandesPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:app/(app)/admin/demandes/page.tsx",
+      "target": "function:app/(app)/admin/demandes/page.tsx:AdminDemandesPage",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/(app)/admin/demandes/page.tsx",
+      "target": "file:app/(app)/admin/demandes/[id]/page.tsx",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:app/(app)/admin/demos/page.tsx",
+      "target": "file:components/dashboard/FilterBar.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/demos/page.tsx",
+      "target": "file:components/dashboard/PageHeader.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/demos/page.tsx",
+      "target": "file:components/dashboard/pills.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/demos/page.tsx",
+      "target": "file:components/dashboard/ui.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/demos/page.tsx",
+      "target": "file:components/ui/Icon.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/demos/page.tsx",
+      "target": "file:lib/db/index.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/demos/page.tsx",
+      "target": "file:lib/db/schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/demos/page.tsx",
+      "target": "file:lib/demos.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/demos/page.tsx",
+      "target": "file:lib/format.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/demos/page.tsx",
+      "target": "file:lib/guard.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/demos/page.tsx",
+      "target": "file:lib/permissions.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/demos/page.tsx",
+      "target": "function:app/(app)/admin/demos/page.tsx:AdminDemosPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:app/(app)/admin/demos/page.tsx",
+      "target": "function:app/(app)/admin/demos/page.tsx:AdminDemosPage",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/(app)/admin/devis/page.tsx",
+      "target": "file:components/dashboard/FilterBar.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/devis/page.tsx",
+      "target": "file:components/dashboard/PageHeader.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/devis/page.tsx",
+      "target": "file:components/dashboard/pills.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/devis/page.tsx",
+      "target": "file:components/dashboard/ui.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/devis/page.tsx",
+      "target": "file:components/ui/Icon.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/devis/page.tsx",
+      "target": "file:lib/billing.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/devis/page.tsx",
+      "target": "file:lib/db/index.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/devis/page.tsx",
+      "target": "file:lib/db/schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/devis/page.tsx",
+      "target": "file:lib/format.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/devis/page.tsx",
+      "target": "file:lib/guard.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/devis/page.tsx",
+      "target": "file:lib/money.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/devis/page.tsx",
+      "target": "file:lib/permissions.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/devis/page.tsx",
+      "target": "function:app/(app)/admin/devis/page.tsx:AdminDevisPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:app/(app)/admin/devis/page.tsx",
+      "target": "function:app/(app)/admin/devis/page.tsx:AdminDevisPage",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/(app)/admin/devis/page.tsx",
+      "target": "file:app/(app)/admin/factures/page.tsx",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:app/(app)/admin/equipe/page.tsx",
+      "target": "file:components/dashboard/PageHeader.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/equipe/page.tsx",
+      "target": "file:components/dashboard/pills.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/equipe/page.tsx",
+      "target": "file:components/dashboard/ui.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/equipe/page.tsx",
+      "target": "file:components/ui/Icon.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/equipe/page.tsx",
+      "target": "file:lib/cn.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/equipe/page.tsx",
+      "target": "file:lib/db/index.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/equipe/page.tsx",
+      "target": "file:lib/db/schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/equipe/page.tsx",
+      "target": "file:lib/format.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/equipe/page.tsx",
+      "target": "file:lib/guard.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/equipe/page.tsx",
+      "target": "file:lib/permissions.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/equipe/page.tsx",
+      "target": "function:app/(app)/admin/equipe/page.tsx:EquipePage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:app/(app)/admin/equipe/page.tsx",
+      "target": "function:app/(app)/admin/equipe/page.tsx:EquipePage",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    }
+  ]
+}

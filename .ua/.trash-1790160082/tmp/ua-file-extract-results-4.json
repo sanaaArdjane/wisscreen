@@ -1,0 +1,4648 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 24,
+  "filesSkipped": [],
+  "filesUnreadable": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 24,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 24,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "results": [
+    {
+      "path": "__tests__/catalogue.test.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 42,
+      "nonEmptyLines": 36,
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/(app)/admin/abonnements/[id]/page.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 128,
+      "nonEmptyLines": 122,
+      "functions": [
+        {
+          "name": "day",
+          "startLine": 19,
+          "endLine": 19,
+          "params": [
+            "d"
+          ]
+        },
+        {
+          "name": "ServicePage",
+          "startLine": 21,
+          "endLine": 128,
+          "params": [
+            "{ params }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "metadata",
+          "line": 17,
+          "isDefault": false
+        },
+        {
+          "name": "ServicePage",
+          "line": 21,
+          "isDefault": true
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "day",
+          "callee": "d.toISOString().slice",
+          "lineNumber": 19
+        },
+        {
+          "caller": "day",
+          "callee": "d.toISOString",
+          "lineNumber": 19
+        },
+        {
+          "caller": "ServicePage",
+          "callee": "requirePermission",
+          "lineNumber": 22
+        },
+        {
+          "caller": "ServicePage",
+          "callee": "Number",
+          "lineNumber": 23
+        },
+        {
+          "caller": "ServicePage",
+          "callee": "Number.isInteger",
+          "lineNumber": 24
+        },
+        {
+          "caller": "ServicePage",
+          "callee": "notFound",
+          "lineNumber": 24
+        },
+        {
+          "caller": "ServicePage",
+          "callee": "db\n    .select({ sub: subscriptions, plan: plans, client: userTable })\n    .from(subscriptions)\n    .innerJoin(userTable, eq(userTable.id, subscriptions.userId))\n    .leftJoin(plans, eq(plans.slug, subscriptions.planSlug))\n    .where(eq(subscriptions.id, id))\n    .limit",
+          "lineNumber": 26
+        },
+        {
+          "caller": "ServicePage",
+          "callee": "db\n    .select({ sub: subscriptions, plan: plans, client: userTable })\n    .from(subscriptions)\n    .innerJoin(userTable, eq(userTable.id, subscriptions.userId))\n    .leftJoin(plans, eq(plans.slug, subscriptions.planSlug))\n    .where",
+          "lineNumber": 26
+        },
+        {
+          "caller": "ServicePage",
+          "callee": "db\n    .select({ sub: subscriptions, plan: plans, client: userTable })\n    .from(subscriptions)\n    .innerJoin(userTable, eq(userTable.id, subscriptions.userId))\n    .leftJoin",
+          "lineNumber": 26
+        },
+        {
+          "caller": "ServicePage",
+          "callee": "db\n    .select({ sub: subscriptions, plan: plans, client: userTable })\n    .from(subscriptions)\n    .innerJoin",
+          "lineNumber": 26
+        },
+        {
+          "caller": "ServicePage",
+          "callee": "db\n    .select({ sub: subscriptions, plan: plans, client: userTable })\n    .from",
+          "lineNumber": 26
+        },
+        {
+          "caller": "ServicePage",
+          "callee": "db\n    .select",
+          "lineNumber": 26
+        },
+        {
+          "caller": "ServicePage",
+          "callee": "eq",
+          "lineNumber": 29
+        },
+        {
+          "caller": "ServicePage",
+          "callee": "eq",
+          "lineNumber": 30
+        },
+        {
+          "caller": "ServicePage",
+          "callee": "eq",
+          "lineNumber": 31
+        },
+        {
+          "caller": "ServicePage",
+          "callee": "notFound",
+          "lineNumber": 33
+        },
+        {
+          "caller": "ServicePage",
+          "callee": "Promise.all",
+          "lineNumber": 36
+        },
+        {
+          "caller": "ServicePage",
+          "callee": "serviceFormOptions",
+          "lineNumber": 37
+        },
+        {
+          "caller": "ServicePage",
+          "callee": "listQuotas",
+          "lineNumber": 38
+        },
+        {
+          "caller": "ServicePage",
+          "callee": "db.select().from(requests).where(eq(requests.id, sub.requestId)).limit",
+          "lineNumber": 39
+        },
+        {
+          "caller": "ServicePage",
+          "callee": "db.select().from(requests).where",
+          "lineNumber": 39
+        },
+        {
+          "caller": "ServicePage",
+          "callee": "db.select().from",
+          "lineNumber": 39
+        },
+        {
+          "caller": "ServicePage",
+          "callee": "db.select",
+          "lineNumber": 39
+        },
+        {
+          "caller": "ServicePage",
+          "callee": "eq",
+          "lineNumber": 39
+        },
+        {
+          "caller": "ServicePage",
+          "callee": "Promise.resolve",
+          "lineNumber": 39
+        },
+        {
+          "caller": "ServicePage",
+          "callee": "db.select().from(quotes).where(eq(quotes.id, sub.quoteId)).limit",
+          "lineNumber": 40
+        },
+        {
+          "caller": "ServicePage",
+          "callee": "db.select().from(quotes).where",
+          "lineNumber": 40
+        },
+        {
+          "caller": "ServicePage",
+          "callee": "db.select().from",
+          "lineNumber": 40
+        },
+        {
+          "caller": "ServicePage",
+          "callee": "db.select",
+          "lineNumber": 40
+        },
+        {
+          "caller": "ServicePage",
+          "callee": "eq",
+          "lineNumber": 40
+        },
+        {
+          "caller": "ServicePage",
+          "callee": "Promise.resolve",
+          "lineNumber": 40
+        },
+        {
+          "caller": "ServicePage",
+          "callee": "can",
+          "lineNumber": 56
+        },
+        {
+          "caller": "ServicePage",
+          "callee": "String",
+          "lineNumber": 67
+        },
+        {
+          "caller": "ServicePage",
+          "callee": "formatLines",
+          "lineNumber": 70
+        },
+        {
+          "caller": "ServicePage",
+          "callee": "day",
+          "lineNumber": 73
+        },
+        {
+          "caller": "ServicePage",
+          "callee": "day",
+          "lineNumber": 74
+        },
+        {
+          "caller": "ServicePage",
+          "callee": "quotaRows.map",
+          "lineNumber": 110
+        },
+        {
+          "caller": "ServicePage",
+          "callee": "can",
+          "lineNumber": 119
+        },
+        {
+          "caller": "ServicePage",
+          "callee": "Boolean",
+          "lineNumber": 121
+        },
+        {
+          "caller": "ServicePage",
+          "callee": "Object.keys",
+          "lineNumber": 121
+        }
+      ],
+      "metrics": {
+        "importCount": 11,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/(app)/admin/abonnements/actions.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 189,
+      "nonEmptyLines": 171,
+      "functions": [
+        {
+          "name": "refresh",
+          "startLine": 29,
+          "endLine": 35,
+          "params": [
+            "userId",
+            "id"
+          ]
+        },
+        {
+          "name": "saveService",
+          "startLine": 63,
+          "endLine": 151,
+          "params": [
+            "_prev",
+            "formData"
+          ]
+        },
+        {
+          "name": "deleteService",
+          "startLine": 163,
+          "endLine": 189,
+          "params": [
+            "_prev",
+            "formData"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "saveService",
+          "line": 63,
+          "isDefault": false
+        },
+        {
+          "name": "deleteService",
+          "line": 163,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "refresh",
+          "callee": "revalidatePath",
+          "lineNumber": 30
+        },
+        {
+          "caller": "refresh",
+          "callee": "revalidatePath",
+          "lineNumber": 31
+        },
+        {
+          "caller": "refresh",
+          "callee": "revalidatePath",
+          "lineNumber": 32
+        },
+        {
+          "caller": "refresh",
+          "callee": "revalidatePath",
+          "lineNumber": 33
+        },
+        {
+          "caller": "refresh",
+          "callee": "revalidatePath",
+          "lineNumber": 34
+        },
+        {
+          "caller": "saveService",
+          "callee": "requirePermission",
+          "lineNumber": 64
+        },
+        {
+          "caller": "saveService",
+          "callee": "parseForm",
+          "lineNumber": 65
+        },
+        {
+          "caller": "saveService",
+          "callee": "db.select().from(plans).where(eq(plans.slug, d.planSlug)).limit",
+          "lineNumber": 69
+        },
+        {
+          "caller": "saveService",
+          "callee": "db.select().from(plans).where",
+          "lineNumber": 69
+        },
+        {
+          "caller": "saveService",
+          "callee": "db.select().from",
+          "lineNumber": 69
+        },
+        {
+          "caller": "saveService",
+          "callee": "db.select",
+          "lineNumber": 69
+        },
+        {
+          "caller": "saveService",
+          "callee": "eq",
+          "lineNumber": 69
+        },
+        {
+          "caller": "saveService",
+          "callee": "fail",
+          "lineNumber": 70
+        },
+        {
+          "caller": "saveService",
+          "callee": "fail",
+          "lineNumber": 71
+        },
+        {
+          "caller": "saveService",
+          "callee": "parseMoneyToCents",
+          "lineNumber": 77
+        },
+        {
+          "caller": "saveService",
+          "callee": "fail",
+          "lineNumber": 78
+        },
+        {
+          "caller": "saveService",
+          "callee": "parseLines",
+          "lineNumber": 83
+        },
+        {
+          "caller": "saveService",
+          "callee": "Object.keys",
+          "lineNumber": 93
+        },
+        {
+          "caller": "saveService",
+          "callee": "db.select().from(subscriptions).where(eq(subscriptions.id, id)).limit",
+          "lineNumber": 105
+        },
+        {
+          "caller": "saveService",
+          "callee": "db.select().from(subscriptions).where",
+          "lineNumber": 105
+        },
+        {
+          "caller": "saveService",
+          "callee": "db.select().from",
+          "lineNumber": 105
+        },
+        {
+          "caller": "saveService",
+          "callee": "db.select",
+          "lineNumber": 105
+        },
+        {
+          "caller": "saveService",
+          "callee": "eq",
+          "lineNumber": 105
+        },
+        {
+          "caller": "saveService",
+          "callee": "fail",
+          "lineNumber": 106
+        },
+        {
+          "caller": "saveService",
+          "callee": "db.update(subscriptions).set(values).where",
+          "lineNumber": 107
+        },
+        {
+          "caller": "saveService",
+          "callee": "db.update(subscriptions).set",
+          "lineNumber": 107
+        },
+        {
+          "caller": "saveService",
+          "callee": "db.update",
+          "lineNumber": 107
+        },
+        {
+          "caller": "saveService",
+          "callee": "eq",
+          "lineNumber": 107
+        },
+        {
+          "caller": "saveService",
+          "callee": "db.insert(subscriptions).values(values).returning",
+          "lineNumber": 109
+        },
+        {
+          "caller": "saveService",
+          "callee": "db.insert(subscriptions).values",
+          "lineNumber": 109
+        },
+        {
+          "caller": "saveService",
+          "callee": "db.insert",
+          "lineNumber": 109
+        },
+        {
+          "caller": "saveService",
+          "callee": "Object.keys",
+          "lineNumber": 116
+        },
+        {
+          "caller": "saveService",
+          "callee": "grantServiceQuotas",
+          "lineNumber": 117
+        },
+        {
+          "caller": "saveService",
+          "callee": "logActivity",
+          "lineNumber": 120
+        },
+        {
+          "caller": "saveService",
+          "callee": "notify",
+          "lineNumber": 130
+        },
+        {
+          "caller": "saveService",
+          "callee": "SUBSCRIPTION_LABELS[d.status].toLowerCase",
+          "lineNumber": 140
+        },
+        {
+          "caller": "saveService",
+          "callee": "refresh",
+          "lineNumber": 148
+        },
+        {
+          "caller": "saveService",
+          "callee": "redirect",
+          "lineNumber": 149
+        },
+        {
+          "caller": "saveService",
+          "callee": "succeed",
+          "lineNumber": 150
+        },
+        {
+          "caller": "deleteService",
+          "callee": "requirePermission",
+          "lineNumber": 164
+        },
+        {
+          "caller": "deleteService",
+          "callee": "parseForm",
+          "lineNumber": 165
+        },
+        {
+          "caller": "deleteService",
+          "callee": "db\n    .select({ sub: subscriptions, plan: plans })\n    .from(subscriptions)\n    .leftJoin(plans, eq(plans.slug, subscriptions.planSlug))\n    .where(eq(subscriptions.id, parsed.data.subscriptionId))\n    .limit",
+          "lineNumber": 168
+        },
+        {
+          "caller": "deleteService",
+          "callee": "db\n    .select({ sub: subscriptions, plan: plans })\n    .from(subscriptions)\n    .leftJoin(plans, eq(plans.slug, subscriptions.planSlug))\n    .where",
+          "lineNumber": 168
+        },
+        {
+          "caller": "deleteService",
+          "callee": "db\n    .select({ sub: subscriptions, plan: plans })\n    .from(subscriptions)\n    .leftJoin",
+          "lineNumber": 168
+        },
+        {
+          "caller": "deleteService",
+          "callee": "db\n    .select({ sub: subscriptions, plan: plans })\n    .from",
+          "lineNumber": 168
+        },
+        {
+          "caller": "deleteService",
+          "callee": "db\n    .select",
+          "lineNumber": 168
+        },
+        {
+          "caller": "deleteService",
+          "callee": "eq",
+          "lineNumber": 171
+        },
+        {
+          "caller": "deleteService",
+          "callee": "eq",
+          "lineNumber": 172
+        },
+        {
+          "caller": "deleteService",
+          "callee": "fail",
+          "lineNumber": 174
+        },
+        {
+          "caller": "deleteService",
+          "callee": "revokeServiceQuotas",
+          "lineNumber": 177
+        },
+        {
+          "caller": "deleteService",
+          "callee": "db.delete(subscriptions).where",
+          "lineNumber": 179
+        },
+        {
+          "caller": "deleteService",
+          "callee": "db.delete",
+          "lineNumber": 179
+        },
+        {
+          "caller": "deleteService",
+          "callee": "eq",
+          "lineNumber": 179
+        },
+        {
+          "caller": "deleteService",
+          "callee": "logActivity",
+          "lineNumber": 180
+        },
+        {
+          "caller": "deleteService",
+          "callee": "refresh",
+          "lineNumber": 187
+        },
+        {
+          "caller": "deleteService",
+          "callee": "redirect",
+          "lineNumber": 188
+        }
+      ],
+      "metrics": {
+        "importCount": 8,
+        "exportCount": 2,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/(app)/admin/abonnements/nouveau/page.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 57,
+      "nonEmptyLines": 52,
+      "functions": [
+        {
+          "name": "NewServicePage",
+          "startLine": 12,
+          "endLine": 57,
+          "params": [
+            "{ searchParams }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "metadata",
+          "line": 10,
+          "isDefault": false
+        },
+        {
+          "name": "NewServicePage",
+          "line": 12,
+          "isDefault": true
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "NewServicePage",
+          "callee": "requirePermission",
+          "lineNumber": 13
+        },
+        {
+          "caller": "NewServicePage",
+          "callee": "Number",
+          "lineNumber": 15
+        },
+        {
+          "caller": "NewServicePage",
+          "callee": "Number",
+          "lineNumber": 16
+        },
+        {
+          "caller": "NewServicePage",
+          "callee": "Promise.all",
+          "lineNumber": 19
+        },
+        {
+          "caller": "NewServicePage",
+          "callee": "serviceFormOptions",
+          "lineNumber": 20
+        },
+        {
+          "caller": "NewServicePage",
+          "callee": "Number.isInteger",
+          "lineNumber": 21
+        },
+        {
+          "caller": "NewServicePage",
+          "callee": "db.select().from(requests).where(eq(requests.id, requestId)).limit",
+          "lineNumber": 21
+        },
+        {
+          "caller": "NewServicePage",
+          "callee": "db.select().from(requests).where",
+          "lineNumber": 21
+        },
+        {
+          "caller": "NewServicePage",
+          "callee": "db.select().from",
+          "lineNumber": 21
+        },
+        {
+          "caller": "NewServicePage",
+          "callee": "db.select",
+          "lineNumber": 21
+        },
+        {
+          "caller": "NewServicePage",
+          "callee": "eq",
+          "lineNumber": 21
+        },
+        {
+          "caller": "NewServicePage",
+          "callee": "Promise.resolve",
+          "lineNumber": 21
+        },
+        {
+          "caller": "NewServicePage",
+          "callee": "Number.isInteger",
+          "lineNumber": 22
+        },
+        {
+          "caller": "NewServicePage",
+          "callee": "db.select().from(quotes).where(eq(quotes.id, quoteId)).limit",
+          "lineNumber": 22
+        },
+        {
+          "caller": "NewServicePage",
+          "callee": "db.select().from(quotes).where",
+          "lineNumber": 22
+        },
+        {
+          "caller": "NewServicePage",
+          "callee": "db.select().from",
+          "lineNumber": 22
+        },
+        {
+          "caller": "NewServicePage",
+          "callee": "db.select",
+          "lineNumber": 22
+        },
+        {
+          "caller": "NewServicePage",
+          "callee": "eq",
+          "lineNumber": 22
+        },
+        {
+          "caller": "NewServicePage",
+          "callee": "Promise.resolve",
+          "lineNumber": 22
+        },
+        {
+          "caller": "NewServicePage",
+          "callee": "String",
+          "lineNumber": 50
+        }
+      ],
+      "metrics": {
+        "importCount": 6,
+        "exportCount": 2,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/(app)/admin/abonnements/options.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 27,
+      "nonEmptyLines": 26,
+      "functions": [
+        {
+          "name": "serviceFormOptions",
+          "startLine": 7,
+          "endLine": 27,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "serviceFormOptions",
+          "line": 7,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "serviceFormOptions",
+          "callee": "Promise.all",
+          "lineNumber": 8
+        },
+        {
+          "caller": "serviceFormOptions",
+          "callee": "db\n      .select({ id: userTable.id, name: userTable.name, email: userTable.email })\n      .from(userTable)\n      .where(ne(userTable.role, \"staff\"))\n      .orderBy",
+          "lineNumber": 9
+        },
+        {
+          "caller": "serviceFormOptions",
+          "callee": "db\n      .select({ id: userTable.id, name: userTable.name, email: userTable.email })\n      .from(userTable)\n      .where",
+          "lineNumber": 9
+        },
+        {
+          "caller": "serviceFormOptions",
+          "callee": "db\n      .select({ id: userTable.id, name: userTable.name, email: userTable.email })\n      .from",
+          "lineNumber": 9
+        },
+        {
+          "caller": "serviceFormOptions",
+          "callee": "db\n      .select",
+          "lineNumber": 9
+        },
+        {
+          "caller": "serviceFormOptions",
+          "callee": "ne",
+          "lineNumber": 12
+        },
+        {
+          "caller": "serviceFormOptions",
+          "callee": "asc",
+          "lineNumber": 13
+        },
+        {
+          "caller": "serviceFormOptions",
+          "callee": "db.select().from(plans).where(eq(plans.active, true)).orderBy",
+          "lineNumber": 14
+        },
+        {
+          "caller": "serviceFormOptions",
+          "callee": "db.select().from(plans).where",
+          "lineNumber": 14
+        },
+        {
+          "caller": "serviceFormOptions",
+          "callee": "db.select().from",
+          "lineNumber": 14
+        },
+        {
+          "caller": "serviceFormOptions",
+          "callee": "db.select",
+          "lineNumber": 14
+        },
+        {
+          "caller": "serviceFormOptions",
+          "callee": "eq",
+          "lineNumber": 14
+        },
+        {
+          "caller": "serviceFormOptions",
+          "callee": "asc",
+          "lineNumber": 14
+        },
+        {
+          "caller": "serviceFormOptions",
+          "callee": "clients.map",
+          "lineNumber": 17
+        },
+        {
+          "caller": "serviceFormOptions",
+          "callee": "catalogue.map",
+          "lineNumber": 18
+        },
+        {
+          "caller": "serviceFormOptions",
+          "callee": "formatLines(p.defaultQuotas).replaceAll",
+          "lineNumber": 21
+        },
+        {
+          "caller": "serviceFormOptions",
+          "callee": "formatLines",
+          "lineNumber": 21
+        },
+        {
+          "caller": "serviceFormOptions",
+          "callee": "String",
+          "lineNumber": 23
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/(app)/admin/abonnements/page.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 191,
+      "nonEmptyLines": 182,
+      "functions": [
+        {
+          "name": "AbonnementsPage",
+          "startLine": 30,
+          "endLine": 191,
+          "params": [
+            "{ searchParams }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "metadata",
+          "line": 24,
+          "isDefault": false
+        },
+        {
+          "name": "AbonnementsPage",
+          "line": 30,
+          "isDefault": true
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "AbonnementsPage",
+          "callee": "requirePermission",
+          "lineNumber": 31
+        },
+        {
+          "caller": "AbonnementsPage",
+          "callee": "sp.q.trim",
+          "lineNumber": 33
+        },
+        {
+          "caller": "AbonnementsPage",
+          "callee": "now.getTime",
+          "lineNumber": 37
+        },
+        {
+          "caller": "AbonnementsPage",
+          "callee": "Promise.all",
+          "lineNumber": 39
+        },
+        {
+          "caller": "AbonnementsPage",
+          "callee": "db\n      .select({ subscription: subscriptions, plan: plans, client: userTable })\n      .from(subscriptions)\n      .leftJoin(plans, eq(plans.slug, subscriptions.planSlug))\n      .innerJoin(userTable, eq(userTable.id, subscriptions.userId))\n      .where(\n        and(\n          (SUBSCRIPTION_STATUSES as readonly string[]).includes(status) ? eq(subscriptions.status, status) : undefined,\n          q\n            ? or(\n                ilike(subscriptions.label, `%${q}%`),\n                ilike(userTable.name, `%${q}%`),\n                ilike(userTable.email, `%${q}%`),\n                ilike(plans.name, `%${q}%`),\n              )\n            : undefined,\n        ),\n      )\n      .orderBy(desc(subscriptions.updatedAt))\n      .limit",
+          "lineNumber": 40
+        },
+        {
+          "caller": "AbonnementsPage",
+          "callee": "db\n      .select({ subscription: subscriptions, plan: plans, client: userTable })\n      .from(subscriptions)\n      .leftJoin(plans, eq(plans.slug, subscriptions.planSlug))\n      .innerJoin(userTable, eq(userTable.id, subscriptions.userId))\n      .where(\n        and(\n          (SUBSCRIPTION_STATUSES as readonly string[]).includes(status) ? eq(subscriptions.status, status) : undefined,\n          q\n            ? or(\n                ilike(subscriptions.label, `%${q}%`),\n                ilike(userTable.name, `%${q}%`),\n                ilike(userTable.email, `%${q}%`),\n                ilike(plans.name, `%${q}%`),\n              )\n            : undefined,\n        ),\n      )\n      .orderBy",
+          "lineNumber": 40
+        },
+        {
+          "caller": "AbonnementsPage",
+          "callee": "db\n      .select({ subscription: subscriptions, plan: plans, client: userTable })\n      .from(subscriptions)\n      .leftJoin(plans, eq(plans.slug, subscriptions.planSlug))\n      .innerJoin(userTable, eq(userTable.id, subscriptions.userId))\n      .where",
+          "lineNumber": 40
+        },
+        {
+          "caller": "AbonnementsPage",
+          "callee": "db\n      .select({ subscription: subscriptions, plan: plans, client: userTable })\n      .from(subscriptions)\n      .leftJoin(plans, eq(plans.slug, subscriptions.planSlug))\n      .innerJoin",
+          "lineNumber": 40
+        },
+        {
+          "caller": "AbonnementsPage",
+          "callee": "db\n      .select({ subscription: subscriptions, plan: plans, client: userTable })\n      .from(subscriptions)\n      .leftJoin",
+          "lineNumber": 40
+        },
+        {
+          "caller": "AbonnementsPage",
+          "callee": "db\n      .select({ subscription: subscriptions, plan: plans, client: userTable })\n      .from",
+          "lineNumber": 40
+        },
+        {
+          "caller": "AbonnementsPage",
+          "callee": "db\n      .select",
+          "lineNumber": 40
+        },
+        {
+          "caller": "AbonnementsPage",
+          "callee": "eq",
+          "lineNumber": 43
+        },
+        {
+          "caller": "AbonnementsPage",
+          "callee": "eq",
+          "lineNumber": 44
+        },
+        {
+          "caller": "AbonnementsPage",
+          "callee": "and",
+          "lineNumber": 46
+        },
+        {
+          "caller": "AbonnementsPage",
+          "callee": "(SUBSCRIPTION_STATUSES as readonly string[]).includes",
+          "lineNumber": 47
+        },
+        {
+          "caller": "AbonnementsPage",
+          "callee": "eq",
+          "lineNumber": 47
+        },
+        {
+          "caller": "AbonnementsPage",
+          "callee": "or",
+          "lineNumber": 49
+        },
+        {
+          "caller": "AbonnementsPage",
+          "callee": "ilike",
+          "lineNumber": 50
+        },
+        {
+          "caller": "AbonnementsPage",
+          "callee": "ilike",
+          "lineNumber": 51
+        },
+        {
+          "caller": "AbonnementsPage",
+          "callee": "ilike",
+          "lineNumber": 52
+        },
+        {
+          "caller": "AbonnementsPage",
+          "callee": "ilike",
+          "lineNumber": 53
+        },
+        {
+          "caller": "AbonnementsPage",
+          "callee": "desc",
+          "lineNumber": 58
+        },
+        {
+          "caller": "AbonnementsPage",
+          "callee": "db\n      .select({ quota: quotas, client: userTable })\n      .from(quotas)\n      .innerJoin(userTable, eq(userTable.id, quotas.userId))\n      .where(sql`${quotas.limit} is not null and ${quotas.limit} > 0 and ${quotas.used}::float / ${quotas.limit} >= 0.8`)\n      .orderBy(desc(sql`${quotas.used}::float / ${quotas.limit}`))\n      .limit",
+          "lineNumber": 62
+        },
+        {
+          "caller": "AbonnementsPage",
+          "callee": "db\n      .select({ quota: quotas, client: userTable })\n      .from(quotas)\n      .innerJoin(userTable, eq(userTable.id, quotas.userId))\n      .where(sql`${quotas.limit} is not null and ${quotas.limit} > 0 and ${quotas.used}::float / ${quotas.limit} >= 0.8`)\n      .orderBy",
+          "lineNumber": 62
+        },
+        {
+          "caller": "AbonnementsPage",
+          "callee": "db\n      .select({ quota: quotas, client: userTable })\n      .from(quotas)\n      .innerJoin(userTable, eq(userTable.id, quotas.userId))\n      .where",
+          "lineNumber": 62
+        },
+        {
+          "caller": "AbonnementsPage",
+          "callee": "db\n      .select({ quota: quotas, client: userTable })\n      .from(quotas)\n      .innerJoin",
+          "lineNumber": 62
+        },
+        {
+          "caller": "AbonnementsPage",
+          "callee": "db\n      .select({ quota: quotas, client: userTable })\n      .from",
+          "lineNumber": 62
+        },
+        {
+          "caller": "AbonnementsPage",
+          "callee": "db\n      .select",
+          "lineNumber": 62
+        },
+        {
+          "caller": "AbonnementsPage",
+          "callee": "eq",
+          "lineNumber": 65
+        },
+        {
+          "caller": "AbonnementsPage",
+          "callee": "sql",
+          "lineNumber": 66
+        },
+        {
+          "caller": "AbonnementsPage",
+          "callee": "desc",
+          "lineNumber": 67
+        },
+        {
+          "caller": "AbonnementsPage",
+          "callee": "sql",
+          "lineNumber": 67
+        },
+        {
+          "caller": "AbonnementsPage",
+          "callee": "db\n      .select({\n        active: sql<number>`count(*) filter (where ${subscriptions.status} = 'active')::int`,\n        pending: sql<number>`count(*) filter (where ${subscriptions.status} in ('pending','provisioning'))::int`,\n        renewing: sql<number>`count(*) filter (where ${subscriptions.status} = 'active' and ${subscriptions.renewsAt} between now() and now() + interval '30 days')::int`,\n        mrr: sql<number>`coalesce(sum(case when ${subscriptions.status} = 'active' then case ${subscriptions.billingPeriod} when 'monthly' then ${subscriptions.priceCents} when 'yearly' then ${subscriptions.priceCents} / 12 else 0 end end), 0)::int`,\n      })\n      .from",
+          "lineNumber": 69
+        },
+        {
+          "caller": "AbonnementsPage",
+          "callee": "db\n      .select",
+          "lineNumber": 69
+        },
+        {
+          "caller": "AbonnementsPage",
+          "callee": "can",
+          "lineNumber": 89
+        },
+        {
+          "caller": "AbonnementsPage",
+          "callee": "formatMoney",
+          "lineNumber": 108
+        },
+        {
+          "caller": "AbonnementsPage",
+          "callee": "atLimit.map",
+          "lineNumber": 114
+        },
+        {
+          "caller": "AbonnementsPage",
+          "callee": "describe",
+          "lineNumber": 115
+        },
+        {
+          "caller": "AbonnementsPage",
+          "callee": "Math.round",
+          "lineNumber": 123
+        },
+        {
+          "caller": "AbonnementsPage",
+          "callee": "SUBSCRIPTION_STATUSES.map",
+          "lineNumber": 144
+        },
+        {
+          "caller": "AbonnementsPage",
+          "callee": "rows.map",
+          "lineNumber": 159
+        },
+        {
+          "caller": "AbonnementsPage",
+          "callee": "formatMoney",
+          "lineNumber": 174
+        },
+        {
+          "caller": "AbonnementsPage",
+          "callee": "formatDate",
+          "lineNumber": 178
+        }
+      ],
+      "metrics": {
+        "importCount": 12,
+        "exportCount": 2,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/(app)/admin/catalogue/[slug]/page.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 87,
+      "nonEmptyLines": 83,
+      "functions": [
+        {
+          "name": "CatalogueItemPage",
+          "startLine": 18,
+          "endLine": 87,
+          "params": [
+            "{ params }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "metadata",
+          "line": 16,
+          "isDefault": false
+        },
+        {
+          "name": "CatalogueItemPage",
+          "line": 18,
+          "isDefault": true
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "CatalogueItemPage",
+          "callee": "requirePermission",
+          "lineNumber": 19
+        },
+        {
+          "caller": "CatalogueItemPage",
+          "callee": "db.select().from(plans).where(eq(plans.slug, slug)).limit",
+          "lineNumber": 21
+        },
+        {
+          "caller": "CatalogueItemPage",
+          "callee": "db.select().from(plans).where",
+          "lineNumber": 21
+        },
+        {
+          "caller": "CatalogueItemPage",
+          "callee": "db.select().from",
+          "lineNumber": 21
+        },
+        {
+          "caller": "CatalogueItemPage",
+          "callee": "db.select",
+          "lineNumber": 21
+        },
+        {
+          "caller": "CatalogueItemPage",
+          "callee": "eq",
+          "lineNumber": 21
+        },
+        {
+          "caller": "CatalogueItemPage",
+          "callee": "notFound",
+          "lineNumber": 22
+        },
+        {
+          "caller": "CatalogueItemPage",
+          "callee": "db\n    .select({ sub: subscriptions, client: { id: userTable.id, name: userTable.name } })\n    .from(subscriptions)\n    .innerJoin(userTable, eq(userTable.id, subscriptions.userId))\n    .where(eq(subscriptions.planSlug, slug))\n    .orderBy",
+          "lineNumber": 24
+        },
+        {
+          "caller": "CatalogueItemPage",
+          "callee": "db\n    .select({ sub: subscriptions, client: { id: userTable.id, name: userTable.name } })\n    .from(subscriptions)\n    .innerJoin(userTable, eq(userTable.id, subscriptions.userId))\n    .where",
+          "lineNumber": 24
+        },
+        {
+          "caller": "CatalogueItemPage",
+          "callee": "db\n    .select({ sub: subscriptions, client: { id: userTable.id, name: userTable.name } })\n    .from(subscriptions)\n    .innerJoin",
+          "lineNumber": 24
+        },
+        {
+          "caller": "CatalogueItemPage",
+          "callee": "db\n    .select({ sub: subscriptions, client: { id: userTable.id, name: userTable.name } })\n    .from",
+          "lineNumber": 24
+        },
+        {
+          "caller": "CatalogueItemPage",
+          "callee": "db\n    .select",
+          "lineNumber": 24
+        },
+        {
+          "caller": "CatalogueItemPage",
+          "callee": "eq",
+          "lineNumber": 27
+        },
+        {
+          "caller": "CatalogueItemPage",
+          "callee": "eq",
+          "lineNumber": 28
+        },
+        {
+          "caller": "CatalogueItemPage",
+          "callee": "desc",
+          "lineNumber": 29
+        },
+        {
+          "caller": "CatalogueItemPage",
+          "callee": "can",
+          "lineNumber": 36
+        },
+        {
+          "caller": "CatalogueItemPage",
+          "callee": "String",
+          "lineNumber": 44
+        },
+        {
+          "caller": "CatalogueItemPage",
+          "callee": "formatLines",
+          "lineNumber": 47
+        },
+        {
+          "caller": "CatalogueItemPage",
+          "callee": "(item.features ?? []).join",
+          "lineNumber": 48
+        },
+        {
+          "caller": "CatalogueItemPage",
+          "callee": "formatLines",
+          "lineNumber": 49
+        },
+        {
+          "caller": "CatalogueItemPage",
+          "callee": "subs.map",
+          "lineNumber": 64
+        },
+        {
+          "caller": "CatalogueItemPage",
+          "callee": "formatDate",
+          "lineNumber": 69
+        },
+        {
+          "caller": "CatalogueItemPage",
+          "callee": "can",
+          "lineNumber": 78
+        }
+      ],
+      "metrics": {
+        "importCount": 10,
+        "exportCount": 2,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/(app)/admin/catalogue/actions.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 137,
+      "nonEmptyLines": 124,
+      "functions": [
+        {
+          "name": "refresh",
+          "startLine": 21,
+          "endLine": 26,
+          "params": [
+            "slug"
+          ]
+        },
+        {
+          "name": "saveCatalogueItem",
+          "startLine": 50,
+          "endLine": 105,
+          "params": [
+            "_prev",
+            "formData"
+          ]
+        },
+        {
+          "name": "deleteCatalogueItem",
+          "startLine": 113,
+          "endLine": 137,
+          "params": [
+            "_prev",
+            "formData"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "saveCatalogueItem",
+          "line": 50,
+          "isDefault": false
+        },
+        {
+          "name": "deleteCatalogueItem",
+          "line": 113,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "refresh",
+          "callee": "revalidatePath",
+          "lineNumber": 22
+        },
+        {
+          "caller": "refresh",
+          "callee": "revalidatePath",
+          "lineNumber": 23
+        },
+        {
+          "caller": "refresh",
+          "callee": "revalidatePath",
+          "lineNumber": 24
+        },
+        {
+          "caller": "refresh",
+          "callee": "revalidatePath",
+          "lineNumber": 25
+        },
+        {
+          "caller": "saveCatalogueItem",
+          "callee": "requirePermission",
+          "lineNumber": 51
+        },
+        {
+          "caller": "saveCatalogueItem",
+          "callee": "parseForm",
+          "lineNumber": 52
+        },
+        {
+          "caller": "saveCatalogueItem",
+          "callee": "parseMoneyToCents",
+          "lineNumber": 58
+        },
+        {
+          "caller": "saveCatalogueItem",
+          "callee": "fail",
+          "lineNumber": 59
+        },
+        {
+          "caller": "saveCatalogueItem",
+          "callee": "parseGrants",
+          "lineNumber": 61
+        },
+        {
+          "caller": "saveCatalogueItem",
+          "callee": "fail",
+          "lineNumber": 62
+        },
+        {
+          "caller": "saveCatalogueItem",
+          "callee": "parseLines",
+          "lineNumber": 72
+        },
+        {
+          "caller": "saveCatalogueItem",
+          "callee": "listLines",
+          "lineNumber": 73
+        },
+        {
+          "caller": "saveCatalogueItem",
+          "callee": "db.update(plans).set(values).where",
+          "lineNumber": 83
+        },
+        {
+          "caller": "saveCatalogueItem",
+          "callee": "db.update(plans).set",
+          "lineNumber": 83
+        },
+        {
+          "caller": "saveCatalogueItem",
+          "callee": "db.update",
+          "lineNumber": 83
+        },
+        {
+          "caller": "saveCatalogueItem",
+          "callee": "eq",
+          "lineNumber": 83
+        },
+        {
+          "caller": "saveCatalogueItem",
+          "callee": "db.insert(plans).values",
+          "lineNumber": 85
+        },
+        {
+          "caller": "saveCatalogueItem",
+          "callee": "db.insert",
+          "lineNumber": 85
+        },
+        {
+          "caller": "saveCatalogueItem",
+          "callee": "fail",
+          "lineNumber": 89
+        },
+        {
+          "caller": "saveCatalogueItem",
+          "callee": "logActivity",
+          "lineNumber": 94
+        },
+        {
+          "caller": "saveCatalogueItem",
+          "callee": "refresh",
+          "lineNumber": 102
+        },
+        {
+          "caller": "saveCatalogueItem",
+          "callee": "redirect",
+          "lineNumber": 103
+        },
+        {
+          "caller": "saveCatalogueItem",
+          "callee": "succeed",
+          "lineNumber": 104
+        },
+        {
+          "caller": "deleteCatalogueItem",
+          "callee": "requirePermission",
+          "lineNumber": 114
+        },
+        {
+          "caller": "deleteCatalogueItem",
+          "callee": "String",
+          "lineNumber": 115
+        },
+        {
+          "caller": "deleteCatalogueItem",
+          "callee": "formData.get",
+          "lineNumber": 115
+        },
+        {
+          "caller": "deleteCatalogueItem",
+          "callee": "db.select().from(plans).where(eq(plans.slug, slug)).limit",
+          "lineNumber": 116
+        },
+        {
+          "caller": "deleteCatalogueItem",
+          "callee": "db.select().from(plans).where",
+          "lineNumber": 116
+        },
+        {
+          "caller": "deleteCatalogueItem",
+          "callee": "db.select().from",
+          "lineNumber": 116
+        },
+        {
+          "caller": "deleteCatalogueItem",
+          "callee": "db.select",
+          "lineNumber": 116
+        },
+        {
+          "caller": "deleteCatalogueItem",
+          "callee": "eq",
+          "lineNumber": 116
+        },
+        {
+          "caller": "deleteCatalogueItem",
+          "callee": "fail",
+          "lineNumber": 117
+        },
+        {
+          "caller": "deleteCatalogueItem",
+          "callee": "String(formData.get(\"confirm\") ?? \"\").trim",
+          "lineNumber": 118
+        },
+        {
+          "caller": "deleteCatalogueItem",
+          "callee": "String",
+          "lineNumber": 118
+        },
+        {
+          "caller": "deleteCatalogueItem",
+          "callee": "formData.get",
+          "lineNumber": 118
+        },
+        {
+          "caller": "deleteCatalogueItem",
+          "callee": "fail",
+          "lineNumber": 119
+        },
+        {
+          "caller": "deleteCatalogueItem",
+          "callee": "db\n    .select({ n: sql<number>`count(*)::int` })\n    .from(subscriptions)\n    .where",
+          "lineNumber": 122
+        },
+        {
+          "caller": "deleteCatalogueItem",
+          "callee": "db\n    .select({ n: sql<number>`count(*)::int` })\n    .from",
+          "lineNumber": 122
+        },
+        {
+          "caller": "deleteCatalogueItem",
+          "callee": "db\n    .select",
+          "lineNumber": 122
+        },
+        {
+          "caller": "deleteCatalogueItem",
+          "callee": "eq",
+          "lineNumber": 125
+        },
+        {
+          "caller": "deleteCatalogueItem",
+          "callee": "db.delete(plans).where",
+          "lineNumber": 127
+        },
+        {
+          "caller": "deleteCatalogueItem",
+          "callee": "db.delete",
+          "lineNumber": 127
+        },
+        {
+          "caller": "deleteCatalogueItem",
+          "callee": "eq",
+          "lineNumber": 127
+        },
+        {
+          "caller": "deleteCatalogueItem",
+          "callee": "logActivity",
+          "lineNumber": 128
+        },
+        {
+          "caller": "deleteCatalogueItem",
+          "callee": "refresh",
+          "lineNumber": 135
+        },
+        {
+          "caller": "deleteCatalogueItem",
+          "callee": "redirect",
+          "lineNumber": 136
+        }
+      ],
+      "metrics": {
+        "importCount": 7,
+        "exportCount": 2,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/(app)/admin/catalogue/nouveau/page.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 18,
+      "nonEmptyLines": 16,
+      "functions": [
+        {
+          "name": "NewCatalogueItemPage",
+          "startLine": 8,
+          "endLine": 18,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "metadata",
+          "line": 6,
+          "isDefault": false
+        },
+        {
+          "name": "NewCatalogueItemPage",
+          "line": 8,
+          "isDefault": true
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "NewCatalogueItemPage",
+          "callee": "requirePermission",
+          "lineNumber": 9
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 2,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/(app)/admin/catalogue/page.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 87,
+      "nonEmptyLines": 83,
+      "functions": [
+        {
+          "name": "CataloguePage",
+          "startLine": 17,
+          "endLine": 87,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "metadata",
+          "line": 15,
+          "isDefault": false
+        },
+        {
+          "name": "CataloguePage",
+          "line": 17,
+          "isDefault": true
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "CataloguePage",
+          "callee": "requirePermission",
+          "lineNumber": 18
+        },
+        {
+          "caller": "CataloguePage",
+          "callee": "db\n    .select({\n      plan: plans,\n      active: sql<number>`(select count(*)::int from ${subscriptions} where ${subscriptions.planSlug} = ${plans.slug} and ${subscriptions.status} = 'active')`,\n    })\n    .from(plans)\n    .orderBy",
+          "lineNumber": 19
+        },
+        {
+          "caller": "CataloguePage",
+          "callee": "db\n    .select({\n      plan: plans,\n      active: sql<number>`(select count(*)::int from ${subscriptions} where ${subscriptions.planSlug} = ${plans.slug} and ${subscriptions.status} = 'active')`,\n    })\n    .from",
+          "lineNumber": 19
+        },
+        {
+          "caller": "CataloguePage",
+          "callee": "db\n    .select",
+          "lineNumber": 19
+        },
+        {
+          "caller": "CataloguePage",
+          "callee": "asc",
+          "lineNumber": 25
+        },
+        {
+          "caller": "CataloguePage",
+          "callee": "asc",
+          "lineNumber": 25
+        },
+        {
+          "caller": "CataloguePage",
+          "callee": "asc",
+          "lineNumber": 25
+        },
+        {
+          "caller": "CataloguePage",
+          "callee": "Object.keys(CATEGORY_LABELS)\n    .map((cat) => ({ cat, items: items.filter((i) => i.plan.category === cat) }))\n    .filter",
+          "lineNumber": 27
+        },
+        {
+          "caller": "CataloguePage",
+          "callee": "Object.keys(CATEGORY_LABELS)\n    .map",
+          "lineNumber": 27
+        },
+        {
+          "caller": "CataloguePage",
+          "callee": "Object.keys",
+          "lineNumber": 27
+        },
+        {
+          "caller": "CataloguePage",
+          "callee": "items.filter",
+          "lineNumber": 28
+        },
+        {
+          "caller": "CataloguePage",
+          "callee": "can",
+          "lineNumber": 37
+        },
+        {
+          "caller": "CataloguePage",
+          "callee": "groups.map",
+          "lineNumber": 49
+        },
+        {
+          "caller": "CataloguePage",
+          "callee": "g.items.map",
+          "lineNumber": 52
+        },
+        {
+          "caller": "CataloguePage",
+          "callee": "Object.entries(plan.specs ?? {})\n                            .map(([k, v]) => `${k} ${v}`)\n                            .join",
+          "lineNumber": 61
+        },
+        {
+          "caller": "CataloguePage",
+          "callee": "Object.entries(plan.specs ?? {})\n                            .map",
+          "lineNumber": 61
+        },
+        {
+          "caller": "CataloguePage",
+          "callee": "Object.entries",
+          "lineNumber": 61
+        },
+        {
+          "caller": "CataloguePage",
+          "callee": "Object.keys(plan.defaultQuotas ?? {})\n                              .map((m) => METRIC_LABELS[m] ?? m)\n                              .join",
+          "lineNumber": 64
+        },
+        {
+          "caller": "CataloguePage",
+          "callee": "Object.keys(plan.defaultQuotas ?? {})\n                              .map",
+          "lineNumber": 64
+        },
+        {
+          "caller": "CataloguePage",
+          "callee": "Object.keys",
+          "lineNumber": 64
+        },
+        {
+          "caller": "CataloguePage",
+          "callee": "formatMoney",
+          "lineNumber": 73
+        }
+      ],
+      "metrics": {
+        "importCount": 10,
+        "exportCount": 2,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/(app)/admin/demandes/[id]/page.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 230,
+      "nonEmptyLines": 214,
+      "functions": [
+        {
+          "name": "AdminRequestPage",
+          "startLine": 32,
+          "endLine": 221,
+          "params": [
+            "{ params }"
+          ]
+        },
+        {
+          "name": "Row",
+          "startLine": 223,
+          "endLine": 230,
+          "params": [
+            "{ label, value }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "metadata",
+          "line": 30,
+          "isDefault": false
+        },
+        {
+          "name": "AdminRequestPage",
+          "line": 32,
+          "isDefault": true
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "AdminRequestPage",
+          "callee": "Number",
+          "lineNumber": 34
+        },
+        {
+          "caller": "AdminRequestPage",
+          "callee": "Number.isInteger",
+          "lineNumber": 35
+        },
+        {
+          "caller": "AdminRequestPage",
+          "callee": "notFound",
+          "lineNumber": 35
+        },
+        {
+          "caller": "AdminRequestPage",
+          "callee": "requirePermission",
+          "lineNumber": 37
+        },
+        {
+          "caller": "AdminRequestPage",
+          "callee": "getRequestById",
+          "lineNumber": 38
+        },
+        {
+          "caller": "AdminRequestPage",
+          "callee": "notFound",
+          "lineNumber": 39
+        },
+        {
+          "caller": "AdminRequestPage",
+          "callee": "can",
+          "lineNumber": 42
+        },
+        {
+          "caller": "AdminRequestPage",
+          "callee": "Promise.all",
+          "lineNumber": 45
+        },
+        {
+          "caller": "AdminRequestPage",
+          "callee": "listThread",
+          "lineNumber": 46
+        },
+        {
+          "caller": "AdminRequestPage",
+          "callee": "listAssignees",
+          "lineNumber": 47
+        },
+        {
+          "caller": "AdminRequestPage",
+          "callee": "(await getSolutions({ includeHidden: true })).find",
+          "lineNumber": 50
+        },
+        {
+          "caller": "AdminRequestPage",
+          "callee": "getSolutions",
+          "lineNumber": 50
+        },
+        {
+          "caller": "AdminRequestPage",
+          "callee": "formatDateTime",
+          "lineNumber": 57
+        },
+        {
+          "caller": "AdminRequestPage",
+          "callee": "can",
+          "lineNumber": 66
+        },
+        {
+          "caller": "AdminRequestPage",
+          "callee": "can",
+          "lineNumber": 74
+        },
+        {
+          "caller": "AdminRequestPage",
+          "callee": "thread.messages.map",
+          "lineNumber": 91
+        },
+        {
+          "caller": "AdminRequestPage",
+          "callee": "markThreadReadByStaff.bind",
+          "lineNumber": 107
+        },
+        {
+          "caller": "AdminRequestPage",
+          "callee": "storageConfigured",
+          "lineNumber": 116
+        },
+        {
+          "caller": "AdminRequestPage",
+          "callee": "storageConfigured",
+          "lineNumber": 127
+        },
+        {
+          "caller": "AdminRequestPage",
+          "callee": "can",
+          "lineNumber": 150
+        },
+        {
+          "caller": "AdminRequestPage",
+          "callee": "formatDateTime",
+          "lineNumber": 168
+        },
+        {
+          "caller": "AdminRequestPage",
+          "callee": "formatDateTime",
+          "lineNumber": 170
+        },
+        {
+          "caller": "AdminRequestPage",
+          "callee": "nextStatuses(status).map",
+          "lineNumber": 181
+        },
+        {
+          "caller": "AdminRequestPage",
+          "callee": "nextStatuses",
+          "lineNumber": 181
+        },
+        {
+          "caller": "AdminRequestPage",
+          "callee": "assignees.map",
+          "lineNumber": 191
+        },
+        {
+          "caller": "AdminRequestPage",
+          "callee": "REQUEST_PRIORITIES.map",
+          "lineNumber": 192
+        },
+        {
+          "caller": "AdminRequestPage",
+          "callee": "String",
+          "lineNumber": 206
+        },
+        {
+          "caller": "AdminRequestPage",
+          "callee": "can",
+          "lineNumber": 212
+        }
+      ],
+      "metrics": {
+        "importCount": 15,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/(app)/admin/demandes/actions.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 318,
+      "nonEmptyLines": 276,
+      "functions": [
+        {
+          "name": "loadRequest",
+          "startLine": 28,
+          "endLine": 31,
+          "params": [
+            "id"
+          ]
+        },
+        {
+          "name": "refresh",
+          "startLine": 33,
+          "endLine": 38,
+          "params": [
+            "id"
+          ]
+        },
+        {
+          "name": "changeStatus",
+          "startLine": 45,
+          "endLine": 94,
+          "params": [
+            "_prev",
+            "formData"
+          ]
+        },
+        {
+          "name": "assignRequest",
+          "startLine": 103,
+          "endLine": 143,
+          "params": [
+            "_prev",
+            "formData"
+          ]
+        },
+        {
+          "name": "staffReply",
+          "startLine": 152,
+          "endLine": 217,
+          "params": [
+            "_prev",
+            "formData"
+          ]
+        },
+        {
+          "name": "markThreadReadByStaff",
+          "startLine": 220,
+          "endLine": 238,
+          "params": [
+            "requestId"
+          ]
+        },
+        {
+          "name": "updateRequest",
+          "startLine": 257,
+          "endLine": 285,
+          "params": [
+            "_prev",
+            "formData"
+          ]
+        },
+        {
+          "name": "deleteRequest",
+          "startLine": 295,
+          "endLine": 318,
+          "params": [
+            "_prev",
+            "formData"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "changeStatus",
+          "line": 45,
+          "isDefault": false
+        },
+        {
+          "name": "assignRequest",
+          "line": 103,
+          "isDefault": false
+        },
+        {
+          "name": "staffReply",
+          "line": 152,
+          "isDefault": false
+        },
+        {
+          "name": "markThreadReadByStaff",
+          "line": 220,
+          "isDefault": false
+        },
+        {
+          "name": "updateRequest",
+          "line": 257,
+          "isDefault": false
+        },
+        {
+          "name": "deleteRequest",
+          "line": 295,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "loadRequest",
+          "callee": "db.select().from(requests).where(eq(requests.id, id)).limit",
+          "lineNumber": 29
+        },
+        {
+          "caller": "loadRequest",
+          "callee": "db.select().from(requests).where",
+          "lineNumber": 29
+        },
+        {
+          "caller": "loadRequest",
+          "callee": "db.select().from",
+          "lineNumber": 29
+        },
+        {
+          "caller": "loadRequest",
+          "callee": "db.select",
+          "lineNumber": 29
+        },
+        {
+          "caller": "loadRequest",
+          "callee": "eq",
+          "lineNumber": 29
+        },
+        {
+          "caller": "refresh",
+          "callee": "revalidatePath",
+          "lineNumber": 34
+        },
+        {
+          "caller": "refresh",
+          "callee": "revalidatePath",
+          "lineNumber": 35
+        },
+        {
+          "caller": "refresh",
+          "callee": "revalidatePath",
+          "lineNumber": 36
+        },
+        {
+          "caller": "refresh",
+          "callee": "revalidatePath",
+          "lineNumber": 37
+        },
+        {
+          "caller": "changeStatus",
+          "callee": "requirePermission",
+          "lineNumber": 46
+        },
+        {
+          "caller": "changeStatus",
+          "callee": "parseForm",
+          "lineNumber": 47
+        },
+        {
+          "caller": "changeStatus",
+          "callee": "loadRequest",
+          "lineNumber": 50
+        },
+        {
+          "caller": "changeStatus",
+          "callee": "fail",
+          "lineNumber": 51
+        },
+        {
+          "caller": "changeStatus",
+          "callee": "canTransition",
+          "lineNumber": 55
+        },
+        {
+          "caller": "changeStatus",
+          "callee": "fail",
+          "lineNumber": 56
+        },
+        {
+          "caller": "changeStatus",
+          "callee": "db\n    .update(requests)\n    .set({\n      status,\n      updatedAt: new Date(),\n      closedAt: closing ? new Date() : null,\n    })\n    .where",
+          "lineNumber": 64
+        },
+        {
+          "caller": "changeStatus",
+          "callee": "db\n    .update(requests)\n    .set",
+          "lineNumber": 64
+        },
+        {
+          "caller": "changeStatus",
+          "callee": "db\n    .update",
+          "lineNumber": 64
+        },
+        {
+          "caller": "changeStatus",
+          "callee": "eq",
+          "lineNumber": 71
+        },
+        {
+          "caller": "changeStatus",
+          "callee": "logActivity",
+          "lineNumber": 73
+        },
+        {
+          "caller": "changeStatus",
+          "callee": "notify",
+          "lineNumber": 81
+        },
+        {
+          "caller": "changeStatus",
+          "callee": "STATUS_LABELS[status].toLowerCase",
+          "lineNumber": 84
+        },
+        {
+          "caller": "changeStatus",
+          "callee": "refresh",
+          "lineNumber": 92
+        },
+        {
+          "caller": "changeStatus",
+          "callee": "succeed",
+          "lineNumber": 93
+        },
+        {
+          "caller": "assignRequest",
+          "callee": "requirePermission",
+          "lineNumber": 104
+        },
+        {
+          "caller": "assignRequest",
+          "callee": "parseForm",
+          "lineNumber": 105
+        },
+        {
+          "caller": "assignRequest",
+          "callee": "loadRequest",
+          "lineNumber": 108
+        },
+        {
+          "caller": "assignRequest",
+          "callee": "fail",
+          "lineNumber": 109
+        },
+        {
+          "caller": "assignRequest",
+          "callee": "db\n    .update(requests)\n    .set({ assignedToId, priority: parsed.data.priority, updatedAt: new Date() })\n    .where",
+          "lineNumber": 113
+        },
+        {
+          "caller": "assignRequest",
+          "callee": "db\n    .update(requests)\n    .set",
+          "lineNumber": 113
+        },
+        {
+          "caller": "assignRequest",
+          "callee": "db\n    .update",
+          "lineNumber": 113
+        },
+        {
+          "caller": "assignRequest",
+          "callee": "eq",
+          "lineNumber": 116
+        },
+        {
+          "caller": "assignRequest",
+          "callee": "logActivity",
+          "lineNumber": 118
+        },
+        {
+          "caller": "assignRequest",
+          "callee": "notify",
+          "lineNumber": 129
+        },
+        {
+          "caller": "assignRequest",
+          "callee": "refresh",
+          "lineNumber": 141
+        },
+        {
+          "caller": "assignRequest",
+          "callee": "succeed",
+          "lineNumber": 142
+        },
+        {
+          "caller": "staffReply",
+          "callee": "requirePermission",
+          "lineNumber": 153
+        },
+        {
+          "caller": "staffReply",
+          "callee": "parseForm",
+          "lineNumber": 154
+        },
+        {
+          "caller": "staffReply",
+          "callee": "loadRequest",
+          "lineNumber": 157
+        },
+        {
+          "caller": "staffReply",
+          "callee": "fail",
+          "lineNumber": 158
+        },
+        {
+          "caller": "staffReply",
+          "callee": "fail",
+          "lineNumber": 161
+        },
+        {
+          "caller": "staffReply",
+          "callee": "db\n    .insert(requestMessages)\n    .values({ requestId: request.id, authorId: staff.id, body, internal: parsed.data.internal })\n    .returning",
+          "lineNumber": 163
+        },
+        {
+          "caller": "staffReply",
+          "callee": "db\n    .insert(requestMessages)\n    .values",
+          "lineNumber": 163
+        },
+        {
+          "caller": "staffReply",
+          "callee": "db\n    .insert",
+          "lineNumber": 163
+        },
+        {
+          "caller": "staffReply",
+          "callee": "db.update(requests).set({ updatedAt: new Date() }).where",
+          "lineNumber": 167
+        },
+        {
+          "caller": "staffReply",
+          "callee": "db.update(requests).set",
+          "lineNumber": 167
+        },
+        {
+          "caller": "staffReply",
+          "callee": "db.update",
+          "lineNumber": 167
+        },
+        {
+          "caller": "staffReply",
+          "callee": "eq",
+          "lineNumber": 167
+        },
+        {
+          "caller": "staffReply",
+          "callee": "notify",
+          "lineNumber": 172
+        },
+        {
+          "caller": "staffReply",
+          "callee": "body.slice",
+          "lineNumber": 176
+        },
+        {
+          "caller": "staffReply",
+          "callee": "db.query.user.findFirst",
+          "lineNumber": 183
+        },
+        {
+          "caller": "staffReply",
+          "callee": "e",
+          "lineNumber": 184
+        },
+        {
+          "caller": "staffReply",
+          "callee": "sendEmail",
+          "lineNumber": 188
+        },
+        {
+          "caller": "staffReply",
+          "callee": "logActivity",
+          "lineNumber": 200
+        },
+        {
+          "caller": "staffReply",
+          "callee": "staffWith",
+          "lineNumber": 211
+        },
+        {
+          "caller": "staffReply",
+          "callee": "publishMany",
+          "lineNumber": 212
+        },
+        {
+          "caller": "staffReply",
+          "callee": "String",
+          "lineNumber": 212
+        },
+        {
+          "caller": "staffReply",
+          "callee": "refresh",
+          "lineNumber": 215
+        },
+        {
+          "caller": "staffReply",
+          "callee": "String",
+          "lineNumber": 216
+        },
+        {
+          "caller": "markThreadReadByStaff",
+          "callee": "requirePermission",
+          "lineNumber": 221
+        },
+        {
+          "caller": "markThreadReadByStaff",
+          "callee": "loadRequest",
+          "lineNumber": 222
+        },
+        {
+          "caller": "markThreadReadByStaff",
+          "callee": "db\n    .update(requestMessages)\n    .set({ readAt: new Date() })\n    .where(\n      and(\n        eq(requestMessages.requestId, request.id),\n        eq(requestMessages.authorId, request.userId),\n        isNull(requestMessages.readAt),\n      ),\n    )\n    .returning",
+          "lineNumber": 224
+        },
+        {
+          "caller": "markThreadReadByStaff",
+          "callee": "db\n    .update(requestMessages)\n    .set({ readAt: new Date() })\n    .where",
+          "lineNumber": 224
+        },
+        {
+          "caller": "markThreadReadByStaff",
+          "callee": "db\n    .update(requestMessages)\n    .set",
+          "lineNumber": 224
+        },
+        {
+          "caller": "markThreadReadByStaff",
+          "callee": "db\n    .update",
+          "lineNumber": 224
+        },
+        {
+          "caller": "markThreadReadByStaff",
+          "callee": "and",
+          "lineNumber": 228
+        },
+        {
+          "caller": "markThreadReadByStaff",
+          "callee": "eq",
+          "lineNumber": 229
+        },
+        {
+          "caller": "markThreadReadByStaff",
+          "callee": "eq",
+          "lineNumber": 230
+        },
+        {
+          "caller": "markThreadReadByStaff",
+          "callee": "isNull",
+          "lineNumber": 231
+        },
+        {
+          "caller": "markThreadReadByStaff",
+          "callee": "publish",
+          "lineNumber": 236
+        },
+        {
+          "caller": "markThreadReadByStaff",
+          "callee": "String",
+          "lineNumber": 236
+        },
+        {
+          "caller": "updateRequest",
+          "callee": "requirePermission",
+          "lineNumber": 258
+        },
+        {
+          "caller": "updateRequest",
+          "callee": "parseForm",
+          "lineNumber": 259
+        },
+        {
+          "caller": "updateRequest",
+          "callee": "loadRequest",
+          "lineNumber": 262
+        },
+        {
+          "caller": "updateRequest",
+          "callee": "fail",
+          "lineNumber": 263
+        },
+        {
+          "caller": "updateRequest",
+          "callee": "db\n    .update(requests)\n    .set({\n      title: parsed.data.title,\n      details: parsed.data.details,\n      budgetCents: parsed.data.budget,\n      updatedAt: new Date(),\n    })\n    .where",
+          "lineNumber": 265
+        },
+        {
+          "caller": "updateRequest",
+          "callee": "db\n    .update(requests)\n    .set",
+          "lineNumber": 265
+        },
+        {
+          "caller": "updateRequest",
+          "callee": "db\n    .update",
+          "lineNumber": 265
+        },
+        {
+          "caller": "updateRequest",
+          "callee": "eq",
+          "lineNumber": 273
+        },
+        {
+          "caller": "updateRequest",
+          "callee": "logActivity",
+          "lineNumber": 275
+        },
+        {
+          "caller": "updateRequest",
+          "callee": "refresh",
+          "lineNumber": 283
+        },
+        {
+          "caller": "updateRequest",
+          "callee": "succeed",
+          "lineNumber": 284
+        },
+        {
+          "caller": "deleteRequest",
+          "callee": "requirePermission",
+          "lineNumber": 296
+        },
+        {
+          "caller": "deleteRequest",
+          "callee": "Number",
+          "lineNumber": 297
+        },
+        {
+          "caller": "deleteRequest",
+          "callee": "formData.get",
+          "lineNumber": 297
+        },
+        {
+          "caller": "deleteRequest",
+          "callee": "Number.isInteger",
+          "lineNumber": 298
+        },
+        {
+          "caller": "deleteRequest",
+          "callee": "fail",
+          "lineNumber": 298
+        },
+        {
+          "caller": "deleteRequest",
+          "callee": "loadRequest",
+          "lineNumber": 300
+        },
+        {
+          "caller": "deleteRequest",
+          "callee": "fail",
+          "lineNumber": 301
+        },
+        {
+          "caller": "deleteRequest",
+          "callee": "String(formData.get(\"confirm\") ?? \"\").trim",
+          "lineNumber": 302
+        },
+        {
+          "caller": "deleteRequest",
+          "callee": "String",
+          "lineNumber": 302
+        },
+        {
+          "caller": "deleteRequest",
+          "callee": "formData.get",
+          "lineNumber": 302
+        },
+        {
+          "caller": "deleteRequest",
+          "callee": "fail",
+          "lineNumber": 303
+        },
+        {
+          "caller": "deleteRequest",
+          "callee": "db.delete(requests).where",
+          "lineNumber": 306
+        },
+        {
+          "caller": "deleteRequest",
+          "callee": "db.delete",
+          "lineNumber": 306
+        },
+        {
+          "caller": "deleteRequest",
+          "callee": "eq",
+          "lineNumber": 306
+        },
+        {
+          "caller": "deleteRequest",
+          "callee": "logActivity",
+          "lineNumber": 307
+        },
+        {
+          "caller": "deleteRequest",
+          "callee": "revalidatePath",
+          "lineNumber": 315
+        },
+        {
+          "caller": "deleteRequest",
+          "callee": "revalidatePath",
+          "lineNumber": 316
+        },
+        {
+          "caller": "deleteRequest",
+          "callee": "redirect",
+          "lineNumber": 317
+        }
+      ],
+      "metrics": {
+        "importCount": 10,
+        "exportCount": 6,
+        "functionCount": 8,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/(app)/admin/demandes/page.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 140,
+      "nonEmptyLines": 130,
+      "functions": [
+        {
+          "name": "AdminDemandesPage",
+          "startLine": 22,
+          "endLine": 140,
+          "params": [
+            "{ searchParams }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "metadata",
+          "line": 20,
+          "isDefault": false
+        },
+        {
+          "name": "AdminDemandesPage",
+          "line": 22,
+          "isDefault": true
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "AdminDemandesPage",
+          "callee": "requirePermission",
+          "lineNumber": 23
+        },
+        {
+          "caller": "AdminDemandesPage",
+          "callee": "filters.push",
+          "lineNumber": 32
+        },
+        {
+          "caller": "AdminDemandesPage",
+          "callee": "inArray",
+          "lineNumber": 32
+        },
+        {
+          "caller": "AdminDemandesPage",
+          "callee": "REQUEST_STATUSES.includes",
+          "lineNumber": 33
+        },
+        {
+          "caller": "AdminDemandesPage",
+          "callee": "filters.push",
+          "lineNumber": 34
+        },
+        {
+          "caller": "AdminDemandesPage",
+          "callee": "eq",
+          "lineNumber": 34
+        },
+        {
+          "caller": "AdminDemandesPage",
+          "callee": "filters.push",
+          "lineNumber": 38
+        },
+        {
+          "caller": "AdminDemandesPage",
+          "callee": "isNull",
+          "lineNumber": 38
+        },
+        {
+          "caller": "AdminDemandesPage",
+          "callee": "q.trim",
+          "lineNumber": 41
+        },
+        {
+          "caller": "AdminDemandesPage",
+          "callee": "filters.push",
+          "lineNumber": 44
+        },
+        {
+          "caller": "AdminDemandesPage",
+          "callee": "or",
+          "lineNumber": 45
+        },
+        {
+          "caller": "AdminDemandesPage",
+          "callee": "ilike",
+          "lineNumber": 46
+        },
+        {
+          "caller": "AdminDemandesPage",
+          "callee": "ilike",
+          "lineNumber": 47
+        },
+        {
+          "caller": "AdminDemandesPage",
+          "callee": "ilike",
+          "lineNumber": 48
+        },
+        {
+          "caller": "AdminDemandesPage",
+          "callee": "ilike",
+          "lineNumber": 49
+        },
+        {
+          "caller": "AdminDemandesPage",
+          "callee": "db\n    .select({ request: requests, client: userTable })\n    .from(requests)\n    .innerJoin(userTable, eq(userTable.id, requests.userId))\n    .where(filters.length ? and(...filters) : undefined)\n    .orderBy(desc(requests.updatedAt))\n    .limit",
+          "lineNumber": 54
+        },
+        {
+          "caller": "AdminDemandesPage",
+          "callee": "db\n    .select({ request: requests, client: userTable })\n    .from(requests)\n    .innerJoin(userTable, eq(userTable.id, requests.userId))\n    .where(filters.length ? and(...filters) : undefined)\n    .orderBy",
+          "lineNumber": 54
+        },
+        {
+          "caller": "AdminDemandesPage",
+          "callee": "db\n    .select({ request: requests, client: userTable })\n    .from(requests)\n    .innerJoin(userTable, eq(userTable.id, requests.userId))\n    .where",
+          "lineNumber": 54
+        },
+        {
+          "caller": "AdminDemandesPage",
+          "callee": "db\n    .select({ request: requests, client: userTable })\n    .from(requests)\n    .innerJoin",
+          "lineNumber": 54
+        },
+        {
+          "caller": "AdminDemandesPage",
+          "callee": "db\n    .select({ request: requests, client: userTable })\n    .from",
+          "lineNumber": 54
+        },
+        {
+          "caller": "AdminDemandesPage",
+          "callee": "db\n    .select",
+          "lineNumber": 54
+        },
+        {
+          "caller": "AdminDemandesPage",
+          "callee": "eq",
+          "lineNumber": 57
+        },
+        {
+          "caller": "AdminDemandesPage",
+          "callee": "and",
+          "lineNumber": 58
+        },
+        {
+          "caller": "AdminDemandesPage",
+          "callee": "desc",
+          "lineNumber": 59
+        },
+        {
+          "caller": "AdminDemandesPage",
+          "callee": "REQUEST_STATUSES.map",
+          "lineNumber": 80
+        },
+        {
+          "caller": "AdminDemandesPage",
+          "callee": "rows.map",
+          "lineNumber": 103
+        },
+        {
+          "caller": "AdminDemandesPage",
+          "callee": "relativeTime",
+          "lineNumber": 126
+        }
+      ],
+      "metrics": {
+        "importCount": 8,
+        "exportCount": 2,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/(app)/admin/demos/page.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 230,
+      "nonEmptyLines": 218,
+      "functions": [
+        {
+          "name": "AdminDemosPage",
+          "startLine": 33,
+          "endLine": 230,
+          "params": [
+            "{ searchParams }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "metadata",
+          "line": 25,
+          "isDefault": false
+        },
+        {
+          "name": "AdminDemosPage",
+          "line": 33,
+          "isDefault": true
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "AdminDemosPage",
+          "callee": "requirePermission",
+          "lineNumber": 34
+        },
+        {
+          "caller": "AdminDemosPage",
+          "callee": "params.q.trim",
+          "lineNumber": 36
+        },
+        {
+          "caller": "AdminDemosPage",
+          "callee": "Promise.all",
+          "lineNumber": 39
+        },
+        {
+          "caller": "AdminDemosPage",
+          "callee": "db\n      .select({\n        demo: demos,\n        grants: sql<number>`(select count(*)::int from ${demoAccess} where ${demoAccess.demoId} = ${demos.id} and ${demoAccess.revokedAt} is null)`,\n        runs: sql<number>`(select count(*)::int from ${demoRuns} where ${demoRuns.demoId} = ${demos.id})`,\n      })\n      .from(demos)\n      .where(\n        and(\n          DEMO_STATUSES.includes(status as DemoStatus) ? eq(demos.status, status) : undefined,\n          q ? or(ilike(demos.title, `%${q}%`), ilike(demos.slug, `%${q}%`), ilike(demos.category, `%${q}%`)) : undefined,\n        ),\n      )\n      .orderBy",
+          "lineNumber": 40
+        },
+        {
+          "caller": "AdminDemosPage",
+          "callee": "db\n      .select({\n        demo: demos,\n        grants: sql<number>`(select count(*)::int from ${demoAccess} where ${demoAccess.demoId} = ${demos.id} and ${demoAccess.revokedAt} is null)`,\n        runs: sql<number>`(select count(*)::int from ${demoRuns} where ${demoRuns.demoId} = ${demos.id})`,\n      })\n      .from(demos)\n      .where",
+          "lineNumber": 40
+        },
+        {
+          "caller": "AdminDemosPage",
+          "callee": "db\n      .select({\n        demo: demos,\n        grants: sql<number>`(select count(*)::int from ${demoAccess} where ${demoAccess.demoId} = ${demos.id} and ${demoAccess.revokedAt} is null)`,\n        runs: sql<number>`(select count(*)::int from ${demoRuns} where ${demoRuns.demoId} = ${demos.id})`,\n      })\n      .from",
+          "lineNumber": 40
+        },
+        {
+          "caller": "AdminDemosPage",
+          "callee": "db\n      .select",
+          "lineNumber": 40
+        },
+        {
+          "caller": "AdminDemosPage",
+          "callee": "and",
+          "lineNumber": 48
+        },
+        {
+          "caller": "AdminDemosPage",
+          "callee": "DEMO_STATUSES.includes",
+          "lineNumber": 49
+        },
+        {
+          "caller": "AdminDemosPage",
+          "callee": "eq",
+          "lineNumber": 49
+        },
+        {
+          "caller": "AdminDemosPage",
+          "callee": "or",
+          "lineNumber": 50
+        },
+        {
+          "caller": "AdminDemosPage",
+          "callee": "ilike",
+          "lineNumber": 50
+        },
+        {
+          "caller": "AdminDemosPage",
+          "callee": "ilike",
+          "lineNumber": 50
+        },
+        {
+          "caller": "AdminDemosPage",
+          "callee": "ilike",
+          "lineNumber": 50
+        },
+        {
+          "caller": "AdminDemosPage",
+          "callee": "desc",
+          "lineNumber": 53
+        },
+        {
+          "caller": "AdminDemosPage",
+          "callee": "db\n      .select({ run: demoRuns, client: userTable, demo: { id: demos.id, title: demos.title } })\n      .from(demoRuns)\n      .innerJoin(userTable, eq(userTable.id, demoRuns.userId))\n      .leftJoin(demos, eq(demos.id, demoRuns.demoId))\n      .where(or(eq(demoRuns.outcome, \"en_attente\"), eq(demoRuns.outcome, \"en_cours\")))\n      .orderBy(desc(demoRuns.updatedAt))\n      .limit",
+          "lineNumber": 54
+        },
+        {
+          "caller": "AdminDemosPage",
+          "callee": "db\n      .select({ run: demoRuns, client: userTable, demo: { id: demos.id, title: demos.title } })\n      .from(demoRuns)\n      .innerJoin(userTable, eq(userTable.id, demoRuns.userId))\n      .leftJoin(demos, eq(demos.id, demoRuns.demoId))\n      .where(or(eq(demoRuns.outcome, \"en_attente\"), eq(demoRuns.outcome, \"en_cours\")))\n      .orderBy",
+          "lineNumber": 54
+        },
+        {
+          "caller": "AdminDemosPage",
+          "callee": "db\n      .select({ run: demoRuns, client: userTable, demo: { id: demos.id, title: demos.title } })\n      .from(demoRuns)\n      .innerJoin(userTable, eq(userTable.id, demoRuns.userId))\n      .leftJoin(demos, eq(demos.id, demoRuns.demoId))\n      .where",
+          "lineNumber": 54
+        },
+        {
+          "caller": "AdminDemosPage",
+          "callee": "db\n      .select({ run: demoRuns, client: userTable, demo: { id: demos.id, title: demos.title } })\n      .from(demoRuns)\n      .innerJoin(userTable, eq(userTable.id, demoRuns.userId))\n      .leftJoin",
+          "lineNumber": 54
+        },
+        {
+          "caller": "AdminDemosPage",
+          "callee": "db\n      .select({ run: demoRuns, client: userTable, demo: { id: demos.id, title: demos.title } })\n      .from(demoRuns)\n      .innerJoin",
+          "lineNumber": 54
+        },
+        {
+          "caller": "AdminDemosPage",
+          "callee": "db\n      .select({ run: demoRuns, client: userTable, demo: { id: demos.id, title: demos.title } })\n      .from",
+          "lineNumber": 54
+        },
+        {
+          "caller": "AdminDemosPage",
+          "callee": "db\n      .select",
+          "lineNumber": 54
+        },
+        {
+          "caller": "AdminDemosPage",
+          "callee": "eq",
+          "lineNumber": 57
+        },
+        {
+          "caller": "AdminDemosPage",
+          "callee": "eq",
+          "lineNumber": 58
+        },
+        {
+          "caller": "AdminDemosPage",
+          "callee": "or",
+          "lineNumber": 59
+        },
+        {
+          "caller": "AdminDemosPage",
+          "callee": "eq",
+          "lineNumber": 59
+        },
+        {
+          "caller": "AdminDemosPage",
+          "callee": "eq",
+          "lineNumber": 59
+        },
+        {
+          "caller": "AdminDemosPage",
+          "callee": "desc",
+          "lineNumber": 60
+        },
+        {
+          "caller": "AdminDemosPage",
+          "callee": "db\n      .select({\n        published: sql<number>`count(*) filter (where ${demos.status} = 'publie')::int`,\n        total: sql<number>`count(*)::int`,\n      })\n      .from",
+          "lineNumber": 62
+        },
+        {
+          "caller": "AdminDemosPage",
+          "callee": "db\n      .select",
+          "lineNumber": 62
+        },
+        {
+          "caller": "AdminDemosPage",
+          "callee": "db\n    .select({ run: demoRuns, client: userTable })\n    .from(demoRuns)\n    .innerJoin(userTable, eq(userTable.id, demoRuns.userId))\n    .where(isNull(demoRuns.demoId))\n    .orderBy(desc(demoRuns.createdAt))\n    .limit",
+          "lineNumber": 72
+        },
+        {
+          "caller": "AdminDemosPage",
+          "callee": "db\n    .select({ run: demoRuns, client: userTable })\n    .from(demoRuns)\n    .innerJoin(userTable, eq(userTable.id, demoRuns.userId))\n    .where(isNull(demoRuns.demoId))\n    .orderBy",
+          "lineNumber": 72
+        },
+        {
+          "caller": "AdminDemosPage",
+          "callee": "db\n    .select({ run: demoRuns, client: userTable })\n    .from(demoRuns)\n    .innerJoin(userTable, eq(userTable.id, demoRuns.userId))\n    .where",
+          "lineNumber": 72
+        },
+        {
+          "caller": "AdminDemosPage",
+          "callee": "db\n    .select({ run: demoRuns, client: userTable })\n    .from(demoRuns)\n    .innerJoin",
+          "lineNumber": 72
+        },
+        {
+          "caller": "AdminDemosPage",
+          "callee": "db\n    .select({ run: demoRuns, client: userTable })\n    .from",
+          "lineNumber": 72
+        },
+        {
+          "caller": "AdminDemosPage",
+          "callee": "db\n    .select",
+          "lineNumber": 72
+        },
+        {
+          "caller": "AdminDemosPage",
+          "callee": "eq",
+          "lineNumber": 75
+        },
+        {
+          "caller": "AdminDemosPage",
+          "callee": "isNull",
+          "lineNumber": 76
+        },
+        {
+          "caller": "AdminDemosPage",
+          "callee": "desc",
+          "lineNumber": 77
+        },
+        {
+          "caller": "AdminDemosPage",
+          "callee": "db\n    .select({ n: sql<number>`count(*)::int` })\n    .from(demoAccess)\n    .where",
+          "lineNumber": 80
+        },
+        {
+          "caller": "AdminDemosPage",
+          "callee": "db\n    .select({ n: sql<number>`count(*)::int` })\n    .from",
+          "lineNumber": 80
+        },
+        {
+          "caller": "AdminDemosPage",
+          "callee": "db\n    .select",
+          "lineNumber": 80
+        },
+        {
+          "caller": "AdminDemosPage",
+          "callee": "sql",
+          "lineNumber": 83
+        },
+        {
+          "caller": "AdminDemosPage",
+          "callee": "queue.filter",
+          "lineNumber": 85
+        },
+        {
+          "caller": "AdminDemosPage",
+          "callee": "can",
+          "lineNumber": 93
+        },
+        {
+          "caller": "AdminDemosPage",
+          "callee": "queue.map",
+          "lineNumber": 122
+        },
+        {
+          "caller": "AdminDemosPage",
+          "callee": "formatDateTime",
+          "lineNumber": 132
+        },
+        {
+          "caller": "AdminDemosPage",
+          "callee": "DEMO_STATUSES.map",
+          "lineNumber": 153
+        },
+        {
+          "caller": "AdminDemosPage",
+          "callee": "can",
+          "lineNumber": 166
+        },
+        {
+          "caller": "AdminDemosPage",
+          "callee": "rows.map",
+          "lineNumber": 175
+        },
+        {
+          "caller": "AdminDemosPage",
+          "callee": "Array.from",
+          "lineNumber": 176
+        },
+        {
+          "caller": "AdminDemosPage",
+          "callee": "parseBlocks(demo.blocks).map",
+          "lineNumber": 176
+        },
+        {
+          "caller": "AdminDemosPage",
+          "callee": "parseBlocks",
+          "lineNumber": 176
+        },
+        {
+          "caller": "AdminDemosPage",
+          "callee": "[demo.category, kinds.map((k) => BLOCK_LABELS[k].label).join(\" · \") || \"Vide\"]\n                          .filter(Boolean)\n                          .join",
+          "lineNumber": 186
+        },
+        {
+          "caller": "AdminDemosPage",
+          "callee": "[demo.category, kinds.map((k) => BLOCK_LABELS[k].label).join(\" · \") || \"Vide\"]\n                          .filter",
+          "lineNumber": 186
+        },
+        {
+          "caller": "AdminDemosPage",
+          "callee": "kinds.map((k) => BLOCK_LABELS[k].label).join",
+          "lineNumber": 186
+        },
+        {
+          "caller": "AdminDemosPage",
+          "callee": "kinds.map",
+          "lineNumber": 186
+        },
+        {
+          "caller": "AdminDemosPage",
+          "callee": "formatDate",
+          "lineNumber": 194
+        },
+        {
+          "caller": "AdminDemosPage",
+          "callee": "legacy.map",
+          "lineNumber": 216
+        },
+        {
+          "caller": "AdminDemosPage",
+          "callee": "formatDateTime",
+          "lineNumber": 221
+        }
+      ],
+      "metrics": {
+        "importCount": 11,
+        "exportCount": 2,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/(app)/admin/devis/page.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 112,
+      "nonEmptyLines": 104,
+      "functions": [
+        {
+          "name": "AdminDevisPage",
+          "startLine": 19,
+          "endLine": 112,
+          "params": [
+            "{ searchParams }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "metadata",
+          "line": 17,
+          "isDefault": false
+        },
+        {
+          "name": "AdminDevisPage",
+          "line": 19,
+          "isDefault": true
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "AdminDevisPage",
+          "callee": "requirePermission",
+          "lineNumber": 20
+        },
+        {
+          "caller": "AdminDevisPage",
+          "callee": "isQuoteStatus",
+          "lineNumber": 25
+        },
+        {
+          "caller": "AdminDevisPage",
+          "callee": "filters.push",
+          "lineNumber": 25
+        },
+        {
+          "caller": "AdminDevisPage",
+          "callee": "eq",
+          "lineNumber": 25
+        },
+        {
+          "caller": "AdminDevisPage",
+          "callee": "q.trim",
+          "lineNumber": 27
+        },
+        {
+          "caller": "AdminDevisPage",
+          "callee": "filters.push",
+          "lineNumber": 30
+        },
+        {
+          "caller": "AdminDevisPage",
+          "callee": "or",
+          "lineNumber": 31
+        },
+        {
+          "caller": "AdminDevisPage",
+          "callee": "ilike",
+          "lineNumber": 31
+        },
+        {
+          "caller": "AdminDevisPage",
+          "callee": "ilike",
+          "lineNumber": 31
+        },
+        {
+          "caller": "AdminDevisPage",
+          "callee": "ilike",
+          "lineNumber": 31
+        },
+        {
+          "caller": "AdminDevisPage",
+          "callee": "db\n    .select({ quote: quotes, client: userTable })\n    .from(quotes)\n    .innerJoin(userTable, eq(userTable.id, quotes.userId))\n    .where(filters.length ? and(...filters) : undefined)\n    .orderBy(desc(quotes.createdAt))\n    .limit",
+          "lineNumber": 35
+        },
+        {
+          "caller": "AdminDevisPage",
+          "callee": "db\n    .select({ quote: quotes, client: userTable })\n    .from(quotes)\n    .innerJoin(userTable, eq(userTable.id, quotes.userId))\n    .where(filters.length ? and(...filters) : undefined)\n    .orderBy",
+          "lineNumber": 35
+        },
+        {
+          "caller": "AdminDevisPage",
+          "callee": "db\n    .select({ quote: quotes, client: userTable })\n    .from(quotes)\n    .innerJoin(userTable, eq(userTable.id, quotes.userId))\n    .where",
+          "lineNumber": 35
+        },
+        {
+          "caller": "AdminDevisPage",
+          "callee": "db\n    .select({ quote: quotes, client: userTable })\n    .from(quotes)\n    .innerJoin",
+          "lineNumber": 35
+        },
+        {
+          "caller": "AdminDevisPage",
+          "callee": "db\n    .select({ quote: quotes, client: userTable })\n    .from",
+          "lineNumber": 35
+        },
+        {
+          "caller": "AdminDevisPage",
+          "callee": "db\n    .select",
+          "lineNumber": 35
+        },
+        {
+          "caller": "AdminDevisPage",
+          "callee": "eq",
+          "lineNumber": 38
+        },
+        {
+          "caller": "AdminDevisPage",
+          "callee": "and",
+          "lineNumber": 39
+        },
+        {
+          "caller": "AdminDevisPage",
+          "callee": "desc",
+          "lineNumber": 40
+        },
+        {
+          "caller": "AdminDevisPage",
+          "callee": "can",
+          "lineNumber": 49
+        },
+        {
+          "caller": "AdminDevisPage",
+          "callee": "QUOTE_STATUSES.map",
+          "lineNumber": 71
+        },
+        {
+          "caller": "AdminDevisPage",
+          "callee": "rows.map",
+          "lineNumber": 85
+        },
+        {
+          "caller": "AdminDevisPage",
+          "callee": "isQuoteStatus",
+          "lineNumber": 86
+        },
+        {
+          "caller": "AdminDevisPage",
+          "callee": "formatDate",
+          "lineNumber": 96
+        },
+        {
+          "caller": "AdminDevisPage",
+          "callee": "formatMoney",
+          "lineNumber": 100
+        }
+      ],
+      "metrics": {
+        "importCount": 12,
+        "exportCount": 2,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/(app)/admin/equipe/page.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 198,
+      "nonEmptyLines": 189,
+      "functions": [
+        {
+          "name": "EquipePage",
+          "startLine": 39,
+          "endLine": 198,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "metadata",
+          "line": 24,
+          "isDefault": false
+        },
+        {
+          "name": "EquipePage",
+          "line": 39,
+          "isDefault": true
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "EquipePage",
+          "callee": "requirePermission",
+          "lineNumber": 40
+        },
+        {
+          "caller": "EquipePage",
+          "callee": "db\n    .select()\n    .from(userTable)\n    .where(inArray(userTable.role, [\"admin\", \"staff\"]))\n    .orderBy",
+          "lineNumber": 42
+        },
+        {
+          "caller": "EquipePage",
+          "callee": "db\n    .select()\n    .from(userTable)\n    .where",
+          "lineNumber": 42
+        },
+        {
+          "caller": "EquipePage",
+          "callee": "db\n    .select()\n    .from",
+          "lineNumber": 42
+        },
+        {
+          "caller": "EquipePage",
+          "callee": "db\n    .select",
+          "lineNumber": 42
+        },
+        {
+          "caller": "EquipePage",
+          "callee": "inArray",
+          "lineNumber": 45
+        },
+        {
+          "caller": "EquipePage",
+          "callee": "asc",
+          "lineNumber": 46
+        },
+        {
+          "caller": "EquipePage",
+          "callee": "asc",
+          "lineNumber": 46
+        },
+        {
+          "caller": "EquipePage",
+          "callee": "db\n    .select()\n    .from(userTable)\n    .where(sql`${userTable.role} = 'user' and ${userTable.permissions} is not null`)\n    .orderBy",
+          "lineNumber": 50
+        },
+        {
+          "caller": "EquipePage",
+          "callee": "db\n    .select()\n    .from(userTable)\n    .where",
+          "lineNumber": 50
+        },
+        {
+          "caller": "EquipePage",
+          "callee": "db\n    .select()\n    .from",
+          "lineNumber": 50
+        },
+        {
+          "caller": "EquipePage",
+          "callee": "db\n    .select",
+          "lineNumber": 50
+        },
+        {
+          "caller": "EquipePage",
+          "callee": "sql",
+          "lineNumber": 53
+        },
+        {
+          "caller": "EquipePage",
+          "callee": "asc",
+          "lineNumber": 54
+        },
+        {
+          "caller": "EquipePage",
+          "callee": "can",
+          "lineNumber": 65
+        },
+        {
+          "caller": "EquipePage",
+          "callee": "rows.map",
+          "lineNumber": 92
+        },
+        {
+          "caller": "EquipePage",
+          "callee": "Object.keys",
+          "lineNumber": 93
+        },
+        {
+          "caller": "EquipePage",
+          "callee": "formatDate",
+          "lineNumber": 98
+        },
+        {
+          "caller": "EquipePage",
+          "callee": "can",
+          "lineNumber": 119
+        },
+        {
+          "caller": "EquipePage",
+          "callee": "actions.map",
+          "lineNumber": 138
+        },
+        {
+          "caller": "EquipePage",
+          "callee": "DOMAINS.map",
+          "lineNumber": 146
+        },
+        {
+          "caller": "EquipePage",
+          "callee": "actions.map",
+          "lineNumber": 151
+        },
+        {
+          "caller": "EquipePage",
+          "callee": "can",
+          "lineNumber": 153
+        },
+        {
+          "caller": "EquipePage",
+          "callee": "isRoleDefault",
+          "lineNumber": 154
+        },
+        {
+          "caller": "EquipePage",
+          "callee": "cn",
+          "lineNumber": 163
+        }
+      ],
+      "metrics": {
+        "importCount": 10,
+        "exportCount": 2,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/(app)/admin/factures/page.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 146,
+      "nonEmptyLines": 135,
+      "functions": [
+        {
+          "name": "AdminFacturesPage",
+          "startLine": 25,
+          "endLine": 146,
+          "params": [
+            "{ searchParams }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "metadata",
+          "line": 23,
+          "isDefault": false
+        },
+        {
+          "name": "AdminFacturesPage",
+          "line": 25,
+          "isDefault": true
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "AdminFacturesPage",
+          "callee": "requirePermission",
+          "lineNumber": 26
+        },
+        {
+          "caller": "AdminFacturesPage",
+          "callee": "isInvoiceStatus",
+          "lineNumber": 31
+        },
+        {
+          "caller": "AdminFacturesPage",
+          "callee": "filters.push",
+          "lineNumber": 31
+        },
+        {
+          "caller": "AdminFacturesPage",
+          "callee": "eq",
+          "lineNumber": 31
+        },
+        {
+          "caller": "AdminFacturesPage",
+          "callee": "q.trim",
+          "lineNumber": 33
+        },
+        {
+          "caller": "AdminFacturesPage",
+          "callee": "filters.push",
+          "lineNumber": 36
+        },
+        {
+          "caller": "AdminFacturesPage",
+          "callee": "or",
+          "lineNumber": 37
+        },
+        {
+          "caller": "AdminFacturesPage",
+          "callee": "ilike",
+          "lineNumber": 37
+        },
+        {
+          "caller": "AdminFacturesPage",
+          "callee": "ilike",
+          "lineNumber": 37
+        },
+        {
+          "caller": "AdminFacturesPage",
+          "callee": "ilike",
+          "lineNumber": 37
+        },
+        {
+          "caller": "AdminFacturesPage",
+          "callee": "db\n    .select({ invoice: invoices, client: userTable })\n    .from(invoices)\n    .innerJoin(userTable, eq(userTable.id, invoices.userId))\n    .where(filters.length ? and(...filters) : undefined)\n    .orderBy(desc(invoices.createdAt))\n    .limit",
+          "lineNumber": 41
+        },
+        {
+          "caller": "AdminFacturesPage",
+          "callee": "db\n    .select({ invoice: invoices, client: userTable })\n    .from(invoices)\n    .innerJoin(userTable, eq(userTable.id, invoices.userId))\n    .where(filters.length ? and(...filters) : undefined)\n    .orderBy",
+          "lineNumber": 41
+        },
+        {
+          "caller": "AdminFacturesPage",
+          "callee": "db\n    .select({ invoice: invoices, client: userTable })\n    .from(invoices)\n    .innerJoin(userTable, eq(userTable.id, invoices.userId))\n    .where",
+          "lineNumber": 41
+        },
+        {
+          "caller": "AdminFacturesPage",
+          "callee": "db\n    .select({ invoice: invoices, client: userTable })\n    .from(invoices)\n    .innerJoin",
+          "lineNumber": 41
+        },
+        {
+          "caller": "AdminFacturesPage",
+          "callee": "db\n    .select({ invoice: invoices, client: userTable })\n    .from",
+          "lineNumber": 41
+        },
+        {
+          "caller": "AdminFacturesPage",
+          "callee": "db\n    .select",
+          "lineNumber": 41
+        },
+        {
+          "caller": "AdminFacturesPage",
+          "callee": "eq",
+          "lineNumber": 44
+        },
+        {
+          "caller": "AdminFacturesPage",
+          "callee": "and",
+          "lineNumber": 45
+        },
+        {
+          "caller": "AdminFacturesPage",
+          "callee": "desc",
+          "lineNumber": 46
+        },
+        {
+          "caller": "AdminFacturesPage",
+          "callee": "rows\n    .filter(({ invoice }) => [\"envoyee\", \"en_retard\"].includes(effectiveInvoiceStatus(invoice)))\n    .reduce",
+          "lineNumber": 49
+        },
+        {
+          "caller": "AdminFacturesPage",
+          "callee": "rows\n    .filter",
+          "lineNumber": 49
+        },
+        {
+          "caller": "AdminFacturesPage",
+          "callee": "[\"envoyee\", \"en_retard\"].includes",
+          "lineNumber": 50
+        },
+        {
+          "caller": "AdminFacturesPage",
+          "callee": "effectiveInvoiceStatus",
+          "lineNumber": 50
+        },
+        {
+          "caller": "AdminFacturesPage",
+          "callee": "rows\n    .filter(({ invoice }) => invoice.status === \"payee\")\n    .reduce",
+          "lineNumber": 52
+        },
+        {
+          "caller": "AdminFacturesPage",
+          "callee": "rows\n    .filter",
+          "lineNumber": 52
+        },
+        {
+          "caller": "AdminFacturesPage",
+          "callee": "rows.filter",
+          "lineNumber": 55
+        },
+        {
+          "caller": "AdminFacturesPage",
+          "callee": "effectiveInvoiceStatus",
+          "lineNumber": 56
+        },
+        {
+          "caller": "AdminFacturesPage",
+          "callee": "can",
+          "lineNumber": 59
+        },
+        {
+          "caller": "AdminFacturesPage",
+          "callee": "formatMoney",
+          "lineNumber": 79
+        },
+        {
+          "caller": "AdminFacturesPage",
+          "callee": "formatMoney",
+          "lineNumber": 84
+        },
+        {
+          "caller": "AdminFacturesPage",
+          "callee": "INVOICE_STATUSES.map",
+          "lineNumber": 103
+        },
+        {
+          "caller": "AdminFacturesPage",
+          "callee": "rows.map",
+          "lineNumber": 117
+        },
+        {
+          "caller": "AdminFacturesPage",
+          "callee": "effectiveInvoiceStatus",
+          "lineNumber": 118
+        },
+        {
+          "caller": "AdminFacturesPage",
+          "callee": "formatDate",
+          "lineNumber": 129
+        },
+        {
+          "caller": "AdminFacturesPage",
+          "callee": "formatDate",
+          "lineNumber": 130
+        },
+        {
+          "caller": "AdminFacturesPage",
+          "callee": "formatMoney",
+          "lineNumber": 134
+        }
+      ],
+      "metrics": {
+        "importCount": 12,
+        "exportCount": 2,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/(app)/admin/journal/actions.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 48,
+      "nonEmptyLines": 42,
+      "functions": [
+        {
+          "name": "purgeActivity",
+          "startLine": 28,
+          "endLine": 48,
+          "params": [
+            "_prev",
+            "formData"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "purgeActivity",
+          "line": 28,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "purgeActivity",
+          "callee": "requirePermission",
+          "lineNumber": 29
+        },
+        {
+          "caller": "purgeActivity",
+          "callee": "parseForm",
+          "lineNumber": 30
+        },
+        {
+          "caller": "purgeActivity",
+          "callee": "Date.now",
+          "lineNumber": 33
+        },
+        {
+          "caller": "purgeActivity",
+          "callee": "fail",
+          "lineNumber": 34
+        },
+        {
+          "caller": "purgeActivity",
+          "callee": "db\n    .delete(activityLog)\n    .where(lt(activityLog.createdAt, parsed.data.before))\n    .returning",
+          "lineNumber": 36
+        },
+        {
+          "caller": "purgeActivity",
+          "callee": "db\n    .delete(activityLog)\n    .where",
+          "lineNumber": 36
+        },
+        {
+          "caller": "purgeActivity",
+          "callee": "db\n    .delete",
+          "lineNumber": 36
+        },
+        {
+          "caller": "purgeActivity",
+          "callee": "lt",
+          "lineNumber": 38
+        },
+        {
+          "caller": "purgeActivity",
+          "callee": "logActivity",
+          "lineNumber": 41
+        },
+        {
+          "caller": "purgeActivity",
+          "callee": "parsed.data.before.toISOString().slice",
+          "lineNumber": 44
+        },
+        {
+          "caller": "purgeActivity",
+          "callee": "parsed.data.before.toISOString",
+          "lineNumber": 44
+        },
+        {
+          "caller": "purgeActivity",
+          "callee": "revalidatePath",
+          "lineNumber": 46
+        },
+        {
+          "caller": "purgeActivity",
+          "callee": "succeed",
+          "lineNumber": 47
+        }
+      ],
+      "metrics": {
+        "importCount": 5,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/(app)/admin/journal/page.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 209,
+      "nonEmptyLines": 197,
+      "functions": [
+        {
+          "name": "JournalPage",
+          "startLine": 96,
+          "endLine": 209,
+          "params": [
+            "{ searchParams }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "metadata",
+          "line": 14,
+          "isDefault": false
+        },
+        {
+          "name": "JournalPage",
+          "line": 96,
+          "isDefault": true
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "JournalPage",
+          "callee": "requirePermission",
+          "lineNumber": 97
+        },
+        {
+          "caller": "JournalPage",
+          "callee": "filters.push",
+          "lineNumber": 103
+        },
+        {
+          "caller": "JournalPage",
+          "callee": "ilike",
+          "lineNumber": 103
+        },
+        {
+          "caller": "JournalPage",
+          "callee": "q.trim",
+          "lineNumber": 105
+        },
+        {
+          "caller": "JournalPage",
+          "callee": "filters.push",
+          "lineNumber": 108
+        },
+        {
+          "caller": "JournalPage",
+          "callee": "or",
+          "lineNumber": 109
+        },
+        {
+          "caller": "JournalPage",
+          "callee": "ilike",
+          "lineNumber": 109
+        },
+        {
+          "caller": "JournalPage",
+          "callee": "ilike",
+          "lineNumber": 109
+        },
+        {
+          "caller": "JournalPage",
+          "callee": "ilike",
+          "lineNumber": 109
+        },
+        {
+          "caller": "JournalPage",
+          "callee": "db\n    .select({ log: activityLog, actor: userTable })\n    .from(activityLog)\n    .leftJoin(userTable, eq(userTable.id, activityLog.actorId))\n    .where(filters.length ? and(...filters) : undefined)\n    .orderBy(desc(activityLog.createdAt))\n    .limit",
+          "lineNumber": 113
+        },
+        {
+          "caller": "JournalPage",
+          "callee": "db\n    .select({ log: activityLog, actor: userTable })\n    .from(activityLog)\n    .leftJoin(userTable, eq(userTable.id, activityLog.actorId))\n    .where(filters.length ? and(...filters) : undefined)\n    .orderBy",
+          "lineNumber": 113
+        },
+        {
+          "caller": "JournalPage",
+          "callee": "db\n    .select({ log: activityLog, actor: userTable })\n    .from(activityLog)\n    .leftJoin(userTable, eq(userTable.id, activityLog.actorId))\n    .where",
+          "lineNumber": 113
+        },
+        {
+          "caller": "JournalPage",
+          "callee": "db\n    .select({ log: activityLog, actor: userTable })\n    .from(activityLog)\n    .leftJoin",
+          "lineNumber": 113
+        },
+        {
+          "caller": "JournalPage",
+          "callee": "db\n    .select({ log: activityLog, actor: userTable })\n    .from",
+          "lineNumber": 113
+        },
+        {
+          "caller": "JournalPage",
+          "callee": "db\n    .select",
+          "lineNumber": 113
+        },
+        {
+          "caller": "JournalPage",
+          "callee": "eq",
+          "lineNumber": 116
+        },
+        {
+          "caller": "JournalPage",
+          "callee": "and",
+          "lineNumber": 117
+        },
+        {
+          "caller": "JournalPage",
+          "callee": "desc",
+          "lineNumber": 118
+        },
+        {
+          "caller": "JournalPage",
+          "callee": "can",
+          "lineNumber": 126
+        },
+        {
+          "caller": "JournalPage",
+          "callee": "rows.map",
+          "lineNumber": 160
+        },
+        {
+          "caller": "JournalPage",
+          "callee": "ENTITY_LINK[log.entity]",
+          "lineNumber": 163
+        },
+        {
+          "caller": "JournalPage",
+          "callee": "Object.entries(meta)\n                    .filter(([, v]) => typeof v !== \"object\" || v === null)\n                    .map(([k, v]) => `${k}: ${String(v)}`)\n                    .slice(0, 4)\n                    .join",
+          "lineNumber": 167
+        },
+        {
+          "caller": "JournalPage",
+          "callee": "Object.entries(meta)\n                    .filter(([, v]) => typeof v !== \"object\" || v === null)\n                    .map(([k, v]) => `${k}: ${String(v)}`)\n                    .slice",
+          "lineNumber": 167
+        },
+        {
+          "caller": "JournalPage",
+          "callee": "Object.entries(meta)\n                    .filter(([, v]) => typeof v !== \"object\" || v === null)\n                    .map",
+          "lineNumber": 167
+        },
+        {
+          "caller": "JournalPage",
+          "callee": "Object.entries(meta)\n                    .filter",
+          "lineNumber": 167
+        },
+        {
+          "caller": "JournalPage",
+          "callee": "Object.entries",
+          "lineNumber": 167
+        },
+        {
+          "caller": "JournalPage",
+          "callee": "String",
+          "lineNumber": 169
+        },
+        {
+          "caller": "JournalPage",
+          "callee": "formatDateTime",
+          "lineNumber": 199
+        }
+      ],
+      "metrics": {
+        "importCount": 9,
+        "exportCount": 2,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/(app)/admin/messages/LeadActions.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 44,
+      "nonEmptyLines": 41,
+      "functions": [
+        {
+          "name": "LeadActions",
+          "startLine": 11,
+          "endLine": 32,
+          "params": [
+            "{ id, status }"
+          ]
+        },
+        {
+          "name": "DeleteLeadButton",
+          "startLine": 34,
+          "endLine": 44,
+          "params": [
+            "{ id, name }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "LeadActions",
+          "line": 11,
+          "isDefault": false
+        },
+        {
+          "name": "DeleteLeadButton",
+          "line": 34,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/(app)/admin/messages/actions.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 58,
+      "nonEmptyLines": 51,
+      "functions": [
+        {
+          "name": "setLeadStatus",
+          "startLine": 17,
+          "endLine": 40,
+          "params": [
+            "formData"
+          ]
+        },
+        {
+          "name": "deleteLead",
+          "startLine": 43,
+          "endLine": 58,
+          "params": [
+            "formData"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "setLeadStatus",
+          "line": 17,
+          "isDefault": false
+        },
+        {
+          "name": "deleteLead",
+          "line": 43,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "setLeadStatus",
+          "callee": "requirePermission",
+          "lineNumber": 18
+        },
+        {
+          "caller": "setLeadStatus",
+          "callee": "StatusSchema.safeParse",
+          "lineNumber": 19
+        },
+        {
+          "caller": "setLeadStatus",
+          "callee": "formData.get",
+          "lineNumber": 20
+        },
+        {
+          "caller": "setLeadStatus",
+          "callee": "formData.get",
+          "lineNumber": 21
+        },
+        {
+          "caller": "setLeadStatus",
+          "callee": "db\n    .update(contactLeads)\n    .set({ status: parsed.data.status })\n    .where",
+          "lineNumber": 25
+        },
+        {
+          "caller": "setLeadStatus",
+          "callee": "db\n    .update(contactLeads)\n    .set",
+          "lineNumber": 25
+        },
+        {
+          "caller": "setLeadStatus",
+          "callee": "db\n    .update",
+          "lineNumber": 25
+        },
+        {
+          "caller": "setLeadStatus",
+          "callee": "eq",
+          "lineNumber": 28
+        },
+        {
+          "caller": "setLeadStatus",
+          "callee": "logActivity",
+          "lineNumber": 30
+        },
+        {
+          "caller": "setLeadStatus",
+          "callee": "revalidatePath",
+          "lineNumber": 38
+        },
+        {
+          "caller": "setLeadStatus",
+          "callee": "revalidatePath",
+          "lineNumber": 39
+        },
+        {
+          "caller": "deleteLead",
+          "callee": "requirePermission",
+          "lineNumber": 44
+        },
+        {
+          "caller": "deleteLead",
+          "callee": "Number",
+          "lineNumber": 45
+        },
+        {
+          "caller": "deleteLead",
+          "callee": "formData.get",
+          "lineNumber": 45
+        },
+        {
+          "caller": "deleteLead",
+          "callee": "Number.isInteger",
+          "lineNumber": 46
+        },
+        {
+          "caller": "deleteLead",
+          "callee": "db.delete(contactLeads).where(eq(contactLeads.id, id)).returning",
+          "lineNumber": 47
+        },
+        {
+          "caller": "deleteLead",
+          "callee": "db.delete(contactLeads).where",
+          "lineNumber": 47
+        },
+        {
+          "caller": "deleteLead",
+          "callee": "db.delete",
+          "lineNumber": 47
+        },
+        {
+          "caller": "deleteLead",
+          "callee": "eq",
+          "lineNumber": 47
+        },
+        {
+          "caller": "deleteLead",
+          "callee": "logActivity",
+          "lineNumber": 49
+        },
+        {
+          "caller": "deleteLead",
+          "callee": "revalidatePath",
+          "lineNumber": 56
+        },
+        {
+          "caller": "deleteLead",
+          "callee": "revalidatePath",
+          "lineNumber": 57
+        }
+      ],
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/(app)/admin/messages/page.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 117,
+      "nonEmptyLines": 109,
+      "functions": [
+        {
+          "name": "MessagesPage",
+          "startLine": 29,
+          "endLine": 117,
+          "params": [
+            "{ searchParams }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "metadata",
+          "line": 15,
+          "isDefault": false
+        },
+        {
+          "name": "MessagesPage",
+          "line": 29,
+          "isDefault": true
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "MessagesPage",
+          "callee": "(await getSolutions({ includeHidden: true })).map",
+          "lineNumber": 30
+        },
+        {
+          "caller": "MessagesPage",
+          "callee": "getSolutions",
+          "lineNumber": 30
+        },
+        {
+          "caller": "MessagesPage",
+          "callee": "requirePermission",
+          "lineNumber": 31
+        },
+        {
+          "caller": "MessagesPage",
+          "callee": "db\n    .select()\n    .from(contactLeads)\n    .where(status === \"tous\" ? undefined : eq(contactLeads.status, status))\n    .orderBy(desc(contactLeads.createdAt))\n    .limit",
+          "lineNumber": 35
+        },
+        {
+          "caller": "MessagesPage",
+          "callee": "db\n    .select()\n    .from(contactLeads)\n    .where(status === \"tous\" ? undefined : eq(contactLeads.status, status))\n    .orderBy",
+          "lineNumber": 35
+        },
+        {
+          "caller": "MessagesPage",
+          "callee": "db\n    .select()\n    .from(contactLeads)\n    .where",
+          "lineNumber": 35
+        },
+        {
+          "caller": "MessagesPage",
+          "callee": "db\n    .select()\n    .from",
+          "lineNumber": 35
+        },
+        {
+          "caller": "MessagesPage",
+          "callee": "db\n    .select",
+          "lineNumber": 35
+        },
+        {
+          "caller": "MessagesPage",
+          "callee": "eq",
+          "lineNumber": 38
+        },
+        {
+          "caller": "MessagesPage",
+          "callee": "desc",
+          "lineNumber": 39
+        },
+        {
+          "caller": "MessagesPage",
+          "callee": "rows.map",
+          "lineNumber": 74
+        },
+        {
+          "caller": "MessagesPage",
+          "callee": "SERVICE_NAMES.get",
+          "lineNumber": 78
+        },
+        {
+          "caller": "MessagesPage",
+          "callee": "formatDateTime",
+          "lineNumber": 78
+        },
+        {
+          "caller": "MessagesPage",
+          "callee": "encodeURIComponent",
+          "lineNumber": 89
+        },
+        {
+          "caller": "MessagesPage",
+          "callee": "can",
+          "lineNumber": 94
+        },
+        {
+          "caller": "MessagesPage",
+          "callee": "encodeURIComponent",
+          "lineNumber": 96
+        },
+        {
+          "caller": "MessagesPage",
+          "callee": "encodeURIComponent",
+          "lineNumber": 96
+        },
+        {
+          "caller": "MessagesPage",
+          "callee": "can",
+          "lineNumber": 102
+        },
+        {
+          "caller": "MessagesPage",
+          "callee": "can",
+          "lineNumber": 105
+        }
+      ],
+      "metrics": {
+        "importCount": 10,
+        "exportCount": 2,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/(app)/admin/notifications/envoyer/actions.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 120,
+      "nonEmptyLines": 108,
+      "functions": [
+        {
+          "name": "broadcast",
+          "startLine": 32,
+          "endLine": 120,
+          "params": [
+            "_prev",
+            "formData"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "broadcast",
+          "line": 32,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "broadcast",
+          "callee": "requirePermission",
+          "lineNumber": 33
+        },
+        {
+          "caller": "broadcast",
+          "callee": "parseForm",
+          "lineNumber": 34
+        },
+        {
+          "caller": "broadcast",
+          "callee": "sql",
+          "lineNumber": 37
+        },
+        {
+          "caller": "broadcast",
+          "callee": "and",
+          "lineNumber": 42
+        },
+        {
+          "caller": "broadcast",
+          "callee": "eq",
+          "lineNumber": 42
+        },
+        {
+          "caller": "broadcast",
+          "callee": "and",
+          "lineNumber": 45
+        },
+        {
+          "caller": "broadcast",
+          "callee": "inArray",
+          "lineNumber": 45
+        },
+        {
+          "caller": "broadcast",
+          "callee": "Date.now",
+          "lineNumber": 48
+        },
+        {
+          "caller": "broadcast",
+          "callee": "and",
+          "lineNumber": 49
+        },
+        {
+          "caller": "broadcast",
+          "callee": "gte",
+          "lineNumber": 49
+        },
+        {
+          "caller": "broadcast",
+          "callee": "fail",
+          "lineNumber": 53
+        },
+        {
+          "caller": "broadcast",
+          "callee": "db\n          .selectDistinct({ id: userTable.id, email: userTable.email, name: userTable.name })\n          .from(userTable)\n          .innerJoin(subscriptions, eq(subscriptions.userId, userTable.id))\n          .where",
+          "lineNumber": 61
+        },
+        {
+          "caller": "broadcast",
+          "callee": "db\n          .selectDistinct({ id: userTable.id, email: userTable.email, name: userTable.name })\n          .from(userTable)\n          .innerJoin",
+          "lineNumber": 61
+        },
+        {
+          "caller": "broadcast",
+          "callee": "db\n          .selectDistinct({ id: userTable.id, email: userTable.email, name: userTable.name })\n          .from",
+          "lineNumber": 61
+        },
+        {
+          "caller": "broadcast",
+          "callee": "db\n          .selectDistinct",
+          "lineNumber": 61
+        },
+        {
+          "caller": "broadcast",
+          "callee": "eq",
+          "lineNumber": 64
+        },
+        {
+          "caller": "broadcast",
+          "callee": "and",
+          "lineNumber": 66
+        },
+        {
+          "caller": "broadcast",
+          "callee": "eq",
+          "lineNumber": 68
+        },
+        {
+          "caller": "broadcast",
+          "callee": "inArray",
+          "lineNumber": 69
+        },
+        {
+          "caller": "broadcast",
+          "callee": "db\n          .select({ id: userTable.id, email: userTable.email, name: userTable.name })\n          .from(userTable)\n          .where",
+          "lineNumber": 72
+        },
+        {
+          "caller": "broadcast",
+          "callee": "db\n          .select({ id: userTable.id, email: userTable.email, name: userTable.name })\n          .from",
+          "lineNumber": 72
+        },
+        {
+          "caller": "broadcast",
+          "callee": "db\n          .select",
+          "lineNumber": 72
+        },
+        {
+          "caller": "broadcast",
+          "callee": "fail",
+          "lineNumber": 77
+        },
+        {
+          "caller": "broadcast",
+          "callee": "notifyMany",
+          "lineNumber": 79
+        },
+        {
+          "caller": "broadcast",
+          "callee": "rows.map",
+          "lineNumber": 80
+        },
+        {
+          "caller": "broadcast",
+          "callee": "sendEmail",
+          "lineNumber": 93
+        },
+        {
+          "caller": "broadcast",
+          "callee": "logActivity",
+          "lineNumber": 105
+        },
+        {
+          "caller": "broadcast",
+          "callee": "revalidatePath",
+          "lineNumber": 116
+        },
+        {
+          "caller": "broadcast",
+          "callee": "succeed",
+          "lineNumber": 117
+        }
+      ],
+      "metrics": {
+        "importCount": 8,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/(app)/admin/notifications/envoyer/page.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 105,
+      "nonEmptyLines": 97,
+      "functions": [
+        {
+          "name": "AdminNotificationsPage",
+          "startLine": 13,
+          "endLine": 105,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "metadata",
+          "line": 11,
+          "isDefault": false
+        },
+        {
+          "name": "AdminNotificationsPage",
+          "line": 13,
+          "isDefault": true
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "AdminNotificationsPage",
+          "callee": "requirePermission",
+          "lineNumber": 14
+        },
+        {
+          "caller": "AdminNotificationsPage",
+          "callee": "sql",
+          "lineNumber": 16
+        },
+        {
+          "caller": "AdminNotificationsPage",
+          "callee": "daysAgo",
+          "lineNumber": 17
+        },
+        {
+          "caller": "AdminNotificationsPage",
+          "callee": "Promise.all",
+          "lineNumber": 21
+        },
+        {
+          "caller": "AdminNotificationsPage",
+          "callee": "db.select({ n: sql<number>`count(*)::int` }).from(userTable).where",
+          "lineNumber": 22
+        },
+        {
+          "caller": "AdminNotificationsPage",
+          "callee": "db.select({ n: sql<number>`count(*)::int` }).from",
+          "lineNumber": 22
+        },
+        {
+          "caller": "AdminNotificationsPage",
+          "callee": "db.select",
+          "lineNumber": 22
+        },
+        {
+          "caller": "AdminNotificationsPage",
+          "callee": "db\n      .select({ n: sql<number>`count(*)::int` })\n      .from(userTable)\n      .where",
+          "lineNumber": 23
+        },
+        {
+          "caller": "AdminNotificationsPage",
+          "callee": "db\n      .select({ n: sql<number>`count(*)::int` })\n      .from",
+          "lineNumber": 23
+        },
+        {
+          "caller": "AdminNotificationsPage",
+          "callee": "db\n      .select",
+          "lineNumber": 23
+        },
+        {
+          "caller": "AdminNotificationsPage",
+          "callee": "and",
+          "lineNumber": 26
+        },
+        {
+          "caller": "AdminNotificationsPage",
+          "callee": "eq",
+          "lineNumber": 26
+        },
+        {
+          "caller": "AdminNotificationsPage",
+          "callee": "db\n      .select({ n: sql<number>`count(*)::int` })\n      .from(userTable)\n      .where",
+          "lineNumber": 27
+        },
+        {
+          "caller": "AdminNotificationsPage",
+          "callee": "db\n      .select({ n: sql<number>`count(*)::int` })\n      .from",
+          "lineNumber": 27
+        },
+        {
+          "caller": "AdminNotificationsPage",
+          "callee": "db\n      .select",
+          "lineNumber": 27
+        },
+        {
+          "caller": "AdminNotificationsPage",
+          "callee": "and",
+          "lineNumber": 30
+        },
+        {
+          "caller": "AdminNotificationsPage",
+          "callee": "inArray",
+          "lineNumber": 30
+        },
+        {
+          "caller": "AdminNotificationsPage",
+          "callee": "db\n      .select({ n: sql<number>`count(*)::int` })\n      .from(userTable)\n      .where",
+          "lineNumber": 31
+        },
+        {
+          "caller": "AdminNotificationsPage",
+          "callee": "db\n      .select({ n: sql<number>`count(*)::int` })\n      .from",
+          "lineNumber": 31
+        },
+        {
+          "caller": "AdminNotificationsPage",
+          "callee": "db\n      .select",
+          "lineNumber": 31
+        },
+        {
+          "caller": "AdminNotificationsPage",
+          "callee": "and",
+          "lineNumber": 34
+        },
+        {
+          "caller": "AdminNotificationsPage",
+          "callee": "gte",
+          "lineNumber": 34
+        },
+        {
+          "caller": "AdminNotificationsPage",
+          "callee": "db.select().from(plans).where(eq(plans.active, true)).orderBy",
+          "lineNumber": 35
+        },
+        {
+          "caller": "AdminNotificationsPage",
+          "callee": "db.select().from(plans).where",
+          "lineNumber": 35
+        },
+        {
+          "caller": "AdminNotificationsPage",
+          "callee": "db.select().from",
+          "lineNumber": 35
+        },
+        {
+          "caller": "AdminNotificationsPage",
+          "callee": "db.select",
+          "lineNumber": 35
+        },
+        {
+          "caller": "AdminNotificationsPage",
+          "callee": "eq",
+          "lineNumber": 35
+        },
+        {
+          "caller": "AdminNotificationsPage",
+          "callee": "asc",
+          "lineNumber": 35
+        },
+        {
+          "caller": "AdminNotificationsPage",
+          "callee": "db\n      .select({ slug: subscriptions.planSlug, n: sql<number>`count(distinct ${subscriptions.userId})::int` })\n      .from(subscriptions)\n      .innerJoin(userTable, eq(userTable.id, subscriptions.userId))\n      .where(and(active, inArray(subscriptions.status, [\"active\", \"provisioning\"])))\n      .groupBy",
+          "lineNumber": 36
+        },
+        {
+          "caller": "AdminNotificationsPage",
+          "callee": "db\n      .select({ slug: subscriptions.planSlug, n: sql<number>`count(distinct ${subscriptions.userId})::int` })\n      .from(subscriptions)\n      .innerJoin(userTable, eq(userTable.id, subscriptions.userId))\n      .where",
+          "lineNumber": 36
+        },
+        {
+          "caller": "AdminNotificationsPage",
+          "callee": "db\n      .select({ slug: subscriptions.planSlug, n: sql<number>`count(distinct ${subscriptions.userId})::int` })\n      .from(subscriptions)\n      .innerJoin",
+          "lineNumber": 36
+        },
+        {
+          "caller": "AdminNotificationsPage",
+          "callee": "db\n      .select({ slug: subscriptions.planSlug, n: sql<number>`count(distinct ${subscriptions.userId})::int` })\n      .from",
+          "lineNumber": 36
+        },
+        {
+          "caller": "AdminNotificationsPage",
+          "callee": "db\n      .select",
+          "lineNumber": 36
+        },
+        {
+          "caller": "AdminNotificationsPage",
+          "callee": "eq",
+          "lineNumber": 39
+        },
+        {
+          "caller": "AdminNotificationsPage",
+          "callee": "and",
+          "lineNumber": 40
+        },
+        {
+          "caller": "AdminNotificationsPage",
+          "callee": "inArray",
+          "lineNumber": 40
+        },
+        {
+          "caller": "AdminNotificationsPage",
+          "callee": "db\n      .select({ log: activityLog, actor: userTable })\n      .from(activityLog)\n      .leftJoin(userTable, eq(userTable.id, activityLog.actorId))\n      .where(eq(activityLog.action, \"notification.broadcast\"))\n      .orderBy(desc(activityLog.createdAt))\n      .limit",
+          "lineNumber": 42
+        },
+        {
+          "caller": "AdminNotificationsPage",
+          "callee": "db\n      .select({ log: activityLog, actor: userTable })\n      .from(activityLog)\n      .leftJoin(userTable, eq(userTable.id, activityLog.actorId))\n      .where(eq(activityLog.action, \"notification.broadcast\"))\n      .orderBy",
+          "lineNumber": 42
+        },
+        {
+          "caller": "AdminNotificationsPage",
+          "callee": "db\n      .select({ log: activityLog, actor: userTable })\n      .from(activityLog)\n      .leftJoin(userTable, eq(userTable.id, activityLog.actorId))\n      .where",
+          "lineNumber": 42
+        },
+        {
+          "caller": "AdminNotificationsPage",
+          "callee": "db\n      .select({ log: activityLog, actor: userTable })\n      .from(activityLog)\n      .leftJoin",
+          "lineNumber": 42
+        },
+        {
+          "caller": "AdminNotificationsPage",
+          "callee": "db\n      .select({ log: activityLog, actor: userTable })\n      .from",
+          "lineNumber": 42
+        },
+        {
+          "caller": "AdminNotificationsPage",
+          "callee": "db\n      .select",
+          "lineNumber": 42
+        },
+        {
+          "caller": "AdminNotificationsPage",
+          "callee": "eq",
+          "lineNumber": 45
+        },
+        {
+          "caller": "AdminNotificationsPage",
+          "callee": "eq",
+          "lineNumber": 46
+        },
+        {
+          "caller": "AdminNotificationsPage",
+          "callee": "desc",
+          "lineNumber": 47
+        },
+        {
+          "caller": "AdminNotificationsPage",
+          "callee": "catalogue.map",
+          "lineNumber": 72
+        },
+        {
+          "caller": "AdminNotificationsPage",
+          "callee": "history.map",
+          "lineNumber": 81
+        },
+        {
+          "caller": "AdminNotificationsPage",
+          "callee": "formatDateTime",
+          "lineNumber": 94
+        }
+      ],
+      "metrics": {
+        "importCount": 7,
+        "exportCount": 2,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    }
+  ]
+}

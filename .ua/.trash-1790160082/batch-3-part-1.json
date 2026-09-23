@@ -1,0 +1,1074 @@
+{
+ "nodes": [
+  {
+   "id": "file:components/sections/SolutionFinder.tsx",
+   "type": "file",
+   "name": "SolutionFinder.tsx",
+   "filePath": "components/sections/SolutionFinder.tsx",
+   "summary": "Homepage \"find your solution\" section rendering audience profiles as cards, each linking out to the solutions it recommends.",
+   "tags": [
+    "component",
+    "marketing-section",
+    "homepage"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:components/sections/SolutionsGrid.tsx",
+   "type": "file",
+   "name": "SolutionsGrid.tsx",
+   "filePath": "components/sections/SolutionsGrid.tsx",
+   "summary": "Homepage grid listing every published solution as a clickable card with cover media, audience badges, and a CTA link to its sub-landing page.",
+   "tags": [
+    "component",
+    "marketing-section",
+    "homepage",
+    "grid"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:components/sections/UniverseReveal.tsx",
+   "type": "file",
+   "name": "UniverseReveal.tsx",
+   "filePath": "components/sections/UniverseReveal.tsx",
+   "summary": "Apple-style \"Take a closer look\" scroll-pinned reveal: a full-bleed video clips into the WICLOUD wordmark via an SVG mask, zooms out from inside a letter's counter, then settles into a headline with a staggered three-block pitch.",
+   "tags": [
+    "component",
+    "scroll-animation",
+    "gsap",
+    "svg-mask",
+    "homepage"
+   ],
+   "complexity": "complex",
+   "languageNotes": "Uses a precisely measured SVG text mask and log-space zoom interpolation, with hard limits from SVG matrix float32 precision and Blink's glyph rasterizer (~9000px effective em) documented inline."
+  },
+  {
+   "id": "file:components/sections/Values.tsx",
+   "type": "file",
+   "name": "Values.tsx",
+   "filePath": "components/sections/Values.tsx",
+   "summary": "Homepage section listing the company's core values as icon-led cards in a three-column grid.",
+   "tags": [
+    "component",
+    "marketing-section",
+    "homepage"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:components/sections/WhyUs.tsx",
+   "type": "file",
+   "name": "WhyUs.tsx",
+   "filePath": "components/sections/WhyUs.tsx",
+   "summary": "Homepage \"why choose us\" section pairing a heading with an accordion of reasons.",
+   "tags": [
+    "component",
+    "marketing-section",
+    "homepage",
+    "accordion"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:components/sections/hero/HeroSlides.tsx",
+   "type": "file",
+   "name": "HeroSlides.tsx",
+   "filePath": "components/sections/hero/HeroSlides.tsx",
+   "summary": "Client carousel (embla) for the hero's \"slides\" visual mode, cycling photos and clips with lazy-loaded slides, autoplay that pauses on hover/focus, and reduced-motion support.",
+   "tags": [
+    "component",
+    "carousel",
+    "hero",
+    "client-component",
+    "accessibility"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:components/sections/hero/HeroVideo.tsx",
+   "type": "file",
+   "name": "HeroVideo.tsx",
+   "filePath": "components/sections/hero/HeroVideo.tsx",
+   "summary": "Muted looping hero video that only plays while on screen, with an imperative muted flag for autoplay policies and a WCAG 2.2.2 pause control.",
+   "tags": [
+    "component",
+    "video",
+    "hero",
+    "client-component",
+    "accessibility"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:components/sections/hero/HeroVisual.tsx",
+   "type": "file",
+   "name": "HeroVisual.tsx",
+   "filePath": "components/sections/hero/HeroVisual.tsx",
+   "summary": "Right-hand panel of the homepage hero: dynamically loads one of two 3D scenes (globe or infra stack) or renders an image/video/slides visual depending on the owner's chosen mode, with idle-callback-gated mounting for the 3D scenes.",
+   "tags": [
+    "component",
+    "hero",
+    "three-js",
+    "next-dynamic",
+    "client-component"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "file:components/sections/solution/PaletteAura.tsx",
+   "type": "file",
+   "name": "PaletteAura.tsx",
+   "filePath": "components/sections/solution/PaletteAura.tsx",
+   "summary": "Decorative GSAP-animated dual-blob glow behind a solution hero, tinted with that solution's own palette tokens.",
+   "tags": [
+    "component",
+    "gsap",
+    "animation",
+    "decoration"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:components/sections/solution/SolutionContact.tsx",
+   "type": "file",
+   "name": "SolutionContact.tsx",
+   "filePath": "components/sections/solution/SolutionContact.tsx",
+   "summary": "Contact form on a solution sub-landing page, posting to /api/contact with optional Turnstile bot verification and inline success/error states.",
+   "tags": [
+    "component",
+    "form",
+    "contact",
+    "client-component"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:components/sections/solution/SolutionFAQ.tsx",
+   "type": "file",
+   "name": "SolutionFAQ.tsx",
+   "filePath": "components/sections/solution/SolutionFAQ.tsx",
+   "summary": "Renders a solution's FAQ items through the shared Accordion component.",
+   "tags": [
+    "component",
+    "faq",
+    "accordion"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:components/sections/solution/SolutionFeatures.tsx",
+   "type": "file",
+   "name": "SolutionFeatures.tsx",
+   "filePath": "components/sections/solution/SolutionFeatures.tsx",
+   "summary": "Grid of feature cards for a solution's sub-landing page, each with a palette-tinted icon.",
+   "tags": [
+    "component",
+    "features",
+    "grid"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:components/sections/solution/SolutionHero.tsx",
+   "type": "file",
+   "name": "SolutionHero.tsx",
+   "filePath": "components/sections/solution/SolutionHero.tsx",
+   "summary": "Server-rendered copy column for the solution hero (badges, headline, CTAs), passed as children into SolutionHeroStage which owns the live-preview frame and stretch states.",
+   "tags": [
+    "component",
+    "hero",
+    "server-component",
+    "solution-page"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:components/sections/SolutionFinder.tsx:SolutionFinder",
+   "type": "function",
+   "name": "SolutionFinder",
+   "filePath": "components/sections/SolutionFinder.tsx",
+   "lineRange": [
+    8,
+    38
+   ],
+   "summary": "Renders the finder section's audience profile cards with linked solution badges.",
+   "tags": [
+    "component",
+    "exported"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:components/sections/SolutionsGrid.tsx:SolutionsGrid",
+   "type": "function",
+   "name": "SolutionsGrid",
+   "filePath": "components/sections/SolutionsGrid.tsx",
+   "lineRange": [
+    11,
+    60
+   ],
+   "summary": "Renders the grid of solution cards linking to each /solutions/[slug] page.",
+   "tags": [
+    "component",
+    "exported"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:components/sections/UniverseReveal.tsx:UniverseReveal",
+   "type": "function",
+   "name": "UniverseReveal",
+   "filePath": "components/sections/UniverseReveal.tsx",
+   "lineRange": [
+    131,
+    407
+   ],
+   "summary": "Main scroll-pinned component driving the video-into-wordmark reveal: measures the target glyph, computes and paints scroll-driven transforms via GSAP ScrollTrigger, and renders the SVG mask, video, and staggered pitch copy.",
+   "tags": [
+    "component",
+    "scroll-animation",
+    "exported"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "function:components/sections/Values.tsx:Values",
+   "type": "function",
+   "name": "Values",
+   "filePath": "components/sections/Values.tsx",
+   "lineRange": [
+    7,
+    32
+   ],
+   "summary": "Renders the company values grid.",
+   "tags": [
+    "component",
+    "exported"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:components/sections/WhyUs.tsx:WhyUs",
+   "type": "function",
+   "name": "WhyUs",
+   "filePath": "components/sections/WhyUs.tsx",
+   "lineRange": [
+    6,
+    19
+   ],
+   "summary": "Renders the why-us heading plus an Accordion of reasons.",
+   "tags": [
+    "component",
+    "exported"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:components/sections/hero/HeroSlides.tsx:HeroSlides",
+   "type": "function",
+   "name": "HeroSlides",
+   "filePath": "components/sections/hero/HeroSlides.tsx",
+   "lineRange": [
+    27,
+    130
+   ],
+   "summary": "Embla-carousel-driven hero slideshow with autoplay, dot/arrow navigation, and reduced-motion handling.",
+   "tags": [
+    "component",
+    "carousel",
+    "exported"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:components/sections/hero/HeroVideo.tsx:HeroVideo",
+   "type": "function",
+   "name": "HeroVideo",
+   "filePath": "components/sections/hero/HeroVideo.tsx",
+   "lineRange": [
+    24,
+    93
+   ],
+   "summary": "Muted, intersection-gated looping video with a play/pause control for the hero visual.",
+   "tags": [
+    "component",
+    "video",
+    "exported"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:components/sections/hero/HeroVisual.tsx:HeroVisual",
+   "type": "function",
+   "name": "HeroVisual",
+   "filePath": "components/sections/hero/HeroVisual.tsx",
+   "lineRange": [
+    48,
+    84
+   ],
+   "summary": "Top-level hero visual switch: renders the 3D scene for earth/stack modes, or an image/video/slides panel otherwise.",
+   "tags": [
+    "component",
+    "exported"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:components/sections/hero/HeroVisual.tsx:EmptyMedia",
+   "type": "function",
+   "name": "EmptyMedia",
+   "filePath": "components/sections/hero/HeroVisual.tsx",
+   "lineRange": [
+    87,
+    96
+   ],
+   "summary": "Labelled placeholder panel shown when a hero image/video/slides asset hasn't been set yet.",
+   "tags": [
+    "component",
+    "placeholder"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:components/sections/hero/HeroVisual.tsx:HeroScene",
+   "type": "function",
+   "name": "HeroScene",
+   "filePath": "components/sections/hero/HeroVisual.tsx",
+   "lineRange": [
+    98,
+    142
+   ],
+   "summary": "Mounts the dynamically-imported 3D scene (globe or infra stack) after an idle-callback delay so hero copy hydrates first, wrapped in an ErrorBoundary with a CSS fallback.",
+   "tags": [
+    "component",
+    "three-js",
+    "next-dynamic"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:components/sections/solution/PaletteAura.tsx:PaletteAura",
+   "type": "function",
+   "name": "PaletteAura",
+   "filePath": "components/sections/solution/PaletteAura.tsx",
+   "lineRange": [
+    9,
+    43
+   ],
+   "summary": "Animates two palette-tinted blurred blobs with GSAP for the solution hero's ambient glow.",
+   "tags": [
+    "component",
+    "gsap",
+    "exported"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:components/sections/solution/SolutionContact.tsx:SolutionContact",
+   "type": "function",
+   "name": "SolutionContact",
+   "filePath": "components/sections/solution/SolutionContact.tsx",
+   "lineRange": [
+    16,
+    93
+   ],
+   "summary": "Client contact form for a solution page: posts FormData to /api/contact, gates submission on optional Turnstile verification, and shows inline success/error states.",
+   "tags": [
+    "component",
+    "form",
+    "exported"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:components/sections/solution/SolutionFAQ.tsx:SolutionFAQ",
+   "type": "function",
+   "name": "SolutionFAQ",
+   "filePath": "components/sections/solution/SolutionFAQ.tsx",
+   "lineRange": [
+    6,
+    15
+   ],
+   "summary": "Maps a solution's FAQ entries into the shared Accordion component.",
+   "tags": [
+    "component",
+    "faq",
+    "exported"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:components/sections/solution/SolutionFeatures.tsx:SolutionFeatures",
+   "type": "function",
+   "name": "SolutionFeatures",
+   "filePath": "components/sections/solution/SolutionFeatures.tsx",
+   "lineRange": [
+    8,
+    28
+   ],
+   "summary": "Renders a solution's feature list as a palette-tinted icon-card grid.",
+   "tags": [
+    "component",
+    "exported"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:components/sections/solution/SolutionHero.tsx:SolutionHero",
+   "type": "function",
+   "name": "SolutionHero",
+   "filePath": "components/sections/solution/SolutionHero.tsx",
+   "lineRange": [
+    23,
+    72
+   ],
+   "summary": "Server-rendered hero copy column (badges, headline, tagline, CTAs) passed as children into SolutionHeroStage.",
+   "tags": [
+    "component",
+    "server-component",
+    "exported"
+   ],
+   "complexity": "simple"
+  }
+ ],
+ "edges": [
+  {
+   "source": "file:components/sections/SolutionFinder.tsx",
+   "target": "function:components/sections/SolutionFinder.tsx:SolutionFinder",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:components/sections/SolutionFinder.tsx",
+   "target": "function:components/sections/SolutionFinder.tsx:SolutionFinder",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:components/sections/SolutionsGrid.tsx",
+   "target": "function:components/sections/SolutionsGrid.tsx:SolutionsGrid",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:components/sections/SolutionsGrid.tsx",
+   "target": "function:components/sections/SolutionsGrid.tsx:SolutionsGrid",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:components/sections/UniverseReveal.tsx",
+   "target": "function:components/sections/UniverseReveal.tsx:UniverseReveal",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:components/sections/UniverseReveal.tsx",
+   "target": "function:components/sections/UniverseReveal.tsx:UniverseReveal",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:components/sections/Values.tsx",
+   "target": "function:components/sections/Values.tsx:Values",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:components/sections/Values.tsx",
+   "target": "function:components/sections/Values.tsx:Values",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:components/sections/WhyUs.tsx",
+   "target": "function:components/sections/WhyUs.tsx:WhyUs",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:components/sections/WhyUs.tsx",
+   "target": "function:components/sections/WhyUs.tsx:WhyUs",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:components/sections/hero/HeroSlides.tsx",
+   "target": "function:components/sections/hero/HeroSlides.tsx:HeroSlides",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:components/sections/hero/HeroSlides.tsx",
+   "target": "function:components/sections/hero/HeroSlides.tsx:HeroSlides",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:components/sections/hero/HeroVideo.tsx",
+   "target": "function:components/sections/hero/HeroVideo.tsx:HeroVideo",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:components/sections/hero/HeroVideo.tsx",
+   "target": "function:components/sections/hero/HeroVideo.tsx:HeroVideo",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:components/sections/hero/HeroVisual.tsx",
+   "target": "function:components/sections/hero/HeroVisual.tsx:HeroVisual",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:components/sections/hero/HeroVisual.tsx",
+   "target": "function:components/sections/hero/HeroVisual.tsx:HeroVisual",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:components/sections/hero/HeroVisual.tsx",
+   "target": "function:components/sections/hero/HeroVisual.tsx:EmptyMedia",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:components/sections/hero/HeroVisual.tsx",
+   "target": "function:components/sections/hero/HeroVisual.tsx:HeroScene",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:components/sections/solution/PaletteAura.tsx",
+   "target": "function:components/sections/solution/PaletteAura.tsx:PaletteAura",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:components/sections/solution/PaletteAura.tsx",
+   "target": "function:components/sections/solution/PaletteAura.tsx:PaletteAura",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:components/sections/solution/SolutionContact.tsx",
+   "target": "function:components/sections/solution/SolutionContact.tsx:SolutionContact",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:components/sections/solution/SolutionContact.tsx",
+   "target": "function:components/sections/solution/SolutionContact.tsx:SolutionContact",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:components/sections/solution/SolutionFAQ.tsx",
+   "target": "function:components/sections/solution/SolutionFAQ.tsx:SolutionFAQ",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:components/sections/solution/SolutionFAQ.tsx",
+   "target": "function:components/sections/solution/SolutionFAQ.tsx:SolutionFAQ",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:components/sections/solution/SolutionFeatures.tsx",
+   "target": "function:components/sections/solution/SolutionFeatures.tsx:SolutionFeatures",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:components/sections/solution/SolutionFeatures.tsx",
+   "target": "function:components/sections/solution/SolutionFeatures.tsx:SolutionFeatures",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:components/sections/solution/SolutionHero.tsx",
+   "target": "function:components/sections/solution/SolutionHero.tsx:SolutionHero",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:components/sections/solution/SolutionHero.tsx",
+   "target": "function:components/sections/solution/SolutionHero.tsx:SolutionHero",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:components/sections/SolutionFinder.tsx",
+   "target": "file:components/ui/Badge.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/SolutionFinder.tsx",
+   "target": "file:components/ui/Container.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/SolutionFinder.tsx",
+   "target": "file:components/ui/Reveal.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/SolutionFinder.tsx",
+   "target": "file:components/ui/SectionHeading.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/SolutionFinder.tsx",
+   "target": "file:lib/content/schema.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/SolutionsGrid.tsx",
+   "target": "file:components/ui/Badge.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/SolutionsGrid.tsx",
+   "target": "file:components/ui/Container.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/SolutionsGrid.tsx",
+   "target": "file:components/ui/Icon.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/SolutionsGrid.tsx",
+   "target": "file:components/ui/MediaSlot.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/SolutionsGrid.tsx",
+   "target": "file:components/ui/Reveal.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/SolutionsGrid.tsx",
+   "target": "file:components/ui/SectionHeading.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/SolutionsGrid.tsx",
+   "target": "file:lib/content/schema.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/SolutionsGrid.tsx",
+   "target": "file:lib/types.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/UniverseReveal.tsx",
+   "target": "file:components/ui/Badge.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/UniverseReveal.tsx",
+   "target": "file:lib/content/schema.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/UniverseReveal.tsx",
+   "target": "file:lib/gsap.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/Values.tsx",
+   "target": "file:components/ui/Container.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/Values.tsx",
+   "target": "file:components/ui/Icon.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/Values.tsx",
+   "target": "file:components/ui/Reveal.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/Values.tsx",
+   "target": "file:components/ui/SectionHeading.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/Values.tsx",
+   "target": "file:lib/content/schema.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/WhyUs.tsx",
+   "target": "file:components/ui/Accordion.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/WhyUs.tsx",
+   "target": "file:components/ui/Container.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/WhyUs.tsx",
+   "target": "file:components/ui/SectionHeading.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/WhyUs.tsx",
+   "target": "file:lib/content/schema.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/hero/HeroSlides.tsx",
+   "target": "file:components/sections/hero/HeroVideo.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/hero/HeroSlides.tsx",
+   "target": "file:components/ui/Icon.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/hero/HeroSlides.tsx",
+   "target": "file:components/ui/LoadingImage.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/hero/HeroSlides.tsx",
+   "target": "file:lib/cn.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/hero/HeroSlides.tsx",
+   "target": "file:lib/content/schema.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/hero/HeroVideo.tsx",
+   "target": "file:components/ui/Icon.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/hero/HeroVisual.tsx",
+   "target": "file:components/sections/hero/HeroSlides.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/hero/HeroVisual.tsx",
+   "target": "file:components/sections/hero/HeroVideo.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/hero/HeroVisual.tsx",
+   "target": "file:components/three/fallbacks.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/hero/HeroVisual.tsx",
+   "target": "file:components/ui/ErrorBoundary.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/hero/HeroVisual.tsx",
+   "target": "file:components/ui/LoadingImage.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/hero/HeroVisual.tsx",
+   "target": "file:lib/content/schema.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/hero/HeroVisual.tsx",
+   "target": "file:lib/types.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/solution/PaletteAura.tsx",
+   "target": "file:lib/cn.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/solution/PaletteAura.tsx",
+   "target": "file:lib/gsap.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/solution/PaletteAura.tsx",
+   "target": "file:lib/palette.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/solution/PaletteAura.tsx",
+   "target": "file:lib/types.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/solution/SolutionContact.tsx",
+   "target": "file:components/ui/Container.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/solution/SolutionContact.tsx",
+   "target": "file:components/ui/Icon.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/solution/SolutionContact.tsx",
+   "target": "file:components/ui/SectionHeading.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/solution/SolutionContact.tsx",
+   "target": "file:components/ui/Turnstile.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/solution/SolutionContact.tsx",
+   "target": "file:lib/types.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/solution/SolutionFAQ.tsx",
+   "target": "file:components/ui/Accordion.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/solution/SolutionFAQ.tsx",
+   "target": "file:components/ui/Container.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/solution/SolutionFAQ.tsx",
+   "target": "file:components/ui/SectionHeading.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/solution/SolutionFAQ.tsx",
+   "target": "file:lib/types.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/solution/SolutionFeatures.tsx",
+   "target": "file:components/ui/Container.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/solution/SolutionFeatures.tsx",
+   "target": "file:components/ui/Icon.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/solution/SolutionFeatures.tsx",
+   "target": "file:components/ui/Reveal.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/solution/SolutionFeatures.tsx",
+   "target": "file:components/ui/SectionHeading.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/solution/SolutionFeatures.tsx",
+   "target": "file:lib/palette.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/solution/SolutionFeatures.tsx",
+   "target": "file:lib/types.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/solution/SolutionHero.tsx",
+   "target": "file:components/sections/solution/SolutionHeroStage.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/solution/SolutionHero.tsx",
+   "target": "file:components/ui/Badge.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/solution/SolutionHero.tsx",
+   "target": "file:components/ui/Button.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/solution/SolutionHero.tsx",
+   "target": "file:lib/types.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/hero/HeroVisual.tsx",
+   "target": "file:components/three/EarthNetwork.tsx",
+   "type": "depends_on",
+   "direction": "forward",
+   "weight": 0.6
+  },
+  {
+   "source": "file:components/sections/hero/HeroVisual.tsx",
+   "target": "file:components/three/InfraStack.tsx",
+   "type": "depends_on",
+   "direction": "forward",
+   "weight": 0.6
+  }
+ ]
+}

@@ -1,0 +1,33 @@
+{
+  "projectRoot": "/home/raouf-filali/Desktop/wisscreen",
+  "batchFiles": [
+    {
+      "path": "app/(auth)/AuthBackdrop.tsx",
+      "language": "typescript",
+      "sizeLines": 52,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/(auth)/AuthVisual.tsx",
+      "language": "typescript",
+      "sizeLines": 39,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/(auth)/layout.tsx",
+      "language": "typescript",
+      "sizeLines": 53,
+      "fileCategory": "code"
+    }
+  ],
+  "batchImportData": {
+    "app/(auth)/AuthBackdrop.tsx": [],
+    "app/(auth)/AuthVisual.tsx": [],
+    "app/(auth)/layout.tsx": [
+      "app/(app)/heroui.css",
+      "app/(auth)/AuthBackdrop.tsx",
+      "app/(auth)/AuthVisual.tsx",
+      "app/(auth)/auth.css"
+    ]
+  }
+}

@@ -1,0 +1,396 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 11,
+  "filesSkipped": [
+    "app/(auth)/auth.css",
+    "app/globals.css",
+    "public/videos/lp_video.webm",
+    "public/videos/ocr_video.webm",
+    "scripts/docker-push.ps1",
+    "vitest.config.mts"
+  ],
+  "filesUnreadable": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 11,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 10,
+      "failed": 0,
+      "skipped": 1
+    }
+  },
+  "results": [
+    {
+      "path": "app/(auth)/AuthScene.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 104,
+      "nonEmptyLines": 94,
+      "functions": [
+        {
+          "name": "DataPulse",
+          "startLine": 24,
+          "endLine": 35,
+          "params": [
+            "{ curve, index }"
+          ]
+        },
+        {
+          "name": "Network",
+          "startLine": 37,
+          "endLine": 84,
+          "params": []
+        },
+        {
+          "name": "AuthScene",
+          "startLine": 86,
+          "endLine": 104,
+          "params": [
+            "{ onReady }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "AuthScene",
+          "line": 86,
+          "isDefault": true
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "DataPulse",
+          "callee": "useRef",
+          "lineNumber": 25
+        },
+        {
+          "caller": "DataPulse",
+          "callee": "useFrame",
+          "lineNumber": 26
+        },
+        {
+          "caller": "DataPulse",
+          "callee": "ref.current.position.copy",
+          "lineNumber": 27
+        },
+        {
+          "caller": "DataPulse",
+          "callee": "curve.getPointAt",
+          "lineNumber": 27
+        },
+        {
+          "caller": "Network",
+          "callee": "useRef",
+          "lineNumber": 38
+        },
+        {
+          "caller": "Network",
+          "callee": "useFrame",
+          "lineNumber": 39
+        },
+        {
+          "caller": "Network",
+          "callee": "Math.sin",
+          "lineNumber": 41
+        },
+        {
+          "caller": "Network",
+          "callee": "Math.sin",
+          "lineNumber": 42
+        },
+        {
+          "caller": "Network",
+          "callee": "LINKS.map",
+          "lineNumber": 47
+        },
+        {
+          "caller": "Network",
+          "callee": "curve.getPoints",
+          "lineNumber": 49
+        },
+        {
+          "caller": "Network",
+          "callee": "NODES.map",
+          "lineNumber": 54
+        },
+        {
+          "caller": "Network",
+          "callee": "[-0.24, 0, 0.24].map",
+          "lineNumber": 77
+        },
+        {
+          "caller": "AuthScene",
+          "callee": "useState",
+          "lineNumber": 87
+        },
+        {
+          "caller": "AuthScene",
+          "callee": "setReady",
+          "lineNumber": 97
+        },
+        {
+          "caller": "AuthScene",
+          "callee": "onReady",
+          "lineNumber": 98
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/(auth)/verification/page.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 27,
+      "nonEmptyLines": 25,
+      "functions": [
+        {
+          "name": "VerificationPage",
+          "startLine": 7,
+          "endLine": 27,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "metadata",
+          "line": 4,
+          "isDefault": false
+        },
+        {
+          "name": "VerificationPage",
+          "line": 7,
+          "isDefault": true
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 2,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/apple-icon.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 47,
+      "nonEmptyLines": 45,
+      "functions": [
+        {
+          "name": "AppleIcon",
+          "startLine": 8,
+          "endLine": 47,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "size",
+          "line": 5,
+          "isDefault": false
+        },
+        {
+          "name": "contentType",
+          "line": 6,
+          "isDefault": false
+        },
+        {
+          "name": "AppleIcon",
+          "line": 8,
+          "isDefault": true
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 3,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/icon.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 52,
+      "nonEmptyLines": 50,
+      "functions": [
+        {
+          "name": "Icon",
+          "startLine": 13,
+          "endLine": 52,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "size",
+          "line": 10,
+          "isDefault": false
+        },
+        {
+          "name": "contentType",
+          "line": 11,
+          "isDefault": false
+        },
+        {
+          "name": "Icon",
+          "line": 13,
+          "isDefault": true
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 3,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "drizzle.config.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 16,
+      "nonEmptyLines": 14,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "eslint.config.mjs",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 18,
+      "nonEmptyLines": 16,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "neon.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 21,
+      "nonEmptyLines": 20,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "next.config.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 29,
+      "nonEmptyLines": 27,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "postcss.config.mjs",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 7,
+      "nonEmptyLines": 6,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "proxy.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 39,
+      "nonEmptyLines": 34,
+      "functions": [
+        {
+          "name": "proxy",
+          "startLine": 28,
+          "endLine": 35,
+          "params": [
+            "request"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "proxy",
+          "line": 28,
+          "isDefault": false
+        },
+        {
+          "name": "config",
+          "line": 37,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "proxy",
+          "callee": "SESSION_COOKIES.some",
+          "lineNumber": 29
+        },
+        {
+          "caller": "proxy",
+          "callee": "request.cookies.has",
+          "lineNumber": 29
+        },
+        {
+          "caller": "proxy",
+          "callee": "NextResponse.next",
+          "lineNumber": 30
+        },
+        {
+          "caller": "proxy",
+          "callee": "url.searchParams.set",
+          "lineNumber": 33
+        },
+        {
+          "caller": "proxy",
+          "callee": "NextResponse.redirect",
+          "lineNumber": 34
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 2,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "scripts/docker-push.sh",
+      "language": "shell",
+      "fileCategory": "script",
+      "totalLines": 47,
+      "nonEmptyLines": 40,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    }
+  ]
+}

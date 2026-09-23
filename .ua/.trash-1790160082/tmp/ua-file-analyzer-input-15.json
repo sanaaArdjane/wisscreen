@@ -1,0 +1,1 @@
+{"projectRoot": "/home/raouf-filali/Desktop/wisscreen", "batchFiles": [{"path": ".github/workflows/ci-cd.yml", "language": "yaml", "sizeLines": 104, "fileCategory": "infra"}], "batchImportData": {".github/workflows/ci-cd.yml": []}}

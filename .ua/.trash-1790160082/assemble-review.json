@@ -1,0 +1,15 @@
+{
+  "fixedSectionOk": true,
+  "nodesRecovered": 1,
+  "edgesRestored": 1,
+  "crossBatchEdgesAdded": 0,
+  "typesRemapped": 0,
+  "complexityRemapped": 0,
+  "notes": [
+    "Fixed section (5 corrections: 3 tested_by flips, 2 tested_by drops) is a tiny fraction of 965 nodes / 2873 edges — no dominant pattern, no upstream issue.",
+    "Recovered node function:lib/pdf/BillingDocument.tsx:clean (lines 53-55, a 3-line helper) which the batch analyzer had filtered as sub-10-line, and restored the dropped pdfMoney -> clean 'calls' edge that referenced it.",
+    "The second dropped edge (file:app/(auth)/layout.tsx -> file:app/(app)/heroui.css, imports) needed no action from me: the source file genuinely imports heroui.css (verified in app/(auth)/layout.tsx line 4), but batch-25 classified that file as type 'service' not 'file'. The merge script's own importMap-based recovery pass already re-added it correctly as file:app/(auth)/layout.tsx -> service:app/(app)/heroui.css (flagged recoveredFromImportMap: true in the graph), so this was already fixed before my review.",
+    "Cross-checked all 356 importMap entries against the assembled graph programmatically: every import pair where both endpoints have graph nodes already has a corresponding 'imports' edge. No further cross-batch gaps to add.",
+    "No 'no id' nodes, unknown node types, or unknown complexity values were reported by the merge script, so those parts of the review checklist had nothing to act on."
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "projectRoot": "/home/raouf-filali/Desktop/wisscreen",
+  "batchFiles": [
+    {"path": "AGENTS.md", "language": "markdown", "sizeLines": 1543, "fileCategory": "docs"},
+    {"path": "CLAUDE.md", "language": "markdown", "sizeLines": 1, "fileCategory": "docs"},
+    {"path": "README.md", "language": "markdown", "sizeLines": 36, "fileCategory": "docs"},
+    {"path": "package.json", "language": "json", "sizeLines": 66, "fileCategory": "config"},
+    {"path": "pnpm-workspace.yaml", "language": "yaml", "sizeLines": 15, "fileCategory": "config"},
+    {"path": "skills-lock.json", "language": "json", "sizeLines": 53, "fileCategory": "config"},
+    {"path": "tsconfig.json", "language": "json", "sizeLines": 34, "fileCategory": "config"}
+  ],
+  "batchImportData": {"AGENTS.md": [], "CLAUDE.md": [], "README.md": [], "package.json": [], "pnpm-workspace.yaml": [], "skills-lock.json": [], "tsconfig.json": []}
+}

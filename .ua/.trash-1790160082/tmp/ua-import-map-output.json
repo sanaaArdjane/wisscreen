@@ -1,0 +1,1838 @@
+{
+  "scriptCompleted": true,
+  "stats": {
+    "filesScanned": 356,
+    "filesWithImports": 235,
+    "totalEdges": 1236
+  },
+  "failures": [],
+  "importMap": {
+    ".agents/skills/neon-ai-gateway/SKILL.md": [],
+    ".agents/skills/neon-auth/SKILL.md": [],
+    ".agents/skills/neon-auth/references/managed-auth.md": [],
+    ".agents/skills/neon-auth/references/self-managed.md": [],
+    ".agents/skills/neon-functions/SKILL.md": [],
+    ".agents/skills/neon-functions/references/ai-sdk.md": [],
+    ".agents/skills/neon-functions/references/function-triggers.md": [],
+    ".agents/skills/neon-functions/references/mastra-studio.md": [],
+    ".agents/skills/neon-functions/references/mcp.md": [],
+    ".agents/skills/neon-functions/references/sentry.md": [],
+    ".agents/skills/neon-functions/references/sse.md": [],
+    ".agents/skills/neon-object-storage/SKILL.md": [],
+    ".agents/skills/neon-postgres-branches/SKILL.md": [],
+    ".agents/skills/neon-postgres-egress-optimizer/SKILL.md": [],
+    ".agents/skills/neon-postgres/SKILL.md": [],
+    ".agents/skills/neon-postgres/references/full-text-search.md": [],
+    ".agents/skills/neon-postgres/references/hybrid-search.md": [],
+    ".agents/skills/neon-postgres/references/vector-search.md": [],
+    ".agents/skills/neon/SKILL.md": [],
+    ".agents/skills/neon/references/auth.md": [],
+    ".agents/skills/neon/references/claimable-neon.md": [],
+    ".agents/skills/neon/references/function-triggers.md": [],
+    ".agents/skills/neon/references/logs-loki.md": [],
+    ".agents/skills/neon/references/parse-env.md": [],
+    ".agents/skills/neon/references/sdk.md": [],
+    ".claude/launch.json": [],
+    ".claude/skills/DESIGN-mobbin.md": [],
+    ".claude/skills/neon-ai-gateway/SKILL.md": [],
+    ".claude/skills/neon-auth/SKILL.md": [],
+    ".claude/skills/neon-auth/references/managed-auth.md": [],
+    ".claude/skills/neon-auth/references/self-managed.md": [],
+    ".claude/skills/neon-functions/SKILL.md": [],
+    ".claude/skills/neon-functions/references/ai-sdk.md": [],
+    ".claude/skills/neon-functions/references/function-triggers.md": [],
+    ".claude/skills/neon-functions/references/mastra-studio.md": [],
+    ".claude/skills/neon-functions/references/mcp.md": [],
+    ".claude/skills/neon-functions/references/sentry.md": [],
+    ".claude/skills/neon-functions/references/sse.md": [],
+    ".claude/skills/neon-object-storage/SKILL.md": [],
+    ".claude/skills/neon-postgres-branches/SKILL.md": [],
+    ".claude/skills/neon-postgres-egress-optimizer/SKILL.md": [],
+    ".claude/skills/neon-postgres/SKILL.md": [],
+    ".claude/skills/neon-postgres/references/full-text-search.md": [],
+    ".claude/skills/neon-postgres/references/hybrid-search.md": [],
+    ".claude/skills/neon-postgres/references/vector-search.md": [],
+    ".claude/skills/neon/SKILL.md": [],
+    ".claude/skills/neon/references/auth.md": [],
+    ".claude/skills/neon/references/claimable-neon.md": [],
+    ".claude/skills/neon/references/function-triggers.md": [],
+    ".claude/skills/neon/references/logs-loki.md": [],
+    ".claude/skills/neon/references/parse-env.md": [],
+    ".claude/skills/neon/references/sdk.md": [],
+    ".dockerignore": [],
+    ".github/workflows/ci-cd.yml": [],
+    "AGENTS.md": [],
+    "CLAUDE.md": [],
+    "Dockerfile": [],
+    "README.md": [],
+    "__tests__/catalogue.test.ts": [
+      "lib/kv.ts",
+      "lib/quotas.ts"
+    ],
+    "__tests__/demos.test.ts": [
+      "lib/crypto.ts",
+      "lib/demos.ts"
+    ],
+    "__tests__/document-overrides.test.tsx": [
+      "components/dashboard/billing/DocumentPreview.tsx",
+      "lib/company.ts"
+    ],
+    "__tests__/lib.test.ts": [
+      "app/api/preview-status/route.ts",
+      "lib/cn.ts",
+      "lib/data/media.ts",
+      "lib/data/services.ts",
+      "lib/types.ts"
+    ],
+    "__tests__/password.test.ts": [
+      "lib/password.ts"
+    ],
+    "__tests__/pdf.test.tsx": [
+      "lib/pdf/BillingDocument.tsx",
+      "lib/settings.ts"
+    ],
+    "__tests__/platform.test.ts": [
+      "lib/billing.ts",
+      "lib/money.ts",
+      "lib/permissions.ts",
+      "lib/quotas.ts",
+      "lib/ref.ts",
+      "lib/requests.ts"
+    ],
+    "__tests__/ui.test.tsx": [
+      "components/layout/Footer.tsx",
+      "components/ui/Accordion.tsx",
+      "components/ui/Badge.tsx",
+      "components/ui/Button.tsx",
+      "components/ui/Container.tsx",
+      "components/ui/ErrorBoundary.tsx",
+      "components/ui/HandUnderline.tsx",
+      "components/ui/Icon.tsx",
+      "components/ui/LoadingImage.tsx",
+      "components/ui/SectionHeading.tsx",
+      "components/ui/StatCounter.tsx",
+      "components/ui/Tabs.tsx",
+      "components/ui/TypeCycle.tsx",
+      "lib/content/defaults.ts",
+      "lib/data/services.ts"
+    ],
+    "app/(app)/admin/abonnements/ServiceForm.tsx": [
+      "app/(app)/admin/abonnements/actions.ts",
+      "components/dashboard/ui.tsx",
+      "lib/actions.ts",
+      "lib/quota-labels.ts"
+    ],
+    "app/(app)/admin/abonnements/[id]/page.tsx": [
+      "app/(app)/admin/abonnements/ServiceForm.tsx",
+      "app/(app)/admin/abonnements/options.ts",
+      "components/dashboard/PageHeader.tsx",
+      "components/dashboard/QuotaMeter.tsx",
+      "components/dashboard/ui.tsx",
+      "lib/db/index.ts",
+      "lib/db/schema.ts",
+      "lib/guard.ts",
+      "lib/kv.ts",
+      "lib/permissions.ts",
+      "lib/quotas.ts"
+    ],
+    "app/(app)/admin/abonnements/actions.ts": [
+      "lib/account.ts",
+      "lib/actions.ts",
+      "lib/db/index.ts",
+      "lib/db/schema.ts",
+      "lib/guard.ts",
+      "lib/kv.ts",
+      "lib/money.ts",
+      "lib/quotas.ts"
+    ],
+    "app/(app)/admin/abonnements/nouveau/page.tsx": [
+      "app/(app)/admin/abonnements/ServiceForm.tsx",
+      "app/(app)/admin/abonnements/options.ts",
+      "components/dashboard/PageHeader.tsx",
+      "lib/db/index.ts",
+      "lib/db/schema.ts",
+      "lib/guard.ts"
+    ],
+    "app/(app)/admin/abonnements/options.ts": [
+      "lib/db/index.ts",
+      "lib/db/schema.ts",
+      "lib/kv.ts"
+    ],
+    "app/(app)/admin/abonnements/page.tsx": [
+      "components/dashboard/FilterBar.tsx",
+      "components/dashboard/PageHeader.tsx",
+      "components/dashboard/pills.ts",
+      "components/dashboard/ui.tsx",
+      "components/ui/Icon.tsx",
+      "lib/db/index.ts",
+      "lib/db/schema.ts",
+      "lib/format.ts",
+      "lib/guard.ts",
+      "lib/money.ts",
+      "lib/permissions.ts",
+      "lib/quotas.ts"
+    ],
+    "app/(app)/admin/catalogue/CatalogueForm.tsx": [
+      "app/(app)/admin/catalogue/actions.ts",
+      "components/dashboard/ui.tsx",
+      "lib/actions.ts",
+      "lib/quota-labels.ts"
+    ],
+    "app/(app)/admin/catalogue/[slug]/page.tsx": [
+      "app/(app)/admin/catalogue/CatalogueForm.tsx",
+      "components/dashboard/PageHeader.tsx",
+      "components/dashboard/ui.tsx",
+      "lib/db/index.ts",
+      "lib/db/schema.ts",
+      "lib/format.ts",
+      "lib/guard.ts",
+      "lib/kv.ts",
+      "lib/permissions.ts",
+      "lib/quotas.ts"
+    ],
+    "app/(app)/admin/catalogue/actions.ts": [
+      "lib/account.ts",
+      "lib/actions.ts",
+      "lib/db/index.ts",
+      "lib/db/schema.ts",
+      "lib/guard.ts",
+      "lib/kv.ts",
+      "lib/money.ts"
+    ],
+    "app/(app)/admin/catalogue/nouveau/page.tsx": [
+      "app/(app)/admin/catalogue/CatalogueForm.tsx",
+      "components/dashboard/PageHeader.tsx",
+      "lib/guard.ts"
+    ],
+    "app/(app)/admin/catalogue/page.tsx": [
+      "components/dashboard/PageHeader.tsx",
+      "components/dashboard/pills.ts",
+      "components/dashboard/ui.tsx",
+      "components/ui/Icon.tsx",
+      "lib/db/index.ts",
+      "lib/db/schema.ts",
+      "lib/guard.ts",
+      "lib/money.ts",
+      "lib/permissions.ts",
+      "lib/quotas.ts"
+    ],
+    "app/(app)/admin/demandes/[id]/RequestControls.tsx": [
+      "app/(app)/admin/demandes/actions.ts",
+      "components/dashboard/ui.tsx",
+      "lib/actions.ts"
+    ],
+    "app/(app)/admin/demandes/[id]/page.tsx": [
+      "app/(app)/admin/demandes/[id]/RequestControls.tsx",
+      "app/(app)/admin/demandes/actions.ts",
+      "components/dashboard/ChatComposer.tsx",
+      "components/dashboard/FileUpload.tsx",
+      "components/dashboard/PageHeader.tsx",
+      "components/dashboard/Thread.tsx",
+      "components/dashboard/pills.ts",
+      "components/dashboard/ui.tsx",
+      "lib/content/index.ts",
+      "lib/format.ts",
+      "lib/guard.ts",
+      "lib/permissions.ts",
+      "lib/requests.ts",
+      "lib/server/queries.ts",
+      "lib/storage.ts"
+    ],
+    "app/(app)/admin/demandes/actions.ts": [
+      "lib/account.ts",
+      "lib/actions.ts",
+      "lib/db/index.ts",
+      "lib/db/schema.ts",
+      "lib/email.ts",
+      "lib/guard.ts",
+      "lib/money.ts",
+      "lib/realtime.ts",
+      "lib/requests.ts",
+      "lib/site.ts"
+    ],
+    "app/(app)/admin/demandes/page.tsx": [
+      "components/dashboard/FilterBar.tsx",
+      "components/dashboard/PageHeader.tsx",
+      "components/dashboard/ui.tsx",
+      "lib/db/index.ts",
+      "lib/db/schema.ts",
+      "lib/format.ts",
+      "lib/guard.ts",
+      "lib/requests.ts"
+    ],
+    "app/(app)/admin/demos/DemoControls.tsx": [
+      "app/(app)/admin/demos/actions.ts",
+      "components/dashboard/ui.tsx",
+      "lib/actions.ts"
+    ],
+    "app/(app)/admin/demos/DemoEditor.tsx": [
+      "app/(app)/admin/demos/actions.ts",
+      "components/dashboard/FileUpload.tsx",
+      "components/dashboard/ui.tsx",
+      "components/ui/Icon.tsx",
+      "lib/actions.ts",
+      "lib/cn.ts",
+      "lib/demos.ts",
+      "lib/markdown.tsx"
+    ],
+    "app/(app)/admin/demos/[id]/page.tsx": [
+      "app/(app)/admin/demos/DemoControls.tsx",
+      "app/(app)/admin/demos/DemoEditor.tsx",
+      "app/(app)/admin/demos/actions.ts",
+      "components/dashboard/FileUpload.tsx",
+      "components/dashboard/PageHeader.tsx",
+      "components/dashboard/ui.tsx",
+      "components/ui/Icon.tsx",
+      "lib/content/index.ts",
+      "lib/crypto.ts",
+      "lib/db/index.ts",
+      "lib/db/schema.ts",
+      "lib/demos.ts",
+      "lib/format.ts",
+      "lib/guard.ts",
+      "lib/permissions.ts",
+      "lib/server/demos.ts",
+      "lib/storage.ts"
+    ],
+    "app/(app)/admin/demos/actions.ts": [
+      "lib/account.ts",
+      "lib/actions.ts",
+      "lib/content/index.ts",
+      "lib/crypto.ts",
+      "lib/db/index.ts",
+      "lib/db/schema.ts",
+      "lib/demos.ts",
+      "lib/email.ts",
+      "lib/guard.ts",
+      "lib/site.ts",
+      "lib/storage.ts"
+    ],
+    "app/(app)/admin/demos/nouveau/page.tsx": [
+      "app/(app)/admin/demos/DemoEditor.tsx",
+      "components/dashboard/PageHeader.tsx",
+      "lib/content/index.ts",
+      "lib/crypto.ts",
+      "lib/guard.ts",
+      "lib/storage.ts"
+    ],
+    "app/(app)/admin/demos/page.tsx": [
+      "components/dashboard/FilterBar.tsx",
+      "components/dashboard/PageHeader.tsx",
+      "components/dashboard/pills.ts",
+      "components/dashboard/ui.tsx",
+      "components/ui/Icon.tsx",
+      "lib/db/index.ts",
+      "lib/db/schema.ts",
+      "lib/demos.ts",
+      "lib/format.ts",
+      "lib/guard.ts",
+      "lib/permissions.ts"
+    ],
+    "app/(app)/admin/devis/[id]/QuoteActions.tsx": [
+      "app/(app)/admin/devis/actions.ts",
+      "components/dashboard/ui.tsx",
+      "components/ui/Icon.tsx",
+      "lib/actions.ts",
+      "lib/billing.ts"
+    ],
+    "app/(app)/admin/devis/[id]/page.tsx": [
+      "app/(app)/admin/devis/[id]/QuoteActions.tsx",
+      "components/dashboard/PageHeader.tsx",
+      "components/dashboard/billing/DocumentEditor.tsx",
+      "components/dashboard/billing/DocumentPreview.tsx",
+      "components/dashboard/ui.tsx",
+      "lib/billing-preview.ts",
+      "lib/billing.ts",
+      "lib/company.ts",
+      "lib/db/index.ts",
+      "lib/db/schema.ts",
+      "lib/format.ts",
+      "lib/guard.ts",
+      "lib/money.ts",
+      "lib/permissions.ts",
+      "lib/server/queries.ts",
+      "lib/settings.ts",
+      "lib/storage.ts"
+    ],
+    "app/(app)/admin/devis/actions.ts": [
+      "lib/account.ts",
+      "lib/actions.ts",
+      "lib/billing-lines.ts",
+      "lib/billing-send.ts",
+      "lib/db/index.ts",
+      "lib/db/schema.ts",
+      "lib/guard.ts",
+      "lib/money.ts"
+    ],
+    "app/(app)/admin/devis/nouveau/page.tsx": [
+      "components/dashboard/PageHeader.tsx",
+      "components/dashboard/billing/DocumentEditor.tsx",
+      "lib/db/index.ts",
+      "lib/db/schema.ts",
+      "lib/guard.ts",
+      "lib/server/queries.ts",
+      "lib/settings.ts",
+      "lib/storage.ts"
+    ],
+    "app/(app)/admin/devis/page.tsx": [
+      "components/dashboard/FilterBar.tsx",
+      "components/dashboard/PageHeader.tsx",
+      "components/dashboard/pills.ts",
+      "components/dashboard/ui.tsx",
+      "components/ui/Icon.tsx",
+      "lib/billing.ts",
+      "lib/db/index.ts",
+      "lib/db/schema.ts",
+      "lib/format.ts",
+      "lib/guard.ts",
+      "lib/money.ts",
+      "lib/permissions.ts"
+    ],
+    "app/(app)/admin/equipe/page.tsx": [
+      "components/dashboard/PageHeader.tsx",
+      "components/dashboard/pills.ts",
+      "components/dashboard/ui.tsx",
+      "components/ui/Icon.tsx",
+      "lib/cn.ts",
+      "lib/db/index.ts",
+      "lib/db/schema.ts",
+      "lib/format.ts",
+      "lib/guard.ts",
+      "lib/permissions.ts"
+    ],
+    "app/(app)/admin/factures/InvoiceActions.tsx": [
+      "app/(app)/admin/factures/actions.ts",
+      "components/dashboard/ui.tsx",
+      "components/ui/Icon.tsx",
+      "lib/actions.ts"
+    ],
+    "app/(app)/admin/factures/InvoiceControls.tsx": [
+      "app/(app)/admin/factures/actions.ts",
+      "components/dashboard/ui.tsx",
+      "lib/actions.ts",
+      "lib/billing.ts"
+    ],
+    "app/(app)/admin/factures/[id]/page.tsx": [
+      "app/(app)/admin/factures/InvoiceActions.tsx",
+      "app/(app)/admin/factures/InvoiceControls.tsx",
+      "components/dashboard/PageHeader.tsx",
+      "components/dashboard/billing/DocumentEditor.tsx",
+      "components/dashboard/billing/DocumentPreview.tsx",
+      "components/dashboard/ui.tsx",
+      "lib/billing-preview.ts",
+      "lib/billing.ts",
+      "lib/company.ts",
+      "lib/db/index.ts",
+      "lib/db/schema.ts",
+      "lib/format.ts",
+      "lib/guard.ts",
+      "lib/money.ts",
+      "lib/permissions.ts",
+      "lib/server/queries.ts",
+      "lib/settings.ts",
+      "lib/storage.ts"
+    ],
+    "app/(app)/admin/factures/actions.ts": [
+      "lib/account.ts",
+      "lib/actions.ts",
+      "lib/billing-lines.ts",
+      "lib/billing-send.ts",
+      "lib/billing.ts",
+      "lib/db/index.ts",
+      "lib/db/schema.ts",
+      "lib/guard.ts",
+      "lib/money.ts"
+    ],
+    "app/(app)/admin/factures/nouveau/page.tsx": [
+      "components/dashboard/PageHeader.tsx",
+      "components/dashboard/billing/DocumentEditor.tsx",
+      "lib/guard.ts",
+      "lib/server/queries.ts",
+      "lib/settings.ts",
+      "lib/storage.ts"
+    ],
+    "app/(app)/admin/factures/page.tsx": [
+      "components/dashboard/FilterBar.tsx",
+      "components/dashboard/PageHeader.tsx",
+      "components/dashboard/pills.ts",
+      "components/dashboard/ui.tsx",
+      "components/ui/Icon.tsx",
+      "lib/billing.ts",
+      "lib/db/index.ts",
+      "lib/db/schema.ts",
+      "lib/format.ts",
+      "lib/guard.ts",
+      "lib/money.ts",
+      "lib/permissions.ts"
+    ],
+    "app/(app)/admin/journal/PurgeForm.tsx": [
+      "app/(app)/admin/journal/actions.ts",
+      "components/dashboard/ui.tsx",
+      "lib/actions.ts"
+    ],
+    "app/(app)/admin/journal/actions.ts": [
+      "lib/account.ts",
+      "lib/actions.ts",
+      "lib/db/index.ts",
+      "lib/db/schema.ts",
+      "lib/guard.ts"
+    ],
+    "app/(app)/admin/journal/page.tsx": [
+      "app/(app)/admin/journal/PurgeForm.tsx",
+      "components/dashboard/FilterBar.tsx",
+      "components/dashboard/PageHeader.tsx",
+      "components/dashboard/ui.tsx",
+      "lib/db/index.ts",
+      "lib/db/schema.ts",
+      "lib/format.ts",
+      "lib/guard.ts",
+      "lib/permissions.ts"
+    ],
+    "app/(app)/admin/layout.tsx": [
+      "components/dashboard/AppShell.tsx",
+      "components/dashboard/nav.ts",
+      "lib/account.ts",
+      "lib/guard.ts",
+      "lib/permissions.ts",
+      "lib/settings.ts",
+      "lib/theme-server.ts"
+    ],
+    "app/(app)/admin/messages/LeadActions.tsx": [
+      "app/(app)/admin/messages/actions.ts",
+      "components/dashboard/ui.tsx"
+    ],
+    "app/(app)/admin/messages/actions.ts": [
+      "lib/account.ts",
+      "lib/db/index.ts",
+      "lib/db/schema.ts",
+      "lib/guard.ts"
+    ],
+    "app/(app)/admin/messages/page.tsx": [
+      "app/(app)/admin/messages/LeadActions.tsx",
+      "components/dashboard/FilterBar.tsx",
+      "components/dashboard/PageHeader.tsx",
+      "components/dashboard/ui.tsx",
+      "lib/content/index.ts",
+      "lib/db/index.ts",
+      "lib/db/schema.ts",
+      "lib/format.ts",
+      "lib/guard.ts",
+      "lib/permissions.ts"
+    ],
+    "app/(app)/admin/notifications/envoyer/BroadcastForm.tsx": [
+      "app/(app)/admin/notifications/envoyer/actions.ts",
+      "app/(app)/admin/notifications/envoyer/segments.ts",
+      "components/dashboard/ui.tsx",
+      "lib/actions.ts"
+    ],
+    "app/(app)/admin/notifications/envoyer/actions.ts": [
+      "app/(app)/admin/notifications/envoyer/segments.ts",
+      "lib/account.ts",
+      "lib/actions.ts",
+      "lib/db/index.ts",
+      "lib/db/schema.ts",
+      "lib/email.ts",
+      "lib/guard.ts",
+      "lib/site.ts"
+    ],
+    "app/(app)/admin/notifications/envoyer/page.tsx": [
+      "app/(app)/admin/notifications/envoyer/BroadcastForm.tsx",
+      "components/dashboard/PageHeader.tsx",
+      "components/dashboard/ui.tsx",
+      "lib/db/index.ts",
+      "lib/db/schema.ts",
+      "lib/format.ts",
+      "lib/guard.ts"
+    ],
+    "app/(app)/admin/notifications/envoyer/segments.ts": [],
+    "app/(app)/admin/notifications/page.tsx": [
+      "components/dashboard/NotificationFeed.tsx",
+      "components/dashboard/PageHeader.tsx",
+      "components/dashboard/pills.ts",
+      "components/ui/Icon.tsx",
+      "lib/db/index.ts",
+      "lib/db/schema.ts",
+      "lib/guard.ts",
+      "lib/permissions.ts"
+    ],
+    "app/(app)/admin/page.tsx": [
+      "components/dashboard/PageHeader.tsx",
+      "components/dashboard/pills.ts",
+      "components/dashboard/ui.tsx",
+      "lib/db/index.ts",
+      "lib/db/schema.ts",
+      "lib/format.ts",
+      "lib/guard.ts",
+      "lib/money.ts",
+      "lib/permissions.ts",
+      "lib/requests.ts",
+      "lib/server/queries.ts"
+    ],
+    "app/(app)/admin/parametres/CompanyForm.tsx": [
+      "app/(app)/admin/parametres/actions.ts",
+      "components/dashboard/billing/ImagePicker.tsx",
+      "components/dashboard/ui.tsx",
+      "lib/actions.ts",
+      "lib/settings.ts"
+    ],
+    "app/(app)/admin/parametres/SettingsForm.tsx": [
+      "app/(app)/admin/parametres/actions.ts",
+      "components/dashboard/ui.tsx",
+      "lib/actions.ts",
+      "lib/settings.ts"
+    ],
+    "app/(app)/admin/parametres/actions.ts": [
+      "lib/account.ts",
+      "lib/actions.ts",
+      "lib/db/index.ts",
+      "lib/db/schema.ts",
+      "lib/guard.ts",
+      "lib/settings.ts"
+    ],
+    "app/(app)/admin/parametres/page.tsx": [
+      "app/(app)/admin/parametres/CompanyForm.tsx",
+      "app/(app)/admin/parametres/SettingsForm.tsx",
+      "components/dashboard/PageHeader.tsx",
+      "components/ui/Icon.tsx",
+      "lib/cn.ts",
+      "lib/crypto.ts",
+      "lib/email.ts",
+      "lib/guard.ts",
+      "lib/permissions.ts",
+      "lib/settings.ts",
+      "lib/storage.ts"
+    ],
+    "app/(app)/admin/profil/page.tsx": [
+      "components/dashboard/PageHeader.tsx",
+      "components/dashboard/ProfileForms.tsx",
+      "lib/db/index.ts",
+      "lib/db/schema.ts",
+      "lib/format.ts",
+      "lib/guard.ts",
+      "lib/permissions.ts"
+    ],
+    "app/(app)/admin/site/accueil/page.tsx": [
+      "app/(app)/admin/site/content-props.ts",
+      "components/dashboard/site/BlockEditor.tsx",
+      "components/dashboard/site/SectionCard.tsx",
+      "lib/content/forms.ts",
+      "lib/content/index.ts",
+      "lib/content/schema.ts"
+    ],
+    "app/(app)/admin/site/actions.ts": [
+      "lib/account.ts",
+      "lib/actions.ts",
+      "lib/content/defaults.ts",
+      "lib/content/index.ts",
+      "lib/content/schema.ts",
+      "lib/db/index.ts",
+      "lib/db/schema.ts",
+      "lib/guard.ts"
+    ],
+    "app/(app)/admin/site/content-props.ts": [
+      "lib/content/forms.ts",
+      "lib/content/index.ts",
+      "lib/storage.ts"
+    ],
+    "app/(app)/admin/site/general/page.tsx": [
+      "app/(app)/admin/site/content-props.ts",
+      "components/dashboard/PageHeader.tsx",
+      "components/dashboard/site/BlockEditor.tsx",
+      "lib/content/index.ts"
+    ],
+    "app/(app)/admin/site/hero/page.tsx": [
+      "app/(app)/admin/site/content-props.ts",
+      "components/dashboard/site/BlockEditor.tsx",
+      "lib/content/index.ts"
+    ],
+    "app/(app)/admin/site/layout.tsx": [
+      "components/dashboard/PageHeader.tsx",
+      "components/dashboard/site/SiteTabs.tsx",
+      "lib/guard.ts"
+    ],
+    "app/(app)/admin/site/loading.tsx": [],
+    "app/(app)/admin/site/page.tsx": [
+      "components/ui/Icon.tsx",
+      "lib/content/index.ts",
+      "lib/content/schema.ts",
+      "lib/storage.ts",
+      "lib/types.ts"
+    ],
+    "app/(app)/admin/site/solutions/[slug]/page.tsx": [
+      "app/(app)/admin/site/content-props.ts",
+      "components/dashboard/site/SolutionEditor.tsx",
+      "lib/content/index.ts"
+    ],
+    "app/(app)/admin/site/solutions/page.tsx": [
+      "app/(app)/admin/site/actions.ts",
+      "components/dashboard/PageHeader.tsx",
+      "components/dashboard/site/FieldHint.tsx",
+      "components/dashboard/site/NewSolutionForm.tsx",
+      "components/dashboard/ui.tsx",
+      "components/ui/Icon.tsx",
+      "lib/content/index.ts",
+      "lib/guard.ts",
+      "lib/permissions.ts"
+    ],
+    "app/(app)/admin/utilisateurs/[id]/UserControls.tsx": [
+      "app/(app)/admin/utilisateurs/actions.ts",
+      "components/dashboard/ui.tsx",
+      "components/ui/Icon.tsx",
+      "lib/actions.ts",
+      "lib/cn.ts",
+      "lib/permissions.ts"
+    ],
+    "app/(app)/admin/utilisateurs/[id]/page.tsx": [
+      "app/(app)/admin/utilisateurs/[id]/UserControls.tsx",
+      "components/dashboard/PageHeader.tsx",
+      "components/dashboard/QuotaMeter.tsx",
+      "components/dashboard/pills.ts",
+      "components/dashboard/ui.tsx",
+      "lib/db/index.ts",
+      "lib/db/schema.ts",
+      "lib/format.ts",
+      "lib/guard.ts",
+      "lib/money.ts",
+      "lib/permissions.ts",
+      "lib/quotas.ts",
+      "lib/requests.ts"
+    ],
+    "app/(app)/admin/utilisateurs/actions.ts": [
+      "lib/account.ts",
+      "lib/actions.ts",
+      "lib/auth.ts",
+      "lib/db/index.ts",
+      "lib/db/schema.ts",
+      "lib/email.ts",
+      "lib/guard.ts",
+      "lib/password.ts",
+      "lib/permissions.ts",
+      "lib/quotas.ts",
+      "lib/site.ts"
+    ],
+    "app/(app)/admin/utilisateurs/nouveau/CreateUserForm.tsx": [
+      "app/(app)/admin/utilisateurs/actions.ts",
+      "components/dashboard/ui.tsx",
+      "lib/actions.ts"
+    ],
+    "app/(app)/admin/utilisateurs/nouveau/page.tsx": [
+      "app/(app)/admin/utilisateurs/nouveau/CreateUserForm.tsx",
+      "components/dashboard/PageHeader.tsx",
+      "lib/email.ts",
+      "lib/guard.ts",
+      "lib/permissions.ts"
+    ],
+    "app/(app)/admin/utilisateurs/page.tsx": [
+      "components/dashboard/FilterBar.tsx",
+      "components/dashboard/PageHeader.tsx",
+      "components/dashboard/pills.ts",
+      "components/dashboard/ui.tsx",
+      "components/ui/Icon.tsx",
+      "lib/db/index.ts",
+      "lib/db/schema.ts",
+      "lib/format.ts",
+      "lib/guard.ts",
+      "lib/permissions.ts"
+    ],
+    "app/(app)/dashboard/abonnement/page.tsx": [
+      "components/dashboard/PageHeader.tsx",
+      "components/dashboard/QuotaMeter.tsx",
+      "components/dashboard/pills.ts",
+      "components/dashboard/ui.tsx",
+      "components/ui/Icon.tsx",
+      "lib/db/index.ts",
+      "lib/db/schema.ts",
+      "lib/format.ts",
+      "lib/guard.ts",
+      "lib/money.ts",
+      "lib/quotas.ts"
+    ],
+    "app/(app)/dashboard/demandes/[id]/CloseRequestButton.tsx": [
+      "app/(app)/dashboard/demandes/actions.ts"
+    ],
+    "app/(app)/dashboard/demandes/[id]/page.tsx": [
+      "app/(app)/dashboard/demandes/[id]/CloseRequestButton.tsx",
+      "app/(app)/dashboard/demandes/actions.ts",
+      "components/dashboard/ChatComposer.tsx",
+      "components/dashboard/PageHeader.tsx",
+      "components/dashboard/Thread.tsx",
+      "components/dashboard/ui.tsx",
+      "lib/content/index.ts",
+      "lib/format.ts",
+      "lib/guard.ts",
+      "lib/money.ts",
+      "lib/requests.ts",
+      "lib/server/queries.ts",
+      "lib/storage.ts"
+    ],
+    "app/(app)/dashboard/demandes/actions.ts": [
+      "lib/account.ts",
+      "lib/actions.ts",
+      "lib/content/index.ts",
+      "lib/db/index.ts",
+      "lib/db/schema.ts",
+      "lib/email.ts",
+      "lib/guard.ts",
+      "lib/realtime.ts",
+      "lib/ref.ts",
+      "lib/requests.ts",
+      "lib/site.ts"
+    ],
+    "app/(app)/dashboard/demandes/nouvelle/NewRequestForm.tsx": [
+      "app/(app)/dashboard/demandes/actions.ts",
+      "components/dashboard/ui.tsx",
+      "lib/actions.ts"
+    ],
+    "app/(app)/dashboard/demandes/nouvelle/page.tsx": [
+      "app/(app)/dashboard/demandes/nouvelle/NewRequestForm.tsx",
+      "components/dashboard/PageHeader.tsx",
+      "lib/content/index.ts",
+      "lib/guard.ts",
+      "lib/requests.ts"
+    ],
+    "app/(app)/dashboard/demandes/page.tsx": [
+      "components/dashboard/PageHeader.tsx",
+      "components/dashboard/pills.ts",
+      "components/dashboard/ui.tsx",
+      "components/ui/Icon.tsx",
+      "lib/content/index.ts",
+      "lib/format.ts",
+      "lib/guard.ts",
+      "lib/requests.ts",
+      "lib/server/queries.ts"
+    ],
+    "app/(app)/dashboard/demos/[slug]/page.tsx": [
+      "components/dashboard/PageHeader.tsx",
+      "components/dashboard/demos/DemoBlocks.tsx",
+      "components/dashboard/pills.ts",
+      "lib/content/index.ts",
+      "lib/format.ts",
+      "lib/guard.ts",
+      "lib/server/demos.ts",
+      "lib/storage.ts"
+    ],
+    "app/(app)/dashboard/demos/actions.ts": [
+      "lib/account.ts",
+      "lib/db/index.ts",
+      "lib/db/schema.ts",
+      "lib/guard.ts",
+      "lib/quotas.ts",
+      "lib/server/demos.ts"
+    ],
+    "app/(app)/dashboard/demos/page.tsx": [
+      "components/dashboard/PageHeader.tsx",
+      "components/dashboard/pills.ts",
+      "components/dashboard/ui.tsx",
+      "components/ui/Icon.tsx",
+      "lib/content/index.ts",
+      "lib/demos.ts",
+      "lib/format.ts",
+      "lib/guard.ts",
+      "lib/server/demos.ts"
+    ],
+    "app/(app)/dashboard/devis/[id]/QuoteDecision.tsx": [
+      "app/(app)/dashboard/devis/[id]/actions.ts",
+      "components/dashboard/ui.tsx",
+      "lib/actions.ts"
+    ],
+    "app/(app)/dashboard/devis/[id]/actions.ts": [
+      "lib/account.ts",
+      "lib/actions.ts",
+      "lib/db/index.ts",
+      "lib/db/schema.ts",
+      "lib/email.ts",
+      "lib/guard.ts",
+      "lib/money.ts",
+      "lib/site.ts"
+    ],
+    "app/(app)/dashboard/devis/[id]/page.tsx": [
+      "app/(app)/dashboard/devis/[id]/QuoteDecision.tsx",
+      "components/dashboard/MoneyLines.tsx",
+      "components/dashboard/PageHeader.tsx",
+      "components/dashboard/pills.ts",
+      "components/dashboard/ui.tsx",
+      "components/ui/Icon.tsx",
+      "lib/billing.ts",
+      "lib/db/index.ts",
+      "lib/db/schema.ts",
+      "lib/format.ts",
+      "lib/guard.ts",
+      "lib/settings.ts"
+    ],
+    "app/(app)/dashboard/devis/page.tsx": [
+      "components/dashboard/PageHeader.tsx",
+      "components/dashboard/pills.ts",
+      "components/dashboard/ui.tsx",
+      "lib/billing.ts",
+      "lib/format.ts",
+      "lib/guard.ts",
+      "lib/money.ts",
+      "lib/server/queries.ts"
+    ],
+    "app/(app)/dashboard/documents/page.tsx": [
+      "components/dashboard/FileUpload.tsx",
+      "components/dashboard/PageHeader.tsx",
+      "components/dashboard/QuotaMeter.tsx",
+      "components/dashboard/ui.tsx",
+      "components/ui/Icon.tsx",
+      "lib/format.ts",
+      "lib/guard.ts",
+      "lib/quotas.ts",
+      "lib/server/queries.ts",
+      "lib/storage.ts"
+    ],
+    "app/(app)/dashboard/factures/page.tsx": [
+      "components/dashboard/MoneyLines.tsx",
+      "components/dashboard/PageHeader.tsx",
+      "components/dashboard/pills.ts",
+      "components/dashboard/ui.tsx",
+      "components/ui/Icon.tsx",
+      "lib/billing.ts",
+      "lib/company.ts",
+      "lib/format.ts",
+      "lib/guard.ts",
+      "lib/money.ts",
+      "lib/server/queries.ts",
+      "lib/settings.ts"
+    ],
+    "app/(app)/dashboard/layout.tsx": [
+      "components/dashboard/AppShell.tsx",
+      "components/dashboard/nav.ts",
+      "lib/account.ts",
+      "lib/guard.ts",
+      "lib/permissions.ts",
+      "lib/settings.ts",
+      "lib/theme-server.ts"
+    ],
+    "app/(app)/dashboard/notifications/MarkAllReadButton.tsx": [
+      "app/(app)/dashboard/notifications/actions.ts",
+      "components/dashboard/ui.tsx"
+    ],
+    "app/(app)/dashboard/notifications/actions.ts": [
+      "lib/db/index.ts",
+      "lib/db/schema.ts",
+      "lib/guard.ts",
+      "lib/realtime.ts"
+    ],
+    "app/(app)/dashboard/notifications/page.tsx": [
+      "components/dashboard/NotificationFeed.tsx",
+      "components/dashboard/PageHeader.tsx",
+      "lib/db/index.ts",
+      "lib/db/schema.ts",
+      "lib/guard.ts"
+    ],
+    "app/(app)/dashboard/page.tsx": [
+      "components/dashboard/PageHeader.tsx",
+      "components/dashboard/QuotaMeter.tsx",
+      "components/dashboard/pills.ts",
+      "components/dashboard/ui.tsx",
+      "components/ui/Icon.tsx",
+      "lib/account.ts",
+      "lib/company.ts",
+      "lib/db/index.ts",
+      "lib/db/schema.ts",
+      "lib/format.ts",
+      "lib/guard.ts",
+      "lib/money.ts",
+      "lib/quotas.ts",
+      "lib/requests.ts",
+      "lib/server/demos.ts",
+      "lib/server/queries.ts",
+      "lib/settings.ts"
+    ],
+    "app/(app)/dashboard/profil/actions.ts": [
+      "lib/account.ts",
+      "lib/actions.ts",
+      "lib/db/index.ts",
+      "lib/db/schema.ts",
+      "lib/guard.ts"
+    ],
+    "app/(app)/dashboard/profil/page.tsx": [
+      "components/dashboard/PageHeader.tsx",
+      "components/dashboard/ProfileForms.tsx",
+      "lib/db/index.ts",
+      "lib/db/schema.ts",
+      "lib/format.ts",
+      "lib/guard.ts"
+    ],
+    "app/(app)/heroui.css": [],
+    "app/(app)/layout.tsx": [
+      "app/(app)/heroui.css"
+    ],
+    "app/(auth)/AuthBackdrop.tsx": [],
+    "app/(auth)/AuthScene.tsx": [],
+    "app/(auth)/AuthVisual.tsx": [],
+    "app/(auth)/acces-refuse/page.tsx": [
+      "lib/permissions.ts"
+    ],
+    "app/(auth)/auth.css": [],
+    "app/(auth)/compte-suspendu/page.tsx": [
+      "components/auth/AuthForms.tsx",
+      "lib/guard.ts"
+    ],
+    "app/(auth)/connexion/page.tsx": [
+      "components/auth/AuthForms.tsx",
+      "lib/guard.ts",
+      "lib/settings.ts"
+    ],
+    "app/(auth)/inscription/page.tsx": [
+      "components/auth/AuthForms.tsx",
+      "lib/guard.ts",
+      "lib/settings.ts"
+    ],
+    "app/(auth)/layout.tsx": [
+      "app/(app)/heroui.css",
+      "app/(auth)/AuthBackdrop.tsx",
+      "app/(auth)/AuthVisual.tsx",
+      "app/(auth)/auth.css"
+    ],
+    "app/(auth)/mot-de-passe-oublie/page.tsx": [
+      "components/auth/AuthForms.tsx"
+    ],
+    "app/(auth)/reinitialiser/page.tsx": [
+      "components/auth/AuthForms.tsx"
+    ],
+    "app/(auth)/verification/page.tsx": [],
+    "app/(marketing)/layout.tsx": [
+      "components/layout/Footer.tsx",
+      "components/layout/Navbar.tsx",
+      "lib/content/index.ts"
+    ],
+    "app/(marketing)/page.tsx": [
+      "components/sections/ConnectedSolutions.tsx",
+      "components/sections/Contact.tsx",
+      "components/sections/DataCommitment.tsx",
+      "components/sections/DataIntelligence.tsx",
+      "components/sections/FAQHome.tsx",
+      "components/sections/Hero.tsx",
+      "components/sections/HighlightsReel.tsx",
+      "components/sections/Integrations.tsx",
+      "components/sections/MigrationProgram.tsx",
+      "components/sections/OcrDemo.tsx",
+      "components/sections/PerformanceMetrics.tsx",
+      "components/sections/PlatformShowcase.tsx",
+      "components/sections/Reliability.tsx",
+      "components/sections/ScaleSpecs.tsx",
+      "components/sections/Security.tsx",
+      "components/sections/SolutionFinder.tsx",
+      "components/sections/SolutionsGrid.tsx",
+      "components/sections/Values.tsx",
+      "components/sections/WhyUs.tsx",
+      "components/seo/JsonLd.tsx",
+      "lib/content/index.ts",
+      "lib/seo/schema.ts"
+    ],
+    "app/(marketing)/solutions/[slug]/opengraph-image.tsx": [
+      "lib/content/index.ts",
+      "lib/site.ts"
+    ],
+    "app/(marketing)/solutions/[slug]/page.tsx": [
+      "components/sections/solution/SolutionContact.tsx",
+      "components/sections/solution/SolutionFAQ.tsx",
+      "components/sections/solution/SolutionFeatures.tsx",
+      "components/sections/solution/SolutionHero.tsx",
+      "components/sections/solution/SolutionMedia.tsx",
+      "components/sections/solution/SolutionRelated.tsx",
+      "components/sections/solution/SolutionSteps.tsx",
+      "components/sections/solution/SolutionStory.tsx",
+      "components/sections/solution/SolutionSubProjects.tsx",
+      "components/sections/solution/SolutionVideoReveal.tsx",
+      "components/seo/JsonLd.tsx",
+      "lib/content/index.ts",
+      "lib/seo/schema.ts"
+    ],
+    "app/api/auth/[...all]/route.ts": [
+      "lib/auth.ts"
+    ],
+    "app/api/contact/route.ts": [
+      "lib/account.ts",
+      "lib/db/index.ts",
+      "lib/db/schema.ts",
+      "lib/email.ts",
+      "lib/site.ts"
+    ],
+    "app/api/demos/secret/route.ts": [
+      "lib/account.ts",
+      "lib/crypto.ts",
+      "lib/db/index.ts",
+      "lib/db/schema.ts",
+      "lib/demos.ts",
+      "lib/guard.ts",
+      "lib/permissions.ts",
+      "lib/server/demos.ts"
+    ],
+    "app/api/documents/[kind]/[id]/route.ts": [
+      "lib/guard.ts",
+      "lib/pdf/render.ts",
+      "lib/permissions.ts"
+    ],
+    "app/api/notifications/[id]/open/route.ts": [
+      "lib/db/index.ts",
+      "lib/db/schema.ts",
+      "lib/guard.ts",
+      "lib/realtime.ts"
+    ],
+    "app/api/notifications/route.ts": [
+      "lib/account.ts",
+      "lib/guard.ts"
+    ],
+    "app/api/preview-status/route.ts": [
+      "lib/content/index.ts"
+    ],
+    "app/api/realtime/route.ts": [
+      "lib/account.ts",
+      "lib/guard.ts",
+      "lib/realtime.ts"
+    ],
+    "app/api/uploads/route.ts": [
+      "lib/account.ts",
+      "lib/db/index.ts",
+      "lib/db/schema.ts",
+      "lib/guard.ts",
+      "lib/permissions.ts",
+      "lib/quotas.ts",
+      "lib/server/demos.ts",
+      "lib/storage.ts"
+    ],
+    "app/apple-icon.tsx": [],
+    "app/globals.css": [],
+    "app/icon.tsx": [],
+    "app/layout.tsx": [
+      "app/globals.css",
+      "components/seo/JsonLd.tsx",
+      "lib/content/index.ts",
+      "lib/seo/schema.ts",
+      "lib/site.ts"
+    ],
+    "app/manifest.ts": [
+      "lib/site.ts"
+    ],
+    "app/media/[id]/route.ts": [
+      "lib/db/index.ts",
+      "lib/db/schema.ts",
+      "lib/storage.ts"
+    ],
+    "app/opengraph-image.tsx": [
+      "lib/site.ts"
+    ],
+    "app/robots.ts": [
+      "lib/site.ts"
+    ],
+    "app/sitemap.ts": [
+      "lib/content/index.ts",
+      "lib/site.ts"
+    ],
+    "components/auth/AuthForms.tsx": [
+      "components/dashboard/ui.tsx",
+      "components/ui/Icon.tsx",
+      "lib/auth-client.ts",
+      "lib/password.ts"
+    ],
+    "components/dashboard/AppShell.tsx": [
+      "components/dashboard/RealtimeProvider.tsx",
+      "components/dashboard/nav.ts",
+      "components/ui/Icon.tsx",
+      "lib/auth-client.ts",
+      "lib/cn.ts",
+      "lib/theme.ts"
+    ],
+    "components/dashboard/ChatComposer.tsx": [
+      "components/ui/Icon.tsx",
+      "lib/actions.ts",
+      "lib/cn.ts",
+      "lib/format.ts",
+      "lib/upload-client.ts"
+    ],
+    "components/dashboard/FileUpload.tsx": [
+      "components/ui/Icon.tsx",
+      "lib/format.ts",
+      "lib/upload-client.ts"
+    ],
+    "components/dashboard/FilterBar.tsx": [
+      "components/ui/Icon.tsx",
+      "lib/cn.ts"
+    ],
+    "components/dashboard/MoneyLines.tsx": [
+      "lib/db/schema.ts",
+      "lib/money.ts"
+    ],
+    "components/dashboard/NotificationFeed.tsx": [
+      "app/(app)/dashboard/notifications/MarkAllReadButton.tsx",
+      "app/(app)/dashboard/notifications/actions.ts",
+      "components/dashboard/PageHeader.tsx",
+      "components/dashboard/ui.tsx",
+      "components/ui/Icon.tsx",
+      "lib/cn.ts",
+      "lib/format.ts",
+      "lib/types.ts"
+    ],
+    "components/dashboard/PageHeader.tsx": [
+      "components/ui/Icon.tsx",
+      "lib/cn.ts"
+    ],
+    "components/dashboard/ProfileForms.tsx": [
+      "app/(app)/dashboard/profil/actions.ts",
+      "components/dashboard/ui.tsx",
+      "components/ui/Icon.tsx",
+      "lib/actions.ts",
+      "lib/auth-client.ts",
+      "lib/format.ts"
+    ],
+    "components/dashboard/QuotaMeter.tsx": [
+      "lib/cn.ts",
+      "lib/format.ts",
+      "lib/quotas.ts"
+    ],
+    "components/dashboard/RealtimeProvider.tsx": [
+      "components/ui/Icon.tsx"
+    ],
+    "components/dashboard/Thread.tsx": [
+      "components/dashboard/ThreadViewport.tsx",
+      "components/ui/Icon.tsx",
+      "lib/cn.ts",
+      "lib/format.ts"
+    ],
+    "components/dashboard/ThreadViewport.tsx": [
+      "components/ui/Icon.tsx"
+    ],
+    "components/dashboard/billing/DocumentEditor.tsx": [
+      "app/(app)/admin/devis/actions.ts",
+      "app/(app)/admin/factures/actions.ts",
+      "components/dashboard/billing/DocumentPreview.tsx",
+      "components/dashboard/billing/ImagePicker.tsx",
+      "components/dashboard/ui.tsx",
+      "components/ui/Icon.tsx",
+      "lib/actions.ts",
+      "lib/cn.ts",
+      "lib/company.ts",
+      "lib/money.ts"
+    ],
+    "components/dashboard/billing/DocumentPreview.tsx": [
+      "lib/cn.ts",
+      "lib/company.ts",
+      "lib/money.ts"
+    ],
+    "components/dashboard/billing/ImagePicker.tsx": [
+      "components/ui/Icon.tsx",
+      "lib/upload-client.ts"
+    ],
+    "components/dashboard/demos/DemoBlocks.tsx": [
+      "app/(app)/dashboard/demos/actions.ts",
+      "components/dashboard/FileUpload.tsx",
+      "components/dashboard/demos/RevealSecret.tsx",
+      "components/dashboard/pills.ts",
+      "components/dashboard/ui.tsx",
+      "components/ui/Icon.tsx",
+      "lib/demos.ts",
+      "lib/format.ts",
+      "lib/markdown.tsx"
+    ],
+    "components/dashboard/demos/RevealSecret.tsx": [
+      "components/ui/Icon.tsx"
+    ],
+    "components/dashboard/nav.ts": [
+      "lib/permissions.ts",
+      "lib/types.ts"
+    ],
+    "components/dashboard/pills.ts": [],
+    "components/dashboard/site/BlockEditor.tsx": [
+      "app/(app)/admin/site/actions.ts",
+      "components/dashboard/site/SpecForm.tsx",
+      "components/dashboard/ui.tsx",
+      "components/ui/Icon.tsx",
+      "lib/actions.ts",
+      "lib/content/forms.ts",
+      "lib/content/schema.ts"
+    ],
+    "components/dashboard/site/FieldHint.tsx": [
+      "components/ui/Icon.tsx",
+      "lib/content/forms.ts"
+    ],
+    "components/dashboard/site/IconPicker.tsx": [
+      "components/ui/Icon.tsx",
+      "lib/cn.ts",
+      "lib/types.ts"
+    ],
+    "components/dashboard/site/MediaField.tsx": [
+      "components/ui/Icon.tsx",
+      "lib/cn.ts",
+      "lib/upload-client.ts"
+    ],
+    "components/dashboard/site/NewSolutionForm.tsx": [
+      "app/(app)/admin/site/actions.ts",
+      "components/dashboard/ui.tsx",
+      "lib/actions.ts"
+    ],
+    "components/dashboard/site/SectionCard.tsx": [
+      "components/ui/Icon.tsx",
+      "lib/cn.ts"
+    ],
+    "components/dashboard/site/SiteTabs.tsx": [
+      "components/ui/Icon.tsx",
+      "lib/cn.ts",
+      "lib/types.ts"
+    ],
+    "components/dashboard/site/SolutionEditor.tsx": [
+      "app/(app)/admin/site/actions.ts",
+      "components/dashboard/site/FieldHint.tsx",
+      "components/dashboard/site/MediaField.tsx",
+      "components/dashboard/site/SpecForm.tsx",
+      "components/dashboard/ui.tsx",
+      "components/ui/Icon.tsx",
+      "lib/actions.ts",
+      "lib/cn.ts",
+      "lib/content/forms.ts",
+      "lib/content/schema.ts"
+    ],
+    "components/dashboard/site/SpecForm.tsx": [
+      "components/dashboard/site/FieldHint.tsx",
+      "components/dashboard/site/IconPicker.tsx",
+      "components/dashboard/site/MediaField.tsx",
+      "components/ui/Icon.tsx",
+      "lib/cn.ts",
+      "lib/content/forms.ts",
+      "lib/types.ts"
+    ],
+    "components/dashboard/ui.tsx": [
+      "lib/actions.ts",
+      "lib/cn.ts"
+    ],
+    "components/layout/Footer.tsx": [
+      "components/ui/Container.tsx",
+      "components/ui/Icon.tsx",
+      "components/ui/SocialIcon.tsx",
+      "lib/content/schema.ts"
+    ],
+    "components/layout/Navbar.tsx": [
+      "lib/cn.ts"
+    ],
+    "components/sections/AudienceTabs.tsx": [
+      "components/ui/Container.tsx",
+      "components/ui/Icon.tsx",
+      "components/ui/SectionHeading.tsx",
+      "components/ui/Tabs.tsx",
+      "lib/content/schema.ts",
+      "lib/types.ts"
+    ],
+    "components/sections/ConnectedSolutions.tsx": [
+      "components/ui/Badge.tsx",
+      "components/ui/Container.tsx",
+      "components/ui/Icon.tsx",
+      "components/ui/Reveal.tsx",
+      "components/ui/SectionHeading.tsx",
+      "lib/content/schema.ts"
+    ],
+    "components/sections/Contact.tsx": [
+      "components/ui/Container.tsx",
+      "components/ui/Icon.tsx",
+      "components/ui/SectionHeading.tsx",
+      "components/ui/Turnstile.tsx",
+      "lib/content/schema.ts",
+      "lib/types.ts"
+    ],
+    "components/sections/DataCommitment.tsx": [
+      "components/ui/Container.tsx",
+      "components/ui/Icon.tsx",
+      "components/ui/Reveal.tsx",
+      "components/ui/SectionHeading.tsx",
+      "lib/content/schema.ts"
+    ],
+    "components/sections/DataIntelligence.tsx": [
+      "components/ui/Button.tsx",
+      "components/ui/Container.tsx",
+      "components/ui/Icon.tsx",
+      "components/ui/MediaSlot.tsx",
+      "components/ui/Reveal.tsx",
+      "components/ui/SectionHeading.tsx",
+      "lib/content/schema.ts",
+      "lib/types.ts"
+    ],
+    "components/sections/DeviceShowcase.tsx": [
+      "components/ui/Badge.tsx",
+      "components/ui/HandUnderline.tsx",
+      "components/ui/Icon.tsx",
+      "components/ui/LivePreview.tsx",
+      "lib/cn.ts",
+      "lib/content/schema.ts",
+      "lib/gsap.ts",
+      "lib/palette.ts",
+      "lib/scrollLock.ts",
+      "lib/types.ts"
+    ],
+    "components/sections/FAQHome.tsx": [
+      "components/ui/Accordion.tsx",
+      "components/ui/Container.tsx",
+      "components/ui/SectionHeading.tsx",
+      "lib/content/schema.ts"
+    ],
+    "components/sections/Hero.tsx": [
+      "components/sections/hero/HeroVisual.tsx",
+      "components/ui/Badge.tsx",
+      "components/ui/Button.tsx",
+      "components/ui/TypeCycle.tsx",
+      "lib/content/schema.ts",
+      "lib/types.ts"
+    ],
+    "components/sections/HighlightsReel.tsx": [
+      "components/ui/Container.tsx",
+      "components/ui/HandUnderline.tsx",
+      "components/ui/Icon.tsx",
+      "lib/cn.ts",
+      "lib/content/schema.ts",
+      "lib/gsap.ts",
+      "lib/palette.ts",
+      "lib/types.ts"
+    ],
+    "components/sections/Integrations.tsx": [
+      "components/ui/Container.tsx",
+      "components/ui/Icon.tsx",
+      "components/ui/Reveal.tsx",
+      "components/ui/SectionHeading.tsx",
+      "lib/content/schema.ts"
+    ],
+    "components/sections/MigrationProgram.tsx": [
+      "components/ui/Button.tsx",
+      "components/ui/Container.tsx",
+      "components/ui/Reveal.tsx",
+      "components/ui/SectionHeading.tsx",
+      "lib/content/schema.ts"
+    ],
+    "components/sections/OcrDemo.tsx": [
+      "components/ui/Container.tsx",
+      "components/ui/Icon.tsx",
+      "components/ui/MediaSlot.tsx",
+      "components/ui/Reveal.tsx",
+      "components/ui/SectionHeading.tsx",
+      "lib/content/schema.ts",
+      "lib/types.ts"
+    ],
+    "components/sections/PerformanceMetrics.tsx": [
+      "components/ui/Container.tsx",
+      "components/ui/Reveal.tsx",
+      "components/ui/SectionHeading.tsx",
+      "components/ui/StatCounter.tsx",
+      "lib/content/schema.ts",
+      "lib/types.ts"
+    ],
+    "components/sections/PlatformShowcase.tsx": [
+      "components/ui/Container.tsx",
+      "components/ui/MediaSlot.tsx",
+      "components/ui/Reveal.tsx",
+      "components/ui/SectionHeading.tsx",
+      "lib/content/schema.ts",
+      "lib/types.ts"
+    ],
+    "components/sections/Reliability.tsx": [
+      "components/ui/Badge.tsx",
+      "components/ui/Container.tsx",
+      "components/ui/Reveal.tsx",
+      "components/ui/StatCounter.tsx",
+      "lib/content/schema.ts"
+    ],
+    "components/sections/ScaleSpecs.tsx": [
+      "components/ui/Container.tsx",
+      "components/ui/Icon.tsx",
+      "components/ui/Reveal.tsx",
+      "components/ui/SectionHeading.tsx",
+      "lib/content/schema.ts"
+    ],
+    "components/sections/Security.tsx": [
+      "components/ui/Container.tsx",
+      "components/ui/Icon.tsx",
+      "components/ui/Reveal.tsx",
+      "components/ui/SectionHeading.tsx",
+      "lib/content/schema.ts"
+    ],
+    "components/sections/SolutionFinder.tsx": [
+      "components/ui/Badge.tsx",
+      "components/ui/Container.tsx",
+      "components/ui/Reveal.tsx",
+      "components/ui/SectionHeading.tsx",
+      "lib/content/schema.ts"
+    ],
+    "components/sections/SolutionsGrid.tsx": [
+      "components/ui/Badge.tsx",
+      "components/ui/Container.tsx",
+      "components/ui/Icon.tsx",
+      "components/ui/MediaSlot.tsx",
+      "components/ui/Reveal.tsx",
+      "components/ui/SectionHeading.tsx",
+      "lib/content/schema.ts",
+      "lib/types.ts"
+    ],
+    "components/sections/UniverseReveal.tsx": [
+      "components/ui/Badge.tsx",
+      "lib/content/schema.ts",
+      "lib/gsap.ts"
+    ],
+    "components/sections/Values.tsx": [
+      "components/ui/Container.tsx",
+      "components/ui/Icon.tsx",
+      "components/ui/Reveal.tsx",
+      "components/ui/SectionHeading.tsx",
+      "lib/content/schema.ts"
+    ],
+    "components/sections/WhyUs.tsx": [
+      "components/ui/Accordion.tsx",
+      "components/ui/Container.tsx",
+      "components/ui/SectionHeading.tsx",
+      "lib/content/schema.ts"
+    ],
+    "components/sections/hero/HeroSlides.tsx": [
+      "components/sections/hero/HeroVideo.tsx",
+      "components/ui/Icon.tsx",
+      "components/ui/LoadingImage.tsx",
+      "lib/cn.ts",
+      "lib/content/schema.ts"
+    ],
+    "components/sections/hero/HeroVideo.tsx": [
+      "components/ui/Icon.tsx"
+    ],
+    "components/sections/hero/HeroVisual.tsx": [
+      "components/sections/hero/HeroSlides.tsx",
+      "components/sections/hero/HeroVideo.tsx",
+      "components/three/fallbacks.tsx",
+      "components/ui/ErrorBoundary.tsx",
+      "components/ui/LoadingImage.tsx",
+      "lib/content/schema.ts",
+      "lib/types.ts"
+    ],
+    "components/sections/solution/PaletteAura.tsx": [
+      "lib/cn.ts",
+      "lib/gsap.ts",
+      "lib/palette.ts",
+      "lib/types.ts"
+    ],
+    "components/sections/solution/SolutionContact.tsx": [
+      "components/ui/Container.tsx",
+      "components/ui/Icon.tsx",
+      "components/ui/SectionHeading.tsx",
+      "components/ui/Turnstile.tsx",
+      "lib/types.ts"
+    ],
+    "components/sections/solution/SolutionFAQ.tsx": [
+      "components/ui/Accordion.tsx",
+      "components/ui/Container.tsx",
+      "components/ui/SectionHeading.tsx",
+      "lib/types.ts"
+    ],
+    "components/sections/solution/SolutionFeatures.tsx": [
+      "components/ui/Container.tsx",
+      "components/ui/Icon.tsx",
+      "components/ui/Reveal.tsx",
+      "components/ui/SectionHeading.tsx",
+      "lib/palette.ts",
+      "lib/types.ts"
+    ],
+    "components/sections/solution/SolutionHero.tsx": [
+      "components/sections/solution/SolutionHeroStage.tsx",
+      "components/ui/Badge.tsx",
+      "components/ui/Button.tsx",
+      "lib/types.ts"
+    ],
+    "components/sections/solution/SolutionHeroStage.tsx": [
+      "components/sections/solution/PaletteAura.tsx",
+      "components/ui/Icon.tsx",
+      "components/ui/LivePreview.tsx",
+      "components/ui/LoadingImage.tsx",
+      "lib/cn.ts",
+      "lib/palette.ts",
+      "lib/scrollLock.ts",
+      "lib/types.ts"
+    ],
+    "components/sections/solution/SolutionMedia.tsx": [
+      "components/ui/Button.tsx",
+      "components/ui/Container.tsx",
+      "components/ui/Icon.tsx",
+      "components/ui/MediaSlot.tsx",
+      "components/ui/Reveal.tsx",
+      "components/ui/SectionHeading.tsx",
+      "lib/palette.ts",
+      "lib/types.ts"
+    ],
+    "components/sections/solution/SolutionRelated.tsx": [
+      "components/ui/Container.tsx",
+      "components/ui/Icon.tsx",
+      "components/ui/MediaSlot.tsx",
+      "components/ui/Reveal.tsx",
+      "components/ui/SectionHeading.tsx",
+      "lib/types.ts"
+    ],
+    "components/sections/solution/SolutionSteps.tsx": [
+      "components/ui/Container.tsx",
+      "components/ui/Reveal.tsx",
+      "components/ui/SectionHeading.tsx",
+      "lib/palette.ts",
+      "lib/types.ts"
+    ],
+    "components/sections/solution/SolutionStory.tsx": [
+      "components/ui/Container.tsx",
+      "components/ui/Reveal.tsx",
+      "components/ui/SectionHeading.tsx",
+      "components/ui/StatCounter.tsx",
+      "lib/types.ts"
+    ],
+    "components/sections/solution/SolutionSubProjects.tsx": [
+      "components/ui/Container.tsx",
+      "components/ui/Reveal.tsx",
+      "components/ui/SectionHeading.tsx",
+      "lib/types.ts"
+    ],
+    "components/sections/solution/SolutionVideoReveal.tsx": [
+      "components/ui/Badge.tsx",
+      "components/ui/Icon.tsx",
+      "lib/cn.ts",
+      "lib/gsap.ts",
+      "lib/palette.ts",
+      "lib/scrollLock.ts",
+      "lib/types.ts"
+    ],
+    "components/seo/JsonLd.tsx": [],
+    "components/three/EarthNetwork.tsx": [
+      "components/three/fallbacks.tsx",
+      "components/three/sky.tsx",
+      "components/ui/Icon.tsx",
+      "lib/types.ts"
+    ],
+    "components/three/InfraStack.tsx": [
+      "components/three/fallbacks.tsx",
+      "components/three/sky.tsx",
+      "components/ui/Icon.tsx",
+      "lib/types.ts"
+    ],
+    "components/three/fallbacks.tsx": [],
+    "components/three/sky.tsx": [],
+    "components/ui/Accordion.tsx": [
+      "components/ui/Icon.tsx",
+      "lib/cn.ts",
+      "lib/gsap.ts"
+    ],
+    "components/ui/Badge.tsx": [
+      "lib/cn.ts"
+    ],
+    "components/ui/Button.tsx": [
+      "components/ui/Icon.tsx",
+      "lib/cn.ts"
+    ],
+    "components/ui/Container.tsx": [
+      "lib/cn.ts"
+    ],
+    "components/ui/ErrorBoundary.tsx": [],
+    "components/ui/HandUnderline.tsx": [
+      "lib/cn.ts"
+    ],
+    "components/ui/Icon.tsx": [
+      "lib/types.ts"
+    ],
+    "components/ui/LivePreview.tsx": [
+      "lib/cn.ts"
+    ],
+    "components/ui/LoadingImage.tsx": [
+      "lib/cn.ts"
+    ],
+    "components/ui/MediaSlot.tsx": [
+      "components/ui/Icon.tsx",
+      "components/ui/LoadingImage.tsx",
+      "lib/cn.ts",
+      "lib/palette.ts",
+      "lib/types.ts"
+    ],
+    "components/ui/Reveal.tsx": [
+      "lib/cn.ts",
+      "lib/gsap.ts"
+    ],
+    "components/ui/SectionHeading.tsx": [
+      "components/ui/Badge.tsx",
+      "components/ui/Reveal.tsx",
+      "lib/cn.ts"
+    ],
+    "components/ui/SocialIcon.tsx": [
+      "lib/content/schema.ts"
+    ],
+    "components/ui/StatCounter.tsx": [
+      "lib/cn.ts",
+      "lib/gsap.ts"
+    ],
+    "components/ui/Tabs.tsx": [
+      "lib/cn.ts"
+    ],
+    "components/ui/Turnstile.tsx": [],
+    "components/ui/TypeCycle.tsx": [
+      "lib/cn.ts"
+    ],
+    "drizzle.config.ts": [],
+    "eslint.config.mjs": [],
+    "lib/account.ts": [
+      "lib/db/index.ts",
+      "lib/db/schema.ts",
+      "lib/permissions.ts",
+      "lib/realtime.ts"
+    ],
+    "lib/actions.ts": [],
+    "lib/auth-client.ts": [
+      "lib/auth.ts"
+    ],
+    "lib/auth.ts": [
+      "lib/db/index.ts",
+      "lib/db/schema.ts",
+      "lib/email.ts",
+      "lib/password.ts",
+      "lib/settings.ts",
+      "lib/site.ts"
+    ],
+    "lib/billing-lines.ts": [
+      "lib/company.ts",
+      "lib/db/index.ts",
+      "lib/db/schema.ts",
+      "lib/money.ts",
+      "lib/ref.ts"
+    ],
+    "lib/billing-preview.ts": [
+      "components/dashboard/billing/DocumentPreview.tsx",
+      "lib/db/schema.ts"
+    ],
+    "lib/billing-send.ts": [
+      "lib/db/index.ts",
+      "lib/db/schema.ts",
+      "lib/email.ts",
+      "lib/format.ts",
+      "lib/money.ts",
+      "lib/pdf/render.ts",
+      "lib/settings.ts",
+      "lib/site.ts",
+      "lib/storage.ts"
+    ],
+    "lib/billing.ts": [],
+    "lib/cn.ts": [],
+    "lib/company.ts": [],
+    "lib/content/defaults.ts": [
+      "lib/content/schema.ts",
+      "lib/data/media.ts",
+      "lib/data/services.ts",
+      "lib/types.ts"
+    ],
+    "lib/content/forms.ts": [
+      "lib/content/schema.ts",
+      "lib/types.ts"
+    ],
+    "lib/content/index.ts": [
+      "lib/content/defaults.ts",
+      "lib/content/schema.ts",
+      "lib/data/media.ts",
+      "lib/db/index.ts",
+      "lib/db/schema.ts",
+      "lib/types.ts"
+    ],
+    "lib/content/schema.ts": [
+      "lib/types.ts"
+    ],
+    "lib/crypto.ts": [],
+    "lib/data/media.ts": [
+      "lib/types.ts"
+    ],
+    "lib/data/services.ts": [
+      "lib/data/media.ts",
+      "lib/types.ts"
+    ],
+    "lib/db/index.ts": [
+      "lib/db/schema.ts"
+    ],
+    "lib/db/migrations/0000_needy_jackal.sql": [],
+    "lib/db/migrations/0001_modern_darwin.sql": [],
+    "lib/db/migrations/0002_nifty_maddog.sql": [],
+    "lib/db/migrations/0003_sour_infant_terrible.sql": [],
+    "lib/db/migrations/meta/0000_snapshot.json": [],
+    "lib/db/migrations/meta/0001_snapshot.json": [],
+    "lib/db/migrations/meta/0002_snapshot.json": [],
+    "lib/db/migrations/meta/0003_snapshot.json": [],
+    "lib/db/migrations/meta/_journal.json": [],
+    "lib/db/schema.ts": [],
+    "lib/db/seed.ts": [
+      "lib/db/index.ts",
+      "lib/db/schema.ts",
+      "lib/settings.ts"
+    ],
+    "lib/demos.ts": [],
+    "lib/email.ts": [
+      "lib/site.ts"
+    ],
+    "lib/format.ts": [],
+    "lib/gsap.ts": [],
+    "lib/guard.ts": [
+      "lib/auth.ts",
+      "lib/permissions.ts"
+    ],
+    "lib/kv.ts": [],
+    "lib/markdown.tsx": [],
+    "lib/money.ts": [
+      "lib/db/schema.ts"
+    ],
+    "lib/palette.ts": [
+      "lib/types.ts"
+    ],
+    "lib/password.ts": [],
+    "lib/pdf/BillingDocument.tsx": [
+      "lib/db/schema.ts",
+      "lib/settings.ts"
+    ],
+    "lib/pdf/render.ts": [
+      "lib/db/index.ts",
+      "lib/db/schema.ts",
+      "lib/pdf/BillingDocument.tsx",
+      "lib/settings.ts",
+      "lib/storage.ts"
+    ],
+    "lib/permissions.ts": [],
+    "lib/quota-labels.ts": [],
+    "lib/quotas.ts": [
+      "lib/db/index.ts",
+      "lib/db/schema.ts",
+      "lib/quota-labels.ts"
+    ],
+    "lib/realtime.ts": [
+      "lib/db/index.ts"
+    ],
+    "lib/ref.ts": [],
+    "lib/requests.ts": [],
+    "lib/scrollLock.ts": [],
+    "lib/seo/schema.ts": [
+      "lib/site.ts",
+      "lib/types.ts"
+    ],
+    "lib/server/demos.ts": [
+      "lib/db/index.ts",
+      "lib/db/schema.ts",
+      "lib/demos.ts"
+    ],
+    "lib/server/queries.ts": [
+      "lib/db/index.ts",
+      "lib/db/schema.ts"
+    ],
+    "lib/settings.ts": [
+      "lib/company.ts",
+      "lib/db/index.ts",
+      "lib/db/schema.ts"
+    ],
+    "lib/site.ts": [],
+    "lib/storage.ts": [],
+    "lib/theme-server.ts": [
+      "lib/theme.ts"
+    ],
+    "lib/theme.ts": [],
+    "lib/types.ts": [],
+    "lib/upload-client.ts": [],
+    "neon.ts": [],
+    "next.config.ts": [],
+    "package.json": [],
+    "pnpm-workspace.yaml": [],
+    "postcss.config.mjs": [],
+    "proxy.ts": [],
+    "public/videos/lp_video.webm": [],
+    "public/videos/ocr_video.webm": [],
+    "scripts/docker-push.ps1": [],
+    "scripts/docker-push.sh": [],
+    "skills-lock.json": [],
+    "tsconfig.json": [],
+    "vitest.config.mts": []
+  }
+}

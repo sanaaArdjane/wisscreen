@@ -1,0 +1,32 @@
+{
+  "nodes": [
+    {
+      "id": "document:.agents/skills/neon-postgres/references/full-text-search.md",
+      "type": "document",
+      "name": "full-text-search.md",
+      "filePath": ".agents/skills/neon-postgres/references/full-text-search.md",
+      "summary": "Vendored Neon plugin reference for BM25 full-text search on Postgres: indexing text, querying and interpreting scores, and tuning the candidate limit and prefilter.",
+      "tags": ["documentation", "vendored", "neon", "search", "postgres"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:.agents/skills/neon-postgres/references/hybrid-search.md",
+      "type": "document",
+      "name": "hybrid-search.md",
+      "filePath": ".agents/skills/neon-postgres/references/hybrid-search.md",
+      "summary": "Vendored Neon plugin reference for hybrid search, combining full-text and vector search results with Reciprocal Rank Fusion (RRF) and adapting the query to a project's own schema.",
+      "tags": ["documentation", "vendored", "neon", "search", "postgres"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:.agents/skills/neon-postgres/references/vector-search.md",
+      "type": "document",
+      "name": "vector-search.md",
+      "filePath": ".agents/skills/neon-postgres/references/vector-search.md",
+      "summary": "Vendored Neon plugin reference for semantic vector search on Postgres: enabling the extension, preparing embeddings, building and tuning an index, and tuning query-time search parameters.",
+      "tags": ["documentation", "vendored", "neon", "search", "postgres"],
+      "complexity": "moderate"
+    }
+  ],
+  "edges": []
+}

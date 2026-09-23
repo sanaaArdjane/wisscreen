@@ -1,0 +1,1805 @@
+{
+ "nodes": [
+  {
+   "id": "file:components/sections/solution/SolutionHeroStage.tsx",
+   "type": "file",
+   "name": "SolutionHeroStage.tsx",
+   "filePath": "components/sections/solution/SolutionHeroStage.tsx",
+   "summary": "Client-side stage for the solution hero: renders the project's live site inside a drawn browser-window frame with three size states (inset/hero/full-screen), an interaction shield to hand pointer control to the embedded iframe, and Fullscreen API integration.",
+   "tags": [
+    "component",
+    "live-preview",
+    "iframe",
+    "fullscreen",
+    "client-component",
+    "hero"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "file:components/sections/solution/SolutionMedia.tsx",
+   "type": "file",
+   "name": "SolutionMedia.tsx",
+   "filePath": "components/sections/solution/SolutionMedia.tsx",
+   "summary": "Media gallery and demo-request CTA section for a solution's sub-landing page, showing screenshots via MediaSlot with a \"provisional\" notice while every slot is still a placeholder.",
+   "tags": [
+    "component",
+    "media-gallery",
+    "cta"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:components/sections/solution/SolutionRelated.tsx",
+   "type": "file",
+   "name": "SolutionRelated.tsx",
+   "filePath": "components/sections/solution/SolutionRelated.tsx",
+   "summary": "\"Other solutions in the ecosystem\" cross-links section shown at the bottom of a solution page, excluding the current solution.",
+   "tags": [
+    "component",
+    "related-content",
+    "navigation"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:components/sections/solution/SolutionSteps.tsx",
+   "type": "file",
+   "name": "SolutionSteps.tsx",
+   "filePath": "components/sections/solution/SolutionSteps.tsx",
+   "summary": "Numbered step-by-step \"how it works\" grid for a solution's sub-landing page.",
+   "tags": [
+    "component",
+    "steps",
+    "marketing-section"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:components/sections/solution/SolutionStory.tsx",
+   "type": "file",
+   "name": "SolutionStory.tsx",
+   "filePath": "components/sections/solution/SolutionStory.tsx",
+   "summary": "Solution detail/story section pairing descriptive paragraphs with a sidebar of animated stat counters.",
+   "tags": [
+    "component",
+    "stats",
+    "marketing-section"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:components/sections/solution/SolutionSubProjects.tsx",
+   "type": "file",
+   "name": "SolutionSubProjects.tsx",
+   "filePath": "components/sections/solution/SolutionSubProjects.tsx",
+   "summary": "Optional section listing a solution's sub-projects (e.g. Etaysir under WIFACILITY) as cards; renders nothing if the solution has none.",
+   "tags": [
+    "component",
+    "sub-projects",
+    "marketing-section"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:components/sections/solution/SolutionVideoReveal.tsx",
+   "type": "file",
+   "name": "SolutionVideoReveal.tsx",
+   "filePath": "components/sections/solution/SolutionVideoReveal.tsx",
+   "summary": "Scroll-driven presentation-video reveal on a solution page: a small rounded video card grows to full-bleed as the section arrives in view, with fullscreen support, a manual stretch override, and gated autoplay.",
+   "tags": [
+    "component",
+    "scroll-animation",
+    "gsap",
+    "video",
+    "fullscreen",
+    "client-component"
+   ],
+   "complexity": "complex",
+   "languageNotes": "Growth progress is derived from the section's arrival (\"top bottom\" -> \"bottom bottom\") rather than the pinned scroll track, and card geometry is interpolated as explicit pixel width/height rather than CSS scale() to avoid distorting border radius and text."
+  },
+  {
+   "id": "file:components/seo/JsonLd.tsx",
+   "type": "file",
+   "name": "JsonLd.tsx",
+   "filePath": "components/seo/JsonLd.tsx",
+   "summary": "Renders one JSON-LD structured-data <script> block, escaping \"<\" so embedded string data can never break out of the tag.",
+   "tags": [
+    "component",
+    "seo",
+    "structured-data"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:components/three/EarthNetwork.tsx",
+   "type": "file",
+   "name": "EarthNetwork.tsx",
+   "filePath": "components/three/EarthNetwork.tsx",
+   "summary": "Default-export 3D globe scene (react-three-fiber) used by the homepage hero's \"earth\" visual mode: a rotating sphere with fresnel atmosphere, a fibonacci-distributed starfield backdrop, per-solution markers alternating signal/cool accent colors, and connecting arcs, with pop-in entrance animation and hover/click interaction.",
+   "tags": [
+    "component",
+    "three-js",
+    "webgl",
+    "hero",
+    "3d-scene",
+    "client-component"
+   ],
+   "complexity": "complex",
+   "languageNotes": "Uses spherical-to-cartesian placement, a fibonacci sphere distribution for stars, and a hand-written fresnel shader for the atmosphere glow (no postprocessing dependency)."
+  },
+  {
+   "id": "file:components/three/InfraStack.tsx",
+   "type": "file",
+   "name": "InfraStack.tsx",
+   "filePath": "components/three/InfraStack.tsx",
+   "summary": "Default-export 3D infrastructure-stack scene (react-three-fiber) used by the homepage hero's \"stack\" visual mode: four glass layers (Applications/Données/Calcul/Réseau) with etched patterns, status LEDs and a scan line, corner pillars carrying packets, one glowing module per solution linked between layers, and a grid floor with rising motes.",
+   "tags": [
+    "component",
+    "three-js",
+    "webgl",
+    "hero",
+    "3d-scene",
+    "client-component"
+   ],
+   "complexity": "complex",
+   "languageNotes": "Retuned for a light hero ground: normal blending plus steel/signal-deep \"WIRE\" colors for anything drawn over the background, while additive blending is kept only for elements drawn on the dark glass layer plates."
+  },
+  {
+   "id": "file:components/three/fallbacks.tsx",
+   "type": "file",
+   "name": "fallbacks.tsx",
+   "filePath": "components/three/fallbacks.tsx",
+   "summary": "Pure-CSS stand-ins for the two hero 3D scenes: loading placeholders and WebGL/error-boundary fallbacks, kept apart from the scene files so importing a fallback never pulls three.js into the main bundle.",
+   "tags": [
+    "component",
+    "fallback",
+    "three-js",
+    "css-only"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:components/three/sky.tsx",
+   "type": "file",
+   "name": "sky.tsx",
+   "filePath": "components/three/sky.tsx",
+   "summary": "Shared starfield/nebula/meteor background, brand color constants, and canvas texture generators used by the 3D hero scenes.",
+   "tags": [
+    "component",
+    "three-js",
+    "webgl",
+    "texture",
+    "shared"
+   ],
+   "complexity": "complex",
+   "languageNotes": "sizeAttenuation={false} on every star layer is the key trick that keeps distant point-based stars visible in pixel-size terms rather than collapsing to sub-pixel under perspective attenuation."
+  },
+  {
+   "id": "function:components/sections/solution/SolutionHeroStage.tsx:SolutionHeroStage",
+   "type": "function",
+   "name": "SolutionHeroStage",
+   "filePath": "components/sections/solution/SolutionHeroStage.tsx",
+   "lineRange": [
+    92,
+    338
+   ],
+   "summary": "Owns the solution hero's live-preview browser-window frame: three size states (inset/hero/fullscreen), Fullscreen API wiring with a fixed-overlay fallback, pointer-handoff shield over the embedded iframe, and layered fallbacks (previewUrl -> showcaseImage -> generated mock).",
+   "tags": [
+    "component",
+    "live-preview",
+    "fullscreen",
+    "exported"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "function:components/sections/solution/SolutionHeroStage.tsx:FrameChrome",
+   "type": "function",
+   "name": "FrameChrome",
+   "filePath": "components/sections/solution/SolutionHeroStage.tsx",
+   "lineRange": [
+    341,
+    414
+   ],
+   "summary": "Renders the drawn browser-window title bar: traffic lights, host address pill with a loading pulse, and stretch/fullscreen/open-in-new-tab controls.",
+   "tags": [
+    "component",
+    "chrome"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:components/sections/solution/SolutionHeroStage.tsx:FrameMock",
+   "type": "function",
+   "name": "FrameMock",
+   "filePath": "components/sections/solution/SolutionHeroStage.tsx",
+   "lineRange": [
+    421,
+    446
+   ],
+   "summary": "Generated on-brand placeholder shown inside the preview frame before any real screenshot or live preview is available.",
+   "tags": [
+    "component",
+    "placeholder"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:components/sections/solution/SolutionMedia.tsx:SolutionMedia",
+   "type": "function",
+   "name": "SolutionMedia",
+   "filePath": "components/sections/solution/SolutionMedia.tsx",
+   "lineRange": [
+    10,
+    60
+   ],
+   "summary": "Renders the solution's media gallery grid plus a demo-access request CTA, with copy that flags placeholder images until real assets are set.",
+   "tags": [
+    "component",
+    "media-gallery",
+    "exported"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:components/sections/solution/SolutionRelated.tsx:SolutionRelated",
+   "type": "function",
+   "name": "SolutionRelated",
+   "filePath": "components/sections/solution/SolutionRelated.tsx",
+   "lineRange": [
+    10,
+    38
+   ],
+   "summary": "Renders cross-links to the other published solutions, or nothing if there are none.",
+   "tags": [
+    "component",
+    "related-content",
+    "exported"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:components/sections/solution/SolutionSteps.tsx:SolutionSteps",
+   "type": "function",
+   "name": "SolutionSteps",
+   "filePath": "components/sections/solution/SolutionSteps.tsx",
+   "lineRange": [
+    7,
+    27
+   ],
+   "summary": "Renders a solution's numbered how-it-works steps in a responsive grid.",
+   "tags": [
+    "component",
+    "exported"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:components/sections/solution/SolutionStory.tsx:SolutionStory",
+   "type": "function",
+   "name": "SolutionStory",
+   "filePath": "components/sections/solution/SolutionStory.tsx",
+   "lineRange": [
+    7,
+    33
+   ],
+   "summary": "Renders solution description paragraphs alongside a sidebar of animated stat counters.",
+   "tags": [
+    "component",
+    "stats",
+    "exported"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:components/sections/solution/SolutionSubProjects.tsx:SolutionSubProjects",
+   "type": "function",
+   "name": "SolutionSubProjects",
+   "filePath": "components/sections/solution/SolutionSubProjects.tsx",
+   "lineRange": [
+    6,
+    32
+   ],
+   "summary": "Renders a solution's sub-projects as cards, or nothing if the solution has none.",
+   "tags": [
+    "component",
+    "exported"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:components/sections/solution/SolutionVideoReveal.tsx:SolutionVideoReveal",
+   "type": "function",
+   "name": "SolutionVideoReveal",
+   "filePath": "components/sections/solution/SolutionVideoReveal.tsx",
+   "lineRange": [
+    89,
+    473
+   ],
+   "summary": "Drives the presentation-video reveal: computes section-arrival-based growth progress via ScrollTrigger, paints explicit pixel geometry for the growing card, gates autoplay on stretch+visibility, and manages fullscreen/manual-override state.",
+   "tags": [
+    "component",
+    "scroll-animation",
+    "fullscreen",
+    "exported"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "function:components/sections/solution/SolutionVideoReveal.tsx:VideoMock",
+   "type": "function",
+   "name": "VideoMock",
+   "filePath": "components/sections/solution/SolutionVideoReveal.tsx",
+   "lineRange": [
+    480,
+    519
+   ],
+   "summary": "Generated on-brand placeholder shown inside the video frame until presentationVideo is set.",
+   "tags": [
+    "component",
+    "placeholder"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:components/seo/JsonLd.tsx:JsonLd",
+   "type": "function",
+   "name": "JsonLd",
+   "filePath": "components/seo/JsonLd.tsx",
+   "lineRange": [
+    7,
+    15
+   ],
+   "summary": "Serializes and escapes a data object into a JSON-LD <script type=\"application/ld+json\"> tag.",
+   "tags": [
+    "component",
+    "seo",
+    "exported"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:components/three/EarthNetwork.tsx:sphericalToCartesian",
+   "type": "function",
+   "name": "sphericalToCartesian",
+   "filePath": "components/three/EarthNetwork.tsx",
+   "lineRange": [
+    51,
+    64
+   ],
+   "summary": "Converts spherical (phi/theta) angles plus radius into a THREE.Vector3 for placing markers on the globe surface.",
+   "tags": [
+    "three-js",
+    "math",
+    "geometry"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:components/three/EarthNetwork.tsx:fibonacciSphere",
+   "type": "function",
+   "name": "fibonacciSphere",
+   "filePath": "components/three/EarthNetwork.tsx",
+   "lineRange": [
+    66,
+    79
+   ],
+   "summary": "Generates an evenly-distributed set of points on a sphere using the fibonacci/golden-angle method, used for the starfield.",
+   "tags": [
+    "three-js",
+    "math",
+    "geometry"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:components/three/EarthNetwork.tsx:Atmosphere",
+   "type": "function",
+   "name": "Atmosphere",
+   "filePath": "components/three/EarthNetwork.tsx",
+   "lineRange": [
+    91,
+    134
+   ],
+   "summary": "Renders the globe's soft fresnel-falloff atmospheric rim light via a custom shader material.",
+   "tags": [
+    "three-js",
+    "shader",
+    "webgl"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:components/three/EarthNetwork.tsx:GlobeBody",
+   "type": "function",
+   "name": "GlobeBody",
+   "filePath": "components/three/EarthNetwork.tsx",
+   "lineRange": [
+    139,
+    212
+   ],
+   "summary": "Renders the globe's solid sphere mesh with its surface texture and grid lines.",
+   "tags": [
+    "three-js",
+    "webgl"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:components/three/EarthNetwork.tsx:ServiceMarker",
+   "type": "function",
+   "name": "ServiceMarker",
+   "filePath": "components/three/EarthNetwork.tsx",
+   "lineRange": [
+    214,
+    459
+   ],
+   "summary": "Renders one interactive solution marker pill on the globe: hover/click handling, signal/cool accent alternation, hover escalation to signal-bright, and the label/preview hover card.",
+   "tags": [
+    "three-js",
+    "webgl",
+    "interaction"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "function:components/three/EarthNetwork.tsx:ServiceArc",
+   "type": "function",
+   "name": "ServiceArc",
+   "filePath": "components/three/EarthNetwork.tsx",
+   "lineRange": [
+    463,
+    525
+   ],
+   "summary": "Draws the connecting arc line between two service markers on the globe surface.",
+   "tags": [
+    "three-js",
+    "webgl"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:components/three/EarthNetwork.tsx:Scene",
+   "type": "function",
+   "name": "Scene",
+   "filePath": "components/three/EarthNetwork.tsx",
+   "lineRange": [
+    527,
+    692
+   ],
+   "summary": "Composes the globe scene: camera/controls, lighting, atmosphere, starfield/sky layers, and the set of service markers and arcs, with pop-in entrance timing.",
+   "tags": [
+    "three-js",
+    "webgl",
+    "scene"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "function:components/three/EarthNetwork.tsx:EarthNetwork",
+   "type": "function",
+   "name": "EarthNetwork",
+   "filePath": "components/three/EarthNetwork.tsx",
+   "lineRange": [
+    694,
+    771
+   ],
+   "summary": "Default-exported entry component: mounts the globe inside a react-three-fiber Canvas with WebGL fallback, fade-in on context creation, and an interaction hint overlay.",
+   "tags": [
+    "three-js",
+    "webgl",
+    "exported",
+    "entry-point"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "function:components/three/InfraStack.tsx:patternTexture",
+   "type": "function",
+   "name": "patternTexture",
+   "filePath": "components/three/InfraStack.tsx",
+   "lineRange": [
+    104,
+    201
+   ],
+   "summary": "Generates one of the layer-specific etched canvas textures (app tiles, disk clusters, server racks, circuit traces) used on each glass layer's surface.",
+   "tags": [
+    "three-js",
+    "canvas-texture",
+    "procedural"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "function:components/three/InfraStack.tsx:floorTexture",
+   "type": "function",
+   "name": "floorTexture",
+   "filePath": "components/three/InfraStack.tsx",
+   "lineRange": [
+    204,
+    233
+   ],
+   "summary": "Generates the glowing grid-floor canvas texture beneath the stack.",
+   "tags": [
+    "three-js",
+    "canvas-texture",
+    "procedural"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:components/three/InfraStack.tsx:Blinkers",
+   "type": "function",
+   "name": "Blinkers",
+   "filePath": "components/three/InfraStack.tsx",
+   "lineRange": [
+    250,
+    327
+   ],
+   "summary": "Renders a layer's blinking status LEDs and sweeping scan line, additively blended onto the dark glass plate.",
+   "tags": [
+    "three-js",
+    "webgl",
+    "animation"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:components/three/InfraStack.tsx:Layer",
+   "type": "function",
+   "name": "Layer",
+   "filePath": "components/three/InfraStack.tsx",
+   "lineRange": [
+    329,
+    422
+   ],
+   "summary": "Renders one glass infrastructure layer: its etched pattern texture, edges, blinkers, and unfold animation.",
+   "tags": [
+    "three-js",
+    "webgl"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "function:components/three/InfraStack.tsx:Pillar",
+   "type": "function",
+   "name": "Pillar",
+   "filePath": "components/three/InfraStack.tsx",
+   "lineRange": [
+    429,
+    483
+   ],
+   "summary": "Renders one corner light pillar carrying packets between layers.",
+   "tags": [
+    "three-js",
+    "webgl",
+    "animation"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:components/three/InfraStack.tsx:ModuleLink",
+   "type": "function",
+   "name": "ModuleLink",
+   "filePath": "components/three/InfraStack.tsx",
+   "lineRange": [
+    486,
+    537
+   ],
+   "summary": "Renders the beam connecting a service module to the next layer.",
+   "tags": [
+    "three-js",
+    "webgl"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:components/three/InfraStack.tsx:Floor",
+   "type": "function",
+   "name": "Floor",
+   "filePath": "components/three/InfraStack.tsx",
+   "lineRange": [
+    539,
+    551
+   ],
+   "summary": "Renders the grid floor mesh with its glowing texture beneath the stack.",
+   "tags": [
+    "three-js",
+    "webgl"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:components/three/InfraStack.tsx:Uplink",
+   "type": "function",
+   "name": "Uplink",
+   "filePath": "components/three/InfraStack.tsx",
+   "lineRange": [
+    555,
+    627
+   ],
+   "summary": "Renders rising motes/particles from the floor into the stack.",
+   "tags": [
+    "three-js",
+    "webgl",
+    "animation"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:components/three/InfraStack.tsx:ServiceModule",
+   "type": "function",
+   "name": "ServiceModule",
+   "filePath": "components/three/InfraStack.tsx",
+   "lineRange": [
+    633,
+    809
+   ],
+   "summary": "Renders one interactive glowing service module docked on a layer: hover/click handling, dark-glass lit-from-within look, and the label/preview hover card.",
+   "tags": [
+    "three-js",
+    "webgl",
+    "interaction"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "function:components/three/InfraStack.tsx:Scene",
+   "type": "function",
+   "name": "Scene",
+   "filePath": "components/three/InfraStack.tsx",
+   "lineRange": [
+    826,
+    977
+   ],
+   "summary": "Composes the infra-stack scene: camera/controls, lighting, the four layers, pillars, modules and links, and floor, with the pop-then-unfold entrance sequence.",
+   "tags": [
+    "three-js",
+    "webgl",
+    "scene"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "function:components/three/InfraStack.tsx:useReducedMotion",
+   "type": "function",
+   "name": "useReducedMotion",
+   "filePath": "components/three/InfraStack.tsx",
+   "lineRange": [
+    979,
+    990
+   ],
+   "summary": "Hook reading the prefers-reduced-motion media query via useSyncExternalStore for gating the stack's entrance and idle animations.",
+   "tags": [
+    "hook",
+    "accessibility"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:components/three/InfraStack.tsx:InfraStack",
+   "type": "function",
+   "name": "InfraStack",
+   "filePath": "components/three/InfraStack.tsx",
+   "lineRange": [
+    992,
+    1059
+   ],
+   "summary": "Default-exported entry component: mounts the infra-stack scene inside a react-three-fiber Canvas with WebGL fallback, fade-in on context creation, and an interaction hint overlay.",
+   "tags": [
+    "three-js",
+    "webgl",
+    "exported",
+    "entry-point"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "function:components/three/fallbacks.tsx:EarthNetworkFallback",
+   "type": "function",
+   "name": "EarthNetworkFallback",
+   "filePath": "components/three/fallbacks.tsx",
+   "lineRange": [
+    16,
+    39
+   ],
+   "summary": "Pure-CSS static stand-in for the globe scene, used as loading/WebGL-unavailable/error-boundary fallback.",
+   "tags": [
+    "fallback",
+    "css-only",
+    "exported"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:components/three/fallbacks.tsx:EarthSkyPlaceholder",
+   "type": "function",
+   "name": "EarthSkyPlaceholder",
+   "filePath": "components/three/fallbacks.tsx",
+   "lineRange": [
+    47,
+    54
+   ],
+   "summary": "Minimal ambient-glow placeholder shown transiently while the globe's 3D chunk loads.",
+   "tags": [
+    "fallback",
+    "css-only",
+    "exported"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:components/three/fallbacks.tsx:InfraStackFallback",
+   "type": "function",
+   "name": "InfraStackFallback",
+   "filePath": "components/three/fallbacks.tsx",
+   "lineRange": [
+    61,
+    88
+   ],
+   "summary": "Pure-CSS static stand-in for the infra-stack scene, used as loading/WebGL-unavailable/error-boundary fallback.",
+   "tags": [
+    "fallback",
+    "css-only",
+    "exported"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:components/three/fallbacks.tsx:InfraSkyPlaceholder",
+   "type": "function",
+   "name": "InfraSkyPlaceholder",
+   "filePath": "components/three/fallbacks.tsx",
+   "lineRange": [
+    94,
+    101
+   ],
+   "summary": "Minimal ambient-glow placeholder shown transiently while the infra-stack's 3D chunk loads.",
+   "tags": [
+    "fallback",
+    "css-only",
+    "exported"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:components/three/sky.tsx:hash",
+   "type": "function",
+   "name": "hash",
+   "filePath": "components/three/sky.tsx",
+   "lineRange": [
+    29,
+    32
+   ],
+   "summary": "Deterministic pseudo-random float generator from an index, safe to call during render (pure, unlike Math.random).",
+   "tags": [
+    "three-js",
+    "math",
+    "exported"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:components/three/sky.tsx:radialGlowTexture",
+   "type": "function",
+   "name": "radialGlowTexture",
+   "filePath": "components/three/sky.tsx",
+   "lineRange": [
+    34,
+    56
+   ],
+   "summary": "Generates a radial-gradient canvas texture used for glow sprites.",
+   "tags": [
+    "three-js",
+    "canvas-texture",
+    "exported"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:components/three/sky.tsx:starTexture",
+   "type": "function",
+   "name": "starTexture",
+   "filePath": "components/three/sky.tsx",
+   "lineRange": [
+    64,
+    85
+   ],
+   "summary": "Generates the mapped sprite texture that makes starfield points render as soft circles instead of hard squares.",
+   "tags": [
+    "three-js",
+    "canvas-texture",
+    "exported"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:components/three/sky.tsx:writeStarColor",
+   "type": "function",
+   "name": "writeStarColor",
+   "filePath": "components/three/sky.tsx",
+   "lineRange": [
+    93,
+    114
+   ],
+   "summary": "Writes a per-star vertex color inside the brand palette (mostly paper, a cool minority toward aqua, a few toward signal) into a color buffer.",
+   "tags": [
+    "three-js",
+    "color",
+    "procedural"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:components/three/sky.tsx:buildStarLayer",
+   "type": "function",
+   "name": "buildStarLayer",
+   "filePath": "components/three/sky.tsx",
+   "lineRange": [
+    117,
+    135
+   ],
+   "summary": "Builds one star-layer's buffer geometry (positions and colors) for a given shell radius.",
+   "tags": [
+    "three-js",
+    "geometry",
+    "procedural"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:components/three/sky.tsx:buildStarBand",
+   "type": "function",
+   "name": "buildStarBand",
+   "filePath": "components/three/sky.tsx",
+   "lineRange": [
+    138,
+    165
+   ],
+   "summary": "Builds a denser band of stars distributed within a radius range, used for depth variation.",
+   "tags": [
+    "three-js",
+    "geometry",
+    "procedural"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:components/three/sky.tsx:StarLayer",
+   "type": "function",
+   "name": "StarLayer",
+   "filePath": "components/three/sky.tsx",
+   "lineRange": [
+    168,
+    205
+   ],
+   "summary": "Renders one additively-blended, non-size-attenuated star shell with independent rotation.",
+   "tags": [
+    "three-js",
+    "webgl"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:components/three/sky.tsx:StarField",
+   "type": "function",
+   "name": "StarField",
+   "filePath": "components/three/sky.tsx",
+   "lineRange": [
+    212,
+    304
+   ],
+   "summary": "Renders the full multi-shell starfield backdrop (~9.6k points across several draw calls) — the core visual element that makes the background sky read as photographed rather than illustrated.",
+   "tags": [
+    "three-js",
+    "webgl",
+    "exported"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "function:components/three/sky.tsx:BrightStars",
+   "type": "function",
+   "name": "BrightStars",
+   "filePath": "components/three/sky.tsx",
+   "lineRange": [
+    313,
+    393
+   ],
+   "summary": "Renders a handful of bright stars with halo, core, and crossed diffraction-spike sprites, kept rare and positioned clear of the logo and copy.",
+   "tags": [
+    "three-js",
+    "webgl",
+    "exported"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "function:components/three/sky.tsx:ShootingStar",
+   "type": "function",
+   "name": "ShootingStar",
+   "filePath": "components/three/sky.tsx",
+   "lineRange": [
+    396,
+    471
+   ],
+   "summary": "Renders one animated meteor streak.",
+   "tags": [
+    "three-js",
+    "webgl",
+    "animation"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:components/three/sky.tsx:NebulaCloud",
+   "type": "function",
+   "name": "NebulaCloud",
+   "filePath": "components/three/sky.tsx",
+   "lineRange": [
+    475,
+    501
+   ],
+   "summary": "Renders one faint additively-blended gas-cloud sprite for background color temperature.",
+   "tags": [
+    "three-js",
+    "webgl",
+    "exported"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:components/three/sky.tsx:Meteors",
+   "type": "function",
+   "name": "Meteors",
+   "filePath": "components/three/sky.tsx",
+   "lineRange": [
+    509,
+    538
+   ],
+   "summary": "Renders the set of shooting-star meteors across the sky.",
+   "tags": [
+    "three-js",
+    "webgl",
+    "exported"
+   ],
+   "complexity": "simple"
+  }
+ ],
+ "edges": [
+  {
+   "source": "file:components/sections/solution/SolutionHeroStage.tsx",
+   "target": "function:components/sections/solution/SolutionHeroStage.tsx:SolutionHeroStage",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:components/sections/solution/SolutionHeroStage.tsx",
+   "target": "function:components/sections/solution/SolutionHeroStage.tsx:SolutionHeroStage",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:components/sections/solution/SolutionHeroStage.tsx",
+   "target": "function:components/sections/solution/SolutionHeroStage.tsx:FrameChrome",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:components/sections/solution/SolutionHeroStage.tsx",
+   "target": "function:components/sections/solution/SolutionHeroStage.tsx:FrameMock",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:components/sections/solution/SolutionMedia.tsx",
+   "target": "function:components/sections/solution/SolutionMedia.tsx:SolutionMedia",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:components/sections/solution/SolutionMedia.tsx",
+   "target": "function:components/sections/solution/SolutionMedia.tsx:SolutionMedia",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:components/sections/solution/SolutionRelated.tsx",
+   "target": "function:components/sections/solution/SolutionRelated.tsx:SolutionRelated",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:components/sections/solution/SolutionRelated.tsx",
+   "target": "function:components/sections/solution/SolutionRelated.tsx:SolutionRelated",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:components/sections/solution/SolutionSteps.tsx",
+   "target": "function:components/sections/solution/SolutionSteps.tsx:SolutionSteps",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:components/sections/solution/SolutionSteps.tsx",
+   "target": "function:components/sections/solution/SolutionSteps.tsx:SolutionSteps",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:components/sections/solution/SolutionStory.tsx",
+   "target": "function:components/sections/solution/SolutionStory.tsx:SolutionStory",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:components/sections/solution/SolutionStory.tsx",
+   "target": "function:components/sections/solution/SolutionStory.tsx:SolutionStory",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:components/sections/solution/SolutionSubProjects.tsx",
+   "target": "function:components/sections/solution/SolutionSubProjects.tsx:SolutionSubProjects",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:components/sections/solution/SolutionSubProjects.tsx",
+   "target": "function:components/sections/solution/SolutionSubProjects.tsx:SolutionSubProjects",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:components/sections/solution/SolutionVideoReveal.tsx",
+   "target": "function:components/sections/solution/SolutionVideoReveal.tsx:SolutionVideoReveal",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:components/sections/solution/SolutionVideoReveal.tsx",
+   "target": "function:components/sections/solution/SolutionVideoReveal.tsx:SolutionVideoReveal",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:components/sections/solution/SolutionVideoReveal.tsx",
+   "target": "function:components/sections/solution/SolutionVideoReveal.tsx:VideoMock",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:components/seo/JsonLd.tsx",
+   "target": "function:components/seo/JsonLd.tsx:JsonLd",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:components/seo/JsonLd.tsx",
+   "target": "function:components/seo/JsonLd.tsx:JsonLd",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:components/three/EarthNetwork.tsx",
+   "target": "function:components/three/EarthNetwork.tsx:sphericalToCartesian",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:components/three/EarthNetwork.tsx",
+   "target": "function:components/three/EarthNetwork.tsx:fibonacciSphere",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:components/three/EarthNetwork.tsx",
+   "target": "function:components/three/EarthNetwork.tsx:Atmosphere",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:components/three/EarthNetwork.tsx",
+   "target": "function:components/three/EarthNetwork.tsx:GlobeBody",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:components/three/EarthNetwork.tsx",
+   "target": "function:components/three/EarthNetwork.tsx:ServiceMarker",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:components/three/EarthNetwork.tsx",
+   "target": "function:components/three/EarthNetwork.tsx:ServiceArc",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:components/three/EarthNetwork.tsx",
+   "target": "function:components/three/EarthNetwork.tsx:Scene",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:components/three/EarthNetwork.tsx",
+   "target": "function:components/three/EarthNetwork.tsx:EarthNetwork",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:components/three/EarthNetwork.tsx",
+   "target": "function:components/three/EarthNetwork.tsx:EarthNetwork",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:components/three/InfraStack.tsx",
+   "target": "function:components/three/InfraStack.tsx:patternTexture",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:components/three/InfraStack.tsx",
+   "target": "function:components/three/InfraStack.tsx:floorTexture",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:components/three/InfraStack.tsx",
+   "target": "function:components/three/InfraStack.tsx:Blinkers",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:components/three/InfraStack.tsx",
+   "target": "function:components/three/InfraStack.tsx:Layer",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:components/three/InfraStack.tsx",
+   "target": "function:components/three/InfraStack.tsx:Pillar",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:components/three/InfraStack.tsx",
+   "target": "function:components/three/InfraStack.tsx:ModuleLink",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:components/three/InfraStack.tsx",
+   "target": "function:components/three/InfraStack.tsx:Floor",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:components/three/InfraStack.tsx",
+   "target": "function:components/three/InfraStack.tsx:Uplink",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:components/three/InfraStack.tsx",
+   "target": "function:components/three/InfraStack.tsx:ServiceModule",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:components/three/InfraStack.tsx",
+   "target": "function:components/three/InfraStack.tsx:Scene",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:components/three/InfraStack.tsx",
+   "target": "function:components/three/InfraStack.tsx:useReducedMotion",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:components/three/InfraStack.tsx",
+   "target": "function:components/three/InfraStack.tsx:InfraStack",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:components/three/InfraStack.tsx",
+   "target": "function:components/three/InfraStack.tsx:InfraStack",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:components/three/fallbacks.tsx",
+   "target": "function:components/three/fallbacks.tsx:EarthNetworkFallback",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:components/three/fallbacks.tsx",
+   "target": "function:components/three/fallbacks.tsx:EarthNetworkFallback",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:components/three/fallbacks.tsx",
+   "target": "function:components/three/fallbacks.tsx:EarthSkyPlaceholder",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:components/three/fallbacks.tsx",
+   "target": "function:components/three/fallbacks.tsx:EarthSkyPlaceholder",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:components/three/fallbacks.tsx",
+   "target": "function:components/three/fallbacks.tsx:InfraStackFallback",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:components/three/fallbacks.tsx",
+   "target": "function:components/three/fallbacks.tsx:InfraStackFallback",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:components/three/fallbacks.tsx",
+   "target": "function:components/three/fallbacks.tsx:InfraSkyPlaceholder",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:components/three/fallbacks.tsx",
+   "target": "function:components/three/fallbacks.tsx:InfraSkyPlaceholder",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:components/three/sky.tsx",
+   "target": "function:components/three/sky.tsx:hash",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:components/three/sky.tsx",
+   "target": "function:components/three/sky.tsx:hash",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:components/three/sky.tsx",
+   "target": "function:components/three/sky.tsx:radialGlowTexture",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:components/three/sky.tsx",
+   "target": "function:components/three/sky.tsx:radialGlowTexture",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:components/three/sky.tsx",
+   "target": "function:components/three/sky.tsx:starTexture",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:components/three/sky.tsx",
+   "target": "function:components/three/sky.tsx:starTexture",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:components/three/sky.tsx",
+   "target": "function:components/three/sky.tsx:writeStarColor",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:components/three/sky.tsx",
+   "target": "function:components/three/sky.tsx:buildStarLayer",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:components/three/sky.tsx",
+   "target": "function:components/three/sky.tsx:buildStarBand",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:components/three/sky.tsx",
+   "target": "function:components/three/sky.tsx:StarLayer",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:components/three/sky.tsx",
+   "target": "function:components/three/sky.tsx:StarField",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:components/three/sky.tsx",
+   "target": "function:components/three/sky.tsx:StarField",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:components/three/sky.tsx",
+   "target": "function:components/three/sky.tsx:BrightStars",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:components/three/sky.tsx",
+   "target": "function:components/three/sky.tsx:BrightStars",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:components/three/sky.tsx",
+   "target": "function:components/three/sky.tsx:ShootingStar",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:components/three/sky.tsx",
+   "target": "function:components/three/sky.tsx:NebulaCloud",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:components/three/sky.tsx",
+   "target": "function:components/three/sky.tsx:NebulaCloud",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:components/three/sky.tsx",
+   "target": "function:components/three/sky.tsx:Meteors",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:components/three/sky.tsx",
+   "target": "function:components/three/sky.tsx:Meteors",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:components/sections/solution/SolutionHeroStage.tsx",
+   "target": "file:components/sections/solution/PaletteAura.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/solution/SolutionHeroStage.tsx",
+   "target": "file:components/ui/Icon.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/solution/SolutionHeroStage.tsx",
+   "target": "file:components/ui/LivePreview.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/solution/SolutionHeroStage.tsx",
+   "target": "file:components/ui/LoadingImage.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/solution/SolutionHeroStage.tsx",
+   "target": "file:lib/cn.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/solution/SolutionHeroStage.tsx",
+   "target": "file:lib/palette.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/solution/SolutionHeroStage.tsx",
+   "target": "file:lib/scrollLock.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/solution/SolutionHeroStage.tsx",
+   "target": "file:lib/types.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/solution/SolutionMedia.tsx",
+   "target": "file:components/ui/Button.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/solution/SolutionMedia.tsx",
+   "target": "file:components/ui/Container.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/solution/SolutionMedia.tsx",
+   "target": "file:components/ui/Icon.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/solution/SolutionMedia.tsx",
+   "target": "file:components/ui/MediaSlot.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/solution/SolutionMedia.tsx",
+   "target": "file:components/ui/Reveal.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/solution/SolutionMedia.tsx",
+   "target": "file:components/ui/SectionHeading.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/solution/SolutionMedia.tsx",
+   "target": "file:lib/palette.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/solution/SolutionMedia.tsx",
+   "target": "file:lib/types.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/solution/SolutionRelated.tsx",
+   "target": "file:components/ui/Container.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/solution/SolutionRelated.tsx",
+   "target": "file:components/ui/Icon.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/solution/SolutionRelated.tsx",
+   "target": "file:components/ui/MediaSlot.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/solution/SolutionRelated.tsx",
+   "target": "file:components/ui/Reveal.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/solution/SolutionRelated.tsx",
+   "target": "file:components/ui/SectionHeading.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/solution/SolutionRelated.tsx",
+   "target": "file:lib/types.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/solution/SolutionSteps.tsx",
+   "target": "file:components/ui/Container.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/solution/SolutionSteps.tsx",
+   "target": "file:components/ui/Reveal.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/solution/SolutionSteps.tsx",
+   "target": "file:components/ui/SectionHeading.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/solution/SolutionSteps.tsx",
+   "target": "file:lib/palette.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/solution/SolutionSteps.tsx",
+   "target": "file:lib/types.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/solution/SolutionStory.tsx",
+   "target": "file:components/ui/Container.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/solution/SolutionStory.tsx",
+   "target": "file:components/ui/Reveal.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/solution/SolutionStory.tsx",
+   "target": "file:components/ui/SectionHeading.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/solution/SolutionStory.tsx",
+   "target": "file:components/ui/StatCounter.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/solution/SolutionStory.tsx",
+   "target": "file:lib/types.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/solution/SolutionSubProjects.tsx",
+   "target": "file:components/ui/Container.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/solution/SolutionSubProjects.tsx",
+   "target": "file:components/ui/Reveal.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/solution/SolutionSubProjects.tsx",
+   "target": "file:components/ui/SectionHeading.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/solution/SolutionSubProjects.tsx",
+   "target": "file:lib/types.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/solution/SolutionVideoReveal.tsx",
+   "target": "file:components/ui/Badge.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/solution/SolutionVideoReveal.tsx",
+   "target": "file:components/ui/Icon.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/solution/SolutionVideoReveal.tsx",
+   "target": "file:lib/cn.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/solution/SolutionVideoReveal.tsx",
+   "target": "file:lib/gsap.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/solution/SolutionVideoReveal.tsx",
+   "target": "file:lib/palette.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/solution/SolutionVideoReveal.tsx",
+   "target": "file:lib/scrollLock.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/solution/SolutionVideoReveal.tsx",
+   "target": "file:lib/types.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/three/EarthNetwork.tsx",
+   "target": "file:components/three/fallbacks.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/three/EarthNetwork.tsx",
+   "target": "file:components/three/sky.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/three/EarthNetwork.tsx",
+   "target": "file:components/ui/Icon.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/three/EarthNetwork.tsx",
+   "target": "file:lib/types.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/three/InfraStack.tsx",
+   "target": "file:components/three/fallbacks.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/three/InfraStack.tsx",
+   "target": "file:components/three/sky.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/three/InfraStack.tsx",
+   "target": "file:components/ui/Icon.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/three/InfraStack.tsx",
+   "target": "file:lib/types.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  }
+ ]
+}

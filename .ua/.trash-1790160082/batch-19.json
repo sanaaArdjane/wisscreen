@@ -1,0 +1,60 @@
+{
+  "nodes": [
+    {
+      "id": "document:.agents/skills/neon/references/auth.md",
+      "type": "document",
+      "name": "auth.md",
+      "filePath": ".agents/skills/neon/references/auth.md",
+      "summary": "Pointer doc redirecting the neon skill's own auth questions to the separate neon-auth skill, with fetch URLs for its managed and self-managed setup references.",
+      "tags": ["documentation", "reference", "authentication", "skill-pointer"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:.agents/skills/neon/references/claimable-neon.md",
+      "type": "document",
+      "name": "claimable-neon.md",
+      "filePath": ".agents/skills/neon/references/claimable-neon.md",
+      "summary": "Reference for provisioning a temporary, pre-account Neon project via Claimable Neon (CLI and REST), covering creation, claim-code minting, transfer to a human account, and the REST fallback when `neon claim` is unavailable.",
+      "tags": ["documentation", "reference", "provisioning", "cli", "rest-api"],
+      "complexity": "moderate",
+      "languageNotes": "Documents a two-actor flow (agent holds a pre-claim identity assertion, human completes the OAuth-style claim/transfer) with explicit CLI-to-REST endpoint mapping."
+    },
+    {
+      "id": "document:.agents/skills/neon/references/function-triggers.md",
+      "type": "document",
+      "name": "function-triggers.md",
+      "filePath": ".agents/skills/neon/references/function-triggers.md",
+      "summary": "Reference for declaring branch-scoped Function Triggers (cron schedule or storage-object-created) that POST to a Neon Function, via neon.ts, the CLI, or the MCP/REST fallback.",
+      "tags": ["documentation", "reference", "cli", "serverless", "cron"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:.agents/skills/neon/references/logs-loki.md",
+      "type": "document",
+      "name": "logs-loki.md",
+      "filePath": ".agents/skills/neon/references/logs-loki.md",
+      "summary": "Reference for querying Neon Functions and Object Storage logs via the CLI, the Loki-compatible read API, and the @neon/sdk TypeScript client's paginated log iterator.",
+      "tags": ["documentation", "reference", "logging", "observability", "cli"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:.agents/skills/neon/references/parse-env.md",
+      "type": "document",
+      "name": "parse-env.md",
+      "filePath": ".agents/skills/neon/references/parse-env.md",
+      "summary": "Short reference for @neon/env's parseEnv helper, which validates and types environment variables against a neon.ts config, including selecting a required subset.",
+      "tags": ["documentation", "reference", "configuration", "type-safety"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:.agents/skills/neon/references/sdk.md",
+      "type": "document",
+      "name": "sdk.md",
+      "filePath": ".agents/skills/neon/references/sdk.md",
+      "summary": "One-paragraph stub introducing @neon/sdk, the official fetch-based TypeScript client for the Neon API, and pointing to the logs pagination reference for details.",
+      "tags": ["documentation", "reference", "sdk", "skill-pointer"],
+      "complexity": "simple"
+    }
+  ],
+  "edges": []
+}

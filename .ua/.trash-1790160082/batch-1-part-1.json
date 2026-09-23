@@ -1,0 +1,1096 @@
+{
+ "nodes": [
+  {
+   "id": "file:__tests__/lib.test.ts",
+   "type": "file",
+   "name": "lib.test.ts",
+   "filePath": "__tests__/lib.test.ts",
+   "summary": "Vitest unit tests for the cn class-name helper, the SERVICES/withMedia media-registry wiring, and the preview-status route's CSP frame-ancestors matcher (sourceMatches).",
+   "tags": [
+    "test",
+    "unit-test",
+    "media-registry",
+    "security"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:app/(app)/admin/site/accueil/page.tsx",
+   "type": "file",
+   "name": "page.tsx",
+   "filePath": "app/(app)/admin/site/accueil/page.tsx",
+   "summary": "Admin page listing every homepage section as an editable card, showing each section's last-saved timestamp and linking into its BlockEditor.",
+   "tags": [
+    "admin",
+    "dashboard",
+    "site-editor",
+    "server-component"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:app/(app)/admin/site/accueil/page.tsx:HomeSectionsPage",
+   "type": "function",
+   "name": "HomeSectionsPage",
+   "filePath": "app/(app)/admin/site/accueil/page.tsx",
+   "summary": "Server component listing every homepage section as a card with its last-saved date, driven by SECTION_KEYS.",
+   "tags": [
+    "entry-point",
+    "admin",
+    "server-component"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    16,
+    55
+   ]
+  },
+  {
+   "id": "file:app/(app)/admin/site/actions.ts",
+   "type": "file",
+   "name": "actions.ts",
+   "filePath": "app/(app)/admin/site/actions.ts",
+   "summary": "Server actions backing /admin/site: save/reset a content block and create/update/delete/reorder/publish solutions, each re-checking site:write, validating with Zod, upserting into site_content/site_solutions, logging activity, and revalidating the public site.",
+   "tags": [
+    "server-action",
+    "admin",
+    "site-editor",
+    "authorization",
+    "cms"
+   ],
+   "complexity": "complex",
+   "languageNotes": "Every mutating action re-validates permissions and Zod schemas independently rather than trusting the rendered UI, per the project's authorization model."
+  },
+  {
+   "id": "function:app/(app)/admin/site/actions.ts:saveBlock",
+   "type": "function",
+   "name": "saveBlock",
+   "filePath": "app/(app)/admin/site/actions.ts",
+   "summary": "Server action that validates and upserts one site_content block (by BlockKey), then revalidates the site.",
+   "tags": [
+    "server-action",
+    "cms",
+    "validation"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    62,
+    82
+   ]
+  },
+  {
+   "id": "function:app/(app)/admin/site/actions.ts:resetBlock",
+   "type": "function",
+   "name": "resetBlock",
+   "filePath": "app/(app)/admin/site/actions.ts",
+   "summary": "Server action that deletes a stored site_content override, reverting a block to its code default.",
+   "tags": [
+    "server-action",
+    "cms"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    85,
+    92
+   ]
+  },
+  {
+   "id": "function:app/(app)/admin/site/actions.ts:ensureSeeded",
+   "type": "function",
+   "name": "ensureSeeded",
+   "filePath": "app/(app)/admin/site/actions.ts",
+   "summary": "Seeds site_solutions from the default SERVICES the first time a solution write happens against an empty table.",
+   "tags": [
+    "cms",
+    "seeding",
+    "helper"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    100,
+    116
+   ]
+  },
+  {
+   "id": "function:app/(app)/admin/site/actions.ts:saveSolution",
+   "type": "function",
+   "name": "saveSolution",
+   "filePath": "app/(app)/admin/site/actions.ts",
+   "summary": "Server action validating and upserting a solution's content and media, with slug-rename redirect handling.",
+   "tags": [
+    "server-action",
+    "cms",
+    "validation"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    125,
+    175
+   ]
+  },
+  {
+   "id": "function:app/(app)/admin/site/actions.ts:createSolution",
+   "type": "function",
+   "name": "createSolution",
+   "filePath": "app/(app)/admin/site/actions.ts",
+   "summary": "Server action creating a new solution row seeded with blankSolution content and a unique slug/position.",
+   "tags": [
+    "server-action",
+    "cms"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    177,
+    214
+   ]
+  },
+  {
+   "id": "function:app/(app)/admin/site/actions.ts:deleteSolution",
+   "type": "function",
+   "name": "deleteSolution",
+   "filePath": "app/(app)/admin/site/actions.ts",
+   "summary": "Server action permanently removing a solution row after checking site:write.",
+   "tags": [
+    "server-action",
+    "cms"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    216,
+    226
+   ]
+  },
+  {
+   "id": "function:app/(app)/admin/site/actions.ts:moveSolution",
+   "type": "function",
+   "name": "moveSolution",
+   "filePath": "app/(app)/admin/site/actions.ts",
+   "summary": "Server action reordering solutions up or down by swapping position values.",
+   "tags": [
+    "server-action",
+    "cms",
+    "ordering"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    228,
+    249
+   ]
+  },
+  {
+   "id": "function:app/(app)/admin/site/actions.ts:toggleSolution",
+   "type": "function",
+   "name": "toggleSolution",
+   "filePath": "app/(app)/admin/site/actions.ts",
+   "summary": "Server action publishing or hiding a solution.",
+   "tags": [
+    "server-action",
+    "cms"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    251,
+    270
+   ]
+  },
+  {
+   "id": "file:app/(app)/admin/site/content-props.ts",
+   "type": "file",
+   "name": "content-props.ts",
+   "filePath": "app/(app)/admin/site/content-props.ts",
+   "summary": "Shared helper that assembles the solution picker options and upload-availability flag every /admin/site block editor needs.",
+   "tags": [
+    "admin",
+    "site-editor",
+    "utility"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:app/(app)/admin/site/content-props.ts:editorContext",
+   "type": "function",
+   "name": "editorContext",
+   "filePath": "app/(app)/admin/site/content-props.ts",
+   "summary": "Builds the solutions dropdown options and the storage-configured flag shared by every /admin/site block editor.",
+   "tags": [
+    "utility",
+    "admin"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    7,
+    13
+   ]
+  },
+  {
+   "id": "file:app/(app)/admin/site/general/page.tsx",
+   "type": "file",
+   "name": "page.tsx",
+   "filePath": "app/(app)/admin/site/general/page.tsx",
+   "summary": "Admin editor page for the site's general settings and footer content blocks, wiring stored/default content into BlockEditor.",
+   "tags": [
+    "admin",
+    "dashboard",
+    "site-editor",
+    "server-component"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:app/(app)/admin/site/general/page.tsx:GeneralEditorPage",
+   "type": "function",
+   "name": "GeneralEditorPage",
+   "filePath": "app/(app)/admin/site/general/page.tsx",
+   "summary": "Admin page rendering the General and Footer BlockEditors side by side with their stored/default content and last-saved timestamps.",
+   "tags": [
+    "entry-point",
+    "admin",
+    "server-component"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    9,
+    37
+   ]
+  },
+  {
+   "id": "file:app/(app)/admin/site/hero/page.tsx",
+   "type": "file",
+   "name": "page.tsx",
+   "filePath": "app/(app)/admin/site/hero/page.tsx",
+   "summary": "Admin editor page for the homepage hero block (copy and visual mode), wiring stored/default content into BlockEditor.",
+   "tags": [
+    "admin",
+    "dashboard",
+    "site-editor",
+    "server-component"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:app/(app)/admin/site/hero/page.tsx:HeroEditorPage",
+   "type": "function",
+   "name": "HeroEditorPage",
+   "filePath": "app/(app)/admin/site/hero/page.tsx",
+   "summary": "Admin page rendering the Hero BlockEditor with its stored/default content and last-saved timestamp.",
+   "tags": [
+    "entry-point",
+    "admin",
+    "server-component"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    8,
+    23
+   ]
+  },
+  {
+   "id": "file:app/(app)/admin/site/solutions/[slug]/page.tsx",
+   "type": "file",
+   "name": "page.tsx",
+   "filePath": "app/(app)/admin/site/solutions/[slug]/page.tsx",
+   "summary": "Admin editor page for a single solution's content, media and publication state, rendered by SolutionEditor for the slug in the route.",
+   "tags": [
+    "admin",
+    "dashboard",
+    "site-editor",
+    "dynamic-route"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:app/(app)/admin/site/solutions/[slug]/page.tsx:SolutionEditorPage",
+   "type": "function",
+   "name": "SolutionEditorPage",
+   "filePath": "app/(app)/admin/site/solutions/[slug]/page.tsx",
+   "summary": "Admin page resolving a solution by slug from the route params and rendering SolutionEditor, 404ing on an unknown slug.",
+   "tags": [
+    "entry-point",
+    "admin",
+    "dynamic-route"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    9,
+    27
+   ]
+  },
+  {
+   "id": "file:app/(app)/admin/site/solutions/page.tsx",
+   "type": "file",
+   "name": "page.tsx",
+   "filePath": "app/(app)/admin/site/solutions/page.tsx",
+   "summary": "Admin index listing every solution (published and hidden) with quick actions, plus the create-new-solution form, gated on site:write.",
+   "tags": [
+    "admin",
+    "dashboard",
+    "site-editor",
+    "cms"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:app/(app)/admin/site/solutions/page.tsx:SolutionsAdminPage",
+   "type": "function",
+   "name": "SolutionsAdminPage",
+   "filePath": "app/(app)/admin/site/solutions/page.tsx",
+   "summary": "Admin index page listing every solution with status, quick links and a create form, gated by site:write permission.",
+   "tags": [
+    "entry-point",
+    "admin",
+    "cms",
+    "authorization"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    18,
+    137
+   ]
+  },
+  {
+   "id": "file:app/(marketing)/layout.tsx",
+   "type": "file",
+   "name": "layout.tsx",
+   "filePath": "app/(marketing)/layout.tsx",
+   "summary": "Layout for the public marketing route group: fetches site content and solutions once and wraps pages with the Navbar and Footer.",
+   "tags": [
+    "layout",
+    "marketing",
+    "server-component",
+    "entry-point"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:app/(marketing)/layout.tsx:MarketingLayout",
+   "type": "function",
+   "name": "MarketingLayout",
+   "filePath": "app/(marketing)/layout.tsx",
+   "summary": "Marketing route-group layout that loads site content/solutions once and wraps children with Navbar and Footer.",
+   "tags": [
+    "entry-point",
+    "layout",
+    "marketing"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    15,
+    28
+   ]
+  },
+  {
+   "id": "file:app/(marketing)/solutions/[slug]/opengraph-image.tsx",
+   "type": "file",
+   "name": "opengraph-image.tsx",
+   "filePath": "app/(marketing)/solutions/[slug]/opengraph-image.tsx",
+   "summary": "Generates the per-solution Open Graph share image at build time via generateStaticParams over every solution slug.",
+   "tags": [
+    "seo",
+    "opengraph",
+    "image-generation",
+    "static-generation"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:app/(marketing)/solutions/[slug]/opengraph-image.tsx:generateStaticParams",
+   "type": "function",
+   "name": "generateStaticParams",
+   "filePath": "app/(marketing)/solutions/[slug]/opengraph-image.tsx",
+   "summary": "Enumerates every solution slug at build time so a per-solution OG image is statically generated for each.",
+   "tags": [
+    "static-generation",
+    "seo"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    10,
+    12
+   ]
+  },
+  {
+   "id": "function:app/(marketing)/solutions/[slug]/opengraph-image.tsx:Image",
+   "type": "function",
+   "name": "Image",
+   "filePath": "app/(marketing)/solutions/[slug]/opengraph-image.tsx",
+   "summary": "Renders the per-solution Open Graph share image (brand colors, service name/tagline) via next/og ImageResponse.",
+   "tags": [
+    "seo",
+    "opengraph",
+    "image-generation"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    14,
+    102
+   ]
+  }
+ ],
+ "edges": [
+  {
+   "source": "file:__tests__/lib.test.ts",
+   "target": "file:app/api/preview-status/route.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:__tests__/lib.test.ts",
+   "target": "file:lib/cn.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:__tests__/lib.test.ts",
+   "target": "file:lib/data/media.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:__tests__/lib.test.ts",
+   "target": "file:lib/data/services.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:__tests__/lib.test.ts",
+   "target": "file:lib/types.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/site/accueil/page.tsx",
+   "target": "function:app/(app)/admin/site/accueil/page.tsx:HomeSectionsPage",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:app/(app)/admin/site/accueil/page.tsx",
+   "target": "function:app/(app)/admin/site/accueil/page.tsx:HomeSectionsPage",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:app/(app)/admin/site/accueil/page.tsx",
+   "target": "file:app/(app)/admin/site/content-props.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/site/accueil/page.tsx",
+   "target": "file:components/dashboard/site/BlockEditor.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/site/accueil/page.tsx",
+   "target": "file:components/dashboard/site/SectionCard.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/site/accueil/page.tsx",
+   "target": "file:lib/content/forms.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/site/accueil/page.tsx",
+   "target": "file:lib/content/index.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/site/accueil/page.tsx",
+   "target": "file:lib/content/schema.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/site/actions.ts",
+   "target": "function:app/(app)/admin/site/actions.ts:saveBlock",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:app/(app)/admin/site/actions.ts",
+   "target": "function:app/(app)/admin/site/actions.ts:saveBlock",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:app/(app)/admin/site/actions.ts",
+   "target": "function:app/(app)/admin/site/actions.ts:resetBlock",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:app/(app)/admin/site/actions.ts",
+   "target": "function:app/(app)/admin/site/actions.ts:resetBlock",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:app/(app)/admin/site/actions.ts",
+   "target": "function:app/(app)/admin/site/actions.ts:ensureSeeded",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:app/(app)/admin/site/actions.ts",
+   "target": "function:app/(app)/admin/site/actions.ts:saveSolution",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:app/(app)/admin/site/actions.ts",
+   "target": "function:app/(app)/admin/site/actions.ts:saveSolution",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:app/(app)/admin/site/actions.ts",
+   "target": "function:app/(app)/admin/site/actions.ts:createSolution",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:app/(app)/admin/site/actions.ts",
+   "target": "function:app/(app)/admin/site/actions.ts:createSolution",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:app/(app)/admin/site/actions.ts",
+   "target": "function:app/(app)/admin/site/actions.ts:deleteSolution",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:app/(app)/admin/site/actions.ts",
+   "target": "function:app/(app)/admin/site/actions.ts:deleteSolution",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:app/(app)/admin/site/actions.ts",
+   "target": "function:app/(app)/admin/site/actions.ts:moveSolution",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:app/(app)/admin/site/actions.ts",
+   "target": "function:app/(app)/admin/site/actions.ts:moveSolution",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:app/(app)/admin/site/actions.ts",
+   "target": "function:app/(app)/admin/site/actions.ts:toggleSolution",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:app/(app)/admin/site/actions.ts",
+   "target": "function:app/(app)/admin/site/actions.ts:toggleSolution",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:app/(app)/admin/site/actions.ts",
+   "target": "file:lib/account.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/site/actions.ts",
+   "target": "file:lib/actions.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/site/actions.ts",
+   "target": "file:lib/content/defaults.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/site/actions.ts",
+   "target": "file:lib/content/index.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/site/actions.ts",
+   "target": "file:lib/content/schema.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/site/actions.ts",
+   "target": "file:lib/db/index.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/site/actions.ts",
+   "target": "file:lib/db/schema.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/site/actions.ts",
+   "target": "file:lib/guard.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/site/content-props.ts",
+   "target": "function:app/(app)/admin/site/content-props.ts:editorContext",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:app/(app)/admin/site/content-props.ts",
+   "target": "function:app/(app)/admin/site/content-props.ts:editorContext",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:app/(app)/admin/site/content-props.ts",
+   "target": "file:lib/content/forms.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/site/content-props.ts",
+   "target": "file:lib/content/index.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/site/content-props.ts",
+   "target": "file:lib/storage.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/site/general/page.tsx",
+   "target": "function:app/(app)/admin/site/general/page.tsx:GeneralEditorPage",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:app/(app)/admin/site/general/page.tsx",
+   "target": "function:app/(app)/admin/site/general/page.tsx:GeneralEditorPage",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:app/(app)/admin/site/general/page.tsx",
+   "target": "file:app/(app)/admin/site/content-props.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/site/general/page.tsx",
+   "target": "file:components/dashboard/PageHeader.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/site/general/page.tsx",
+   "target": "file:components/dashboard/site/BlockEditor.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/site/general/page.tsx",
+   "target": "file:lib/content/index.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/site/hero/page.tsx",
+   "target": "function:app/(app)/admin/site/hero/page.tsx:HeroEditorPage",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:app/(app)/admin/site/hero/page.tsx",
+   "target": "function:app/(app)/admin/site/hero/page.tsx:HeroEditorPage",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:app/(app)/admin/site/hero/page.tsx",
+   "target": "file:app/(app)/admin/site/content-props.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/site/hero/page.tsx",
+   "target": "file:components/dashboard/site/BlockEditor.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/site/hero/page.tsx",
+   "target": "file:lib/content/index.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/site/solutions/[slug]/page.tsx",
+   "target": "function:app/(app)/admin/site/solutions/[slug]/page.tsx:SolutionEditorPage",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:app/(app)/admin/site/solutions/[slug]/page.tsx",
+   "target": "function:app/(app)/admin/site/solutions/[slug]/page.tsx:SolutionEditorPage",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:app/(app)/admin/site/solutions/[slug]/page.tsx",
+   "target": "file:app/(app)/admin/site/content-props.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/site/solutions/[slug]/page.tsx",
+   "target": "file:components/dashboard/site/SolutionEditor.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/site/solutions/[slug]/page.tsx",
+   "target": "file:lib/content/index.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/site/solutions/page.tsx",
+   "target": "function:app/(app)/admin/site/solutions/page.tsx:SolutionsAdminPage",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:app/(app)/admin/site/solutions/page.tsx",
+   "target": "function:app/(app)/admin/site/solutions/page.tsx:SolutionsAdminPage",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:app/(app)/admin/site/solutions/page.tsx",
+   "target": "file:app/(app)/admin/site/actions.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/site/solutions/page.tsx",
+   "target": "file:components/dashboard/PageHeader.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/site/solutions/page.tsx",
+   "target": "file:components/dashboard/site/FieldHint.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/site/solutions/page.tsx",
+   "target": "file:components/dashboard/site/NewSolutionForm.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/site/solutions/page.tsx",
+   "target": "file:components/dashboard/ui.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/site/solutions/page.tsx",
+   "target": "file:components/ui/Icon.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/site/solutions/page.tsx",
+   "target": "file:lib/content/index.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/site/solutions/page.tsx",
+   "target": "file:lib/guard.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(app)/admin/site/solutions/page.tsx",
+   "target": "file:lib/permissions.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(marketing)/layout.tsx",
+   "target": "function:app/(marketing)/layout.tsx:MarketingLayout",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:app/(marketing)/layout.tsx",
+   "target": "function:app/(marketing)/layout.tsx:MarketingLayout",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:app/(marketing)/layout.tsx",
+   "target": "file:components/layout/Footer.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(marketing)/layout.tsx",
+   "target": "file:components/layout/Navbar.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(marketing)/layout.tsx",
+   "target": "file:lib/content/index.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(marketing)/solutions/[slug]/opengraph-image.tsx",
+   "target": "function:app/(marketing)/solutions/[slug]/opengraph-image.tsx:generateStaticParams",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:app/(marketing)/solutions/[slug]/opengraph-image.tsx",
+   "target": "function:app/(marketing)/solutions/[slug]/opengraph-image.tsx:generateStaticParams",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:app/(marketing)/solutions/[slug]/opengraph-image.tsx",
+   "target": "function:app/(marketing)/solutions/[slug]/opengraph-image.tsx:Image",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:app/(marketing)/solutions/[slug]/opengraph-image.tsx",
+   "target": "function:app/(marketing)/solutions/[slug]/opengraph-image.tsx:Image",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:app/(marketing)/solutions/[slug]/opengraph-image.tsx",
+   "target": "file:lib/content/index.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/(marketing)/solutions/[slug]/opengraph-image.tsx",
+   "target": "file:lib/site.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "function:app/(app)/admin/site/accueil/page.tsx:HomeSectionsPage",
+   "target": "function:lib/content/index.ts:readSiteContent",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/(app)/admin/site/accueil/page.tsx:HomeSectionsPage",
+   "target": "function:lib/content/index.ts:readContentUpdates",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/(app)/admin/site/accueil/page.tsx:HomeSectionsPage",
+   "target": "function:app/(app)/admin/site/content-props.ts:editorContext",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/(app)/admin/site/general/page.tsx:GeneralEditorPage",
+   "target": "function:lib/content/index.ts:readSiteContent",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/(app)/admin/site/general/page.tsx:GeneralEditorPage",
+   "target": "function:lib/content/index.ts:readContentUpdates",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/(app)/admin/site/general/page.tsx:GeneralEditorPage",
+   "target": "function:app/(app)/admin/site/content-props.ts:editorContext",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/(app)/admin/site/hero/page.tsx:HeroEditorPage",
+   "target": "function:lib/content/index.ts:readSiteContent",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/(app)/admin/site/hero/page.tsx:HeroEditorPage",
+   "target": "function:lib/content/index.ts:readContentUpdates",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/(app)/admin/site/hero/page.tsx:HeroEditorPage",
+   "target": "function:app/(app)/admin/site/content-props.ts:editorContext",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/(app)/admin/site/solutions/[slug]/page.tsx:SolutionEditorPage",
+   "target": "function:lib/content/index.ts:readSolutionRecords",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/(app)/admin/site/solutions/[slug]/page.tsx:SolutionEditorPage",
+   "target": "function:app/(app)/admin/site/content-props.ts:editorContext",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/(app)/admin/site/solutions/page.tsx:SolutionsAdminPage",
+   "target": "function:lib/content/index.ts:readSolutionRecords",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/(marketing)/layout.tsx:MarketingLayout",
+   "target": "function:lib/content/index.ts:getSiteContent",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/(marketing)/layout.tsx:MarketingLayout",
+   "target": "function:lib/content/index.ts:getSolutions",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/(marketing)/solutions/[slug]/opengraph-image.tsx:generateStaticParams",
+   "target": "function:lib/content/index.ts:getSolutions",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/(marketing)/solutions/[slug]/opengraph-image.tsx:Image",
+   "target": "function:lib/content/index.ts:getSolution",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  }
+ ]
+}

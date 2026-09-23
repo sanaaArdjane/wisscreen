@@ -1,0 +1,205 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 1,
+  "filesSkipped": [
+    ".dockerignore"
+  ],
+  "filesUnreadable": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 1,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 0,
+      "failed": 0,
+      "skipped": 1
+    }
+  },
+  "results": [
+    {
+      "path": "Dockerfile",
+      "language": "dockerfile",
+      "fileCategory": "infra",
+      "totalLines": 70,
+      "nonEmptyLines": 59,
+      "services": [
+        {
+          "name": "base",
+          "image": "node:22-alpine",
+          "ports": [],
+          "startLine": 13,
+          "endLine": 20
+        },
+        {
+          "name": "deps",
+          "image": "base",
+          "ports": [],
+          "startLine": 21,
+          "endLine": 27
+        },
+        {
+          "name": "builder",
+          "image": "base",
+          "ports": [],
+          "startLine": 28,
+          "endLine": 50
+        },
+        {
+          "name": "runner",
+          "image": "base",
+          "ports": [
+            3000
+          ],
+          "startLine": 51,
+          "endLine": 71
+        }
+      ],
+      "steps": [
+        {
+          "name": "FROM node:22-alpine AS base",
+          "startLine": 13,
+          "endLine": 13
+        },
+        {
+          "name": "RUN apk add --no-cache libc6-compat",
+          "startLine": 15,
+          "endLine": 15
+        },
+        {
+          "name": "RUN corepack enable",
+          "startLine": 16,
+          "endLine": 16
+        },
+        {
+          "name": "ENV NEXT_TELEMETRY_DISABLED=1",
+          "startLine": 17,
+          "endLine": 17
+        },
+        {
+          "name": "WORKDIR /app",
+          "startLine": 18,
+          "endLine": 18
+        },
+        {
+          "name": "FROM base AS deps",
+          "startLine": 21,
+          "endLine": 21
+        },
+        {
+          "name": "COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./",
+          "startLine": 24,
+          "endLine": 24
+        },
+        {
+          "name": "RUN pnpm install --frozen-lockfile",
+          "startLine": 25,
+          "endLine": 25
+        },
+        {
+          "name": "FROM base AS builder",
+          "startLine": 28,
+          "endLine": 28
+        },
+        {
+          "name": "COPY --from=deps /app/node_modules ./node_modules",
+          "startLine": 29,
+          "endLine": 29
+        },
+        {
+          "name": "COPY . .",
+          "startLine": 30,
+          "endLine": 30
+        },
+        {
+          "name": "ARG NEXT_PUBLIC_SITE_URL=https://wisscreen.rflabs.tech",
+          "startLine": 43,
+          "endLine": 43
+        },
+        {
+          "name": "ARG NEXT_PUBLIC_TURNSTILE_SITE_KEY",
+          "startLine": 44,
+          "endLine": 44
+        },
+        {
+          "name": "ENV NEXT_PUBLIC_SITE_URL=$NEXT_PUBLIC_SITE_URL",
+          "startLine": 45,
+          "endLine": 45
+        },
+        {
+          "name": "ENV NEXT_PUBLIC_TURNSTILE_SITE_KEY=$NEXT_PUBLIC_TURNSTILE_SITE_K",
+          "startLine": 46,
+          "endLine": 46
+        },
+        {
+          "name": "RUN pnpm build",
+          "startLine": 48,
+          "endLine": 48
+        },
+        {
+          "name": "FROM base AS runner",
+          "startLine": 51,
+          "endLine": 51
+        },
+        {
+          "name": "ENV NODE_ENV=production",
+          "startLine": 52,
+          "endLine": 52
+        },
+        {
+          "name": "ENV HOSTNAME=0.0.0.0",
+          "startLine": 54,
+          "endLine": 54
+        },
+        {
+          "name": "ENV PORT=3000",
+          "startLine": 55,
+          "endLine": 55
+        },
+        {
+          "name": "RUN addgroup --system --gid 1001 nodejs \\",
+          "startLine": 58,
+          "endLine": 58
+        },
+        {
+          "name": "COPY --from=builder /app/public ./public",
+          "startLine": 62,
+          "endLine": 62
+        },
+        {
+          "name": "COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone .",
+          "startLine": 64,
+          "endLine": 64
+        },
+        {
+          "name": "COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.ne",
+          "startLine": 65,
+          "endLine": 65
+        },
+        {
+          "name": "USER nextjs",
+          "startLine": 67,
+          "endLine": 67
+        },
+        {
+          "name": "EXPOSE 3000",
+          "startLine": 68,
+          "endLine": 68
+        },
+        {
+          "name": "CMD [\"node\", \"server.js\"]",
+          "startLine": 70,
+          "endLine": 70
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "serviceCount": 4,
+        "stepCount": 27
+      }
+    }
+  ]
+}

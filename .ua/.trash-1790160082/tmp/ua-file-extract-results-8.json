@@ -1,0 +1,4687 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 23,
+  "filesSkipped": [],
+  "filesUnreadable": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 23,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 23,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "results": [
+    {
+      "path": "app/(app)/dashboard/demandes/nouvelle/NewRequestForm.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 91,
+      "nonEmptyLines": 84,
+      "functions": [
+        {
+          "name": "NewRequestForm",
+          "startLine": 24,
+          "endLine": 91,
+          "params": [
+            "{\n  typeOptions,\n  serviceOptions,\n  defaultType,\n  defaultService,\n  defaultTitle,\n}"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "NewRequestForm",
+          "line": 24,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "NewRequestForm",
+          "callee": "useActionState",
+          "lineNumber": 38
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/(app)/dashboard/devis/[id]/QuoteDecision.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 35,
+      "nonEmptyLines": 31,
+      "functions": [
+        {
+          "name": "QuoteDecision",
+          "startLine": 16,
+          "endLine": 35,
+          "params": [
+            "{ quoteId }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "QuoteDecision",
+          "line": 16,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "QuoteDecision",
+          "callee": "useActionState",
+          "lineNumber": 17
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/(app)/dashboard/devis/[id]/page.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 135,
+      "nonEmptyLines": 125,
+      "functions": [
+        {
+          "name": "DevisDetailPage",
+          "startLine": 20,
+          "endLine": 135,
+          "params": [
+            "{ params }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "metadata",
+          "line": 18,
+          "isDefault": false
+        },
+        {
+          "name": "DevisDetailPage",
+          "line": 20,
+          "isDefault": true
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "DevisDetailPage",
+          "callee": "Number",
+          "lineNumber": 22
+        },
+        {
+          "caller": "DevisDetailPage",
+          "callee": "Number.isInteger",
+          "lineNumber": 23
+        },
+        {
+          "caller": "DevisDetailPage",
+          "callee": "notFound",
+          "lineNumber": 23
+        },
+        {
+          "caller": "DevisDetailPage",
+          "callee": "requireUser",
+          "lineNumber": 25
+        },
+        {
+          "caller": "DevisDetailPage",
+          "callee": "db\n    .select({ quote: quotes, request: requests })\n    .from(quotes)\n    .leftJoin(requests, eq(requests.id, quotes.requestId))\n    .where(\n      and(\n        eq(quotes.id, numericId),\n        eq(quotes.userId, user.id),\n        sql`${quotes.status} <> 'brouillon'`,\n      ),\n    )\n    .limit",
+          "lineNumber": 29
+        },
+        {
+          "caller": "DevisDetailPage",
+          "callee": "db\n    .select({ quote: quotes, request: requests })\n    .from(quotes)\n    .leftJoin(requests, eq(requests.id, quotes.requestId))\n    .where",
+          "lineNumber": 29
+        },
+        {
+          "caller": "DevisDetailPage",
+          "callee": "db\n    .select({ quote: quotes, request: requests })\n    .from(quotes)\n    .leftJoin",
+          "lineNumber": 29
+        },
+        {
+          "caller": "DevisDetailPage",
+          "callee": "db\n    .select({ quote: quotes, request: requests })\n    .from",
+          "lineNumber": 29
+        },
+        {
+          "caller": "DevisDetailPage",
+          "callee": "db\n    .select",
+          "lineNumber": 29
+        },
+        {
+          "caller": "DevisDetailPage",
+          "callee": "eq",
+          "lineNumber": 32
+        },
+        {
+          "caller": "DevisDetailPage",
+          "callee": "and",
+          "lineNumber": 34
+        },
+        {
+          "caller": "DevisDetailPage",
+          "callee": "eq",
+          "lineNumber": 35
+        },
+        {
+          "caller": "DevisDetailPage",
+          "callee": "eq",
+          "lineNumber": 36
+        },
+        {
+          "caller": "DevisDetailPage",
+          "callee": "sql",
+          "lineNumber": 37
+        },
+        {
+          "caller": "DevisDetailPage",
+          "callee": "notFound",
+          "lineNumber": 41
+        },
+        {
+          "caller": "DevisDetailPage",
+          "callee": "getDocumentCompany",
+          "lineNumber": 44
+        },
+        {
+          "caller": "DevisDetailPage",
+          "callee": "isQuoteStatus",
+          "lineNumber": 45
+        },
+        {
+          "caller": "DevisDetailPage",
+          "callee": "isQuoteExpired",
+          "lineNumber": 46
+        },
+        {
+          "caller": "DevisDetailPage",
+          "callee": "formatDate",
+          "lineNumber": 52
+        },
+        {
+          "caller": "DevisDetailPage",
+          "callee": "formatDate",
+          "lineNumber": 102
+        },
+        {
+          "caller": "DevisDetailPage",
+          "callee": "formatDate",
+          "lineNumber": 109
+        }
+      ],
+      "metrics": {
+        "importCount": 12,
+        "exportCount": 2,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/(app)/dashboard/devis/page.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 69,
+      "nonEmptyLines": 65,
+      "functions": [
+        {
+          "name": "DevisPage",
+          "startLine": 14,
+          "endLine": 69,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "metadata",
+          "line": 12,
+          "isDefault": false
+        },
+        {
+          "name": "DevisPage",
+          "line": 14,
+          "isDefault": true
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "DevisPage",
+          "callee": "requireUser",
+          "lineNumber": 15
+        },
+        {
+          "caller": "DevisPage",
+          "callee": "listQuotes",
+          "lineNumber": 16
+        },
+        {
+          "caller": "DevisPage",
+          "callee": "rows.map",
+          "lineNumber": 41
+        },
+        {
+          "caller": "DevisPage",
+          "callee": "isQuoteStatus",
+          "lineNumber": 42
+        },
+        {
+          "caller": "DevisPage",
+          "callee": "formatDate",
+          "lineNumber": 52
+        },
+        {
+          "caller": "DevisPage",
+          "callee": "formatDate",
+          "lineNumber": 53
+        },
+        {
+          "caller": "DevisPage",
+          "callee": "formatMoney",
+          "lineNumber": 57
+        }
+      ],
+      "metrics": {
+        "importCount": 8,
+        "exportCount": 2,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/(app)/dashboard/factures/page.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 97,
+      "nonEmptyLines": 91,
+      "functions": [
+        {
+          "name": "FacturesPage",
+          "startLine": 17,
+          "endLine": 97,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "metadata",
+          "line": 15,
+          "isDefault": false
+        },
+        {
+          "name": "FacturesPage",
+          "line": 17,
+          "isDefault": true
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "FacturesPage",
+          "callee": "requireUser",
+          "lineNumber": 18
+        },
+        {
+          "caller": "FacturesPage",
+          "callee": "Promise.all",
+          "lineNumber": 19
+        },
+        {
+          "caller": "FacturesPage",
+          "callee": "listInvoices",
+          "lineNumber": 19
+        },
+        {
+          "caller": "FacturesPage",
+          "callee": "getCompany",
+          "lineNumber": 19
+        },
+        {
+          "caller": "vatOf",
+          "callee": "effectiveCompany",
+          "lineNumber": 22
+        },
+        {
+          "caller": "ttc",
+          "callee": "withVat",
+          "lineNumber": 23
+        },
+        {
+          "caller": "ttc",
+          "callee": "vatOf",
+          "lineNumber": 23
+        },
+        {
+          "caller": "FacturesPage",
+          "callee": "rows\n    .filter(({ invoice }) => [\"envoyee\", \"en_retard\"].includes(effectiveInvoiceStatus(invoice)))\n    .reduce",
+          "lineNumber": 25
+        },
+        {
+          "caller": "FacturesPage",
+          "callee": "rows\n    .filter",
+          "lineNumber": 25
+        },
+        {
+          "caller": "FacturesPage",
+          "callee": "[\"envoyee\", \"en_retard\"].includes",
+          "lineNumber": 26
+        },
+        {
+          "caller": "FacturesPage",
+          "callee": "effectiveInvoiceStatus",
+          "lineNumber": 26
+        },
+        {
+          "caller": "FacturesPage",
+          "callee": "ttc",
+          "lineNumber": 27
+        },
+        {
+          "caller": "FacturesPage",
+          "callee": "rows\n    .filter(({ invoice }) => invoice.status === \"payee\")\n    .reduce",
+          "lineNumber": 28
+        },
+        {
+          "caller": "FacturesPage",
+          "callee": "rows\n    .filter",
+          "lineNumber": 28
+        },
+        {
+          "caller": "FacturesPage",
+          "callee": "ttc",
+          "lineNumber": 30
+        },
+        {
+          "caller": "FacturesPage",
+          "callee": "formatMoney",
+          "lineNumber": 49
+        },
+        {
+          "caller": "FacturesPage",
+          "callee": "formatMoney",
+          "lineNumber": 54
+        },
+        {
+          "caller": "FacturesPage",
+          "callee": "rows.map",
+          "lineNumber": 58
+        },
+        {
+          "caller": "FacturesPage",
+          "callee": "effectiveInvoiceStatus",
+          "lineNumber": 59
+        },
+        {
+          "caller": "FacturesPage",
+          "callee": "formatDate",
+          "lineNumber": 64
+        },
+        {
+          "caller": "FacturesPage",
+          "callee": "formatDate",
+          "lineNumber": 64
+        },
+        {
+          "caller": "FacturesPage",
+          "callee": "vatOf",
+          "lineNumber": 79
+        },
+        {
+          "caller": "FacturesPage",
+          "callee": "(() => {\n                    const c = effectiveCompany(company, invoice.overrides as never);\n                    return (c.bank || c.rib) && [\"envoyee\", \"en_retard\"].includes(status) ? (\n                    <p className=\"mt-5 border-t border-fg/10 pt-4 text-sm text-fg/80\">\n                      Règlement par virement : {[c.bank, c.rib && `RIB ${c.rib}`].filter(Boolean).join(\" · \")}\n                    </p>\n                    ) : null;\n                  })",
+          "lineNumber": 81
+        },
+        {
+          "caller": "FacturesPage",
+          "callee": "effectiveCompany",
+          "lineNumber": 82
+        },
+        {
+          "caller": "FacturesPage",
+          "callee": "[\"envoyee\", \"en_retard\"].includes",
+          "lineNumber": 83
+        },
+        {
+          "caller": "FacturesPage",
+          "callee": "[c.bank, c.rib && `RIB ${c.rib}`].filter(Boolean).join",
+          "lineNumber": 85
+        },
+        {
+          "caller": "FacturesPage",
+          "callee": "[c.bank, c.rib && `RIB ${c.rib}`].filter",
+          "lineNumber": 85
+        }
+      ],
+      "metrics": {
+        "importCount": 12,
+        "exportCount": 2,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "components/dashboard/MoneyLines.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 96,
+      "nonEmptyLines": 94,
+      "functions": [
+        {
+          "name": "MoneyLines",
+          "startLine": 12,
+          "endLine": 96,
+          "params": [
+            "{\n  lines,\n  total,\n  currency = \"DZD\",\n  vatRate = 0,\n}"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "MoneyLines",
+          "line": 12,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "MoneyLines",
+          "callee": "Math.round",
+          "lineNumber": 23
+        },
+        {
+          "caller": "MoneyLines",
+          "callee": "formatMoney",
+          "lineNumber": 29
+        },
+        {
+          "caller": "MoneyLines",
+          "callee": "lines.map",
+          "lineNumber": 55
+        },
+        {
+          "caller": "MoneyLines",
+          "callee": "formatMoney",
+          "lineNumber": 60
+        },
+        {
+          "caller": "MoneyLines",
+          "callee": "formatMoney",
+          "lineNumber": 63
+        },
+        {
+          "caller": "MoneyLines",
+          "callee": "lineTotalCents",
+          "lineNumber": 63
+        },
+        {
+          "caller": "MoneyLines",
+          "callee": "formatMoney",
+          "lineNumber": 75
+        },
+        {
+          "caller": "MoneyLines",
+          "callee": "formatMoney",
+          "lineNumber": 81
+        },
+        {
+          "caller": "MoneyLines",
+          "callee": "formatMoney",
+          "lineNumber": 90
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "components/dashboard/billing/DocumentEditor.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 533,
+      "nonEmptyLines": 503,
+      "functions": [
+        {
+          "name": "DocumentEditor",
+          "startLine": 74,
+          "endLine": 464,
+          "params": [
+            "{\n  kind,\n  docId,\n  docRef,\n  sourceRef,\n  issuedAt,\n  clients,\n  defaultUserId,\n  requestId,\n  requestLabel,\n  title: initialTitle = \"\",\n  note: initialNote = \"\",\n  date: initialDate = \"\",\n  currency: initialCurrency = \"DZD\",\n  lines: initialLines,\n  company,\n  overrides: initialOverrides = {},\n  storage,\n}"
+          ]
+        },
+        {
+          "name": "Section",
+          "startLine": 466,
+          "endLine": 473,
+          "params": [
+            "{ children, hint }"
+          ]
+        },
+        {
+          "name": "IdentityInput",
+          "startLine": 488,
+          "endLine": 533,
+          "params": [
+            "{\n  ctx,\n  k,\n  label,\n  wide,\n  mono,\n}"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "DocumentEditor",
+          "line": 74,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "DocumentEditor",
+          "callee": "useActionState",
+          "lineNumber": 114
+        },
+        {
+          "caller": "DocumentEditor",
+          "callee": "useState",
+          "lineNumber": 115
+        },
+        {
+          "caller": "DocumentEditor",
+          "callee": "useState",
+          "lineNumber": 117
+        },
+        {
+          "caller": "DocumentEditor",
+          "callee": "useState",
+          "lineNumber": 118
+        },
+        {
+          "caller": "DocumentEditor",
+          "callee": "useState",
+          "lineNumber": 119
+        },
+        {
+          "caller": "DocumentEditor",
+          "callee": "useState",
+          "lineNumber": 120
+        },
+        {
+          "caller": "DocumentEditor",
+          "callee": "useState",
+          "lineNumber": 121
+        },
+        {
+          "caller": "DocumentEditor",
+          "callee": "useState",
+          "lineNumber": 122
+        },
+        {
+          "caller": "DocumentEditor",
+          "callee": "(initialLines?.length ? initialLines : [{ label: \"\", quantity: 1, unitCents: 0 }]).map",
+          "lineNumber": 123
+        },
+        {
+          "caller": "DocumentEditor",
+          "callee": "String",
+          "lineNumber": 125
+        },
+        {
+          "caller": "DocumentEditor",
+          "callee": "String(l.unitCents / 100).replace",
+          "lineNumber": 126
+        },
+        {
+          "caller": "DocumentEditor",
+          "callee": "String",
+          "lineNumber": 126
+        },
+        {
+          "caller": "DocumentEditor",
+          "callee": "useState",
+          "lineNumber": 129
+        },
+        {
+          "caller": "DocumentEditor",
+          "callee": "useMemo",
+          "lineNumber": 131
+        },
+        {
+          "caller": "DocumentEditor",
+          "callee": "effectiveCompany",
+          "lineNumber": 131
+        },
+        {
+          "caller": "DocumentEditor",
+          "callee": "Object.keys(overrides).filter",
+          "lineNumber": 132
+        },
+        {
+          "caller": "DocumentEditor",
+          "callee": "Object.keys",
+          "lineNumber": 132
+        },
+        {
+          "caller": "setOverride",
+          "callee": "setOverrides",
+          "lineNumber": 137
+        },
+        {
+          "caller": "reset",
+          "callee": "setOverrides",
+          "lineNumber": 146
+        },
+        {
+          "caller": "DocumentEditor",
+          "callee": "CONFIGURED_KEYS.every",
+          "lineNumber": 153
+        },
+        {
+          "caller": "DocumentEditor",
+          "callee": "clients.find",
+          "lineNumber": 154
+        },
+        {
+          "caller": "DocumentEditor",
+          "callee": "previewTotal",
+          "lineNumber": 155
+        },
+        {
+          "caller": "DocumentEditor",
+          "callee": "lines.map",
+          "lineNumber": 170
+        },
+        {
+          "caller": "DocumentEditor",
+          "callee": "JSON.stringify",
+          "lineNumber": 177
+        },
+        {
+          "caller": "DocumentEditor",
+          "callee": "(\n            [\n              [\"document\", \"Document\"],\n              [\"emetteur\", `Émetteur${overridden.some((k) => EMITTER_KEYS.has(k)) ? \" •\" : \"\"}`],\n              [\"mentions\", \"Mentions & signature\"],\n            ] as [Tab, string][]\n          ).map",
+          "lineNumber": 184
+        },
+        {
+          "caller": "DocumentEditor",
+          "callee": "overridden.some",
+          "lineNumber": 187
+        },
+        {
+          "caller": "DocumentEditor",
+          "callee": "EMITTER_KEYS.has",
+          "lineNumber": 187
+        },
+        {
+          "caller": "DocumentEditor",
+          "callee": "setTab",
+          "lineNumber": 196
+        },
+        {
+          "caller": "DocumentEditor",
+          "callee": "cn",
+          "lineNumber": 197
+        },
+        {
+          "caller": "DocumentEditor",
+          "callee": "setOverrides",
+          "lineNumber": 223
+        },
+        {
+          "caller": "DocumentEditor",
+          "callee": "setUserId",
+          "lineNumber": 233
+        },
+        {
+          "caller": "DocumentEditor",
+          "callee": "clients.map",
+          "lineNumber": 235
+        },
+        {
+          "caller": "DocumentEditor",
+          "callee": "setTitle",
+          "lineNumber": 250
+        },
+        {
+          "caller": "DocumentEditor",
+          "callee": "setDate",
+          "lineNumber": 256
+        },
+        {
+          "caller": "DocumentEditor",
+          "callee": "setCurrency",
+          "lineNumber": 260
+        },
+        {
+          "caller": "DocumentEditor",
+          "callee": "e.target.value.toUpperCase",
+          "lineNumber": 260
+        },
+        {
+          "caller": "DocumentEditor",
+          "callee": "cn",
+          "lineNumber": 260
+        },
+        {
+          "caller": "DocumentEditor",
+          "callee": "lines.map",
+          "lineNumber": 266
+        },
+        {
+          "caller": "DocumentEditor",
+          "callee": "setLines",
+          "lineNumber": 271
+        },
+        {
+          "caller": "DocumentEditor",
+          "callee": "all.map",
+          "lineNumber": 271
+        },
+        {
+          "caller": "DocumentEditor",
+          "callee": "setLines",
+          "lineNumber": 279
+        },
+        {
+          "caller": "DocumentEditor",
+          "callee": "all.map",
+          "lineNumber": 279
+        },
+        {
+          "caller": "DocumentEditor",
+          "callee": "cn",
+          "lineNumber": 280
+        },
+        {
+          "caller": "DocumentEditor",
+          "callee": "setLines",
+          "lineNumber": 286
+        },
+        {
+          "caller": "DocumentEditor",
+          "callee": "all.map",
+          "lineNumber": 286
+        },
+        {
+          "caller": "DocumentEditor",
+          "callee": "cn",
+          "lineNumber": 288
+        },
+        {
+          "caller": "DocumentEditor",
+          "callee": "setLines",
+          "lineNumber": 295
+        },
+        {
+          "caller": "DocumentEditor",
+          "callee": "all.filter",
+          "lineNumber": 295
+        },
+        {
+          "caller": "DocumentEditor",
+          "callee": "setLines",
+          "lineNumber": 301
+        },
+        {
+          "caller": "DocumentEditor",
+          "callee": "formatMoney",
+          "lineNumber": 310
+        },
+        {
+          "caller": "DocumentEditor",
+          "callee": "withVat",
+          "lineNumber": 310
+        },
+        {
+          "caller": "DocumentEditor",
+          "callee": "setNote",
+          "lineNumber": 316
+        },
+        {
+          "caller": "DocumentEditor",
+          "callee": "IDENTITY_FIELDS.map",
+          "lineNumber": 334
+        },
+        {
+          "caller": "DocumentEditor",
+          "callee": "LEGAL_FIELDS.map",
+          "lineNumber": 340
+        },
+        {
+          "caller": "DocumentEditor",
+          "callee": "reset",
+          "lineNumber": 352
+        },
+        {
+          "caller": "DocumentEditor",
+          "callee": "String",
+          "lineNumber": 359
+        },
+        {
+          "caller": "DocumentEditor",
+          "callee": "Number",
+          "lineNumber": 361
+        },
+        {
+          "caller": "DocumentEditor",
+          "callee": "e.target.value.replace",
+          "lineNumber": 361
+        },
+        {
+          "caller": "DocumentEditor",
+          "callee": "setOverride",
+          "lineNumber": 362
+        },
+        {
+          "caller": "DocumentEditor",
+          "callee": "Number.isFinite",
+          "lineNumber": 363
+        },
+        {
+          "caller": "DocumentEditor",
+          "callee": "setOverride",
+          "lineNumber": 363
+        },
+        {
+          "caller": "DocumentEditor",
+          "callee": "cn",
+          "lineNumber": 365
+        },
+        {
+          "caller": "DocumentEditor",
+          "callee": "setOverride",
+          "lineNumber": 378
+        },
+        {
+          "caller": "DocumentEditor",
+          "callee": "reset",
+          "lineNumber": 379
+        },
+        {
+          "caller": "DocumentEditor",
+          "callee": "setOverride",
+          "lineNumber": 385
+        },
+        {
+          "caller": "DocumentEditor",
+          "callee": "reset",
+          "lineNumber": 386
+        },
+        {
+          "caller": "DocumentEditor",
+          "callee": "reset",
+          "lineNumber": 396
+        },
+        {
+          "caller": "DocumentEditor",
+          "callee": "setOverride",
+          "lineNumber": 404
+        },
+        {
+          "caller": "DocumentEditor",
+          "callee": "cn",
+          "lineNumber": 405
+        },
+        {
+          "caller": "DocumentEditor",
+          "callee": "setTitle",
+          "lineNumber": 453
+        },
+        {
+          "caller": "DocumentEditor",
+          "callee": "setNote",
+          "lineNumber": 454
+        },
+        {
+          "caller": "DocumentEditor",
+          "callee": "setLines",
+          "lineNumber": 455
+        },
+        {
+          "caller": "IdentityInput",
+          "callee": "Boolean",
+          "lineNumber": 502
+        },
+        {
+          "caller": "IdentityInput",
+          "callee": "cn",
+          "lineNumber": 504
+        },
+        {
+          "caller": "IdentityInput",
+          "callee": "ctx.reset",
+          "lineNumber": 520
+        },
+        {
+          "caller": "IdentityInput",
+          "callee": "String",
+          "lineNumber": 526
+        },
+        {
+          "caller": "IdentityInput",
+          "callee": "ctx.setOverride",
+          "lineNumber": 527
+        },
+        {
+          "caller": "IdentityInput",
+          "callee": "String",
+          "lineNumber": 528
+        },
+        {
+          "caller": "IdentityInput",
+          "callee": "cn",
+          "lineNumber": 529
+        }
+      ],
+      "metrics": {
+        "importCount": 10,
+        "exportCount": 1,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "components/dashboard/billing/DocumentPreview.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 411,
+      "nonEmptyLines": 390,
+      "functions": [
+        {
+          "name": "lineCents",
+          "startLine": 44,
+          "endLine": 48,
+          "params": [
+            "l"
+          ]
+        },
+        {
+          "name": "previewTotal",
+          "startLine": 50,
+          "endLine": 52,
+          "params": [
+            "lines"
+          ]
+        },
+        {
+          "name": "E",
+          "startLine": 59,
+          "endLine": 114,
+          "params": [
+            "{\n  value,\n  onChange,\n  placeholder,\n  multiline,\n  editable,\n  className,\n  align,\n}"
+          ]
+        },
+        {
+          "name": "DocumentPreview",
+          "startLine": 116,
+          "endLine": 411,
+          "params": [
+            "{\n  doc,\n  company,\n  editable = false,\n  onDoc,\n  onCompany,\n}"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "previewTotal",
+          "line": 50,
+          "isDefault": false
+        },
+        {
+          "name": "DocumentPreview",
+          "line": 116,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "lineCents",
+          "callee": "Number",
+          "lineNumber": 45
+        },
+        {
+          "caller": "lineCents",
+          "callee": "l.quantity.replace(\",\", \".\").replace",
+          "lineNumber": 45
+        },
+        {
+          "caller": "lineCents",
+          "callee": "l.quantity.replace",
+          "lineNumber": 45
+        },
+        {
+          "caller": "lineCents",
+          "callee": "parseMoneyToCents",
+          "lineNumber": 46
+        },
+        {
+          "caller": "lineCents",
+          "callee": "Math.round",
+          "lineNumber": 47
+        },
+        {
+          "caller": "previewTotal",
+          "callee": "lines.reduce",
+          "lineNumber": 51
+        },
+        {
+          "caller": "previewTotal",
+          "callee": "lineCents",
+          "lineNumber": 51
+        },
+        {
+          "caller": "E",
+          "callee": "cn",
+          "lineNumber": 77
+        },
+        {
+          "caller": "E",
+          "callee": "(e.currentTarget.innerText ?? \"\").replace(/ /g, \" \").trim",
+          "lineNumber": 90
+        },
+        {
+          "caller": "E",
+          "callee": "(e.currentTarget.innerText ?? \"\").replace",
+          "lineNumber": 90
+        },
+        {
+          "caller": "E",
+          "callee": "onChange",
+          "lineNumber": 91
+        },
+        {
+          "caller": "E",
+          "callee": "e.preventDefault",
+          "lineNumber": 95
+        },
+        {
+          "caller": "E",
+          "callee": "e.currentTarget.blur",
+          "lineNumber": 96
+        },
+        {
+          "caller": "E",
+          "callee": "e.currentTarget.blur",
+          "lineNumber": 100
+        },
+        {
+          "caller": "E",
+          "callee": "cn",
+          "lineNumber": 103
+        },
+        {
+          "caller": "DocumentPreview",
+          "callee": "useRef",
+          "lineNumber": 130
+        },
+        {
+          "caller": "DocumentPreview",
+          "callee": "useRef",
+          "lineNumber": 131
+        },
+        {
+          "caller": "DocumentPreview",
+          "callee": "useState",
+          "lineNumber": 132
+        },
+        {
+          "caller": "DocumentPreview",
+          "callee": "useState",
+          "lineNumber": 133
+        },
+        {
+          "caller": "DocumentPreview",
+          "callee": "useLayoutEffect",
+          "lineNumber": 135
+        },
+        {
+          "caller": "update",
+          "callee": "setScale",
+          "lineNumber": 140
+        },
+        {
+          "caller": "update",
+          "callee": "Math.min",
+          "lineNumber": 140
+        },
+        {
+          "caller": "update",
+          "callee": "setHeight",
+          "lineNumber": 141
+        },
+        {
+          "caller": "DocumentPreview",
+          "callee": "update",
+          "lineNumber": 143
+        },
+        {
+          "caller": "DocumentPreview",
+          "callee": "ro.observe",
+          "lineNumber": 145
+        },
+        {
+          "caller": "DocumentPreview",
+          "callee": "ro.observe",
+          "lineNumber": 146
+        },
+        {
+          "caller": "DocumentPreview",
+          "callee": "ro.disconnect",
+          "lineNumber": 147
+        },
+        {
+          "caller": "DocumentPreview",
+          "callee": "previewTotal",
+          "lineNumber": 151
+        },
+        {
+          "caller": "DocumentPreview",
+          "callee": "withVat",
+          "lineNumber": 152
+        },
+        {
+          "caller": "money",
+          "callee": "formatMoney",
+          "lineNumber": 153
+        },
+        {
+          "caller": "DocumentPreview",
+          "callee": "Boolean",
+          "lineNumber": 155
+        },
+        {
+          "caller": "setLine",
+          "callee": "doc.lines.map",
+          "lineNumber": 159
+        },
+        {
+          "caller": "setLine",
+          "callee": "onDoc",
+          "lineNumber": 160
+        },
+        {
+          "caller": "DocumentPreview",
+          "callee": "set",
+          "lineNumber": 182
+        },
+        {
+          "caller": "DocumentPreview",
+          "callee": "set",
+          "lineNumber": 189
+        },
+        {
+          "caller": "DocumentPreview",
+          "callee": "set",
+          "lineNumber": 192
+        },
+        {
+          "caller": "DocumentPreview",
+          "callee": "set",
+          "lineNumber": 194
+        },
+        {
+          "caller": "DocumentPreview",
+          "callee": "set",
+          "lineNumber": 196
+        },
+        {
+          "caller": "DocumentPreview",
+          "callee": "set",
+          "lineNumber": 199
+        },
+        {
+          "caller": "DocumentPreview",
+          "callee": "set",
+          "lineNumber": 200
+        },
+        {
+          "caller": "DocumentPreview",
+          "callee": "set",
+          "lineNumber": 201
+        },
+        {
+          "caller": "DocumentPreview",
+          "callee": "DATE.format",
+          "lineNumber": 215
+        },
+        {
+          "caller": "DocumentPreview",
+          "callee": "DATE.format",
+          "lineNumber": 220
+        },
+        {
+          "caller": "DocumentPreview",
+          "callee": "[company.city, company.country].filter(Boolean).join",
+          "lineNumber": 237
+        },
+        {
+          "caller": "DocumentPreview",
+          "callee": "[company.city, company.country].filter",
+          "lineNumber": 237
+        },
+        {
+          "caller": "DocumentPreview",
+          "callee": "onDoc",
+          "lineNumber": 258
+        },
+        {
+          "caller": "DocumentPreview",
+          "callee": "doc.lines.map",
+          "lineNumber": 272
+        },
+        {
+          "caller": "DocumentPreview",
+          "callee": "setLine",
+          "lineNumber": 275
+        },
+        {
+          "caller": "DocumentPreview",
+          "callee": "setLine",
+          "lineNumber": 278
+        },
+        {
+          "caller": "DocumentPreview",
+          "callee": "setLine",
+          "lineNumber": 282
+        },
+        {
+          "caller": "DocumentPreview",
+          "callee": "money",
+          "lineNumber": 284
+        },
+        {
+          "caller": "DocumentPreview",
+          "callee": "parseMoneyToCents",
+          "lineNumber": 284
+        },
+        {
+          "caller": "DocumentPreview",
+          "callee": "money",
+          "lineNumber": 287
+        },
+        {
+          "caller": "DocumentPreview",
+          "callee": "lineCents",
+          "lineNumber": 287
+        },
+        {
+          "caller": "DocumentPreview",
+          "callee": "onDoc",
+          "lineNumber": 295
+        },
+        {
+          "caller": "DocumentPreview",
+          "callee": "money",
+          "lineNumber": 308
+        },
+        {
+          "caller": "DocumentPreview",
+          "callee": "String",
+          "lineNumber": 314
+        },
+        {
+          "caller": "DocumentPreview",
+          "callee": "Number",
+          "lineNumber": 316
+        },
+        {
+          "caller": "DocumentPreview",
+          "callee": "v.replace(\",\", \".\").replace(\"%\", \"\").trim",
+          "lineNumber": 316
+        },
+        {
+          "caller": "DocumentPreview",
+          "callee": "v.replace(\",\", \".\").replace",
+          "lineNumber": 316
+        },
+        {
+          "caller": "DocumentPreview",
+          "callee": "v.replace",
+          "lineNumber": 316
+        },
+        {
+          "caller": "DocumentPreview",
+          "callee": "Number.isFinite",
+          "lineNumber": 317
+        },
+        {
+          "caller": "DocumentPreview",
+          "callee": "set",
+          "lineNumber": 317
+        },
+        {
+          "caller": "DocumentPreview",
+          "callee": "money",
+          "lineNumber": 323
+        },
+        {
+          "caller": "DocumentPreview",
+          "callee": "money",
+          "lineNumber": 329
+        },
+        {
+          "caller": "DocumentPreview",
+          "callee": "onDoc",
+          "lineNumber": 337
+        },
+        {
+          "caller": "DocumentPreview",
+          "callee": "set",
+          "lineNumber": 346
+        },
+        {
+          "caller": "DocumentPreview",
+          "callee": "[company.bank, company.rib && `RIB ${company.rib}`].filter(Boolean).join",
+          "lineNumber": 353
+        },
+        {
+          "caller": "DocumentPreview",
+          "callee": "[company.bank, company.rib && `RIB ${company.rib}`].filter",
+          "lineNumber": 353
+        },
+        {
+          "caller": "DocumentPreview",
+          "callee": "company.name.toUpperCase",
+          "lineNumber": 358
+        },
+        {
+          "caller": "DocumentPreview",
+          "callee": "set",
+          "lineNumber": 367
+        },
+        {
+          "caller": "DocumentPreview",
+          "callee": "set",
+          "lineNumber": 370
+        },
+        {
+          "caller": "DocumentPreview",
+          "callee": "set",
+          "lineNumber": 380
+        },
+        {
+          "caller": "DocumentPreview",
+          "callee": "set",
+          "lineNumber": 384
+        },
+        {
+          "caller": "DocumentPreview",
+          "callee": "([\"rc\", \"nif\", \"nis\", \"ai\"] as const).map",
+          "lineNumber": 388
+        },
+        {
+          "caller": "DocumentPreview",
+          "callee": "k.toUpperCase",
+          "lineNumber": 391
+        },
+        {
+          "caller": "DocumentPreview",
+          "callee": "set",
+          "lineNumber": 392
+        },
+        {
+          "caller": "DocumentPreview",
+          "callee": "set",
+          "lineNumber": 398
+        },
+        {
+          "caller": "DocumentPreview",
+          "callee": "set",
+          "lineNumber": 401
+        },
+        {
+          "caller": "DocumentPreview",
+          "callee": "set",
+          "lineNumber": 405
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 2,
+        "functionCount": 4,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "components/dashboard/billing/ImagePicker.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 94,
+      "nonEmptyLines": 90,
+      "functions": [
+        {
+          "name": "ImagePicker",
+          "startLine": 13,
+          "endLine": 94,
+          "params": [
+            "{\n  label,\n  hint,\n  value,\n  onChange,\n  storage,\n  onReset,\n  name,\n}"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "ImagePicker",
+          "line": 13,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "ImagePicker",
+          "callee": "useState",
+          "lineNumber": 31
+        },
+        {
+          "caller": "ImagePicker",
+          "callee": "useState",
+          "lineNumber": 32
+        },
+        {
+          "caller": "ImagePicker",
+          "callee": "useRef",
+          "lineNumber": 33
+        },
+        {
+          "caller": "pick",
+          "callee": "setError",
+          "lineNumber": 36
+        },
+        {
+          "caller": "pick",
+          "callee": "[\"image/png\", \"image/jpeg\"].includes",
+          "lineNumber": 37
+        },
+        {
+          "caller": "pick",
+          "callee": "setError",
+          "lineNumber": 38
+        },
+        {
+          "caller": "pick",
+          "callee": "setBusy",
+          "lineNumber": 41
+        },
+        {
+          "caller": "pick",
+          "callee": "uploadFile",
+          "lineNumber": 42
+        },
+        {
+          "caller": "pick",
+          "callee": "setBusy",
+          "lineNumber": 43
+        },
+        {
+          "caller": "pick",
+          "callee": "setError",
+          "lineNumber": 45
+        },
+        {
+          "caller": "pick",
+          "callee": "onChange",
+          "lineNumber": 46
+        },
+        {
+          "caller": "ImagePicker",
+          "callee": "pick",
+          "lineNumber": 70
+        },
+        {
+          "caller": "ImagePicker",
+          "callee": "input.current?.click",
+          "lineNumber": 74
+        },
+        {
+          "caller": "ImagePicker",
+          "callee": "onChange",
+          "lineNumber": 79
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "components/dashboard/ui.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 432,
+      "nonEmptyLines": 412,
+      "functions": [
+        {
+          "name": "Field",
+          "startLine": 49,
+          "endLine": 86,
+          "params": [
+            "{\n  name,\n  label,\n  description,\n  error,\n  isRequired,\n  isDisabled,\n  defaultValue,\n  placeholder,\n  className,\n  type = \"text\",\n  autoComplete,\n  inputMode,\n}"
+          ]
+        },
+        {
+          "name": "TextAreaField",
+          "startLine": 88,
+          "endLine": 115,
+          "params": [
+            "{\n  name,\n  label,\n  description,\n  error,\n  isRequired,\n  isDisabled,\n  defaultValue,\n  placeholder,\n  className,\n  rows = 5,\n}"
+          ]
+        },
+        {
+          "name": "CheckboxField",
+          "startLine": 131,
+          "endLine": 181,
+          "params": [
+            "{\n  name,\n  label,\n  description,\n  defaultChecked,\n  isDisabled,\n  className,\n}"
+          ]
+        },
+        {
+          "name": "SelectField",
+          "startLine": 185,
+          "endLine": 226,
+          "params": [
+            "{\n  name,\n  label,\n  description,\n  error,\n  isRequired,\n  isDisabled,\n  defaultValue,\n  placeholder = \"Sélectionner…\",\n  className,\n  options,\n}"
+          ]
+        },
+        {
+          "name": "SubmitButton",
+          "startLine": 236,
+          "endLine": 272,
+          "params": [
+            "{\n  children,\n  variant = \"primary\",\n  className,\n  isDisabled,\n  formAction,\n  name,\n  value,\n}"
+          ]
+        },
+        {
+          "name": "FormAlert",
+          "startLine": 279,
+          "endLine": 298,
+          "params": [
+            "{ state }"
+          ]
+        },
+        {
+          "name": "StatusChip",
+          "startLine": 302,
+          "endLine": 313,
+          "params": [
+            "{ label, tone }"
+          ]
+        },
+        {
+          "name": "EmptyState",
+          "startLine": 315,
+          "endLine": 331,
+          "params": [
+            "{\n  title,\n  description,\n  action,\n}"
+          ]
+        },
+        {
+          "name": "ConfirmButton",
+          "startLine": 352,
+          "endLine": 430,
+          "params": [
+            "{\n  action,\n  label,\n  confirmLabel = \"Supprimer définitivement\",\n  cancelLabel = \"Annuler\",\n  description,\n  typeToConfirm,\n  typeToConfirmLabel,\n  hidden,\n  children,\n  fullWidth,\n  isDisabled,\n}"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "Field",
+          "line": 49,
+          "isDefault": false
+        },
+        {
+          "name": "TextAreaField",
+          "line": 88,
+          "isDefault": false
+        },
+        {
+          "name": "CheckboxField",
+          "line": 131,
+          "isDefault": false
+        },
+        {
+          "name": "SelectField",
+          "line": 185,
+          "isDefault": false
+        },
+        {
+          "name": "SubmitButton",
+          "line": 236,
+          "isDefault": false
+        },
+        {
+          "name": "FormAlert",
+          "line": 279,
+          "isDefault": false
+        },
+        {
+          "name": "StatusChip",
+          "line": 302,
+          "isDefault": false
+        },
+        {
+          "name": "EmptyState",
+          "line": 315,
+          "isDefault": false
+        },
+        {
+          "name": "ConfirmButton",
+          "line": 352,
+          "isDefault": false
+        },
+        {
+          "name": "Button",
+          "line": 432,
+          "isDefault": false
+        },
+        {
+          "name": "Chip",
+          "line": 432,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "Field",
+          "callee": "Boolean",
+          "lineNumber": 73
+        },
+        {
+          "caller": "Field",
+          "callee": "cn",
+          "lineNumber": 78
+        },
+        {
+          "caller": "TextAreaField",
+          "callee": "Boolean",
+          "lineNumber": 103
+        },
+        {
+          "caller": "TextAreaField",
+          "callee": "cn",
+          "lineNumber": 107
+        },
+        {
+          "caller": "CheckboxField",
+          "callee": "cn",
+          "lineNumber": 147
+        },
+        {
+          "caller": "SelectField",
+          "callee": "Boolean",
+          "lineNumber": 202
+        },
+        {
+          "caller": "SelectField",
+          "callee": "cn",
+          "lineNumber": 206
+        },
+        {
+          "caller": "SelectField",
+          "callee": "options.map",
+          "lineNumber": 217
+        },
+        {
+          "caller": "SubmitButton",
+          "callee": "useFormStatus",
+          "lineNumber": 257
+        },
+        {
+          "caller": "FormAlert",
+          "callee": "cn",
+          "lineNumber": 284
+        },
+        {
+          "caller": "FormAlert",
+          "callee": "cn",
+          "lineNumber": 293
+        },
+        {
+          "caller": "StatusChip",
+          "callee": "cn",
+          "lineNumber": 305
+        },
+        {
+          "caller": "ConfirmButton",
+          "callee": "useState",
+          "lineNumber": 382
+        },
+        {
+          "caller": "ConfirmButton",
+          "callee": "setArmed",
+          "lineNumber": 390
+        },
+        {
+          "caller": "ConfirmButton",
+          "callee": "Object.entries(hidden).map",
+          "lineNumber": 405
+        },
+        {
+          "caller": "ConfirmButton",
+          "callee": "Object.entries",
+          "lineNumber": 405
+        },
+        {
+          "caller": "ConfirmButton",
+          "callee": "String",
+          "lineNumber": 406
+        },
+        {
+          "caller": "ConfirmButton",
+          "callee": "setArmed",
+          "lineNumber": 424
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 11,
+        "functionCount": 9,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "lib/actions.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 84,
+      "nonEmptyLines": 75,
+      "functions": [
+        {
+          "name": "parseForm",
+          "startLine": 28,
+          "endLine": 63,
+          "params": [
+            "schema",
+            "formData"
+          ]
+        },
+        {
+          "name": "fail",
+          "startLine": 65,
+          "endLine": 67,
+          "params": [
+            "message",
+            "fieldErrors"
+          ]
+        },
+        {
+          "name": "succeed",
+          "startLine": 69,
+          "endLine": 71,
+          "params": [
+            "message"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "IDLE",
+          "line": 20,
+          "isDefault": false
+        },
+        {
+          "name": "parseForm",
+          "line": 28,
+          "isDefault": false
+        },
+        {
+          "name": "fail",
+          "line": 65,
+          "isDefault": false
+        },
+        {
+          "name": "succeed",
+          "line": 69,
+          "isDefault": false
+        },
+        {
+          "name": "optionalText",
+          "line": 74,
+          "isDefault": false
+        },
+        {
+          "name": "checkbox",
+          "line": 81,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "parseForm",
+          "callee": "formData.entries",
+          "lineNumber": 34
+        },
+        {
+          "caller": "parseForm",
+          "callee": "Array.isArray",
+          "lineNumber": 39
+        },
+        {
+          "caller": "parseForm",
+          "callee": "schema.safeParse",
+          "lineNumber": 46
+        },
+        {
+          "caller": "parseForm",
+          "callee": "issue.path.join",
+          "lineNumber": 51
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 6,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "lib/billing-lines.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 68,
+      "nonEmptyLines": 64,
+      "functions": [
+        {
+          "name": "readLines",
+          "startLine": 18,
+          "endLine": 32,
+          "params": [
+            "formData"
+          ]
+        },
+        {
+          "name": "allocateRef",
+          "startLine": 34,
+          "endLine": 43,
+          "params": [
+            "prefix",
+            "table"
+          ]
+        },
+        {
+          "name": "readOverrides",
+          "startLine": 50,
+          "endLine": 68,
+          "params": [
+            "formData"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "readLines",
+          "line": 18,
+          "isDefault": false
+        },
+        {
+          "name": "allocateRef",
+          "line": 34,
+          "isDefault": false
+        },
+        {
+          "name": "readOverrides",
+          "line": 50,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "readLines",
+          "callee": "formData.getAll(\"label\").map",
+          "lineNumber": 19
+        },
+        {
+          "caller": "readLines",
+          "callee": "formData.getAll",
+          "lineNumber": 19
+        },
+        {
+          "caller": "readLines",
+          "callee": "formData.getAll(\"quantity\").map",
+          "lineNumber": 20
+        },
+        {
+          "caller": "readLines",
+          "callee": "formData.getAll",
+          "lineNumber": 20
+        },
+        {
+          "caller": "readLines",
+          "callee": "formData.getAll(\"unitCents\").map",
+          "lineNumber": 21
+        },
+        {
+          "caller": "readLines",
+          "callee": "formData.getAll",
+          "lineNumber": 21
+        },
+        {
+          "caller": "readLines",
+          "callee": "labels\n    .map((label, i) => ({\n      label: label.trim(),\n      quantity: Number((quantities[i] ?? \"1\").replace(\",\", \".\").replace(/\\s/g, \"\")) || 0,\n      // `parseMoneyToCents`, not `Number()`: a French keyboard types \"1 250,50\",\n      // which `Number` reads as NaN — and `|| 0` then saved it as free.\n      unitCents: parseMoneyToCents(units[i] ?? \"\") ?? 0,\n    }))\n    .filter",
+          "lineNumber": 23
+        },
+        {
+          "caller": "readLines",
+          "callee": "labels\n    .map",
+          "lineNumber": 23
+        },
+        {
+          "caller": "readLines",
+          "callee": "label.trim",
+          "lineNumber": 25
+        },
+        {
+          "caller": "readLines",
+          "callee": "Number",
+          "lineNumber": 26
+        },
+        {
+          "caller": "readLines",
+          "callee": "(quantities[i] ?? \"1\").replace(\",\", \".\").replace",
+          "lineNumber": 26
+        },
+        {
+          "caller": "readLines",
+          "callee": "(quantities[i] ?? \"1\").replace",
+          "lineNumber": 26
+        },
+        {
+          "caller": "readLines",
+          "callee": "parseMoneyToCents",
+          "lineNumber": 29
+        },
+        {
+          "caller": "allocateRef",
+          "callee": "db\n    .select({ ref: table.ref })\n    .from(table)\n    .where",
+          "lineNumber": 35
+        },
+        {
+          "caller": "allocateRef",
+          "callee": "db\n    .select({ ref: table.ref })\n    .from",
+          "lineNumber": 35
+        },
+        {
+          "caller": "allocateRef",
+          "callee": "db\n    .select",
+          "lineNumber": 35
+        },
+        {
+          "caller": "allocateRef",
+          "callee": "like",
+          "lineNumber": 38
+        },
+        {
+          "caller": "allocateRef",
+          "callee": "refPeriod",
+          "lineNumber": 38
+        },
+        {
+          "caller": "allocateRef",
+          "callee": "nextRef",
+          "lineNumber": 39
+        },
+        {
+          "caller": "allocateRef",
+          "callee": "existing.map",
+          "lineNumber": 41
+        },
+        {
+          "caller": "readOverrides",
+          "callee": "parseOverrides",
+          "lineNumber": 53
+        },
+        {
+          "caller": "readOverrides",
+          "callee": "formData.get",
+          "lineNumber": 53
+        },
+        {
+          "caller": "readOverrides",
+          "callee": "[parsed.overrides.logoAttachmentId, parsed.overrides.signatureAttachmentId].filter",
+          "lineNumber": 55
+        },
+        {
+          "caller": "readOverrides",
+          "callee": "db\n      .select({ id: attachments.id, contentType: attachments.contentType })\n      .from(attachments)\n      .where",
+          "lineNumber": 59
+        },
+        {
+          "caller": "readOverrides",
+          "callee": "db\n      .select({ id: attachments.id, contentType: attachments.contentType })\n      .from",
+          "lineNumber": 59
+        },
+        {
+          "caller": "readOverrides",
+          "callee": "db\n      .select",
+          "lineNumber": 59
+        },
+        {
+          "caller": "readOverrides",
+          "callee": "inArray",
+          "lineNumber": 62
+        },
+        {
+          "caller": "readOverrides",
+          "callee": "rows.some",
+          "lineNumber": 63
+        },
+        {
+          "caller": "readOverrides",
+          "callee": "[\"image/png\", \"image/jpeg\"].includes",
+          "lineNumber": 63
+        }
+      ],
+      "metrics": {
+        "importCount": 5,
+        "exportCount": 3,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "lib/billing-preview.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 38,
+      "nonEmptyLines": 36,
+      "functions": [
+        {
+          "name": "toPreviewLines",
+          "startLine": 5,
+          "endLine": 11,
+          "params": [
+            "lines"
+          ]
+        },
+        {
+          "name": "previewDoc",
+          "startLine": 14,
+          "endLine": 38,
+          "params": [
+            "input"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "toPreviewLines",
+          "line": 5,
+          "isDefault": false
+        },
+        {
+          "name": "previewDoc",
+          "line": 14,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "toPreviewLines",
+          "callee": "lines.map",
+          "lineNumber": 6
+        },
+        {
+          "caller": "toPreviewLines",
+          "callee": "String",
+          "lineNumber": 8
+        },
+        {
+          "caller": "toPreviewLines",
+          "callee": "String(l.unitCents / 100).replace",
+          "lineNumber": 9
+        },
+        {
+          "caller": "toPreviewLines",
+          "callee": "String",
+          "lineNumber": 9
+        },
+        {
+          "caller": "previewDoc",
+          "callee": "input.dueAt.toISOString().slice",
+          "lineNumber": 32
+        },
+        {
+          "caller": "previewDoc",
+          "callee": "input.dueAt.toISOString",
+          "lineNumber": 32
+        },
+        {
+          "caller": "previewDoc",
+          "callee": "toPreviewLines",
+          "lineNumber": 34
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "lib/billing-send.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 98,
+      "nonEmptyLines": 91,
+      "functions": [
+        {
+          "name": "emailBillingDocument",
+          "startLine": 23,
+          "endLine": 98,
+          "params": [
+            "kind",
+            "id",
+            "sender",
+            "message"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "emailBillingDocument",
+          "line": 23,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "emailBillingDocument",
+          "callee": "renderBillingPdf",
+          "lineNumber": 29
+        },
+        {
+          "caller": "emailBillingDocument",
+          "callee": "db.select().from(table).where(eq(table.id, id)).limit",
+          "lineNumber": 33
+        },
+        {
+          "caller": "emailBillingDocument",
+          "callee": "db.select().from(table).where",
+          "lineNumber": 33
+        },
+        {
+          "caller": "emailBillingDocument",
+          "callee": "db.select().from",
+          "lineNumber": 33
+        },
+        {
+          "caller": "emailBillingDocument",
+          "callee": "db.select",
+          "lineNumber": 33
+        },
+        {
+          "caller": "emailBillingDocument",
+          "callee": "eq",
+          "lineNumber": 33
+        },
+        {
+          "caller": "emailBillingDocument",
+          "callee": "db\n    .select({ id: userTable.id, email: userTable.email, name: userTable.name })\n    .from(userTable)\n    .where(eq(userTable.id, rendered.ownerId))\n    .limit",
+          "lineNumber": 34
+        },
+        {
+          "caller": "emailBillingDocument",
+          "callee": "db\n    .select({ id: userTable.id, email: userTable.email, name: userTable.name })\n    .from(userTable)\n    .where",
+          "lineNumber": 34
+        },
+        {
+          "caller": "emailBillingDocument",
+          "callee": "db\n    .select({ id: userTable.id, email: userTable.email, name: userTable.name })\n    .from",
+          "lineNumber": 34
+        },
+        {
+          "caller": "emailBillingDocument",
+          "callee": "db\n    .select",
+          "lineNumber": 34
+        },
+        {
+          "caller": "emailBillingDocument",
+          "callee": "eq",
+          "lineNumber": 37
+        },
+        {
+          "caller": "emailBillingDocument",
+          "callee": "getDocumentCompany",
+          "lineNumber": 41
+        },
+        {
+          "caller": "emailBillingDocument",
+          "callee": "storageConfigured",
+          "lineNumber": 44
+        },
+        {
+          "caller": "emailBillingDocument",
+          "callee": "rendered.filename.replace",
+          "lineNumber": 46
+        },
+        {
+          "caller": "emailBillingDocument",
+          "callee": "now.getTime",
+          "lineNumber": 46
+        },
+        {
+          "caller": "emailBillingDocument",
+          "callee": "putObject",
+          "lineNumber": 47
+        },
+        {
+          "caller": "emailBillingDocument",
+          "callee": "db.insert(attachments).values",
+          "lineNumber": 48
+        },
+        {
+          "caller": "emailBillingDocument",
+          "callee": "db.insert",
+          "lineNumber": 48
+        },
+        {
+          "caller": "emailBillingDocument",
+          "callee": "console.warn",
+          "lineNumber": 57
+        },
+        {
+          "caller": "emailBillingDocument",
+          "callee": "formatMoney",
+          "lineNumber": 66
+        },
+        {
+          "caller": "emailBillingDocument",
+          "callee": "withVat",
+          "lineNumber": 66
+        },
+        {
+          "caller": "emailBillingDocument",
+          "callee": "formatDate",
+          "lineNumber": 69
+        },
+        {
+          "caller": "emailBillingDocument",
+          "callee": "formatDate",
+          "lineNumber": 71
+        },
+        {
+          "caller": "emailBillingDocument",
+          "callee": "sendEmail",
+          "lineNumber": 74
+        },
+        {
+          "caller": "emailBillingDocument",
+          "callee": "message?.trim",
+          "lineNumber": 80
+        },
+        {
+          "caller": "emailBillingDocument",
+          "callee": "message.trim",
+          "lineNumber": 81
+        },
+        {
+          "caller": "emailBillingDocument",
+          "callee": "`Ouvrir le ${label}`.replace",
+          "lineNumber": 88
+        },
+        {
+          "caller": "emailBillingDocument",
+          "callee": "db\n    .update(table)\n    .set({ sentAt: now, ...(pdfKey ? { pdfKey } : {}), updatedAt: now })\n    .where",
+          "lineNumber": 92
+        },
+        {
+          "caller": "emailBillingDocument",
+          "callee": "db\n    .update(table)\n    .set",
+          "lineNumber": 92
+        },
+        {
+          "caller": "emailBillingDocument",
+          "callee": "db\n    .update",
+          "lineNumber": 92
+        },
+        {
+          "caller": "emailBillingDocument",
+          "callee": "eq",
+          "lineNumber": 95
+        }
+      ],
+      "metrics": {
+        "importCount": 9,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "lib/billing.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 96,
+      "nonEmptyLines": 86,
+      "functions": [
+        {
+          "name": "isQuoteExpired",
+          "startLine": 66,
+          "endLine": 72,
+          "params": [
+            "quote"
+          ]
+        },
+        {
+          "name": "isQuoteStatus",
+          "startLine": 74,
+          "endLine": 76,
+          "params": [
+            "v"
+          ]
+        },
+        {
+          "name": "isInvoiceStatus",
+          "startLine": 78,
+          "endLine": 80,
+          "params": [
+            "v"
+          ]
+        },
+        {
+          "name": "effectiveInvoiceStatus",
+          "startLine": 87,
+          "endLine": 96,
+          "params": [
+            "invoice"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "QUOTE_STATUSES",
+          "line": 3,
+          "isDefault": false
+        },
+        {
+          "name": "QUOTE_LABELS",
+          "line": 6,
+          "isDefault": false
+        },
+        {
+          "name": "QUOTE_TONE",
+          "line": 26,
+          "isDefault": false
+        },
+        {
+          "name": "INVOICE_STATUSES",
+          "line": 34,
+          "isDefault": false
+        },
+        {
+          "name": "INVOICE_LABELS",
+          "line": 43,
+          "isDefault": false
+        },
+        {
+          "name": "INVOICE_TONE",
+          "line": 51,
+          "isDefault": false
+        },
+        {
+          "name": "isQuoteExpired",
+          "line": 66,
+          "isDefault": false
+        },
+        {
+          "name": "isQuoteStatus",
+          "line": 74,
+          "isDefault": false
+        },
+        {
+          "name": "isInvoiceStatus",
+          "line": 78,
+          "isDefault": false
+        },
+        {
+          "name": "effectiveInvoiceStatus",
+          "line": 87,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "isQuoteExpired",
+          "callee": "quote.validUntil.getTime",
+          "lineNumber": 70
+        },
+        {
+          "caller": "isQuoteExpired",
+          "callee": "Date.now",
+          "lineNumber": 70
+        },
+        {
+          "caller": "isQuoteStatus",
+          "callee": "(QUOTE_STATUSES as readonly string[]).includes",
+          "lineNumber": 75
+        },
+        {
+          "caller": "isInvoiceStatus",
+          "callee": "(INVOICE_STATUSES as readonly string[]).includes",
+          "lineNumber": 79
+        },
+        {
+          "caller": "effectiveInvoiceStatus",
+          "callee": "isInvoiceStatus",
+          "lineNumber": 91
+        },
+        {
+          "caller": "effectiveInvoiceStatus",
+          "callee": "invoice.dueAt.getTime",
+          "lineNumber": 92
+        },
+        {
+          "caller": "effectiveInvoiceStatus",
+          "callee": "Date.now",
+          "lineNumber": 92
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 10,
+        "functionCount": 4,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "lib/company.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 146,
+      "nonEmptyLines": 136,
+      "functions": [
+        {
+          "name": "effectiveCompany",
+          "startLine": 80,
+          "endLine": 90,
+          "params": [
+            "base",
+            "overrides"
+          ]
+        },
+        {
+          "name": "t",
+          "startLine": 95,
+          "endLine": 95,
+          "params": [
+            "max"
+          ]
+        },
+        {
+          "name": "parseOverrides",
+          "startLine": 130,
+          "endLine": 146,
+          "params": [
+            "raw"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "DEFAULT_COMPANY",
+          "line": 43,
+          "isDefault": false
+        },
+        {
+          "name": "COMPANY_KEYS",
+          "line": 72,
+          "isDefault": false
+        },
+        {
+          "name": "effectiveCompany",
+          "line": 80,
+          "isDefault": false
+        },
+        {
+          "name": "CompanyOverridesSchema",
+          "line": 101,
+          "isDefault": false
+        },
+        {
+          "name": "parseOverrides",
+          "line": 130,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "t",
+          "callee": "z.string().max",
+          "lineNumber": 95
+        },
+        {
+          "caller": "t",
+          "callee": "z.string",
+          "lineNumber": 95
+        },
+        {
+          "caller": "parseOverrides",
+          "callee": "JSON.parse",
+          "lineNumber": 136
+        },
+        {
+          "caller": "parseOverrides",
+          "callee": "String",
+          "lineNumber": 136
+        },
+        {
+          "caller": "parseOverrides",
+          "callee": "CompanyOverridesSchema.safeParse",
+          "lineNumber": 140
+        },
+        {
+          "caller": "parseOverrides",
+          "callee": "issue?.path.join",
+          "lineNumber": 143
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 5,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "lib/money.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 42,
+      "nonEmptyLines": 36,
+      "functions": [
+        {
+          "name": "lineTotalCents",
+          "startLine": 8,
+          "endLine": 10,
+          "params": [
+            "line"
+          ]
+        },
+        {
+          "name": "totalCents",
+          "startLine": 12,
+          "endLine": 14,
+          "params": [
+            "lines"
+          ]
+        },
+        {
+          "name": "formatMoney",
+          "startLine": 20,
+          "endLine": 26,
+          "params": [
+            "cents",
+            "currency"
+          ]
+        },
+        {
+          "name": "parseMoneyToCents",
+          "startLine": 29,
+          "endLine": 33,
+          "params": [
+            "input"
+          ]
+        },
+        {
+          "name": "withVat",
+          "startLine": 40,
+          "endLine": 42,
+          "params": [
+            "cents",
+            "vatRate"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "lineTotalCents",
+          "line": 8,
+          "isDefault": false
+        },
+        {
+          "name": "totalCents",
+          "line": 12,
+          "isDefault": false
+        },
+        {
+          "name": "formatMoney",
+          "line": 20,
+          "isDefault": false
+        },
+        {
+          "name": "parseMoneyToCents",
+          "line": 29,
+          "isDefault": false
+        },
+        {
+          "name": "withVat",
+          "line": 40,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "lineTotalCents",
+          "callee": "Math.round",
+          "lineNumber": 9
+        },
+        {
+          "caller": "totalCents",
+          "callee": "lines.reduce",
+          "lineNumber": 13
+        },
+        {
+          "caller": "totalCents",
+          "callee": "lineTotalCents",
+          "lineNumber": 13
+        },
+        {
+          "caller": "formatMoney",
+          "callee": "new Intl.NumberFormat(\"fr-FR\", {\n    style: \"currency\",\n    currency,\n    maximumFractionDigits: 2,\n  }).format",
+          "lineNumber": 21
+        },
+        {
+          "caller": "parseMoneyToCents",
+          "callee": "input.replace(/\\s/g, \"\").replace",
+          "lineNumber": 30
+        },
+        {
+          "caller": "parseMoneyToCents",
+          "callee": "input.replace",
+          "lineNumber": 30
+        },
+        {
+          "caller": "parseMoneyToCents",
+          "callee": "/^-?\\d+(\\.\\d{1,2})?$/.test",
+          "lineNumber": 31
+        },
+        {
+          "caller": "parseMoneyToCents",
+          "callee": "Math.round",
+          "lineNumber": 32
+        },
+        {
+          "caller": "parseMoneyToCents",
+          "callee": "parseFloat",
+          "lineNumber": 32
+        },
+        {
+          "caller": "withVat",
+          "callee": "Math.round",
+          "lineNumber": 41
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 5,
+        "functionCount": 5,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "lib/pdf/BillingDocument.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 293,
+      "nonEmptyLines": 273,
+      "functions": [
+        {
+          "name": "clean",
+          "startLine": 53,
+          "endLine": 55,
+          "params": [
+            "s"
+          ]
+        },
+        {
+          "name": "pdfMoney",
+          "startLine": 57,
+          "endLine": 61,
+          "params": [
+            "cents",
+            "currency"
+          ]
+        },
+        {
+          "name": "pdfDate",
+          "startLine": 63,
+          "endLine": 65,
+          "params": [
+            "d"
+          ]
+        },
+        {
+          "name": "pdfQty",
+          "startLine": 67,
+          "endLine": 69,
+          "params": [
+            "n"
+          ]
+        },
+        {
+          "name": "BillingDocument",
+          "startLine": 111,
+          "endLine": 293,
+          "params": [
+            "{\n  doc,\n  company,\n  assets,\n}"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "pdfMoney",
+          "line": 57,
+          "isDefault": false
+        },
+        {
+          "name": "BillingDocument",
+          "line": 111,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "clean",
+          "callee": "s.replace",
+          "lineNumber": 54
+        },
+        {
+          "caller": "pdfMoney",
+          "callee": "clean",
+          "lineNumber": 58
+        },
+        {
+          "caller": "pdfMoney",
+          "callee": "new Intl.NumberFormat(\"fr-FR\", { style: \"currency\", currency, maximumFractionDigits: 2 }).format",
+          "lineNumber": 59
+        },
+        {
+          "caller": "pdfDate",
+          "callee": "new Intl.DateTimeFormat(\"fr-FR\", { dateStyle: \"long\" }).format",
+          "lineNumber": 64
+        },
+        {
+          "caller": "pdfQty",
+          "callee": "clean",
+          "lineNumber": 68
+        },
+        {
+          "caller": "pdfQty",
+          "callee": "new Intl.NumberFormat(\"fr-FR\", { maximumFractionDigits: 2 }).format",
+          "lineNumber": 68
+        },
+        {
+          "caller": "BillingDocument",
+          "callee": "Math.round",
+          "lineNumber": 122
+        },
+        {
+          "caller": "c",
+          "callee": "clean",
+          "lineNumber": 124
+        },
+        {
+          "caller": "BillingDocument",
+          "callee": "[company.address, [company.city, company.country].filter(Boolean).join(\", \")].filter",
+          "lineNumber": 126
+        },
+        {
+          "caller": "BillingDocument",
+          "callee": "[company.city, company.country].filter(Boolean).join",
+          "lineNumber": 126
+        },
+        {
+          "caller": "BillingDocument",
+          "callee": "[company.city, company.country].filter",
+          "lineNumber": 126
+        },
+        {
+          "caller": "BillingDocument",
+          "callee": "[company.phone, company.email, company.website].filter(Boolean).join",
+          "lineNumber": 127
+        },
+        {
+          "caller": "BillingDocument",
+          "callee": "[company.phone, company.email, company.website].filter",
+          "lineNumber": 127
+        },
+        {
+          "caller": "BillingDocument",
+          "callee": "[\n    company.legalForm && company.capital ? `${company.legalForm} au capital de ${company.capital}` : company.legalForm,\n    company.rc && `RC ${company.rc}`,\n    company.nif && `NIF ${company.nif}`,\n    company.nis && `NIS ${company.nis}`,\n    company.ai && `AI ${company.ai}`,\n  ].filter",
+          "lineNumber": 128
+        },
+        {
+          "caller": "BillingDocument",
+          "callee": "[company.bank, company.rib && `RIB ${company.rib}`].filter(Boolean).join",
+          "lineNumber": 135
+        },
+        {
+          "caller": "BillingDocument",
+          "callee": "[company.bank, company.rib && `RIB ${company.rib}`].filter",
+          "lineNumber": 135
+        },
+        {
+          "caller": "BillingDocument",
+          "callee": "c",
+          "lineNumber": 153
+        },
+        {
+          "caller": "BillingDocument",
+          "callee": "c",
+          "lineNumber": 158
+        },
+        {
+          "caller": "BillingDocument",
+          "callee": "addressLines.map",
+          "lineNumber": 159
+        },
+        {
+          "caller": "BillingDocument",
+          "callee": "c",
+          "lineNumber": 160
+        },
+        {
+          "caller": "BillingDocument",
+          "callee": "c",
+          "lineNumber": 162
+        },
+        {
+          "caller": "BillingDocument",
+          "callee": "pdfDate",
+          "lineNumber": 175
+        },
+        {
+          "caller": "BillingDocument",
+          "callee": "pdfDate",
+          "lineNumber": 180
+        },
+        {
+          "caller": "BillingDocument",
+          "callee": "c",
+          "lineNumber": 195
+        },
+        {
+          "caller": "BillingDocument",
+          "callee": "addressLines.map",
+          "lineNumber": 196
+        },
+        {
+          "caller": "BillingDocument",
+          "callee": "c",
+          "lineNumber": 197
+        },
+        {
+          "caller": "BillingDocument",
+          "callee": "c",
+          "lineNumber": 199
+        },
+        {
+          "caller": "BillingDocument",
+          "callee": "c",
+          "lineNumber": 203
+        },
+        {
+          "caller": "BillingDocument",
+          "callee": "c",
+          "lineNumber": 204
+        },
+        {
+          "caller": "BillingDocument",
+          "callee": "c",
+          "lineNumber": 205
+        },
+        {
+          "caller": "BillingDocument",
+          "callee": "c",
+          "lineNumber": 206
+        },
+        {
+          "caller": "BillingDocument",
+          "callee": "c",
+          "lineNumber": 210
+        },
+        {
+          "caller": "BillingDocument",
+          "callee": "doc.lines.map",
+          "lineNumber": 219
+        },
+        {
+          "caller": "BillingDocument",
+          "callee": "c",
+          "lineNumber": 221
+        },
+        {
+          "caller": "BillingDocument",
+          "callee": "pdfQty",
+          "lineNumber": 222
+        },
+        {
+          "caller": "BillingDocument",
+          "callee": "pdfMoney",
+          "lineNumber": 223
+        },
+        {
+          "caller": "BillingDocument",
+          "callee": "pdfMoney",
+          "lineNumber": 224
+        },
+        {
+          "caller": "BillingDocument",
+          "callee": "Math.round",
+          "lineNumber": 224
+        },
+        {
+          "caller": "BillingDocument",
+          "callee": "pdfMoney",
+          "lineNumber": 234
+        },
+        {
+          "caller": "BillingDocument",
+          "callee": "pdfQty",
+          "lineNumber": 237
+        },
+        {
+          "caller": "BillingDocument",
+          "callee": "pdfMoney",
+          "lineNumber": 238
+        },
+        {
+          "caller": "BillingDocument",
+          "callee": "pdfMoney",
+          "lineNumber": 244
+        },
+        {
+          "caller": "BillingDocument",
+          "callee": "c",
+          "lineNumber": 251
+        },
+        {
+          "caller": "BillingDocument",
+          "callee": "c",
+          "lineNumber": 257
+        },
+        {
+          "caller": "BillingDocument",
+          "callee": "c",
+          "lineNumber": 258
+        },
+        {
+          "caller": "BillingDocument",
+          "callee": "c(company.name).toUpperCase",
+          "lineNumber": 264
+        },
+        {
+          "caller": "BillingDocument",
+          "callee": "c",
+          "lineNumber": 264
+        },
+        {
+          "caller": "BillingDocument",
+          "callee": "c",
+          "lineNumber": 272
+        },
+        {
+          "caller": "BillingDocument",
+          "callee": "c",
+          "lineNumber": 273
+        },
+        {
+          "caller": "BillingDocument",
+          "callee": "c",
+          "lineNumber": 279
+        },
+        {
+          "caller": "BillingDocument",
+          "callee": "legal.join",
+          "lineNumber": 279
+        },
+        {
+          "caller": "BillingDocument",
+          "callee": "c",
+          "lineNumber": 280
+        },
+        {
+          "caller": "BillingDocument",
+          "callee": "c",
+          "lineNumber": 281
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 2,
+        "functionCount": 5,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "lib/pdf/render.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 101,
+      "nonEmptyLines": 95,
+      "functions": [
+        {
+          "name": "loadImage",
+          "startLine": 20,
+          "endLine": 32,
+          "params": [
+            "attachmentId"
+          ]
+        },
+        {
+          "name": "renderBillingPdf",
+          "startLine": 36,
+          "endLine": 101,
+          "params": [
+            "kind",
+            "id"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "renderBillingPdf",
+          "line": 36,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "loadImage",
+          "callee": "storageConfigured",
+          "lineNumber": 21
+        },
+        {
+          "caller": "loadImage",
+          "callee": "db.select().from(attachments).where(eq(attachments.id, attachmentId)).limit",
+          "lineNumber": 23
+        },
+        {
+          "caller": "loadImage",
+          "callee": "db.select().from(attachments).where",
+          "lineNumber": 23
+        },
+        {
+          "caller": "loadImage",
+          "callee": "db.select().from",
+          "lineNumber": 23
+        },
+        {
+          "caller": "loadImage",
+          "callee": "db.select",
+          "lineNumber": 23
+        },
+        {
+          "caller": "loadImage",
+          "callee": "eq",
+          "lineNumber": 23
+        },
+        {
+          "caller": "loadImage",
+          "callee": "getObjectBytes",
+          "lineNumber": 27
+        },
+        {
+          "caller": "loadImage",
+          "callee": "console.warn",
+          "lineNumber": 29
+        },
+        {
+          "caller": "renderBillingPdf",
+          "callee": "db\n      .select({ q: quotes, client: user })\n      .from(quotes)\n      .innerJoin(user, eq(user.id, quotes.userId))\n      .where(eq(quotes.id, id))\n      .limit",
+          "lineNumber": 41
+        },
+        {
+          "caller": "renderBillingPdf",
+          "callee": "db\n      .select({ q: quotes, client: user })\n      .from(quotes)\n      .innerJoin(user, eq(user.id, quotes.userId))\n      .where",
+          "lineNumber": 41
+        },
+        {
+          "caller": "renderBillingPdf",
+          "callee": "db\n      .select({ q: quotes, client: user })\n      .from(quotes)\n      .innerJoin",
+          "lineNumber": 41
+        },
+        {
+          "caller": "renderBillingPdf",
+          "callee": "db\n      .select({ q: quotes, client: user })\n      .from",
+          "lineNumber": 41
+        },
+        {
+          "caller": "renderBillingPdf",
+          "callee": "db\n      .select",
+          "lineNumber": 41
+        },
+        {
+          "caller": "renderBillingPdf",
+          "callee": "eq",
+          "lineNumber": 44
+        },
+        {
+          "caller": "renderBillingPdf",
+          "callee": "eq",
+          "lineNumber": 45
+        },
+        {
+          "caller": "renderBillingPdf",
+          "callee": "db\n      .select({ i: invoices, client: user, quoteRef: quotes.ref })\n      .from(invoices)\n      .innerJoin(user, eq(user.id, invoices.userId))\n      .leftJoin(quotes, eq(quotes.id, invoices.quoteId))\n      .where(eq(invoices.id, id))\n      .limit",
+          "lineNumber": 64
+        },
+        {
+          "caller": "renderBillingPdf",
+          "callee": "db\n      .select({ i: invoices, client: user, quoteRef: quotes.ref })\n      .from(invoices)\n      .innerJoin(user, eq(user.id, invoices.userId))\n      .leftJoin(quotes, eq(quotes.id, invoices.quoteId))\n      .where",
+          "lineNumber": 64
+        },
+        {
+          "caller": "renderBillingPdf",
+          "callee": "db\n      .select({ i: invoices, client: user, quoteRef: quotes.ref })\n      .from(invoices)\n      .innerJoin(user, eq(user.id, invoices.userId))\n      .leftJoin",
+          "lineNumber": 64
+        },
+        {
+          "caller": "renderBillingPdf",
+          "callee": "db\n      .select({ i: invoices, client: user, quoteRef: quotes.ref })\n      .from(invoices)\n      .innerJoin",
+          "lineNumber": 64
+        },
+        {
+          "caller": "renderBillingPdf",
+          "callee": "db\n      .select({ i: invoices, client: user, quoteRef: quotes.ref })\n      .from",
+          "lineNumber": 64
+        },
+        {
+          "caller": "renderBillingPdf",
+          "callee": "db\n      .select",
+          "lineNumber": 64
+        },
+        {
+          "caller": "renderBillingPdf",
+          "callee": "eq",
+          "lineNumber": 67
+        },
+        {
+          "caller": "renderBillingPdf",
+          "callee": "eq",
+          "lineNumber": 68
+        },
+        {
+          "caller": "renderBillingPdf",
+          "callee": "eq",
+          "lineNumber": 69
+        },
+        {
+          "caller": "renderBillingPdf",
+          "callee": "getDocumentCompany",
+          "lineNumber": 90
+        },
+        {
+          "caller": "renderBillingPdf",
+          "callee": "Promise.all",
+          "lineNumber": 91
+        },
+        {
+          "caller": "renderBillingPdf",
+          "callee": "loadImage",
+          "lineNumber": 92
+        },
+        {
+          "caller": "renderBillingPdf",
+          "callee": "loadImage",
+          "lineNumber": 93
+        },
+        {
+          "caller": "renderBillingPdf",
+          "callee": "createElement",
+          "lineNumber": 98
+        },
+        {
+          "caller": "renderBillingPdf",
+          "callee": "renderToBuffer",
+          "lineNumber": 99
+        }
+      ],
+      "metrics": {
+        "importCount": 5,
+        "exportCount": 1,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "lib/quota-labels.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 64,
+      "nonEmptyLines": 57,
+      "functions": [
+        {
+          "name": "isStandingMetric",
+          "startLine": 27,
+          "endLine": 29,
+          "params": [
+            "metric"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "METRIC_LABELS",
+          "line": 16,
+          "isDefault": false
+        },
+        {
+          "name": "isStandingMetric",
+          "line": 27,
+          "isDefault": false
+        },
+        {
+          "name": "SUBSCRIPTION_STATUSES",
+          "line": 31,
+          "isDefault": false
+        },
+        {
+          "name": "SUBSCRIPTION_LABELS",
+          "line": 34,
+          "isDefault": false
+        },
+        {
+          "name": "SUBSCRIPTION_TONE",
+          "line": 46,
+          "isDefault": false
+        },
+        {
+          "name": "CATEGORY_LABELS",
+          "line": 54,
+          "isDefault": false
+        },
+        {
+          "name": "PERIOD_LABELS",
+          "line": 60,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "isStandingMetric",
+          "callee": "metric.startsWith",
+          "lineNumber": 28
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 7,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "lib/ref.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 39,
+      "nonEmptyLines": 34,
+      "functions": [
+        {
+          "name": "refPeriod",
+          "startLine": 16,
+          "endLine": 20,
+          "params": [
+            "date"
+          ]
+        },
+        {
+          "name": "buildRef",
+          "startLine": 22,
+          "endLine": 24,
+          "params": [
+            "prefix",
+            "sequence",
+            "date"
+          ]
+        },
+        {
+          "name": "refSequence",
+          "startLine": 27,
+          "endLine": 30,
+          "params": [
+            "ref"
+          ]
+        },
+        {
+          "name": "nextRef",
+          "startLine": 33,
+          "endLine": 39,
+          "params": [
+            "prefix",
+            "existing",
+            "date"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "refPeriod",
+          "line": 16,
+          "isDefault": false
+        },
+        {
+          "name": "buildRef",
+          "line": 22,
+          "isDefault": false
+        },
+        {
+          "name": "refSequence",
+          "line": 27,
+          "isDefault": false
+        },
+        {
+          "name": "nextRef",
+          "line": 33,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "refPeriod",
+          "callee": "String(date.getUTCFullYear()).slice",
+          "lineNumber": 17
+        },
+        {
+          "caller": "refPeriod",
+          "callee": "String",
+          "lineNumber": 17
+        },
+        {
+          "caller": "refPeriod",
+          "callee": "date.getUTCFullYear",
+          "lineNumber": 17
+        },
+        {
+          "caller": "refPeriod",
+          "callee": "String(date.getUTCMonth() + 1).padStart",
+          "lineNumber": 18
+        },
+        {
+          "caller": "refPeriod",
+          "callee": "String",
+          "lineNumber": 18
+        },
+        {
+          "caller": "refPeriod",
+          "callee": "date.getUTCMonth",
+          "lineNumber": 18
+        },
+        {
+          "caller": "buildRef",
+          "callee": "refPeriod",
+          "lineNumber": 23
+        },
+        {
+          "caller": "buildRef",
+          "callee": "String(sequence).padStart",
+          "lineNumber": 23
+        },
+        {
+          "caller": "buildRef",
+          "callee": "String",
+          "lineNumber": 23
+        },
+        {
+          "caller": "refSequence",
+          "callee": "/^[A-Z]{2}-\\d{4}-(\\d{4})$/.exec",
+          "lineNumber": 28
+        },
+        {
+          "caller": "refSequence",
+          "callee": "Number",
+          "lineNumber": 29
+        },
+        {
+          "caller": "nextRef",
+          "callee": "refPeriod",
+          "lineNumber": 34
+        },
+        {
+          "caller": "nextRef",
+          "callee": "existing\n    .filter((r) => r.startsWith(`${prefix}-${period}-`))\n    .reduce",
+          "lineNumber": 35
+        },
+        {
+          "caller": "nextRef",
+          "callee": "existing\n    .filter",
+          "lineNumber": 35
+        },
+        {
+          "caller": "nextRef",
+          "callee": "r.startsWith",
+          "lineNumber": 36
+        },
+        {
+          "caller": "nextRef",
+          "callee": "Math.max",
+          "lineNumber": 37
+        },
+        {
+          "caller": "nextRef",
+          "callee": "refSequence",
+          "lineNumber": 37
+        },
+        {
+          "caller": "nextRef",
+          "callee": "buildRef",
+          "lineNumber": 38
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 4,
+        "functionCount": 4,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "lib/server/queries.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 274,
+      "nonEmptyLines": 247,
+      "functions": [
+        {
+          "name": "listRequests",
+          "startLine": 23,
+          "endLine": 30,
+          "params": [
+            "userId",
+            "limit"
+          ]
+        },
+        {
+          "name": "getOwnRequest",
+          "startLine": 32,
+          "endLine": 39,
+          "params": [
+            "userId",
+            "id"
+          ]
+        },
+        {
+          "name": "getRequestById",
+          "startLine": 41,
+          "endLine": 49,
+          "params": [
+            "id"
+          ]
+        },
+        {
+          "name": "listMessages",
+          "startLine": 56,
+          "endLine": 67,
+          "params": [
+            "requestId",
+            "includeInternal"
+          ]
+        },
+        {
+          "name": "listAttachments",
+          "startLine": 69,
+          "endLine": 79,
+          "params": [
+            "requestId",
+            "includeInternal"
+          ]
+        },
+        {
+          "name": "listOwnDocuments",
+          "startLine": 81,
+          "endLine": 88,
+          "params": [
+            "userId"
+          ]
+        },
+        {
+          "name": "listQuotes",
+          "startLine": 90,
+          "endLine": 101,
+          "params": [
+            "userId"
+          ]
+        },
+        {
+          "name": "listInvoices",
+          "startLine": 103,
+          "endLine": 112,
+          "params": [
+            "userId"
+          ]
+        },
+        {
+          "name": "listDemoRuns",
+          "startLine": 114,
+          "endLine": 122,
+          "params": [
+            "userId",
+            "limit"
+          ]
+        },
+        {
+          "name": "listLeads",
+          "startLine": 124,
+          "endLine": 127,
+          "params": [
+            "status"
+          ]
+        },
+        {
+          "name": "listAssignees",
+          "startLine": 130,
+          "endLine": 136,
+          "params": []
+        },
+        {
+          "name": "adminCounters",
+          "startLine": 139,
+          "endLine": 182,
+          "params": []
+        },
+        {
+          "name": "clientCounters",
+          "startLine": 185,
+          "endLine": 220,
+          "params": [
+            "userId"
+          ]
+        },
+        {
+          "name": "openRequestsQueue",
+          "startLine": 223,
+          "endLine": 231,
+          "params": [
+            "limit"
+          ]
+        },
+        {
+          "name": "unreadLeadCount",
+          "startLine": 233,
+          "endLine": 239,
+          "params": []
+        },
+        {
+          "name": "listThread",
+          "startLine": 246,
+          "endLine": 265,
+          "params": [
+            "requestId",
+            "includeInternal"
+          ]
+        },
+        {
+          "name": "listBillableClients",
+          "startLine": 268,
+          "endLine": 274,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "listRequests",
+          "line": 23,
+          "isDefault": false
+        },
+        {
+          "name": "getOwnRequest",
+          "line": 32,
+          "isDefault": false
+        },
+        {
+          "name": "getRequestById",
+          "line": 41,
+          "isDefault": false
+        },
+        {
+          "name": "listMessages",
+          "line": 56,
+          "isDefault": false
+        },
+        {
+          "name": "listAttachments",
+          "line": 69,
+          "isDefault": false
+        },
+        {
+          "name": "listOwnDocuments",
+          "line": 81,
+          "isDefault": false
+        },
+        {
+          "name": "listQuotes",
+          "line": 90,
+          "isDefault": false
+        },
+        {
+          "name": "listInvoices",
+          "line": 103,
+          "isDefault": false
+        },
+        {
+          "name": "listDemoRuns",
+          "line": 114,
+          "isDefault": false
+        },
+        {
+          "name": "listLeads",
+          "line": 124,
+          "isDefault": false
+        },
+        {
+          "name": "listAssignees",
+          "line": 130,
+          "isDefault": false
+        },
+        {
+          "name": "adminCounters",
+          "line": 139,
+          "isDefault": false
+        },
+        {
+          "name": "clientCounters",
+          "line": 185,
+          "isDefault": false
+        },
+        {
+          "name": "openRequestsQueue",
+          "line": 223,
+          "isDefault": false
+        },
+        {
+          "name": "unreadLeadCount",
+          "line": 233,
+          "isDefault": false
+        },
+        {
+          "name": "listThread",
+          "line": 246,
+          "isDefault": false
+        },
+        {
+          "name": "listBillableClients",
+          "line": 268,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "listRequests",
+          "callee": "db\n    .select()\n    .from(requests)\n    .where(eq(requests.userId, userId))\n    .orderBy",
+          "lineNumber": 24
+        },
+        {
+          "caller": "listRequests",
+          "callee": "db\n    .select()\n    .from(requests)\n    .where",
+          "lineNumber": 24
+        },
+        {
+          "caller": "listRequests",
+          "callee": "db\n    .select()\n    .from",
+          "lineNumber": 24
+        },
+        {
+          "caller": "listRequests",
+          "callee": "db\n    .select",
+          "lineNumber": 24
+        },
+        {
+          "caller": "listRequests",
+          "callee": "eq",
+          "lineNumber": 27
+        },
+        {
+          "caller": "listRequests",
+          "callee": "desc",
+          "lineNumber": 28
+        },
+        {
+          "caller": "listRequests",
+          "callee": "q.limit",
+          "lineNumber": 29
+        },
+        {
+          "caller": "getOwnRequest",
+          "callee": "db\n    .select()\n    .from(requests)\n    .where(and(eq(requests.id, id), eq(requests.userId, userId)))\n    .limit",
+          "lineNumber": 33
+        },
+        {
+          "caller": "getOwnRequest",
+          "callee": "db\n    .select()\n    .from(requests)\n    .where",
+          "lineNumber": 33
+        },
+        {
+          "caller": "getOwnRequest",
+          "callee": "db\n    .select()\n    .from",
+          "lineNumber": 33
+        },
+        {
+          "caller": "getOwnRequest",
+          "callee": "db\n    .select",
+          "lineNumber": 33
+        },
+        {
+          "caller": "getOwnRequest",
+          "callee": "and",
+          "lineNumber": 36
+        },
+        {
+          "caller": "getOwnRequest",
+          "callee": "eq",
+          "lineNumber": 36
+        },
+        {
+          "caller": "getOwnRequest",
+          "callee": "eq",
+          "lineNumber": 36
+        },
+        {
+          "caller": "getRequestById",
+          "callee": "db\n    .select({ request: requests, client: user })\n    .from(requests)\n    .innerJoin(user, eq(user.id, requests.userId))\n    .where(eq(requests.id, id))\n    .limit",
+          "lineNumber": 42
+        },
+        {
+          "caller": "getRequestById",
+          "callee": "db\n    .select({ request: requests, client: user })\n    .from(requests)\n    .innerJoin(user, eq(user.id, requests.userId))\n    .where",
+          "lineNumber": 42
+        },
+        {
+          "caller": "getRequestById",
+          "callee": "db\n    .select({ request: requests, client: user })\n    .from(requests)\n    .innerJoin",
+          "lineNumber": 42
+        },
+        {
+          "caller": "getRequestById",
+          "callee": "db\n    .select({ request: requests, client: user })\n    .from",
+          "lineNumber": 42
+        },
+        {
+          "caller": "getRequestById",
+          "callee": "db\n    .select",
+          "lineNumber": 42
+        },
+        {
+          "caller": "getRequestById",
+          "callee": "eq",
+          "lineNumber": 45
+        },
+        {
+          "caller": "getRequestById",
+          "callee": "eq",
+          "lineNumber": 46
+        },
+        {
+          "caller": "listMessages",
+          "callee": "db\n    .select({ message: requestMessages, author: user })\n    .from(requestMessages)\n    .leftJoin(user, eq(user.id, requestMessages.authorId))\n    .where(\n      includeInternal\n        ? eq(requestMessages.requestId, requestId)\n        : and(eq(requestMessages.requestId, requestId), eq(requestMessages.internal, false)),\n    )\n    .orderBy",
+          "lineNumber": 57
+        },
+        {
+          "caller": "listMessages",
+          "callee": "db\n    .select({ message: requestMessages, author: user })\n    .from(requestMessages)\n    .leftJoin(user, eq(user.id, requestMessages.authorId))\n    .where",
+          "lineNumber": 57
+        },
+        {
+          "caller": "listMessages",
+          "callee": "db\n    .select({ message: requestMessages, author: user })\n    .from(requestMessages)\n    .leftJoin",
+          "lineNumber": 57
+        },
+        {
+          "caller": "listMessages",
+          "callee": "db\n    .select({ message: requestMessages, author: user })\n    .from",
+          "lineNumber": 57
+        },
+        {
+          "caller": "listMessages",
+          "callee": "db\n    .select",
+          "lineNumber": 57
+        },
+        {
+          "caller": "listMessages",
+          "callee": "eq",
+          "lineNumber": 60
+        },
+        {
+          "caller": "listMessages",
+          "callee": "eq",
+          "lineNumber": 63
+        },
+        {
+          "caller": "listMessages",
+          "callee": "and",
+          "lineNumber": 64
+        },
+        {
+          "caller": "listMessages",
+          "callee": "eq",
+          "lineNumber": 64
+        },
+        {
+          "caller": "listMessages",
+          "callee": "eq",
+          "lineNumber": 64
+        },
+        {
+          "caller": "listAttachments",
+          "callee": "db\n    .select()\n    .from(attachments)\n    .where(\n      includeInternal\n        ? eq(attachments.requestId, requestId)\n        : and(eq(attachments.requestId, requestId), eq(attachments.internal, false)),\n    )\n    .orderBy",
+          "lineNumber": 70
+        },
+        {
+          "caller": "listAttachments",
+          "callee": "db\n    .select()\n    .from(attachments)\n    .where",
+          "lineNumber": 70
+        },
+        {
+          "caller": "listAttachments",
+          "callee": "db\n    .select()\n    .from",
+          "lineNumber": 70
+        },
+        {
+          "caller": "listAttachments",
+          "callee": "db\n    .select",
+          "lineNumber": 70
+        },
+        {
+          "caller": "listAttachments",
+          "callee": "eq",
+          "lineNumber": 75
+        },
+        {
+          "caller": "listAttachments",
+          "callee": "and",
+          "lineNumber": 76
+        },
+        {
+          "caller": "listAttachments",
+          "callee": "eq",
+          "lineNumber": 76
+        },
+        {
+          "caller": "listAttachments",
+          "callee": "eq",
+          "lineNumber": 76
+        },
+        {
+          "caller": "listAttachments",
+          "callee": "desc",
+          "lineNumber": 78
+        },
+        {
+          "caller": "listOwnDocuments",
+          "callee": "db\n    .select({ attachment: attachments, request: requests })\n    .from(attachments)\n    .leftJoin(requests, eq(requests.id, attachments.requestId))\n    .where(and(eq(attachments.ownerId, userId), eq(attachments.internal, false)))\n    .orderBy",
+          "lineNumber": 82
+        },
+        {
+          "caller": "listOwnDocuments",
+          "callee": "db\n    .select({ attachment: attachments, request: requests })\n    .from(attachments)\n    .leftJoin(requests, eq(requests.id, attachments.requestId))\n    .where",
+          "lineNumber": 82
+        },
+        {
+          "caller": "listOwnDocuments",
+          "callee": "db\n    .select({ attachment: attachments, request: requests })\n    .from(attachments)\n    .leftJoin",
+          "lineNumber": 82
+        },
+        {
+          "caller": "listOwnDocuments",
+          "callee": "db\n    .select({ attachment: attachments, request: requests })\n    .from",
+          "lineNumber": 82
+        },
+        {
+          "caller": "listOwnDocuments",
+          "callee": "db\n    .select",
+          "lineNumber": 82
+        },
+        {
+          "caller": "listOwnDocuments",
+          "callee": "eq",
+          "lineNumber": 85
+        },
+        {
+          "caller": "listOwnDocuments",
+          "callee": "and",
+          "lineNumber": 86
+        },
+        {
+          "caller": "listOwnDocuments",
+          "callee": "eq",
+          "lineNumber": 86
+        },
+        {
+          "caller": "listOwnDocuments",
+          "callee": "eq",
+          "lineNumber": 86
+        },
+        {
+          "caller": "listOwnDocuments",
+          "callee": "desc",
+          "lineNumber": 87
+        },
+        {
+          "caller": "listQuotes",
+          "callee": "db\n    .select({ quote: quotes, client: user })\n    .from(quotes)\n    .innerJoin(user, eq(user.id, quotes.userId))\n    .orderBy",
+          "lineNumber": 91
+        },
+        {
+          "caller": "listQuotes",
+          "callee": "db\n    .select({ quote: quotes, client: user })\n    .from(quotes)\n    .innerJoin",
+          "lineNumber": 91
+        },
+        {
+          "caller": "listQuotes",
+          "callee": "db\n    .select({ quote: quotes, client: user })\n    .from",
+          "lineNumber": 91
+        },
+        {
+          "caller": "listQuotes",
+          "callee": "db\n    .select",
+          "lineNumber": 91
+        },
+        {
+          "caller": "listQuotes",
+          "callee": "eq",
+          "lineNumber": 94
+        },
+        {
+          "caller": "listQuotes",
+          "callee": "desc",
+          "lineNumber": 95
+        },
+        {
+          "caller": "listQuotes",
+          "callee": "q.where",
+          "lineNumber": 99
+        },
+        {
+          "caller": "listQuotes",
+          "callee": "and",
+          "lineNumber": 99
+        },
+        {
+          "caller": "listQuotes",
+          "callee": "eq",
+          "lineNumber": 99
+        },
+        {
+          "caller": "listQuotes",
+          "callee": "sql",
+          "lineNumber": 99
+        },
+        {
+          "caller": "listInvoices",
+          "callee": "db\n    .select({ invoice: invoices, client: user })\n    .from(invoices)\n    .innerJoin(user, eq(user.id, invoices.userId))\n    .orderBy",
+          "lineNumber": 104
+        },
+        {
+          "caller": "listInvoices",
+          "callee": "db\n    .select({ invoice: invoices, client: user })\n    .from(invoices)\n    .innerJoin",
+          "lineNumber": 104
+        },
+        {
+          "caller": "listInvoices",
+          "callee": "db\n    .select({ invoice: invoices, client: user })\n    .from",
+          "lineNumber": 104
+        },
+        {
+          "caller": "listInvoices",
+          "callee": "db\n    .select",
+          "lineNumber": 104
+        },
+        {
+          "caller": "listInvoices",
+          "callee": "eq",
+          "lineNumber": 107
+        },
+        {
+          "caller": "listInvoices",
+          "callee": "desc",
+          "lineNumber": 108
+        },
+        {
+          "caller": "listInvoices",
+          "callee": "q.where",
+          "lineNumber": 110
+        },
+        {
+          "caller": "listInvoices",
+          "callee": "and",
+          "lineNumber": 110
+        },
+        {
+          "caller": "listInvoices",
+          "callee": "eq",
+          "lineNumber": 110
+        },
+        {
+          "caller": "listInvoices",
+          "callee": "sql",
+          "lineNumber": 110
+        },
+        {
+          "caller": "listDemoRuns",
+          "callee": "db\n    .select({ run: demoRuns, client: user })\n    .from(demoRuns)\n    .innerJoin(user, eq(user.id, demoRuns.userId))\n    .orderBy(desc(demoRuns.createdAt))\n    .limit",
+          "lineNumber": 115
+        },
+        {
+          "caller": "listDemoRuns",
+          "callee": "db\n    .select({ run: demoRuns, client: user })\n    .from(demoRuns)\n    .innerJoin(user, eq(user.id, demoRuns.userId))\n    .orderBy",
+          "lineNumber": 115
+        },
+        {
+          "caller": "listDemoRuns",
+          "callee": "db\n    .select({ run: demoRuns, client: user })\n    .from(demoRuns)\n    .innerJoin",
+          "lineNumber": 115
+        },
+        {
+          "caller": "listDemoRuns",
+          "callee": "db\n    .select({ run: demoRuns, client: user })\n    .from",
+          "lineNumber": 115
+        },
+        {
+          "caller": "listDemoRuns",
+          "callee": "db\n    .select",
+          "lineNumber": 115
+        },
+        {
+          "caller": "listDemoRuns",
+          "callee": "eq",
+          "lineNumber": 118
+        },
+        {
+          "caller": "listDemoRuns",
+          "callee": "desc",
+          "lineNumber": 119
+        },
+        {
+          "caller": "listDemoRuns",
+          "callee": "q.where",
+          "lineNumber": 121
+        },
+        {
+          "caller": "listDemoRuns",
+          "callee": "eq",
+          "lineNumber": 121
+        },
+        {
+          "caller": "listLeads",
+          "callee": "db.select().from(contactLeads).orderBy",
+          "lineNumber": 125
+        },
+        {
+          "caller": "listLeads",
+          "callee": "db.select().from",
+          "lineNumber": 125
+        },
+        {
+          "caller": "listLeads",
+          "callee": "db.select",
+          "lineNumber": 125
+        },
+        {
+          "caller": "listLeads",
+          "callee": "desc",
+          "lineNumber": 125
+        },
+        {
+          "caller": "listLeads",
+          "callee": "q.where",
+          "lineNumber": 126
+        },
+        {
+          "caller": "listLeads",
+          "callee": "eq",
+          "lineNumber": 126
+        },
+        {
+          "caller": "listAssignees",
+          "callee": "db\n    .select({ id: user.id, name: user.name, email: user.email, role: user.role })\n    .from(user)\n    .where(or(eq(user.role, \"admin\"), eq(user.role, \"staff\")))\n    .orderBy",
+          "lineNumber": 131
+        },
+        {
+          "caller": "listAssignees",
+          "callee": "db\n    .select({ id: user.id, name: user.name, email: user.email, role: user.role })\n    .from(user)\n    .where",
+          "lineNumber": 131
+        },
+        {
+          "caller": "listAssignees",
+          "callee": "db\n    .select({ id: user.id, name: user.name, email: user.email, role: user.role })\n    .from",
+          "lineNumber": 131
+        },
+        {
+          "caller": "listAssignees",
+          "callee": "db\n    .select",
+          "lineNumber": 131
+        },
+        {
+          "caller": "listAssignees",
+          "callee": "or",
+          "lineNumber": 134
+        },
+        {
+          "caller": "listAssignees",
+          "callee": "eq",
+          "lineNumber": 134
+        },
+        {
+          "caller": "listAssignees",
+          "callee": "eq",
+          "lineNumber": 134
+        },
+        {
+          "caller": "adminCounters",
+          "callee": "db\n    .select({\n      openRequests: sql<number>`count(*) filter (where ${requests.status} in ('nouvelle','en_cours'))::int`,\n      newRequests: sql<number>`count(*) filter (where ${requests.status} = 'nouvelle')::int`,\n      unassigned: sql<number>`count(*) filter (where ${requests.assignedToId} is null and ${requests.status} in ('nouvelle','en_cours'))::int`,\n      total: sql<number>`count(*)::int`,\n    })\n    .from",
+          "lineNumber": 140
+        },
+        {
+          "caller": "adminCounters",
+          "callee": "db\n    .select",
+          "lineNumber": 140
+        },
+        {
+          "caller": "adminCounters",
+          "callee": "db\n    .select({\n      unpaid: sql<number>`coalesce(sum(${invoices.amountCents}) filter (where ${invoices.status} in ('envoyee','en_retard')), 0)::int`,\n      unpaidCount: sql<number>`count(*) filter (where ${invoices.status} in ('envoyee','en_retard'))::int`,\n      paid: sql<number>`coalesce(sum(${invoices.amountCents}) filter (where ${invoices.status} = 'payee'), 0)::int`,\n    })\n    .from",
+          "lineNumber": 149
+        },
+        {
+          "caller": "adminCounters",
+          "callee": "db\n    .select",
+          "lineNumber": 149
+        },
+        {
+          "caller": "adminCounters",
+          "callee": "db\n    .select({\n      users: sql<number>`count(*)::int`,\n      suspended: sql<number>`count(*) filter (where ${user.banned})::int`,\n      staff: sql<number>`count(*) filter (where ${user.role} in ('admin','staff'))::int`,\n    })\n    .from",
+          "lineNumber": 157
+        },
+        {
+          "caller": "adminCounters",
+          "callee": "db\n    .select",
+          "lineNumber": 157
+        },
+        {
+          "caller": "adminCounters",
+          "callee": "db\n    .select({ n: sql<number>`count(*)::int` })\n    .from(contactLeads)\n    .where",
+          "lineNumber": 165
+        },
+        {
+          "caller": "adminCounters",
+          "callee": "db\n    .select({ n: sql<number>`count(*)::int` })\n    .from",
+          "lineNumber": 165
+        },
+        {
+          "caller": "adminCounters",
+          "callee": "db\n    .select",
+          "lineNumber": 165
+        },
+        {
+          "caller": "adminCounters",
+          "callee": "eq",
+          "lineNumber": 168
+        },
+        {
+          "caller": "adminCounters",
+          "callee": "db\n    .select({ n: sql<number>`count(*)::int` })\n    .from(quotes)\n    .where",
+          "lineNumber": 170
+        },
+        {
+          "caller": "adminCounters",
+          "callee": "db\n    .select({ n: sql<number>`count(*)::int` })\n    .from",
+          "lineNumber": 170
+        },
+        {
+          "caller": "adminCounters",
+          "callee": "db\n    .select",
+          "lineNumber": 170
+        },
+        {
+          "caller": "adminCounters",
+          "callee": "eq",
+          "lineNumber": 173
+        },
+        {
+          "caller": "clientCounters",
+          "callee": "db\n    .select({\n      open: sql<number>`count(*) filter (where ${requests.status} in ('nouvelle','en_cours','acceptee'))::int`,\n      total: sql<number>`count(*)::int`,\n    })\n    .from(requests)\n    .where",
+          "lineNumber": 186
+        },
+        {
+          "caller": "clientCounters",
+          "callee": "db\n    .select({\n      open: sql<number>`count(*) filter (where ${requests.status} in ('nouvelle','en_cours','acceptee'))::int`,\n      total: sql<number>`count(*)::int`,\n    })\n    .from",
+          "lineNumber": 186
+        },
+        {
+          "caller": "clientCounters",
+          "callee": "db\n    .select",
+          "lineNumber": 186
+        },
+        {
+          "caller": "clientCounters",
+          "callee": "eq",
+          "lineNumber": 192
+        },
+        {
+          "caller": "clientCounters",
+          "callee": "db\n    .select({ pending: sql<number>`count(*) filter (where ${quotes.status} = 'envoye')::int` })\n    .from(quotes)\n    .where",
+          "lineNumber": 194
+        },
+        {
+          "caller": "clientCounters",
+          "callee": "db\n    .select({ pending: sql<number>`count(*) filter (where ${quotes.status} = 'envoye')::int` })\n    .from",
+          "lineNumber": 194
+        },
+        {
+          "caller": "clientCounters",
+          "callee": "db\n    .select",
+          "lineNumber": 194
+        },
+        {
+          "caller": "clientCounters",
+          "callee": "eq",
+          "lineNumber": 197
+        },
+        {
+          "caller": "clientCounters",
+          "callee": "db\n    .select({\n      unpaid: sql<number>`count(*) filter (where ${invoices.status} in ('envoyee','en_retard'))::int`,\n      unpaidCents: sql<number>`coalesce(sum(${invoices.amountCents}) filter (where ${invoices.status} in ('envoyee','en_retard')), 0)::int`,\n    })\n    .from(invoices)\n    .where",
+          "lineNumber": 199
+        },
+        {
+          "caller": "clientCounters",
+          "callee": "db\n    .select({\n      unpaid: sql<number>`count(*) filter (where ${invoices.status} in ('envoyee','en_retard'))::int`,\n      unpaidCents: sql<number>`coalesce(sum(${invoices.amountCents}) filter (where ${invoices.status} in ('envoyee','en_retard')), 0)::int`,\n    })\n    .from",
+          "lineNumber": 199
+        },
+        {
+          "caller": "clientCounters",
+          "callee": "db\n    .select",
+          "lineNumber": 199
+        },
+        {
+          "caller": "clientCounters",
+          "callee": "eq",
+          "lineNumber": 205
+        },
+        {
+          "caller": "clientCounters",
+          "callee": "db\n    .select({ n: sql<number>`count(*)::int` })\n    .from(attachments)\n    .where",
+          "lineNumber": 207
+        },
+        {
+          "caller": "clientCounters",
+          "callee": "db\n    .select({ n: sql<number>`count(*)::int` })\n    .from",
+          "lineNumber": 207
+        },
+        {
+          "caller": "clientCounters",
+          "callee": "db\n    .select",
+          "lineNumber": 207
+        },
+        {
+          "caller": "clientCounters",
+          "callee": "and",
+          "lineNumber": 210
+        },
+        {
+          "caller": "clientCounters",
+          "callee": "eq",
+          "lineNumber": 210
+        },
+        {
+          "caller": "clientCounters",
+          "callee": "eq",
+          "lineNumber": 210
+        },
+        {
+          "caller": "openRequestsQueue",
+          "callee": "db\n    .select({ request: requests, client: user })\n    .from(requests)\n    .innerJoin(user, eq(user.id, requests.userId))\n    .where(or(eq(requests.status, \"nouvelle\"), eq(requests.status, \"en_cours\")))\n    .orderBy(desc(requests.createdAt))\n    .limit",
+          "lineNumber": 224
+        },
+        {
+          "caller": "openRequestsQueue",
+          "callee": "db\n    .select({ request: requests, client: user })\n    .from(requests)\n    .innerJoin(user, eq(user.id, requests.userId))\n    .where(or(eq(requests.status, \"nouvelle\"), eq(requests.status, \"en_cours\")))\n    .orderBy",
+          "lineNumber": 224
+        },
+        {
+          "caller": "openRequestsQueue",
+          "callee": "db\n    .select({ request: requests, client: user })\n    .from(requests)\n    .innerJoin(user, eq(user.id, requests.userId))\n    .where",
+          "lineNumber": 224
+        },
+        {
+          "caller": "openRequestsQueue",
+          "callee": "db\n    .select({ request: requests, client: user })\n    .from(requests)\n    .innerJoin",
+          "lineNumber": 224
+        },
+        {
+          "caller": "openRequestsQueue",
+          "callee": "db\n    .select({ request: requests, client: user })\n    .from",
+          "lineNumber": 224
+        },
+        {
+          "caller": "openRequestsQueue",
+          "callee": "db\n    .select",
+          "lineNumber": 224
+        },
+        {
+          "caller": "openRequestsQueue",
+          "callee": "eq",
+          "lineNumber": 227
+        },
+        {
+          "caller": "openRequestsQueue",
+          "callee": "or",
+          "lineNumber": 228
+        },
+        {
+          "caller": "openRequestsQueue",
+          "callee": "eq",
+          "lineNumber": 228
+        },
+        {
+          "caller": "openRequestsQueue",
+          "callee": "eq",
+          "lineNumber": 228
+        },
+        {
+          "caller": "openRequestsQueue",
+          "callee": "desc",
+          "lineNumber": 229
+        },
+        {
+          "caller": "unreadLeadCount",
+          "callee": "db\n    .select({ n: sql<number>`count(*)::int` })\n    .from(contactLeads)\n    .where",
+          "lineNumber": 234
+        },
+        {
+          "caller": "unreadLeadCount",
+          "callee": "db\n    .select({ n: sql<number>`count(*)::int` })\n    .from",
+          "lineNumber": 234
+        },
+        {
+          "caller": "unreadLeadCount",
+          "callee": "db\n    .select",
+          "lineNumber": 234
+        },
+        {
+          "caller": "unreadLeadCount",
+          "callee": "and",
+          "lineNumber": 237
+        },
+        {
+          "caller": "unreadLeadCount",
+          "callee": "eq",
+          "lineNumber": 237
+        },
+        {
+          "caller": "unreadLeadCount",
+          "callee": "isNull",
+          "lineNumber": 237
+        },
+        {
+          "caller": "listThread",
+          "callee": "Promise.all",
+          "lineNumber": 247
+        },
+        {
+          "caller": "listThread",
+          "callee": "listMessages",
+          "lineNumber": 248
+        },
+        {
+          "caller": "listThread",
+          "callee": "listAttachments",
+          "lineNumber": 249
+        },
+        {
+          "caller": "listThread",
+          "callee": "byMessage.set",
+          "lineNumber": 254
+        },
+        {
+          "caller": "listThread",
+          "callee": "byMessage.get",
+          "lineNumber": 254
+        },
+        {
+          "caller": "listThread",
+          "callee": "loose.push",
+          "lineNumber": 255
+        },
+        {
+          "caller": "listThread",
+          "callee": "rows.map",
+          "lineNumber": 258
+        },
+        {
+          "caller": "listThread",
+          "callee": "(byMessage.get(message.id) ?? []).sort",
+          "lineNumber": 261
+        },
+        {
+          "caller": "listThread",
+          "callee": "byMessage.get",
+          "lineNumber": 261
+        },
+        {
+          "caller": "listThread",
+          "callee": "a.createdAt.getTime",
+          "lineNumber": 261
+        },
+        {
+          "caller": "listThread",
+          "callee": "b.createdAt.getTime",
+          "lineNumber": 261
+        },
+        {
+          "caller": "listBillableClients",
+          "callee": "db\n    .select({ id: user.id, name: user.name, email: user.email, company: user.company, phone: user.phone })\n    .from(user)\n    .where(sql`${user.role} <> 'staff'`)\n    .orderBy",
+          "lineNumber": 269
+        },
+        {
+          "caller": "listBillableClients",
+          "callee": "db\n    .select({ id: user.id, name: user.name, email: user.email, company: user.company, phone: user.phone })\n    .from(user)\n    .where",
+          "lineNumber": 269
+        },
+        {
+          "caller": "listBillableClients",
+          "callee": "db\n    .select({ id: user.id, name: user.name, email: user.email, company: user.company, phone: user.phone })\n    .from",
+          "lineNumber": 269
+        },
+        {
+          "caller": "listBillableClients",
+          "callee": "db\n    .select",
+          "lineNumber": 269
+        },
+        {
+          "caller": "listBillableClients",
+          "callee": "sql",
+          "lineNumber": 272
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 17,
+        "functionCount": 17,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "lib/settings.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 98,
+      "nonEmptyLines": 88,
+      "functions": [
+        {
+          "name": "getSettings",
+          "startLine": 49,
+          "endLine": 64,
+          "params": []
+        },
+        {
+          "name": "getSetting",
+          "startLine": 66,
+          "endLine": 73,
+          "params": [
+            "key"
+          ]
+        },
+        {
+          "name": "setSetting",
+          "startLine": 75,
+          "endLine": 87,
+          "params": [
+            "key",
+            "value",
+            "updatedById"
+          ]
+        },
+        {
+          "name": "getDocumentCompany",
+          "startLine": 91,
+          "endLine": 93,
+          "params": [
+            "overrides"
+          ]
+        },
+        {
+          "name": "getCompany",
+          "startLine": 95,
+          "endLine": 98,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "DEFAULT_COMPANY",
+          "line": 14,
+          "isDefault": false
+        },
+        {
+          "name": "CompanyIdentity",
+          "line": 14,
+          "isDefault": false
+        },
+        {
+          "name": "DEFAULT_SETTINGS",
+          "line": 31,
+          "isDefault": false
+        },
+        {
+          "name": "SETTING_KEYS",
+          "line": 39,
+          "isDefault": false
+        },
+        {
+          "name": "getSettings",
+          "line": 49,
+          "isDefault": false
+        },
+        {
+          "name": "getSetting",
+          "line": 66,
+          "isDefault": false
+        },
+        {
+          "name": "setSetting",
+          "line": 75,
+          "isDefault": false
+        },
+        {
+          "name": "getDocumentCompany",
+          "line": 91,
+          "isDefault": false
+        },
+        {
+          "name": "getCompany",
+          "line": 95,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "getSettings",
+          "callee": "db.select().from",
+          "lineNumber": 51
+        },
+        {
+          "caller": "getSettings",
+          "callee": "db.select",
+          "lineNumber": 51
+        },
+        {
+          "caller": "getSettings",
+          "callee": "(SETTING_KEYS as string[]).includes",
+          "lineNumber": 54
+        },
+        {
+          "caller": "getSetting",
+          "callee": "db.select().from(appSettings).where(eq(appSettings.key, key)).limit",
+          "lineNumber": 68
+        },
+        {
+          "caller": "getSetting",
+          "callee": "db.select().from(appSettings).where",
+          "lineNumber": 68
+        },
+        {
+          "caller": "getSetting",
+          "callee": "db.select().from",
+          "lineNumber": 68
+        },
+        {
+          "caller": "getSetting",
+          "callee": "db.select",
+          "lineNumber": 68
+        },
+        {
+          "caller": "getSetting",
+          "callee": "eq",
+          "lineNumber": 68
+        },
+        {
+          "caller": "setSetting",
+          "callee": "db\n    .insert(appSettings)\n    .values({ key, value, updatedById })\n    .onConflictDoUpdate",
+          "lineNumber": 80
+        },
+        {
+          "caller": "setSetting",
+          "callee": "db\n    .insert(appSettings)\n    .values",
+          "lineNumber": 80
+        },
+        {
+          "caller": "setSetting",
+          "callee": "db\n    .insert",
+          "lineNumber": 80
+        },
+        {
+          "caller": "getDocumentCompany",
+          "callee": "effectiveCompany",
+          "lineNumber": 92
+        },
+        {
+          "caller": "getDocumentCompany",
+          "callee": "getCompany",
+          "lineNumber": 92
+        },
+        {
+          "caller": "getCompany",
+          "callee": "getSetting",
+          "lineNumber": 96
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 9,
+        "functionCount": 5,
+        "classCount": 0
+      }
+    }
+  ]
+}

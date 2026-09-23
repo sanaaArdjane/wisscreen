@@ -1,0 +1,3064 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 23,
+  "filesSkipped": [],
+  "filesUnreadable": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 23,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 23,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "results": [
+    {
+      "path": "__tests__/document-overrides.test.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 81,
+      "nonEmptyLines": 72,
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "__tests__/pdf.test.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 85,
+      "nonEmptyLines": 77,
+      "functions": [
+        {
+          "name": "render",
+          "startLine": 54,
+          "endLine": 58,
+          "params": [
+            "name",
+            "d",
+            "company"
+          ]
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "render",
+          "callee": "renderToBuffer",
+          "lineNumber": 55
+        },
+        {
+          "caller": "render",
+          "callee": "writeFileSync",
+          "lineNumber": 56
+        },
+        {
+          "caller": "render",
+          "callee": "join",
+          "lineNumber": 56
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "__tests__/platform.test.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 305,
+      "nonEmptyLines": 258,
+      "metrics": {
+        "importCount": 6,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/(app)/admin/abonnements/ServiceForm.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 197,
+      "nonEmptyLines": 190,
+      "functions": [
+        {
+          "name": "ServiceForm",
+          "startLine": 38,
+          "endLine": 182,
+          "params": [
+            "{\n  service = {},\n  clients,\n  plansList,\n}"
+          ]
+        },
+        {
+          "name": "DeleteServiceForm",
+          "startLine": 184,
+          "endLine": 197,
+          "params": [
+            "{ subscriptionId, hasPlan }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "ServiceForm",
+          "line": 38,
+          "isDefault": false
+        },
+        {
+          "name": "DeleteServiceForm",
+          "line": 184,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "ServiceForm",
+          "callee": "useActionState",
+          "lineNumber": 47
+        },
+        {
+          "caller": "ServiceForm",
+          "callee": "useState",
+          "lineNumber": 49
+        },
+        {
+          "caller": "ServiceForm",
+          "callee": "plansList.find",
+          "lineNumber": 50
+        },
+        {
+          "caller": "ServiceForm",
+          "callee": "Boolean",
+          "lineNumber": 51
+        },
+        {
+          "caller": "ServiceForm",
+          "callee": "setPlanSlug",
+          "lineNumber": 78
+        },
+        {
+          "caller": "ServiceForm",
+          "callee": "plansList.map",
+          "lineNumber": 82
+        },
+        {
+          "caller": "ServiceForm",
+          "callee": "SUBSCRIPTION_STATUSES.map",
+          "lineNumber": 105
+        },
+        {
+          "caller": "DeleteServiceForm",
+          "callee": "useActionState",
+          "lineNumber": 185
+        }
+      ],
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/(app)/admin/catalogue/CatalogueForm.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 142,
+      "nonEmptyLines": 138,
+      "functions": [
+        {
+          "name": "CatalogueForm",
+          "startLine": 32,
+          "endLine": 127,
+          "params": [
+            "{ item = {}, isEdit }"
+          ]
+        },
+        {
+          "name": "DeleteCatalogueForm",
+          "startLine": 129,
+          "endLine": 142,
+          "params": [
+            "{ slug }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "CatalogueForm",
+          "line": 32,
+          "isDefault": false
+        },
+        {
+          "name": "DeleteCatalogueForm",
+          "line": 129,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "CatalogueForm",
+          "callee": "useActionState",
+          "lineNumber": 33
+        },
+        {
+          "caller": "CatalogueForm",
+          "callee": "Object.entries(CATEGORY_LABELS).map",
+          "lineNumber": 53
+        },
+        {
+          "caller": "CatalogueForm",
+          "callee": "Object.entries",
+          "lineNumber": 53
+        },
+        {
+          "caller": "CatalogueForm",
+          "callee": "Object.keys(METRIC_LABELS).join",
+          "lineNumber": 104
+        },
+        {
+          "caller": "CatalogueForm",
+          "callee": "Object.keys",
+          "lineNumber": 104
+        },
+        {
+          "caller": "CatalogueForm",
+          "callee": "String",
+          "lineNumber": 113
+        },
+        {
+          "caller": "DeleteCatalogueForm",
+          "callee": "useActionState",
+          "lineNumber": 130
+        }
+      ],
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/(app)/admin/demandes/[id]/RequestControls.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 170,
+      "nonEmptyLines": 159,
+      "functions": [
+        {
+          "name": "StatusControl",
+          "startLine": 23,
+          "endLine": 59,
+          "params": [
+            "{\n  requestId,\n  current,\n  allowed,\n}"
+          ]
+        },
+        {
+          "name": "AssignControl",
+          "startLine": 61,
+          "endLine": 100,
+          "params": [
+            "{\n  requestId,\n  assignees,\n  priorities,\n  currentAssignee,\n  currentPriority,\n}"
+          ]
+        },
+        {
+          "name": "EditRequestForm",
+          "startLine": 105,
+          "endLine": 154,
+          "params": [
+            "{\n  requestId,\n  title,\n  details,\n  budget,\n}"
+          ]
+        },
+        {
+          "name": "DeleteRequestForm",
+          "startLine": 156,
+          "endLine": 170,
+          "params": [
+            "{ requestId, requestRef }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "StatusControl",
+          "line": 23,
+          "isDefault": false
+        },
+        {
+          "name": "AssignControl",
+          "line": 61,
+          "isDefault": false
+        },
+        {
+          "name": "EditRequestForm",
+          "line": 105,
+          "isDefault": false
+        },
+        {
+          "name": "DeleteRequestForm",
+          "line": 156,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "StatusControl",
+          "callee": "useActionState",
+          "lineNumber": 33
+        },
+        {
+          "caller": "AssignControl",
+          "callee": "useActionState",
+          "lineNumber": 74
+        },
+        {
+          "caller": "EditRequestForm",
+          "callee": "useActionState",
+          "lineNumber": 116
+        },
+        {
+          "caller": "EditRequestForm",
+          "callee": "useState",
+          "lineNumber": 117
+        },
+        {
+          "caller": "EditRequestForm",
+          "callee": "setOpen",
+          "lineNumber": 120
+        },
+        {
+          "caller": "EditRequestForm",
+          "callee": "setOpen",
+          "lineNumber": 148
+        },
+        {
+          "caller": "DeleteRequestForm",
+          "callee": "useActionState",
+          "lineNumber": 157
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 4,
+        "functionCount": 4,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/(app)/admin/devis/[id]/QuoteActions.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 135,
+      "nonEmptyLines": 126,
+      "functions": [
+        {
+          "name": "QuoteActions",
+          "startLine": 18,
+          "endLine": 135,
+          "params": [
+            "{\n  quoteId,\n  quoteRef,\n  status,\n  sentAt,\n  hasInvoice,\n  canWrite,\n  canInvoice,\n  canProvision,\n  canDelete,\n}"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "QuoteActions",
+          "line": 18,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "QuoteActions",
+          "callee": "useActionState",
+          "lineNumber": 39
+        },
+        {
+          "caller": "QuoteActions",
+          "callee": "useActionState",
+          "lineNumber": 40
+        }
+      ],
+      "metrics": {
+        "importCount": 5,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/(app)/admin/devis/[id]/page.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 190,
+      "nonEmptyLines": 176,
+      "functions": [
+        {
+          "name": "AdminQuotePage",
+          "startLine": 25,
+          "endLine": 181,
+          "params": [
+            "{ params }"
+          ]
+        },
+        {
+          "name": "Row",
+          "startLine": 183,
+          "endLine": 190,
+          "params": [
+            "{ label, value }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "metadata",
+          "line": 23,
+          "isDefault": false
+        },
+        {
+          "name": "AdminQuotePage",
+          "line": 25,
+          "isDefault": true
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "AdminQuotePage",
+          "callee": "Number",
+          "lineNumber": 27
+        },
+        {
+          "caller": "AdminQuotePage",
+          "callee": "Number.isInteger",
+          "lineNumber": 28
+        },
+        {
+          "caller": "AdminQuotePage",
+          "callee": "notFound",
+          "lineNumber": 28
+        },
+        {
+          "caller": "AdminQuotePage",
+          "callee": "requirePermission",
+          "lineNumber": 30
+        },
+        {
+          "caller": "AdminQuotePage",
+          "callee": "db\n    .select({ quote: quotes, client: userTable })\n    .from(quotes)\n    .innerJoin(userTable, eq(userTable.id, quotes.userId))\n    .where(eq(quotes.id, numericId))\n    .limit",
+          "lineNumber": 32
+        },
+        {
+          "caller": "AdminQuotePage",
+          "callee": "db\n    .select({ quote: quotes, client: userTable })\n    .from(quotes)\n    .innerJoin(userTable, eq(userTable.id, quotes.userId))\n    .where",
+          "lineNumber": 32
+        },
+        {
+          "caller": "AdminQuotePage",
+          "callee": "db\n    .select({ quote: quotes, client: userTable })\n    .from(quotes)\n    .innerJoin",
+          "lineNumber": 32
+        },
+        {
+          "caller": "AdminQuotePage",
+          "callee": "db\n    .select({ quote: quotes, client: userTable })\n    .from",
+          "lineNumber": 32
+        },
+        {
+          "caller": "AdminQuotePage",
+          "callee": "db\n    .select",
+          "lineNumber": 32
+        },
+        {
+          "caller": "AdminQuotePage",
+          "callee": "eq",
+          "lineNumber": 35
+        },
+        {
+          "caller": "AdminQuotePage",
+          "callee": "eq",
+          "lineNumber": 36
+        },
+        {
+          "caller": "AdminQuotePage",
+          "callee": "notFound",
+          "lineNumber": 38
+        },
+        {
+          "caller": "AdminQuotePage",
+          "callee": "getCompany",
+          "lineNumber": 41
+        },
+        {
+          "caller": "AdminQuotePage",
+          "callee": "effectiveCompany",
+          "lineNumber": 43
+        },
+        {
+          "caller": "AdminQuotePage",
+          "callee": "isQuoteStatus",
+          "lineNumber": 44
+        },
+        {
+          "caller": "AdminQuotePage",
+          "callee": "can",
+          "lineNumber": 46
+        },
+        {
+          "caller": "AdminQuotePage",
+          "callee": "Promise.all",
+          "lineNumber": 48
+        },
+        {
+          "caller": "AdminQuotePage",
+          "callee": "db.select().from(requests).where(eq(requests.id, quote.requestId)).limit",
+          "lineNumber": 50
+        },
+        {
+          "caller": "AdminQuotePage",
+          "callee": "db.select().from(requests).where",
+          "lineNumber": 50
+        },
+        {
+          "caller": "AdminQuotePage",
+          "callee": "db.select().from",
+          "lineNumber": 50
+        },
+        {
+          "caller": "AdminQuotePage",
+          "callee": "db.select",
+          "lineNumber": 50
+        },
+        {
+          "caller": "AdminQuotePage",
+          "callee": "eq",
+          "lineNumber": 50
+        },
+        {
+          "caller": "AdminQuotePage",
+          "callee": "Promise.resolve",
+          "lineNumber": 51
+        },
+        {
+          "caller": "AdminQuotePage",
+          "callee": "db.select().from(invoices).where(eq(invoices.quoteId, quote.id)).limit",
+          "lineNumber": 52
+        },
+        {
+          "caller": "AdminQuotePage",
+          "callee": "db.select().from(invoices).where",
+          "lineNumber": 52
+        },
+        {
+          "caller": "AdminQuotePage",
+          "callee": "db.select().from",
+          "lineNumber": 52
+        },
+        {
+          "caller": "AdminQuotePage",
+          "callee": "db.select",
+          "lineNumber": 52
+        },
+        {
+          "caller": "AdminQuotePage",
+          "callee": "eq",
+          "lineNumber": 52
+        },
+        {
+          "caller": "AdminQuotePage",
+          "callee": "listBillableClients",
+          "lineNumber": 53
+        },
+        {
+          "caller": "AdminQuotePage",
+          "callee": "Promise.resolve",
+          "lineNumber": 53
+        },
+        {
+          "caller": "AdminQuotePage",
+          "callee": "formatDateTime",
+          "lineNumber": 60
+        },
+        {
+          "caller": "AdminQuotePage",
+          "callee": "(quote.sentAt ?? quote.createdAt).toISOString",
+          "lineNumber": 79
+        },
+        {
+          "caller": "AdminQuotePage",
+          "callee": "toDateInput",
+          "lineNumber": 86
+        },
+        {
+          "caller": "AdminQuotePage",
+          "callee": "storageConfigured",
+          "lineNumber": 91
+        },
+        {
+          "caller": "AdminQuotePage",
+          "callee": "previewDoc",
+          "lineNumber": 98
+        },
+        {
+          "caller": "AdminQuotePage",
+          "callee": "can",
+          "lineNumber": 120
+        },
+        {
+          "caller": "AdminQuotePage",
+          "callee": "formatMoney",
+          "lineNumber": 132
+        },
+        {
+          "caller": "AdminQuotePage",
+          "callee": "formatDate",
+          "lineNumber": 135
+        },
+        {
+          "caller": "AdminQuotePage",
+          "callee": "formatDateTime",
+          "lineNumber": 137
+        },
+        {
+          "caller": "AdminQuotePage",
+          "callee": "formatDateTime",
+          "lineNumber": 138
+        },
+        {
+          "caller": "AdminQuotePage",
+          "callee": "formatDateTime",
+          "lineNumber": 147
+        },
+        {
+          "caller": "AdminQuotePage",
+          "callee": "can",
+          "lineNumber": 150
+        },
+        {
+          "caller": "AdminQuotePage",
+          "callee": "can",
+          "lineNumber": 151
+        },
+        {
+          "caller": "AdminQuotePage",
+          "callee": "can",
+          "lineNumber": 152
+        }
+      ],
+      "metrics": {
+        "importCount": 17,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/(app)/admin/devis/actions.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 251,
+      "nonEmptyLines": 222,
+      "functions": [
+        {
+          "name": "saveQuote",
+          "startLine": 39,
+          "endLine": 104,
+          "params": [
+            "_prev",
+            "formData"
+          ]
+        },
+        {
+          "name": "sendQuote",
+          "startLine": 114,
+          "endLine": 163,
+          "params": [
+            "_prev",
+            "formData"
+          ]
+        },
+        {
+          "name": "invoiceFromQuote",
+          "startLine": 171,
+          "endLine": 216,
+          "params": [
+            "formData"
+          ]
+        },
+        {
+          "name": "deleteQuote",
+          "startLine": 228,
+          "endLine": 251,
+          "params": [
+            "_prev",
+            "formData"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "saveQuote",
+          "line": 39,
+          "isDefault": false
+        },
+        {
+          "name": "sendQuote",
+          "line": 114,
+          "isDefault": false
+        },
+        {
+          "name": "invoiceFromQuote",
+          "line": 171,
+          "isDefault": false
+        },
+        {
+          "name": "deleteQuote",
+          "line": 228,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "saveQuote",
+          "callee": "requirePermission",
+          "lineNumber": 40
+        },
+        {
+          "caller": "saveQuote",
+          "callee": "parseForm",
+          "lineNumber": 41
+        },
+        {
+          "caller": "saveQuote",
+          "callee": "readLines",
+          "lineNumber": 44
+        },
+        {
+          "caller": "saveQuote",
+          "callee": "fail",
+          "lineNumber": 45
+        },
+        {
+          "caller": "saveQuote",
+          "callee": "readOverrides",
+          "lineNumber": 46
+        },
+        {
+          "caller": "saveQuote",
+          "callee": "fail",
+          "lineNumber": 47
+        },
+        {
+          "caller": "saveQuote",
+          "callee": "totalCents",
+          "lineNumber": 49
+        },
+        {
+          "caller": "saveQuote",
+          "callee": "db\n      .select()\n      .from(quotes)\n      .where(eq(quotes.id, parsed.data.quoteId))\n      .limit",
+          "lineNumber": 64
+        },
+        {
+          "caller": "saveQuote",
+          "callee": "db\n      .select()\n      .from(quotes)\n      .where",
+          "lineNumber": 64
+        },
+        {
+          "caller": "saveQuote",
+          "callee": "db\n      .select()\n      .from",
+          "lineNumber": 64
+        },
+        {
+          "caller": "saveQuote",
+          "callee": "db\n      .select",
+          "lineNumber": 64
+        },
+        {
+          "caller": "saveQuote",
+          "callee": "eq",
+          "lineNumber": 67
+        },
+        {
+          "caller": "saveQuote",
+          "callee": "fail",
+          "lineNumber": 69
+        },
+        {
+          "caller": "saveQuote",
+          "callee": "fail",
+          "lineNumber": 73
+        },
+        {
+          "caller": "saveQuote",
+          "callee": "db.update(quotes).set(base).where",
+          "lineNumber": 76
+        },
+        {
+          "caller": "saveQuote",
+          "callee": "db.update(quotes).set",
+          "lineNumber": 76
+        },
+        {
+          "caller": "saveQuote",
+          "callee": "db.update",
+          "lineNumber": 76
+        },
+        {
+          "caller": "saveQuote",
+          "callee": "eq",
+          "lineNumber": 76
+        },
+        {
+          "caller": "saveQuote",
+          "callee": "logActivity",
+          "lineNumber": 77
+        },
+        {
+          "caller": "saveQuote",
+          "callee": "revalidatePath",
+          "lineNumber": 84
+        },
+        {
+          "caller": "saveQuote",
+          "callee": "revalidatePath",
+          "lineNumber": 85
+        },
+        {
+          "caller": "saveQuote",
+          "callee": "succeed",
+          "lineNumber": 86
+        },
+        {
+          "caller": "saveQuote",
+          "callee": "allocateRef",
+          "lineNumber": 89
+        },
+        {
+          "caller": "saveQuote",
+          "callee": "db\n    .insert(quotes)\n    .values({ ...base, ref, createdById: staff.id, status: \"brouillon\" })\n    .returning",
+          "lineNumber": 90
+        },
+        {
+          "caller": "saveQuote",
+          "callee": "db\n    .insert(quotes)\n    .values",
+          "lineNumber": 90
+        },
+        {
+          "caller": "saveQuote",
+          "callee": "db\n    .insert",
+          "lineNumber": 90
+        },
+        {
+          "caller": "saveQuote",
+          "callee": "logActivity",
+          "lineNumber": 95
+        },
+        {
+          "caller": "saveQuote",
+          "callee": "redirect",
+          "lineNumber": 103
+        },
+        {
+          "caller": "sendQuote",
+          "callee": "requirePermission",
+          "lineNumber": 115
+        },
+        {
+          "caller": "sendQuote",
+          "callee": "Number",
+          "lineNumber": 116
+        },
+        {
+          "caller": "sendQuote",
+          "callee": "formData.get",
+          "lineNumber": 116
+        },
+        {
+          "caller": "sendQuote",
+          "callee": "String",
+          "lineNumber": 117
+        },
+        {
+          "caller": "sendQuote",
+          "callee": "formData.get",
+          "lineNumber": 117
+        },
+        {
+          "caller": "sendQuote",
+          "callee": "Number.isInteger",
+          "lineNumber": 118
+        },
+        {
+          "caller": "sendQuote",
+          "callee": "fail",
+          "lineNumber": 118
+        },
+        {
+          "caller": "sendQuote",
+          "callee": "db.select().from(quotes).where(eq(quotes.id, id)).limit",
+          "lineNumber": 120
+        },
+        {
+          "caller": "sendQuote",
+          "callee": "db.select().from(quotes).where",
+          "lineNumber": 120
+        },
+        {
+          "caller": "sendQuote",
+          "callee": "db.select().from",
+          "lineNumber": 120
+        },
+        {
+          "caller": "sendQuote",
+          "callee": "db.select",
+          "lineNumber": 120
+        },
+        {
+          "caller": "sendQuote",
+          "callee": "eq",
+          "lineNumber": 120
+        },
+        {
+          "caller": "sendQuote",
+          "callee": "fail",
+          "lineNumber": 121
+        },
+        {
+          "caller": "sendQuote",
+          "callee": "fail",
+          "lineNumber": 122
+        },
+        {
+          "caller": "sendQuote",
+          "callee": "db.update(quotes).set({ status: \"envoye\", updatedAt: new Date() }).where",
+          "lineNumber": 126
+        },
+        {
+          "caller": "sendQuote",
+          "callee": "db.update(quotes).set",
+          "lineNumber": 126
+        },
+        {
+          "caller": "sendQuote",
+          "callee": "db.update",
+          "lineNumber": 126
+        },
+        {
+          "caller": "sendQuote",
+          "callee": "eq",
+          "lineNumber": 126
+        },
+        {
+          "caller": "sendQuote",
+          "callee": "emailBillingDocument",
+          "lineNumber": 129
+        },
+        {
+          "caller": "sendQuote",
+          "callee": "notify",
+          "lineNumber": 132
+        },
+        {
+          "caller": "sendQuote",
+          "callee": "formatMoney",
+          "lineNumber": 136
+        },
+        {
+          "caller": "sendQuote",
+          "callee": "logActivity",
+          "lineNumber": 144
+        },
+        {
+          "caller": "sendQuote",
+          "callee": "revalidatePath",
+          "lineNumber": 152
+        },
+        {
+          "caller": "sendQuote",
+          "callee": "revalidatePath",
+          "lineNumber": 153
+        },
+        {
+          "caller": "sendQuote",
+          "callee": "revalidatePath",
+          "lineNumber": 154
+        },
+        {
+          "caller": "sendQuote",
+          "callee": "revalidatePath",
+          "lineNumber": 155
+        },
+        {
+          "caller": "sendQuote",
+          "callee": "fail",
+          "lineNumber": 157
+        },
+        {
+          "caller": "sendQuote",
+          "callee": "succeed",
+          "lineNumber": 158
+        },
+        {
+          "caller": "invoiceFromQuote",
+          "callee": "requirePermission",
+          "lineNumber": 172
+        },
+        {
+          "caller": "invoiceFromQuote",
+          "callee": "Number",
+          "lineNumber": 173
+        },
+        {
+          "caller": "invoiceFromQuote",
+          "callee": "formData.get",
+          "lineNumber": 173
+        },
+        {
+          "caller": "invoiceFromQuote",
+          "callee": "Number.isInteger",
+          "lineNumber": 174
+        },
+        {
+          "caller": "invoiceFromQuote",
+          "callee": "db.select().from(quotes).where(eq(quotes.id, id)).limit",
+          "lineNumber": 176
+        },
+        {
+          "caller": "invoiceFromQuote",
+          "callee": "db.select().from(quotes).where",
+          "lineNumber": 176
+        },
+        {
+          "caller": "invoiceFromQuote",
+          "callee": "db.select().from",
+          "lineNumber": 176
+        },
+        {
+          "caller": "invoiceFromQuote",
+          "callee": "db.select",
+          "lineNumber": 176
+        },
+        {
+          "caller": "invoiceFromQuote",
+          "callee": "eq",
+          "lineNumber": 176
+        },
+        {
+          "caller": "invoiceFromQuote",
+          "callee": "db\n    .select({ id: invoices.id })\n    .from(invoices)\n    .where(eq(invoices.quoteId, id))\n    .limit",
+          "lineNumber": 179
+        },
+        {
+          "caller": "invoiceFromQuote",
+          "callee": "db\n    .select({ id: invoices.id })\n    .from(invoices)\n    .where",
+          "lineNumber": 179
+        },
+        {
+          "caller": "invoiceFromQuote",
+          "callee": "db\n    .select({ id: invoices.id })\n    .from",
+          "lineNumber": 179
+        },
+        {
+          "caller": "invoiceFromQuote",
+          "callee": "db\n    .select",
+          "lineNumber": 179
+        },
+        {
+          "caller": "invoiceFromQuote",
+          "callee": "eq",
+          "lineNumber": 182
+        },
+        {
+          "caller": "invoiceFromQuote",
+          "callee": "redirect",
+          "lineNumber": 185
+        },
+        {
+          "caller": "invoiceFromQuote",
+          "callee": "allocateRef",
+          "lineNumber": 188
+        },
+        {
+          "caller": "invoiceFromQuote",
+          "callee": "db\n    .insert(invoices)\n    .values({\n      ref,\n      userId: quote.userId,\n      quoteId: quote.id,\n      title: quote.title,\n      lines: quote.lines,\n      amountCents: quote.amountCents,\n      currency: quote.currency,\n      // What the devis said about the issuer, the facture says too.\n      overrides: quote.overrides,\n      status: \"brouillon\",\n      createdById: staff.id,\n    })\n    .returning",
+          "lineNumber": 189
+        },
+        {
+          "caller": "invoiceFromQuote",
+          "callee": "db\n    .insert(invoices)\n    .values",
+          "lineNumber": 189
+        },
+        {
+          "caller": "invoiceFromQuote",
+          "callee": "db\n    .insert",
+          "lineNumber": 189
+        },
+        {
+          "caller": "invoiceFromQuote",
+          "callee": "logActivity",
+          "lineNumber": 206
+        },
+        {
+          "caller": "invoiceFromQuote",
+          "callee": "revalidatePath",
+          "lineNumber": 214
+        },
+        {
+          "caller": "invoiceFromQuote",
+          "callee": "redirect",
+          "lineNumber": 215
+        },
+        {
+          "caller": "deleteQuote",
+          "callee": "requirePermission",
+          "lineNumber": 229
+        },
+        {
+          "caller": "deleteQuote",
+          "callee": "Number",
+          "lineNumber": 230
+        },
+        {
+          "caller": "deleteQuote",
+          "callee": "formData.get",
+          "lineNumber": 230
+        },
+        {
+          "caller": "deleteQuote",
+          "callee": "Number.isInteger",
+          "lineNumber": 231
+        },
+        {
+          "caller": "deleteQuote",
+          "callee": "fail",
+          "lineNumber": 231
+        },
+        {
+          "caller": "deleteQuote",
+          "callee": "db.select().from(quotes).where(eq(quotes.id, id)).limit",
+          "lineNumber": 233
+        },
+        {
+          "caller": "deleteQuote",
+          "callee": "db.select().from(quotes).where",
+          "lineNumber": 233
+        },
+        {
+          "caller": "deleteQuote",
+          "callee": "db.select().from",
+          "lineNumber": 233
+        },
+        {
+          "caller": "deleteQuote",
+          "callee": "db.select",
+          "lineNumber": 233
+        },
+        {
+          "caller": "deleteQuote",
+          "callee": "eq",
+          "lineNumber": 233
+        },
+        {
+          "caller": "deleteQuote",
+          "callee": "fail",
+          "lineNumber": 234
+        },
+        {
+          "caller": "deleteQuote",
+          "callee": "String(formData.get(\"confirm\") ?? \"\").trim",
+          "lineNumber": 235
+        },
+        {
+          "caller": "deleteQuote",
+          "callee": "String",
+          "lineNumber": 235
+        },
+        {
+          "caller": "deleteQuote",
+          "callee": "formData.get",
+          "lineNumber": 235
+        },
+        {
+          "caller": "deleteQuote",
+          "callee": "fail",
+          "lineNumber": 236
+        },
+        {
+          "caller": "deleteQuote",
+          "callee": "db.delete(quotes).where",
+          "lineNumber": 239
+        },
+        {
+          "caller": "deleteQuote",
+          "callee": "db.delete",
+          "lineNumber": 239
+        },
+        {
+          "caller": "deleteQuote",
+          "callee": "eq",
+          "lineNumber": 239
+        },
+        {
+          "caller": "deleteQuote",
+          "callee": "logActivity",
+          "lineNumber": 240
+        },
+        {
+          "caller": "deleteQuote",
+          "callee": "revalidatePath",
+          "lineNumber": 248
+        },
+        {
+          "caller": "deleteQuote",
+          "callee": "revalidatePath",
+          "lineNumber": 249
+        },
+        {
+          "caller": "deleteQuote",
+          "callee": "redirect",
+          "lineNumber": 250
+        }
+      ],
+      "metrics": {
+        "importCount": 8,
+        "exportCount": 4,
+        "functionCount": 4,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/(app)/admin/devis/nouveau/page.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 50,
+      "nonEmptyLines": 46,
+      "functions": [
+        {
+          "name": "NouveauDevisPage",
+          "startLine": 14,
+          "endLine": 50,
+          "params": [
+            "{ searchParams }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "metadata",
+          "line": 12,
+          "isDefault": false
+        },
+        {
+          "name": "NouveauDevisPage",
+          "line": 14,
+          "isDefault": true
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "NouveauDevisPage",
+          "callee": "requirePermission",
+          "lineNumber": 15
+        },
+        {
+          "caller": "NouveauDevisPage",
+          "callee": "Number",
+          "lineNumber": 17
+        },
+        {
+          "caller": "NouveauDevisPage",
+          "callee": "Promise.all",
+          "lineNumber": 19
+        },
+        {
+          "caller": "NouveauDevisPage",
+          "callee": "listBillableClients",
+          "lineNumber": 20
+        },
+        {
+          "caller": "NouveauDevisPage",
+          "callee": "Number.isInteger",
+          "lineNumber": 21
+        },
+        {
+          "caller": "NouveauDevisPage",
+          "callee": "db.select().from(requests).where(eq(requests.id, requestId)).limit",
+          "lineNumber": 22
+        },
+        {
+          "caller": "NouveauDevisPage",
+          "callee": "db.select().from(requests).where",
+          "lineNumber": 22
+        },
+        {
+          "caller": "NouveauDevisPage",
+          "callee": "db.select().from",
+          "lineNumber": 22
+        },
+        {
+          "caller": "NouveauDevisPage",
+          "callee": "db.select",
+          "lineNumber": 22
+        },
+        {
+          "caller": "NouveauDevisPage",
+          "callee": "eq",
+          "lineNumber": 22
+        },
+        {
+          "caller": "NouveauDevisPage",
+          "callee": "Promise.resolve",
+          "lineNumber": 23
+        },
+        {
+          "caller": "NouveauDevisPage",
+          "callee": "getCompany",
+          "lineNumber": 24
+        },
+        {
+          "caller": "NouveauDevisPage",
+          "callee": "storageConfigured",
+          "lineNumber": 45
+        }
+      ],
+      "metrics": {
+        "importCount": 8,
+        "exportCount": 2,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/(app)/admin/factures/InvoiceActions.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 81,
+      "nonEmptyLines": 76,
+      "functions": [
+        {
+          "name": "InvoiceActions",
+          "startLine": 9,
+          "endLine": 81,
+          "params": [
+            "{\n  invoiceId,\n  invoiceRef,\n  status,\n  sentAt,\n  canWrite,\n  canDelete,\n}"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "InvoiceActions",
+          "line": 9,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "InvoiceActions",
+          "callee": "useActionState",
+          "lineNumber": 24
+        },
+        {
+          "caller": "InvoiceActions",
+          "callee": "useActionState",
+          "lineNumber": 25
+        }
+      ],
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/(app)/admin/factures/InvoiceControls.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 39,
+      "nonEmptyLines": 36,
+      "functions": [
+        {
+          "name": "InvoiceControls",
+          "startLine": 9,
+          "endLine": 39,
+          "params": [
+            "{\n  invoiceId,\n  status,\n  dueAt,\n}"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "InvoiceControls",
+          "line": 9,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "InvoiceControls",
+          "callee": "useActionState",
+          "lineNumber": 18
+        },
+        {
+          "caller": "InvoiceControls",
+          "callee": "INVOICE_STATUSES.map",
+          "lineNumber": 26
+        }
+      ],
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/(app)/admin/factures/[id]/page.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 150,
+      "nonEmptyLines": 144,
+      "functions": [
+        {
+          "name": "AdminInvoicePage",
+          "startLine": 26,
+          "endLine": 150,
+          "params": [
+            "{ params }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "metadata",
+          "line": 24,
+          "isDefault": false
+        },
+        {
+          "name": "AdminInvoicePage",
+          "line": 26,
+          "isDefault": true
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "AdminInvoicePage",
+          "callee": "requirePermission",
+          "lineNumber": 27
+        },
+        {
+          "caller": "AdminInvoicePage",
+          "callee": "Number",
+          "lineNumber": 28
+        },
+        {
+          "caller": "AdminInvoicePage",
+          "callee": "Number.isInteger",
+          "lineNumber": 29
+        },
+        {
+          "caller": "AdminInvoicePage",
+          "callee": "notFound",
+          "lineNumber": 29
+        },
+        {
+          "caller": "AdminInvoicePage",
+          "callee": "db\n    .select({ invoice: invoices, client: userTable, quote: { id: quotes.id, ref: quotes.ref } })\n    .from(invoices)\n    .innerJoin(userTable, eq(userTable.id, invoices.userId))\n    .leftJoin(quotes, eq(quotes.id, invoices.quoteId))\n    .where(eq(invoices.id, id))\n    .limit",
+          "lineNumber": 31
+        },
+        {
+          "caller": "AdminInvoicePage",
+          "callee": "db\n    .select({ invoice: invoices, client: userTable, quote: { id: quotes.id, ref: quotes.ref } })\n    .from(invoices)\n    .innerJoin(userTable, eq(userTable.id, invoices.userId))\n    .leftJoin(quotes, eq(quotes.id, invoices.quoteId))\n    .where",
+          "lineNumber": 31
+        },
+        {
+          "caller": "AdminInvoicePage",
+          "callee": "db\n    .select({ invoice: invoices, client: userTable, quote: { id: quotes.id, ref: quotes.ref } })\n    .from(invoices)\n    .innerJoin(userTable, eq(userTable.id, invoices.userId))\n    .leftJoin",
+          "lineNumber": 31
+        },
+        {
+          "caller": "AdminInvoicePage",
+          "callee": "db\n    .select({ invoice: invoices, client: userTable, quote: { id: quotes.id, ref: quotes.ref } })\n    .from(invoices)\n    .innerJoin",
+          "lineNumber": 31
+        },
+        {
+          "caller": "AdminInvoicePage",
+          "callee": "db\n    .select({ invoice: invoices, client: userTable, quote: { id: quotes.id, ref: quotes.ref } })\n    .from",
+          "lineNumber": 31
+        },
+        {
+          "caller": "AdminInvoicePage",
+          "callee": "db\n    .select",
+          "lineNumber": 31
+        },
+        {
+          "caller": "AdminInvoicePage",
+          "callee": "eq",
+          "lineNumber": 34
+        },
+        {
+          "caller": "AdminInvoicePage",
+          "callee": "eq",
+          "lineNumber": 35
+        },
+        {
+          "caller": "AdminInvoicePage",
+          "callee": "eq",
+          "lineNumber": 36
+        },
+        {
+          "caller": "AdminInvoicePage",
+          "callee": "notFound",
+          "lineNumber": 38
+        },
+        {
+          "caller": "AdminInvoicePage",
+          "callee": "getCompany",
+          "lineNumber": 41
+        },
+        {
+          "caller": "AdminInvoicePage",
+          "callee": "effectiveCompany",
+          "lineNumber": 43
+        },
+        {
+          "caller": "AdminInvoicePage",
+          "callee": "can",
+          "lineNumber": 44
+        },
+        {
+          "caller": "AdminInvoicePage",
+          "callee": "[\"brouillon\", \"envoyee\", \"en_retard\"].includes",
+          "lineNumber": 45
+        },
+        {
+          "caller": "AdminInvoicePage",
+          "callee": "effectiveInvoiceStatus",
+          "lineNumber": 46
+        },
+        {
+          "caller": "AdminInvoicePage",
+          "callee": "listBillableClients",
+          "lineNumber": 47
+        },
+        {
+          "caller": "AdminInvoicePage",
+          "callee": "(invoice.issuedAt ?? invoice.createdAt).toISOString",
+          "lineNumber": 68
+        },
+        {
+          "caller": "AdminInvoicePage",
+          "callee": "toDateInput",
+          "lineNumber": 73
+        },
+        {
+          "caller": "AdminInvoicePage",
+          "callee": "storageConfigured",
+          "lineNumber": 78
+        },
+        {
+          "caller": "AdminInvoicePage",
+          "callee": "previewDoc",
+          "lineNumber": 85
+        },
+        {
+          "caller": "AdminInvoicePage",
+          "callee": "formatDateTime",
+          "lineNumber": 110
+        },
+        {
+          "caller": "AdminInvoicePage",
+          "callee": "can",
+          "lineNumber": 112
+        },
+        {
+          "caller": "AdminInvoicePage",
+          "callee": "toDateInput",
+          "lineNumber": 117
+        },
+        {
+          "caller": "AdminInvoicePage",
+          "callee": "formatMoney",
+          "lineNumber": 123
+        },
+        {
+          "caller": "AdminInvoicePage",
+          "callee": "formatDate",
+          "lineNumber": 125
+        },
+        {
+          "caller": "AdminInvoicePage",
+          "callee": "formatDate",
+          "lineNumber": 127
+        },
+        {
+          "caller": "AdminInvoicePage",
+          "callee": "formatDate",
+          "lineNumber": 129
+        }
+      ],
+      "metrics": {
+        "importCount": 18,
+        "exportCount": 2,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/(app)/admin/factures/actions.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 263,
+      "nonEmptyLines": 239,
+      "functions": [
+        {
+          "name": "refresh",
+          "startLine": 25,
+          "endLine": 30,
+          "params": [
+            "id"
+          ]
+        },
+        {
+          "name": "saveInvoice",
+          "startLine": 47,
+          "endLine": 108,
+          "params": [
+            "_prev",
+            "formData"
+          ]
+        },
+        {
+          "name": "insertWithRef",
+          "startLine": 111,
+          "endLine": 126,
+          "params": [
+            "values"
+          ]
+        },
+        {
+          "name": "sendInvoice",
+          "startLine": 132,
+          "endLine": 179,
+          "params": [
+            "_prev",
+            "formData"
+          ]
+        },
+        {
+          "name": "setInvoiceStatus",
+          "startLine": 191,
+          "endLine": 237,
+          "params": [
+            "_prev",
+            "formData"
+          ]
+        },
+        {
+          "name": "deleteInvoice",
+          "startLine": 244,
+          "endLine": 263,
+          "params": [
+            "_prev",
+            "formData"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "saveInvoice",
+          "line": 47,
+          "isDefault": false
+        },
+        {
+          "name": "sendInvoice",
+          "line": 132,
+          "isDefault": false
+        },
+        {
+          "name": "setInvoiceStatus",
+          "line": 191,
+          "isDefault": false
+        },
+        {
+          "name": "deleteInvoice",
+          "line": 244,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "refresh",
+          "callee": "revalidatePath",
+          "lineNumber": 26
+        },
+        {
+          "caller": "refresh",
+          "callee": "revalidatePath",
+          "lineNumber": 27
+        },
+        {
+          "caller": "refresh",
+          "callee": "revalidatePath",
+          "lineNumber": 28
+        },
+        {
+          "caller": "refresh",
+          "callee": "revalidatePath",
+          "lineNumber": 29
+        },
+        {
+          "caller": "saveInvoice",
+          "callee": "requirePermission",
+          "lineNumber": 48
+        },
+        {
+          "caller": "saveInvoice",
+          "callee": "parseForm",
+          "lineNumber": 49
+        },
+        {
+          "caller": "saveInvoice",
+          "callee": "readLines",
+          "lineNumber": 51
+        },
+        {
+          "caller": "saveInvoice",
+          "callee": "fail",
+          "lineNumber": 52
+        },
+        {
+          "caller": "saveInvoice",
+          "callee": "readOverrides",
+          "lineNumber": 53
+        },
+        {
+          "caller": "saveInvoice",
+          "callee": "fail",
+          "lineNumber": 54
+        },
+        {
+          "caller": "saveInvoice",
+          "callee": "totalCents",
+          "lineNumber": 55
+        },
+        {
+          "caller": "saveInvoice",
+          "callee": "db.select().from(invoices).where(eq(invoices.id, parsed.data.invoiceId)).limit",
+          "lineNumber": 58
+        },
+        {
+          "caller": "saveInvoice",
+          "callee": "db.select().from(invoices).where",
+          "lineNumber": 58
+        },
+        {
+          "caller": "saveInvoice",
+          "callee": "db.select().from",
+          "lineNumber": 58
+        },
+        {
+          "caller": "saveInvoice",
+          "callee": "db.select",
+          "lineNumber": 58
+        },
+        {
+          "caller": "saveInvoice",
+          "callee": "eq",
+          "lineNumber": 58
+        },
+        {
+          "caller": "saveInvoice",
+          "callee": "fail",
+          "lineNumber": 59
+        },
+        {
+          "caller": "saveInvoice",
+          "callee": "EDITABLE.includes",
+          "lineNumber": 60
+        },
+        {
+          "caller": "saveInvoice",
+          "callee": "fail",
+          "lineNumber": 61
+        },
+        {
+          "caller": "saveInvoice",
+          "callee": "db\n      .update(invoices)\n      .set({\n        title: parsed.data.title,\n        note: parsed.data.note ?? null,\n        dueAt: parsed.data.dueAt ?? null,\n        currency: parsed.data.currency,\n        lines,\n        amountCents,\n        overrides: ov.overrides,\n        updatedAt: new Date(),\n      })\n      .where",
+          "lineNumber": 63
+        },
+        {
+          "caller": "saveInvoice",
+          "callee": "db\n      .update(invoices)\n      .set",
+          "lineNumber": 63
+        },
+        {
+          "caller": "saveInvoice",
+          "callee": "db\n      .update",
+          "lineNumber": 63
+        },
+        {
+          "caller": "saveInvoice",
+          "callee": "eq",
+          "lineNumber": 75
+        },
+        {
+          "caller": "saveInvoice",
+          "callee": "logActivity",
+          "lineNumber": 76
+        },
+        {
+          "caller": "saveInvoice",
+          "callee": "refresh",
+          "lineNumber": 83
+        },
+        {
+          "caller": "saveInvoice",
+          "callee": "succeed",
+          "lineNumber": 84
+        },
+        {
+          "caller": "saveInvoice",
+          "callee": "insertWithRef",
+          "lineNumber": 87
+        },
+        {
+          "caller": "saveInvoice",
+          "callee": "logActivity",
+          "lineNumber": 99
+        },
+        {
+          "caller": "saveInvoice",
+          "callee": "refresh",
+          "lineNumber": 106
+        },
+        {
+          "caller": "saveInvoice",
+          "callee": "redirect",
+          "lineNumber": 107
+        },
+        {
+          "caller": "insertWithRef",
+          "callee": "allocateRef",
+          "lineNumber": 113
+        },
+        {
+          "caller": "insertWithRef",
+          "callee": "db\n        .insert(invoices)\n        .values({ ...values, ref })\n        .returning",
+          "lineNumber": 115
+        },
+        {
+          "caller": "insertWithRef",
+          "callee": "db\n        .insert(invoices)\n        .values",
+          "lineNumber": 115
+        },
+        {
+          "caller": "insertWithRef",
+          "callee": "db\n        .insert",
+          "lineNumber": 115
+        },
+        {
+          "caller": "sendInvoice",
+          "callee": "requirePermission",
+          "lineNumber": 133
+        },
+        {
+          "caller": "sendInvoice",
+          "callee": "Number",
+          "lineNumber": 134
+        },
+        {
+          "caller": "sendInvoice",
+          "callee": "formData.get",
+          "lineNumber": 134
+        },
+        {
+          "caller": "sendInvoice",
+          "callee": "String",
+          "lineNumber": 135
+        },
+        {
+          "caller": "sendInvoice",
+          "callee": "formData.get",
+          "lineNumber": 135
+        },
+        {
+          "caller": "sendInvoice",
+          "callee": "Number.isInteger",
+          "lineNumber": 136
+        },
+        {
+          "caller": "sendInvoice",
+          "callee": "fail",
+          "lineNumber": 136
+        },
+        {
+          "caller": "sendInvoice",
+          "callee": "db.select().from(invoices).where(eq(invoices.id, id)).limit",
+          "lineNumber": 138
+        },
+        {
+          "caller": "sendInvoice",
+          "callee": "db.select().from(invoices).where",
+          "lineNumber": 138
+        },
+        {
+          "caller": "sendInvoice",
+          "callee": "db.select().from",
+          "lineNumber": 138
+        },
+        {
+          "caller": "sendInvoice",
+          "callee": "db.select",
+          "lineNumber": 138
+        },
+        {
+          "caller": "sendInvoice",
+          "callee": "eq",
+          "lineNumber": 138
+        },
+        {
+          "caller": "sendInvoice",
+          "callee": "fail",
+          "lineNumber": 139
+        },
+        {
+          "caller": "sendInvoice",
+          "callee": "fail",
+          "lineNumber": 140
+        },
+        {
+          "caller": "sendInvoice",
+          "callee": "db\n      .update(invoices)\n      .set({ status: \"envoyee\", issuedAt: invoice.issuedAt ?? new Date(), updatedAt: new Date() })\n      .where",
+          "lineNumber": 144
+        },
+        {
+          "caller": "sendInvoice",
+          "callee": "db\n      .update(invoices)\n      .set",
+          "lineNumber": 144
+        },
+        {
+          "caller": "sendInvoice",
+          "callee": "db\n      .update",
+          "lineNumber": 144
+        },
+        {
+          "caller": "sendInvoice",
+          "callee": "eq",
+          "lineNumber": 147
+        },
+        {
+          "caller": "sendInvoice",
+          "callee": "emailBillingDocument",
+          "lineNumber": 150
+        },
+        {
+          "caller": "sendInvoice",
+          "callee": "notify",
+          "lineNumber": 153
+        },
+        {
+          "caller": "sendInvoice",
+          "callee": "formatMoney",
+          "lineNumber": 157
+        },
+        {
+          "caller": "sendInvoice",
+          "callee": "logActivity",
+          "lineNumber": 164
+        },
+        {
+          "caller": "sendInvoice",
+          "callee": "refresh",
+          "lineNumber": 172
+        },
+        {
+          "caller": "sendInvoice",
+          "callee": "fail",
+          "lineNumber": 173
+        },
+        {
+          "caller": "sendInvoice",
+          "callee": "succeed",
+          "lineNumber": 174
+        },
+        {
+          "caller": "setInvoiceStatus",
+          "callee": "requirePermission",
+          "lineNumber": 192
+        },
+        {
+          "caller": "setInvoiceStatus",
+          "callee": "parseForm",
+          "lineNumber": 193
+        },
+        {
+          "caller": "setInvoiceStatus",
+          "callee": "db.select().from(invoices).where(eq(invoices.id, parsed.data.invoiceId)).limit",
+          "lineNumber": 196
+        },
+        {
+          "caller": "setInvoiceStatus",
+          "callee": "db.select().from(invoices).where",
+          "lineNumber": 196
+        },
+        {
+          "caller": "setInvoiceStatus",
+          "callee": "db.select().from",
+          "lineNumber": 196
+        },
+        {
+          "caller": "setInvoiceStatus",
+          "callee": "db.select",
+          "lineNumber": 196
+        },
+        {
+          "caller": "setInvoiceStatus",
+          "callee": "eq",
+          "lineNumber": 196
+        },
+        {
+          "caller": "setInvoiceStatus",
+          "callee": "fail",
+          "lineNumber": 197
+        },
+        {
+          "caller": "setInvoiceStatus",
+          "callee": "db\n    .update(invoices)\n    .set({\n      status,\n      dueAt: parsed.data.dueAt ?? invoice.dueAt,\n      // Stamped on the transition, not recomputed: these are the dates on the\n      // document, and they must not move when an unrelated field is edited.\n      issuedAt: status !== \"brouillon\" && !invoice.issuedAt ? now : invoice.issuedAt,\n      paidAt: status === \"payee\" ? (invoice.paidAt ?? now) : null,\n      updatedAt: now,\n    })\n    .where",
+          "lineNumber": 201
+        },
+        {
+          "caller": "setInvoiceStatus",
+          "callee": "db\n    .update(invoices)\n    .set",
+          "lineNumber": 201
+        },
+        {
+          "caller": "setInvoiceStatus",
+          "callee": "db\n    .update",
+          "lineNumber": 201
+        },
+        {
+          "caller": "setInvoiceStatus",
+          "callee": "eq",
+          "lineNumber": 212
+        },
+        {
+          "caller": "setInvoiceStatus",
+          "callee": "logActivity",
+          "lineNumber": 214
+        },
+        {
+          "caller": "setInvoiceStatus",
+          "callee": "notify",
+          "lineNumber": 223
+        },
+        {
+          "caller": "setInvoiceStatus",
+          "callee": "formatMoney",
+          "lineNumber": 227
+        },
+        {
+          "caller": "setInvoiceStatus",
+          "callee": "refresh",
+          "lineNumber": 235
+        },
+        {
+          "caller": "setInvoiceStatus",
+          "callee": "succeed",
+          "lineNumber": 236
+        },
+        {
+          "caller": "setInvoiceStatus",
+          "callee": "INVOICE_LABELS[status].toLowerCase",
+          "lineNumber": 236
+        },
+        {
+          "caller": "deleteInvoice",
+          "callee": "requirePermission",
+          "lineNumber": 245
+        },
+        {
+          "caller": "deleteInvoice",
+          "callee": "Number",
+          "lineNumber": 246
+        },
+        {
+          "caller": "deleteInvoice",
+          "callee": "formData.get",
+          "lineNumber": 246
+        },
+        {
+          "caller": "deleteInvoice",
+          "callee": "Number.isInteger",
+          "lineNumber": 247
+        },
+        {
+          "caller": "deleteInvoice",
+          "callee": "db.select().from(invoices).where(eq(invoices.id, id)).limit",
+          "lineNumber": 247
+        },
+        {
+          "caller": "deleteInvoice",
+          "callee": "db.select().from(invoices).where",
+          "lineNumber": 247
+        },
+        {
+          "caller": "deleteInvoice",
+          "callee": "db.select().from",
+          "lineNumber": 247
+        },
+        {
+          "caller": "deleteInvoice",
+          "callee": "db.select",
+          "lineNumber": 247
+        },
+        {
+          "caller": "deleteInvoice",
+          "callee": "eq",
+          "lineNumber": 247
+        },
+        {
+          "caller": "deleteInvoice",
+          "callee": "fail",
+          "lineNumber": 248
+        },
+        {
+          "caller": "deleteInvoice",
+          "callee": "String(formData.get(\"confirm\") ?? \"\").trim",
+          "lineNumber": 249
+        },
+        {
+          "caller": "deleteInvoice",
+          "callee": "String",
+          "lineNumber": 249
+        },
+        {
+          "caller": "deleteInvoice",
+          "callee": "formData.get",
+          "lineNumber": 249
+        },
+        {
+          "caller": "deleteInvoice",
+          "callee": "fail",
+          "lineNumber": 250
+        },
+        {
+          "caller": "deleteInvoice",
+          "callee": "db.delete(invoices).where",
+          "lineNumber": 253
+        },
+        {
+          "caller": "deleteInvoice",
+          "callee": "db.delete",
+          "lineNumber": 253
+        },
+        {
+          "caller": "deleteInvoice",
+          "callee": "eq",
+          "lineNumber": 253
+        },
+        {
+          "caller": "deleteInvoice",
+          "callee": "logActivity",
+          "lineNumber": 254
+        },
+        {
+          "caller": "deleteInvoice",
+          "callee": "refresh",
+          "lineNumber": 261
+        },
+        {
+          "caller": "deleteInvoice",
+          "callee": "redirect",
+          "lineNumber": 262
+        }
+      ],
+      "metrics": {
+        "importCount": 9,
+        "exportCount": 4,
+        "functionCount": 6,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/(app)/admin/factures/nouveau/page.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 35,
+      "nonEmptyLines": 32,
+      "functions": [
+        {
+          "name": "NewInvoicePage",
+          "startLine": 11,
+          "endLine": 35,
+          "params": [
+            "{ searchParams }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "metadata",
+          "line": 9,
+          "isDefault": false
+        },
+        {
+          "name": "NewInvoicePage",
+          "line": 11,
+          "isDefault": true
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "NewInvoicePage",
+          "callee": "requirePermission",
+          "lineNumber": 12
+        },
+        {
+          "caller": "NewInvoicePage",
+          "callee": "Promise.all",
+          "lineNumber": 14
+        },
+        {
+          "caller": "NewInvoicePage",
+          "callee": "listBillableClients",
+          "lineNumber": 14
+        },
+        {
+          "caller": "NewInvoicePage",
+          "callee": "getCompany",
+          "lineNumber": 14
+        },
+        {
+          "caller": "NewInvoicePage",
+          "callee": "storageConfigured",
+          "lineNumber": 30
+        }
+      ],
+      "metrics": {
+        "importCount": 6,
+        "exportCount": 2,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/(app)/admin/journal/PurgeForm.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 23,
+      "nonEmptyLines": 21,
+      "functions": [
+        {
+          "name": "PurgeForm",
+          "startLine": 8,
+          "endLine": 23,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "PurgeForm",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "PurgeForm",
+          "callee": "useActionState",
+          "lineNumber": 9
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/(app)/admin/notifications/envoyer/BroadcastForm.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 108,
+      "nonEmptyLines": 98,
+      "functions": [
+        {
+          "name": "BroadcastForm",
+          "startLine": 23,
+          "endLine": 108,
+          "params": [
+            "{\n  counts,\n  planOptions,\n}"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "BroadcastForm",
+          "line": 23,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "BroadcastForm",
+          "callee": "useActionState",
+          "lineNumber": 30
+        },
+        {
+          "caller": "BroadcastForm",
+          "callee": "useState",
+          "lineNumber": 31
+        },
+        {
+          "caller": "BroadcastForm",
+          "callee": "useState",
+          "lineNumber": 32
+        },
+        {
+          "caller": "BroadcastForm",
+          "callee": "setSegment",
+          "lineNumber": 49
+        },
+        {
+          "caller": "BroadcastForm",
+          "callee": "SEGMENTS.map",
+          "lineNumber": 52
+        },
+        {
+          "caller": "BroadcastForm",
+          "callee": "setPlanSlug",
+          "lineNumber": 66
+        },
+        {
+          "caller": "BroadcastForm",
+          "callee": "planOptions.map",
+          "lineNumber": 69
+        }
+      ],
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/(app)/admin/notifications/envoyer/segments.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 16,
+      "nonEmptyLines": 15,
+      "exports": [
+        {
+          "name": "SEGMENTS",
+          "line": 8,
+          "isDefault": false
+        },
+        {
+          "name": "SEGMENT_VALUES",
+          "line": 16,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 2,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/(app)/admin/parametres/CompanyForm.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 113,
+      "nonEmptyLines": 104,
+      "functions": [
+        {
+          "name": "CompanyForm",
+          "startLine": 17,
+          "endLine": 95,
+          "params": [
+            "{ company, storage }"
+          ]
+        },
+        {
+          "name": "StatefulPicker",
+          "startLine": 98,
+          "endLine": 113,
+          "params": [
+            "{\n  name,\n  label,\n  hint,\n  initialId,\n  storage,\n}"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "CompanyForm",
+          "line": 17,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "CompanyForm",
+          "callee": "useActionState",
+          "lineNumber": 18
+        },
+        {
+          "caller": "f",
+          "callee": "String",
+          "lineNumber": 20
+        },
+        {
+          "caller": "CompanyForm",
+          "callee": "f",
+          "lineNumber": 28
+        },
+        {
+          "caller": "CompanyForm",
+          "callee": "f",
+          "lineNumber": 30
+        },
+        {
+          "caller": "CompanyForm",
+          "callee": "f",
+          "lineNumber": 31
+        },
+        {
+          "caller": "CompanyForm",
+          "callee": "f",
+          "lineNumber": 33
+        },
+        {
+          "caller": "CompanyForm",
+          "callee": "f",
+          "lineNumber": 34
+        },
+        {
+          "caller": "CompanyForm",
+          "callee": "f",
+          "lineNumber": 35
+        },
+        {
+          "caller": "CompanyForm",
+          "callee": "f",
+          "lineNumber": 36
+        },
+        {
+          "caller": "CompanyForm",
+          "callee": "f",
+          "lineNumber": 37
+        },
+        {
+          "caller": "CompanyForm",
+          "callee": "f",
+          "lineNumber": 38
+        },
+        {
+          "caller": "CompanyForm",
+          "callee": "f",
+          "lineNumber": 43
+        },
+        {
+          "caller": "CompanyForm",
+          "callee": "f",
+          "lineNumber": 44
+        },
+        {
+          "caller": "CompanyForm",
+          "callee": "f",
+          "lineNumber": 45
+        },
+        {
+          "caller": "CompanyForm",
+          "callee": "f",
+          "lineNumber": 46
+        },
+        {
+          "caller": "CompanyForm",
+          "callee": "f",
+          "lineNumber": 47
+        },
+        {
+          "caller": "CompanyForm",
+          "callee": "f",
+          "lineNumber": 48
+        },
+        {
+          "caller": "CompanyForm",
+          "callee": "f",
+          "lineNumber": 53
+        },
+        {
+          "caller": "CompanyForm",
+          "callee": "f",
+          "lineNumber": 75
+        },
+        {
+          "caller": "CompanyForm",
+          "callee": "f",
+          "lineNumber": 76
+        },
+        {
+          "caller": "CompanyForm",
+          "callee": "f",
+          "lineNumber": 81
+        },
+        {
+          "caller": "CompanyForm",
+          "callee": "f",
+          "lineNumber": 82
+        },
+        {
+          "caller": "CompanyForm",
+          "callee": "f",
+          "lineNumber": 87
+        },
+        {
+          "caller": "StatefulPicker",
+          "callee": "useState",
+          "lineNumber": 111
+        }
+      ],
+      "metrics": {
+        "importCount": 5,
+        "exportCount": 1,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/(app)/admin/parametres/SettingsForm.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 59,
+      "nonEmptyLines": 50,
+      "functions": [
+        {
+          "name": "SettingsForm",
+          "startLine": 14,
+          "endLine": 59,
+          "params": [
+            "{ settings }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "SettingsForm",
+          "line": 14,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "SettingsForm",
+          "callee": "useActionState",
+          "lineNumber": 15
+        }
+      ],
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/(app)/admin/parametres/actions.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 111,
+      "nonEmptyLines": 100,
+      "functions": [
+        {
+          "name": "updateSettings",
+          "startLine": 31,
+          "endLine": 55,
+          "params": [
+            "_prev",
+            "formData"
+          ]
+        },
+        {
+          "name": "text",
+          "startLine": 57,
+          "endLine": 57,
+          "params": [
+            "max"
+          ]
+        },
+        {
+          "name": "updateCompany",
+          "startLine": 92,
+          "endLine": 111,
+          "params": [
+            "_prev",
+            "formData"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "updateSettings",
+          "line": 31,
+          "isDefault": false
+        },
+        {
+          "name": "updateCompany",
+          "line": 92,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "updateSettings",
+          "callee": "requirePermission",
+          "lineNumber": 35
+        },
+        {
+          "caller": "updateSettings",
+          "callee": "parseForm",
+          "lineNumber": 36
+        },
+        {
+          "caller": "updateSettings",
+          "callee": "Object.entries",
+          "lineNumber": 39
+        },
+        {
+          "caller": "updateSettings",
+          "callee": "setSetting",
+          "lineNumber": 40
+        },
+        {
+          "caller": "updateSettings",
+          "callee": "logActivity",
+          "lineNumber": 43
+        },
+        {
+          "caller": "updateSettings",
+          "callee": "revalidatePath",
+          "lineNumber": 50
+        },
+        {
+          "caller": "updateSettings",
+          "callee": "revalidatePath",
+          "lineNumber": 51
+        },
+        {
+          "caller": "updateSettings",
+          "callee": "revalidatePath",
+          "lineNumber": 52
+        },
+        {
+          "caller": "updateSettings",
+          "callee": "revalidatePath",
+          "lineNumber": 53
+        },
+        {
+          "caller": "updateSettings",
+          "callee": "succeed",
+          "lineNumber": 54
+        },
+        {
+          "caller": "text",
+          "callee": "z.string().trim().max(max).default",
+          "lineNumber": 57
+        },
+        {
+          "caller": "text",
+          "callee": "z.string().trim().max",
+          "lineNumber": 57
+        },
+        {
+          "caller": "text",
+          "callee": "z.string().trim",
+          "lineNumber": 57
+        },
+        {
+          "caller": "text",
+          "callee": "z.string",
+          "lineNumber": 57
+        },
+        {
+          "caller": "updateCompany",
+          "callee": "requirePermission",
+          "lineNumber": 93
+        },
+        {
+          "caller": "updateCompany",
+          "callee": "parseForm",
+          "lineNumber": 94
+        },
+        {
+          "caller": "updateCompany",
+          "callee": "Number.isInteger",
+          "lineNumber": 100
+        },
+        {
+          "caller": "updateCompany",
+          "callee": "fail",
+          "lineNumber": 100
+        },
+        {
+          "caller": "updateCompany",
+          "callee": "db.select().from(attachments).where(eq(attachments.id, id)).limit",
+          "lineNumber": 101
+        },
+        {
+          "caller": "updateCompany",
+          "callee": "db.select().from(attachments).where",
+          "lineNumber": 101
+        },
+        {
+          "caller": "updateCompany",
+          "callee": "db.select().from",
+          "lineNumber": 101
+        },
+        {
+          "caller": "updateCompany",
+          "callee": "db.select",
+          "lineNumber": 101
+        },
+        {
+          "caller": "updateCompany",
+          "callee": "eq",
+          "lineNumber": 101
+        },
+        {
+          "caller": "updateCompany",
+          "callee": "[\"image/png\", \"image/jpeg\"].includes",
+          "lineNumber": 102
+        },
+        {
+          "caller": "updateCompany",
+          "callee": "fail",
+          "lineNumber": 103
+        },
+        {
+          "caller": "updateCompany",
+          "callee": "setSetting",
+          "lineNumber": 107
+        },
+        {
+          "caller": "updateCompany",
+          "callee": "logActivity",
+          "lineNumber": 108
+        },
+        {
+          "caller": "updateCompany",
+          "callee": "revalidatePath",
+          "lineNumber": 109
+        },
+        {
+          "caller": "updateCompany",
+          "callee": "succeed",
+          "lineNumber": 110
+        }
+      ],
+      "metrics": {
+        "importCount": 6,
+        "exportCount": 2,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/(app)/admin/utilisateurs/[id]/UserControls.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 456,
+      "nonEmptyLines": 431,
+      "functions": [
+        {
+          "name": "UserProfileForm",
+          "startLine": 43,
+          "endLine": 85,
+          "params": [
+            "{\n  userId,\n  name,\n  phone,\n  company,\n  adminNote,\n  magicLinkEnabled,\n}"
+          ]
+        },
+        {
+          "name": "RoleForm",
+          "startLine": 87,
+          "endLine": 118,
+          "params": [
+            "{\n  userId,\n  role,\n  roles,\n  isSelf,\n}"
+          ]
+        },
+        {
+          "name": "PermissionMatrix",
+          "startLine": 127,
+          "endLine": 257,
+          "params": [
+            "{\n  userId,\n  role,\n  effective,\n  isSelf,\n}"
+          ]
+        },
+        {
+          "name": "QuotaForm",
+          "startLine": 264,
+          "endLine": 346,
+          "params": [
+            "{\n  userId,\n  metric,\n  label,\n  limit,\n  used,\n  metricOptions,\n  canDelete,\n}"
+          ]
+        },
+        {
+          "name": "SuspendForm",
+          "startLine": 348,
+          "endLine": 408,
+          "params": [
+            "{\n  userId,\n  banned,\n  banReason,\n  isSelf,\n}"
+          ]
+        },
+        {
+          "name": "MessageForm",
+          "startLine": 410,
+          "endLine": 429,
+          "params": [
+            "{ userId }"
+          ]
+        },
+        {
+          "name": "ImpersonateButton",
+          "startLine": 431,
+          "endLine": 441,
+          "params": [
+            "{ userId, isSelf }"
+          ]
+        },
+        {
+          "name": "DeleteUserForm",
+          "startLine": 443,
+          "endLine": 456,
+          "params": [
+            "{ userId, email }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "UserProfileForm",
+          "line": 43,
+          "isDefault": false
+        },
+        {
+          "name": "RoleForm",
+          "line": 87,
+          "isDefault": false
+        },
+        {
+          "name": "PermissionMatrix",
+          "line": 127,
+          "isDefault": false
+        },
+        {
+          "name": "QuotaForm",
+          "line": 264,
+          "isDefault": false
+        },
+        {
+          "name": "SuspendForm",
+          "line": 348,
+          "isDefault": false
+        },
+        {
+          "name": "MessageForm",
+          "line": 410,
+          "isDefault": false
+        },
+        {
+          "name": "ImpersonateButton",
+          "line": 431,
+          "isDefault": false
+        },
+        {
+          "name": "DeleteUserForm",
+          "line": 443,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "UserProfileForm",
+          "callee": "useActionState",
+          "lineNumber": 58
+        },
+        {
+          "caller": "RoleForm",
+          "callee": "useActionState",
+          "lineNumber": 98
+        },
+        {
+          "caller": "PermissionMatrix",
+          "callee": "useActionState",
+          "lineNumber": 138
+        },
+        {
+          "caller": "PermissionMatrix",
+          "callee": "useState",
+          "lineNumber": 144
+        },
+        {
+          "caller": "PermissionMatrix",
+          "callee": "actions.map",
+          "lineNumber": 168
+        },
+        {
+          "caller": "PermissionMatrix",
+          "callee": "DOMAINS.map",
+          "lineNumber": 176
+        },
+        {
+          "caller": "PermissionMatrix",
+          "callee": "actions.map",
+          "lineNumber": 181
+        },
+        {
+          "caller": "PermissionMatrix",
+          "callee": "isRoleDefault",
+          "lineNumber": 184
+        },
+        {
+          "caller": "PermissionMatrix",
+          "callee": "cn",
+          "lineNumber": 188
+        },
+        {
+          "caller": "PermissionMatrix",
+          "callee": "setDraft",
+          "lineNumber": 206
+        },
+        {
+          "caller": "PermissionMatrix",
+          "callee": "setDraft",
+          "lineNumber": 245
+        },
+        {
+          "caller": "PermissionMatrix",
+          "callee": "Object.fromEntries",
+          "lineNumber": 246
+        },
+        {
+          "caller": "PermissionMatrix",
+          "callee": "ALL_PERMISSIONS.map",
+          "lineNumber": 247
+        },
+        {
+          "caller": "PermissionMatrix",
+          "callee": "isRoleDefault",
+          "lineNumber": 247
+        },
+        {
+          "caller": "QuotaForm",
+          "callee": "useActionState",
+          "lineNumber": 282
+        },
+        {
+          "caller": "QuotaForm",
+          "callee": "useState",
+          "lineNumber": 283
+        },
+        {
+          "caller": "QuotaForm",
+          "callee": "String",
+          "lineNumber": 309
+        },
+        {
+          "caller": "QuotaForm",
+          "callee": "String",
+          "lineNumber": 317
+        },
+        {
+          "caller": "QuotaForm",
+          "callee": "setCustom",
+          "lineNumber": 324
+        },
+        {
+          "caller": "SuspendForm",
+          "callee": "useActionState",
+          "lineNumber": 359
+        },
+        {
+          "caller": "SuspendForm",
+          "callee": "useState",
+          "lineNumber": 360
+        },
+        {
+          "caller": "SuspendForm",
+          "callee": "setArmed",
+          "lineNumber": 384
+        },
+        {
+          "caller": "SuspendForm",
+          "callee": "setArmed",
+          "lineNumber": 402
+        },
+        {
+          "caller": "MessageForm",
+          "callee": "useActionState",
+          "lineNumber": 411
+        },
+        {
+          "caller": "DeleteUserForm",
+          "callee": "useActionState",
+          "lineNumber": 444
+        }
+      ],
+      "metrics": {
+        "importCount": 6,
+        "exportCount": 8,
+        "functionCount": 8,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/(app)/admin/utilisateurs/nouveau/CreateUserForm.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 107,
+      "nonEmptyLines": 97,
+      "functions": [
+        {
+          "name": "CreateUserForm",
+          "startLine": 25,
+          "endLine": 107,
+          "params": [
+            "{\n  roleOptions,\n  canCreateStaff,\n  prefill = {},\n}"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "CreateUserForm",
+          "line": 25,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "CreateUserForm",
+          "callee": "useActionState",
+          "lineNumber": 34
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    }
+  ]
+}

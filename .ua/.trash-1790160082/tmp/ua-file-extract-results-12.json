@@ -1,0 +1,1068 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 6,
+  "filesSkipped": [],
+  "filesUnreadable": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 6,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 6,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "results": [
+    {
+      "path": "app/(app)/dashboard/demandes/[id]/CloseRequestButton.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 35,
+      "nonEmptyLines": 31,
+      "functions": [
+        {
+          "name": "CloseRequestButton",
+          "startLine": 12,
+          "endLine": 35,
+          "params": [
+            "{ requestId }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "CloseRequestButton",
+          "line": 12,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "CloseRequestButton",
+          "callee": "useState",
+          "lineNumber": 13
+        },
+        {
+          "caller": "CloseRequestButton",
+          "callee": "setArmed",
+          "lineNumber": 17
+        },
+        {
+          "caller": "CloseRequestButton",
+          "callee": "setArmed",
+          "lineNumber": 30
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/(app)/dashboard/demandes/[id]/page.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 167,
+      "nonEmptyLines": 156,
+      "functions": [
+        {
+          "name": "DemandeDetailPage",
+          "startLine": 29,
+          "endLine": 158,
+          "params": [
+            "{\n  params,\n}"
+          ]
+        },
+        {
+          "name": "Row",
+          "startLine": 160,
+          "endLine": 167,
+          "params": [
+            "{ label, value }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "metadata",
+          "line": 27,
+          "isDefault": false
+        },
+        {
+          "name": "DemandeDetailPage",
+          "line": 29,
+          "isDefault": true
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "DemandeDetailPage",
+          "callee": "Number",
+          "lineNumber": 33
+        },
+        {
+          "caller": "DemandeDetailPage",
+          "callee": "Number.isInteger",
+          "lineNumber": 34
+        },
+        {
+          "caller": "DemandeDetailPage",
+          "callee": "notFound",
+          "lineNumber": 34
+        },
+        {
+          "caller": "DemandeDetailPage",
+          "callee": "requireUser",
+          "lineNumber": 36
+        },
+        {
+          "caller": "DemandeDetailPage",
+          "callee": "getOwnRequest",
+          "lineNumber": 37
+        },
+        {
+          "caller": "DemandeDetailPage",
+          "callee": "notFound",
+          "lineNumber": 38
+        },
+        {
+          "caller": "DemandeDetailPage",
+          "callee": "Promise.all",
+          "lineNumber": 42
+        },
+        {
+          "caller": "DemandeDetailPage",
+          "callee": "listThread",
+          "lineNumber": 43
+        },
+        {
+          "caller": "DemandeDetailPage",
+          "callee": "listQuotes",
+          "lineNumber": 44
+        },
+        {
+          "caller": "DemandeDetailPage",
+          "callee": "(await getSolutions({ includeHidden: true })).find",
+          "lineNumber": 47
+        },
+        {
+          "caller": "DemandeDetailPage",
+          "callee": "getSolutions",
+          "lineNumber": 47
+        },
+        {
+          "caller": "DemandeDetailPage",
+          "callee": "quotes.filter",
+          "lineNumber": 48
+        },
+        {
+          "caller": "DemandeDetailPage",
+          "callee": "isClosed",
+          "lineNumber": 49
+        },
+        {
+          "caller": "DemandeDetailPage",
+          "callee": "formatDateTime",
+          "lineNumber": 55
+        },
+        {
+          "caller": "DemandeDetailPage",
+          "callee": "thread.messages.map",
+          "lineNumber": 77
+        },
+        {
+          "caller": "DemandeDetailPage",
+          "callee": "markThreadRead.bind",
+          "lineNumber": 91
+        },
+        {
+          "caller": "DemandeDetailPage",
+          "callee": "storageConfigured",
+          "lineNumber": 102
+        },
+        {
+          "caller": "DemandeDetailPage",
+          "callee": "formatDateTime",
+          "lineNumber": 125
+        },
+        {
+          "caller": "DemandeDetailPage",
+          "callee": "formatDateTime",
+          "lineNumber": 127
+        },
+        {
+          "caller": "DemandeDetailPage",
+          "callee": "relatedQuotes.map",
+          "lineNumber": 135
+        },
+        {
+          "caller": "DemandeDetailPage",
+          "callee": "formatMoney",
+          "lineNumber": 146
+        }
+      ],
+      "metrics": {
+        "importCount": 13,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "components/dashboard/ChatComposer.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 233,
+      "nonEmptyLines": 220,
+      "functions": [
+        {
+          "name": "ChatComposer",
+          "startLine": 32,
+          "endLine": 233,
+          "params": [
+            "{\n  action,\n  requestId,\n  allowInternal = false,\n  allowFiles,\n  maxBytes,\n  accept,\n  placeholder = \"Écrire un message…\",\n}"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "ChatComposer",
+          "line": 32,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "ChatComposer",
+          "callee": "useRouter",
+          "lineNumber": 51
+        },
+        {
+          "caller": "ChatComposer",
+          "callee": "useActionState",
+          "lineNumber": 52
+        },
+        {
+          "caller": "ChatComposer",
+          "callee": "useState",
+          "lineNumber": 53
+        },
+        {
+          "caller": "ChatComposer",
+          "callee": "useState",
+          "lineNumber": 54
+        },
+        {
+          "caller": "ChatComposer",
+          "callee": "useState",
+          "lineNumber": 55
+        },
+        {
+          "caller": "ChatComposer",
+          "callee": "useState",
+          "lineNumber": 56
+        },
+        {
+          "caller": "ChatComposer",
+          "callee": "useRef",
+          "lineNumber": 57
+        },
+        {
+          "caller": "ChatComposer",
+          "callee": "useRef",
+          "lineNumber": 58
+        },
+        {
+          "caller": "ChatComposer",
+          "callee": "useRef",
+          "lineNumber": 59
+        },
+        {
+          "caller": "ChatComposer",
+          "callee": "useRef",
+          "lineNumber": 61
+        },
+        {
+          "caller": "ChatComposer",
+          "callee": "useRef",
+          "lineNumber": 62
+        },
+        {
+          "caller": "ChatComposer",
+          "callee": "useRef",
+          "lineNumber": 63
+        },
+        {
+          "caller": "grow",
+          "callee": "Math.min",
+          "lineNumber": 69
+        },
+        {
+          "caller": "ChatComposer",
+          "callee": "useEffect",
+          "lineNumber": 74
+        },
+        {
+          "caller": "ChatComposer",
+          "callee": "Number",
+          "lineNumber": 77
+        },
+        {
+          "caller": "ChatComposer",
+          "callee": "(async () => {\n      if (Number.isInteger(messageId) && toSend.length > 0) {\n        for (const [i, file] of toSend.entries()) {\n          setUploading(`Envoi ${i + 1}/${toSend.length} — ${file.name}`);\n          const res = await uploadFile(file, { messageId }, { internal: outgoingInternal.current });\n          if (!res.ok) setError(`${file.name} : ${res.error}`);\n        }\n        setUploading(null);\n      }\n      formRef.current?.reset();\n      setFiles([]);\n      setInternal(false);\n      if (textRef.current) textRef.current.style.height = \"\";\n      router.refresh();\n      textRef.current?.focus();\n    })",
+          "lineNumber": 81
+        },
+        {
+          "caller": "ChatComposer",
+          "callee": "Number.isInteger",
+          "lineNumber": 82
+        },
+        {
+          "caller": "ChatComposer",
+          "callee": "toSend.entries",
+          "lineNumber": 83
+        },
+        {
+          "caller": "ChatComposer",
+          "callee": "setUploading",
+          "lineNumber": 84
+        },
+        {
+          "caller": "ChatComposer",
+          "callee": "uploadFile",
+          "lineNumber": 85
+        },
+        {
+          "caller": "ChatComposer",
+          "callee": "setError",
+          "lineNumber": 86
+        },
+        {
+          "caller": "ChatComposer",
+          "callee": "setUploading",
+          "lineNumber": 88
+        },
+        {
+          "caller": "ChatComposer",
+          "callee": "formRef.current?.reset",
+          "lineNumber": 90
+        },
+        {
+          "caller": "ChatComposer",
+          "callee": "setFiles",
+          "lineNumber": 91
+        },
+        {
+          "caller": "ChatComposer",
+          "callee": "setInternal",
+          "lineNumber": 92
+        },
+        {
+          "caller": "ChatComposer",
+          "callee": "router.refresh",
+          "lineNumber": 94
+        },
+        {
+          "caller": "ChatComposer",
+          "callee": "textRef.current?.focus",
+          "lineNumber": 95
+        },
+        {
+          "caller": "addFiles",
+          "callee": "setError",
+          "lineNumber": 101
+        },
+        {
+          "caller": "addFiles",
+          "callee": "Array.from",
+          "lineNumber": 103
+        },
+        {
+          "caller": "addFiles",
+          "callee": "setError",
+          "lineNumber": 104
+        },
+        {
+          "caller": "addFiles",
+          "callee": "formatBytes",
+          "lineNumber": 104
+        },
+        {
+          "caller": "addFiles",
+          "callee": "next.push",
+          "lineNumber": 105
+        },
+        {
+          "caller": "addFiles",
+          "callee": "setFiles",
+          "lineNumber": 107
+        },
+        {
+          "caller": "addFiles",
+          "callee": "[...cur, ...next].slice",
+          "lineNumber": 107
+        },
+        {
+          "caller": "ChatComposer",
+          "callee": "fd.set",
+          "lineNumber": 119
+        },
+        {
+          "caller": "ChatComposer",
+          "callee": "fd.set",
+          "lineNumber": 120
+        },
+        {
+          "caller": "ChatComposer",
+          "callee": "submit",
+          "lineNumber": 121
+        },
+        {
+          "caller": "ChatComposer",
+          "callee": "cn",
+          "lineNumber": 123
+        },
+        {
+          "caller": "ChatComposer",
+          "callee": "files.map",
+          "lineNumber": 139
+        },
+        {
+          "caller": "ChatComposer",
+          "callee": "formatBytes",
+          "lineNumber": 146
+        },
+        {
+          "caller": "ChatComposer",
+          "callee": "setFiles",
+          "lineNumber": 149
+        },
+        {
+          "caller": "ChatComposer",
+          "callee": "cur.filter",
+          "lineNumber": 149
+        },
+        {
+          "caller": "ChatComposer",
+          "callee": "e.preventDefault",
+          "lineNumber": 170
+        },
+        {
+          "caller": "ChatComposer",
+          "callee": "formRef.current?.requestSubmit",
+          "lineNumber": 171
+        },
+        {
+          "caller": "ChatComposer",
+          "callee": "addFiles",
+          "lineNumber": 186
+        },
+        {
+          "caller": "ChatComposer",
+          "callee": "fileRef.current?.click",
+          "lineNumber": 190
+        },
+        {
+          "caller": "ChatComposer",
+          "callee": "setInternal",
+          "lineNumber": 204
+        },
+        {
+          "caller": "ChatComposer",
+          "callee": "cn",
+          "lineNumber": 205
+        },
+        {
+          "caller": "ChatComposer",
+          "callee": "cn",
+          "lineNumber": 222
+        }
+      ],
+      "metrics": {
+        "importCount": 5,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "components/dashboard/Thread.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 299,
+      "nonEmptyLines": 285,
+      "functions": [
+        {
+          "name": "dayLabel",
+          "startLine": 68,
+          "endLine": 75,
+          "params": [
+            "d",
+            "now"
+          ]
+        },
+        {
+          "name": "initials",
+          "startLine": 77,
+          "endLine": 81,
+          "params": [
+            "name"
+          ]
+        },
+        {
+          "name": "Thread",
+          "startLine": 93,
+          "endLine": 198,
+          "params": [
+            "{\n  messages,\n  looseFiles,\n  viewerId,\n  viewerSide,\n  onOpen,\n  emptyLabel = \"Aucun message pour l'instant.\",\n  composer,\n  now = new Date(),\n}"
+          ]
+        },
+        {
+          "name": "MessageGroup",
+          "startLine": 200,
+          "endLine": 278,
+          "params": [
+            "{ group: g, lastMineId }"
+          ]
+        },
+        {
+          "name": "FileList",
+          "startLine": 280,
+          "endLine": 299,
+          "params": [
+            "{ files }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "Thread",
+          "line": 93,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "dayLabel",
+          "callee": "dayKey.format",
+          "lineNumber": 69
+        },
+        {
+          "caller": "dayLabel",
+          "callee": "dayKey.format",
+          "lineNumber": 70
+        },
+        {
+          "caller": "dayLabel",
+          "callee": "dayKey.format",
+          "lineNumber": 71
+        },
+        {
+          "caller": "dayLabel",
+          "callee": "now.getTime",
+          "lineNumber": 71
+        },
+        {
+          "caller": "dayLabel",
+          "callee": "d.getUTCFullYear",
+          "lineNumber": 72
+        },
+        {
+          "caller": "dayLabel",
+          "callee": "now.getUTCFullYear",
+          "lineNumber": 72
+        },
+        {
+          "caller": "dayLabel",
+          "callee": "longDay.format",
+          "lineNumber": 73
+        },
+        {
+          "caller": "dayLabel",
+          "callee": "longDayYear.format",
+          "lineNumber": 73
+        },
+        {
+          "caller": "dayLabel",
+          "callee": "label.charAt(0).toUpperCase",
+          "lineNumber": 74
+        },
+        {
+          "caller": "dayLabel",
+          "callee": "label.charAt",
+          "lineNumber": 74
+        },
+        {
+          "caller": "dayLabel",
+          "callee": "label.slice",
+          "lineNumber": 74
+        },
+        {
+          "caller": "initials",
+          "callee": "name.trim().split",
+          "lineNumber": 79
+        },
+        {
+          "caller": "initials",
+          "callee": "name.trim",
+          "lineNumber": 79
+        },
+        {
+          "caller": "initials",
+          "callee": "((parts[0]?.[0] ?? \"\") + (parts.length > 1 ? (parts[parts.length - 1][0] ?? \"\") : \"\")).toUpperCase",
+          "lineNumber": 80
+        },
+        {
+          "caller": "Thread",
+          "callee": "dayLabel",
+          "lineNumber": 119
+        },
+        {
+          "caller": "Thread",
+          "callee": "days.push",
+          "lineNumber": 123
+        },
+        {
+          "caller": "Thread",
+          "callee": "m.createdAt.getTime",
+          "lineNumber": 132
+        },
+        {
+          "caller": "Thread",
+          "callee": "prev.createdAt.getTime",
+          "lineNumber": 132
+        },
+        {
+          "caller": "Thread",
+          "callee": "last.messages.push",
+          "lineNumber": 134
+        },
+        {
+          "caller": "Thread",
+          "callee": "day.groups.push",
+          "lineNumber": 136
+        },
+        {
+          "caller": "Thread",
+          "callee": "messages.find",
+          "lineNumber": 148
+        },
+        {
+          "caller": "Thread",
+          "callee": "[...messages].reverse().find",
+          "lineNumber": 149
+        },
+        {
+          "caller": "Thread",
+          "callee": "[...messages].reverse",
+          "lineNumber": 149
+        },
+        {
+          "caller": "Thread",
+          "callee": "messages.filter",
+          "lineNumber": 150
+        },
+        {
+          "caller": "Thread",
+          "callee": "days.map",
+          "lineNumber": 164
+        },
+        {
+          "caller": "Thread",
+          "callee": "day.groups.map",
+          "lineNumber": 171
+        },
+        {
+          "caller": "Thread",
+          "callee": "g.messages.some",
+          "lineNumber": 173
+        },
+        {
+          "caller": "MessageGroup",
+          "callee": "cn",
+          "lineNumber": 204
+        },
+        {
+          "caller": "MessageGroup",
+          "callee": "cn",
+          "lineNumber": 207
+        },
+        {
+          "caller": "MessageGroup",
+          "callee": "initials",
+          "lineNumber": 212
+        },
+        {
+          "caller": "MessageGroup",
+          "callee": "cn",
+          "lineNumber": 214
+        },
+        {
+          "caller": "MessageGroup",
+          "callee": "first.createdAt.toISOString",
+          "lineNumber": 218
+        },
+        {
+          "caller": "MessageGroup",
+          "callee": "full.format",
+          "lineNumber": 218
+        },
+        {
+          "caller": "MessageGroup",
+          "callee": "time.format",
+          "lineNumber": 219
+        },
+        {
+          "caller": "MessageGroup",
+          "callee": "g.messages.map",
+          "lineNumber": 228
+        },
+        {
+          "caller": "MessageGroup",
+          "callee": "cn",
+          "lineNumber": 229
+        },
+        {
+          "caller": "MessageGroup",
+          "callee": "cn",
+          "lineNumber": 231
+        },
+        {
+          "caller": "MessageGroup",
+          "callee": "cn",
+          "lineNumber": 236
+        },
+        {
+          "caller": "MessageGroup",
+          "callee": "cn",
+          "lineNumber": 237
+        },
+        {
+          "caller": "MessageGroup",
+          "callee": "m.createdAt.toISOString",
+          "lineNumber": 255
+        },
+        {
+          "caller": "MessageGroup",
+          "callee": "time.format",
+          "lineNumber": 258
+        },
+        {
+          "caller": "MessageGroup",
+          "callee": "time.format",
+          "lineNumber": 266
+        },
+        {
+          "caller": "FileList",
+          "callee": "files.map",
+          "lineNumber": 283
+        },
+        {
+          "caller": "FileList",
+          "callee": "formatBytes",
+          "lineNumber": 292
+        }
+      ],
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 1,
+        "functionCount": 5,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "components/dashboard/ThreadViewport.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 88,
+      "nonEmptyLines": 82,
+      "functions": [
+        {
+          "name": "ThreadViewport",
+          "startLine": 18,
+          "endLine": 88,
+          "params": [
+            "{\n  count,\n  onOpen,\n  children,\n}"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "ThreadViewport",
+          "line": 18,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "ThreadViewport",
+          "callee": "useRef",
+          "lineNumber": 27
+        },
+        {
+          "caller": "ThreadViewport",
+          "callee": "useRef",
+          "lineNumber": 28
+        },
+        {
+          "caller": "ThreadViewport",
+          "callee": "useRef",
+          "lineNumber": 29
+        },
+        {
+          "caller": "ThreadViewport",
+          "callee": "useState",
+          "lineNumber": 30
+        },
+        {
+          "caller": "ThreadViewport",
+          "callee": "useEffect",
+          "lineNumber": 32
+        },
+        {
+          "caller": "ThreadViewport",
+          "callee": "el.scrollTo",
+          "lineNumber": 37
+        },
+        {
+          "caller": "ThreadViewport",
+          "callee": "requestAnimationFrame",
+          "lineNumber": 41
+        },
+        {
+          "caller": "ThreadViewport",
+          "callee": "setBehind",
+          "lineNumber": 41
+        },
+        {
+          "caller": "ThreadViewport",
+          "callee": "Boolean",
+          "lineNumber": 46
+        },
+        {
+          "caller": "ThreadViewport",
+          "callee": "useRef",
+          "lineNumber": 47
+        },
+        {
+          "caller": "ThreadViewport",
+          "callee": "useEffect",
+          "lineNumber": 48
+        },
+        {
+          "caller": "ThreadViewport",
+          "callee": "useEffect",
+          "lineNumber": 51
+        },
+        {
+          "caller": "ThreadViewport",
+          "callee": "onOpenRef.current",
+          "lineNumber": 53
+        },
+        {
+          "caller": "ThreadViewport",
+          "callee": "setBehind",
+          "lineNumber": 63
+        },
+        {
+          "caller": "ThreadViewport",
+          "callee": "el?.scrollTo",
+          "lineNumber": 77
+        },
+        {
+          "caller": "ThreadViewport",
+          "callee": "setBehind",
+          "lineNumber": 78
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "lib/upload-client.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 120,
+      "nonEmptyLines": 112,
+      "functions": [
+        {
+          "name": "uploadFile",
+          "startLine": 33,
+          "endLine": 91,
+          "params": [
+            "file",
+            "target",
+            "options"
+          ]
+        },
+        {
+          "name": "putWithProgress",
+          "startLine": 94,
+          "endLine": 111,
+          "params": [
+            "url",
+            "file",
+            "contentType",
+            "onProgress"
+          ]
+        },
+        {
+          "name": "guessType",
+          "startLine": 115,
+          "endLine": 120,
+          "params": [
+            "name"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "uploadFile",
+          "line": 33,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "uploadFile",
+          "callee": "step",
+          "lineNumber": 45
+        },
+        {
+          "caller": "uploadFile",
+          "callee": "guessType",
+          "lineNumber": 51
+        },
+        {
+          "caller": "uploadFile",
+          "callee": "fetch",
+          "lineNumber": 56
+        },
+        {
+          "caller": "uploadFile",
+          "callee": "JSON.stringify",
+          "lineNumber": 59
+        },
+        {
+          "caller": "uploadFile",
+          "callee": "presign.json().catch",
+          "lineNumber": 62
+        },
+        {
+          "caller": "uploadFile",
+          "callee": "presign.json",
+          "lineNumber": 62
+        },
+        {
+          "caller": "uploadFile",
+          "callee": "presign.json",
+          "lineNumber": 65
+        },
+        {
+          "caller": "uploadFile",
+          "callee": "step",
+          "lineNumber": 67
+        },
+        {
+          "caller": "uploadFile",
+          "callee": "putWithProgress",
+          "lineNumber": 69
+        },
+        {
+          "caller": "uploadFile",
+          "callee": "fetch",
+          "lineNumber": 70
+        },
+        {
+          "caller": "uploadFile",
+          "callee": "step",
+          "lineNumber": 73
+        },
+        {
+          "caller": "uploadFile",
+          "callee": "fetch",
+          "lineNumber": 74
+        },
+        {
+          "caller": "uploadFile",
+          "callee": "JSON.stringify",
+          "lineNumber": 77
+        },
+        {
+          "caller": "uploadFile",
+          "callee": "record.json().catch",
+          "lineNumber": 80
+        },
+        {
+          "caller": "uploadFile",
+          "callee": "record.json",
+          "lineNumber": 80
+        },
+        {
+          "caller": "uploadFile",
+          "callee": "record.json",
+          "lineNumber": 86
+        },
+        {
+          "caller": "putWithProgress",
+          "callee": "xhr.open",
+          "lineNumber": 102
+        },
+        {
+          "caller": "putWithProgress",
+          "callee": "xhr.setRequestHeader",
+          "lineNumber": 103
+        },
+        {
+          "caller": "putWithProgress",
+          "callee": "onProgress",
+          "lineNumber": 105
+        },
+        {
+          "caller": "putWithProgress",
+          "callee": "resolve",
+          "lineNumber": 107
+        },
+        {
+          "caller": "putWithProgress",
+          "callee": "resolve",
+          "lineNumber": 108
+        },
+        {
+          "caller": "putWithProgress",
+          "callee": "xhr.send",
+          "lineNumber": 109
+        },
+        {
+          "caller": "guessType",
+          "callee": "name.split(\".\").pop()?.toLowerCase",
+          "lineNumber": 116
+        },
+        {
+          "caller": "guessType",
+          "callee": "name.split(\".\").pop",
+          "lineNumber": 116
+        },
+        {
+          "caller": "guessType",
+          "callee": "name.split",
+          "lineNumber": 116
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    }
+  ]
+}

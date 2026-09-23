@@ -1,0 +1,876 @@
+{
+  "nodes": [
+    {
+      "id": "file:components/dashboard/PageHeader.tsx",
+      "type": "file",
+      "name": "PageHeader.tsx",
+      "filePath": "components/dashboard/PageHeader.tsx",
+      "summary": "Shared dashboard/admin layout primitives: a page title/back-link header, a bordered content Panel, and a StatTile metric card, used to keep list and detail pages visually consistent.",
+      "tags": [
+        "component",
+        "layout",
+        "ui-primitive"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:components/dashboard/ProfileForms.tsx",
+      "type": "file",
+      "name": "ProfileForms.tsx",
+      "filePath": "components/dashboard/ProfileForms.tsx",
+      "summary": "Client forms for the shared 'Mon profil' page (used by both dashboard and admin shells): identity fields, password change, active session list with revoke, and account deletion.",
+      "tags": [
+        "component",
+        "forms",
+        "authentication",
+        "profile"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:components/dashboard/QuotaMeter.tsx",
+      "type": "file",
+      "name": "QuotaMeter.tsx",
+      "filePath": "components/dashboard/QuotaMeter.tsx",
+      "summary": "Renders a single quota's usage as a labeled progress bar (percentage, used/limit, optional reset date), color-coded as it approaches its limit.",
+      "tags": [
+        "component",
+        "quotas",
+        "ui-primitive"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:components/dashboard/pills.ts",
+      "type": "file",
+      "name": "pills.ts",
+      "filePath": "components/dashboard/pills.ts",
+      "summary": "Shared Tailwind class-string constants for pill/badge styling (primary, outline, soft, and a small-size modifier) reused across dashboard status chips and tags.",
+      "tags": [
+        "styling",
+        "constants",
+        "ui-primitive"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:lib/account.ts",
+      "type": "file",
+      "name": "account.ts",
+      "filePath": "lib/account.ts",
+      "summary": "Account-side side effects shared across server actions: activity-log entries, creating and realtime-publishing notifications (single or bulk), resolving which staff hold a given permission, and reading unread/recent notifications for a user.",
+      "tags": [
+        "notifications",
+        "activity-log",
+        "realtime",
+        "authorization"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:lib/db/index.ts",
+      "type": "file",
+      "name": "index.ts",
+      "filePath": "lib/db/index.ts",
+      "summary": "Lazily-constructed Drizzle/node-postgres database client, exposed as `db` through a Proxy so importing this module never opens a connection until a query actually runs — required so CI/CD builds with no DATABASE_URL still succeed.",
+      "tags": [
+        "database",
+        "drizzle",
+        "lazy-initialization"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:lib/db/schema.ts",
+      "type": "file",
+      "name": "schema.ts",
+      "filePath": "lib/db/schema.ts",
+      "summary": "The application's full Drizzle ORM schema: Better Auth tables (user/session/account/verification), billing (plans, subscriptions, quotas, quotes, invoices), support requests and messages, attachments, demos and their access/secrets/runs, notifications, activity log, app settings, contact leads, and the owner-editable site content/solutions tables.",
+      "tags": [
+        "data-model",
+        "database",
+        "drizzle",
+        "orm-schema"
+      ],
+      "complexity": "complex",
+      "languageNotes": "Single-file Drizzle schema definition with 22 exported tables; no functions, just table/column declarations and relations."
+    },
+    {
+      "id": "file:lib/db/seed.ts",
+      "type": "file",
+      "name": "seed.ts",
+      "filePath": "lib/db/seed.ts",
+      "summary": "One-off seed script (run by hand, never at app start) that upserts the service catalogue's plans, deactivates ones no longer offered, cancels the legacy free 'Découverte' subscriptions, and fills in any missing default app settings without overwriting admin-edited ones.",
+      "tags": [
+        "script",
+        "seed-data",
+        "database"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:components/dashboard/PageHeader.tsx:PageHeader",
+      "type": "function",
+      "name": "PageHeader",
+      "filePath": "components/dashboard/PageHeader.tsx",
+      "lineRange": [
+        16,
+        55
+      ],
+      "summary": "Renders the page's title (auto-punctuated), optional description, an optional back link, and an actions slot at the top of a dashboard/admin page.",
+      "tags": [
+        "component",
+        "layout"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:components/dashboard/PageHeader.tsx:Panel",
+      "type": "function",
+      "name": "Panel",
+      "filePath": "components/dashboard/PageHeader.tsx",
+      "lineRange": [
+        58,
+        94
+      ],
+      "summary": "A bordered card wrapper with an optional header (title/description/actions) used to group dashboard content sections.",
+      "tags": [
+        "component",
+        "layout",
+        "ui-primitive"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:components/dashboard/PageHeader.tsx:StatTile",
+      "type": "function",
+      "name": "StatTile",
+      "filePath": "components/dashboard/PageHeader.tsx",
+      "lineRange": [
+        102,
+        149
+      ],
+      "summary": "A single metric tile showing a label, value, optional hint and icon, optionally rendered as a link, with a cool or signal color tone.",
+      "tags": [
+        "component",
+        "ui-primitive",
+        "metrics"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:components/dashboard/ProfileForms.tsx:IdentityForm",
+      "type": "function",
+      "name": "IdentityForm",
+      "filePath": "components/dashboard/ProfileForms.tsx",
+      "lineRange": [
+        22,
+        74
+      ],
+      "summary": "Server-action-backed form for editing name, phone and company on the account, using useActionState for pending/error state.",
+      "tags": [
+        "component",
+        "forms",
+        "profile"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:components/dashboard/ProfileForms.tsx:PasswordForm",
+      "type": "function",
+      "name": "PasswordForm",
+      "filePath": "components/dashboard/ProfileForms.tsx",
+      "lineRange": [
+        76,
+        171
+      ],
+      "summary": "Form for changing the account password via authClient.changePassword, validating the new/confirm fields match before submitting and resetting on success.",
+      "tags": [
+        "component",
+        "forms",
+        "authentication"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:components/dashboard/ProfileForms.tsx:SessionList",
+      "type": "function",
+      "name": "SessionList",
+      "filePath": "components/dashboard/ProfileForms.tsx",
+      "lineRange": [
+        181,
+        260
+      ],
+      "summary": "Fetches and lists the account's active sessions with a parsed user-agent description and last-active time, letting the user revoke a single session or all others.",
+      "tags": [
+        "component",
+        "authentication",
+        "sessions"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:components/dashboard/ProfileForms.tsx:describeAgent",
+      "type": "function",
+      "name": "describeAgent",
+      "filePath": "components/dashboard/ProfileForms.tsx",
+      "lineRange": [
+        263,
+        280
+      ],
+      "summary": "Parses a raw User-Agent string into a short human-readable browser + OS label (e.g. 'Chrome sur Windows') for the session list.",
+      "tags": [
+        "utility",
+        "user-agent-parsing"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:components/dashboard/ProfileForms.tsx:DeleteAccount",
+      "type": "function",
+      "name": "DeleteAccount",
+      "filePath": "components/dashboard/ProfileForms.tsx",
+      "lineRange": [
+        282,
+        337
+      ],
+      "summary": "Two-step, password-confirmed account deletion control: an arming click reveals a password field, and confirming calls authClient.deleteUser before redirecting home.",
+      "tags": [
+        "component",
+        "forms",
+        "destructive-action",
+        "authentication"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:components/dashboard/QuotaMeter.tsx:QuotaMeter",
+      "type": "function",
+      "name": "QuotaMeter",
+      "filePath": "components/dashboard/QuotaMeter.tsx",
+      "lineRange": [
+        17,
+        65
+      ],
+      "summary": "Renders a quota row: label, used/limit or 'illimité', a progress bar that shifts color near capacity, and an optional reset date.",
+      "tags": [
+        "component",
+        "quotas"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:lib/account.ts:logActivity",
+      "type": "function",
+      "name": "logActivity",
+      "filePath": "lib/account.ts",
+      "lineRange": [
+        20,
+        34
+      ],
+      "summary": "Inserts one row into the activity log (actor, action, target, metadata), swallowing failures so a broken audit write never blocks the action it's logging.",
+      "tags": [
+        "activity-log",
+        "audit"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:lib/account.ts:kindFor",
+      "type": "function",
+      "name": "kindFor",
+      "filePath": "lib/account.ts",
+      "lineRange": [
+        50,
+        62
+      ],
+      "summary": "Maps a notification's semantic type (e.g. request reply, quote sent) to the coarse UI kind used to pick its icon/color.",
+      "tags": [
+        "notifications",
+        "mapping"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:lib/account.ts:row",
+      "type": "function",
+      "name": "row",
+      "filePath": "lib/account.ts",
+      "lineRange": [
+        64,
+        75
+      ],
+      "summary": "Builds the row shape inserted into the notifications table for a given user id and notification entry.",
+      "tags": [
+        "notifications",
+        "helper"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:lib/account.ts:notify",
+      "type": "function",
+      "name": "notify",
+      "filePath": "lib/account.ts",
+      "lineRange": [
+        85,
+        96
+      ],
+      "summary": "Inserts a notification for one user and publishes it over realtime so any open tab updates immediately.",
+      "tags": [
+        "notifications",
+        "realtime"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:lib/account.ts:notifyMany",
+      "type": "function",
+      "name": "notifyMany",
+      "filePath": "lib/account.ts",
+      "lineRange": [
+        99,
+        109
+      ],
+      "summary": "Inserts the same notification for a deduplicated list of user ids and publishes it to all of them over realtime in one batch.",
+      "tags": [
+        "notifications",
+        "realtime",
+        "bulk-operation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:lib/account.ts:staffWith",
+      "type": "function",
+      "name": "staffWith",
+      "filePath": "lib/account.ts",
+      "lineRange": [
+        120,
+        143
+      ],
+      "summary": "Finds active, non-banned staff/admin accounts that currently hold a given permission (via role default or explicit grant), optionally excluding one user — used to target who gets notified.",
+      "tags": [
+        "authorization",
+        "staff",
+        "permissions"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:lib/account.ts:notifyStaff",
+      "type": "function",
+      "name": "notifyStaff",
+      "filePath": "lib/account.ts",
+      "lineRange": [
+        151,
+        154
+      ],
+      "summary": "Notifies every staff member holding a given permission (except an optional excluded user) with the same notification entry.",
+      "tags": [
+        "notifications",
+        "staff",
+        "authorization"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:lib/account.ts:unreadCount",
+      "type": "function",
+      "name": "unreadCount",
+      "filePath": "lib/account.ts",
+      "lineRange": [
+        156,
+        162
+      ],
+      "summary": "Counts a user's unread notifications.",
+      "tags": [
+        "notifications"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:lib/account.ts:recentNotifications",
+      "type": "function",
+      "name": "recentNotifications",
+      "filePath": "lib/account.ts",
+      "lineRange": [
+        164,
+        171
+      ],
+      "summary": "Returns a user's most recent notifications, newest first, up to a limit.",
+      "tags": [
+        "notifications"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:lib/db/index.ts:getPool",
+      "type": "function",
+      "name": "getPool",
+      "filePath": "lib/db/index.ts",
+      "lineRange": [
+        20,
+        37
+      ],
+      "summary": "Builds the pg.Pool from DATABASE_URL (or DATABASE_URL_UNPOOLED) on first use, throwing if neither env var is set.",
+      "tags": [
+        "database",
+        "connection-pool"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:lib/db/seed.ts:main",
+      "type": "function",
+      "name": "main",
+      "filePath": "lib/db/seed.ts",
+      "lineRange": [
+        124,
+        155
+      ],
+      "summary": "Runs the seed: upserts each plan row, deactivates stale plan slugs, cancels legacy Découverte subscriptions, and inserts default app settings only where none exist yet, then exits.",
+      "tags": [
+        "script",
+        "seed-data"
+      ],
+      "complexity": "moderate"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:components/dashboard/PageHeader.tsx",
+      "target": "function:components/dashboard/PageHeader.tsx:PageHeader",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:components/dashboard/PageHeader.tsx",
+      "target": "function:components/dashboard/PageHeader.tsx:PageHeader",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:components/dashboard/PageHeader.tsx",
+      "target": "function:components/dashboard/PageHeader.tsx:Panel",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:components/dashboard/PageHeader.tsx",
+      "target": "function:components/dashboard/PageHeader.tsx:Panel",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:components/dashboard/PageHeader.tsx",
+      "target": "function:components/dashboard/PageHeader.tsx:StatTile",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:components/dashboard/PageHeader.tsx",
+      "target": "function:components/dashboard/PageHeader.tsx:StatTile",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:components/dashboard/ProfileForms.tsx",
+      "target": "function:components/dashboard/ProfileForms.tsx:IdentityForm",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:components/dashboard/ProfileForms.tsx",
+      "target": "function:components/dashboard/ProfileForms.tsx:IdentityForm",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:components/dashboard/ProfileForms.tsx",
+      "target": "function:components/dashboard/ProfileForms.tsx:PasswordForm",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:components/dashboard/ProfileForms.tsx",
+      "target": "function:components/dashboard/ProfileForms.tsx:PasswordForm",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:components/dashboard/ProfileForms.tsx",
+      "target": "function:components/dashboard/ProfileForms.tsx:SessionList",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:components/dashboard/ProfileForms.tsx",
+      "target": "function:components/dashboard/ProfileForms.tsx:SessionList",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:components/dashboard/ProfileForms.tsx",
+      "target": "function:components/dashboard/ProfileForms.tsx:describeAgent",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:components/dashboard/ProfileForms.tsx",
+      "target": "function:components/dashboard/ProfileForms.tsx:DeleteAccount",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:components/dashboard/ProfileForms.tsx",
+      "target": "function:components/dashboard/ProfileForms.tsx:DeleteAccount",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:components/dashboard/QuotaMeter.tsx",
+      "target": "function:components/dashboard/QuotaMeter.tsx:QuotaMeter",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:components/dashboard/QuotaMeter.tsx",
+      "target": "function:components/dashboard/QuotaMeter.tsx:QuotaMeter",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/account.ts",
+      "target": "function:lib/account.ts:logActivity",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:lib/account.ts",
+      "target": "function:lib/account.ts:logActivity",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/account.ts",
+      "target": "function:lib/account.ts:kindFor",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:lib/account.ts",
+      "target": "function:lib/account.ts:row",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:lib/account.ts",
+      "target": "function:lib/account.ts:notify",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:lib/account.ts",
+      "target": "function:lib/account.ts:notify",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/account.ts",
+      "target": "function:lib/account.ts:notifyMany",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:lib/account.ts",
+      "target": "function:lib/account.ts:notifyMany",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/account.ts",
+      "target": "function:lib/account.ts:staffWith",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:lib/account.ts",
+      "target": "function:lib/account.ts:staffWith",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/account.ts",
+      "target": "function:lib/account.ts:notifyStaff",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:lib/account.ts",
+      "target": "function:lib/account.ts:notifyStaff",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/account.ts",
+      "target": "function:lib/account.ts:unreadCount",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:lib/account.ts",
+      "target": "function:lib/account.ts:unreadCount",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/account.ts",
+      "target": "function:lib/account.ts:recentNotifications",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:lib/account.ts",
+      "target": "function:lib/account.ts:recentNotifications",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/db/index.ts",
+      "target": "function:lib/db/index.ts:getPool",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:lib/db/seed.ts",
+      "target": "function:lib/db/seed.ts:main",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:components/dashboard/PageHeader.tsx",
+      "target": "file:components/ui/Icon.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:components/dashboard/PageHeader.tsx",
+      "target": "file:lib/cn.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:components/dashboard/ProfileForms.tsx",
+      "target": "file:app/(app)/dashboard/profil/actions.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:components/dashboard/ProfileForms.tsx",
+      "target": "file:components/dashboard/ui.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:components/dashboard/ProfileForms.tsx",
+      "target": "file:components/ui/Icon.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:components/dashboard/ProfileForms.tsx",
+      "target": "file:lib/actions.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:components/dashboard/ProfileForms.tsx",
+      "target": "file:lib/auth-client.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:components/dashboard/ProfileForms.tsx",
+      "target": "file:lib/format.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:components/dashboard/QuotaMeter.tsx",
+      "target": "file:lib/cn.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:components/dashboard/QuotaMeter.tsx",
+      "target": "file:lib/format.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:components/dashboard/QuotaMeter.tsx",
+      "target": "file:lib/quotas.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:lib/account.ts",
+      "target": "file:lib/db/index.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:lib/account.ts",
+      "target": "file:lib/db/schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:lib/account.ts",
+      "target": "file:lib/permissions.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:lib/account.ts",
+      "target": "file:lib/realtime.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:lib/db/index.ts",
+      "target": "file:lib/db/schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:lib/db/seed.ts",
+      "target": "file:lib/db/index.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:lib/db/seed.ts",
+      "target": "file:lib/db/schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:lib/db/seed.ts",
+      "target": "file:lib/settings.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "function:components/dashboard/PageHeader.tsx:Panel",
+      "target": "function:lib/cn.ts:cn",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:components/dashboard/PageHeader.tsx:StatTile",
+      "target": "function:lib/cn.ts:cn",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:components/dashboard/ProfileForms.tsx:SessionList",
+      "target": "function:lib/format.ts:formatDateTime",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:components/dashboard/QuotaMeter.tsx:QuotaMeter",
+      "target": "function:lib/cn.ts:cn",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:components/dashboard/QuotaMeter.tsx:QuotaMeter",
+      "target": "function:lib/format.ts:formatDate",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:lib/account.ts:notify",
+      "target": "function:lib/realtime.ts:publish",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:lib/account.ts:notifyMany",
+      "target": "function:lib/realtime.ts:publishMany",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:lib/account.ts:staffWith",
+      "target": "function:lib/permissions.ts:can",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    }
+  ]
+}

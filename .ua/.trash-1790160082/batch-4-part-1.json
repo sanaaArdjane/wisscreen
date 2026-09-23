@@ -1,0 +1,871 @@
+{
+  "nodes": [
+    {
+      "id": "file:__tests__/catalogue.test.ts",
+      "type": "file",
+      "name": "catalogue.test.ts",
+      "filePath": "__tests__/catalogue.test.ts",
+      "summary": "Vitest unit tests for the KV-style spec/feature line parsers and the standing-vs-monthly quota metric classifier used by the catalogue and quota system.",
+      "tags": [
+        "test",
+        "parsing",
+        "quotas",
+        "unit-test"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/(app)/admin/abonnements/[id]/page.tsx",
+      "type": "file",
+      "name": "page.tsx",
+      "filePath": "app/(app)/admin/abonnements/[id]/page.tsx",
+      "summary": "Admin detail page for one provisioned subscription (service): shows the plan, client, quota meters and history, and renders the edit/delete forms via ServiceForm.",
+      "tags": [
+        "admin",
+        "subscription-detail",
+        "server-component",
+        "billing"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:app/(app)/admin/abonnements/[id]/page.tsx:ServicePage",
+      "type": "function",
+      "name": "ServicePage",
+      "filePath": "app/(app)/admin/abonnements/[id]/page.tsx",
+      "lineRange": [
+        21,
+        128
+      ],
+      "summary": "Server component that loads a subscription by id (joined with its plan and client), enforces subscriptions:read, computes quota usage, and renders the detail panel with ServiceForm.",
+      "tags": [
+        "server-component",
+        "authorization",
+        "data-fetching"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:app/(app)/admin/abonnements/actions.ts",
+      "type": "file",
+      "name": "actions.ts",
+      "filePath": "app/(app)/admin/abonnements/actions.ts",
+      "summary": "Server actions for provisioning (saveService) and removing (deleteService) a customer subscription, copying plan price/spec at provisioning time, granting quotas, and notifying the customer of status changes.",
+      "tags": [
+        "server-action",
+        "subscription",
+        "billing",
+        "quotas"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:app/(app)/admin/abonnements/actions.ts:saveService",
+      "type": "function",
+      "name": "saveService",
+      "filePath": "app/(app)/admin/abonnements/actions.ts",
+      "lineRange": [
+        63,
+        151
+      ],
+      "summary": "Creates or updates a subscription row: copies the plan's price and spec at provisioning so later catalogue re-pricing never touches a live service, grants the plan's default quotas, and notifies the customer on status transitions.",
+      "tags": [
+        "server-action",
+        "subscription",
+        "quotas",
+        "notification"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:app/(app)/admin/abonnements/actions.ts:deleteService",
+      "type": "function",
+      "name": "deleteService",
+      "filePath": "app/(app)/admin/abonnements/actions.ts",
+      "lineRange": [
+        163,
+        189
+      ],
+      "summary": "Cancels/removes a provisioned subscription after re-checking permission, logging the action and redirecting back to the list.",
+      "tags": [
+        "server-action",
+        "subscription",
+        "authorization"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/(app)/admin/abonnements/nouveau/page.tsx",
+      "type": "file",
+      "name": "page.tsx",
+      "filePath": "app/(app)/admin/abonnements/nouveau/page.tsx",
+      "summary": "Admin page for provisioning a new subscription/service for a customer, rendering ServiceForm in create mode.",
+      "tags": [
+        "admin",
+        "subscription-create",
+        "server-component"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:app/(app)/admin/abonnements/nouveau/page.tsx:NewServicePage",
+      "type": "function",
+      "name": "NewServicePage",
+      "filePath": "app/(app)/admin/abonnements/nouveau/page.tsx",
+      "lineRange": [
+        12,
+        57
+      ],
+      "summary": "Server component that checks subscriptions:write, loads plan/client options and renders the empty ServiceForm for creating a new provisioned service.",
+      "tags": [
+        "server-component",
+        "authorization",
+        "form"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/(app)/admin/abonnements/options.ts",
+      "type": "file",
+      "name": "options.ts",
+      "filePath": "app/(app)/admin/abonnements/options.ts",
+      "summary": "Loads the select-box options (published plans and clients) shared by the subscription create/edit forms.",
+      "tags": [
+        "utility",
+        "data-fetching",
+        "form"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:app/(app)/admin/abonnements/options.ts:serviceFormOptions",
+      "type": "function",
+      "name": "serviceFormOptions",
+      "filePath": "app/(app)/admin/abonnements/options.ts",
+      "lineRange": [
+        7,
+        27
+      ],
+      "summary": "Queries the plans and user tables to build the dropdown option lists (plan slug/name/price, client id/name/email) used by ServiceForm.",
+      "tags": [
+        "data-fetching",
+        "form-options"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/(app)/admin/abonnements/page.tsx",
+      "type": "file",
+      "name": "page.tsx",
+      "filePath": "app/(app)/admin/abonnements/page.tsx",
+      "summary": "Admin list/index page for all provisioned subscriptions (services) across every customer, with status/plan filters, stat tiles and links to each service's detail page.",
+      "tags": [
+        "admin",
+        "subscription-list",
+        "server-component",
+        "billing"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:app/(app)/admin/abonnements/page.tsx:AbonnementsPage",
+      "type": "function",
+      "name": "AbonnementsPage",
+      "filePath": "app/(app)/admin/abonnements/page.tsx",
+      "lineRange": [
+        30,
+        191
+      ],
+      "summary": "Server component enforcing subscriptions:read, querying all subscriptions joined with plans and clients, applying filters, and rendering the subscriptions table with status pills and stat tiles.",
+      "tags": [
+        "server-component",
+        "authorization",
+        "filtering",
+        "data-fetching"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:app/(app)/admin/catalogue/[slug]/page.tsx",
+      "type": "file",
+      "name": "page.tsx",
+      "filePath": "app/(app)/admin/catalogue/[slug]/page.tsx",
+      "summary": "Admin detail/edit page for one service-catalogue entry (a `plans` row) \u2014 WICLOUD's sellable service such as servers, SMTP, AI API \u2014 rendering CatalogueForm for editing price, specs and default quotas.",
+      "tags": [
+        "admin",
+        "catalogue",
+        "server-component",
+        "billing"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:app/(app)/admin/catalogue/[slug]/page.tsx:CatalogueItemPage",
+      "type": "function",
+      "name": "CatalogueItemPage",
+      "filePath": "app/(app)/admin/catalogue/[slug]/page.tsx",
+      "lineRange": [
+        18,
+        87
+      ],
+      "summary": "Server component that loads a single plan by slug, enforces catalogue:read, and renders CatalogueForm pre-filled with its price, spec lines and quota grants for editing.",
+      "tags": [
+        "server-component",
+        "authorization",
+        "data-fetching"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:app/(app)/admin/catalogue/actions.ts",
+      "type": "file",
+      "name": "actions.ts",
+      "filePath": "app/(app)/admin/catalogue/actions.ts",
+      "summary": "Server actions for creating/updating (saveCatalogueItem) and removing (deleteCatalogueItem) a service-catalogue entry in `plans`, the source of truth for what WICLOUD sells.",
+      "tags": [
+        "server-action",
+        "catalogue",
+        "billing"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:app/(app)/admin/catalogue/actions.ts:saveCatalogueItem",
+      "type": "function",
+      "name": "saveCatalogueItem",
+      "filePath": "app/(app)/admin/catalogue/actions.ts",
+      "lineRange": [
+        50,
+        105
+      ],
+      "summary": "Validates and upserts a plans row (price per period, free-form spec lines, default quota grants) after checking catalogue:write, then logs the change and revalidates the catalogue pages.",
+      "tags": [
+        "server-action",
+        "validation",
+        "catalogue"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:app/(app)/admin/catalogue/actions.ts:deleteCatalogueItem",
+      "type": "function",
+      "name": "deleteCatalogueItem",
+      "filePath": "app/(app)/admin/catalogue/actions.ts",
+      "lineRange": [
+        113,
+        137
+      ],
+      "summary": "Removes a plan from the catalogue after re-checking catalogue:write and logging the deletion, then redirects to the catalogue list.",
+      "tags": [
+        "server-action",
+        "catalogue",
+        "authorization"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:__tests__/catalogue.test.ts",
+      "target": "file:lib/kv.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:__tests__/catalogue.test.ts",
+      "target": "file:lib/quotas.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/abonnements/[id]/page.tsx",
+      "target": "file:app/(app)/admin/abonnements/ServiceForm.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/abonnements/[id]/page.tsx",
+      "target": "file:app/(app)/admin/abonnements/options.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/abonnements/[id]/page.tsx",
+      "target": "file:components/dashboard/PageHeader.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/abonnements/[id]/page.tsx",
+      "target": "file:components/dashboard/QuotaMeter.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/abonnements/[id]/page.tsx",
+      "target": "file:components/dashboard/ui.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/abonnements/[id]/page.tsx",
+      "target": "file:lib/db/index.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/abonnements/[id]/page.tsx",
+      "target": "file:lib/db/schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/abonnements/[id]/page.tsx",
+      "target": "file:lib/guard.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/abonnements/[id]/page.tsx",
+      "target": "file:lib/kv.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/abonnements/[id]/page.tsx",
+      "target": "file:lib/permissions.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/abonnements/[id]/page.tsx",
+      "target": "file:lib/quotas.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/abonnements/[id]/page.tsx",
+      "target": "function:app/(app)/admin/abonnements/[id]/page.tsx:ServicePage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:app/(app)/admin/abonnements/[id]/page.tsx",
+      "target": "function:app/(app)/admin/abonnements/[id]/page.tsx:ServicePage",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:app/(app)/admin/abonnements/[id]/page.tsx:ServicePage",
+      "target": "function:lib/guard.ts:requirePermission",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/(app)/admin/abonnements/actions.ts",
+      "target": "file:lib/account.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/abonnements/actions.ts",
+      "target": "file:lib/actions.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/abonnements/actions.ts",
+      "target": "file:lib/db/index.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/abonnements/actions.ts",
+      "target": "file:lib/db/schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/abonnements/actions.ts",
+      "target": "file:lib/guard.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/abonnements/actions.ts",
+      "target": "file:lib/kv.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/abonnements/actions.ts",
+      "target": "file:lib/money.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/abonnements/actions.ts",
+      "target": "file:lib/quotas.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/abonnements/actions.ts",
+      "target": "function:app/(app)/admin/abonnements/actions.ts:saveService",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:app/(app)/admin/abonnements/actions.ts",
+      "target": "function:app/(app)/admin/abonnements/actions.ts:deleteService",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:app/(app)/admin/abonnements/actions.ts",
+      "target": "function:app/(app)/admin/abonnements/actions.ts:saveService",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/(app)/admin/abonnements/actions.ts",
+      "target": "function:app/(app)/admin/abonnements/actions.ts:deleteService",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:app/(app)/admin/abonnements/actions.ts:saveService",
+      "target": "function:lib/quotas.ts:grantServiceQuotas",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:app/(app)/admin/abonnements/actions.ts:saveService",
+      "target": "function:lib/account.ts:notify",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/(app)/admin/abonnements/[id]/page.tsx",
+      "target": "file:app/(app)/admin/abonnements/actions.ts",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:app/(app)/admin/abonnements/nouveau/page.tsx",
+      "target": "file:app/(app)/admin/abonnements/ServiceForm.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/abonnements/nouveau/page.tsx",
+      "target": "file:app/(app)/admin/abonnements/options.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/abonnements/nouveau/page.tsx",
+      "target": "file:components/dashboard/PageHeader.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/abonnements/nouveau/page.tsx",
+      "target": "file:lib/db/index.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/abonnements/nouveau/page.tsx",
+      "target": "file:lib/db/schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/abonnements/nouveau/page.tsx",
+      "target": "file:lib/guard.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/abonnements/nouveau/page.tsx",
+      "target": "function:app/(app)/admin/abonnements/nouveau/page.tsx:NewServicePage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:app/(app)/admin/abonnements/nouveau/page.tsx",
+      "target": "function:app/(app)/admin/abonnements/nouveau/page.tsx:NewServicePage",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:app/(app)/admin/abonnements/nouveau/page.tsx:NewServicePage",
+      "target": "function:app/(app)/admin/abonnements/options.ts:serviceFormOptions",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/(app)/admin/abonnements/options.ts",
+      "target": "file:lib/db/index.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/abonnements/options.ts",
+      "target": "file:lib/db/schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/abonnements/options.ts",
+      "target": "file:lib/kv.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/abonnements/options.ts",
+      "target": "function:app/(app)/admin/abonnements/options.ts:serviceFormOptions",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:app/(app)/admin/abonnements/options.ts",
+      "target": "function:app/(app)/admin/abonnements/options.ts:serviceFormOptions",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/(app)/admin/abonnements/page.tsx",
+      "target": "file:components/dashboard/FilterBar.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/abonnements/page.tsx",
+      "target": "file:components/dashboard/PageHeader.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/abonnements/page.tsx",
+      "target": "file:components/dashboard/pills.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/abonnements/page.tsx",
+      "target": "file:components/dashboard/ui.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/abonnements/page.tsx",
+      "target": "file:components/ui/Icon.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/abonnements/page.tsx",
+      "target": "file:lib/db/index.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/abonnements/page.tsx",
+      "target": "file:lib/db/schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/abonnements/page.tsx",
+      "target": "file:lib/format.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/abonnements/page.tsx",
+      "target": "file:lib/guard.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/abonnements/page.tsx",
+      "target": "file:lib/money.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/abonnements/page.tsx",
+      "target": "file:lib/permissions.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/abonnements/page.tsx",
+      "target": "file:lib/quotas.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/abonnements/page.tsx",
+      "target": "function:app/(app)/admin/abonnements/page.tsx:AbonnementsPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:app/(app)/admin/abonnements/page.tsx",
+      "target": "function:app/(app)/admin/abonnements/page.tsx:AbonnementsPage",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/(app)/admin/abonnements/page.tsx",
+      "target": "file:app/(app)/admin/abonnements/[id]/page.tsx",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:app/(app)/admin/catalogue/[slug]/page.tsx",
+      "target": "file:app/(app)/admin/catalogue/CatalogueForm.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/catalogue/[slug]/page.tsx",
+      "target": "file:components/dashboard/PageHeader.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/catalogue/[slug]/page.tsx",
+      "target": "file:components/dashboard/ui.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/catalogue/[slug]/page.tsx",
+      "target": "file:lib/db/index.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/catalogue/[slug]/page.tsx",
+      "target": "file:lib/db/schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/catalogue/[slug]/page.tsx",
+      "target": "file:lib/format.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/catalogue/[slug]/page.tsx",
+      "target": "file:lib/guard.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/catalogue/[slug]/page.tsx",
+      "target": "file:lib/kv.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/catalogue/[slug]/page.tsx",
+      "target": "file:lib/permissions.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/catalogue/[slug]/page.tsx",
+      "target": "file:lib/quotas.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/catalogue/[slug]/page.tsx",
+      "target": "function:app/(app)/admin/catalogue/[slug]/page.tsx:CatalogueItemPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:app/(app)/admin/catalogue/[slug]/page.tsx",
+      "target": "function:app/(app)/admin/catalogue/[slug]/page.tsx:CatalogueItemPage",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/(app)/admin/catalogue/actions.ts",
+      "target": "file:lib/account.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/catalogue/actions.ts",
+      "target": "file:lib/actions.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/catalogue/actions.ts",
+      "target": "file:lib/db/index.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/catalogue/actions.ts",
+      "target": "file:lib/db/schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/catalogue/actions.ts",
+      "target": "file:lib/guard.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/catalogue/actions.ts",
+      "target": "file:lib/kv.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/catalogue/actions.ts",
+      "target": "file:lib/money.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/catalogue/actions.ts",
+      "target": "function:app/(app)/admin/catalogue/actions.ts:saveCatalogueItem",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:app/(app)/admin/catalogue/actions.ts",
+      "target": "function:app/(app)/admin/catalogue/actions.ts:deleteCatalogueItem",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:app/(app)/admin/catalogue/actions.ts",
+      "target": "function:app/(app)/admin/catalogue/actions.ts:saveCatalogueItem",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/(app)/admin/catalogue/actions.ts",
+      "target": "function:app/(app)/admin/catalogue/actions.ts:deleteCatalogueItem",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/(app)/admin/catalogue/[slug]/page.tsx",
+      "target": "file:app/(app)/admin/catalogue/actions.ts",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:lib/kv.ts",
+      "target": "file:__tests__/catalogue.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:lib/quotas.ts",
+      "target": "file:__tests__/catalogue.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    }
+  ]
+}

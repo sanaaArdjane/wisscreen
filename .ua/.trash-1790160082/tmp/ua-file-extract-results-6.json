@@ -1,0 +1,4541 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 24,
+  "filesSkipped": [],
+  "filesUnreadable": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 24,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 24,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "results": [
+    {
+      "path": "app/api/documents/[kind]/[id]/route.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 42,
+      "nonEmptyLines": 37,
+      "functions": [
+        {
+          "name": "GET",
+          "startLine": 15,
+          "endLine": 42,
+          "params": [
+            "request",
+            "{ params }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "GET",
+          "line": 15,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "GET",
+          "callee": "getCurrentUser",
+          "lineNumber": 19
+        },
+        {
+          "caller": "GET",
+          "callee": "Number",
+          "lineNumber": 24
+        },
+        {
+          "caller": "GET",
+          "callee": "Number.isInteger",
+          "lineNumber": 25
+        },
+        {
+          "caller": "GET",
+          "callee": "renderBillingPdf",
+          "lineNumber": 27
+        },
+        {
+          "caller": "GET",
+          "callee": "can",
+          "lineNumber": 30
+        },
+        {
+          "caller": "GET",
+          "callee": "new URL(request.url).searchParams.get",
+          "lineNumber": 34
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/api/notifications/[id]/open/route.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 53,
+      "nonEmptyLines": 47,
+      "functions": [
+        {
+          "name": "GET",
+          "startLine": 19,
+          "endLine": 53,
+          "params": [
+            "request",
+            "{ params }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "GET",
+          "line": 19,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "GET",
+          "callee": "getCurrentUser",
+          "lineNumber": 23
+        },
+        {
+          "caller": "GET",
+          "callee": "Response.redirect",
+          "lineNumber": 24
+        },
+        {
+          "caller": "GET",
+          "callee": "Number",
+          "lineNumber": 26
+        },
+        {
+          "caller": "GET",
+          "callee": "Number.isInteger",
+          "lineNumber": 27
+        },
+        {
+          "caller": "GET",
+          "callee": "Response.redirect",
+          "lineNumber": 27
+        },
+        {
+          "caller": "GET",
+          "callee": "db\n    .update(notifications)\n    .set({ readAt: new Date() })\n    .where(\n      and(eq(notifications.id, id), eq(notifications.userId, user.id), isNull(notifications.readAt)),\n    )\n    .returning",
+          "lineNumber": 29
+        },
+        {
+          "caller": "GET",
+          "callee": "db\n    .update(notifications)\n    .set({ readAt: new Date() })\n    .where",
+          "lineNumber": 29
+        },
+        {
+          "caller": "GET",
+          "callee": "db\n    .update(notifications)\n    .set",
+          "lineNumber": 29
+        },
+        {
+          "caller": "GET",
+          "callee": "db\n    .update",
+          "lineNumber": 29
+        },
+        {
+          "caller": "GET",
+          "callee": "and",
+          "lineNumber": 33
+        },
+        {
+          "caller": "GET",
+          "callee": "eq",
+          "lineNumber": 33
+        },
+        {
+          "caller": "GET",
+          "callee": "eq",
+          "lineNumber": 33
+        },
+        {
+          "caller": "GET",
+          "callee": "isNull",
+          "lineNumber": 33
+        },
+        {
+          "caller": "GET",
+          "callee": "db\n        .select({ href: notifications.href })\n        .from(notifications)\n        .where(and(eq(notifications.id, id), eq(notifications.userId, user.id)))\n        .limit",
+          "lineNumber": 41
+        },
+        {
+          "caller": "GET",
+          "callee": "db\n        .select({ href: notifications.href })\n        .from(notifications)\n        .where",
+          "lineNumber": 41
+        },
+        {
+          "caller": "GET",
+          "callee": "db\n        .select({ href: notifications.href })\n        .from",
+          "lineNumber": 41
+        },
+        {
+          "caller": "GET",
+          "callee": "db\n        .select",
+          "lineNumber": 41
+        },
+        {
+          "caller": "GET",
+          "callee": "and",
+          "lineNumber": 44
+        },
+        {
+          "caller": "GET",
+          "callee": "eq",
+          "lineNumber": 44
+        },
+        {
+          "caller": "GET",
+          "callee": "eq",
+          "lineNumber": 44
+        },
+        {
+          "caller": "GET",
+          "callee": "publish",
+          "lineNumber": 49
+        },
+        {
+          "caller": "GET",
+          "callee": "target.startsWith",
+          "lineNumber": 51
+        },
+        {
+          "caller": "GET",
+          "callee": "target.startsWith",
+          "lineNumber": 51
+        },
+        {
+          "caller": "GET",
+          "callee": "Response.redirect",
+          "lineNumber": 52
+        }
+      ],
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/api/notifications/route.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 34,
+      "nonEmptyLines": 32,
+      "functions": [
+        {
+          "name": "GET",
+          "startLine": 11,
+          "endLine": 34,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "GET",
+          "line": 11,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "GET",
+          "callee": "getCurrentUser",
+          "lineNumber": 12
+        },
+        {
+          "caller": "GET",
+          "callee": "Response.json",
+          "lineNumber": 13
+        },
+        {
+          "caller": "GET",
+          "callee": "Promise.all",
+          "lineNumber": 15
+        },
+        {
+          "caller": "GET",
+          "callee": "unreadCount",
+          "lineNumber": 16
+        },
+        {
+          "caller": "GET",
+          "callee": "recentNotifications",
+          "lineNumber": 17
+        },
+        {
+          "caller": "GET",
+          "callee": "Response.json",
+          "lineNumber": 19
+        },
+        {
+          "caller": "GET",
+          "callee": "latest.map",
+          "lineNumber": 22
+        },
+        {
+          "caller": "GET",
+          "callee": "n.createdAt.toISOString",
+          "lineNumber": 29
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/api/realtime/route.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 115,
+      "nonEmptyLines": 102,
+      "functions": [
+        {
+          "name": "GET",
+          "startLine": 27,
+          "endLine": 115,
+          "params": [
+            "request"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "GET",
+          "line": 27,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "GET",
+          "callee": "getCurrentUser",
+          "lineNumber": 28
+        },
+        {
+          "caller": "GET",
+          "callee": "Response.json",
+          "lineNumber": 30
+        },
+        {
+          "caller": "send",
+          "callee": "controller.enqueue",
+          "lineNumber": 49
+        },
+        {
+          "caller": "send",
+          "callee": "encoder.encode",
+          "lineNumber": 49
+        },
+        {
+          "caller": "event",
+          "callee": "send",
+          "lineNumber": 55
+        },
+        {
+          "caller": "event",
+          "callee": "JSON.stringify",
+          "lineNumber": 55
+        },
+        {
+          "caller": "shutdown",
+          "callee": "unsubscribe",
+          "lineNumber": 60
+        },
+        {
+          "caller": "shutdown",
+          "callee": "clearInterval",
+          "lineNumber": 61
+        },
+        {
+          "caller": "shutdown",
+          "callee": "clearTimeout",
+          "lineNumber": 62
+        },
+        {
+          "caller": "shutdown",
+          "callee": "controller.close",
+          "lineNumber": 64
+        },
+        {
+          "caller": "start",
+          "callee": "send",
+          "lineNumber": 72
+        },
+        {
+          "caller": "start",
+          "callee": "event",
+          "lineNumber": 78
+        },
+        {
+          "caller": "start",
+          "callee": "unreadCount",
+          "lineNumber": 78
+        },
+        {
+          "caller": "start",
+          "callee": "subscribe",
+          "lineNumber": 84
+        },
+        {
+          "caller": "start",
+          "callee": "event",
+          "lineNumber": 84
+        },
+        {
+          "caller": "start",
+          "callee": "console.warn",
+          "lineNumber": 86
+        },
+        {
+          "caller": "start",
+          "callee": "setInterval",
+          "lineNumber": 89
+        },
+        {
+          "caller": "start",
+          "callee": "send",
+          "lineNumber": 91
+        },
+        {
+          "caller": "start",
+          "callee": "Date.now",
+          "lineNumber": 91
+        },
+        {
+          "caller": "start",
+          "callee": "setTimeout",
+          "lineNumber": 94
+        },
+        {
+          "caller": "start",
+          "callee": "request.signal.addEventListener",
+          "lineNumber": 95
+        },
+        {
+          "caller": "start",
+          "callee": "shutdown",
+          "lineNumber": 96
+        },
+        {
+          "caller": "cancel",
+          "callee": "unsubscribe",
+          "lineNumber": 99
+        },
+        {
+          "caller": "cancel",
+          "callee": "clearInterval",
+          "lineNumber": 100
+        },
+        {
+          "caller": "cancel",
+          "callee": "clearTimeout",
+          "lineNumber": 101
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/api/uploads/route.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 313,
+      "nonEmptyLines": 282,
+      "functions": [
+        {
+          "name": "resolveTarget",
+          "startLine": 96,
+          "endLine": 159,
+          "params": [
+            "user",
+            "input"
+          ]
+        },
+        {
+          "name": "POST",
+          "startLine": 161,
+          "endLine": 184,
+          "params": [
+            "request"
+          ]
+        },
+        {
+          "name": "PUT",
+          "startLine": 187,
+          "endLine": 259,
+          "params": [
+            "request"
+          ]
+        },
+        {
+          "name": "GET",
+          "startLine": 269,
+          "endLine": 283,
+          "params": [
+            "request"
+          ]
+        },
+        {
+          "name": "mayDownload",
+          "startLine": 285,
+          "endLine": 299,
+          "params": [
+            "user",
+            "row"
+          ]
+        },
+        {
+          "name": "mayAttachTo",
+          "startLine": 302,
+          "endLine": 313,
+          "params": [
+            "user",
+            "requestId"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "POST",
+          "line": 161,
+          "isDefault": false
+        },
+        {
+          "name": "PUT",
+          "line": 187,
+          "isDefault": false
+        },
+        {
+          "name": "GET",
+          "line": 269,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "resolveTarget",
+          "callee": "[input.requestId, input.messageId, input.demoId, input.demoRunId, input.company, input.site].filter",
+          "lineNumber": 97
+        },
+        {
+          "caller": "resolveTarget",
+          "callee": "db\n      .select({ requestId: requestMessages.requestId })\n      .from(requestMessages)\n      .where(eq(requestMessages.id, input.messageId))\n      .limit",
+          "lineNumber": 103
+        },
+        {
+          "caller": "resolveTarget",
+          "callee": "db\n      .select({ requestId: requestMessages.requestId })\n      .from(requestMessages)\n      .where",
+          "lineNumber": 103
+        },
+        {
+          "caller": "resolveTarget",
+          "callee": "db\n      .select({ requestId: requestMessages.requestId })\n      .from",
+          "lineNumber": 103
+        },
+        {
+          "caller": "resolveTarget",
+          "callee": "db\n      .select",
+          "lineNumber": 103
+        },
+        {
+          "caller": "resolveTarget",
+          "callee": "eq",
+          "lineNumber": 106
+        },
+        {
+          "caller": "resolveTarget",
+          "callee": "mayAttachTo",
+          "lineNumber": 109
+        },
+        {
+          "caller": "resolveTarget",
+          "callee": "can",
+          "lineNumber": 115
+        },
+        {
+          "caller": "resolveTarget",
+          "callee": "mayAttachTo",
+          "lineNumber": 120
+        },
+        {
+          "caller": "resolveTarget",
+          "callee": "can",
+          "lineNumber": 124
+        },
+        {
+          "caller": "resolveTarget",
+          "callee": "can",
+          "lineNumber": 128
+        },
+        {
+          "caller": "resolveTarget",
+          "callee": "db.select({ id: demos.id }).from(demos).where(eq(demos.id, input.demoId)).limit",
+          "lineNumber": 129
+        },
+        {
+          "caller": "resolveTarget",
+          "callee": "db.select({ id: demos.id }).from(demos).where",
+          "lineNumber": 129
+        },
+        {
+          "caller": "resolveTarget",
+          "callee": "db.select({ id: demos.id }).from",
+          "lineNumber": 129
+        },
+        {
+          "caller": "resolveTarget",
+          "callee": "db.select",
+          "lineNumber": 129
+        },
+        {
+          "caller": "resolveTarget",
+          "callee": "eq",
+          "lineNumber": 129
+        },
+        {
+          "caller": "resolveTarget",
+          "callee": "db.select().from(demoRuns).where(eq(demoRuns.id, input.demoRunId)).limit",
+          "lineNumber": 136
+        },
+        {
+          "caller": "resolveTarget",
+          "callee": "db.select().from(demoRuns).where",
+          "lineNumber": 136
+        },
+        {
+          "caller": "resolveTarget",
+          "callee": "db.select().from",
+          "lineNumber": 136
+        },
+        {
+          "caller": "resolveTarget",
+          "callee": "db.select",
+          "lineNumber": 136
+        },
+        {
+          "caller": "resolveTarget",
+          "callee": "eq",
+          "lineNumber": 136
+        },
+        {
+          "caller": "resolveTarget",
+          "callee": "can",
+          "lineNumber": 138
+        },
+        {
+          "caller": "resolveTarget",
+          "callee": "getEntitledDemo",
+          "lineNumber": 144
+        },
+        {
+          "caller": "resolveTarget",
+          "callee": "can",
+          "lineNumber": 150
+        },
+        {
+          "caller": "resolveTarget",
+          "callee": "can",
+          "lineNumber": 154
+        },
+        {
+          "caller": "POST",
+          "callee": "getCurrentUser",
+          "lineNumber": 162
+        },
+        {
+          "caller": "POST",
+          "callee": "Response.json",
+          "lineNumber": 163
+        },
+        {
+          "caller": "POST",
+          "callee": "storageConfigured",
+          "lineNumber": 164
+        },
+        {
+          "caller": "POST",
+          "callee": "Response.json",
+          "lineNumber": 165
+        },
+        {
+          "caller": "POST",
+          "callee": "PresignSchema.safeParse",
+          "lineNumber": 168
+        },
+        {
+          "caller": "POST",
+          "callee": "request.json().catch",
+          "lineNumber": 168
+        },
+        {
+          "caller": "POST",
+          "callee": "request.json",
+          "lineNumber": 168
+        },
+        {
+          "caller": "POST",
+          "callee": "Response.json",
+          "lineNumber": 169
+        },
+        {
+          "caller": "POST",
+          "callee": "Boolean",
+          "lineNumber": 170
+        },
+        {
+          "caller": "POST",
+          "callee": "isAllowedContentType",
+          "lineNumber": 171
+        },
+        {
+          "caller": "POST",
+          "callee": "Response.json",
+          "lineNumber": 172
+        },
+        {
+          "caller": "POST",
+          "callee": "Response.json",
+          "lineNumber": 175
+        },
+        {
+          "caller": "POST",
+          "callee": "resolveTarget",
+          "lineNumber": 177
+        },
+        {
+          "caller": "POST",
+          "callee": "Response.json",
+          "lineNumber": 178
+        },
+        {
+          "caller": "POST",
+          "callee": "Response.json",
+          "lineNumber": 179
+        },
+        {
+          "caller": "POST",
+          "callee": "buildKey",
+          "lineNumber": 181
+        },
+        {
+          "caller": "POST",
+          "callee": "presignUpload",
+          "lineNumber": 182
+        },
+        {
+          "caller": "POST",
+          "callee": "Response.json",
+          "lineNumber": 183
+        },
+        {
+          "caller": "PUT",
+          "callee": "getCurrentUser",
+          "lineNumber": 188
+        },
+        {
+          "caller": "PUT",
+          "callee": "Response.json",
+          "lineNumber": 189
+        },
+        {
+          "caller": "PUT",
+          "callee": "RecordSchema.safeParse",
+          "lineNumber": 191
+        },
+        {
+          "caller": "PUT",
+          "callee": "request.json().catch",
+          "lineNumber": 191
+        },
+        {
+          "caller": "PUT",
+          "callee": "request.json",
+          "lineNumber": 191
+        },
+        {
+          "caller": "PUT",
+          "callee": "Response.json",
+          "lineNumber": 192
+        },
+        {
+          "caller": "PUT",
+          "callee": "parsed.data.key.startsWith",
+          "lineNumber": 197
+        },
+        {
+          "caller": "PUT",
+          "callee": "Response.json",
+          "lineNumber": 198
+        },
+        {
+          "caller": "PUT",
+          "callee": "isAllowedContentType",
+          "lineNumber": 201
+        },
+        {
+          "caller": "PUT",
+          "callee": "Boolean",
+          "lineNumber": 201
+        },
+        {
+          "caller": "PUT",
+          "callee": "Response.json",
+          "lineNumber": 202
+        },
+        {
+          "caller": "PUT",
+          "callee": "Response.json",
+          "lineNumber": 205
+        },
+        {
+          "caller": "PUT",
+          "callee": "resolveTarget",
+          "lineNumber": 207
+        },
+        {
+          "caller": "PUT",
+          "callee": "Response.json",
+          "lineNumber": 208
+        },
+        {
+          "caller": "PUT",
+          "callee": "Response.json",
+          "lineNumber": 209
+        },
+        {
+          "caller": "PUT",
+          "callee": "consume",
+          "lineNumber": 217
+        },
+        {
+          "caller": "PUT",
+          "callee": "Math.max",
+          "lineNumber": 217
+        },
+        {
+          "caller": "PUT",
+          "callee": "Math.ceil",
+          "lineNumber": 217
+        },
+        {
+          "caller": "PUT",
+          "callee": "deleteObject(parsed.data.key).catch",
+          "lineNumber": 219
+        },
+        {
+          "caller": "PUT",
+          "callee": "deleteObject",
+          "lineNumber": 219
+        },
+        {
+          "caller": "PUT",
+          "callee": "Response.json",
+          "lineNumber": 220
+        },
+        {
+          "caller": "PUT",
+          "callee": "db\n    .insert(attachments)\n    .values({\n      key: parsed.data.key,\n      filename: parsed.data.filename,\n      contentType: parsed.data.contentType,\n      sizeBytes: parsed.data.size,\n      uploadedById: user.id,\n      ownerId: target.ownerId,\n      requestId: target.requestId,\n      messageId: target.messageId,\n      demoId: target.demoId,\n      demoRunId: target.demoRunId,\n      internal: Boolean(parsed.data.internal) && target.asStaff,\n      public: Boolean(target.public),\n    })\n    .returning",
+          "lineNumber": 224
+        },
+        {
+          "caller": "PUT",
+          "callee": "db\n    .insert(attachments)\n    .values",
+          "lineNumber": 224
+        },
+        {
+          "caller": "PUT",
+          "callee": "db\n    .insert",
+          "lineNumber": 224
+        },
+        {
+          "caller": "PUT",
+          "callee": "Boolean",
+          "lineNumber": 237
+        },
+        {
+          "caller": "PUT",
+          "callee": "Boolean",
+          "lineNumber": 238
+        },
+        {
+          "caller": "PUT",
+          "callee": "logActivity",
+          "lineNumber": 242
+        },
+        {
+          "caller": "PUT",
+          "callee": "Response.json",
+          "lineNumber": 258
+        },
+        {
+          "caller": "GET",
+          "callee": "getCurrentUser",
+          "lineNumber": 270
+        },
+        {
+          "caller": "GET",
+          "callee": "Response.json",
+          "lineNumber": 271
+        },
+        {
+          "caller": "GET",
+          "callee": "Number",
+          "lineNumber": 273
+        },
+        {
+          "caller": "GET",
+          "callee": "new URL(request.url).searchParams.get",
+          "lineNumber": 273
+        },
+        {
+          "caller": "GET",
+          "callee": "Number.isInteger",
+          "lineNumber": 274
+        },
+        {
+          "caller": "GET",
+          "callee": "Response.json",
+          "lineNumber": 274
+        },
+        {
+          "caller": "GET",
+          "callee": "db.select().from(attachments).where(eq(attachments.id, id)).limit",
+          "lineNumber": 276
+        },
+        {
+          "caller": "GET",
+          "callee": "db.select().from(attachments).where",
+          "lineNumber": 276
+        },
+        {
+          "caller": "GET",
+          "callee": "db.select().from",
+          "lineNumber": 276
+        },
+        {
+          "caller": "GET",
+          "callee": "db.select",
+          "lineNumber": 276
+        },
+        {
+          "caller": "GET",
+          "callee": "eq",
+          "lineNumber": 276
+        },
+        {
+          "caller": "GET",
+          "callee": "mayDownload",
+          "lineNumber": 277
+        },
+        {
+          "caller": "GET",
+          "callee": "Response.json",
+          "lineNumber": 278
+        },
+        {
+          "caller": "GET",
+          "callee": "new URL(request.url).searchParams.get",
+          "lineNumber": 281
+        },
+        {
+          "caller": "GET",
+          "callee": "Response.redirect",
+          "lineNumber": 282
+        },
+        {
+          "caller": "GET",
+          "callee": "presignDownload",
+          "lineNumber": 282
+        },
+        {
+          "caller": "mayDownload",
+          "callee": "can",
+          "lineNumber": 287
+        },
+        {
+          "caller": "mayDownload",
+          "callee": "Boolean",
+          "lineNumber": 288
+        },
+        {
+          "caller": "mayDownload",
+          "callee": "getEntitledDemo",
+          "lineNumber": 288
+        },
+        {
+          "caller": "mayDownload",
+          "callee": "can",
+          "lineNumber": 291
+        },
+        {
+          "caller": "mayDownload",
+          "callee": "can",
+          "lineNumber": 295
+        },
+        {
+          "caller": "mayDownload",
+          "callee": "can",
+          "lineNumber": 297
+        },
+        {
+          "caller": "mayAttachTo",
+          "callee": "can",
+          "lineNumber": 303
+        },
+        {
+          "caller": "mayAttachTo",
+          "callee": "db.select().from(requests).where(eq(requests.id, requestId)).limit",
+          "lineNumber": 304
+        },
+        {
+          "caller": "mayAttachTo",
+          "callee": "db.select().from(requests).where",
+          "lineNumber": 304
+        },
+        {
+          "caller": "mayAttachTo",
+          "callee": "db.select().from",
+          "lineNumber": 304
+        },
+        {
+          "caller": "mayAttachTo",
+          "callee": "db.select",
+          "lineNumber": 304
+        },
+        {
+          "caller": "mayAttachTo",
+          "callee": "eq",
+          "lineNumber": 304
+        },
+        {
+          "caller": "mayAttachTo",
+          "callee": "db\n    .select()\n    .from(requests)\n    .where(and(eq(requests.id, requestId), eq(requests.userId, user.id)))\n    .limit",
+          "lineNumber": 307
+        },
+        {
+          "caller": "mayAttachTo",
+          "callee": "db\n    .select()\n    .from(requests)\n    .where",
+          "lineNumber": 307
+        },
+        {
+          "caller": "mayAttachTo",
+          "callee": "db\n    .select()\n    .from",
+          "lineNumber": 307
+        },
+        {
+          "caller": "mayAttachTo",
+          "callee": "db\n    .select",
+          "lineNumber": 307
+        },
+        {
+          "caller": "mayAttachTo",
+          "callee": "and",
+          "lineNumber": 310
+        },
+        {
+          "caller": "mayAttachTo",
+          "callee": "eq",
+          "lineNumber": 310
+        },
+        {
+          "caller": "mayAttachTo",
+          "callee": "eq",
+          "lineNumber": 310
+        }
+      ],
+      "metrics": {
+        "importCount": 8,
+        "exportCount": 3,
+        "functionCount": 6,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/media/[id]/route.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 60,
+      "nonEmptyLines": 56,
+      "functions": [
+        {
+          "name": "GET",
+          "startLine": 23,
+          "endLine": 56,
+          "params": [
+            "request",
+            "ctx"
+          ]
+        },
+        {
+          "name": "notFound",
+          "startLine": 58,
+          "endLine": 60,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "GET",
+          "line": 23,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "GET",
+          "callee": "Number",
+          "lineNumber": 25
+        },
+        {
+          "caller": "GET",
+          "callee": "Number.isInteger",
+          "lineNumber": 26
+        },
+        {
+          "caller": "GET",
+          "callee": "storageConfigured",
+          "lineNumber": 26
+        },
+        {
+          "caller": "GET",
+          "callee": "notFound",
+          "lineNumber": 26
+        },
+        {
+          "caller": "GET",
+          "callee": "db\n    .select({ key: attachments.key, contentType: attachments.contentType, filename: attachments.filename })\n    .from(attachments)\n    .where(and(eq(attachments.id, id), eq(attachments.public, true)))\n    .limit(1)\n    .catch",
+          "lineNumber": 28
+        },
+        {
+          "caller": "GET",
+          "callee": "db\n    .select({ key: attachments.key, contentType: attachments.contentType, filename: attachments.filename })\n    .from(attachments)\n    .where(and(eq(attachments.id, id), eq(attachments.public, true)))\n    .limit",
+          "lineNumber": 28
+        },
+        {
+          "caller": "GET",
+          "callee": "db\n    .select({ key: attachments.key, contentType: attachments.contentType, filename: attachments.filename })\n    .from(attachments)\n    .where",
+          "lineNumber": 28
+        },
+        {
+          "caller": "GET",
+          "callee": "db\n    .select({ key: attachments.key, contentType: attachments.contentType, filename: attachments.filename })\n    .from",
+          "lineNumber": 28
+        },
+        {
+          "caller": "GET",
+          "callee": "db\n    .select",
+          "lineNumber": 28
+        },
+        {
+          "caller": "GET",
+          "callee": "and",
+          "lineNumber": 31
+        },
+        {
+          "caller": "GET",
+          "callee": "eq",
+          "lineNumber": 31
+        },
+        {
+          "caller": "GET",
+          "callee": "eq",
+          "lineNumber": 31
+        },
+        {
+          "caller": "GET",
+          "callee": "(SITE_CONTENT_TYPES as readonly string[]).includes",
+          "lineNumber": 34
+        },
+        {
+          "caller": "GET",
+          "callee": "notFound",
+          "lineNumber": 34
+        },
+        {
+          "caller": "GET",
+          "callee": "request.headers.get",
+          "lineNumber": 36
+        },
+        {
+          "caller": "GET",
+          "callee": "getObjectStream",
+          "lineNumber": 38
+        },
+        {
+          "caller": "GET",
+          "callee": "row.filename.replace",
+          "lineNumber": 44
+        },
+        {
+          "caller": "GET",
+          "callee": "headers.set",
+          "lineNumber": 46
+        },
+        {
+          "caller": "GET",
+          "callee": "String",
+          "lineNumber": 46
+        },
+        {
+          "caller": "GET",
+          "callee": "headers.set",
+          "lineNumber": 47
+        },
+        {
+          "caller": "GET",
+          "callee": "notFound",
+          "lineNumber": 54
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 1,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "components/dashboard/FilterBar.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 114,
+      "nonEmptyLines": 105,
+      "functions": [
+        {
+          "name": "FilterBar",
+          "startLine": 28,
+          "endLine": 114,
+          "params": [
+            "{\n  basePath,\n  filters,\n  searchPlaceholder = \"Rechercher…\",\n}"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "FilterBar",
+          "line": 28,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "FilterBar",
+          "callee": "useRouter",
+          "lineNumber": 37
+        },
+        {
+          "caller": "FilterBar",
+          "callee": "useSearchParams",
+          "lineNumber": 38
+        },
+        {
+          "caller": "FilterBar",
+          "callee": "useTransition",
+          "lineNumber": 39
+        },
+        {
+          "caller": "FilterBar",
+          "callee": "useState",
+          "lineNumber": 40
+        },
+        {
+          "caller": "FilterBar",
+          "callee": "params.get",
+          "lineNumber": 40
+        },
+        {
+          "caller": "push",
+          "callee": "next.toString",
+          "lineNumber": 43
+        },
+        {
+          "caller": "push",
+          "callee": "startTransition",
+          "lineNumber": 44
+        },
+        {
+          "caller": "push",
+          "callee": "router.replace",
+          "lineNumber": 44
+        },
+        {
+          "caller": "FilterBar",
+          "callee": "useEffect",
+          "lineNumber": 47
+        },
+        {
+          "caller": "FilterBar",
+          "callee": "params.get",
+          "lineNumber": 48
+        },
+        {
+          "caller": "FilterBar",
+          "callee": "setTimeout",
+          "lineNumber": 51
+        },
+        {
+          "caller": "FilterBar",
+          "callee": "params.toString",
+          "lineNumber": 52
+        },
+        {
+          "caller": "FilterBar",
+          "callee": "next.set",
+          "lineNumber": 53
+        },
+        {
+          "caller": "FilterBar",
+          "callee": "next.delete",
+          "lineNumber": 54
+        },
+        {
+          "caller": "FilterBar",
+          "callee": "push",
+          "lineNumber": 55
+        },
+        {
+          "caller": "FilterBar",
+          "callee": "clearTimeout",
+          "lineNumber": 57
+        },
+        {
+          "caller": "FilterBar",
+          "callee": "cn",
+          "lineNumber": 65
+        },
+        {
+          "caller": "FilterBar",
+          "callee": "setQuery",
+          "lineNumber": 79
+        },
+        {
+          "caller": "FilterBar",
+          "callee": "filters.map",
+          "lineNumber": 85
+        },
+        {
+          "caller": "FilterBar",
+          "callee": "params.toString",
+          "lineNumber": 94
+        },
+        {
+          "caller": "FilterBar",
+          "callee": "next.delete",
+          "lineNumber": 96
+        },
+        {
+          "caller": "FilterBar",
+          "callee": "next.set",
+          "lineNumber": 97
+        },
+        {
+          "caller": "FilterBar",
+          "callee": "push",
+          "lineNumber": 98
+        },
+        {
+          "caller": "FilterBar",
+          "callee": "filter.options.map",
+          "lineNumber": 102
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "components/dashboard/NotificationFeed.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 129,
+      "nonEmptyLines": 123,
+      "functions": [
+        {
+          "name": "NotificationFeed",
+          "startLine": 40,
+          "endLine": 129,
+          "params": [
+            "{\n  rows,\n  emptyTitle,\n  emptyDescription,\n}"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "NotificationFeed",
+          "line": 40,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "NotificationFeed",
+          "callee": "rows.filter",
+          "lineNumber": 53
+        },
+        {
+          "caller": "NotificationFeed",
+          "callee": "rows.map",
+          "lineNumber": 66
+        },
+        {
+          "caller": "NotificationFeed",
+          "callee": "cn",
+          "lineNumber": 70
+        },
+        {
+          "caller": "NotificationFeed",
+          "callee": "cn",
+          "lineNumber": 79
+        },
+        {
+          "caller": "NotificationFeed",
+          "callee": "relativeTime",
+          "lineNumber": 88
+        }
+      ],
+      "metrics": {
+        "importCount": 8,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "components/dashboard/PageHeader.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 149,
+      "nonEmptyLines": 143,
+      "functions": [
+        {
+          "name": "sentence",
+          "startLine": 6,
+          "endLine": 6,
+          "params": [
+            "title"
+          ]
+        },
+        {
+          "name": "PageHeader",
+          "startLine": 16,
+          "endLine": 55,
+          "params": [
+            "{\n  title,\n  description,\n  backHref,\n  backLabel = \"Retour\",\n  actions,\n}"
+          ]
+        },
+        {
+          "name": "Panel",
+          "startLine": 58,
+          "endLine": 94,
+          "params": [
+            "{\n  title,\n  description,\n  actions,\n  children,\n  className,\n  bodyClassName,\n}"
+          ]
+        },
+        {
+          "name": "StatTile",
+          "startLine": 102,
+          "endLine": 149,
+          "params": [
+            "{\n  label,\n  value,\n  hint,\n  href,\n  tone = \"cool\",\n  icon,\n}"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "PageHeader",
+          "line": 16,
+          "isDefault": false
+        },
+        {
+          "name": "Panel",
+          "line": 58,
+          "isDefault": false
+        },
+        {
+          "name": "StatTile",
+          "line": 102,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "sentence",
+          "callee": "/[.!?…:]$/.test",
+          "lineNumber": 6
+        },
+        {
+          "caller": "sentence",
+          "callee": "title.trimEnd",
+          "lineNumber": 6
+        },
+        {
+          "caller": "PageHeader",
+          "callee": "sentence",
+          "lineNumber": 44
+        },
+        {
+          "caller": "Panel",
+          "callee": "cn",
+          "lineNumber": 75
+        },
+        {
+          "caller": "Panel",
+          "callee": "cn",
+          "lineNumber": 91
+        },
+        {
+          "caller": "StatTile",
+          "callee": "cn",
+          "lineNumber": 123
+        },
+        {
+          "caller": "StatTile",
+          "callee": "cn",
+          "lineNumber": 137
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 3,
+        "functionCount": 4,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "components/dashboard/ProfileForms.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 337,
+      "nonEmptyLines": 317,
+      "functions": [
+        {
+          "name": "IdentityForm",
+          "startLine": 22,
+          "endLine": 74,
+          "params": [
+            "{\n  name,\n  email,\n  phone,\n  company,\n}"
+          ]
+        },
+        {
+          "name": "PasswordForm",
+          "startLine": 76,
+          "endLine": 171,
+          "params": [
+            "{ hasPassword }"
+          ]
+        },
+        {
+          "name": "SessionList",
+          "startLine": 181,
+          "endLine": 260,
+          "params": [
+            "{ currentToken }"
+          ]
+        },
+        {
+          "name": "describeAgent",
+          "startLine": 263,
+          "endLine": 280,
+          "params": [
+            "ua"
+          ]
+        },
+        {
+          "name": "DeleteAccount",
+          "startLine": 282,
+          "endLine": 337,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "IdentityForm",
+          "line": 22,
+          "isDefault": false
+        },
+        {
+          "name": "PasswordForm",
+          "line": 76,
+          "isDefault": false
+        },
+        {
+          "name": "SessionList",
+          "line": 181,
+          "isDefault": false
+        },
+        {
+          "name": "DeleteAccount",
+          "line": 282,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "IdentityForm",
+          "callee": "useActionState",
+          "lineNumber": 33
+        },
+        {
+          "caller": "PasswordForm",
+          "callee": "useState",
+          "lineNumber": 77
+        },
+        {
+          "caller": "PasswordForm",
+          "callee": "useState",
+          "lineNumber": 78
+        },
+        {
+          "caller": "PasswordForm",
+          "callee": "event.preventDefault",
+          "lineNumber": 93
+        },
+        {
+          "caller": "PasswordForm",
+          "callee": "String",
+          "lineNumber": 96
+        },
+        {
+          "caller": "PasswordForm",
+          "callee": "data.get",
+          "lineNumber": 96
+        },
+        {
+          "caller": "PasswordForm",
+          "callee": "setMessage",
+          "lineNumber": 99
+        },
+        {
+          "caller": "PasswordForm",
+          "callee": "String",
+          "lineNumber": 102
+        },
+        {
+          "caller": "PasswordForm",
+          "callee": "data.get",
+          "lineNumber": 102
+        },
+        {
+          "caller": "PasswordForm",
+          "callee": "setMessage",
+          "lineNumber": 103
+        },
+        {
+          "caller": "PasswordForm",
+          "callee": "setBusy",
+          "lineNumber": 107
+        },
+        {
+          "caller": "PasswordForm",
+          "callee": "authClient.changePassword",
+          "lineNumber": 108
+        },
+        {
+          "caller": "PasswordForm",
+          "callee": "String",
+          "lineNumber": 109
+        },
+        {
+          "caller": "PasswordForm",
+          "callee": "data.get",
+          "lineNumber": 109
+        },
+        {
+          "caller": "PasswordForm",
+          "callee": "setBusy",
+          "lineNumber": 116
+        },
+        {
+          "caller": "PasswordForm",
+          "callee": "setMessage",
+          "lineNumber": 119
+        },
+        {
+          "caller": "PasswordForm",
+          "callee": "form.reset",
+          "lineNumber": 122
+        },
+        {
+          "caller": "PasswordForm",
+          "callee": "setMessage",
+          "lineNumber": 123
+        },
+        {
+          "caller": "SessionList",
+          "callee": "useState",
+          "lineNumber": 182
+        },
+        {
+          "caller": "SessionList",
+          "callee": "useState",
+          "lineNumber": 183
+        },
+        {
+          "caller": "SessionList",
+          "callee": "useEffect",
+          "lineNumber": 185
+        },
+        {
+          "caller": "SessionList",
+          "callee": "authClient.listSessions().then",
+          "lineNumber": 189
+        },
+        {
+          "caller": "SessionList",
+          "callee": "authClient.listSessions",
+          "lineNumber": 189
+        },
+        {
+          "caller": "SessionList",
+          "callee": "setRows",
+          "lineNumber": 189
+        },
+        {
+          "caller": "SessionList",
+          "callee": "rows.map",
+          "lineNumber": 203
+        },
+        {
+          "caller": "SessionList",
+          "callee": "describeAgent",
+          "lineNumber": 210
+        },
+        {
+          "caller": "SessionList",
+          "callee": "formatDateTime",
+          "lineNumber": 218
+        },
+        {
+          "caller": "SessionList",
+          "callee": "setBusy",
+          "lineNumber": 227
+        },
+        {
+          "caller": "SessionList",
+          "callee": "authClient.revokeSession",
+          "lineNumber": 228
+        },
+        {
+          "caller": "SessionList",
+          "callee": "authClient.listSessions",
+          "lineNumber": 229
+        },
+        {
+          "caller": "SessionList",
+          "callee": "setRows",
+          "lineNumber": 230
+        },
+        {
+          "caller": "SessionList",
+          "callee": "setBusy",
+          "lineNumber": 231
+        },
+        {
+          "caller": "SessionList",
+          "callee": "setBusy",
+          "lineNumber": 248
+        },
+        {
+          "caller": "SessionList",
+          "callee": "authClient.revokeOtherSessions",
+          "lineNumber": 249
+        },
+        {
+          "caller": "SessionList",
+          "callee": "authClient.listSessions",
+          "lineNumber": 250
+        },
+        {
+          "caller": "SessionList",
+          "callee": "setRows",
+          "lineNumber": 251
+        },
+        {
+          "caller": "SessionList",
+          "callee": "setBusy",
+          "lineNumber": 252
+        },
+        {
+          "caller": "describeAgent",
+          "callee": "/Edg\\//.test",
+          "lineNumber": 266
+        },
+        {
+          "caller": "describeAgent",
+          "callee": "/OPR\\//.test",
+          "lineNumber": 267
+        },
+        {
+          "caller": "describeAgent",
+          "callee": "/Firefox\\//.test",
+          "lineNumber": 268
+        },
+        {
+          "caller": "describeAgent",
+          "callee": "/Chrome\\//.test",
+          "lineNumber": 269
+        },
+        {
+          "caller": "describeAgent",
+          "callee": "/Safari\\//.test",
+          "lineNumber": 270
+        },
+        {
+          "caller": "describeAgent",
+          "callee": "/Android/.test",
+          "lineNumber": 273
+        },
+        {
+          "caller": "describeAgent",
+          "callee": "/iPhone|iPad/.test",
+          "lineNumber": 274
+        },
+        {
+          "caller": "describeAgent",
+          "callee": "/Mac OS X/.test",
+          "lineNumber": 275
+        },
+        {
+          "caller": "describeAgent",
+          "callee": "/Windows/.test",
+          "lineNumber": 276
+        },
+        {
+          "caller": "describeAgent",
+          "callee": "/Linux/.test",
+          "lineNumber": 277
+        },
+        {
+          "caller": "DeleteAccount",
+          "callee": "useRouter",
+          "lineNumber": 283
+        },
+        {
+          "caller": "DeleteAccount",
+          "callee": "useState",
+          "lineNumber": 284
+        },
+        {
+          "caller": "DeleteAccount",
+          "callee": "useState",
+          "lineNumber": 285
+        },
+        {
+          "caller": "DeleteAccount",
+          "callee": "useState",
+          "lineNumber": 286
+        },
+        {
+          "caller": "DeleteAccount",
+          "callee": "setArmed",
+          "lineNumber": 290
+        },
+        {
+          "caller": "DeleteAccount",
+          "callee": "event.preventDefault",
+          "lineNumber": 300
+        },
+        {
+          "caller": "DeleteAccount",
+          "callee": "String",
+          "lineNumber": 301
+        },
+        {
+          "caller": "DeleteAccount",
+          "callee": "new FormData(event.currentTarget).get",
+          "lineNumber": 301
+        },
+        {
+          "caller": "DeleteAccount",
+          "callee": "setBusy",
+          "lineNumber": 302
+        },
+        {
+          "caller": "DeleteAccount",
+          "callee": "setError",
+          "lineNumber": 303
+        },
+        {
+          "caller": "DeleteAccount",
+          "callee": "authClient.deleteUser",
+          "lineNumber": 304
+        },
+        {
+          "caller": "DeleteAccount",
+          "callee": "setBusy",
+          "lineNumber": 305
+        },
+        {
+          "caller": "DeleteAccount",
+          "callee": "setError",
+          "lineNumber": 307
+        },
+        {
+          "caller": "DeleteAccount",
+          "callee": "router.push",
+          "lineNumber": 310
+        },
+        {
+          "caller": "DeleteAccount",
+          "callee": "router.refresh",
+          "lineNumber": 311
+        },
+        {
+          "caller": "DeleteAccount",
+          "callee": "setArmed",
+          "lineNumber": 331
+        }
+      ],
+      "metrics": {
+        "importCount": 6,
+        "exportCount": 4,
+        "functionCount": 5,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "components/dashboard/QuotaMeter.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 65,
+      "nonEmptyLines": 61,
+      "functions": [
+        {
+          "name": "QuotaMeter",
+          "startLine": 17,
+          "endLine": 65,
+          "params": [
+            "{ quota, showReset = false }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "QuotaMeter",
+          "line": 17,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "QuotaMeter",
+          "callee": "Math.round",
+          "lineNumber": 18
+        },
+        {
+          "caller": "QuotaMeter",
+          "callee": "cn",
+          "lineNumber": 49
+        },
+        {
+          "caller": "QuotaMeter",
+          "callee": "Math.max",
+          "lineNumber": 53
+        },
+        {
+          "caller": "QuotaMeter",
+          "callee": "formatDate",
+          "lineNumber": 60
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "components/dashboard/pills.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 22,
+      "nonEmptyLines": 22,
+      "exports": [
+        {
+          "name": "pillPrimary",
+          "line": 17,
+          "isDefault": false
+        },
+        {
+          "name": "pillOutline",
+          "line": 18,
+          "isDefault": false
+        },
+        {
+          "name": "pillSoft",
+          "line": 19,
+          "isDefault": false
+        },
+        {
+          "name": "pillSmall",
+          "line": 21,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 4,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "lib/account.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 171,
+      "nonEmptyLines": 160,
+      "functions": [
+        {
+          "name": "logActivity",
+          "startLine": 20,
+          "endLine": 34,
+          "params": [
+            "entry"
+          ]
+        },
+        {
+          "name": "kindFor",
+          "startLine": 50,
+          "endLine": 62,
+          "params": [
+            "type"
+          ]
+        },
+        {
+          "name": "row",
+          "startLine": 64,
+          "endLine": 75,
+          "params": [
+            "userId",
+            "entry"
+          ]
+        },
+        {
+          "name": "notify",
+          "startLine": 85,
+          "endLine": 96,
+          "params": [
+            "entry"
+          ]
+        },
+        {
+          "name": "notifyMany",
+          "startLine": 99,
+          "endLine": 109,
+          "params": [
+            "userIds",
+            "entry"
+          ]
+        },
+        {
+          "name": "staffWith",
+          "startLine": 120,
+          "endLine": 143,
+          "params": [
+            "permission",
+            "exceptUserId"
+          ]
+        },
+        {
+          "name": "notifyStaff",
+          "startLine": 151,
+          "endLine": 154,
+          "params": [
+            "permission",
+            "entry"
+          ]
+        },
+        {
+          "name": "unreadCount",
+          "startLine": 156,
+          "endLine": 162,
+          "params": [
+            "userId"
+          ]
+        },
+        {
+          "name": "recentNotifications",
+          "startLine": 164,
+          "endLine": 171,
+          "params": [
+            "userId",
+            "limit"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "logActivity",
+          "line": 20,
+          "isDefault": false
+        },
+        {
+          "name": "notify",
+          "line": 85,
+          "isDefault": false
+        },
+        {
+          "name": "notifyMany",
+          "line": 99,
+          "isDefault": false
+        },
+        {
+          "name": "staffWith",
+          "line": 120,
+          "isDefault": false
+        },
+        {
+          "name": "notifyStaff",
+          "line": 151,
+          "isDefault": false
+        },
+        {
+          "name": "unreadCount",
+          "line": 156,
+          "isDefault": false
+        },
+        {
+          "name": "recentNotifications",
+          "line": 164,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "logActivity",
+          "callee": "db.insert(activityLog).values",
+          "lineNumber": 27
+        },
+        {
+          "caller": "logActivity",
+          "callee": "db.insert",
+          "lineNumber": 27
+        },
+        {
+          "caller": "logActivity",
+          "callee": "String",
+          "lineNumber": 31
+        },
+        {
+          "caller": "row",
+          "callee": "String",
+          "lineNumber": 73
+        },
+        {
+          "caller": "notify",
+          "callee": "db\n    .insert(notifications)\n    .values(row(entry.userId, entry))\n    .returning",
+          "lineNumber": 86
+        },
+        {
+          "caller": "notify",
+          "callee": "db\n    .insert(notifications)\n    .values",
+          "lineNumber": 86
+        },
+        {
+          "caller": "notify",
+          "callee": "db\n    .insert",
+          "lineNumber": 86
+        },
+        {
+          "caller": "notify",
+          "callee": "row",
+          "lineNumber": 88
+        },
+        {
+          "caller": "notify",
+          "callee": "publish",
+          "lineNumber": 90
+        },
+        {
+          "caller": "notify",
+          "callee": "kindFor",
+          "lineNumber": 91
+        },
+        {
+          "caller": "notify",
+          "callee": "String",
+          "lineNumber": 94
+        },
+        {
+          "caller": "notifyMany",
+          "callee": "Array.from",
+          "lineNumber": 100
+        },
+        {
+          "caller": "notifyMany",
+          "callee": "db.insert(notifications).values",
+          "lineNumber": 102
+        },
+        {
+          "caller": "notifyMany",
+          "callee": "db.insert",
+          "lineNumber": 102
+        },
+        {
+          "caller": "notifyMany",
+          "callee": "unique.map",
+          "lineNumber": 102
+        },
+        {
+          "caller": "notifyMany",
+          "callee": "row",
+          "lineNumber": 102
+        },
+        {
+          "caller": "notifyMany",
+          "callee": "publishMany",
+          "lineNumber": 103
+        },
+        {
+          "caller": "notifyMany",
+          "callee": "kindFor",
+          "lineNumber": 104
+        },
+        {
+          "caller": "notifyMany",
+          "callee": "String",
+          "lineNumber": 106
+        },
+        {
+          "caller": "staffWith",
+          "callee": "db\n    .select({\n      id: userTable.id,\n      role: userTable.role,\n      permissions: userTable.permissions,\n      banned: userTable.banned,\n    })\n    .from(userTable)\n    .where",
+          "lineNumber": 124
+        },
+        {
+          "caller": "staffWith",
+          "callee": "db\n    .select({\n      id: userTable.id,\n      role: userTable.role,\n      permissions: userTable.permissions,\n      banned: userTable.banned,\n    })\n    .from",
+          "lineNumber": 124
+        },
+        {
+          "caller": "staffWith",
+          "callee": "db\n    .select",
+          "lineNumber": 124
+        },
+        {
+          "caller": "staffWith",
+          "callee": "and",
+          "lineNumber": 133
+        },
+        {
+          "caller": "staffWith",
+          "callee": "or",
+          "lineNumber": 134
+        },
+        {
+          "caller": "staffWith",
+          "callee": "inArray",
+          "lineNumber": 135
+        },
+        {
+          "caller": "staffWith",
+          "callee": "sql",
+          "lineNumber": 136
+        },
+        {
+          "caller": "staffWith",
+          "callee": "or",
+          "lineNumber": 138
+        },
+        {
+          "caller": "staffWith",
+          "callee": "isNull",
+          "lineNumber": 138
+        },
+        {
+          "caller": "staffWith",
+          "callee": "eq",
+          "lineNumber": 138
+        },
+        {
+          "caller": "staffWith",
+          "callee": "ne",
+          "lineNumber": 139
+        },
+        {
+          "caller": "staffWith",
+          "callee": "candidates.filter((u) => can(u, permission)).map",
+          "lineNumber": 142
+        },
+        {
+          "caller": "staffWith",
+          "callee": "candidates.filter",
+          "lineNumber": 142
+        },
+        {
+          "caller": "staffWith",
+          "callee": "can",
+          "lineNumber": 142
+        },
+        {
+          "caller": "notifyStaff",
+          "callee": "staffWith",
+          "lineNumber": 152
+        },
+        {
+          "caller": "notifyStaff",
+          "callee": "notifyMany",
+          "lineNumber": 153
+        },
+        {
+          "caller": "unreadCount",
+          "callee": "db\n    .select({ n: sql<number>`count(*)::int` })\n    .from(notifications)\n    .where",
+          "lineNumber": 157
+        },
+        {
+          "caller": "unreadCount",
+          "callee": "db\n    .select({ n: sql<number>`count(*)::int` })\n    .from",
+          "lineNumber": 157
+        },
+        {
+          "caller": "unreadCount",
+          "callee": "db\n    .select",
+          "lineNumber": 157
+        },
+        {
+          "caller": "unreadCount",
+          "callee": "and",
+          "lineNumber": 160
+        },
+        {
+          "caller": "unreadCount",
+          "callee": "eq",
+          "lineNumber": 160
+        },
+        {
+          "caller": "unreadCount",
+          "callee": "isNull",
+          "lineNumber": 160
+        },
+        {
+          "caller": "recentNotifications",
+          "callee": "db\n    .select()\n    .from(notifications)\n    .where(eq(notifications.userId, userId))\n    .orderBy(desc(notifications.createdAt))\n    .limit",
+          "lineNumber": 165
+        },
+        {
+          "caller": "recentNotifications",
+          "callee": "db\n    .select()\n    .from(notifications)\n    .where(eq(notifications.userId, userId))\n    .orderBy",
+          "lineNumber": 165
+        },
+        {
+          "caller": "recentNotifications",
+          "callee": "db\n    .select()\n    .from(notifications)\n    .where",
+          "lineNumber": 165
+        },
+        {
+          "caller": "recentNotifications",
+          "callee": "db\n    .select()\n    .from",
+          "lineNumber": 165
+        },
+        {
+          "caller": "recentNotifications",
+          "callee": "db\n    .select",
+          "lineNumber": 165
+        },
+        {
+          "caller": "recentNotifications",
+          "callee": "eq",
+          "lineNumber": 168
+        },
+        {
+          "caller": "recentNotifications",
+          "callee": "desc",
+          "lineNumber": 169
+        }
+      ],
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 7,
+        "functionCount": 9,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "lib/db/index.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 59,
+      "nonEmptyLines": 53,
+      "functions": [
+        {
+          "name": "getPool",
+          "startLine": 20,
+          "endLine": 37,
+          "params": []
+        },
+        {
+          "name": "getDb",
+          "startLine": 42,
+          "endLine": 45,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "db",
+          "line": 52,
+          "isDefault": false
+        },
+        {
+          "name": "schema",
+          "line": 59,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "getDb",
+          "callee": "drizzle",
+          "lineNumber": 43
+        },
+        {
+          "caller": "getDb",
+          "callee": "getPool",
+          "lineNumber": 43
+        },
+        {
+          "caller": "get",
+          "callee": "getDb",
+          "lineNumber": 54
+        },
+        {
+          "caller": "get",
+          "callee": "Reflect.get",
+          "lineNumber": 55
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "lib/db/schema.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 638,
+      "nonEmptyLines": 605,
+      "exports": [
+        {
+          "name": "user",
+          "line": 31,
+          "isDefault": false
+        },
+        {
+          "name": "session",
+          "line": 71,
+          "isDefault": false
+        },
+        {
+          "name": "account",
+          "line": 85,
+          "isDefault": false
+        },
+        {
+          "name": "verification",
+          "line": 103,
+          "isDefault": false
+        },
+        {
+          "name": "plans",
+          "line": 126,
+          "isDefault": false
+        },
+        {
+          "name": "subscriptions",
+          "line": 163,
+          "isDefault": false
+        },
+        {
+          "name": "quotas",
+          "line": 205,
+          "isDefault": false
+        },
+        {
+          "name": "requests",
+          "line": 228,
+          "isDefault": false
+        },
+        {
+          "name": "requestMessages",
+          "line": 260,
+          "isDefault": false
+        },
+        {
+          "name": "attachments",
+          "line": 280,
+          "isDefault": false
+        },
+        {
+          "name": "quotes",
+          "line": 326,
+          "isDefault": false
+        },
+        {
+          "name": "invoices",
+          "line": 359,
+          "isDefault": false
+        },
+        {
+          "name": "notifications",
+          "line": 393,
+          "isDefault": false
+        },
+        {
+          "name": "demos",
+          "line": 432,
+          "isDefault": false
+        },
+        {
+          "name": "demoAccess",
+          "line": 465,
+          "isDefault": false
+        },
+        {
+          "name": "demoSecrets",
+          "line": 500,
+          "isDefault": false
+        },
+        {
+          "name": "demoRuns",
+          "line": 528,
+          "isDefault": false
+        },
+        {
+          "name": "activityLog",
+          "line": 564,
+          "isDefault": false
+        },
+        {
+          "name": "appSettings",
+          "line": 579,
+          "isDefault": false
+        },
+        {
+          "name": "contactLeads",
+          "line": 586,
+          "isDefault": false
+        },
+        {
+          "name": "siteContent",
+          "line": 611,
+          "isDefault": false
+        },
+        {
+          "name": "siteSolutions",
+          "line": 624,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 22,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "lib/db/seed.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 160,
+      "nonEmptyLines": 153,
+      "functions": [
+        {
+          "name": "main",
+          "startLine": 124,
+          "endLine": 155,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "main",
+          "callee": "db\n      .insert(plans)\n      .values(plan)\n      .onConflictDoUpdate",
+          "lineNumber": 126
+        },
+        {
+          "caller": "main",
+          "callee": "db\n      .insert(plans)\n      .values",
+          "lineNumber": 126
+        },
+        {
+          "caller": "main",
+          "callee": "db\n      .insert",
+          "lineNumber": 126
+        },
+        {
+          "caller": "main",
+          "callee": "db.update(plans).set({ active: false }).where",
+          "lineNumber": 131
+        },
+        {
+          "caller": "main",
+          "callee": "db.update(plans).set",
+          "lineNumber": 131
+        },
+        {
+          "caller": "main",
+          "callee": "db.update",
+          "lineNumber": 131
+        },
+        {
+          "caller": "main",
+          "callee": "inArray",
+          "lineNumber": 131
+        },
+        {
+          "caller": "main",
+          "callee": "db\n    .update(subscriptions)\n    .set({ status: \"cancelled\", note: \"Ancienne formule plateforme (Découverte), clôturée à la refonte des services.\", updatedAt: new Date() })\n    .where(and(eq(subscriptions.planSlug, \"decouverte\"), eq(subscriptions.status, \"active\")))\n    .returning",
+          "lineNumber": 137
+        },
+        {
+          "caller": "main",
+          "callee": "db\n    .update(subscriptions)\n    .set({ status: \"cancelled\", note: \"Ancienne formule plateforme (Découverte), clôturée à la refonte des services.\", updatedAt: new Date() })\n    .where",
+          "lineNumber": 137
+        },
+        {
+          "caller": "main",
+          "callee": "db\n    .update(subscriptions)\n    .set",
+          "lineNumber": 137
+        },
+        {
+          "caller": "main",
+          "callee": "db\n    .update",
+          "lineNumber": 137
+        },
+        {
+          "caller": "main",
+          "callee": "and",
+          "lineNumber": 140
+        },
+        {
+          "caller": "main",
+          "callee": "eq",
+          "lineNumber": 140
+        },
+        {
+          "caller": "main",
+          "callee": "eq",
+          "lineNumber": 140
+        },
+        {
+          "caller": "main",
+          "callee": "console.info",
+          "lineNumber": 142
+        },
+        {
+          "caller": "main",
+          "callee": "console.info",
+          "lineNumber": 143
+        },
+        {
+          "caller": "main",
+          "callee": "db\n      .insert(appSettings)\n      .values({ key, value: DEFAULT_SETTINGS[key] })\n      // Only fills in what's missing — an admin's choice is never overwritten\n      // by re-running the seed.\n      .onConflictDoNothing",
+          "lineNumber": 146
+        },
+        {
+          "caller": "main",
+          "callee": "db\n      .insert(appSettings)\n      .values",
+          "lineNumber": 146
+        },
+        {
+          "caller": "main",
+          "callee": "db\n      .insert",
+          "lineNumber": 146
+        },
+        {
+          "caller": "main",
+          "callee": "console.info",
+          "lineNumber": 153
+        },
+        {
+          "caller": "main",
+          "callee": "process.exit",
+          "lineNumber": 154
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "lib/email.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 120,
+      "nonEmptyLines": 109,
+      "functions": [
+        {
+          "name": "emailConfigured",
+          "startLine": 23,
+          "endLine": 25,
+          "params": []
+        },
+        {
+          "name": "adminEmail",
+          "startLine": 33,
+          "endLine": 35,
+          "params": []
+        },
+        {
+          "name": "sendEmail",
+          "startLine": 37,
+          "endLine": 79,
+          "params": [
+            "input"
+          ]
+        },
+        {
+          "name": "wrap",
+          "startLine": 87,
+          "endLine": 112,
+          "params": [
+            "text",
+            "action"
+          ]
+        },
+        {
+          "name": "escapeHtml",
+          "startLine": 114,
+          "endLine": 120,
+          "params": [
+            "value"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "emailConfigured",
+          "line": 23,
+          "isDefault": false
+        },
+        {
+          "name": "adminEmail",
+          "line": 33,
+          "isDefault": false
+        },
+        {
+          "name": "sendEmail",
+          "line": 37,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "emailConfigured",
+          "callee": "Boolean",
+          "lineNumber": 24
+        },
+        {
+          "caller": "sendEmail",
+          "callee": "input.attachments?.map((a) => `${a.filename} (${a.content.length} o)`).join",
+          "lineNumber": 53
+        },
+        {
+          "caller": "sendEmail",
+          "callee": "input.attachments?.map",
+          "lineNumber": 53
+        },
+        {
+          "caller": "sendEmail",
+          "callee": "console.info",
+          "lineNumber": 54
+        },
+        {
+          "caller": "sendEmail",
+          "callee": "JSON.stringify",
+          "lineNumber": 55
+        },
+        {
+          "caller": "sendEmail",
+          "callee": "client.emails.send",
+          "lineNumber": 65
+        },
+        {
+          "caller": "sendEmail",
+          "callee": "wrap",
+          "lineNumber": 70
+        },
+        {
+          "caller": "sendEmail",
+          "callee": "input.attachments?.map",
+          "lineNumber": 71
+        },
+        {
+          "caller": "wrap",
+          "callee": "text\n    .trim()\n    .split(/\\n{2,}/)\n    .map(\n      (p) =>\n        `<p style=\"margin:0 0 16px;font-size:15px;line-height:1.6;color:#354666\">${escapeHtml(p).replace(/\\n/g, \"<br>\")}</p>`,\n    )\n    .join",
+          "lineNumber": 88
+        },
+        {
+          "caller": "wrap",
+          "callee": "text\n    .trim()\n    .split(/\\n{2,}/)\n    .map",
+          "lineNumber": 88
+        },
+        {
+          "caller": "wrap",
+          "callee": "text\n    .trim()\n    .split",
+          "lineNumber": 88
+        },
+        {
+          "caller": "wrap",
+          "callee": "text\n    .trim",
+          "lineNumber": 88
+        },
+        {
+          "caller": "wrap",
+          "callee": "escapeHtml(p).replace",
+          "lineNumber": 93
+        },
+        {
+          "caller": "wrap",
+          "callee": "escapeHtml",
+          "lineNumber": 93
+        },
+        {
+          "caller": "wrap",
+          "callee": "escapeHtml",
+          "lineNumber": 98
+        },
+        {
+          "caller": "wrap",
+          "callee": "escapeHtml",
+          "lineNumber": 98
+        },
+        {
+          "caller": "wrap",
+          "callee": "SITE_URL.replace",
+          "lineNumber": 108
+        },
+        {
+          "caller": "escapeHtml",
+          "callee": "value\n    .replace(/&/g, \"&amp;\")\n    .replace(/</g, \"&lt;\")\n    .replace(/>/g, \"&gt;\")\n    .replace",
+          "lineNumber": 115
+        },
+        {
+          "caller": "escapeHtml",
+          "callee": "value\n    .replace(/&/g, \"&amp;\")\n    .replace(/</g, \"&lt;\")\n    .replace",
+          "lineNumber": 115
+        },
+        {
+          "caller": "escapeHtml",
+          "callee": "value\n    .replace(/&/g, \"&amp;\")\n    .replace",
+          "lineNumber": 115
+        },
+        {
+          "caller": "escapeHtml",
+          "callee": "value\n    .replace",
+          "lineNumber": 115
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 3,
+        "functionCount": 5,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "lib/format.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 91,
+      "nonEmptyLines": 81,
+      "functions": [
+        {
+          "name": "formatDate",
+          "startLine": 37,
+          "endLine": 40,
+          "params": [
+            "value"
+          ]
+        },
+        {
+          "name": "formatDateTime",
+          "startLine": 42,
+          "endLine": 45,
+          "params": [
+            "value"
+          ]
+        },
+        {
+          "name": "toDateInput",
+          "startLine": 47,
+          "endLine": 50,
+          "params": [
+            "value"
+          ]
+        },
+        {
+          "name": "relativeTime",
+          "startLine": 53,
+          "endLine": 71,
+          "params": [
+            "value"
+          ]
+        },
+        {
+          "name": "formatBytes",
+          "startLine": 73,
+          "endLine": 83,
+          "params": [
+            "bytes"
+          ]
+        },
+        {
+          "name": "daysAgo",
+          "startLine": 89,
+          "endLine": 91,
+          "params": [
+            "days"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "formatDate",
+          "line": 37,
+          "isDefault": false
+        },
+        {
+          "name": "formatDateTime",
+          "line": 42,
+          "isDefault": false
+        },
+        {
+          "name": "toDateInput",
+          "line": 47,
+          "isDefault": false
+        },
+        {
+          "name": "relativeTime",
+          "line": 53,
+          "isDefault": false
+        },
+        {
+          "name": "formatBytes",
+          "line": 73,
+          "isDefault": false
+        },
+        {
+          "name": "daysAgo",
+          "line": 89,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "formatDate",
+          "callee": "DATE.format",
+          "lineNumber": 39
+        },
+        {
+          "caller": "formatDateTime",
+          "callee": "DATE_TIME.format",
+          "lineNumber": 44
+        },
+        {
+          "caller": "toDateInput",
+          "callee": "ISO_DATE.format",
+          "lineNumber": 49
+        },
+        {
+          "caller": "relativeTime",
+          "callee": "new Date(value).getTime",
+          "lineNumber": 55
+        },
+        {
+          "caller": "relativeTime",
+          "callee": "Math.round",
+          "lineNumber": 56
+        },
+        {
+          "caller": "relativeTime",
+          "callee": "Date.now",
+          "lineNumber": 56
+        },
+        {
+          "caller": "relativeTime",
+          "callee": "Math.abs",
+          "lineNumber": 68
+        },
+        {
+          "caller": "relativeTime",
+          "callee": "rtf.format",
+          "lineNumber": 68
+        },
+        {
+          "caller": "relativeTime",
+          "callee": "Math.round",
+          "lineNumber": 68
+        },
+        {
+          "caller": "relativeTime",
+          "callee": "rtf.format",
+          "lineNumber": 70
+        },
+        {
+          "caller": "relativeTime",
+          "callee": "Math.round",
+          "lineNumber": 70
+        },
+        {
+          "caller": "formatBytes",
+          "callee": "value.toFixed",
+          "lineNumber": 82
+        },
+        {
+          "caller": "daysAgo",
+          "callee": "Date.now",
+          "lineNumber": 90
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 6,
+        "functionCount": 6,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "lib/guard.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 86,
+      "nonEmptyLines": 77,
+      "functions": [
+        {
+          "name": "getCurrentSession",
+          "startLine": 16,
+          "endLine": 18,
+          "params": []
+        },
+        {
+          "name": "getCurrentUser",
+          "startLine": 20,
+          "endLine": 23,
+          "params": []
+        },
+        {
+          "name": "isImpersonating",
+          "startLine": 31,
+          "endLine": 34,
+          "params": []
+        },
+        {
+          "name": "requireUser",
+          "startLine": 37,
+          "endLine": 44,
+          "params": [
+            "returnTo"
+          ]
+        },
+        {
+          "name": "requireStaff",
+          "startLine": 47,
+          "endLine": 51,
+          "params": []
+        },
+        {
+          "name": "requirePermission",
+          "startLine": 60,
+          "endLine": 64,
+          "params": [
+            "key"
+          ]
+        },
+        {
+          "name": "assertOwnerOrPermission",
+          "startLine": 73,
+          "endLine": 81,
+          "params": [
+            "user",
+            "ownerId",
+            "key"
+          ]
+        },
+        {
+          "name": "allowed",
+          "startLine": 84,
+          "endLine": 86,
+          "params": [
+            "user",
+            "key"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "getCurrentSession",
+          "line": 16,
+          "isDefault": false
+        },
+        {
+          "name": "getCurrentUser",
+          "line": 20,
+          "isDefault": false
+        },
+        {
+          "name": "isImpersonating",
+          "line": 31,
+          "isDefault": false
+        },
+        {
+          "name": "requireUser",
+          "line": 37,
+          "isDefault": false
+        },
+        {
+          "name": "requireStaff",
+          "line": 47,
+          "isDefault": false
+        },
+        {
+          "name": "requirePermission",
+          "line": 60,
+          "isDefault": false
+        },
+        {
+          "name": "assertOwnerOrPermission",
+          "line": 73,
+          "isDefault": false
+        },
+        {
+          "name": "allowed",
+          "line": 84,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "getCurrentSession",
+          "callee": "auth.api.getSession",
+          "lineNumber": 17
+        },
+        {
+          "caller": "getCurrentSession",
+          "callee": "headers",
+          "lineNumber": 17
+        },
+        {
+          "caller": "getCurrentUser",
+          "callee": "getCurrentSession",
+          "lineNumber": 21
+        },
+        {
+          "caller": "isImpersonating",
+          "callee": "getCurrentSession",
+          "lineNumber": 32
+        },
+        {
+          "caller": "isImpersonating",
+          "callee": "Boolean",
+          "lineNumber": 33
+        },
+        {
+          "caller": "requireUser",
+          "callee": "getCurrentUser",
+          "lineNumber": 38
+        },
+        {
+          "caller": "requireUser",
+          "callee": "redirect",
+          "lineNumber": 40
+        },
+        {
+          "caller": "requireUser",
+          "callee": "encodeURIComponent",
+          "lineNumber": 40
+        },
+        {
+          "caller": "requireUser",
+          "callee": "redirect",
+          "lineNumber": 42
+        },
+        {
+          "caller": "requireStaff",
+          "callee": "requireUser",
+          "lineNumber": 48
+        },
+        {
+          "caller": "requireStaff",
+          "callee": "isStaff",
+          "lineNumber": 49
+        },
+        {
+          "caller": "requireStaff",
+          "callee": "redirect",
+          "lineNumber": 49
+        },
+        {
+          "caller": "requirePermission",
+          "callee": "requireUser",
+          "lineNumber": 61
+        },
+        {
+          "caller": "requirePermission",
+          "callee": "can",
+          "lineNumber": 62
+        },
+        {
+          "caller": "requirePermission",
+          "callee": "redirect",
+          "lineNumber": 62
+        },
+        {
+          "caller": "requirePermission",
+          "callee": "encodeURIComponent",
+          "lineNumber": 62
+        },
+        {
+          "caller": "assertOwnerOrPermission",
+          "callee": "can",
+          "lineNumber": 79
+        },
+        {
+          "caller": "assertOwnerOrPermission",
+          "callee": "notFound",
+          "lineNumber": 80
+        },
+        {
+          "caller": "allowed",
+          "callee": "can",
+          "lineNumber": 85
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 8,
+        "functionCount": 8,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "lib/kv.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 62,
+      "nonEmptyLines": 58,
+      "functions": [
+        {
+          "name": "parseLines",
+          "startLine": 12,
+          "endLine": 24,
+          "params": [
+            "text"
+          ]
+        },
+        {
+          "name": "formatLines",
+          "startLine": 26,
+          "endLine": 30,
+          "params": [
+            "map"
+          ]
+        },
+        {
+          "name": "parseGrants",
+          "startLine": 36,
+          "endLine": 55,
+          "params": [
+            "text"
+          ]
+        },
+        {
+          "name": "listLines",
+          "startLine": 57,
+          "endLine": 62,
+          "params": [
+            "text"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "parseLines",
+          "line": 12,
+          "isDefault": false
+        },
+        {
+          "name": "formatLines",
+          "line": 26,
+          "isDefault": false
+        },
+        {
+          "name": "parseGrants",
+          "line": 36,
+          "isDefault": false
+        },
+        {
+          "name": "listLines",
+          "line": 57,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "parseLines",
+          "callee": "text.split",
+          "lineNumber": 14
+        },
+        {
+          "caller": "parseLines",
+          "callee": "raw.trim",
+          "lineNumber": 15
+        },
+        {
+          "caller": "parseLines",
+          "callee": "line.search",
+          "lineNumber": 17
+        },
+        {
+          "caller": "parseLines",
+          "callee": "line.slice(0, i).trim",
+          "lineNumber": 19
+        },
+        {
+          "caller": "parseLines",
+          "callee": "line.slice",
+          "lineNumber": 19
+        },
+        {
+          "caller": "parseLines",
+          "callee": "line.slice(i + 1).trim",
+          "lineNumber": 20
+        },
+        {
+          "caller": "parseLines",
+          "callee": "line.slice",
+          "lineNumber": 20
+        },
+        {
+          "caller": "formatLines",
+          "callee": "Object.entries(map ?? {})\n    .map(([k, v]) => `${k}: ${v === null ? \"illimité\" : v}`)\n    .join",
+          "lineNumber": 27
+        },
+        {
+          "caller": "formatLines",
+          "callee": "Object.entries(map ?? {})\n    .map",
+          "lineNumber": 27
+        },
+        {
+          "caller": "formatLines",
+          "callee": "Object.entries",
+          "lineNumber": 27
+        },
+        {
+          "caller": "parseGrants",
+          "callee": "Object.entries",
+          "lineNumber": 40
+        },
+        {
+          "caller": "parseGrants",
+          "callee": "parseLines",
+          "lineNumber": 40
+        },
+        {
+          "caller": "parseGrants",
+          "callee": "/^[a-z0-9][a-z0-9._-]*$/i.test",
+          "lineNumber": 41
+        },
+        {
+          "caller": "parseGrants",
+          "callee": "/^(illimit[ée]|unlimited|∞)$/i.test",
+          "lineNumber": 44
+        },
+        {
+          "caller": "parseGrants",
+          "callee": "Number",
+          "lineNumber": 48
+        },
+        {
+          "caller": "parseGrants",
+          "callee": "value.replace",
+          "lineNumber": 48
+        },
+        {
+          "caller": "parseGrants",
+          "callee": "Number.isInteger",
+          "lineNumber": 49
+        },
+        {
+          "caller": "listLines",
+          "callee": "text\n    .split(/\\r?\\n/)\n    .map((l) => l.replace(/^[-*•]\\s*/, \"\").trim())\n    .filter",
+          "lineNumber": 58
+        },
+        {
+          "caller": "listLines",
+          "callee": "text\n    .split(/\\r?\\n/)\n    .map",
+          "lineNumber": 58
+        },
+        {
+          "caller": "listLines",
+          "callee": "text\n    .split",
+          "lineNumber": 58
+        },
+        {
+          "caller": "listLines",
+          "callee": "l.replace(/^[-*•]\\s*/, \"\").trim",
+          "lineNumber": 60
+        },
+        {
+          "caller": "listLines",
+          "callee": "l.replace",
+          "lineNumber": 60
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 4,
+        "functionCount": 4,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "lib/permissions.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 149,
+      "nonEmptyLines": 132,
+      "functions": [
+        {
+          "name": "isRole",
+          "startLine": 107,
+          "endLine": 109,
+          "params": [
+            "value"
+          ]
+        },
+        {
+          "name": "can",
+          "startLine": 116,
+          "endLine": 126,
+          "params": [
+            "principal",
+            "key"
+          ]
+        },
+        {
+          "name": "isStaff",
+          "startLine": 129,
+          "endLine": 134,
+          "params": [
+            "principal"
+          ]
+        },
+        {
+          "name": "effectivePermissions",
+          "startLine": 137,
+          "endLine": 142,
+          "params": [
+            "principal"
+          ]
+        },
+        {
+          "name": "isRoleDefault",
+          "startLine": 145,
+          "endLine": 149,
+          "params": [
+            "role",
+            "key"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "DOMAINS",
+          "line": 19,
+          "isDefault": false
+        },
+        {
+          "name": "ROLES",
+          "line": 39,
+          "isDefault": false
+        },
+        {
+          "name": "ALL_PERMISSIONS",
+          "line": 43,
+          "isDefault": false
+        },
+        {
+          "name": "DOMAIN_LABELS",
+          "line": 48,
+          "isDefault": false
+        },
+        {
+          "name": "ACTION_LABELS",
+          "line": 63,
+          "isDefault": false
+        },
+        {
+          "name": "can",
+          "line": 116,
+          "isDefault": false
+        },
+        {
+          "name": "isStaff",
+          "line": 129,
+          "isDefault": false
+        },
+        {
+          "name": "effectivePermissions",
+          "line": 137,
+          "isDefault": false
+        },
+        {
+          "name": "isRoleDefault",
+          "line": 145,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "isRole",
+          "callee": "(ROLES as readonly string[]).includes",
+          "lineNumber": 108
+        },
+        {
+          "caller": "can",
+          "callee": "isRole",
+          "lineNumber": 123
+        },
+        {
+          "caller": "can",
+          "callee": "defaults.includes",
+          "lineNumber": 125
+        },
+        {
+          "caller": "isStaff",
+          "callee": "ALL_PERMISSIONS.some",
+          "lineNumber": 133
+        },
+        {
+          "caller": "effectivePermissions",
+          "callee": "Object.fromEntries",
+          "lineNumber": 138
+        },
+        {
+          "caller": "effectivePermissions",
+          "callee": "ALL_PERMISSIONS.map",
+          "lineNumber": 138
+        },
+        {
+          "caller": "effectivePermissions",
+          "callee": "can",
+          "lineNumber": 138
+        },
+        {
+          "caller": "isRoleDefault",
+          "callee": "isRole",
+          "lineNumber": 146
+        },
+        {
+          "caller": "isRoleDefault",
+          "callee": "defaults.includes",
+          "lineNumber": 148
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 9,
+        "functionCount": 5,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "lib/quotas.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 190,
+      "nonEmptyLines": 174,
+      "functions": [
+        {
+          "name": "nextPeriodReset",
+          "startLine": 45,
+          "endLine": 47,
+          "params": [
+            "from"
+          ]
+        },
+        {
+          "name": "describe",
+          "startLine": 49,
+          "endLine": 66,
+          "params": [
+            "row"
+          ]
+        },
+        {
+          "name": "listQuotas",
+          "startLine": 68,
+          "endLine": 71,
+          "params": [
+            "userId"
+          ]
+        },
+        {
+          "name": "grantServiceQuotas",
+          "startLine": 84,
+          "endLine": 104,
+          "params": [
+            "userId",
+            "grants"
+          ]
+        },
+        {
+          "name": "revokeServiceQuotas",
+          "startLine": 107,
+          "endLine": 118,
+          "params": [
+            "userId",
+            "grants"
+          ]
+        },
+        {
+          "name": "consume",
+          "startLine": 131,
+          "endLine": 168,
+          "params": [
+            "userId",
+            "metric",
+            "amount"
+          ]
+        },
+        {
+          "name": "refund",
+          "startLine": 171,
+          "endLine": 176,
+          "params": [
+            "userId",
+            "metric",
+            "amount"
+          ]
+        },
+        {
+          "name": "listSubscriptions",
+          "startLine": 183,
+          "endLine": 190,
+          "params": [
+            "userId"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "nextPeriodReset",
+          "line": 45,
+          "isDefault": false
+        },
+        {
+          "name": "describe",
+          "line": 49,
+          "isDefault": false
+        },
+        {
+          "name": "listQuotas",
+          "line": 68,
+          "isDefault": false
+        },
+        {
+          "name": "grantServiceQuotas",
+          "line": 84,
+          "isDefault": false
+        },
+        {
+          "name": "revokeServiceQuotas",
+          "line": 107,
+          "isDefault": false
+        },
+        {
+          "name": "consume",
+          "line": 131,
+          "isDefault": false
+        },
+        {
+          "name": "refund",
+          "line": 171,
+          "isDefault": false
+        },
+        {
+          "name": "listSubscriptions",
+          "line": 183,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "nextPeriodReset",
+          "callee": "Date.UTC",
+          "lineNumber": 46
+        },
+        {
+          "caller": "nextPeriodReset",
+          "callee": "from.getUTCFullYear",
+          "lineNumber": 46
+        },
+        {
+          "caller": "nextPeriodReset",
+          "callee": "from.getUTCMonth",
+          "lineNumber": 46
+        },
+        {
+          "caller": "describe",
+          "callee": "Math.max",
+          "lineNumber": 57
+        },
+        {
+          "caller": "describe",
+          "callee": "Math.min",
+          "lineNumber": 64
+        },
+        {
+          "caller": "listQuotas",
+          "callee": "db.select().from(quotas).where",
+          "lineNumber": 69
+        },
+        {
+          "caller": "listQuotas",
+          "callee": "db.select().from",
+          "lineNumber": 69
+        },
+        {
+          "caller": "listQuotas",
+          "callee": "db.select",
+          "lineNumber": 69
+        },
+        {
+          "caller": "listQuotas",
+          "callee": "eq",
+          "lineNumber": 69
+        },
+        {
+          "caller": "listQuotas",
+          "callee": "rows.map(describe).sort",
+          "lineNumber": 70
+        },
+        {
+          "caller": "listQuotas",
+          "callee": "rows.map",
+          "lineNumber": 70
+        },
+        {
+          "caller": "listQuotas",
+          "callee": "a.label.localeCompare",
+          "lineNumber": 70
+        },
+        {
+          "caller": "grantServiceQuotas",
+          "callee": "nextPeriodReset",
+          "lineNumber": 88
+        },
+        {
+          "caller": "grantServiceQuotas",
+          "callee": "Object.entries",
+          "lineNumber": 89
+        },
+        {
+          "caller": "grantServiceQuotas",
+          "callee": "db\n      .insert(quotas)\n      .values({ userId, metric, limit, used: 0, resetsAt: isStandingMetric(metric) ? null : resetsAt })\n      .onConflictDoUpdate",
+          "lineNumber": 90
+        },
+        {
+          "caller": "grantServiceQuotas",
+          "callee": "db\n      .insert(quotas)\n      .values",
+          "lineNumber": 90
+        },
+        {
+          "caller": "grantServiceQuotas",
+          "callee": "db\n      .insert",
+          "lineNumber": 90
+        },
+        {
+          "caller": "grantServiceQuotas",
+          "callee": "isStandingMetric",
+          "lineNumber": 92
+        },
+        {
+          "caller": "grantServiceQuotas",
+          "callee": "sql",
+          "lineNumber": 98
+        },
+        {
+          "caller": "grantServiceQuotas",
+          "callee": "sql",
+          "lineNumber": 99
+        },
+        {
+          "caller": "revokeServiceQuotas",
+          "callee": "Object.entries",
+          "lineNumber": 111
+        },
+        {
+          "caller": "revokeServiceQuotas",
+          "callee": "db\n      .update(quotas)\n      .set({ limit: sql`greatest(0, ${quotas.limit} - ${limit})`, updatedAt: new Date() })\n      .where",
+          "lineNumber": 113
+        },
+        {
+          "caller": "revokeServiceQuotas",
+          "callee": "db\n      .update(quotas)\n      .set",
+          "lineNumber": 113
+        },
+        {
+          "caller": "revokeServiceQuotas",
+          "callee": "db\n      .update",
+          "lineNumber": 113
+        },
+        {
+          "caller": "revokeServiceQuotas",
+          "callee": "sql",
+          "lineNumber": 115
+        },
+        {
+          "caller": "revokeServiceQuotas",
+          "callee": "and",
+          "lineNumber": 116
+        },
+        {
+          "caller": "revokeServiceQuotas",
+          "callee": "eq",
+          "lineNumber": 116
+        },
+        {
+          "caller": "revokeServiceQuotas",
+          "callee": "eq",
+          "lineNumber": 116
+        },
+        {
+          "caller": "revokeServiceQuotas",
+          "callee": "sql",
+          "lineNumber": 116
+        },
+        {
+          "caller": "consume",
+          "callee": "db\n    .select()\n    .from(quotas)\n    .where(and(eq(quotas.userId, userId), eq(quotas.metric, metric)))\n    .limit",
+          "lineNumber": 136
+        },
+        {
+          "caller": "consume",
+          "callee": "db\n    .select()\n    .from(quotas)\n    .where",
+          "lineNumber": 136
+        },
+        {
+          "caller": "consume",
+          "callee": "db\n    .select()\n    .from",
+          "lineNumber": 136
+        },
+        {
+          "caller": "consume",
+          "callee": "db\n    .select",
+          "lineNumber": 136
+        },
+        {
+          "caller": "consume",
+          "callee": "and",
+          "lineNumber": 139
+        },
+        {
+          "caller": "consume",
+          "callee": "eq",
+          "lineNumber": 139
+        },
+        {
+          "caller": "consume",
+          "callee": "eq",
+          "lineNumber": 139
+        },
+        {
+          "caller": "consume",
+          "callee": "row.resetsAt.getTime",
+          "lineNumber": 147
+        },
+        {
+          "caller": "consume",
+          "callee": "Date.now",
+          "lineNumber": 147
+        },
+        {
+          "caller": "consume",
+          "callee": "sql",
+          "lineNumber": 148
+        },
+        {
+          "caller": "consume",
+          "callee": "db\n    .update(quotas)\n    .set({\n      used: sql`${base} + ${amount}`,\n      resetsAt: expired ? nextPeriodReset() : row.resetsAt,\n      updatedAt: new Date(),\n    })\n    .where(\n      and(\n        eq(quotas.id, row.id),\n        // The guard: the post-increment value must still fit under the limit.\n        sql`${base} + ${amount} <= ${row.limit}`,\n      ),\n    )\n    .returning",
+          "lineNumber": 150
+        },
+        {
+          "caller": "consume",
+          "callee": "db\n    .update(quotas)\n    .set({\n      used: sql`${base} + ${amount}`,\n      resetsAt: expired ? nextPeriodReset() : row.resetsAt,\n      updatedAt: new Date(),\n    })\n    .where",
+          "lineNumber": 150
+        },
+        {
+          "caller": "consume",
+          "callee": "db\n    .update(quotas)\n    .set",
+          "lineNumber": 150
+        },
+        {
+          "caller": "consume",
+          "callee": "db\n    .update",
+          "lineNumber": 150
+        },
+        {
+          "caller": "consume",
+          "callee": "sql",
+          "lineNumber": 153
+        },
+        {
+          "caller": "consume",
+          "callee": "nextPeriodReset",
+          "lineNumber": 154
+        },
+        {
+          "caller": "consume",
+          "callee": "and",
+          "lineNumber": 158
+        },
+        {
+          "caller": "consume",
+          "callee": "eq",
+          "lineNumber": 159
+        },
+        {
+          "caller": "consume",
+          "callee": "sql",
+          "lineNumber": 161
+        },
+        {
+          "caller": "consume",
+          "callee": "Math.max",
+          "lineNumber": 167
+        },
+        {
+          "caller": "refund",
+          "callee": "db\n    .update(quotas)\n    .set({ used: sql`greatest(0, ${quotas.used} - ${amount})`, updatedAt: new Date() })\n    .where",
+          "lineNumber": 172
+        },
+        {
+          "caller": "refund",
+          "callee": "db\n    .update(quotas)\n    .set",
+          "lineNumber": 172
+        },
+        {
+          "caller": "refund",
+          "callee": "db\n    .update",
+          "lineNumber": 172
+        },
+        {
+          "caller": "refund",
+          "callee": "sql",
+          "lineNumber": 174
+        },
+        {
+          "caller": "refund",
+          "callee": "and",
+          "lineNumber": 175
+        },
+        {
+          "caller": "refund",
+          "callee": "eq",
+          "lineNumber": 175
+        },
+        {
+          "caller": "refund",
+          "callee": "eq",
+          "lineNumber": 175
+        },
+        {
+          "caller": "listSubscriptions",
+          "callee": "db\n    .select({ subscription: subscriptions, plan: plans })\n    .from(subscriptions)\n    .leftJoin(plans, eq(plans.slug, subscriptions.planSlug))\n    .where(eq(subscriptions.userId, userId))\n    .orderBy",
+          "lineNumber": 184
+        },
+        {
+          "caller": "listSubscriptions",
+          "callee": "db\n    .select({ subscription: subscriptions, plan: plans })\n    .from(subscriptions)\n    .leftJoin(plans, eq(plans.slug, subscriptions.planSlug))\n    .where",
+          "lineNumber": 184
+        },
+        {
+          "caller": "listSubscriptions",
+          "callee": "db\n    .select({ subscription: subscriptions, plan: plans })\n    .from(subscriptions)\n    .leftJoin",
+          "lineNumber": 184
+        },
+        {
+          "caller": "listSubscriptions",
+          "callee": "db\n    .select({ subscription: subscriptions, plan: plans })\n    .from",
+          "lineNumber": 184
+        },
+        {
+          "caller": "listSubscriptions",
+          "callee": "db\n    .select",
+          "lineNumber": 184
+        },
+        {
+          "caller": "listSubscriptions",
+          "callee": "eq",
+          "lineNumber": 187
+        },
+        {
+          "caller": "listSubscriptions",
+          "callee": "eq",
+          "lineNumber": 188
+        },
+        {
+          "caller": "listSubscriptions",
+          "callee": "desc",
+          "lineNumber": 189
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 8,
+        "functionCount": 8,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "lib/realtime.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 231,
+      "nonEmptyLines": 208,
+      "functions": [
+        {
+          "name": "channelFor",
+          "startLine": 41,
+          "endLine": 43,
+          "params": [
+            "userId"
+          ]
+        },
+        {
+          "name": "publish",
+          "startLine": 53,
+          "endLine": 63,
+          "params": [
+            "userId",
+            "event"
+          ]
+        },
+        {
+          "name": "publishMany",
+          "startLine": 66,
+          "endLine": 81,
+          "params": [
+            "userIds",
+            "event"
+          ]
+        },
+        {
+          "name": "ensureClient",
+          "startLine": 105,
+          "endLine": 169,
+          "params": []
+        },
+        {
+          "name": "channelToUser",
+          "startLine": 174,
+          "endLine": 176,
+          "params": [
+            "channel"
+          ]
+        },
+        {
+          "name": "resubscribeAll",
+          "startLine": 178,
+          "endLine": 187,
+          "params": []
+        },
+        {
+          "name": "quoteIdent",
+          "startLine": 191,
+          "endLine": 193,
+          "params": [
+            "name"
+          ]
+        },
+        {
+          "name": "subscribe",
+          "startLine": 202,
+          "endLine": 231,
+          "params": [
+            "userId",
+            "onEvent"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "channelFor",
+          "line": 41,
+          "isDefault": false
+        },
+        {
+          "name": "publish",
+          "line": 53,
+          "isDefault": false
+        },
+        {
+          "name": "publishMany",
+          "line": 66,
+          "isDefault": false
+        },
+        {
+          "name": "subscribe",
+          "line": 202,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "channelFor",
+          "callee": "userId.replace",
+          "lineNumber": 42
+        },
+        {
+          "caller": "publish",
+          "callee": "JSON.stringify",
+          "lineNumber": 58
+        },
+        {
+          "caller": "publish",
+          "callee": "Date.now",
+          "lineNumber": 58
+        },
+        {
+          "caller": "publish",
+          "callee": "db.execute",
+          "lineNumber": 59
+        },
+        {
+          "caller": "publish",
+          "callee": "sql",
+          "lineNumber": 59
+        },
+        {
+          "caller": "publish",
+          "callee": "channelFor",
+          "lineNumber": 59
+        },
+        {
+          "caller": "publish",
+          "callee": "console.warn",
+          "lineNumber": 61
+        },
+        {
+          "caller": "publishMany",
+          "callee": "JSON.stringify",
+          "lineNumber": 72
+        },
+        {
+          "caller": "publishMany",
+          "callee": "Date.now",
+          "lineNumber": 72
+        },
+        {
+          "caller": "publishMany",
+          "callee": "sql.join",
+          "lineNumber": 73
+        },
+        {
+          "caller": "publishMany",
+          "callee": "Array.from(new Set(userIds)).map",
+          "lineNumber": 74
+        },
+        {
+          "caller": "publishMany",
+          "callee": "Array.from",
+          "lineNumber": 74
+        },
+        {
+          "caller": "publishMany",
+          "callee": "sql",
+          "lineNumber": 74
+        },
+        {
+          "caller": "publishMany",
+          "callee": "channelFor",
+          "lineNumber": 74
+        },
+        {
+          "caller": "publishMany",
+          "callee": "sql",
+          "lineNumber": 75
+        },
+        {
+          "caller": "publishMany",
+          "callee": "db.execute",
+          "lineNumber": 77
+        },
+        {
+          "caller": "publishMany",
+          "callee": "sql",
+          "lineNumber": 77
+        },
+        {
+          "caller": "publishMany",
+          "callee": "console.warn",
+          "lineNumber": 79
+        },
+        {
+          "caller": "ensureClient",
+          "callee": "(async () => {\n    // The **direct** endpoint, not the pooled one. `DATABASE_URL` is Neon's\n    // PgBouncer endpoint in transaction mode, which hands the server connection\n    // back after every statement — so a `LISTEN` registers on a connection this\n    // client no longer owns, and notifications silently never arrive. Measured:\n    // zero deliveries through the pooler, all of them through the direct URL.\n    // `NOTIFY` itself (in `publish`) is fine through the pool; it only needs to\n    // commit. The same split the migrations already make, for the same reason.\n    const connectionString = process.env.DATABASE_URL_UNPOOLED ?? process.env.DATABASE_URL;\n    if (!connectionString) throw new Error(\"DATABASE_URL_UNPOOLED is not set.\");\n\n    const next = new Client({ connectionString });\n    next.on(\"notification\", (msg) => {\n      if (!msg.payload) return;\n      const set = listeners.get(channelToUser(msg.channel));\n      if (!set || set.size === 0) return;\n      let event: RealtimeEvent;\n      try {\n        event = JSON.parse(msg.payload) as RealtimeEvent;\n      } catch {\n        return;\n      }\n      for (const fn of set) {\n        // One subscriber throwing must not cost the others their event.\n        try {\n          fn(event);\n        } catch (error) {\n          console.warn(\"[realtime] listener threw\", error);\n        }\n      }\n    });\n\n    // A dropped connection is normal — Neon closes idle ones, and a deploy\n    // restarts Postgres-side. Drop the client and let the next `ensureClient`\n    // rebuild it, re-issuing every LISTEN the live subscribers still need.\n    const drop = () => {\n      client = undefined;\n      connecting = undefined;\n      if (listeners.size > 0) {\n        const delay = retryDelay;\n        retryDelay = Math.min(retryDelay * 2, 30_000);\n        setTimeout(() => void resubscribeAll(), delay);\n      }\n    };\n    next.on(\"error\", (error) => {\n      console.warn(\"[realtime] listener connection error\", error);\n      drop();\n    });\n    next.on(\"end\", drop);\n\n    await next.connect();\n    client = next;\n    retryDelay = 1_000;\n  })",
+          "lineNumber": 109
+        },
+        {
+          "caller": "ensureClient",
+          "callee": "next.on",
+          "lineNumber": 121
+        },
+        {
+          "caller": "ensureClient",
+          "callee": "listeners.get",
+          "lineNumber": 123
+        },
+        {
+          "caller": "ensureClient",
+          "callee": "channelToUser",
+          "lineNumber": 123
+        },
+        {
+          "caller": "ensureClient",
+          "callee": "JSON.parse",
+          "lineNumber": 127
+        },
+        {
+          "caller": "ensureClient",
+          "callee": "fn",
+          "lineNumber": 134
+        },
+        {
+          "caller": "ensureClient",
+          "callee": "console.warn",
+          "lineNumber": 136
+        },
+        {
+          "caller": "drop",
+          "callee": "Math.min",
+          "lineNumber": 149
+        },
+        {
+          "caller": "drop",
+          "callee": "setTimeout",
+          "lineNumber": 150
+        },
+        {
+          "caller": "drop",
+          "callee": "resubscribeAll",
+          "lineNumber": 150
+        },
+        {
+          "caller": "ensureClient",
+          "callee": "next.on",
+          "lineNumber": 153
+        },
+        {
+          "caller": "ensureClient",
+          "callee": "console.warn",
+          "lineNumber": 154
+        },
+        {
+          "caller": "ensureClient",
+          "callee": "drop",
+          "lineNumber": 155
+        },
+        {
+          "caller": "ensureClient",
+          "callee": "next.on",
+          "lineNumber": 157
+        },
+        {
+          "caller": "ensureClient",
+          "callee": "next.connect",
+          "lineNumber": 159
+        },
+        {
+          "caller": "channelToUser",
+          "callee": "channelOwner.get",
+          "lineNumber": 175
+        },
+        {
+          "caller": "resubscribeAll",
+          "callee": "ensureClient",
+          "lineNumber": 180
+        },
+        {
+          "caller": "resubscribeAll",
+          "callee": "listeners.keys",
+          "lineNumber": 181
+        },
+        {
+          "caller": "resubscribeAll",
+          "callee": "client?.query",
+          "lineNumber": 182
+        },
+        {
+          "caller": "resubscribeAll",
+          "callee": "quoteIdent",
+          "lineNumber": 182
+        },
+        {
+          "caller": "resubscribeAll",
+          "callee": "channelFor",
+          "lineNumber": 182
+        },
+        {
+          "caller": "resubscribeAll",
+          "callee": "console.warn",
+          "lineNumber": 185
+        },
+        {
+          "caller": "quoteIdent",
+          "callee": "name.replace",
+          "lineNumber": 192
+        },
+        {
+          "caller": "subscribe",
+          "callee": "channelFor",
+          "lineNumber": 203
+        },
+        {
+          "caller": "subscribe",
+          "callee": "channelOwner.set",
+          "lineNumber": 204
+        },
+        {
+          "caller": "subscribe",
+          "callee": "listeners.get",
+          "lineNumber": 206
+        },
+        {
+          "caller": "subscribe",
+          "callee": "listeners.set",
+          "lineNumber": 209
+        },
+        {
+          "caller": "subscribe",
+          "callee": "set.add",
+          "lineNumber": 211
+        },
+        {
+          "caller": "subscribe",
+          "callee": "ensureClient",
+          "lineNumber": 214
+        },
+        {
+          "caller": "subscribe",
+          "callee": "client?.query",
+          "lineNumber": 215
+        },
+        {
+          "caller": "subscribe",
+          "callee": "quoteIdent",
+          "lineNumber": 215
+        },
+        {
+          "caller": "subscribe",
+          "callee": "console.warn",
+          "lineNumber": 219
+        },
+        {
+          "caller": "subscribe",
+          "callee": "listeners.get",
+          "lineNumber": 223
+        },
+        {
+          "caller": "subscribe",
+          "callee": "current.delete",
+          "lineNumber": 225
+        },
+        {
+          "caller": "subscribe",
+          "callee": "listeners.delete",
+          "lineNumber": 227
+        },
+        {
+          "caller": "subscribe",
+          "callee": "channelOwner.delete",
+          "lineNumber": 228
+        },
+        {
+          "caller": "subscribe",
+          "callee": "client?.query(`UNLISTEN ${quoteIdent(channel)}`).catch",
+          "lineNumber": 229
+        },
+        {
+          "caller": "subscribe",
+          "callee": "client?.query",
+          "lineNumber": 229
+        },
+        {
+          "caller": "subscribe",
+          "callee": "quoteIdent",
+          "lineNumber": 229
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 4,
+        "functionCount": 8,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "lib/requests.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 94,
+      "nonEmptyLines": 81,
+      "functions": [
+        {
+          "name": "nextStatuses",
+          "startLine": 57,
+          "endLine": 59,
+          "params": [
+            "from"
+          ]
+        },
+        {
+          "name": "canTransition",
+          "startLine": 61,
+          "endLine": 64,
+          "params": [
+            "from",
+            "to"
+          ]
+        },
+        {
+          "name": "isRequestStatus",
+          "startLine": 66,
+          "endLine": 68,
+          "params": [
+            "value"
+          ]
+        },
+        {
+          "name": "isClosed",
+          "startLine": 71,
+          "endLine": 73,
+          "params": [
+            "status"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "REQUEST_STATUSES",
+          "line": 10,
+          "isDefault": false
+        },
+        {
+          "name": "REQUEST_TYPES",
+          "line": 20,
+          "isDefault": false
+        },
+        {
+          "name": "REQUEST_PRIORITIES",
+          "line": 23,
+          "isDefault": false
+        },
+        {
+          "name": "STATUS_LABELS",
+          "line": 26,
+          "isDefault": false
+        },
+        {
+          "name": "TYPE_LABELS",
+          "line": 34,
+          "isDefault": false
+        },
+        {
+          "name": "PRIORITY_LABELS",
+          "line": 41,
+          "isDefault": false
+        },
+        {
+          "name": "nextStatuses",
+          "line": 57,
+          "isDefault": false
+        },
+        {
+          "name": "canTransition",
+          "line": 61,
+          "isDefault": false
+        },
+        {
+          "name": "isRequestStatus",
+          "line": 66,
+          "isDefault": false
+        },
+        {
+          "name": "isClosed",
+          "line": 71,
+          "isDefault": false
+        },
+        {
+          "name": "STATUS_TONE",
+          "line": 88,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "canTransition",
+          "callee": "isRequestStatus",
+          "lineNumber": 62
+        },
+        {
+          "caller": "canTransition",
+          "callee": "isRequestStatus",
+          "lineNumber": 62
+        },
+        {
+          "caller": "canTransition",
+          "callee": "TRANSITIONS[from].includes",
+          "lineNumber": 63
+        },
+        {
+          "caller": "isRequestStatus",
+          "callee": "(REQUEST_STATUSES as readonly string[]).includes",
+          "lineNumber": 67
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 11,
+        "functionCount": 4,
+        "classCount": 0
+      }
+    }
+  ]
+}

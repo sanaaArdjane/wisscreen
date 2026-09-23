@@ -1,0 +1,2794 @@
+{
+  "scriptCompleted": true,
+  "entryPointCandidates": [
+    {
+      "id": "document:README.md",
+      "score": 5,
+      "name": "README.md",
+      "summary": "Default create-next-app boilerplate readme (getting-started dev command, links to Next.js docs, and Vercel deploy instructions); not updated for the WICLOUD-specific stack or route groups."
+    },
+    {
+      "id": "file:app/(marketing)/layout.tsx",
+      "score": 4,
+      "name": "layout.tsx",
+      "summary": "Layout for the public marketing route group: fetches site content and solutions once and wraps pages with the Navbar and Footer."
+    },
+    {
+      "id": "file:app/layout.tsx",
+      "score": 4,
+      "name": "layout.tsx",
+      "summary": "Root document layout: builds global metadata (title, OG, icons) from site content, loads fonts, and renders the organization JSON-LD schema around every page."
+    },
+    {
+      "id": "file:app/(app)/admin/site/layout.tsx",
+      "score": 4,
+      "name": "layout.tsx",
+      "summary": "Layout for /admin/site (the owner-editable public-site content editor): gates reads behind site:read, renders the page header with an 'open the live site' link, and wraps children with SiteTabs for section navigation."
+    },
+    {
+      "id": "file:app/(app)/admin/layout.tsx",
+      "score": 4,
+      "name": "layout.tsx",
+      "summary": "Server layout for the /admin route group: gates access with requireStaff, loads unread count, announcement setting, impersonation state and theme, filters ADMIN_NAV by permission, and renders AppShell."
+    }
+  ],
+  "fanInRanking": [
+    {
+      "id": "file:components/ui/Icon.tsx",
+      "fanIn": 74,
+      "name": "Icon.tsx"
+    },
+    {
+      "id": "file:lib/guard.ts",
+      "fanIn": 72,
+      "name": "guard.ts"
+    },
+    {
+      "id": "file:lib/db/schema.ts",
+      "fanIn": 68,
+      "name": "schema.ts"
+    },
+    {
+      "id": "file:lib/db/index.ts",
+      "fanIn": 62,
+      "name": "index.ts"
+    },
+    {
+      "id": "file:components/dashboard/ui.tsx",
+      "fanIn": 55,
+      "name": "ui.tsx"
+    },
+    {
+      "id": "file:components/dashboard/PageHeader.tsx",
+      "fanIn": 45,
+      "name": "PageHeader.tsx"
+    },
+    {
+      "id": "file:lib/types.ts",
+      "fanIn": 42,
+      "name": "types.ts"
+    },
+    {
+      "id": "file:lib/cn.ts",
+      "fanIn": 41,
+      "name": "cn.ts"
+    },
+    {
+      "id": "file:lib/format.ts",
+      "fanIn": 37,
+      "name": "format.ts"
+    },
+    {
+      "id": "file:lib/actions.ts",
+      "fanIn": 37,
+      "name": "actions.ts"
+    },
+    {
+      "id": "file:lib/permissions.ts",
+      "fanIn": 35,
+      "name": "permissions.ts"
+    },
+    {
+      "id": "file:lib/content/schema.ts",
+      "fanIn": 34,
+      "name": "schema.ts"
+    },
+    {
+      "id": "file:components/ui/Container.tsx",
+      "fanIn": 29,
+      "name": "Container.tsx"
+    },
+    {
+      "id": "file:lib/content/index.ts",
+      "fanIn": 27,
+      "name": "index.ts"
+    },
+    {
+      "id": "file:components/ui/SectionHeading.tsx",
+      "fanIn": 26,
+      "name": "SectionHeading.tsx"
+    },
+    {
+      "id": "file:lib/money.ts",
+      "fanIn": 25,
+      "name": "money.ts"
+    },
+    {
+      "id": "file:lib/account.ts",
+      "fanIn": 24,
+      "name": "account.ts"
+    },
+    {
+      "id": "file:lib/settings.ts",
+      "fanIn": 21,
+      "name": "settings.ts"
+    },
+    {
+      "id": "file:components/ui/Reveal.tsx",
+      "fanIn": 21,
+      "name": "Reveal.tsx"
+    },
+    {
+      "id": "file:components/dashboard/pills.ts",
+      "fanIn": 20,
+      "name": "pills.ts"
+    }
+  ],
+  "fanOutRanking": [
+    {
+      "id": "file:app/(marketing)/page.tsx",
+      "fanOut": 22,
+      "name": "page.tsx"
+    },
+    {
+      "id": "file:app/(app)/admin/factures/[id]/page.tsx",
+      "fanOut": 18,
+      "name": "page.tsx"
+    },
+    {
+      "id": "file:app/(app)/dashboard/page.tsx",
+      "fanOut": 17,
+      "name": "page.tsx"
+    },
+    {
+      "id": "file:app/(app)/admin/devis/[id]/page.tsx",
+      "fanOut": 17,
+      "name": "page.tsx"
+    },
+    {
+      "id": "file:app/(app)/admin/demos/[id]/page.tsx",
+      "fanOut": 17,
+      "name": "[id]/page.tsx"
+    },
+    {
+      "id": "file:__tests__/ui.test.tsx",
+      "fanOut": 15,
+      "name": "ui.test.tsx"
+    },
+    {
+      "id": "file:app/(app)/admin/demandes/[id]/page.tsx",
+      "fanOut": 15,
+      "name": "page.tsx"
+    },
+    {
+      "id": "document:AGENTS.md",
+      "fanOut": 14,
+      "name": "AGENTS.md"
+    },
+    {
+      "id": "file:app/(marketing)/solutions/[slug]/page.tsx",
+      "fanOut": 13,
+      "name": "page.tsx"
+    },
+    {
+      "id": "file:app/(app)/admin/abonnements/page.tsx",
+      "fanOut": 13,
+      "name": "page.tsx"
+    },
+    {
+      "id": "file:app/(app)/admin/devis/page.tsx",
+      "fanOut": 13,
+      "name": "page.tsx"
+    },
+    {
+      "id": "file:app/(app)/admin/utilisateurs/[id]/page.tsx",
+      "fanOut": 13,
+      "name": "page.tsx"
+    },
+    {
+      "id": "file:app/(app)/dashboard/demandes/[id]/page.tsx",
+      "fanOut": 13,
+      "name": "page.tsx"
+    },
+    {
+      "id": "file:app/(app)/admin/abonnements/[id]/page.tsx",
+      "fanOut": 12,
+      "name": "page.tsx"
+    },
+    {
+      "id": "file:app/(app)/admin/catalogue/page.tsx",
+      "fanOut": 12,
+      "name": "page.tsx"
+    },
+    {
+      "id": "file:app/(app)/admin/factures/page.tsx",
+      "fanOut": 12,
+      "name": "page.tsx"
+    },
+    {
+      "id": "file:app/(app)/dashboard/devis/[id]/page.tsx",
+      "fanOut": 12,
+      "name": "page.tsx"
+    },
+    {
+      "id": "file:app/(app)/dashboard/factures/page.tsx",
+      "fanOut": 12,
+      "name": "page.tsx"
+    },
+    {
+      "id": "file:app/(app)/admin/catalogue/[slug]/page.tsx",
+      "fanOut": 11,
+      "name": "page.tsx"
+    },
+    {
+      "id": "file:app/(app)/admin/demos/page.tsx",
+      "fanOut": 11,
+      "name": "page.tsx"
+    }
+  ],
+  "bfsTraversal": {
+    "startNode": "file:app/(marketing)/layout.tsx",
+    "order": [
+      "file:app/(marketing)/layout.tsx",
+      "file:components/layout/Footer.tsx",
+      "file:components/layout/Navbar.tsx",
+      "file:lib/content/index.ts",
+      "file:components/ui/Container.tsx",
+      "file:components/ui/Icon.tsx",
+      "file:components/ui/SocialIcon.tsx",
+      "file:lib/content/schema.ts",
+      "file:lib/cn.ts",
+      "file:lib/content/defaults.ts",
+      "file:lib/data/media.ts",
+      "file:lib/db/index.ts",
+      "file:lib/db/schema.ts",
+      "file:lib/types.ts",
+      "file:lib/data/services.ts"
+    ],
+    "depthMap": {
+      "file:app/(marketing)/layout.tsx": 0,
+      "file:components/layout/Footer.tsx": 1,
+      "file:components/layout/Navbar.tsx": 1,
+      "file:lib/content/index.ts": 1,
+      "file:components/ui/Container.tsx": 2,
+      "file:components/ui/Icon.tsx": 2,
+      "file:components/ui/SocialIcon.tsx": 2,
+      "file:lib/content/schema.ts": 2,
+      "file:lib/cn.ts": 2,
+      "file:lib/content/defaults.ts": 2,
+      "file:lib/data/media.ts": 2,
+      "file:lib/db/index.ts": 2,
+      "file:lib/db/schema.ts": 2,
+      "file:lib/types.ts": 2,
+      "file:lib/data/services.ts": 3
+    },
+    "byDepth": {
+      "0": [
+        "file:app/(marketing)/layout.tsx"
+      ],
+      "1": [
+        "file:components/layout/Footer.tsx",
+        "file:components/layout/Navbar.tsx",
+        "file:lib/content/index.ts"
+      ],
+      "2": [
+        "file:components/ui/Container.tsx",
+        "file:components/ui/Icon.tsx",
+        "file:components/ui/SocialIcon.tsx",
+        "file:lib/content/schema.ts",
+        "file:lib/cn.ts",
+        "file:lib/content/defaults.ts",
+        "file:lib/data/media.ts",
+        "file:lib/db/index.ts",
+        "file:lib/db/schema.ts",
+        "file:lib/types.ts"
+      ],
+      "3": [
+        "file:lib/data/services.ts"
+      ]
+    }
+  },
+  "nonCodeFiles": {
+    "documentation": [
+      {
+        "id": "document:.agents/skills/neon-functions/references/ai-sdk.md",
+        "name": "ai-sdk.md",
+        "summary": "Vendored Neon plugin reference showing how to deploy a Vercel AI SDK tool-calling agent as a Neon Function against the Neon AI Gateway, including image generation and streaming the response directly to the client."
+      },
+      {
+        "id": "document:.agents/skills/neon-functions/references/function-triggers.md",
+        "name": "function-triggers.md",
+        "summary": "Vendored Neon plugin reference for Function Triggers: declaring cron/object-storage triggers in neon.ts or the CLI, the delivery payload shape, and the parseTrigger* helpers for Hono and fetch handlers."
+      },
+      {
+        "id": "document:.agents/skills/neon-functions/references/mastra-studio.md",
+        "name": "mastra-studio.md",
+        "summary": "Vendored Neon plugin reference for wiring a Mastra agent (defined against the Neon AI Gateway) to Mastra Studio observability, including structured output and passing credentials via neon.ts."
+      },
+      {
+        "id": "document:.agents/skills/neon-functions/references/mcp.md",
+        "name": "mcp.md",
+        "summary": "Vendored Neon plugin reference for hosting an MCP server on a Neon Function, covering both OAuth (Better Auth MCP plugin) and API-key/session-JWT authentication options plus how to test the server."
+      },
+      {
+        "id": "document:.agents/skills/neon-functions/references/sentry.md",
+        "name": "sentry.md",
+        "summary": "Vendored Neon plugin reference for wiring Sentry error, log, and trace monitoring into a Neon Function, including request spans, deploy-time DSN secrets, and tracing an agent's own calls."
+      },
+      {
+        "id": "document:.agents/skills/neon-functions/references/sse.md",
+        "name": "sse.md",
+        "summary": "Vendored Neon plugin reference for server-sent events on Neon Functions: a minimal SSE endpoint, a Hono variant, cross-isolate broadcast, the wire format, and a client example with caveats."
+      },
+      {
+        "id": "document:.agents/skills/neon-postgres/references/full-text-search.md",
+        "name": "full-text-search.md",
+        "summary": "Vendored Neon plugin reference for BM25 full-text search on Postgres: indexing text, querying and interpreting scores, and tuning the candidate limit and prefilter."
+      },
+      {
+        "id": "document:.agents/skills/neon-postgres/references/hybrid-search.md",
+        "name": "hybrid-search.md",
+        "summary": "Vendored Neon plugin reference for hybrid search, combining full-text and vector search results with Reciprocal Rank Fusion (RRF) and adapting the query to a project's own schema."
+      },
+      {
+        "id": "document:.agents/skills/neon-postgres/references/vector-search.md",
+        "name": "vector-search.md",
+        "summary": "Vendored Neon plugin reference for semantic vector search on Postgres: enabling the extension, preparing embeddings, building and tuning an index, and tuning query-time search parameters."
+      },
+      {
+        "id": "document:.agents/skills/neon/references/auth.md",
+        "name": "auth.md",
+        "summary": "Pointer doc redirecting the neon skill's own auth questions to the separate neon-auth skill, with fetch URLs for its managed and self-managed setup references."
+      },
+      {
+        "id": "document:.agents/skills/neon/references/claimable-neon.md",
+        "name": "claimable-neon.md",
+        "summary": "Reference for provisioning a temporary, pre-account Neon project via Claimable Neon (CLI and REST), covering creation, claim-code minting, transfer to a human account, and the REST fallback when `neon claim` is unavailable."
+      },
+      {
+        "id": "document:.agents/skills/neon/references/function-triggers.md",
+        "name": "function-triggers.md",
+        "summary": "Reference for declaring branch-scoped Function Triggers (cron schedule or storage-object-created) that POST to a Neon Function, via neon.ts, the CLI, or the MCP/REST fallback."
+      },
+      {
+        "id": "document:.agents/skills/neon/references/logs-loki.md",
+        "name": "logs-loki.md",
+        "summary": "Reference for querying Neon Functions and Object Storage logs via the CLI, the Loki-compatible read API, and the @neon/sdk TypeScript client's paginated log iterator."
+      },
+      {
+        "id": "document:.agents/skills/neon/references/parse-env.md",
+        "name": "parse-env.md",
+        "summary": "Short reference for @neon/env's parseEnv helper, which validates and types environment variables against a neon.ts config, including selecting a required subset."
+      },
+      {
+        "id": "document:.agents/skills/neon/references/sdk.md",
+        "name": "sdk.md",
+        "summary": "One-paragraph stub introducing @neon/sdk, the official fetch-based TypeScript client for the Neon API, and pointing to the logs pagination reference for details."
+      },
+      {
+        "id": "document:.claude/skills/neon-functions/references/ai-sdk.md",
+        "name": "ai-sdk.md",
+        "summary": "Walkthrough for building a Vercel AI SDK tool-calling agent on Neon Functions against the Neon AI Gateway, covering neon.ts declaration, a streaming fetch handler, image generation with Object Storage persistence, and client-side streaming."
+      },
+      {
+        "id": "document:.claude/skills/neon-functions/references/function-triggers.md",
+        "name": "function-triggers.md",
+        "summary": "Detailed Function Triggers reference for Neon Functions: supported trigger types (schedule, storage_object_created), neon.ts and CLI declaration, delivery payload shape, the parseTriggerDelivery/parseTrigger/parseTriggerInvocation helpers, local neon dev behavior, inheritance across branches, and trigger logs."
+      },
+      {
+        "id": "document:.claude/skills/neon-functions/references/mastra-studio.md",
+        "name": "mastra-studio.md",
+        "summary": "Guide to running a Mastra agent on Neon Functions against the Neon AI Gateway while shipping trace observability to a Mastra Studio (Mastra Cloud) project, including structured output and CLI project/token setup."
+      },
+      {
+        "id": "document:.claude/skills/neon-functions/references/mcp.md",
+        "name": "mcp.md",
+        "summary": "Reference for hosting a Model Context Protocol server as a Neon Function using @modelcontextprotocol/sdk and @hono/mcp over streamable HTTP, plus two authentication options (Better Auth MCP OAuth plugin, or API key/session JWT) and testing guidance."
+      },
+      {
+        "id": "document:.claude/skills/neon-functions/references/sentry.md",
+        "name": "sentry.md",
+        "summary": "Guide to wiring Sentry (@sentry/node) error, log, and trace monitoring into a Neon Function's long-lived Node process, including required env vars, request span setup, AI-agent tracing, and a template for other Node SDK integrations."
+      },
+      {
+        "id": "document:.claude/skills/neon-functions/references/sse.md",
+        "name": "sse.md",
+        "summary": "Reference for building server-sent-events endpoints on Neon Functions, from a minimal framework-free handler and a Hono version to cross-isolate broadcast, wire format, client usage, and caveats."
+      },
+      {
+        "id": "document:.claude/skills/neon-postgres/references/full-text-search.md",
+        "name": "full-text-search.md",
+        "summary": "Reference for BM25-ranked full-text search on Neon Postgres using the lakebase_text extension and lakebase_bm25 index over tsvector columns, covering indexing, querying and interpreting scores, candidate limits, prefiltering, and parameter tuning."
+      },
+      {
+        "id": "document:.claude/skills/neon-postgres/references/hybrid-search.md",
+        "name": "hybrid-search.md",
+        "summary": "Reference for combining Lakebase Search's vector (lakebase_vector) and BM25 (lakebase_text) retrieval into hybrid search via a reciprocal rank fusion example, since Lakebase Search has no built-in hybrid function."
+      },
+      {
+        "id": "document:.claude/skills/neon-postgres/references/vector-search.md",
+        "name": "vector-search.md",
+        "summary": "Reference for approximate nearest-neighbor semantic search on Neon Postgres with the lakebase_vector extension (pgvector-compatible), covering extension setup, embedding columns, building and tuning the lakebase_ann index, querying, and selective prefiltering."
+      },
+      {
+        "id": "document:.claude/skills/neon/references/auth.md",
+        "name": "auth.md",
+        "summary": "Vendored Neon agent-skill reference pointing agents to the neon-auth skill for login/identity decisions (Managed Better Auth, existing Better Auth, or self-managed) and where to fetch its setup docs."
+      },
+      {
+        "id": "document:.claude/skills/neon/references/claimable-neon.md",
+        "name": "claimable-neon.md",
+        "summary": "Vendored Neon agent-skill reference for the Claimable Neon flow: provisioning a temporary Neon project before a human account exists, and the CLI/REST steps to later claim it into a real organization."
+      },
+      {
+        "id": "document:.claude/skills/neon/references/function-triggers.md",
+        "name": "function-triggers.md",
+        "summary": "Vendored Neon agent-skill reference describing branch-scoped Function Triggers (cron schedules and storage-object-created events) and how to declare, list, or manage them via neon.ts, the CLI, MCP, or REST."
+      },
+      {
+        "id": "document:.claude/skills/neon/references/logs-loki.md",
+        "name": "logs-loki.md",
+        "summary": "Vendored Neon agent-skill reference for reading branch-scoped Functions/Object-Storage logs via the CLI, the Loki-compatible read API, or the @neon/sdk paginated query iterator."
+      },
+      {
+        "id": "document:.claude/skills/neon/references/parse-env.md",
+        "name": "parse-env.md",
+        "summary": "Vendored Neon agent-skill reference for @neon/env's parseEnv helper, which validates and types environment variables against a neon.ts config, optionally scoped to a subset of required keys."
+      },
+      {
+        "id": "document:.claude/skills/neon/references/sdk.md",
+        "name": "sdk.md",
+        "summary": "Vendored Neon agent-skill reference introducing @neon/sdk, the official fetch-based, zero-dependency TypeScript client for the Neon API that succeeds the axios-based @neondatabase/api-client."
+      },
+      {
+        "id": "document:AGENTS.md",
+        "name": "AGENTS.md",
+        "summary": "The project's primary AI-agent instructions and architecture reference for WICLOUD: stack decisions, the cool/signal color system and its contrast rules, the content model (site_content/site_solutions, lib/data/services.ts + media.ts), the full homepage section-by-section build notes (Hero, UniverseReveal, DeviceShowcase, etc.), and the /dashboard + /admin platform (auth, permissions, billing, demos, quotas, realtime)."
+      },
+      {
+        "id": "document:CLAUDE.md",
+        "name": "CLAUDE.md",
+        "summary": "One-line pointer (`@AGENTS.md`) that makes Claude Code load AGENTS.md as the project's instructions."
+      },
+      {
+        "id": "document:README.md",
+        "name": "README.md",
+        "summary": "Default create-next-app boilerplate readme (getting-started dev command, links to Next.js docs, and Vercel deploy instructions); not updated for the WICLOUD-specific stack or route groups."
+      },
+      {
+        "id": "document:.agents/skills/neon-ai-gateway/SKILL.md",
+        "name": "SKILL.md (neon-ai-gateway, .agents)",
+        "summary": "Vendored Neon Agent Skill reference for the AI Gateway: when to use it, setup, Infrastructure-as-Code, environment variables, and how to build agents with the Vercel AI SDK, Mastra, or plain provider SDKs against Neon's one-API multi-model gateway."
+      },
+      {
+        "id": "document:.agents/skills/neon-auth/SKILL.md",
+        "name": "SKILL.md (neon-auth, .agents)",
+        "summary": "Vendored Neon Agent Skill top-level reference for Neon Auth: when to use it, managed vs self-managed setup, Supabase Auth migration, plugin support, and trusted domains, pointing into the managed-auth.md and self-managed.md references for implementation detail."
+      },
+      {
+        "id": "document:.agents/skills/neon-auth/references/managed-auth.md",
+        "name": "managed-auth.md (.agents)",
+        "summary": "Implementation reference for Managed Better Auth on Neon: required packages, environment setup, Next.js and React/Vite integration, organization invitations, UI wiring, and cross-subdomain vs bearer JWT identity handling for the Data API."
+      },
+      {
+        "id": "document:.agents/skills/neon-auth/references/self-managed.md",
+        "name": "self-managed.md (.agents)",
+        "summary": "Short reference covering how to keep an existing self-managed Better Auth setup or stand up a new self-managed auth server instead of Neon's Managed Better Auth."
+      },
+      {
+        "id": "document:.agents/skills/neon-functions/SKILL.md",
+        "name": "SKILL.md (neon-functions, .agents)",
+        "summary": "Vendored Neon Agent Skill reference for Neon Functions: long-running Node.js HTTP functions on a Neon branch, covering setup, deployment, environment variables, Postgres connections, timeouts, WebSocket/SSE servers, function triggers, MCP servers, and observability."
+      },
+      {
+        "id": "document:.agents/skills/neon-object-storage/SKILL.md",
+        "name": "SKILL.md (neon-object-storage, .agents)",
+        "summary": "Vendored Neon Agent Skill reference for Neon Object Storage: S3-compatible buckets that branch with the database, covering setup, IaC, environment variables, the Files SDK vs AWS S3 client, and pairing storage with a database branch."
+      },
+      {
+        "id": "document:.agents/skills/neon-postgres-branches/SKILL.md",
+        "name": "SKILL.md (neon-postgres-branches, .agents)",
+        "summary": "Vendored Neon Agent Skill reference for Postgres branching: choosing normal vs schema-only branches, CLI/MCP tool selection, reset-from-parent, CI/CD branching workflows, and worked migration-testing examples."
+      },
+      {
+        "id": "document:.agents/skills/neon-postgres-egress-optimizer/SKILL.md",
+        "name": "SKILL.md (neon-postgres-egress-optimizer, .agents)",
+        "summary": "Vendored Neon Agent Skill reference for diagnosing and fixing excessive Postgres egress: pg_stat_statements diagnostics, codebase analysis, and fixes for SELECT *, missing pagination, high-frequency static queries, app-side aggregation, and JOIN duplication."
+      },
+      {
+        "id": "document:.agents/skills/neon-postgres/SKILL.md",
+        "name": "SKILL.md (neon-postgres, .agents)",
+        "summary": "Vendored Neon Agent Skill reference for Lakebase Postgres itself: connection setup, pooled vs direct URLs, schema/migrations, performance troubleshooting, autoscaling, scale-to-zero, instant restore, read replicas, connection pooling, IP allow lists, logical replication, and Lakebase Search."
+      },
+      {
+        "id": "document:.agents/skills/neon/SKILL.md",
+        "name": "SKILL.md (neon, .agents)",
+        "summary": "Top-level vendored Neon Agent Skill overview covering all backend primitives (Auth, Object Storage, Functions, AI Gateway), the CLI/MCP setup flow, neon.ts Infrastructure-as-Code, the branch-first dev flow, and how to pick a child skill."
+      },
+      {
+        "id": "document:.claude/skills/DESIGN-mobbin.md",
+        "name": "DESIGN-mobbin.md",
+        "summary": "Design-system spec ('the Mobbin language in WICLOUD colours') defining the dashboard's colour tokens, typography, spacing, elevation, shape, and component conventions (buttons, cards, inputs, navigation), plus a mapping from these tokens onto the WICLOUD dashboard and explicit do's/don'ts. Referenced directly by app/(app)/heroui.css's theme block."
+      },
+      {
+        "id": "document:.claude/skills/neon-ai-gateway/SKILL.md",
+        "name": "SKILL.md (neon-ai-gateway, .claude)",
+        "summary": "Duplicate copy (under .claude/skills, mirroring .agents/skills) of the Neon Agent Skill reference for the AI Gateway: when to use it, setup, Infrastructure-as-Code, environment variables, and building agents with the Vercel AI SDK, Mastra, or plain provider SDKs."
+      },
+      {
+        "id": "document:.claude/skills/neon-auth/SKILL.md",
+        "name": "SKILL.md (neon-auth, .claude)",
+        "summary": "Duplicate copy (under .claude/skills) of the Neon Agent Skill top-level reference for Neon Auth: when to use it, managed vs self-managed setup, Supabase Auth migration, plugin support, and trusted domains."
+      },
+      {
+        "id": "document:.claude/skills/neon-auth/references/managed-auth.md",
+        "name": "managed-auth.md (.claude)",
+        "summary": "Duplicate copy (under .claude/skills) of the implementation reference for Managed Better Auth on Neon: packages, environment, Next.js and React/Vite integration, organization invitations, UI, and cross-subdomain vs bearer JWT identity handling."
+      },
+      {
+        "id": "document:.claude/skills/neon-auth/references/self-managed.md",
+        "name": "self-managed.md (.claude)",
+        "summary": "Duplicate copy (under .claude/skills) of the short reference on keeping an existing self-managed Better Auth setup or standing up a new self-managed auth server."
+      },
+      {
+        "id": "document:.claude/skills/neon-functions/SKILL.md",
+        "name": "SKILL.md (neon-functions, .claude)",
+        "summary": "Duplicate copy (under .claude/skills) of the Neon Functions reference: long-running Node.js HTTP functions on a Neon branch, setup, deployment, environment variables, Postgres connections, timeouts, WebSocket/SSE servers, function triggers, MCP servers, and observability."
+      },
+      {
+        "id": "document:.claude/skills/neon-object-storage/SKILL.md",
+        "name": "SKILL.md (neon-object-storage, .claude)",
+        "summary": "Duplicate copy (under .claude/skills) of the Neon Object Storage reference: S3-compatible buckets that branch with the database, setup, IaC, environment variables, and Files SDK vs AWS S3 client usage."
+      },
+      {
+        "id": "document:.claude/skills/neon-postgres-branches/SKILL.md",
+        "name": "SKILL.md (neon-postgres-branches, .claude)",
+        "summary": "Duplicate copy (under .claude/skills) of the Postgres branching reference: normal vs schema-only branches, CLI/MCP tool selection, reset-from-parent, CI/CD branching workflows, and worked examples."
+      },
+      {
+        "id": "document:.claude/skills/neon-postgres-egress-optimizer/SKILL.md",
+        "name": "SKILL.md (neon-postgres-egress-optimizer, .claude)",
+        "summary": "Duplicate copy (under .claude/skills) of the Postgres egress optimizer reference: pg_stat_statements diagnostics, codebase analysis, and fixes for overfetching, missing pagination, and JOIN duplication."
+      },
+      {
+        "id": "document:.claude/skills/neon-postgres/SKILL.md",
+        "name": "SKILL.md (neon-postgres, .claude)",
+        "summary": "Duplicate copy (under .claude/skills) of the Lakebase Postgres reference: connection setup, pooled vs direct URLs, migrations, performance troubleshooting, autoscaling, scale-to-zero, instant restore, read replicas, and Lakebase Search."
+      },
+      {
+        "id": "document:.claude/skills/neon/SKILL.md",
+        "name": "SKILL.md (neon, .claude)",
+        "summary": "Duplicate copy (under .claude/skills) of the top-level Neon overview covering all backend primitives, CLI/MCP setup, neon.ts Infrastructure-as-Code, and the branch-first dev flow."
+      }
+    ],
+    "infrastructure": [
+      {
+        "id": "service:Dockerfile",
+        "name": "Dockerfile",
+        "summary": "Multi-stage Docker build for the production Next.js 16 image: installs dependencies with a frozen pnpm lockfile, builds the standalone output with the public NEXT_PUBLIC_* build args, then ships a minimal Alpine runtime that runs as a non-root user on port 3000.",
+        "type": "service"
+      },
+      {
+        "id": "service:Dockerfile:base",
+        "name": "base",
+        "summary": "Base stage: node:22-alpine with libc6-compat installed (for native deps expecting glibc symbols on musl) and Corepack enabled for pnpm; every later stage builds from it.",
+        "type": "service"
+      },
+      {
+        "id": "service:Dockerfile:deps",
+        "name": "deps",
+        "summary": "Installs dependencies with `pnpm install --frozen-lockfile` from only the lockfile-affecting files (package.json, pnpm-lock.yaml, pnpm-workspace.yaml), so this layer caches across source-only changes.",
+        "type": "service"
+      },
+      {
+        "id": "service:Dockerfile:builder",
+        "name": "builder",
+        "summary": "Copies node_modules from deps plus the full source, injects NEXT_PUBLIC_SITE_URL and NEXT_PUBLIC_TURNSTILE_SITE_KEY as build ARGs (Next inlines NEXT_PUBLIC_* vars into the client bundle at build time, not at container start), and runs `pnpm build`.",
+        "type": "service"
+      },
+      {
+        "id": "service:Dockerfile:runner",
+        "name": "runner",
+        "summary": "Minimal runtime stage: creates an unprivileged nextjs user, copies public/ and the traced standalone server plus static assets from builder, and runs `node server.js` on port 3000.",
+        "type": "service"
+      },
+      {
+        "id": "service:.dockerignore",
+        "name": ".dockerignore",
+        "summary": "Build-context exclusions for the Docker image: strips node_modules, build output, VCS/CI/editor files, local tooling/docs, and every .env* secret except .env.example, so none of it is baked into an image layer.",
+        "type": "service"
+      },
+      {
+        "id": "pipeline:.github/workflows/ci-cd.yml",
+        "name": "ci-cd.yml",
+        "summary": "GitHub Actions workflow that verifies every push and pull request against main (lint, test, build, typecheck) and, only on a push to main, builds and pushes the Docker image to Docker Hub.",
+        "type": "pipeline"
+      },
+      {
+        "id": "step:.github/workflows/ci-cd.yml:verify",
+        "name": "verify",
+        "summary": "Quality-gate job that checks out the repo, installs dependencies with pnpm, then runs lint, tests, a production build, and typecheck on every push and PR.",
+        "type": "resource"
+      },
+      {
+        "id": "step:.github/workflows/ci-cd.yml:docker",
+        "name": "docker",
+        "summary": "Publish job, gated on the verify job and on pushes to main, that logs into Docker Hub, derives image tags, and builds/pushes the image with GitHub Actions layer caching and public NEXT_PUBLIC_* build args.",
+        "type": "resource"
+      },
+      {
+        "id": "service:app/(app)/heroui.css",
+        "name": "heroui.css",
+        "summary": "HeroUI v3 stylesheet scoped exclusively to the signed-in (/dashboard, /admin) route group: imports @heroui/styles/css, declares light-dark() theme tokens implementing the Mobbin design spec (.claude/skills/DESIGN-mobbin.md) under [data-wicloud-app], and pins HeroUI's --primary/--secondary/--default/--muted/--danger variables so the dashboard's contrast requirements hold. Imported only by app/(app)/layout.tsx so the marketing pages never download it.",
+        "type": "service"
+      }
+    ],
+    "data": [
+      {
+        "id": "table:lib/db/migrations/0000_needy_jackal.sql:account",
+        "name": "account",
+        "summary": "Better Auth OAuth/credential account table linking a provider identity (tokens, password hash) to a user.",
+        "type": "table"
+      },
+      {
+        "id": "table:lib/db/migrations/0000_needy_jackal.sql:activity_log",
+        "name": "activity_log",
+        "summary": "Audit trail table recording who did what to which entity, used across the admin back-office.",
+        "type": "table"
+      },
+      {
+        "id": "table:lib/db/migrations/0000_needy_jackal.sql:app_settings",
+        "name": "app_settings",
+        "summary": "Generic key/value settings table for platform-wide configuration edited from /admin/parametres.",
+        "type": "table"
+      },
+      {
+        "id": "table:lib/db/migrations/0000_needy_jackal.sql:attachments",
+        "name": "attachments",
+        "summary": "Uploaded file metadata table (Neon Object Storage keys) linked to a request or message, with an internal-only flag.",
+        "type": "table"
+      },
+      {
+        "id": "table:lib/db/migrations/0000_needy_jackal.sql:contact_leads",
+        "name": "contact_leads",
+        "summary": "Inbox table for public contact-form submissions, replacing the earlier drop-on-the-floor behaviour.",
+        "type": "table"
+      },
+      {
+        "id": "table:lib/db/migrations/0000_needy_jackal.sql:demo_runs",
+        "name": "demo_runs",
+        "summary": "Record of a single demo execution (input, result, outcome, duration) tied to a user and a service slug.",
+        "type": "table"
+      },
+      {
+        "id": "table:lib/db/migrations/0000_needy_jackal.sql:invoices",
+        "name": "invoices",
+        "summary": "Billing invoice table storing HT line items, amount, status, and issue/due/paid timestamps, generated from a quote.",
+        "type": "table"
+      },
+      {
+        "id": "table:lib/db/migrations/0000_needy_jackal.sql:notifications",
+        "name": "notifications",
+        "summary": "Per-user notification feed row, written by the realtime notify() helper and surfaced via SSE.",
+        "type": "table"
+      },
+      {
+        "id": "table:lib/db/migrations/0000_needy_jackal.sql:plans",
+        "name": "plans",
+        "summary": "Service catalogue table listing what WICLOUD sells (price, features, default quota grants) shown in /admin/catalogue.",
+        "type": "table"
+      },
+      {
+        "id": "table:lib/db/migrations/0000_needy_jackal.sql:quotas",
+        "name": "quotas",
+        "summary": "Per-user consumable metering table (limit vs used, with a lazy reset timestamp) enforced by lib/quotas.ts.",
+        "type": "table"
+      },
+      {
+        "id": "table:lib/db/migrations/0000_needy_jackal.sql:quotes",
+        "name": "quotes",
+        "summary": "Billing quote (devis) table with HT line items, status, and validity date, the document a facture is generated from.",
+        "type": "table"
+      },
+      {
+        "id": "table:lib/db/migrations/0000_needy_jackal.sql:request_messages",
+        "name": "request_messages",
+        "summary": "Thread message table for a client request, with an internal-only flag for staff-only notes.",
+        "type": "table"
+      },
+      {
+        "id": "table:lib/db/migrations/0000_needy_jackal.sql:requests",
+        "name": "requests",
+        "summary": "Client request/demande table (type, status, priority, assignment, budget) that anchors the request thread and its quotes/invoices.",
+        "type": "table"
+      },
+      {
+        "id": "table:lib/db/migrations/0000_needy_jackal.sql:session",
+        "name": "session",
+        "summary": "Better Auth session table, including impersonated_by for the admin impersonation feature.",
+        "type": "table"
+      },
+      {
+        "id": "table:lib/db/migrations/0000_needy_jackal.sql:subscriptions",
+        "name": "subscriptions",
+        "summary": "One row per provisioned service (originally one per account); tracks plan, status and billing period, later reshaped by migration 0001.",
+        "type": "table"
+      },
+      {
+        "id": "table:lib/db/migrations/0000_needy_jackal.sql:user",
+        "name": "user",
+        "summary": "Core user/account table (Better Auth base fields plus role, ban state, jsonb permissions overrides, and profile fields) that every other table hangs off.",
+        "type": "table"
+      },
+      {
+        "id": "table:lib/db/migrations/0000_needy_jackal.sql:verification",
+        "name": "verification",
+        "summary": "Better Auth verification table for email verification and password-reset tokens.",
+        "type": "table"
+      },
+      {
+        "id": "table:lib/db/migrations/0001_modern_darwin.sql:demo_access",
+        "name": "demo_access",
+        "summary": "Entitlement table granting a named customer access to a demo, soft-revoked with a timestamp and an optional expiry.",
+        "type": "table"
+      },
+      {
+        "id": "table:lib/db/migrations/0001_modern_darwin.sql:demo_secrets",
+        "name": "demo_secrets",
+        "summary": "AES-256-GCM encrypted credential storage for a demo block, keyed to demo+block+label so ciphertext cannot be replayed against another row.",
+        "type": "table"
+      },
+      {
+        "id": "table:lib/db/migrations/0001_modern_darwin.sql:demos",
+        "name": "demos",
+        "summary": "Owner-authored demo definition table: an ordered jsonb list of typed blocks (link, credentials, markdown, file, ssh, upload) shown to entitled customers.",
+        "type": "table"
+      },
+      {
+        "id": "table:lib/db/migrations/0002_nifty_maddog.sql",
+        "name": "0002_nifty_maddog.sql",
+        "summary": "Two-line migration adding an overrides jsonb column to invoices and quotes, backing the per-document company identity override feature.",
+        "type": "table"
+      },
+      {
+        "id": "table:lib/db/migrations/0003_sour_infant_terrible.sql:site_content",
+        "name": "site_content",
+        "summary": "Key/value jsonb table holding one row per editable homepage block (hero, footer, sections) for the owner's /admin/site content editor.",
+        "type": "table"
+      },
+      {
+        "id": "table:lib/db/migrations/0003_sour_infant_terrible.sql:site_solutions",
+        "name": "site_solutions",
+        "summary": "Owner-editable solutions table (content + media jsonb, position, published) that overrides the SERVICES defaults from lib/data/services.ts.",
+        "type": "table"
+      }
+    ],
+    "config": [
+      {
+        "id": "config:package.json",
+        "name": "package.json",
+        "summary": "Root package manifest for the wisscreen (WICLOUD) Next.js 16 app: dev/build/lint/test/typecheck scripts, Drizzle migration and Neon-deploy scripts, and the dependency set (HeroUI v3, Drizzle ORM, Better Auth, @react-three/fiber, GSAP, @neon/config, @neon/env, @react-pdf/renderer, Resend)."
+      },
+      {
+        "id": "config:pnpm-workspace.yaml",
+        "name": "pnpm-workspace.yaml",
+        "summary": "pnpm install-policy configuration only (not a true monorepo): allows esbuild's postinstall build script while blocking sharp/unrs-resolver, and excludes the pinned Next.js 16.3.2 packages from pnpm's minimum-release-age quarantine."
+      },
+      {
+        "id": "config:skills-lock.json",
+        "name": "skills-lock.json",
+        "summary": "Lock file pinning the source and content hash of each installed Neon agent-skill (neon, neon-auth, neon-postgres, neon-postgres-branches, neon-postgres-egress-optimizer, neon-functions, neon-object-storage, neon-ai-gateway), all sourced from the neondatabase/agent-skills GitHub repo."
+      },
+      {
+        "id": "config:tsconfig.json",
+        "name": "tsconfig.json",
+        "summary": "TypeScript compiler configuration for the Next.js App Router project: ES2017 target, strict mode, bundler module resolution, the Next.js TS plugin, and the `@/*` path alias to the repo root."
+      },
+      {
+        "id": "config:lib/db/migrations/meta/0000_snapshot.json",
+        "name": "0000_snapshot.json",
+        "summary": "Initial Drizzle ORM schema snapshot (migration 0000_needy_jackal, prevId all-zero) capturing the baseline Postgres schema: Better Auth tables (user, session, account, verification) plus the core platform tables (requests, request_messages, quotes, invoices, subscriptions, plans, quotas, notifications, activity_log, attachments, app_settings, contact_leads, demo_runs)."
+      },
+      {
+        "id": "config:lib/db/migrations/meta/0001_snapshot.json",
+        "name": "0001_snapshot.json",
+        "summary": "Second Drizzle schema snapshot (migration 0001_modern_darwin) adding the demos data model: demos, demo_access, and demo_secrets tables backing owner-authored, per-customer product demos."
+      },
+      {
+        "id": "config:lib/db/migrations/meta/0002_snapshot.json",
+        "name": "0002_snapshot.json",
+        "summary": "Third Drizzle schema snapshot (migration 0002_nifty_maddog) refining column/constraint definitions across the existing platform tables introduced in 0000/0001, with the same table set as 0001."
+      },
+      {
+        "id": "config:lib/db/migrations/meta/0003_snapshot.json",
+        "name": "0003_snapshot.json",
+        "summary": "Fourth Drizzle schema snapshot (migration 0003_sour_infant_terrible) adding site_content and site_solutions tables that back the /admin/site owner-editable content model (hero, footer, homepage sections, per-solution copy and media)."
+      },
+      {
+        "id": "config:lib/db/migrations/meta/_journal.json",
+        "name": "_journal.json",
+        "summary": "Drizzle migration journal (postgresql dialect, format version 7) listing the four applied migrations in order — 0000_needy_jackal, 0001_modern_darwin, 0002_nifty_maddog, 0003_sour_infant_terrible — each with its applied timestamp, used by drizzle-kit to track migration history."
+      },
+      {
+        "id": "config:.claude/launch.json",
+        "name": "launch.json",
+        "summary": "Claude Code dev-server launch configuration used by the browser preview tool, declaring how to start this project's local dev server (command, args, port)."
+      }
+    ]
+  },
+  "clusters": [],
+  "layers": {
+    "count": 10,
+    "list": [
+      {
+        "id": "layer:marketing-ui",
+        "name": "Marketing UI",
+        "description": "The public long-form homepage and per-solution sub-landing pages in the (marketing) route group, built from GSAP/ScrollTrigger scroll sections, the react-three-fiber 3D scenes, and the custom UI primitives and layout chrome (Navbar/Footer) that only the marketing pages use."
+      },
+      {
+        "id": "layer:auth-ui",
+        "name": "Auth Flow",
+        "description": "The (auth) route group and its form components — sign-in, sign-up, password reset and verification screens that act as the gateway into the client dashboard or admin back-office."
+      },
+      {
+        "id": "layer:platform-ui",
+        "name": "Platform UI (Dashboard & Admin)",
+        "description": "The signed-in (app) route group — client /dashboard and staff /admin — plus its HeroUI-based dashboard components, covering billing, demos, requests, notifications, site CMS editing and back-office administration screens."
+      },
+      {
+        "id": "layer:api",
+        "name": "API Routes",
+        "description": "Next.js Route Handlers under app/api and app/media that serve auth, uploads, realtime SSE, document generation, preview-status checks and media streaming to both the marketing and platform UIs."
+      },
+      {
+        "id": "layer:content",
+        "name": "Content Model",
+        "description": "The site content system: lib/data holds the default solutions/media copy baked into the build, and lib/content holds the Zod schemas, defaults and form specs the /admin/site CMS reads and writes to override them."
+      },
+      {
+        "id": "layer:service",
+        "name": "Business Logic / Services",
+        "description": "Core platform logic in lib/ — auth, permissions, billing, demos, quotas, realtime notifications, storage, PDF generation and other domain services consumed by API routes and server actions across the platform."
+      },
+      {
+        "id": "layer:data",
+        "name": "Data Layer",
+        "description": "The Drizzle ORM schema, the pooled Postgres client and the numbered SQL migrations (with their table definitions and drizzle-kit snapshot metadata) that define the Neon Postgres database."
+      },
+      {
+        "id": "layer:test",
+        "name": "Tests",
+        "description": "Vitest unit tests under __tests__/ covering utilities, the media registry, password generation, the CSP frame-ancestors matcher and PDF rendering."
+      },
+      {
+        "id": "layer:infrastructure-config",
+        "name": "Infrastructure & Configuration",
+        "description": "Docker build/deploy tooling, the GitHub Actions CI/CD pipeline, deploy scripts, and project-wide build configuration (Next.js, TypeScript, ESLint, PostCSS, Drizzle, Vitest, proxy.ts middleware, and the root app shell/metadata files) that no single feature layer owns."
+      },
+      {
+        "id": "layer:documentation",
+        "name": "Documentation",
+        "description": "Project-level docs (README, AGENTS.md, CLAUDE.md) plus the vendored Neon and Claude Code skill reference material under .agents/ and .claude/ that guide development conventions."
+      }
+    ]
+  },
+  "nodeSummaryIndex": {
+    "file:__tests__/lib.test.ts": {
+      "name": "lib.test.ts",
+      "type": "file",
+      "summary": "Vitest unit tests for the cn class-name helper, the SERVICES/withMedia media-registry wiring, and the preview-status route's CSP frame-ancestors matcher (sourceMatches)."
+    },
+    "file:app/(app)/admin/site/accueil/page.tsx": {
+      "name": "page.tsx",
+      "type": "file",
+      "summary": "Admin page listing every homepage section as an editable card, showing each section's last-saved timestamp and linking into its BlockEditor."
+    },
+    "file:app/(app)/admin/site/actions.ts": {
+      "name": "actions.ts",
+      "type": "file",
+      "summary": "Server actions backing /admin/site: save/reset a content block and create/update/delete/reorder/publish solutions, each re-checking site:write, validating with Zod, upserting into site_content/site_solutions, logging activity, and revalidating the public site."
+    },
+    "file:app/(app)/admin/site/content-props.ts": {
+      "name": "content-props.ts",
+      "type": "file",
+      "summary": "Shared helper that assembles the solution picker options and upload-availability flag every /admin/site block editor needs."
+    },
+    "file:app/(app)/admin/site/general/page.tsx": {
+      "name": "page.tsx",
+      "type": "file",
+      "summary": "Admin editor page for the site's general settings and footer content blocks, wiring stored/default content into BlockEditor."
+    },
+    "file:app/(app)/admin/site/hero/page.tsx": {
+      "name": "page.tsx",
+      "type": "file",
+      "summary": "Admin editor page for the homepage hero block (copy and visual mode), wiring stored/default content into BlockEditor."
+    },
+    "file:app/(app)/admin/site/solutions/[slug]/page.tsx": {
+      "name": "page.tsx",
+      "type": "file",
+      "summary": "Admin editor page for a single solution's content, media and publication state, rendered by SolutionEditor for the slug in the route."
+    },
+    "file:app/(app)/admin/site/solutions/page.tsx": {
+      "name": "page.tsx",
+      "type": "file",
+      "summary": "Admin index listing every solution (published and hidden) with quick actions, plus the create-new-solution form, gated on site:write."
+    },
+    "file:app/(marketing)/layout.tsx": {
+      "name": "layout.tsx",
+      "type": "file",
+      "summary": "Layout for the public marketing route group: fetches site content and solutions once and wraps pages with the Navbar and Footer."
+    },
+    "file:app/(marketing)/solutions/[slug]/opengraph-image.tsx": {
+      "name": "opengraph-image.tsx",
+      "type": "file",
+      "summary": "Generates the per-solution Open Graph share image at build time via generateStaticParams over every solution slug."
+    },
+    "file:app/api/preview-status/route.ts": {
+      "name": "route.ts",
+      "type": "file",
+      "summary": "Server-side allowlisted probe that checks whether a solution's previewUrl permits being framed (X-Frame-Options / CSP frame-ancestors), so DeviceShowcase and SolutionHero know whether to show the live iframe or fall back to a screenshot."
+    },
+    "file:app/layout.tsx": {
+      "name": "layout.tsx",
+      "type": "file",
+      "summary": "Root document layout: builds global metadata (title, OG, icons) from site content, loads fonts, and renders the organization JSON-LD schema around every page."
+    },
+    "file:app/manifest.ts": {
+      "name": "manifest.ts",
+      "type": "file",
+      "summary": "Web app manifest route describing the site's PWA metadata (name, icons, theme colors) from the brand constants."
+    },
+    "file:app/opengraph-image.tsx": {
+      "name": "opengraph-image.tsx",
+      "type": "file",
+      "summary": "Generates the site-wide default Open Graph share image used when a page has no more specific one."
+    },
+    "file:app/robots.ts": {
+      "name": "robots.ts",
+      "type": "file",
+      "summary": "robots.txt route declaring crawl rules and pointing to the sitemap."
+    },
+    "file:app/sitemap.ts": {
+      "name": "sitemap.ts",
+      "type": "file",
+      "summary": "Sitemap route listing the homepage and every published solution's sub-landing page for search engines."
+    },
+    "file:components/dashboard/site/BlockEditor.tsx": {
+      "name": "BlockEditor.tsx",
+      "type": "file",
+      "summary": "Generic client editor shell for a single /admin/site content block: renders its SpecForm panels, tracks dirty state via JSON diffing, submits through a server action with useActionState, and shows a saved/error toast."
+    },
+    "file:components/dashboard/site/FieldHint.tsx": {
+      "name": "FieldHint.tsx",
+      "type": "file",
+      "summary": "Tooltip shown next to a site-editor field describing where on the live page it renders, with a link that opens and flashes that section."
+    },
+    "file:components/dashboard/site/MediaField.tsx": {
+      "name": "MediaField.tsx",
+      "type": "file",
+      "summary": "Site-editor field for an image/video asset: lets the owner paste a URL or upload a file through /api/uploads, with drag-and-drop and preview."
+    },
+    "file:components/dashboard/site/NewSolutionForm.tsx": {
+      "name": "NewSolutionForm.tsx",
+      "type": "file",
+      "summary": "Small form (name + slug) that creates a new solution via the createSolution server action from the /admin/site/solutions index."
+    },
+    "file:components/dashboard/site/SolutionEditor.tsx": {
+      "name": "SolutionEditor.tsx",
+      "type": "file",
+      "summary": "Full editor for one solution's identity, content, layout and media, composed of tabbed SpecForm panels plus bespoke gallery/stat-GIF slot editors, submitting through the saveSolution server action."
+    },
+    "file:components/dashboard/site/SpecForm.tsx": {
+      "name": "SpecForm.tsx",
+      "type": "file",
+      "summary": "Generic form renderer that turns a FieldSpec array (from lib/content/forms) into inputs — text, select, checkbox, asset, list and strings fields — recursively, driving every /admin/site editor from one declarative spec."
+    },
+    "file:components/layout/Navbar.tsx": {
+      "name": "Navbar.tsx",
+      "type": "file",
+      "summary": "Site navbar shaped after the dashboard's AppShell chrome: floating pill on load, snapping to a full-width bar on scroll, adapting light/dark to the opening section, with Connexion/Créer un compte CTAs."
+    },
+    "file:lib/content/defaults.ts": {
+      "name": "defaults.ts",
+      "type": "file",
+      "summary": "Default content for every editable site_content block (general, hero, footer, homepage sections) and the conversion helpers (toSolutionContent, toMediaContent, blankSolution) that seed site_solutions from the legacy services.ts/media.ts data."
+    },
+    "file:lib/content/forms.ts": {
+      "name": "forms.ts",
+      "type": "file",
+      "summary": "Declarative FieldSpec definitions for every /admin/site form (general, hero, footer, homepage sections, solution identity/content/layout/media), each field carrying a required `where` describing its location on the live page."
+    },
+    "file:lib/content/index.ts": {
+      "name": "index.ts",
+      "type": "file",
+      "summary": "Read/merge layer for the owner-editable site content: deep-merges stored site_content/site_solutions rows over the code defaults, re-validates with Zod, and exposes the cached getSiteContent/getSolutions/getSolution readers used across the app."
+    },
+    "file:lib/data/media.ts": {
+      "name": "media.ts",
+      "type": "file",
+      "summary": "Central registry of every photo/video/link on the site (SOLUTION_MEDIA per slug, HOME_MEDIA) plus withMedia/applyMedia which copy those assets onto the default Service/media objects built from services.ts."
+    },
+    "file:lib/data/services.ts": {
+      "name": "services.ts",
+      "type": "file",
+      "summary": "Default copy and structure (no media) for the four solutions — OCR, Cloud Infrastructure, WIFACILITY, SETYCORE — merged with lib/data/media.ts via withMedia to build the exported SERVICES array."
+    },
+    "file:lib/seo/schema.ts": {
+      "name": "schema.ts",
+      "type": "file",
+      "summary": "JSON-LD schema.org builders (Organization, WebSite, BreadcrumbList, Service, FAQPage) used by the root layout and solution pages for structured data."
+    },
+    "file:lib/site.ts": {
+      "name": "site.ts",
+      "type": "file",
+      "summary": "Site-wide constants (URL, name, locale, description) read by metadata, manifest, sitemap, robots and JSON-LD builders."
+    },
+    "file:__tests__/ui.test.tsx": {
+      "name": "ui.test.tsx",
+      "type": "file",
+      "summary": "Vitest + Testing Library unit tests for the shared components/ui primitives (Button, Badge, Container, Icon, SectionHeading, Tabs, Accordion, HandUnderline, ErrorBoundary, StatCounter, TypeCycle, isRemote) plus the site Footer, asserting rendered markup and accessibility state."
+    },
+    "file:app/(app)/admin/site/page.tsx": {
+      "name": "page.tsx",
+      "type": "file",
+      "summary": "Overview page for /admin/site: renders four cards (Hero, homepage sections, Solutions, Général & footer) summarizing current site content and last-modified timestamps, each linking into its dedicated sub-editor."
+    },
+    "file:app/(marketing)/page.tsx": {
+      "name": "page.tsx",
+      "type": "file",
+      "summary": "The public homepage route: an async server component that reads site content and solutions once via getSiteContent()/getSolutions() and composes the ~20 Apple-style marketing sections in order, skipping any section marked hidden."
+    },
+    "file:app/(marketing)/solutions/[slug]/page.tsx": {
+      "name": "page.tsx",
+      "type": "file",
+      "summary": "Per-solution sub-landing page route: generates static params from every solution, builds SEO metadata and JSON-LD schemas, and composes the solution's hero/story/features/steps/sub-projects/video/media/FAQ/contact/related sections."
+    },
+    "file:components/dashboard/site/IconPicker.tsx": {
+      "name": "IconPicker.tsx",
+      "type": "file",
+      "summary": "Client-side icon chooser used by the /admin/site content editors: shows the current icon as a toggle button and an expandable grid of selectable icons, excluding icons reserved for dashboard chrome only."
+    },
+    "file:components/dashboard/site/SectionCard.tsx": {
+      "name": "SectionCard.tsx",
+      "type": "file",
+      "summary": "Collapsible wrapper for one homepage section inside /admin/site/accueil; shows an index, title, hidden/modified badges and a live-page link, and only mounts its section editor once expanded to keep the page fast to interact with."
+    },
+    "file:components/dashboard/site/SiteTabs.tsx": {
+      "name": "SiteTabs.tsx",
+      "type": "file",
+      "summary": "Sub-navigation pill tab bar for the /admin/site editor pages (Overview, Hero, Homepage sections, Solutions, Général), highlighting the active tab from the current pathname and scrolling sideways on narrow screens."
+    },
+    "file:components/layout/Footer.tsx": {
+      "name": "Footer.tsx",
+      "type": "file",
+      "summary": "Site-wide footer shared by the marketing pages: renders the owner-edited blurb, link columns (optionally including every published solution), contact details, social icons and the copyright/tagline line."
+    },
+    "file:components/sections/AudienceTabs.tsx": {
+      "name": "AudienceTabs.tsx",
+      "type": "file",
+      "summary": "Homepage section (\"Pour qui\") listing solutions grouped by audience — banks, enterprises, partners, individuals — via a tabbed filter over the solutions list."
+    },
+    "file:components/sections/ConnectedSolutions.tsx": {
+      "name": "ConnectedSolutions.tsx",
+      "type": "file",
+      "summary": "Homepage section illustrating interoperability between solutions as a list of \"from -> to\" badge pairs with supporting copy, on a dark ground."
+    },
+    "file:components/sections/Contact.tsx": {
+      "name": "Contact.tsx",
+      "type": "file",
+      "summary": "Homepage contact form section: collects name/email/solution/message, optionally gates submission behind Cloudflare Turnstile, and posts to /api/contact, showing success/error states inline."
+    },
+    "file:components/sections/DataCommitment.tsx": {
+      "name": "DataCommitment.tsx",
+      "type": "file",
+      "summary": "Homepage section listing the site's data-commitment pillars as an icon/title/text grid on a dark ground."
+    },
+    "file:components/sections/DataIntelligence.tsx": {
+      "name": "DataIntelligence.tsx",
+      "type": "file",
+      "summary": "Light-ground homepage section pairing a bullet list of data & intelligence capability points with one solution's cover media, plus an optional CTA."
+    },
+    "file:components/sections/DeviceShowcase.tsx": {
+      "name": "DeviceShowcase.tsx",
+      "type": "file",
+      "summary": "Pinned, scroll-driven homepage section showing every solution running live on a drawn laptop and phone at once, with per-solution tabs, activation-shielded iframes (live previews with screenshot/mock fallback), and a zoom-to-fullscreen control for each device."
+    },
+    "file:components/sections/FAQHome.tsx": {
+      "name": "FAQHome.tsx",
+      "type": "file",
+      "summary": "Homepage FAQ section pairing a section heading with an Accordion of question/answer items."
+    },
+    "file:components/sections/Hero.tsx": {
+      "name": "Hero.tsx",
+      "type": "file",
+      "summary": "The homepage hero: a server-rendered copy column on a light textured ground paired with an owner-selectable visual panel (3D globe, 3D infra stack, image, video, or slideshow), split via an owner-controlled CSS variable."
+    },
+    "file:components/sections/HighlightsReel.tsx": {
+      "name": "HighlightsReel.tsx",
+      "type": "file",
+      "summary": "Homepage \"Section 2\" auto-advancing carousel that cycles through each solution as a stats card or an image-fronted card, with GIF-driven stat tiles, autoplay gated on scroll visibility and reduced-motion, and a hand-drawn signal underline."
+    },
+    "file:components/sections/Integrations.tsx": {
+      "name": "Integrations.tsx",
+      "type": "file",
+      "summary": "Homepage section listing integration items as an icon/title/text grid on a dark ground."
+    },
+    "file:components/sections/MigrationProgram.tsx": {
+      "name": "MigrationProgram.tsx",
+      "type": "file",
+      "summary": "Homepage section presenting the migration program as a numbered step grid with a heading and an optional secondary CTA."
+    },
+    "file:components/sections/OcrDemo.tsx": {
+      "name": "OcrDemo.tsx",
+      "type": "file",
+      "summary": "Homepage section pairing the OCR solution's first gallery media with a list of extracted field/value rows to demonstrate the OCR data-extraction product; renders nothing if the OCR solution is absent."
+    },
+    "file:components/sections/PerformanceMetrics.tsx": {
+      "name": "PerformanceMetrics.tsx",
+      "type": "file",
+      "summary": "Homepage stats section rendered on a textured white ground (ink dot grid over mist washes) with dark `bg-ink` data tiles presenting key performance numbers."
+    },
+    "file:components/sections/PlatformShowcase.tsx": {
+      "name": "PlatformShowcase.tsx",
+      "type": "file",
+      "summary": "Homepage \"La plateforme\" section rendering one panel per platform solution (WIFACILITY/SETYCORE/WICLOUD) with its cover media and supporting copy."
+    },
+    "file:components/sections/Reliability.tsx": {
+      "name": "Reliability.tsx",
+      "type": "file",
+      "summary": "Homepage reliability section on a dark ground: a signal-accented eyebrow badge, a large animated stat counter, a supporting paragraph, and a row of supporting reliability points."
+    },
+    "file:components/sections/ScaleSpecs.tsx": {
+      "name": "ScaleSpecs.tsx",
+      "type": "file",
+      "summary": "Homepage section presenting scale specifications as a grid of icon/value/label tiles on a dark ground."
+    },
+    "file:components/sections/Security.tsx": {
+      "name": "Security.tsx",
+      "type": "file",
+      "summary": "Homepage section listing security pillars as a centered icon/title/text grid on a light ground."
+    },
+    "file:components/sections/SolutionFinder.tsx": {
+      "name": "SolutionFinder.tsx",
+      "type": "file",
+      "summary": "Homepage \"find your solution\" section rendering audience profiles as cards, each linking out to the solutions it recommends."
+    },
+    "file:components/sections/SolutionsGrid.tsx": {
+      "name": "SolutionsGrid.tsx",
+      "type": "file",
+      "summary": "Homepage grid listing every published solution as a clickable card with cover media, audience badges, and a CTA link to its sub-landing page."
+    },
+    "file:components/sections/UniverseReveal.tsx": {
+      "name": "UniverseReveal.tsx",
+      "type": "file",
+      "summary": "Apple-style \"Take a closer look\" scroll-pinned reveal: a full-bleed video clips into the WICLOUD wordmark via an SVG mask, zooms out from inside a letter's counter, then settles into a headline with a staggered three-block pitch."
+    },
+    "file:components/sections/Values.tsx": {
+      "name": "Values.tsx",
+      "type": "file",
+      "summary": "Homepage section listing the company's core values as icon-led cards in a three-column grid."
+    },
+    "file:components/sections/WhyUs.tsx": {
+      "name": "WhyUs.tsx",
+      "type": "file",
+      "summary": "Homepage \"why choose us\" section pairing a heading with an accordion of reasons."
+    },
+    "file:components/sections/hero/HeroSlides.tsx": {
+      "name": "HeroSlides.tsx",
+      "type": "file",
+      "summary": "Client carousel (embla) for the hero's \"slides\" visual mode, cycling photos and clips with lazy-loaded slides, autoplay that pauses on hover/focus, and reduced-motion support."
+    },
+    "file:components/sections/hero/HeroVideo.tsx": {
+      "name": "HeroVideo.tsx",
+      "type": "file",
+      "summary": "Muted looping hero video that only plays while on screen, with an imperative muted flag for autoplay policies and a WCAG 2.2.2 pause control."
+    },
+    "file:components/sections/hero/HeroVisual.tsx": {
+      "name": "HeroVisual.tsx",
+      "type": "file",
+      "summary": "Right-hand panel of the homepage hero: dynamically loads one of two 3D scenes (globe or infra stack) or renders an image/video/slides visual depending on the owner's chosen mode, with idle-callback-gated mounting for the 3D scenes."
+    },
+    "file:components/sections/solution/PaletteAura.tsx": {
+      "name": "PaletteAura.tsx",
+      "type": "file",
+      "summary": "Decorative GSAP-animated dual-blob glow behind a solution hero, tinted with that solution's own palette tokens."
+    },
+    "file:components/sections/solution/SolutionContact.tsx": {
+      "name": "SolutionContact.tsx",
+      "type": "file",
+      "summary": "Contact form on a solution sub-landing page, posting to /api/contact with optional Turnstile bot verification and inline success/error states."
+    },
+    "file:components/sections/solution/SolutionFAQ.tsx": {
+      "name": "SolutionFAQ.tsx",
+      "type": "file",
+      "summary": "Renders a solution's FAQ items through the shared Accordion component."
+    },
+    "file:components/sections/solution/SolutionFeatures.tsx": {
+      "name": "SolutionFeatures.tsx",
+      "type": "file",
+      "summary": "Grid of feature cards for a solution's sub-landing page, each with a palette-tinted icon."
+    },
+    "file:components/sections/solution/SolutionHero.tsx": {
+      "name": "SolutionHero.tsx",
+      "type": "file",
+      "summary": "Server-rendered copy column for the solution hero (badges, headline, CTAs), passed as children into SolutionHeroStage which owns the live-preview frame and stretch states."
+    },
+    "file:components/sections/solution/SolutionHeroStage.tsx": {
+      "name": "SolutionHeroStage.tsx",
+      "type": "file",
+      "summary": "Client-side stage for the solution hero: renders the project's live site inside a drawn browser-window frame with three size states (inset/hero/full-screen), an interaction shield to hand pointer control to the embedded iframe, and Fullscreen API integration."
+    },
+    "file:components/sections/solution/SolutionMedia.tsx": {
+      "name": "SolutionMedia.tsx",
+      "type": "file",
+      "summary": "Media gallery and demo-request CTA section for a solution's sub-landing page, showing screenshots via MediaSlot with a \"provisional\" notice while every slot is still a placeholder."
+    },
+    "file:components/sections/solution/SolutionRelated.tsx": {
+      "name": "SolutionRelated.tsx",
+      "type": "file",
+      "summary": "\"Other solutions in the ecosystem\" cross-links section shown at the bottom of a solution page, excluding the current solution."
+    },
+    "file:components/sections/solution/SolutionSteps.tsx": {
+      "name": "SolutionSteps.tsx",
+      "type": "file",
+      "summary": "Numbered step-by-step \"how it works\" grid for a solution's sub-landing page."
+    },
+    "file:components/sections/solution/SolutionStory.tsx": {
+      "name": "SolutionStory.tsx",
+      "type": "file",
+      "summary": "Solution detail/story section pairing descriptive paragraphs with a sidebar of animated stat counters."
+    },
+    "file:components/sections/solution/SolutionSubProjects.tsx": {
+      "name": "SolutionSubProjects.tsx",
+      "type": "file",
+      "summary": "Optional section listing a solution's sub-projects (e.g. Etaysir under WIFACILITY) as cards; renders nothing if the solution has none."
+    },
+    "file:components/sections/solution/SolutionVideoReveal.tsx": {
+      "name": "SolutionVideoReveal.tsx",
+      "type": "file",
+      "summary": "Scroll-driven presentation-video reveal on a solution page: a small rounded video card grows to full-bleed as the section arrives in view, with fullscreen support, a manual stretch override, and gated autoplay."
+    },
+    "file:components/seo/JsonLd.tsx": {
+      "name": "JsonLd.tsx",
+      "type": "file",
+      "summary": "Renders one JSON-LD structured-data <script> block, escaping \"<\" so embedded string data can never break out of the tag."
+    },
+    "file:components/three/EarthNetwork.tsx": {
+      "name": "EarthNetwork.tsx",
+      "type": "file",
+      "summary": "Default-export 3D globe scene (react-three-fiber) used by the homepage hero's \"earth\" visual mode: a rotating sphere with fresnel atmosphere, a fibonacci-distributed starfield backdrop, per-solution markers alternating signal/cool accent colors, and connecting arcs, with pop-in entrance animation and hover/click interaction."
+    },
+    "file:components/three/InfraStack.tsx": {
+      "name": "InfraStack.tsx",
+      "type": "file",
+      "summary": "Default-export 3D infrastructure-stack scene (react-three-fiber) used by the homepage hero's \"stack\" visual mode: four glass layers (Applications/Données/Calcul/Réseau) with etched patterns, status LEDs and a scan line, corner pillars carrying packets, one glowing module per solution linked between layers, and a grid floor with rising motes."
+    },
+    "file:components/three/fallbacks.tsx": {
+      "name": "fallbacks.tsx",
+      "type": "file",
+      "summary": "Pure-CSS stand-ins for the two hero 3D scenes: loading placeholders and WebGL/error-boundary fallbacks, kept apart from the scene files so importing a fallback never pulls three.js into the main bundle."
+    },
+    "file:components/three/sky.tsx": {
+      "name": "sky.tsx",
+      "type": "file",
+      "summary": "Shared starfield/nebula/meteor background, brand color constants, and canvas texture generators used by the 3D hero scenes."
+    },
+    "file:__tests__/catalogue.test.ts": {
+      "name": "catalogue.test.ts",
+      "type": "file",
+      "summary": "Vitest unit tests for the KV-style spec/feature line parsers and the standing-vs-monthly quota metric classifier used by the catalogue and quota system."
+    },
+    "file:app/(app)/admin/abonnements/[id]/page.tsx": {
+      "name": "page.tsx",
+      "type": "file",
+      "summary": "Admin detail page for one provisioned subscription (service): shows the plan, client, quota meters and history, and renders the edit/delete forms via ServiceForm."
+    },
+    "file:app/(app)/admin/abonnements/actions.ts": {
+      "name": "actions.ts",
+      "type": "file",
+      "summary": "Server actions for provisioning (saveService) and removing (deleteService) a customer subscription, copying plan price/spec at provisioning time, granting quotas, and notifying the customer of status changes."
+    },
+    "file:app/(app)/admin/abonnements/nouveau/page.tsx": {
+      "name": "page.tsx",
+      "type": "file",
+      "summary": "Admin page for provisioning a new subscription/service for a customer, rendering ServiceForm in create mode."
+    },
+    "file:app/(app)/admin/abonnements/options.ts": {
+      "name": "options.ts",
+      "type": "file",
+      "summary": "Loads the select-box options (published plans and clients) shared by the subscription create/edit forms."
+    },
+    "file:app/(app)/admin/abonnements/page.tsx": {
+      "name": "page.tsx",
+      "type": "file",
+      "summary": "Admin list/index page for all provisioned subscriptions (services) across every customer, with status/plan filters, stat tiles and links to each service's detail page."
+    },
+    "file:app/(app)/admin/catalogue/[slug]/page.tsx": {
+      "name": "page.tsx",
+      "type": "file",
+      "summary": "Admin detail/edit page for one service-catalogue entry (a `plans` row) — WICLOUD's sellable service such as servers, SMTP, AI API — rendering CatalogueForm for editing price, specs and default quotas."
+    },
+    "file:app/(app)/admin/catalogue/actions.ts": {
+      "name": "actions.ts",
+      "type": "file",
+      "summary": "Server actions for creating/updating (saveCatalogueItem) and removing (deleteCatalogueItem) a service-catalogue entry in `plans`, the source of truth for what WICLOUD sells."
+    },
+    "file:app/(app)/admin/catalogue/nouveau/page.tsx": {
+      "name": "page.tsx",
+      "type": "file",
+      "summary": "Admin page for creating a new service-catalogue entry, rendering the empty CatalogueForm."
+    },
+    "file:app/(app)/admin/catalogue/page.tsx": {
+      "name": "page.tsx",
+      "type": "file",
+      "summary": "Admin list page for the full service catalogue (`plans`) — what WICLOUD sells — with pricing and quota columns and a link to add a new item."
+    },
+    "file:app/(app)/admin/demandes/[id]/page.tsx": {
+      "name": "page.tsx",
+      "type": "file",
+      "summary": "Admin detail page for one client request (demande): shows the request thread, status/assignment controls, attachments and the edit/delete forms, wired to realtime updates."
+    },
+    "file:app/(app)/admin/demandes/actions.ts": {
+      "name": "actions.ts",
+      "type": "file",
+      "summary": "Server actions covering the full lifecycle of a client request (demande): status transitions, staff assignment, staff replies in the thread, marking the thread read, editing and deleting a request — each notifying the customer and publishing realtime events."
+    },
+    "file:app/(app)/admin/demandes/page.tsx": {
+      "name": "page.tsx",
+      "type": "file",
+      "summary": "Admin list page for all client requests (demandes) across the desk, with status/type/priority filters and stat tiles summarizing the open queue."
+    },
+    "file:app/(app)/admin/demos/page.tsx": {
+      "name": "page.tsx",
+      "type": "file",
+      "summary": "Admin list page for authored demos (typed-block evaluation packages granted to named customers) with status filters and a link to each demo's editor."
+    },
+    "file:app/(app)/admin/devis/page.tsx": {
+      "name": "page.tsx",
+      "type": "file",
+      "summary": "Admin list page for all quotes (devis) with status filters, totals and links to each quote's billing document editor."
+    },
+    "file:app/(app)/admin/equipe/page.tsx": {
+      "name": "page.tsx",
+      "type": "file",
+      "summary": "Admin page listing staff and admin accounts (the team), their roles and permission overrides, with a link to create a new staff account."
+    },
+    "file:app/(app)/admin/factures/page.tsx": {
+      "name": "page.tsx",
+      "type": "file",
+      "summary": "Admin list page for all invoices (factures) with status filters, effective status (a human sets it, no payment provider) and totals, linking to each invoice's document editor."
+    },
+    "file:app/(app)/admin/journal/actions.ts": {
+      "name": "actions.ts",
+      "type": "file",
+      "summary": "Server action to purge activity-log entries older than a chosen date, keeping the last 30 days un-purgeable and logging the purge itself so the audit trail records who emptied it."
+    },
+    "file:app/(app)/admin/journal/page.tsx": {
+      "name": "page.tsx",
+      "type": "file",
+      "summary": "Admin page for the activity/audit journal: filterable log of actions taken across the platform, plus the PurgeForm for clearing old entries."
+    },
+    "file:app/(app)/admin/messages/LeadActions.tsx": {
+      "name": "LeadActions.tsx",
+      "type": "file",
+      "summary": "Client-side controls for one contact lead row: a status-change form and a confirm-guarded delete button, both bound to the messages server actions."
+    },
+    "file:app/(app)/admin/messages/actions.ts": {
+      "name": "actions.ts",
+      "type": "file",
+      "summary": "Server actions for the contact-leads inbox: changing a lead's status and deleting a lead, both permission-checked and logged."
+    },
+    "file:app/(app)/admin/messages/page.tsx": {
+      "name": "page.tsx",
+      "type": "file",
+      "summary": "Admin inbox page for contact-form leads (/admin/messages) — what the public contact form now writes to instead of silently dropping — with status filters and LeadActions per row."
+    },
+    "file:app/(app)/admin/notifications/envoyer/actions.ts": {
+      "name": "actions.ts",
+      "type": "file",
+      "summary": "Server action powering the broadcast composer: sends one in-app notification (and optionally an e-mail) to a chosen audience segment (clients, team, new signups, or a plan's subscribers), excluding suspended accounts."
+    },
+    "file:app/(app)/admin/notifications/envoyer/page.tsx": {
+      "name": "page.tsx",
+      "type": "file",
+      "summary": "Admin page hosting the broadcast composer (BroadcastForm) that staff with notifications:write use to message an audience segment — moved here from /admin/notifications, which is now the staff member's own feed."
+    },
+    "file:app/(app)/admin/notifications/page.tsx": {
+      "name": "page.tsx",
+      "type": "file",
+      "summary": "Staff member's own notification feed at /admin/notifications — the page the bell in the admin top bar points at, replacing what used to be the broadcast composer (now moved to /admin/notifications/envoyer)."
+    },
+    "file:app/(app)/admin/page.tsx": {
+      "name": "page.tsx",
+      "type": "file",
+      "summary": "Back-office home (/admin): a permission-gated dashboard of stat tiles (open requests, pending quotes, unpaid invoices, accounts), the open-requests queue, recently registered users, and the activity journal — each block only rendered if the signed-in staff member holds the matching read permission."
+    },
+    "file:app/(app)/admin/profil/page.tsx": {
+      "name": "page.tsx",
+      "type": "file",
+      "summary": "Staff member's own profile inside the admin shell (/admin/profil) — the same identity/password/sessions forms as the client-facing profile, plus a read-only account panel showing role, granted-permission count and magic-link status, so staff never leave the back-office to manage their account."
+    },
+    "file:app/(app)/admin/site/layout.tsx": {
+      "name": "layout.tsx",
+      "type": "file",
+      "summary": "Layout for /admin/site (the owner-editable public-site content editor): gates reads behind site:read, renders the page header with an 'open the live site' link, and wraps children with SiteTabs for section navigation."
+    },
+    "file:app/(app)/admin/utilisateurs/[id]/page.tsx": {
+      "name": "page.tsx",
+      "type": "file",
+      "summary": "Admin user detail page (/admin/utilisateurs/[id]) — the fiche for one account: stat tiles, editable profile and permission-matrix forms (permission-gated), subscribed services, quota meters/editors, recent requests, plus a message/impersonate/suspend/delete side column with the last-active-admin and self-action invariants reflected in what renders."
+    },
+    "file:app/(app)/admin/utilisateurs/actions.ts": {
+      "name": "actions.ts",
+      "type": "file",
+      "summary": "Server actions for back-office account administration (create, suspend/unsuspend, edit, role/permission changes, quota edit/delete, message, impersonate, delete). Enforces three invariants in code rather than the UI: nobody acts on their own account, the last active admin can never be demoted/suspended/deleted, and only team:write may change roles or permissions."
+    },
+    "file:app/(app)/admin/utilisateurs/nouveau/page.tsx": {
+      "name": "page.tsx",
+      "type": "file",
+      "summary": "Back-office 'create account' page (/admin/utilisateurs/nouveau): pre-fills name/e-mail from a contact-lead query string, filters the offered role list to what the caller may actually create (team:write gates staff/admin), and warns when e-mail isn't configured."
+    },
+    "file:app/(app)/admin/utilisateurs/page.tsx": {
+      "name": "page.tsx",
+      "type": "file",
+      "summary": "Admin user list (/admin/utilisateurs): searchable/filterable (role, active/suspended, free-text over name/e-mail/company) table of up to 300 accounts joined to their current plan, each row linking to the account's fiche."
+    },
+    "file:app/(app)/dashboard/abonnement/page.tsx": {
+      "name": "page.tsx",
+      "type": "file",
+      "summary": "Client 'My services' page (/dashboard/abonnement): live and past subscriptions with pricing/spec/access-notes, metered-usage quota meters, and the service catalogue grouped by category with an 'owned' badge — ordering is a human step, every 'Order' opens a demande rather than checking out directly."
+    },
+    "file:app/(app)/dashboard/demandes/actions.ts": {
+      "name": "actions.ts",
+      "type": "file",
+      "summary": "Client-side server actions for the request (demande) thread: create a request with a retry-on-collision reference allocator, reply in the thread, mark the thread read, and self-close a request — each notifying staff and, where relevant, e-mailing the admin address."
+    },
+    "file:app/(app)/dashboard/demandes/nouvelle/page.tsx": {
+      "name": "page.tsx",
+      "type": "file",
+      "summary": "New-request form page (/dashboard/demandes/nouvelle): pre-fills type/solution/title from query params and renders the NewRequestForm alongside a static 'what happens next' explainer panel."
+    },
+    "file:app/(app)/dashboard/demandes/page.tsx": {
+      "name": "page.tsx",
+      "type": "file",
+      "summary": "Client request list (/dashboard/demandes): every request the caller has filed, rendered as a linked list (not a table, to stay readable on a phone) with status chip, type, related solution and relative timestamp."
+    },
+    "file:app/(app)/dashboard/demos/actions.ts": {
+      "name": "actions.ts",
+      "type": "file",
+      "summary": "Customer-side server actions for the 'upload' demo block: start a processing run (re-checking entitlement and spending the demo.processing quota, currently unlimited since no service grants it) and submit an in-progress run once files are attached, notifying the desk."
+    },
+    "file:app/(app)/dashboard/devis/[id]/actions.ts": {
+      "name": "actions.ts",
+      "type": "file",
+      "summary": "Client's accept/refuse decision on a quote (devis): a single UPDATE whose WHERE clause enforces both ownership and that the quote is still in 'envoye' status (so a replayed form post after withdrawal is a no-op), followed by staff notification and an admin e-mail."
+    },
+    "file:app/(app)/dashboard/documents/page.tsx": {
+      "name": "page.tsx",
+      "type": "file",
+      "summary": "Client documents page (/dashboard/documents): every file exchanged across all of the client's requests in one list, with download links, a storage-quota meter, and a FileUpload panel disabled with an explanation when object storage isn't configured."
+    },
+    "file:app/(app)/dashboard/notifications/MarkAllReadButton.tsx": {
+      "name": "MarkAllReadButton.tsx",
+      "type": "file",
+      "summary": "Two small client buttons for the notification feed: 'mark all read' (a plain form-action submit) and 'clear read' (behind ConfirmButton's two-step arm/confirm control, since clearing deletes rows)."
+    },
+    "file:app/(app)/dashboard/notifications/actions.ts": {
+      "name": "actions.ts",
+      "type": "file",
+      "summary": "Server actions for a client's own notification feed (mark-all-read, mark-one-read, delete-one, clear-read): every statement is scoped to the caller by its WHERE, so there is no permission key involved, only ownership; each ends by publishing a realtime nudge and revalidating both shell layouts."
+    },
+    "file:app/(app)/dashboard/notifications/page.tsx": {
+      "name": "page.tsx",
+      "type": "file",
+      "summary": "Client notification feed page (/dashboard/notifications): the last 100 notifications for the signed-in user with an unread count in the page description."
+    },
+    "file:app/(app)/dashboard/page.tsx": {
+      "name": "page.tsx",
+      "type": "file",
+      "summary": "Client dashboard home (/dashboard): a 'to-do first' layout — pending quotes and unpaid invoices at the top (the one thing blocking the agency's own work), stat tiles, recent requests, live services with hot-usage quota meters, entitled demos with expiry countdowns, and recent notifications."
+    },
+    "file:app/(app)/dashboard/profil/actions.ts": {
+      "name": "actions.ts",
+      "type": "file",
+      "summary": "Client profile server action: updates identity fields only (name/phone/company). E-mail is deliberately not editable here — changing it is an authentication change that needs Better Auth's changeEmail verification flow, not yet wired up."
+    },
+    "file:app/(app)/dashboard/profil/page.tsx": {
+      "name": "page.tsx",
+      "type": "file",
+      "summary": "Client profile page (/dashboard/profil): identity, password (only offered if a credential account exists — a Google-only account has none), connected-sessions list, and account deletion, plus a read-only account summary panel."
+    },
+    "file:app/(auth)/acces-refuse/page.tsx": {
+      "name": "page.tsx",
+      "type": "file",
+      "summary": "The 403 landing page (/acces-refuse) that requirePermission() redirects a signed-in-but-unauthorized staff member to, naming the missing permission in plain French (e.g. 'Factures → Modifier') so it's actionable, with links back into /admin or /dashboard."
+    },
+    "file:app/api/contact/route.ts": {
+      "name": "route.ts",
+      "type": "file",
+      "summary": "POST /api/contact — the public contact-form endpoint: verifies Cloudflare Turnstile (skipped if unconfigured, never breaking the form outright), stores the submission as a contact_leads row (previously it verified and silently dropped the message), notifies staff with leads:read, and e-mails the admin as a convenience copy."
+    },
+    "file:app/api/demos/secret/route.ts": {
+      "name": "route.ts",
+      "type": "file",
+      "summary": "POST /api/demos/secret — reveals one demo secret (test password, SSH key) to an entitled customer or demos:read staff and logs the reveal. A route rather than a server action because it returns a value to already-hydrated JS and needs Cache-Control: no-store; every condition (session, ban, entitlement, expiry, that the block still declares the secret) is re-checked from scratch rather than trusting the page that rendered the button."
+    },
+    "file:app/api/documents/[kind]/[id]/route.ts": {
+      "name": "route.ts",
+      "type": "file",
+      "summary": "API route that streams a generated PDF (devis or facture) for a given document id, enforcing ownership or the billing:read permission before rendering it with renderBillingPdf."
+    },
+    "file:app/api/notifications/[id]/open/route.ts": {
+      "name": "route.ts",
+      "type": "file",
+      "summary": "API route that marks a single notification as read for the current user and redirects to its target href, used when a user clicks a notification link."
+    },
+    "file:app/api/notifications/route.ts": {
+      "name": "route.ts",
+      "type": "file",
+      "summary": "API route returning the current user's unread notification count and a page of recent notifications, polled by the dashboard notification bell."
+    },
+    "file:app/api/realtime/route.ts": {
+      "name": "route.ts",
+      "type": "file",
+      "summary": "Server-Sent Events endpoint that streams live realtime events (unread count, notifications) to the signed-in user's browser tab, backed by Postgres LISTEN/NOTIFY via lib/realtime.ts."
+    },
+    "file:app/api/uploads/route.ts": {
+      "name": "route.ts",
+      "type": "file",
+      "summary": "API route handling the full upload lifecycle: presigning S3-style PUT URLs, recording finished uploads as attachments after authorizing the target (request, message, demo, demo run, company, or site), and presigning downloads with per-target access checks."
+    },
+    "file:app/media/[id]/route.ts": {
+      "name": "route.ts",
+      "type": "file",
+      "summary": "Public route that streams a public image/video attachment from the private object storage bucket by its database id, passing through Range headers for video seeking and caching for a year."
+    },
+    "file:components/dashboard/FilterBar.tsx": {
+      "name": "FilterBar.tsx",
+      "type": "file",
+      "summary": "Client component rendering a debounced search box plus dropdown filters that write their state into the URL's search params, used across admin list pages."
+    },
+    "file:components/dashboard/NotificationFeed.tsx": {
+      "name": "NotificationFeed.tsx",
+      "type": "file",
+      "summary": "Renders a list of notification rows (read/unread styling, relative timestamps, mark-all-read/clear actions) shared by the dashboard and admin notification pages."
+    },
+    "file:components/dashboard/PageHeader.tsx": {
+      "name": "PageHeader.tsx",
+      "type": "file",
+      "summary": "Shared dashboard/admin layout primitives: a page title/back-link header, a bordered content Panel, and a StatTile metric card, used to keep list and detail pages visually consistent."
+    },
+    "file:components/dashboard/ProfileForms.tsx": {
+      "name": "ProfileForms.tsx",
+      "type": "file",
+      "summary": "Client forms for the shared 'Mon profil' page (used by both dashboard and admin shells): identity fields, password change, active session list with revoke, and account deletion."
+    },
+    "file:components/dashboard/QuotaMeter.tsx": {
+      "name": "QuotaMeter.tsx",
+      "type": "file",
+      "summary": "Renders a single quota's usage as a labeled progress bar (percentage, used/limit, optional reset date), color-coded as it approaches its limit."
+    },
+    "file:components/dashboard/pills.ts": {
+      "name": "pills.ts",
+      "type": "file",
+      "summary": "Shared Tailwind class-string constants for pill/badge styling (primary, outline, soft, and a small-size modifier) reused across dashboard status chips and tags."
+    },
+    "file:lib/account.ts": {
+      "name": "account.ts",
+      "type": "file",
+      "summary": "Account-side side effects shared across server actions: activity-log entries, creating and realtime-publishing notifications (single or bulk), resolving which staff hold a given permission, and reading unread/recent notifications for a user."
+    },
+    "file:lib/db/index.ts": {
+      "name": "index.ts",
+      "type": "file",
+      "summary": "Lazily-constructed Drizzle/node-postgres database client, exposed as `db` through a Proxy so importing this module never opens a connection until a query actually runs — required so CI/CD builds with no DATABASE_URL still succeed."
+    },
+    "file:lib/db/schema.ts": {
+      "name": "schema.ts",
+      "type": "file",
+      "summary": "The application's full Drizzle ORM schema: Better Auth tables (user/session/account/verification), billing (plans, subscriptions, quotas, quotes, invoices), support requests and messages, attachments, demos and their access/secrets/runs, notifications, activity log, app settings, contact leads, and the owner-editable site content/solutions tables."
+    },
+    "file:lib/db/seed.ts": {
+      "name": "seed.ts",
+      "type": "file",
+      "summary": "One-off seed script (run by hand, never at app start) that upserts the service catalogue's plans, deactivates ones no longer offered, cancels the legacy free 'Découverte' subscriptions, and fills in any missing default app settings without overwriting admin-edited ones."
+    },
+    "file:lib/email.ts": {
+      "name": "email.ts",
+      "type": "file",
+      "summary": "Thin wrapper around the Resend API for transactional email: degrades to console-logging the message (including any verification/reset links) when RESEND_API_KEY is unset, so the whole sign-up flow stays completable with no mailbox."
+    },
+    "file:lib/format.ts": {
+      "name": "format.ts",
+      "type": "file",
+      "summary": "Small collection of locale-aware date, relative-time and byte-size formatting helpers (Africa/Algiers timezone, fr-FR locale) shared across the dashboard and admin UI."
+    },
+    "file:lib/guard.ts": {
+      "name": "guard.ts",
+      "type": "file",
+      "summary": "Server-side auth guards used by every dashboard/admin page and server action: reading the current session/user, requiring sign-in or staff role, requiring a specific permission (with a named redirect), and asserting ownership-or-permission for a resource."
+    },
+    "file:lib/kv.ts": {
+      "name": "kv.ts",
+      "type": "file",
+      "summary": "Parsing/formatting helpers for the simple 'key: value' text-area format used by a few admin forms (free-form specs and quota grants), including validation of quota grant syntax."
+    },
+    "file:lib/permissions.ts": {
+      "name": "permissions.ts",
+      "type": "file",
+      "summary": "The authorization core: role/permission domain definitions and admin-UI labels, plus can()/isStaff()/effectivePermissions(), which resolve a permission by layering an account's explicit permissions jsonb over its role's defaults."
+    },
+    "file:lib/quotas.ts": {
+      "name": "quotas.ts",
+      "type": "file",
+      "summary": "Consumable-quota engine: granting/revoking a plan's quota metrics to a user, atomically consuming and refunding usage with lazy period resets, and listing a user's quotas and provisioned subscriptions."
+    },
+    "file:lib/realtime.ts": {
+      "name": "realtime.ts",
+      "type": "file",
+      "summary": "Server-Sent-Events backbone built on Postgres LISTEN/NOTIFY: publish()/publishMany() NOTIFY a per-user channel after a DB write, and subscribe() (used by the SSE route) registers a callback and lazily owns one dedicated, auto-reconnecting LISTEN client on the unpooled connection."
+    },
+    "file:lib/requests.ts": {
+      "name": "requests.ts",
+      "type": "file",
+      "summary": "Domain constants and helpers for support requests: status/type/priority enums and their French labels, the allowed status transition graph, and status-badge color tones."
+    },
+    "file:__tests__/document-overrides.test.tsx": {
+      "name": "document-overrides.test.tsx",
+      "type": "file",
+      "summary": "Vitest suite for per-document company identity overrides: confirms effectiveCompany() falls back to Paramètres for absent keys, lets an empty string blank a printed line, validates parseOverrides()'s JSON handling, and exercises DocumentPreview's editable in-place edits for both a legal-ID field and a line item."
+    },
+    "file:__tests__/pdf.test.tsx": {
+      "name": "pdf.test.tsx",
+      "type": "file",
+      "summary": "Node-environment Vitest suite that renders the devis/facture @react-pdf/renderer document (BillingDocument) with a full company identity, with a blank one, and across 60 lines to force pagination, plus a unit check that pdfMoney() encodes with a plain space Helvetica can render."
+    },
+    "file:__tests__/platform.test.ts": {
+      "name": "platform.test.ts",
+      "type": "file",
+      "summary": "Pins the dashboard's pure decision logic with no database involved: the can()/isStaff() authorization model, request status transitions, WC/DV/FA reference-code sequencing, money math (line totals, VAT-free parsing/formatting), quota progress (unlimited vs not-included vs remaining), and derived billing status (en_retard, expired quotes) — documented as rules a UI control and a server action both rely on, so a regression here is a silent authorization or billing bug."
+    },
+    "file:app/(app)/admin/abonnements/ServiceForm.tsx": {
+      "name": "ServiceForm.tsx",
+      "type": "file",
+      "summary": "Client form for provisioning or editing a client's subscribed service (subscription), letting the desk pick a catalogue plan to prefill price/period/spec or describe a bespoke service, plus a separate confirm-to-delete form for removing a provisioned service."
+    },
+    "file:app/(app)/admin/catalogue/CatalogueForm.tsx": {
+      "name": "CatalogueForm.tsx",
+      "type": "file",
+      "summary": "Client form for creating or editing a sellable service-catalogue item (name, category, price, specs, quota grants), plus a type-to-confirm delete form that keeps already-sold subscriptions intact when an offer is removed."
+    },
+    "file:app/(app)/admin/demandes/[id]/RequestControls.tsx": {
+      "name": "RequestControls.tsx",
+      "type": "file",
+      "summary": "The four desk-side controls on a client request: change status (only to states nextStatuses() permits), assign an owner and priority, edit the client's own title/description/budget, and a type-to-confirm delete — deliberately four separate forms so each server action logs a distinct, unambiguous change."
+    },
+    "file:app/(app)/admin/devis/[id]/QuoteActions.tsx": {
+      "name": "QuoteActions.tsx",
+      "type": "file",
+      "summary": "Renders only the quote actions valid for its current status: PDF preview/download links, send/resend by e-mail, convert an accepted quote to an invoice, a link to provision the resulting service, and a confirm-to-delete that requires typing the reference once the client has already seen the document."
+    },
+    "file:app/(app)/admin/devis/[id]/page.tsx": {
+      "name": "page.tsx",
+      "type": "file",
+      "summary": "Admin quote detail page: loads the quote with its client, resolves the effective (per-document override) company identity, and renders either the live DocumentEditor (draft/sent quotes) or a read-only DocumentPreview (answered quotes) alongside client info, status, linked invoice and linked request panels."
+    },
+    "file:app/(app)/admin/devis/actions.ts": {
+      "name": "actions.ts",
+      "type": "file",
+      "summary": "Server actions for the lifecycle of a quote (devis): save (draft create/update, refuses edits once the client has answered), send/resend by e-mail with PDF attached and client notification, convert an accepted quote into an invoice by copying its lines, and delete (plain confirm for drafts, reference-typed confirm once sent)."
+    },
+    "file:app/(app)/admin/devis/nouveau/page.tsx": {
+      "name": "page.tsx",
+      "type": "file",
+      "summary": "New-quote admin page: checks quotes:write, loads billable clients and the company identity, optionally prefilling from a linked request id in the query string, and renders the DocumentEditor for a blank devis."
+    },
+    "file:app/(app)/admin/factures/InvoiceActions.tsx": {
+      "name": "InvoiceActions.tsx",
+      "type": "file",
+      "summary": "Invoice-detail action panel: PDF preview/download links, send/resend by e-mail (issues the invoice on first send), and a confirm-to-delete that requires the reference once the invoice has been emitted."
+    },
+    "file:app/(app)/admin/factures/InvoiceControls.tsx": {
+      "name": "InvoiceControls.tsx",
+      "type": "file",
+      "summary": "Small inline form to move an invoice through its statuses (mainly marking it paid) and adjust its due date, since there is no payment provider and a human sets invoice state by hand."
+    },
+    "file:app/(app)/admin/factures/[id]/page.tsx": {
+      "name": "page.tsx",
+      "type": "file",
+      "summary": "Admin invoice detail page: loads the invoice with its client and originating quote, resolves the effective per-document company identity, and renders the live DocumentEditor for an editable invoice or a read-only DocumentPreview for a closed one, alongside client, status controls and action panels."
+    },
+    "file:app/(app)/admin/factures/actions.ts": {
+      "name": "actions.ts",
+      "type": "file",
+      "summary": "Server actions for the invoice lifecycle: save (create/update, refuses paid/cancelled invoices), send/resend by e-mail (issues on first send, stamps issuedAt), status transitions (stamps issuedAt/paidAt on the transition rather than recomputing, notifies the client when marked paid), and delete (plain confirm for drafts, reference-typed confirm once emitted)."
+    },
+    "file:app/(app)/admin/factures/nouveau/page.tsx": {
+      "name": "page.tsx",
+      "type": "file",
+      "summary": "New-invoice admin page: checks invoices:write, loads billable clients and the company identity, and renders the DocumentEditor for a blank facture."
+    },
+    "file:app/(app)/admin/journal/PurgeForm.tsx": {
+      "name": "PurgeForm.tsx",
+      "type": "file",
+      "summary": "Confirm-gated form that purges activity-log entries older than a chosen date; the purge action itself stays recorded in the journal."
+    },
+    "file:app/(app)/admin/notifications/envoyer/BroadcastForm.tsx": {
+      "name": "BroadcastForm.tsx",
+      "type": "file",
+      "summary": "Compose-a-broadcast form: picks a recipient segment (all active, clients only, team, recent signups, or a specific plan's customers) and shows the live recipient count computed server-side before sending a titled message with an optional e-mail copy."
+    },
+    "file:app/(app)/admin/notifications/envoyer/segments.ts": {
+      "name": "segments.ts",
+      "type": "file",
+      "summary": "Shared constant list of broadcast recipient segments (tous, clients, équipe, nouveaux, plan) and their value union, pulled out of the '\"use server\"' actions file because a server-actions module may only export async functions."
+    },
+    "file:app/(app)/admin/parametres/CompanyForm.tsx": {
+      "name": "CompanyForm.tsx",
+      "type": "file",
+      "summary": "The header/footer/legal/bank identity printed on every devis and facture PDF: company name, legal IDs (RC/NIF/NIS/AI), bank details, VAT rate, logo/signature pickers, and free-text terms — every field optional so an admin can start sending quotes before the paperwork is fully collected."
+    },
+    "file:app/(app)/admin/parametres/SettingsForm.tsx": {
+      "name": "SettingsForm.tsx",
+      "type": "file",
+      "summary": "Platform-wide switches form: magic-link sign-in, open registration, required e-mail verification, and the announcement banner shown across both dashboard shells."
+    },
+    "file:app/(app)/admin/parametres/actions.ts": {
+      "name": "actions.ts",
+      "type": "file",
+      "summary": "Server actions for platform settings: updateSettings writes each app_settings key individually so a switch un-ticking turns it off rather than leaving it untouched, and updateCompany validates the logo/signature are PNG or JPEG attachments (the PDF engine can't embed anything else) before saving the printed company identity."
+    },
+    "file:app/(app)/admin/utilisateurs/[id]/UserControls.tsx": {
+      "name": "UserControls.tsx",
+      "type": "file",
+      "summary": "Every control on the admin user detail page, one form per action: profile fields, role change, the permission-matrix editor (draft state reseeded on role change, only exceptions to the role's defaults are saved), per-metric quota grants, suspend/unsuspend, an internal message, impersonation, and a type-to-confirm irreversible account delete."
+    },
+    "file:app/(app)/admin/utilisateurs/nouveau/CreateUserForm.tsx": {
+      "name": "CreateUserForm.tsx",
+      "type": "file",
+      "summary": "Opens a new client or staff account from the back-office; the password field is optional and left blank triggers a generated password shown once in the success banner, which is the whole reason this page exists instead of just sending a sign-up link."
+    },
+    "file:app/(app)/dashboard/demandes/nouvelle/NewRequestForm.tsx": {
+      "name": "NewRequestForm.tsx",
+      "type": "file",
+      "summary": "Client form (`use client`) for submitting a new support/service request, bound to the `createRequest` server action via `useActionState` with no duplicated client-side validation."
+    },
+    "file:app/(app)/dashboard/devis/[id]/QuoteDecision.tsx": {
+      "name": "QuoteDecision.tsx",
+      "type": "file",
+      "summary": "Client component rendering Accept/Refuse buttons for a quote as one plain form bound to `respondToQuote`, so the decision works before hydration."
+    },
+    "file:app/(app)/dashboard/devis/[id]/page.tsx": {
+      "name": "page.tsx",
+      "type": "file",
+      "summary": "Client-facing quote detail page: fetches an owned, non-draft quote joined to its originating request, shows the line items, PDF links, expiry/status messaging, and the accept/refuse control."
+    },
+    "file:app/(app)/dashboard/devis/page.tsx": {
+      "name": "page.tsx",
+      "type": "file",
+      "summary": "Client dashboard page listing all quotes issued to the signed-in user, with status chips and an empty state linking to a new request."
+    },
+    "file:app/(app)/dashboard/factures/page.tsx": {
+      "name": "page.tsx",
+      "type": "file",
+      "summary": "Client dashboard page listing invoices with TTC totals (owed vs paid), bank details for outstanding ones, and links to the generated PDF documents."
+    },
+    "file:components/dashboard/MoneyLines.tsx": {
+      "name": "MoneyLines.tsx",
+      "type": "file",
+      "summary": "Read-only line-item table shared by quote/invoice detail pages: renders each line's quantity/unit price/subtotal plus the VAT and grand total."
+    },
+    "file:components/dashboard/billing/DocumentEditor.tsx": {
+      "name": "DocumentEditor.tsx",
+      "type": "file",
+      "summary": "Staff-side editor for creating/editing a quote or invoice: client picker, line items, currency, notes, and a tabbed panel for per-document company identity overrides, wired to a live `DocumentPreview`."
+    },
+    "file:components/dashboard/billing/DocumentPreview.tsx": {
+      "name": "DocumentPreview.tsx",
+      "type": "file",
+      "summary": "HTML mirror of the billing PDF layout used as a live, editable preview: renders at A4 width and scales to fit, with each field a `contentEditable` span that commits on blur."
+    },
+    "file:components/dashboard/billing/ImagePicker.tsx": {
+      "name": "ImagePicker.tsx",
+      "type": "file",
+      "summary": "Logo/signature upload control for the document editor: validates PNG/JPEG, uploads via `uploadFile`, and shows a preview with a reset option."
+    },
+    "file:components/dashboard/ui.tsx": {
+      "name": "ui.tsx",
+      "type": "file",
+      "summary": "Shared dashboard form/UI primitives — labeled inputs, textareas, checkboxes, selects, a submit button, an action-state alert, status chips, an empty state, and a two-step destructive `ConfirmButton` — plus a re-export of HeroUI's `Button`/`Chip`."
+    },
+    "file:lib/actions.ts": {
+      "name": "actions.ts",
+      "type": "file",
+      "summary": "Shared server-action plumbing: the `ActionState` shape every dashboard action returns, a `parseForm` helper that validates `FormData` against a Zod schema while preserving typed values on failure, and small `fail`/`succeed` result builders plus reusable Zod fragments for optional text and checkboxes."
+    },
+    "file:lib/billing-lines.ts": {
+      "name": "billing-lines.ts",
+      "type": "file",
+      "summary": "Form-parsing helpers for billing documents: reads parallel line-item fields from `FormData` into typed lines, allocates the next sequential document reference for a given prefix/table, and parses/validates company identity overrides including logo/signature attachment checks."
+    },
+    "file:lib/billing-preview.ts": {
+      "name": "billing-preview.ts",
+      "type": "file",
+      "summary": "Converts persisted billing lines/cents into the string-based shape the editable `DocumentPreview` form uses, and builds a full preview document object from draft input."
+    },
+    "file:lib/billing-send.ts": {
+      "name": "billing-send.ts",
+      "type": "file",
+      "summary": "Renders a quote or invoice to PDF, stores it as an attachment when object storage is configured, and e-mails it to the client with a themed message and an in-app link, then stamps `sentAt`/`pdfKey` on the source row."
+    },
+    "file:lib/billing.ts": {
+      "name": "billing.ts",
+      "type": "file",
+      "summary": "Status vocabulary and small predicates for quotes and invoices: valid status lists, French labels and status-chip tones, quote-expiry and invoice-overdue detection."
+    },
+    "file:lib/company.ts": {
+      "name": "company.ts",
+      "type": "file",
+      "summary": "The default company identity used on billing documents, the field keys that can be overridden per document, a length-capped Zod schema for those overrides, and `effectiveCompany`/`parseOverrides` to merge and validate them."
+    },
+    "file:lib/money.ts": {
+      "name": "money.ts",
+      "type": "file",
+      "summary": "Money primitives used everywhere billing amounts are handled: cents-based line/total sums, French currency formatting, a tolerant string-to-cents parser, and `withVat` for the one TTC formula."
+    },
+    "file:lib/pdf/BillingDocument.tsx": {
+      "name": "BillingDocument.tsx",
+      "type": "file",
+      "summary": "`@react-pdf/renderer` document component rendering a devis or facture as a styled A4 PDF — header, client block, line-item table, totals, bank details and legal footer — using company identity resolved per document."
+    },
+    "file:lib/pdf/render.ts": {
+      "name": "render.ts",
+      "type": "file",
+      "summary": "Server-side PDF renderer: loads a quote or invoice with its client, resolves the effective company identity, fetches the logo/signature bytes from object storage, and renders `BillingDocument` to a PDF buffer."
+    },
+    "file:lib/quota-labels.ts": {
+      "name": "quota-labels.ts",
+      "type": "file",
+      "summary": "Display labels and tones for the services/subscriptions/quotas domain: metric names, a standing-vs-consumable metric check, subscription status labels/tones, and service category/billing-period labels."
+    },
+    "file:lib/ref.ts": {
+      "name": "ref.ts",
+      "type": "file",
+      "summary": "Builds and parses the `PREFIX-YYMM-NNNN` reference codes used for requests, quotes and invoices, and computes the next sequence number per prefix/period from the existing refs (the caller retries on a unique-index collision)."
+    },
+    "file:lib/server/queries.ts": {
+      "name": "queries.ts",
+      "type": "file",
+      "summary": "Central server-only Drizzle query layer for the dashboard/admin: requests, messages, attachments, documents (quotes/invoices), demo runs, contact leads, staff assignees, admin/client dashboard counters, the unread-lead badge count, a merged request thread, and the billable-clients list."
+    },
+    "file:lib/settings.ts": {
+      "name": "settings.ts",
+      "type": "file",
+      "summary": "Typed key/value app settings store (`app_settings`): defaults, allowed keys, get/set helpers, and `getDocumentCompany`/`getCompany` which resolve the stored company identity (optionally merged with per-document overrides) for billing documents."
+    },
+    "file:components/ui/Accordion.tsx": {
+      "name": "Accordion.tsx",
+      "type": "file",
+      "summary": "Expandable FAQ/accordion list primitive with GSAP-animated open/close height transitions and single-item-open behavior."
+    },
+    "file:components/ui/Badge.tsx": {
+      "name": "Badge.tsx",
+      "type": "file",
+      "summary": "Small pill-shaped label primitive used for eyebrow/mini-title badges across marketing sections."
+    },
+    "file:components/ui/Button.tsx": {
+      "name": "Button.tsx",
+      "type": "file",
+      "summary": "Primary button/link primitive with primary/secondary/ghost variants and an optional animated trailing arrow icon."
+    },
+    "file:components/ui/Container.tsx": {
+      "name": "Container.tsx",
+      "type": "file",
+      "summary": "Centered max-width layout wrapper (1280px) with responsive horizontal padding, used to align section content site-wide."
+    },
+    "file:components/ui/ErrorBoundary.tsx": {
+      "name": "ErrorBoundary.tsx",
+      "type": "file",
+      "summary": "Class-based React error boundary that swaps in a fallback UI when a non-essential widget (e.g. the WebGL hero scene) throws, instead of crashing the page."
+    },
+    "file:components/ui/HandUnderline.tsx": {
+      "name": "HandUnderline.tsx",
+      "type": "file",
+      "summary": "Shared hand-drawn SVG underline used to accent key words (e.g. in HighlightsReel and DeviceShowcase); fills with the signal accent color and lets the caller control the draw-in animation via className."
+    },
+    "file:components/ui/Icon.tsx": {
+      "name": "Icon.tsx",
+      "type": "file",
+      "summary": "Shared stroke-icon component rendering a 24x24 SVG path from a hand-drawn registry covering both marketing icons and dashboard chrome icons (bell, settings, panel-left-close, sun/moon, etc.), keyed by IconName."
+    },
+    "file:components/ui/LivePreview.tsx": {
+      "name": "LivePreview.tsx",
+      "type": "file",
+      "summary": "Iframe component that embeds a live external site at a real desktop/mobile viewport and scales it down to fit its box, layered over a fallback and gated by a server-side embeddability check plus a load timeout."
+    },
+    "file:components/ui/LoadingImage.tsx": {
+      "name": "LoadingImage.tsx",
+      "type": "file",
+      "summary": "next/image wrapper that covers image decode with an opaque skeleton sweep, cross-fades the photo in on load, and renders nothing on error so the mock underneath shows through instead of a broken image."
+    },
+    "file:components/ui/MediaSlot.tsx": {
+      "name": "MediaSlot.tsx",
+      "type": "file",
+      "summary": "Renders one media frame for a solution's gallery/hero slot: a generated on-brand mock (dashboard, scan, chart, video, or image style) always underneath, with the real asset layered on top via LoadingImage when set."
+    },
+    "file:components/ui/Reveal.tsx": {
+      "name": "Reveal.tsx",
+      "type": "file",
+      "summary": "Generic GSAP + ScrollTrigger scroll-reveal wrapper: animates [data-reveal-item] descendants (or the wrapper itself) in with a stagger as they enter the viewport, rendering fully visible on the server for SEO/no-JS safety."
+    },
+    "file:components/ui/SectionHeading.tsx": {
+      "name": "SectionHeading.tsx",
+      "type": "file",
+      "summary": "Standard homepage section heading: optional signal-accent eyebrow Badge, large display h2 title, and optional description paragraph, wrapped in Reveal for scroll-in animation."
+    },
+    "file:components/ui/SocialIcon.tsx": {
+      "name": "SocialIcon.tsx",
+      "type": "file",
+      "summary": "Filled-glyph social network icon set (LinkedIn, Facebook, Instagram, X, YouTube, TikTok) plus their display labels, used by the footer's social links which are edited in /admin/site."
+    },
+    "file:components/ui/StatCounter.tsx": {
+      "name": "StatCounter.tsx",
+      "type": "file",
+      "summary": "Animates the leading number inside a stat string (e.g. \"99,2%\", \"< 2 s\", \"24/7\") counting up from 0 once it scrolls into view, preserving prefix/suffix text and decimal formatting."
+    },
+    "file:components/ui/Tabs.tsx": {
+      "name": "Tabs.tsx",
+      "type": "file",
+      "summary": "Simple tabbed content primitive: renders tab buttons plus a render-prop child fed the active tab id, used for audience/solution tab switchers."
+    },
+    "file:components/ui/Turnstile.tsx": {
+      "name": "Turnstile.tsx",
+      "type": "file",
+      "summary": "Cloudflare Turnstile CAPTCHA widget wrapper, explicit-rendered for a real callback/widget id, with reset-on-resubmit support so a stale single-use token doesn't silently fail a second form submission."
+    },
+    "file:components/ui/TypeCycle.tsx": {
+      "name": "TypeCycle.tsx",
+      "type": "file",
+      "summary": "Typewriter-effect component that types and deletes a rotating list of words character by character behind a glowing caret, rendering the first word statically on the server to avoid layout shift for crawlers."
+    },
+    "file:lib/cn.ts": {
+      "name": "cn.ts",
+      "type": "file",
+      "summary": "Tiny classnames-joining utility that filters out falsy values and joins the rest with a space; used throughout components/ui and sections instead of a classnames dependency."
+    },
+    "file:lib/content/schema.ts": {
+      "name": "schema.ts",
+      "type": "file",
+      "summary": "Zod schemas defining the full editable shape of the public site's content (general/SEO/socials, hero, footer, every homepage section, and solution copy/media) — shared by the /admin/site client editors, server actions, and the read-time validators in lib/content/index.ts."
+    },
+    "file:lib/gsap.ts": {
+      "name": "gsap.ts",
+      "type": "file",
+      "summary": "Registers the GSAP ScrollTrigger plugin once on the client and re-exports gsap/ScrollTrigger for use across animated components."
+    },
+    "file:lib/palette.ts": {
+      "name": "palette.ts",
+      "type": "file",
+      "summary": "Maps each solution's PaletteToken (teal/aqua/steel) to fill, ground-adaptive text, and border Tailwind classes, keeping each solution's per-identity color consistent across the site."
+    },
+    "file:lib/scrollLock.ts": {
+      "name": "scrollLock.ts",
+      "type": "file",
+      "summary": "Freezes page scroll for a full-screen overlay by setting body overflow:hidden and compensating the scrollbar-width gap with right padding, avoiding a layout reflow on open/close; returns an undo function."
+    },
+    "file:lib/types.ts": {
+      "name": "types.ts",
+      "type": "file",
+      "summary": "Core marketing-site type definitions: the IconName registry (runtime array + type), MediaSlot descriptor, and the full Service interface describing every solution's copy, structure, and media fields (including highlight/showcase/preview slots)."
+    },
+    "file:__tests__/password.test.ts": {
+      "name": "password.test.ts",
+      "type": "file",
+      "summary": "Vitest suite that runs the password generator 500 times, asserting every generated password satisfies all of lib/password.ts's strength rules."
+    },
+    "file:app/(app)/admin/layout.tsx": {
+      "name": "layout.tsx",
+      "type": "file",
+      "summary": "Server layout for the /admin route group: gates access with requireStaff, loads unread count, announcement setting, impersonation state and theme, filters ADMIN_NAV by permission, and renders AppShell."
+    },
+    "file:app/(app)/dashboard/layout.tsx": {
+      "name": "layout.tsx",
+      "type": "file",
+      "summary": "Server layout for the client /dashboard route group: requires a signed-in user, redirects staff/admin accounts to /admin (a staff member has one dashboard), and renders AppShell with CLIENT_NAV."
+    },
+    "file:app/(auth)/compte-suspendu/page.tsx": {
+      "name": "page.tsx",
+      "type": "file",
+      "summary": "Page shown to a banned/suspended account, telling them to contact support; reads the current user to personalize the message and renders a sign-out link."
+    },
+    "file:app/(auth)/connexion/page.tsx": {
+      "name": "page.tsx",
+      "type": "file",
+      "summary": "Sign-in page: redirects an already-authenticated visitor to their role-based destination, otherwise renders SignInForm with Google/magic-link availability read from site settings."
+    },
+    "file:app/(auth)/inscription/page.tsx": {
+      "name": "page.tsx",
+      "type": "file",
+      "summary": "Client sign-up page: redirects an already-authenticated visitor away, otherwise renders SignUpForm gated by the registrationOpen and googleEnabled site settings."
+    },
+    "file:app/(auth)/mot-de-passe-oublie/page.tsx": {
+      "name": "page.tsx",
+      "type": "file",
+      "summary": "Minimal forgot-password page that renders ForgotPasswordForm to request a reset link."
+    },
+    "file:app/(auth)/reinitialiser/page.tsx": {
+      "name": "page.tsx",
+      "type": "file",
+      "summary": "Password reset page that renders ResetPasswordForm, which reads the reset token from the query string on the client."
+    },
+    "file:app/api/auth/[...all]/route.ts": {
+      "name": "route.ts",
+      "type": "file",
+      "summary": "Catch-all API route that hands every /api/auth/* request to Better Auth's Next.js handler, exposing GET and POST for all auth endpoints (sign-in, sign-up, session, admin, magic link)."
+    },
+    "file:components/auth/AuthForms.tsx": {
+      "name": "AuthForms.tsx",
+      "type": "file",
+      "summary": "Client components for every auth form (sign-in, sign-up, forgot/reset password, sign-out) plus shared UI pieces (password strength field with generator, Google button, alerts); each form calls Better Auth's client directly and routes by role on success."
+    },
+    "file:components/dashboard/AppShell.tsx": {
+      "name": "AppShell.tsx",
+      "type": "file",
+      "summary": "The shared chrome for /dashboard and /admin: collapsible sidebar (open/closed/hover), top bar with avatar, theme toggle, notification bell and impersonation banner; full-bleed row with the width cap only on the main content per the platform's layout rule."
+    },
+    "file:components/dashboard/RealtimeProvider.tsx": {
+      "name": "RealtimeProvider.tsx",
+      "type": "file",
+      "summary": "Client-side SSE consumer: opens one EventSource per tab against /api/realtime, keeps the unread notification count and a toast stack in sync, and debounces router.refresh on incoming events."
+    },
+    "file:components/dashboard/nav.ts": {
+      "name": "nav.ts",
+      "type": "file",
+      "summary": "Declares the client (CLIENT_NAV) and staff/admin (ADMIN_NAV, including Mon profil) navigation trees consumed by AppShell, plus the isActive path-matching helper."
+    },
+    "file:lib/auth-client.ts": {
+      "name": "auth-client.ts",
+      "type": "file",
+      "summary": "Better Auth React client instance configured with the admin and magic-link plugins, re-exporting signIn/signUp/signOut/useSession/getSession for use across auth forms and dashboard components."
+    },
+    "file:lib/auth.ts": {
+      "name": "auth.ts",
+      "type": "file",
+      "summary": "The Better Auth server instance: Drizzle Postgres adapter, email+password and optional Google sign-in, gated magic link, a before-hook enforcing passwordProblem on sign-up/reset, and a databaseHooks.user.create.before that promotes the ADMIN_EMAIL sign-up to admin."
+    },
+    "file:lib/password.ts": {
+      "name": "password.ts",
+      "type": "file",
+      "summary": "Single source of truth for password strength rules (as data, not a regex) plus a crypto.getRandomValues-based generator that satisfies every rule by construction; consumed by the sign-up form, the server-side auth hook, and admin account creation."
+    },
+    "file:lib/theme-server.ts": {
+      "name": "theme-server.ts",
+      "type": "file",
+      "summary": "Server-side helper that reads the theme cookie and parses it into a valid THEMES value for use in server-rendered layouts."
+    },
+    "file:lib/theme.ts": {
+      "name": "theme.ts",
+      "type": "file",
+      "summary": "Shared theme constants (cookie name, THEMES tuple) and pure helpers to validate a stored theme value and resolve whether the effective theme is dark, including system-preference detection."
+    },
+    "file:__tests__/demos.test.ts": {
+      "name": "demos.test.ts",
+      "type": "file",
+      "summary": "Vitest suite for the demo system's crypto and block-parsing primitives: AES-GCM round-trip/AAD-binding behavior in lib/crypto.ts, and schema validation, secret declaration, expiry logic, and slug generation in lib/demos.ts."
+    },
+    "file:app/(app)/admin/demos/DemoControls.tsx": {
+      "name": "DemoControls.tsx",
+      "type": "file",
+      "summary": "Client-side forms used on the admin demo detail page: granting a demo to filtered clients, the staff reply form for a customer run, and the type-to-confirm delete control."
+    },
+    "file:app/(app)/admin/demos/DemoEditor.tsx": {
+      "name": "DemoEditor.tsx",
+      "type": "file",
+      "summary": "The staff-facing demo editor: builds and reorders an ordered list of typed blocks (link, credentials, markdown, html, file, ssh, upload), posting each as one JSON hidden input, with a secret-entry sub-form for credential and SSH values."
+    },
+    "file:app/(app)/admin/demos/[id]/page.tsx": {
+      "name": "[id]/page.tsx",
+      "type": "file",
+      "summary": "Admin demo detail page: loads a demo with its live grants, stored files, secret labels and submission runs, and renders the editor plus grant/answer/delete controls behind permission checks."
+    },
+    "file:app/(app)/admin/demos/actions.ts": {
+      "name": "actions.ts",
+      "type": "file",
+      "summary": "Server actions for the admin demo system: create/update a demo (validating and encrypting its declared secrets), delete a demo or one of its files, grant/revoke/delete client access, and answer or delete a customer's demo run."
+    },
+    "file:app/(app)/admin/demos/nouveau/page.tsx": {
+      "name": "nouveau/page.tsx",
+      "type": "file",
+      "summary": "Admin 'new demo' page: requires demos:write and renders an empty DemoEditor pre-loaded with the solution list and encryption/storage availability."
+    },
+    "file:app/(app)/admin/parametres/page.tsx": {
+      "name": "parametres/page.tsx",
+      "type": "file",
+      "summary": "Admin settings page showing the live configuration state of optional integrations (storage, e-mail, encryption) alongside the company/billing settings forms, so a missing key is never silently assumed."
+    },
+    "file:app/(app)/dashboard/demos/[slug]/page.tsx": {
+      "name": "[slug]/page.tsx",
+      "type": "file",
+      "summary": "Client-facing demo detail page: resolves the visitor's entitlement to the demo by slug, loads its files and run history, and renders DemoBlocks or a 404 if not entitled."
+    },
+    "file:app/(app)/dashboard/demos/page.tsx": {
+      "name": "demos/page.tsx",
+      "type": "file",
+      "summary": "Client-facing list of every demo the signed-in visitor is entitled to, showing status, block kinds and expiry."
+    },
+    "file:components/dashboard/FileUpload.tsx": {
+      "name": "FileUpload.tsx",
+      "type": "file",
+      "summary": "Reusable client-side file uploader: picks a file, presigns and PUTs it through lib/upload-client.ts, reports progress and size errors, and refreshes the router on success."
+    },
+    "file:components/dashboard/demos/DemoBlocks.tsx": {
+      "name": "DemoBlocks.tsx",
+      "type": "file",
+      "summary": "Client-facing renderer for a demo's ordered blocks: link/embed, revealable credentials, markdown, sandboxed html, downloadable files, ssh access, and the upload block that drives the OCR-style submit/review workflow."
+    },
+    "file:components/dashboard/demos/RevealSecret.tsx": {
+      "name": "RevealSecret.tsx",
+      "type": "file",
+      "summary": "Click-to-reveal control for an encrypted demo secret: fetches the decrypted value from /api/demos/secret on demand, auto-hides it after a timeout, and offers a copy-to-clipboard action."
+    },
+    "file:lib/crypto.ts": {
+      "name": "crypto.ts",
+      "type": "file",
+      "summary": "AES-256-GCM encryption at rest for demo secrets (passwords, SSH keys): a versioned base64url blob format, per-value random IV, and an AAD binding each ciphertext to its owning row so a copied ciphertext fails to decrypt elsewhere."
+    },
+    "file:lib/demos.ts": {
+      "name": "demos.ts",
+      "type": "file",
+      "summary": "Zod schemas and shared helpers for the demo block system: one schema per block kind (link, credentials, markdown, html, file, ssh, upload), status/visibility/outcome label maps, secret declaration, expiry resolution, and slug generation."
+    },
+    "file:lib/markdown.tsx": {
+      "name": "markdown.tsx",
+      "type": "file",
+      "summary": "A small hand-written Markdown-to-React renderer (headings, bold/italic/code, links with a scheme allowlist, lists, blockquotes, horizontal rules, paragraphs) used to render demo markdown blocks without a parser dependency."
+    },
+    "file:lib/server/demos.ts": {
+      "name": "server/demos.ts",
+      "type": "file",
+      "summary": "Server-only data access for the demo entitlement model: resolves whether a user has live (non-revoked, non-expired) access to a demo, and lists demos, files and runs scoped to that entitlement — the single seam used by pages, the upload route and the secret route."
+    },
+    "file:lib/storage.ts": {
+      "name": "storage.ts",
+      "type": "file",
+      "summary": "Neon Object Storage client (S3-compatible, forcePathStyle): presigned upload/download URLs, content-type allowlists, per-user key namespacing, and streaming/byte reads used by uploads, demo files, billing PDFs and the site media route."
+    },
+    "file:app/(app)/dashboard/demandes/[id]/CloseRequestButton.tsx": {
+      "name": "CloseRequestButton.tsx",
+      "type": "file",
+      "summary": "Client component for the client dashboard's request detail page that arms then submits a two-step close action for a support request, avoiding an unstyleable native confirm() dialog."
+    },
+    "file:app/(app)/dashboard/demandes/[id]/page.tsx": {
+      "name": "page.tsx",
+      "type": "file",
+      "summary": "Server component rendering a client's single support request: details, the message thread with composer, request metadata, and any linked quotes."
+    },
+    "file:components/dashboard/ChatComposer.tsx": {
+      "name": "ChatComposer.tsx",
+      "type": "file",
+      "summary": "Form component for replying to a request thread: grows a textarea, manages an internal-note toggle and file attachments, submits via a server action, then uploads any queued files through the presigned upload client."
+    },
+    "file:components/dashboard/Thread.tsx": {
+      "name": "Thread.tsx",
+      "type": "file",
+      "summary": "Shared conversation UI used by both the client and staff dashboards: groups messages by author/day, shows an unread divider and 'Lu' read receipts, and renders attachments alongside day-separated chat bubbles."
+    },
+    "file:components/dashboard/ThreadViewport.tsx": {
+      "name": "ThreadViewport.tsx",
+      "type": "file",
+      "summary": "Scrollable viewport wrapper around a message thread that auto-scrolls to the bottom on new messages, tracks whether the reader has scrolled away, and fires onOpen when the thread becomes visible."
+    },
+    "file:lib/upload-client.ts": {
+      "name": "upload-client.ts",
+      "type": "file",
+      "summary": "Browser-side upload helper: requests a presigned URL, PUTs the file via XHR with progress events, then records the attachment server-side. Used by every file-upload component in the dashboard."
+    },
+    "file:app/(auth)/AuthBackdrop.tsx": {
+      "name": "AuthBackdrop.tsx",
+      "type": "file",
+      "summary": "Decorative background for the auth split-screen: layered SVG wave lines fade out once the dynamically imported AuthScene 3D scene is ready, which itself only mounts on desktop widths with no reduced-motion preference."
+    },
+    "file:app/(auth)/AuthVisual.tsx": {
+      "name": "AuthVisual.tsx",
+      "type": "file",
+      "summary": "Static hand-drawn SVG illustration (a dashboard mockup with folder/team cards and a flowing accent line) shown in the auth layout's pitch panel next to the sign-in/sign-up form."
+    },
+    "file:app/(auth)/layout.tsx": {
+      "name": "layout.tsx",
+      "type": "file",
+      "summary": "Layout for the (auth) route group (/connexion, /inscription, /mot-de-passe-oublie, etc.): a light textured ground (.texture-weave-soft) with a two-panel split — a pitch panel (AuthVisual + copy) hidden below lg, and the form card holding the page's children."
+    },
+    "service:Dockerfile": {
+      "name": "Dockerfile",
+      "type": "service",
+      "summary": "Multi-stage Docker build for the production Next.js 16 image: installs dependencies with a frozen pnpm lockfile, builds the standalone output with the public NEXT_PUBLIC_* build args, then ships a minimal Alpine runtime that runs as a non-root user on port 3000."
+    },
+    "service:Dockerfile:base": {
+      "name": "base",
+      "type": "service",
+      "summary": "Base stage: node:22-alpine with libc6-compat installed (for native deps expecting glibc symbols on musl) and Corepack enabled for pnpm; every later stage builds from it."
+    },
+    "service:Dockerfile:deps": {
+      "name": "deps",
+      "type": "service",
+      "summary": "Installs dependencies with `pnpm install --frozen-lockfile` from only the lockfile-affecting files (package.json, pnpm-lock.yaml, pnpm-workspace.yaml), so this layer caches across source-only changes."
+    },
+    "service:Dockerfile:builder": {
+      "name": "builder",
+      "type": "service",
+      "summary": "Copies node_modules from deps plus the full source, injects NEXT_PUBLIC_SITE_URL and NEXT_PUBLIC_TURNSTILE_SITE_KEY as build ARGs (Next inlines NEXT_PUBLIC_* vars into the client bundle at build time, not at container start), and runs `pnpm build`."
+    },
+    "service:Dockerfile:runner": {
+      "name": "runner",
+      "type": "service",
+      "summary": "Minimal runtime stage: creates an unprivileged nextjs user, copies public/ and the traced standalone server plus static assets from builder, and runs `node server.js` on port 3000."
+    },
+    "service:.dockerignore": {
+      "name": ".dockerignore",
+      "type": "service",
+      "summary": "Build-context exclusions for the Docker image: strips node_modules, build output, VCS/CI/editor files, local tooling/docs, and every .env* secret except .env.example, so none of it is baked into an image layer."
+    },
+    "pipeline:.github/workflows/ci-cd.yml": {
+      "name": "ci-cd.yml",
+      "type": "pipeline",
+      "summary": "GitHub Actions workflow that verifies every push and pull request against main (lint, test, build, typecheck) and, only on a push to main, builds and pushes the Docker image to Docker Hub."
+    },
+    "step:.github/workflows/ci-cd.yml:verify": {
+      "name": "verify",
+      "type": "resource",
+      "summary": "Quality-gate job that checks out the repo, installs dependencies with pnpm, then runs lint, tests, a production build, and typecheck on every push and PR."
+    },
+    "step:.github/workflows/ci-cd.yml:docker": {
+      "name": "docker",
+      "type": "resource",
+      "summary": "Publish job, gated on the verify job and on pushes to main, that logs into Docker Hub, derives image tags, and builds/pushes the image with GitHub Actions layer caching and public NEXT_PUBLIC_* build args."
+    },
+    "table:lib/db/migrations/0000_needy_jackal.sql:account": {
+      "name": "account",
+      "type": "table",
+      "summary": "Better Auth OAuth/credential account table linking a provider identity (tokens, password hash) to a user."
+    },
+    "table:lib/db/migrations/0000_needy_jackal.sql:activity_log": {
+      "name": "activity_log",
+      "type": "table",
+      "summary": "Audit trail table recording who did what to which entity, used across the admin back-office."
+    },
+    "table:lib/db/migrations/0000_needy_jackal.sql:app_settings": {
+      "name": "app_settings",
+      "type": "table",
+      "summary": "Generic key/value settings table for platform-wide configuration edited from /admin/parametres."
+    },
+    "table:lib/db/migrations/0000_needy_jackal.sql:attachments": {
+      "name": "attachments",
+      "type": "table",
+      "summary": "Uploaded file metadata table (Neon Object Storage keys) linked to a request or message, with an internal-only flag."
+    },
+    "table:lib/db/migrations/0000_needy_jackal.sql:contact_leads": {
+      "name": "contact_leads",
+      "type": "table",
+      "summary": "Inbox table for public contact-form submissions, replacing the earlier drop-on-the-floor behaviour."
+    },
+    "table:lib/db/migrations/0000_needy_jackal.sql:demo_runs": {
+      "name": "demo_runs",
+      "type": "table",
+      "summary": "Record of a single demo execution (input, result, outcome, duration) tied to a user and a service slug."
+    },
+    "table:lib/db/migrations/0000_needy_jackal.sql:invoices": {
+      "name": "invoices",
+      "type": "table",
+      "summary": "Billing invoice table storing HT line items, amount, status, and issue/due/paid timestamps, generated from a quote."
+    },
+    "table:lib/db/migrations/0000_needy_jackal.sql:notifications": {
+      "name": "notifications",
+      "type": "table",
+      "summary": "Per-user notification feed row, written by the realtime notify() helper and surfaced via SSE."
+    },
+    "table:lib/db/migrations/0000_needy_jackal.sql:plans": {
+      "name": "plans",
+      "type": "table",
+      "summary": "Service catalogue table listing what WICLOUD sells (price, features, default quota grants) shown in /admin/catalogue."
+    },
+    "table:lib/db/migrations/0000_needy_jackal.sql:quotas": {
+      "name": "quotas",
+      "type": "table",
+      "summary": "Per-user consumable metering table (limit vs used, with a lazy reset timestamp) enforced by lib/quotas.ts."
+    },
+    "table:lib/db/migrations/0000_needy_jackal.sql:quotes": {
+      "name": "quotes",
+      "type": "table",
+      "summary": "Billing quote (devis) table with HT line items, status, and validity date, the document a facture is generated from."
+    },
+    "table:lib/db/migrations/0000_needy_jackal.sql:request_messages": {
+      "name": "request_messages",
+      "type": "table",
+      "summary": "Thread message table for a client request, with an internal-only flag for staff-only notes."
+    },
+    "table:lib/db/migrations/0000_needy_jackal.sql:requests": {
+      "name": "requests",
+      "type": "table",
+      "summary": "Client request/demande table (type, status, priority, assignment, budget) that anchors the request thread and its quotes/invoices."
+    },
+    "table:lib/db/migrations/0000_needy_jackal.sql:session": {
+      "name": "session",
+      "type": "table",
+      "summary": "Better Auth session table, including impersonated_by for the admin impersonation feature."
+    },
+    "table:lib/db/migrations/0000_needy_jackal.sql:subscriptions": {
+      "name": "subscriptions",
+      "type": "table",
+      "summary": "One row per provisioned service (originally one per account); tracks plan, status and billing period, later reshaped by migration 0001."
+    },
+    "table:lib/db/migrations/0000_needy_jackal.sql:user": {
+      "name": "user",
+      "type": "table",
+      "summary": "Core user/account table (Better Auth base fields plus role, ban state, jsonb permissions overrides, and profile fields) that every other table hangs off."
+    },
+    "table:lib/db/migrations/0000_needy_jackal.sql:verification": {
+      "name": "verification",
+      "type": "table",
+      "summary": "Better Auth verification table for email verification and password-reset tokens."
+    },
+    "table:lib/db/migrations/0001_modern_darwin.sql:demo_access": {
+      "name": "demo_access",
+      "type": "table",
+      "summary": "Entitlement table granting a named customer access to a demo, soft-revoked with a timestamp and an optional expiry."
+    },
+    "table:lib/db/migrations/0001_modern_darwin.sql:demo_secrets": {
+      "name": "demo_secrets",
+      "type": "table",
+      "summary": "AES-256-GCM encrypted credential storage for a demo block, keyed to demo+block+label so ciphertext cannot be replayed against another row."
+    },
+    "table:lib/db/migrations/0001_modern_darwin.sql:demos": {
+      "name": "demos",
+      "type": "table",
+      "summary": "Owner-authored demo definition table: an ordered jsonb list of typed blocks (link, credentials, markdown, file, ssh, upload) shown to entitled customers."
+    },
+    "table:lib/db/migrations/0002_nifty_maddog.sql": {
+      "name": "0002_nifty_maddog.sql",
+      "type": "table",
+      "summary": "Two-line migration adding an overrides jsonb column to invoices and quotes, backing the per-document company identity override feature."
+    },
+    "table:lib/db/migrations/0003_sour_infant_terrible.sql:site_content": {
+      "name": "site_content",
+      "type": "table",
+      "summary": "Key/value jsonb table holding one row per editable homepage block (hero, footer, sections) for the owner's /admin/site content editor."
+    },
+    "table:lib/db/migrations/0003_sour_infant_terrible.sql:site_solutions": {
+      "name": "site_solutions",
+      "type": "table",
+      "summary": "Owner-editable solutions table (content + media jsonb, position, published) that overrides the SERVICES defaults from lib/data/services.ts."
+    },
+    "document:.agents/skills/neon-functions/references/ai-sdk.md": {
+      "name": "ai-sdk.md",
+      "type": "document",
+      "summary": "Vendored Neon plugin reference showing how to deploy a Vercel AI SDK tool-calling agent as a Neon Function against the Neon AI Gateway, including image generation and streaming the response directly to the client."
+    },
+    "document:.agents/skills/neon-functions/references/function-triggers.md": {
+      "name": "function-triggers.md",
+      "type": "document",
+      "summary": "Vendored Neon plugin reference for Function Triggers: declaring cron/object-storage triggers in neon.ts or the CLI, the delivery payload shape, and the parseTrigger* helpers for Hono and fetch handlers."
+    },
+    "document:.agents/skills/neon-functions/references/mastra-studio.md": {
+      "name": "mastra-studio.md",
+      "type": "document",
+      "summary": "Vendored Neon plugin reference for wiring a Mastra agent (defined against the Neon AI Gateway) to Mastra Studio observability, including structured output and passing credentials via neon.ts."
+    },
+    "document:.agents/skills/neon-functions/references/mcp.md": {
+      "name": "mcp.md",
+      "type": "document",
+      "summary": "Vendored Neon plugin reference for hosting an MCP server on a Neon Function, covering both OAuth (Better Auth MCP plugin) and API-key/session-JWT authentication options plus how to test the server."
+    },
+    "document:.agents/skills/neon-functions/references/sentry.md": {
+      "name": "sentry.md",
+      "type": "document",
+      "summary": "Vendored Neon plugin reference for wiring Sentry error, log, and trace monitoring into a Neon Function, including request spans, deploy-time DSN secrets, and tracing an agent's own calls."
+    },
+    "document:.agents/skills/neon-functions/references/sse.md": {
+      "name": "sse.md",
+      "type": "document",
+      "summary": "Vendored Neon plugin reference for server-sent events on Neon Functions: a minimal SSE endpoint, a Hono variant, cross-isolate broadcast, the wire format, and a client example with caveats."
+    },
+    "document:.agents/skills/neon-postgres/references/full-text-search.md": {
+      "name": "full-text-search.md",
+      "type": "document",
+      "summary": "Vendored Neon plugin reference for BM25 full-text search on Postgres: indexing text, querying and interpreting scores, and tuning the candidate limit and prefilter."
+    },
+    "document:.agents/skills/neon-postgres/references/hybrid-search.md": {
+      "name": "hybrid-search.md",
+      "type": "document",
+      "summary": "Vendored Neon plugin reference for hybrid search, combining full-text and vector search results with Reciprocal Rank Fusion (RRF) and adapting the query to a project's own schema."
+    },
+    "document:.agents/skills/neon-postgres/references/vector-search.md": {
+      "name": "vector-search.md",
+      "type": "document",
+      "summary": "Vendored Neon plugin reference for semantic vector search on Postgres: enabling the extension, preparing embeddings, building and tuning an index, and tuning query-time search parameters."
+    },
+    "document:.agents/skills/neon/references/auth.md": {
+      "name": "auth.md",
+      "type": "document",
+      "summary": "Pointer doc redirecting the neon skill's own auth questions to the separate neon-auth skill, with fetch URLs for its managed and self-managed setup references."
+    },
+    "document:.agents/skills/neon/references/claimable-neon.md": {
+      "name": "claimable-neon.md",
+      "type": "document",
+      "summary": "Reference for provisioning a temporary, pre-account Neon project via Claimable Neon (CLI and REST), covering creation, claim-code minting, transfer to a human account, and the REST fallback when `neon claim` is unavailable."
+    },
+    "document:.agents/skills/neon/references/function-triggers.md": {
+      "name": "function-triggers.md",
+      "type": "document",
+      "summary": "Reference for declaring branch-scoped Function Triggers (cron schedule or storage-object-created) that POST to a Neon Function, via neon.ts, the CLI, or the MCP/REST fallback."
+    },
+    "document:.agents/skills/neon/references/logs-loki.md": {
+      "name": "logs-loki.md",
+      "type": "document",
+      "summary": "Reference for querying Neon Functions and Object Storage logs via the CLI, the Loki-compatible read API, and the @neon/sdk TypeScript client's paginated log iterator."
+    },
+    "document:.agents/skills/neon/references/parse-env.md": {
+      "name": "parse-env.md",
+      "type": "document",
+      "summary": "Short reference for @neon/env's parseEnv helper, which validates and types environment variables against a neon.ts config, including selecting a required subset."
+    },
+    "document:.agents/skills/neon/references/sdk.md": {
+      "name": "sdk.md",
+      "type": "document",
+      "summary": "One-paragraph stub introducing @neon/sdk, the official fetch-based TypeScript client for the Neon API, and pointing to the logs pagination reference for details."
+    },
+    "document:.claude/skills/neon-functions/references/ai-sdk.md": {
+      "name": "ai-sdk.md",
+      "type": "document",
+      "summary": "Walkthrough for building a Vercel AI SDK tool-calling agent on Neon Functions against the Neon AI Gateway, covering neon.ts declaration, a streaming fetch handler, image generation with Object Storage persistence, and client-side streaming."
+    },
+    "document:.claude/skills/neon-functions/references/function-triggers.md": {
+      "name": "function-triggers.md",
+      "type": "document",
+      "summary": "Detailed Function Triggers reference for Neon Functions: supported trigger types (schedule, storage_object_created), neon.ts and CLI declaration, delivery payload shape, the parseTriggerDelivery/parseTrigger/parseTriggerInvocation helpers, local neon dev behavior, inheritance across branches, and trigger logs."
+    },
+    "document:.claude/skills/neon-functions/references/mastra-studio.md": {
+      "name": "mastra-studio.md",
+      "type": "document",
+      "summary": "Guide to running a Mastra agent on Neon Functions against the Neon AI Gateway while shipping trace observability to a Mastra Studio (Mastra Cloud) project, including structured output and CLI project/token setup."
+    },
+    "document:.claude/skills/neon-functions/references/mcp.md": {
+      "name": "mcp.md",
+      "type": "document",
+      "summary": "Reference for hosting a Model Context Protocol server as a Neon Function using @modelcontextprotocol/sdk and @hono/mcp over streamable HTTP, plus two authentication options (Better Auth MCP OAuth plugin, or API key/session JWT) and testing guidance."
+    },
+    "document:.claude/skills/neon-functions/references/sentry.md": {
+      "name": "sentry.md",
+      "type": "document",
+      "summary": "Guide to wiring Sentry (@sentry/node) error, log, and trace monitoring into a Neon Function's long-lived Node process, including required env vars, request span setup, AI-agent tracing, and a template for other Node SDK integrations."
+    },
+    "document:.claude/skills/neon-functions/references/sse.md": {
+      "name": "sse.md",
+      "type": "document",
+      "summary": "Reference for building server-sent-events endpoints on Neon Functions, from a minimal framework-free handler and a Hono version to cross-isolate broadcast, wire format, client usage, and caveats."
+    },
+    "document:.claude/skills/neon-postgres/references/full-text-search.md": {
+      "name": "full-text-search.md",
+      "type": "document",
+      "summary": "Reference for BM25-ranked full-text search on Neon Postgres using the lakebase_text extension and lakebase_bm25 index over tsvector columns, covering indexing, querying and interpreting scores, candidate limits, prefiltering, and parameter tuning."
+    },
+    "document:.claude/skills/neon-postgres/references/hybrid-search.md": {
+      "name": "hybrid-search.md",
+      "type": "document",
+      "summary": "Reference for combining Lakebase Search's vector (lakebase_vector) and BM25 (lakebase_text) retrieval into hybrid search via a reciprocal rank fusion example, since Lakebase Search has no built-in hybrid function."
+    },
+    "document:.claude/skills/neon-postgres/references/vector-search.md": {
+      "name": "vector-search.md",
+      "type": "document",
+      "summary": "Reference for approximate nearest-neighbor semantic search on Neon Postgres with the lakebase_vector extension (pgvector-compatible), covering extension setup, embedding columns, building and tuning the lakebase_ann index, querying, and selective prefiltering."
+    },
+    "document:.claude/skills/neon/references/auth.md": {
+      "name": "auth.md",
+      "type": "document",
+      "summary": "Vendored Neon agent-skill reference pointing agents to the neon-auth skill for login/identity decisions (Managed Better Auth, existing Better Auth, or self-managed) and where to fetch its setup docs."
+    },
+    "document:.claude/skills/neon/references/claimable-neon.md": {
+      "name": "claimable-neon.md",
+      "type": "document",
+      "summary": "Vendored Neon agent-skill reference for the Claimable Neon flow: provisioning a temporary Neon project before a human account exists, and the CLI/REST steps to later claim it into a real organization."
+    },
+    "document:.claude/skills/neon/references/function-triggers.md": {
+      "name": "function-triggers.md",
+      "type": "document",
+      "summary": "Vendored Neon agent-skill reference describing branch-scoped Function Triggers (cron schedules and storage-object-created events) and how to declare, list, or manage them via neon.ts, the CLI, MCP, or REST."
+    },
+    "document:.claude/skills/neon/references/logs-loki.md": {
+      "name": "logs-loki.md",
+      "type": "document",
+      "summary": "Vendored Neon agent-skill reference for reading branch-scoped Functions/Object-Storage logs via the CLI, the Loki-compatible read API, or the @neon/sdk paginated query iterator."
+    },
+    "document:.claude/skills/neon/references/parse-env.md": {
+      "name": "parse-env.md",
+      "type": "document",
+      "summary": "Vendored Neon agent-skill reference for @neon/env's parseEnv helper, which validates and types environment variables against a neon.ts config, optionally scoped to a subset of required keys."
+    },
+    "document:.claude/skills/neon/references/sdk.md": {
+      "name": "sdk.md",
+      "type": "document",
+      "summary": "Vendored Neon agent-skill reference introducing @neon/sdk, the official fetch-based, zero-dependency TypeScript client for the Neon API that succeeds the axios-based @neondatabase/api-client."
+    },
+    "document:AGENTS.md": {
+      "name": "AGENTS.md",
+      "type": "document",
+      "summary": "The project's primary AI-agent instructions and architecture reference for WICLOUD: stack decisions, the cool/signal color system and its contrast rules, the content model (site_content/site_solutions, lib/data/services.ts + media.ts), the full homepage section-by-section build notes (Hero, UniverseReveal, DeviceShowcase, etc.), and the /dashboard + /admin platform (auth, permissions, billing, demos, quotas, realtime)."
+    },
+    "document:CLAUDE.md": {
+      "name": "CLAUDE.md",
+      "type": "document",
+      "summary": "One-line pointer (`@AGENTS.md`) that makes Claude Code load AGENTS.md as the project's instructions."
+    },
+    "document:README.md": {
+      "name": "README.md",
+      "type": "document",
+      "summary": "Default create-next-app boilerplate readme (getting-started dev command, links to Next.js docs, and Vercel deploy instructions); not updated for the WICLOUD-specific stack or route groups."
+    },
+    "config:package.json": {
+      "name": "package.json",
+      "type": "config",
+      "summary": "Root package manifest for the wisscreen (WICLOUD) Next.js 16 app: dev/build/lint/test/typecheck scripts, Drizzle migration and Neon-deploy scripts, and the dependency set (HeroUI v3, Drizzle ORM, Better Auth, @react-three/fiber, GSAP, @neon/config, @neon/env, @react-pdf/renderer, Resend)."
+    },
+    "config:pnpm-workspace.yaml": {
+      "name": "pnpm-workspace.yaml",
+      "type": "config",
+      "summary": "pnpm install-policy configuration only (not a true monorepo): allows esbuild's postinstall build script while blocking sharp/unrs-resolver, and excludes the pinned Next.js 16.3.2 packages from pnpm's minimum-release-age quarantine."
+    },
+    "config:skills-lock.json": {
+      "name": "skills-lock.json",
+      "type": "config",
+      "summary": "Lock file pinning the source and content hash of each installed Neon agent-skill (neon, neon-auth, neon-postgres, neon-postgres-branches, neon-postgres-egress-optimizer, neon-functions, neon-object-storage, neon-ai-gateway), all sourced from the neondatabase/agent-skills GitHub repo."
+    },
+    "config:tsconfig.json": {
+      "name": "tsconfig.json",
+      "type": "config",
+      "summary": "TypeScript compiler configuration for the Next.js App Router project: ES2017 target, strict mode, bundler module resolution, the Next.js TS plugin, and the `@/*` path alias to the repo root."
+    },
+    "config:lib/db/migrations/meta/0000_snapshot.json": {
+      "name": "0000_snapshot.json",
+      "type": "config",
+      "summary": "Initial Drizzle ORM schema snapshot (migration 0000_needy_jackal, prevId all-zero) capturing the baseline Postgres schema: Better Auth tables (user, session, account, verification) plus the core platform tables (requests, request_messages, quotes, invoices, subscriptions, plans, quotas, notifications, activity_log, attachments, app_settings, contact_leads, demo_runs)."
+    },
+    "config:lib/db/migrations/meta/0001_snapshot.json": {
+      "name": "0001_snapshot.json",
+      "type": "config",
+      "summary": "Second Drizzle schema snapshot (migration 0001_modern_darwin) adding the demos data model: demos, demo_access, and demo_secrets tables backing owner-authored, per-customer product demos."
+    },
+    "config:lib/db/migrations/meta/0002_snapshot.json": {
+      "name": "0002_snapshot.json",
+      "type": "config",
+      "summary": "Third Drizzle schema snapshot (migration 0002_nifty_maddog) refining column/constraint definitions across the existing platform tables introduced in 0000/0001, with the same table set as 0001."
+    },
+    "config:lib/db/migrations/meta/0003_snapshot.json": {
+      "name": "0003_snapshot.json",
+      "type": "config",
+      "summary": "Fourth Drizzle schema snapshot (migration 0003_sour_infant_terrible) adding site_content and site_solutions tables that back the /admin/site owner-editable content model (hero, footer, homepage sections, per-solution copy and media)."
+    },
+    "config:lib/db/migrations/meta/_journal.json": {
+      "name": "_journal.json",
+      "type": "config",
+      "summary": "Drizzle migration journal (postgresql dialect, format version 7) listing the four applied migrations in order — 0000_needy_jackal, 0001_modern_darwin, 0002_nifty_maddog, 0003_sour_infant_terrible — each with its applied timestamp, used by drizzle-kit to track migration history."
+    },
+    "document:.agents/skills/neon-ai-gateway/SKILL.md": {
+      "name": "SKILL.md (neon-ai-gateway, .agents)",
+      "type": "document",
+      "summary": "Vendored Neon Agent Skill reference for the AI Gateway: when to use it, setup, Infrastructure-as-Code, environment variables, and how to build agents with the Vercel AI SDK, Mastra, or plain provider SDKs against Neon's one-API multi-model gateway."
+    },
+    "document:.agents/skills/neon-auth/SKILL.md": {
+      "name": "SKILL.md (neon-auth, .agents)",
+      "type": "document",
+      "summary": "Vendored Neon Agent Skill top-level reference for Neon Auth: when to use it, managed vs self-managed setup, Supabase Auth migration, plugin support, and trusted domains, pointing into the managed-auth.md and self-managed.md references for implementation detail."
+    },
+    "document:.agents/skills/neon-auth/references/managed-auth.md": {
+      "name": "managed-auth.md (.agents)",
+      "type": "document",
+      "summary": "Implementation reference for Managed Better Auth on Neon: required packages, environment setup, Next.js and React/Vite integration, organization invitations, UI wiring, and cross-subdomain vs bearer JWT identity handling for the Data API."
+    },
+    "document:.agents/skills/neon-auth/references/self-managed.md": {
+      "name": "self-managed.md (.agents)",
+      "type": "document",
+      "summary": "Short reference covering how to keep an existing self-managed Better Auth setup or stand up a new self-managed auth server instead of Neon's Managed Better Auth."
+    },
+    "document:.agents/skills/neon-functions/SKILL.md": {
+      "name": "SKILL.md (neon-functions, .agents)",
+      "type": "document",
+      "summary": "Vendored Neon Agent Skill reference for Neon Functions: long-running Node.js HTTP functions on a Neon branch, covering setup, deployment, environment variables, Postgres connections, timeouts, WebSocket/SSE servers, function triggers, MCP servers, and observability."
+    },
+    "document:.agents/skills/neon-object-storage/SKILL.md": {
+      "name": "SKILL.md (neon-object-storage, .agents)",
+      "type": "document",
+      "summary": "Vendored Neon Agent Skill reference for Neon Object Storage: S3-compatible buckets that branch with the database, covering setup, IaC, environment variables, the Files SDK vs AWS S3 client, and pairing storage with a database branch."
+    },
+    "document:.agents/skills/neon-postgres-branches/SKILL.md": {
+      "name": "SKILL.md (neon-postgres-branches, .agents)",
+      "type": "document",
+      "summary": "Vendored Neon Agent Skill reference for Postgres branching: choosing normal vs schema-only branches, CLI/MCP tool selection, reset-from-parent, CI/CD branching workflows, and worked migration-testing examples."
+    },
+    "document:.agents/skills/neon-postgres-egress-optimizer/SKILL.md": {
+      "name": "SKILL.md (neon-postgres-egress-optimizer, .agents)",
+      "type": "document",
+      "summary": "Vendored Neon Agent Skill reference for diagnosing and fixing excessive Postgres egress: pg_stat_statements diagnostics, codebase analysis, and fixes for SELECT *, missing pagination, high-frequency static queries, app-side aggregation, and JOIN duplication."
+    },
+    "document:.agents/skills/neon-postgres/SKILL.md": {
+      "name": "SKILL.md (neon-postgres, .agents)",
+      "type": "document",
+      "summary": "Vendored Neon Agent Skill reference for Lakebase Postgres itself: connection setup, pooled vs direct URLs, schema/migrations, performance troubleshooting, autoscaling, scale-to-zero, instant restore, read replicas, connection pooling, IP allow lists, logical replication, and Lakebase Search."
+    },
+    "document:.agents/skills/neon/SKILL.md": {
+      "name": "SKILL.md (neon, .agents)",
+      "type": "document",
+      "summary": "Top-level vendored Neon Agent Skill overview covering all backend primitives (Auth, Object Storage, Functions, AI Gateway), the CLI/MCP setup flow, neon.ts Infrastructure-as-Code, the branch-first dev flow, and how to pick a child skill."
+    },
+    "config:.claude/launch.json": {
+      "name": "launch.json",
+      "type": "config",
+      "summary": "Claude Code dev-server launch configuration used by the browser preview tool, declaring how to start this project's local dev server (command, args, port)."
+    },
+    "document:.claude/skills/DESIGN-mobbin.md": {
+      "name": "DESIGN-mobbin.md",
+      "type": "document",
+      "summary": "Design-system spec ('the Mobbin language in WICLOUD colours') defining the dashboard's colour tokens, typography, spacing, elevation, shape, and component conventions (buttons, cards, inputs, navigation), plus a mapping from these tokens onto the WICLOUD dashboard and explicit do's/don'ts. Referenced directly by app/(app)/heroui.css's theme block."
+    },
+    "document:.claude/skills/neon-ai-gateway/SKILL.md": {
+      "name": "SKILL.md (neon-ai-gateway, .claude)",
+      "type": "document",
+      "summary": "Duplicate copy (under .claude/skills, mirroring .agents/skills) of the Neon Agent Skill reference for the AI Gateway: when to use it, setup, Infrastructure-as-Code, environment variables, and building agents with the Vercel AI SDK, Mastra, or plain provider SDKs."
+    },
+    "document:.claude/skills/neon-auth/SKILL.md": {
+      "name": "SKILL.md (neon-auth, .claude)",
+      "type": "document",
+      "summary": "Duplicate copy (under .claude/skills) of the Neon Agent Skill top-level reference for Neon Auth: when to use it, managed vs self-managed setup, Supabase Auth migration, plugin support, and trusted domains."
+    },
+    "document:.claude/skills/neon-auth/references/managed-auth.md": {
+      "name": "managed-auth.md (.claude)",
+      "type": "document",
+      "summary": "Duplicate copy (under .claude/skills) of the implementation reference for Managed Better Auth on Neon: packages, environment, Next.js and React/Vite integration, organization invitations, UI, and cross-subdomain vs bearer JWT identity handling."
+    },
+    "document:.claude/skills/neon-auth/references/self-managed.md": {
+      "name": "self-managed.md (.claude)",
+      "type": "document",
+      "summary": "Duplicate copy (under .claude/skills) of the short reference on keeping an existing self-managed Better Auth setup or standing up a new self-managed auth server."
+    },
+    "document:.claude/skills/neon-functions/SKILL.md": {
+      "name": "SKILL.md (neon-functions, .claude)",
+      "type": "document",
+      "summary": "Duplicate copy (under .claude/skills) of the Neon Functions reference: long-running Node.js HTTP functions on a Neon branch, setup, deployment, environment variables, Postgres connections, timeouts, WebSocket/SSE servers, function triggers, MCP servers, and observability."
+    },
+    "document:.claude/skills/neon-object-storage/SKILL.md": {
+      "name": "SKILL.md (neon-object-storage, .claude)",
+      "type": "document",
+      "summary": "Duplicate copy (under .claude/skills) of the Neon Object Storage reference: S3-compatible buckets that branch with the database, setup, IaC, environment variables, and Files SDK vs AWS S3 client usage."
+    },
+    "document:.claude/skills/neon-postgres-branches/SKILL.md": {
+      "name": "SKILL.md (neon-postgres-branches, .claude)",
+      "type": "document",
+      "summary": "Duplicate copy (under .claude/skills) of the Postgres branching reference: normal vs schema-only branches, CLI/MCP tool selection, reset-from-parent, CI/CD branching workflows, and worked examples."
+    },
+    "document:.claude/skills/neon-postgres-egress-optimizer/SKILL.md": {
+      "name": "SKILL.md (neon-postgres-egress-optimizer, .claude)",
+      "type": "document",
+      "summary": "Duplicate copy (under .claude/skills) of the Postgres egress optimizer reference: pg_stat_statements diagnostics, codebase analysis, and fixes for overfetching, missing pagination, and JOIN duplication."
+    },
+    "document:.claude/skills/neon-postgres/SKILL.md": {
+      "name": "SKILL.md (neon-postgres, .claude)",
+      "type": "document",
+      "summary": "Duplicate copy (under .claude/skills) of the Lakebase Postgres reference: connection setup, pooled vs direct URLs, migrations, performance troubleshooting, autoscaling, scale-to-zero, instant restore, read replicas, and Lakebase Search."
+    },
+    "document:.claude/skills/neon/SKILL.md": {
+      "name": "SKILL.md (neon, .claude)",
+      "type": "document",
+      "summary": "Duplicate copy (under .claude/skills) of the top-level Neon overview covering all backend primitives, CLI/MCP setup, neon.ts Infrastructure-as-Code, and the branch-first dev flow."
+    },
+    "file:app/(app)/admin/site/loading.tsx": {
+      "name": "loading.tsx",
+      "type": "file",
+      "summary": "Next.js route-segment loading UI for /admin/site: renders a skeleton placeholder (three pulsing blocks) shown while the site-content editor page streams in."
+    },
+    "service:app/(app)/heroui.css": {
+      "name": "heroui.css",
+      "type": "service",
+      "summary": "HeroUI v3 stylesheet scoped exclusively to the signed-in (/dashboard, /admin) route group: imports @heroui/styles/css, declares light-dark() theme tokens implementing the Mobbin design spec (.claude/skills/DESIGN-mobbin.md) under [data-wicloud-app], and pins HeroUI's --primary/--secondary/--default/--muted/--danger variables so the dashboard's contrast requirements hold. Imported only by app/(app)/layout.tsx so the marketing pages never download it."
+    },
+    "file:app/(app)/layout.tsx": {
+      "name": "layout.tsx",
+      "type": "file",
+      "summary": "Root layout for the signed-in app route group ((app)): a deliberately thin pass-through that imports heroui.css and sets noindex/nofollow metadata, leaving actual navigation/guards/data to each dashboard's own AppShell."
+    },
+    "file:app/(auth)/AuthScene.tsx": {
+      "name": "AuthScene.tsx",
+      "type": "file",
+      "summary": "Client-only decorative 3D network scene (react-three-fiber) rendered on the auth pages, showing animated nodes/links with travelling data pulses. Fades in via onCreated and reports readiness through an onReady callback."
+    },
+    "file:app/(auth)/auth.css": {
+      "name": "auth.css",
+      "type": "file",
+      "summary": "Input chrome and decorative keyframe animations scoped to [data-auth], giving HeroUI fields and the hand-rolled password input on the sign-in/sign-up pages an identical white-well, signal-ring focus style."
+    },
+    "file:app/(auth)/verification/page.tsx": {
+      "name": "page.tsx",
+      "type": "file",
+      "summary": "Static route rendering the 'confirm your address' instructional page shown after sign-up, telling the visitor to check their inbox before the dashboard becomes accessible."
+    },
+    "file:app/apple-icon.tsx": {
+      "name": "apple-icon.tsx",
+      "type": "file",
+      "summary": "Build-time generated 180x180 Apple touch icon (via next/og ImageResponse), reusing the same signal-green ring-and-satellite brand mark as the favicon, scaled up for iOS's home-screen size."
+    },
+    "file:app/globals.css": {
+      "name": "globals.css",
+      "type": "file",
+      "summary": "Site-wide design tokens and global styles: the cool/signal color palette as CSS variables, ground-adaptive accent resolution (--accent-text/--signal-text/--pt-*) for light vs dark sections, the hero/auth texture gradients, scrollbar styling, section rhythm classes, and shared animation keyframes (hero-rise, underline-draw, skeleton-sweep, target-flash)."
+    },
+    "file:app/icon.tsx": {
+      "name": "icon.tsx",
+      "type": "file",
+      "summary": "Build-time generated 32x32 favicon (via next/og ImageResponse) drawing a signal-green orbit ring with a satellite dot on a near-black ground, echoing the 3D hero globe's shape."
+    },
+    "file:drizzle.config.ts": {
+      "name": "drizzle.config.ts",
+      "type": "file",
+      "summary": "Drizzle Kit configuration pointing at the Postgres schema and migrations folder, using the unpooled Neon connection string for DDL to avoid PgBouncer prepared-statement errors."
+    },
+    "file:eslint.config.mjs": {
+      "name": "eslint.config.mjs",
+      "type": "file",
+      "summary": "Flat ESLint configuration extending Next.js's core-web-vitals and TypeScript presets, with default build-output directories re-declared as ignored."
+    },
+    "file:neon.ts": {
+      "name": "neon.ts",
+      "type": "file",
+      "summary": "Neon infrastructure-as-code declaration applied via `pnpm neon:deploy`: disables Neon Auth (Better Auth runs against the same Postgres instead) and provisions a private 'documents' object-storage bucket for dashboard attachments."
+    },
+    "file:next.config.ts": {
+      "name": "next.config.ts",
+      "type": "file",
+      "summary": "Next.js configuration setting standalone server output (for the slim Docker runtime image) and the allowlist of remote image hostnames (Apple's macbook-pro CDN, Unsplash, a placeholder CDN)."
+    },
+    "file:postcss.config.mjs": {
+      "name": "postcss.config.mjs",
+      "type": "file",
+      "summary": "Minimal PostCSS configuration enabling only the @tailwindcss/postcss plugin for Tailwind v4 processing."
+    },
+    "file:proxy.ts": {
+      "name": "proxy.ts",
+      "type": "file",
+      "summary": "Next 16 proxy (the renamed middleware.ts) that optimistically checks for a Better Auth session cookie on /dashboard and /admin routes, redirecting anonymous requests to /connexion with a ?next= return path. Deliberately not the real authorization boundary — that's lib/guard.ts."
+    },
+    "file:public/videos/lp_video.webm": {
+      "name": "lp_video.webm",
+      "type": "file",
+      "summary": "Full-bleed WebM footage used by the homepage UniverseReveal section, playing continuously inside the SVG-masked WICLOUD wordmark as the scroll-driven letter zoom resolves."
+    },
+    "file:public/videos/ocr_video.webm": {
+      "name": "ocr_video.webm",
+      "type": "file",
+      "summary": "Presentation WebM footage for the OCR solution, played by SolutionVideoReveal's pinned-scroll stretch-to-fullbleed sequence on the OCR sub-landing page."
+    },
+    "file:scripts/docker-push.ps1": {
+      "name": "docker-push.ps1",
+      "type": "file",
+      "summary": "Windows/PowerShell deployment script that loads Docker Hub credentials from .env.local, builds the WICLOUD image tagged with the git short SHA (or a supplied -Tag) plus :latest, logs in, and pushes both tags."
+    },
+    "file:scripts/docker-push.sh": {
+      "name": "docker-push.sh",
+      "type": "file",
+      "summary": "Bash equivalent of docker-push.ps1 for Linux/macOS: parses .env.local for Docker Hub credentials without sourcing it (avoiding shell-injection from stray characters), builds, tags with the git short SHA or a supplied argument, and pushes both tags."
+    },
+    "file:vitest.config.mts": {
+      "name": "vitest.config.mts",
+      "type": "file",
+      "summary": "Vitest configuration using jsdom, the tsconfig-paths plugin (so tests resolve the @/* alias like the app does) and the React plugin, restricted to the project's own *.test.ts(x)/*.spec.ts(x) files."
+    }
+  },
+  "totalNodes": 381,
+  "totalEdges": 1339
+}

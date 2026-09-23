@@ -1,0 +1,64 @@
+{
+  "nodes": [
+    {
+      "id": "pipeline:.github/workflows/ci-cd.yml",
+      "type": "pipeline",
+      "name": "ci-cd.yml",
+      "filePath": ".github/workflows/ci-cd.yml",
+      "summary": "GitHub Actions workflow that verifies every push and pull request against main (lint, test, build, typecheck) and, only on a push to main, builds and pushes the Docker image to Docker Hub.",
+      "tags": ["ci-cd", "deployment", "github-actions", "docker"],
+      "complexity": "moderate",
+      "languageNotes": "Typecheck deliberately runs after Build because tsc depends on route types Next.js generates into .next/types during the build."
+    },
+    {
+      "id": "step:.github/workflows/ci-cd.yml:verify",
+      "type": "resource",
+      "name": "verify",
+      "filePath": ".github/workflows/ci-cd.yml",
+      "lineRange": [25, 57],
+      "summary": "Quality-gate job that checks out the repo, installs dependencies with pnpm, then runs lint, tests, a production build, and typecheck on every push and PR.",
+      "tags": ["ci-cd", "testing", "lint", "build"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "step:.github/workflows/ci-cd.yml:docker",
+      "type": "resource",
+      "name": "docker",
+      "filePath": ".github/workflows/ci-cd.yml",
+      "lineRange": [60, 104],
+      "summary": "Publish job, gated on the verify job and on pushes to main, that logs into Docker Hub, derives image tags, and builds/pushes the image with GitHub Actions layer caching and public NEXT_PUBLIC_* build args.",
+      "tags": ["ci-cd", "docker", "deployment", "containerization"],
+      "complexity": "moderate"
+    }
+  ],
+  "edges": [
+    {
+      "source": "pipeline:.github/workflows/ci-cd.yml",
+      "target": "step:.github/workflows/ci-cd.yml:verify",
+      "type": "triggers",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "pipeline:.github/workflows/ci-cd.yml",
+      "target": "step:.github/workflows/ci-cd.yml:docker",
+      "type": "triggers",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "step:.github/workflows/ci-cd.yml:docker",
+      "target": "step:.github/workflows/ci-cd.yml:verify",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "step:.github/workflows/ci-cd.yml:docker",
+      "target": "service:Dockerfile",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    }
+  ]
+}

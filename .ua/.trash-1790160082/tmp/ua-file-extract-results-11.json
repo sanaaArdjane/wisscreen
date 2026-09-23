@@ -1,0 +1,4703 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 17,
+  "filesSkipped": [],
+  "filesUnreadable": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 17,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 17,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "results": [
+    {
+      "path": "__tests__/demos.test.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 97,
+      "nonEmptyLines": 85,
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/(app)/admin/demos/DemoControls.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 133,
+      "nonEmptyLines": 125,
+      "functions": [
+        {
+          "name": "GrantForm",
+          "startLine": 16,
+          "endLine": 85,
+          "params": [
+            "{\n  demoId,\n  clients,\n}"
+          ]
+        },
+        {
+          "name": "RunAnswerForm",
+          "startLine": 88,
+          "endLine": 116,
+          "params": [
+            "{ runId, outcome }"
+          ]
+        },
+        {
+          "name": "DeleteDemoForm",
+          "startLine": 118,
+          "endLine": 132,
+          "params": [
+            "{ demoId, slug }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "GrantForm",
+          "line": 16,
+          "isDefault": false
+        },
+        {
+          "name": "RunAnswerForm",
+          "line": 88,
+          "isDefault": false
+        },
+        {
+          "name": "DeleteDemoForm",
+          "line": 118,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "GrantForm",
+          "callee": "useActionState",
+          "lineNumber": 23
+        },
+        {
+          "caller": "GrantForm",
+          "callee": "useState",
+          "lineNumber": 24
+        },
+        {
+          "caller": "GrantForm",
+          "callee": "useRef",
+          "lineNumber": 25
+        },
+        {
+          "caller": "GrantForm",
+          "callee": "useEffect",
+          "lineNumber": 27
+        },
+        {
+          "caller": "GrantForm",
+          "callee": "ref.current?.reset",
+          "lineNumber": 28
+        },
+        {
+          "caller": "GrantForm",
+          "callee": "query.trim().toLowerCase",
+          "lineNumber": 31
+        },
+        {
+          "caller": "GrantForm",
+          "callee": "query.trim",
+          "lineNumber": 31
+        },
+        {
+          "caller": "GrantForm",
+          "callee": "clients.filter",
+          "lineNumber": 33
+        },
+        {
+          "caller": "GrantForm",
+          "callee": "`${c.name} ${c.email} ${c.company ?? \"\"}`.toLowerCase().includes",
+          "lineNumber": 33
+        },
+        {
+          "caller": "GrantForm",
+          "callee": "`${c.name} ${c.email} ${c.company ?? \"\"}`.toLowerCase",
+          "lineNumber": 33
+        },
+        {
+          "caller": "GrantForm",
+          "callee": "setQuery",
+          "lineNumber": 47
+        },
+        {
+          "caller": "GrantForm",
+          "callee": "clients.map",
+          "lineNumber": 52
+        },
+        {
+          "caller": "GrantForm",
+          "callee": "shown.includes",
+          "lineNumber": 55
+        },
+        {
+          "caller": "RunAnswerForm",
+          "callee": "useActionState",
+          "lineNumber": 89
+        },
+        {
+          "caller": "DeleteDemoForm",
+          "callee": "useActionState",
+          "lineNumber": 119
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 3,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/(app)/admin/demos/DemoEditor.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 743,
+      "nonEmptyLines": 714,
+      "functions": [
+        {
+          "name": "newId",
+          "startLine": 61,
+          "endLine": 63,
+          "params": []
+        },
+        {
+          "name": "blank",
+          "startLine": 65,
+          "endLine": 98,
+          "params": [
+            "kind"
+          ]
+        },
+        {
+          "name": "L",
+          "startLine": 103,
+          "endLine": 110,
+          "params": [
+            "{ label, children, className }"
+          ]
+        },
+        {
+          "name": "DemoEditor",
+          "startLine": 112,
+          "endLine": 377,
+          "params": [
+            "{\n  meta = {},\n  initialBlocks = [],\n  storedSecrets = [],\n  files = [],\n  services,\n  encryption,\n  storage,\n  maxUploadBytes,\n}"
+          ]
+        },
+        {
+          "name": "SecretField",
+          "startLine": 379,
+          "endLine": 416,
+          "params": [
+            "{\n  blockId,\n  label,\n  stored,\n  secrets,\n  setSecret,\n  encryption,\n  multiline,\n  placeholder,\n}"
+          ]
+        },
+        {
+          "name": "BlockBody",
+          "startLine": 418,
+          "endLine": 743,
+          "params": [
+            "{\n  block: b,\n  update,\n  stored,\n  secrets,\n  setSecret,\n  encryption,\n  files,\n  demoId,\n  storage,\n  maxUploadBytes,\n}"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "DemoEditor",
+          "line": 112,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "newId",
+          "callee": "crypto.randomUUID",
+          "lineNumber": 62
+        },
+        {
+          "caller": "blank",
+          "callee": "newId",
+          "lineNumber": 66
+        },
+        {
+          "caller": "L",
+          "callee": "cn",
+          "lineNumber": 105
+        },
+        {
+          "caller": "DemoEditor",
+          "callee": "useActionState",
+          "lineNumber": 133
+        },
+        {
+          "caller": "DemoEditor",
+          "callee": "useState",
+          "lineNumber": 134
+        },
+        {
+          "caller": "DemoEditor",
+          "callee": "useState",
+          "lineNumber": 135
+        },
+        {
+          "caller": "DemoEditor",
+          "callee": "useState",
+          "lineNumber": 136
+        },
+        {
+          "caller": "DemoEditor",
+          "callee": "useState",
+          "lineNumber": 137
+        },
+        {
+          "caller": "DemoEditor",
+          "callee": "useState",
+          "lineNumber": 138
+        },
+        {
+          "caller": "DemoEditor",
+          "callee": "Boolean",
+          "lineNumber": 138
+        },
+        {
+          "caller": "update",
+          "callee": "setBlocks",
+          "lineNumber": 142
+        },
+        {
+          "caller": "update",
+          "callee": "all.map",
+          "lineNumber": 142
+        },
+        {
+          "caller": "move",
+          "callee": "setBlocks",
+          "lineNumber": 145
+        },
+        {
+          "caller": "move",
+          "callee": "all.findIndex",
+          "lineNumber": 146
+        },
+        {
+          "caller": "remove",
+          "callee": "setBlocks",
+          "lineNumber": 155
+        },
+        {
+          "caller": "remove",
+          "callee": "all.filter",
+          "lineNumber": 155
+        },
+        {
+          "caller": "remove",
+          "callee": "setSecrets",
+          "lineNumber": 156
+        },
+        {
+          "caller": "remove",
+          "callee": "Object.fromEntries",
+          "lineNumber": 156
+        },
+        {
+          "caller": "remove",
+          "callee": "Object.entries(all).filter",
+          "lineNumber": 156
+        },
+        {
+          "caller": "remove",
+          "callee": "Object.entries",
+          "lineNumber": 156
+        },
+        {
+          "caller": "remove",
+          "callee": "k.startsWith",
+          "lineNumber": 156
+        },
+        {
+          "caller": "setSecret",
+          "callee": "setSecrets",
+          "lineNumber": 159
+        },
+        {
+          "caller": "DemoEditor",
+          "callee": "Object.entries(secrets)\n    .filter(([, v]) => v.length > 0)\n    .map",
+          "lineNumber": 162
+        },
+        {
+          "caller": "DemoEditor",
+          "callee": "Object.entries(secrets)\n    .filter",
+          "lineNumber": 162
+        },
+        {
+          "caller": "DemoEditor",
+          "callee": "Object.entries",
+          "lineNumber": 162
+        },
+        {
+          "caller": "DemoEditor",
+          "callee": "k.indexOf",
+          "lineNumber": 165
+        },
+        {
+          "caller": "DemoEditor",
+          "callee": "k.slice",
+          "lineNumber": 166
+        },
+        {
+          "caller": "DemoEditor",
+          "callee": "k.slice",
+          "lineNumber": 166
+        },
+        {
+          "caller": "DemoEditor",
+          "callee": "blocks.map",
+          "lineNumber": 172
+        },
+        {
+          "caller": "DemoEditor",
+          "callee": "JSON.stringify",
+          "lineNumber": 173
+        },
+        {
+          "caller": "DemoEditor",
+          "callee": "secretInputs.map",
+          "lineNumber": 175
+        },
+        {
+          "caller": "DemoEditor",
+          "callee": "JSON.stringify",
+          "lineNumber": 176
+        },
+        {
+          "caller": "DemoEditor",
+          "callee": "setTitle",
+          "lineNumber": 189
+        },
+        {
+          "caller": "DemoEditor",
+          "callee": "setSlug",
+          "lineNumber": 190
+        },
+        {
+          "caller": "DemoEditor",
+          "callee": "slugify",
+          "lineNumber": 190
+        },
+        {
+          "caller": "DemoEditor",
+          "callee": "setSlugTouched",
+          "lineNumber": 203
+        },
+        {
+          "caller": "DemoEditor",
+          "callee": "setSlug",
+          "lineNumber": 204
+        },
+        {
+          "caller": "DemoEditor",
+          "callee": "cn",
+          "lineNumber": 207
+        },
+        {
+          "caller": "DemoEditor",
+          "callee": "DEMO_STATUSES.map",
+          "lineNumber": 236
+        },
+        {
+          "caller": "DemoEditor",
+          "callee": "Object.entries(VISIBILITY_LABELS).map",
+          "lineNumber": 243
+        },
+        {
+          "caller": "DemoEditor",
+          "callee": "Object.entries",
+          "lineNumber": 243
+        },
+        {
+          "caller": "DemoEditor",
+          "callee": "blocks.map",
+          "lineNumber": 273
+        },
+        {
+          "caller": "DemoEditor",
+          "callee": "move",
+          "lineNumber": 286
+        },
+        {
+          "caller": "DemoEditor",
+          "callee": "move",
+          "lineNumber": 296
+        },
+        {
+          "caller": "DemoEditor",
+          "callee": "remove",
+          "lineNumber": 305
+        },
+        {
+          "caller": "DemoEditor",
+          "callee": "update",
+          "lineNumber": 316
+        },
+        {
+          "caller": "DemoEditor",
+          "callee": "update",
+          "lineNumber": 323
+        },
+        {
+          "caller": "DemoEditor",
+          "callee": "update",
+          "lineNumber": 331
+        },
+        {
+          "caller": "DemoEditor",
+          "callee": "BLOCK_KINDS.map",
+          "lineNumber": 348
+        },
+        {
+          "caller": "DemoEditor",
+          "callee": "setBlocks",
+          "lineNumber": 352
+        },
+        {
+          "caller": "DemoEditor",
+          "callee": "blank",
+          "lineNumber": 352
+        },
+        {
+          "caller": "SecretField",
+          "callee": "stored.has",
+          "lineNumber": 399
+        },
+        {
+          "caller": "SecretField",
+          "callee": "setSecret",
+          "lineNumber": 410
+        },
+        {
+          "caller": "SecretField",
+          "callee": "cn",
+          "lineNumber": 413
+        },
+        {
+          "caller": "BlockBody",
+          "callee": "useState",
+          "lineNumber": 441
+        },
+        {
+          "caller": "BlockBody",
+          "callee": "update",
+          "lineNumber": 450
+        },
+        {
+          "caller": "BlockBody",
+          "callee": "cn",
+          "lineNumber": 452
+        },
+        {
+          "caller": "BlockBody",
+          "callee": "update",
+          "lineNumber": 456
+        },
+        {
+          "caller": "BlockBody",
+          "callee": "Boolean",
+          "lineNumber": 461
+        },
+        {
+          "caller": "BlockBody",
+          "callee": "update",
+          "lineNumber": 462
+        },
+        {
+          "caller": "BlockBody",
+          "callee": "b.fields.map",
+          "lineNumber": 473
+        },
+        {
+          "caller": "BlockBody",
+          "callee": "update",
+          "lineNumber": 481
+        },
+        {
+          "caller": "BlockBody",
+          "callee": "update",
+          "lineNumber": 502
+        },
+        {
+          "caller": "BlockBody",
+          "callee": "cn",
+          "lineNumber": 504
+        },
+        {
+          "caller": "BlockBody",
+          "callee": "Boolean",
+          "lineNumber": 511
+        },
+        {
+          "caller": "BlockBody",
+          "callee": "update",
+          "lineNumber": 515
+        },
+        {
+          "caller": "BlockBody",
+          "callee": "update",
+          "lineNumber": 526
+        },
+        {
+          "caller": "BlockBody",
+          "callee": "b.fields.filter",
+          "lineNumber": 526
+        },
+        {
+          "caller": "BlockBody",
+          "callee": "update",
+          "lineNumber": 536
+        },
+        {
+          "caller": "BlockBody",
+          "callee": "b.expiresAt?.slice",
+          "lineNumber": 544
+        },
+        {
+          "caller": "BlockBody",
+          "callee": "update",
+          "lineNumber": 545
+        },
+        {
+          "caller": "BlockBody",
+          "callee": "setPreview",
+          "lineNumber": 561
+        },
+        {
+          "caller": "BlockBody",
+          "callee": "setPreview",
+          "lineNumber": 564
+        },
+        {
+          "caller": "BlockBody",
+          "callee": "update",
+          "lineNumber": 576
+        },
+        {
+          "caller": "BlockBody",
+          "callee": "cn",
+          "lineNumber": 577
+        },
+        {
+          "caller": "BlockBody",
+          "callee": "update",
+          "lineNumber": 593
+        },
+        {
+          "caller": "BlockBody",
+          "callee": "cn",
+          "lineNumber": 595
+        },
+        {
+          "caller": "BlockBody",
+          "callee": "Number",
+          "lineNumber": 612
+        },
+        {
+          "caller": "BlockBody",
+          "callee": "update",
+          "lineNumber": 613
+        },
+        {
+          "caller": "BlockBody",
+          "callee": "files.find",
+          "lineNumber": 613
+        },
+        {
+          "caller": "BlockBody",
+          "callee": "files.map",
+          "lineNumber": 618
+        },
+        {
+          "caller": "BlockBody",
+          "callee": "update",
+          "lineNumber": 636
+        },
+        {
+          "caller": "BlockBody",
+          "callee": "update",
+          "lineNumber": 650
+        },
+        {
+          "caller": "BlockBody",
+          "callee": "cn",
+          "lineNumber": 652
+        },
+        {
+          "caller": "BlockBody",
+          "callee": "update",
+          "lineNumber": 659
+        },
+        {
+          "caller": "BlockBody",
+          "callee": "Number",
+          "lineNumber": 659
+        },
+        {
+          "caller": "BlockBody",
+          "callee": "cn",
+          "lineNumber": 660
+        },
+        {
+          "caller": "BlockBody",
+          "callee": "update",
+          "lineNumber": 666
+        },
+        {
+          "caller": "BlockBody",
+          "callee": "cn",
+          "lineNumber": 667
+        },
+        {
+          "caller": "BlockBody",
+          "callee": "update",
+          "lineNumber": 673
+        },
+        {
+          "caller": "BlockBody",
+          "callee": "b.expiresAt?.slice",
+          "lineNumber": 684
+        },
+        {
+          "caller": "BlockBody",
+          "callee": "update",
+          "lineNumber": 685
+        },
+        {
+          "caller": "BlockBody",
+          "callee": "update",
+          "lineNumber": 714
+        },
+        {
+          "caller": "BlockBody",
+          "callee": "update",
+          "lineNumber": 721
+        },
+        {
+          "caller": "BlockBody",
+          "callee": "cn",
+          "lineNumber": 723
+        },
+        {
+          "caller": "BlockBody",
+          "callee": "update",
+          "lineNumber": 729
+        }
+      ],
+      "metrics": {
+        "importCount": 8,
+        "exportCount": 1,
+        "functionCount": 6,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/(app)/admin/demos/[id]/page.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 353,
+      "nonEmptyLines": 334,
+      "functions": [
+        {
+          "name": "dateInput",
+          "startLine": 32,
+          "endLine": 34,
+          "params": [
+            "d"
+          ]
+        },
+        {
+          "name": "AdminDemoPage",
+          "startLine": 36,
+          "endLine": 318,
+          "params": [
+            "{ params }"
+          ]
+        },
+        {
+          "name": "FileList",
+          "startLine": 320,
+          "endLine": 353,
+          "params": [
+            "{\n  title,\n  files,\n  empty,\n}"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "metadata",
+          "line": 30,
+          "isDefault": false
+        },
+        {
+          "name": "AdminDemoPage",
+          "line": 36,
+          "isDefault": true
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "dateInput",
+          "callee": "d.toISOString().slice",
+          "lineNumber": 33
+        },
+        {
+          "caller": "dateInput",
+          "callee": "d.toISOString",
+          "lineNumber": 33
+        },
+        {
+          "caller": "AdminDemoPage",
+          "callee": "requirePermission",
+          "lineNumber": 37
+        },
+        {
+          "caller": "AdminDemoPage",
+          "callee": "Number",
+          "lineNumber": 38
+        },
+        {
+          "caller": "AdminDemoPage",
+          "callee": "Number.isInteger",
+          "lineNumber": 39
+        },
+        {
+          "caller": "AdminDemoPage",
+          "callee": "notFound",
+          "lineNumber": 39
+        },
+        {
+          "caller": "AdminDemoPage",
+          "callee": "db.select().from(demos).where(eq(demos.id, id)).limit",
+          "lineNumber": 41
+        },
+        {
+          "caller": "AdminDemoPage",
+          "callee": "db.select().from(demos).where",
+          "lineNumber": 41
+        },
+        {
+          "caller": "AdminDemoPage",
+          "callee": "db.select().from",
+          "lineNumber": 41
+        },
+        {
+          "caller": "AdminDemoPage",
+          "callee": "db.select",
+          "lineNumber": 41
+        },
+        {
+          "caller": "AdminDemoPage",
+          "callee": "eq",
+          "lineNumber": 41
+        },
+        {
+          "caller": "AdminDemoPage",
+          "callee": "notFound",
+          "lineNumber": 42
+        },
+        {
+          "caller": "AdminDemoPage",
+          "callee": "can",
+          "lineNumber": 44
+        },
+        {
+          "caller": "AdminDemoPage",
+          "callee": "can",
+          "lineNumber": 45
+        },
+        {
+          "caller": "AdminDemoPage",
+          "callee": "Promise.all",
+          "lineNumber": 47
+        },
+        {
+          "caller": "AdminDemoPage",
+          "callee": "db\n      .select({ access: demoAccess, client: userTable })\n      .from(demoAccess)\n      .innerJoin(userTable, eq(userTable.id, demoAccess.userId))\n      .where(eq(demoAccess.demoId, id))\n      .orderBy",
+          "lineNumber": 48
+        },
+        {
+          "caller": "AdminDemoPage",
+          "callee": "db\n      .select({ access: demoAccess, client: userTable })\n      .from(demoAccess)\n      .innerJoin(userTable, eq(userTable.id, demoAccess.userId))\n      .where",
+          "lineNumber": 48
+        },
+        {
+          "caller": "AdminDemoPage",
+          "callee": "db\n      .select({ access: demoAccess, client: userTable })\n      .from(demoAccess)\n      .innerJoin",
+          "lineNumber": 48
+        },
+        {
+          "caller": "AdminDemoPage",
+          "callee": "db\n      .select({ access: demoAccess, client: userTable })\n      .from",
+          "lineNumber": 48
+        },
+        {
+          "caller": "AdminDemoPage",
+          "callee": "db\n      .select",
+          "lineNumber": 48
+        },
+        {
+          "caller": "AdminDemoPage",
+          "callee": "eq",
+          "lineNumber": 51
+        },
+        {
+          "caller": "AdminDemoPage",
+          "callee": "eq",
+          "lineNumber": 52
+        },
+        {
+          "caller": "AdminDemoPage",
+          "callee": "desc",
+          "lineNumber": 53
+        },
+        {
+          "caller": "AdminDemoPage",
+          "callee": "listDemoFiles",
+          "lineNumber": 54
+        },
+        {
+          "caller": "AdminDemoPage",
+          "callee": "listSecretLabels",
+          "lineNumber": 55
+        },
+        {
+          "caller": "AdminDemoPage",
+          "callee": "listRunsForDemo",
+          "lineNumber": 56
+        },
+        {
+          "caller": "AdminDemoPage",
+          "callee": "grants.filter((g) => !g.access.revokedAt).map",
+          "lineNumber": 59
+        },
+        {
+          "caller": "AdminDemoPage",
+          "callee": "grants.filter",
+          "lineNumber": 59
+        },
+        {
+          "caller": "AdminDemoPage",
+          "callee": "db\n        .select({ id: userTable.id, name: userTable.name, email: userTable.email, company: userTable.company })\n        .from(userTable)\n        .where(\n          and(\n            eq(userTable.role, \"user\"),\n            or(isNull(userTable.banned), eq(userTable.banned, false)),\n            liveGrantUserIds.length ? notInArray(userTable.id, liveGrantUserIds) : undefined,\n          ),\n        )\n        .orderBy",
+          "lineNumber": 61
+        },
+        {
+          "caller": "AdminDemoPage",
+          "callee": "db\n        .select({ id: userTable.id, name: userTable.name, email: userTable.email, company: userTable.company })\n        .from(userTable)\n        .where",
+          "lineNumber": 61
+        },
+        {
+          "caller": "AdminDemoPage",
+          "callee": "db\n        .select({ id: userTable.id, name: userTable.name, email: userTable.email, company: userTable.company })\n        .from",
+          "lineNumber": 61
+        },
+        {
+          "caller": "AdminDemoPage",
+          "callee": "db\n        .select",
+          "lineNumber": 61
+        },
+        {
+          "caller": "AdminDemoPage",
+          "callee": "and",
+          "lineNumber": 65
+        },
+        {
+          "caller": "AdminDemoPage",
+          "callee": "eq",
+          "lineNumber": 66
+        },
+        {
+          "caller": "AdminDemoPage",
+          "callee": "or",
+          "lineNumber": 67
+        },
+        {
+          "caller": "AdminDemoPage",
+          "callee": "isNull",
+          "lineNumber": 67
+        },
+        {
+          "caller": "AdminDemoPage",
+          "callee": "eq",
+          "lineNumber": 67
+        },
+        {
+          "caller": "AdminDemoPage",
+          "callee": "notInArray",
+          "lineNumber": 68
+        },
+        {
+          "caller": "AdminDemoPage",
+          "callee": "asc",
+          "lineNumber": 71
+        },
+        {
+          "caller": "AdminDemoPage",
+          "callee": "parseBlocks",
+          "lineNumber": 74
+        },
+        {
+          "caller": "AdminDemoPage",
+          "callee": "dateInput",
+          "lineNumber": 107
+        },
+        {
+          "caller": "AdminDemoPage",
+          "callee": "secrets.map",
+          "lineNumber": 110
+        },
+        {
+          "caller": "AdminDemoPage",
+          "callee": "(await getSolutions({ includeHidden: true })).map",
+          "lineNumber": 112
+        },
+        {
+          "caller": "AdminDemoPage",
+          "callee": "getSolutions",
+          "lineNumber": 112
+        },
+        {
+          "caller": "AdminDemoPage",
+          "callee": "encryptionConfigured",
+          "lineNumber": 113
+        },
+        {
+          "caller": "AdminDemoPage",
+          "callee": "storageConfigured",
+          "lineNumber": 114
+        },
+        {
+          "caller": "AdminDemoPage",
+          "callee": "runs.map",
+          "lineNumber": 136
+        },
+        {
+          "caller": "AdminDemoPage",
+          "callee": "can",
+          "lineNumber": 141
+        },
+        {
+          "caller": "AdminDemoPage",
+          "callee": "relativeTime",
+          "lineNumber": 150
+        },
+        {
+          "caller": "AdminDemoPage",
+          "callee": "formatDateTime",
+          "lineNumber": 150
+        },
+        {
+          "caller": "AdminDemoPage",
+          "callee": "storageConfigured",
+          "lineNumber": 184
+        },
+        {
+          "caller": "AdminDemoPage",
+          "callee": "grants.map",
+          "lineNumber": 208
+        },
+        {
+          "caller": "AdminDemoPage",
+          "callee": "formatDate",
+          "lineNumber": 214
+        },
+        {
+          "caller": "AdminDemoPage",
+          "callee": "formatDate",
+          "lineNumber": 216
+        },
+        {
+          "caller": "AdminDemoPage",
+          "callee": "relativeTime",
+          "lineNumber": 218
+        },
+        {
+          "caller": "AdminDemoPage",
+          "callee": "files.map",
+          "lineNumber": 254
+        },
+        {
+          "caller": "AdminDemoPage",
+          "callee": "formatBytes",
+          "lineNumber": 262
+        },
+        {
+          "caller": "AdminDemoPage",
+          "callee": "secrets.map",
+          "lineNumber": 285
+        },
+        {
+          "caller": "FileList",
+          "callee": "files.map",
+          "lineNumber": 337
+        },
+        {
+          "caller": "FileList",
+          "callee": "formatBytes",
+          "lineNumber": 345
+        }
+      ],
+      "metrics": {
+        "importCount": 17,
+        "exportCount": 2,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/(app)/admin/demos/actions.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 507,
+      "nonEmptyLines": 461,
+      "functions": [
+        {
+          "name": "refresh",
+          "startLine": 33,
+          "endLine": 39,
+          "params": [
+            "id",
+            "slug"
+          ]
+        },
+        {
+          "name": "saveDemo",
+          "startLine": 89,
+          "endLine": 257,
+          "params": [
+            "_prev",
+            "formData"
+          ]
+        },
+        {
+          "name": "deleteDemo",
+          "startLine": 260,
+          "endLine": 285,
+          "params": [
+            "_prev",
+            "formData"
+          ]
+        },
+        {
+          "name": "deleteDemoFile",
+          "startLine": 288,
+          "endLine": 312,
+          "params": [
+            "formData"
+          ]
+        },
+        {
+          "name": "grantDemoAccess",
+          "startLine": 323,
+          "endLine": 371,
+          "params": [
+            "_prev",
+            "formData"
+          ]
+        },
+        {
+          "name": "revokeDemoAccess",
+          "startLine": 373,
+          "endLine": 391,
+          "params": [
+            "formData"
+          ]
+        },
+        {
+          "name": "deleteDemoAccess",
+          "startLine": 394,
+          "endLine": 408,
+          "params": [
+            "formData"
+          ]
+        },
+        {
+          "name": "answerDemoRun",
+          "startLine": 423,
+          "endLine": 489,
+          "params": [
+            "_prev",
+            "formData"
+          ]
+        },
+        {
+          "name": "deleteDemoRun",
+          "startLine": 491,
+          "endLine": 507,
+          "params": [
+            "formData"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "saveDemo",
+          "line": 89,
+          "isDefault": false
+        },
+        {
+          "name": "deleteDemo",
+          "line": 260,
+          "isDefault": false
+        },
+        {
+          "name": "deleteDemoFile",
+          "line": 288,
+          "isDefault": false
+        },
+        {
+          "name": "grantDemoAccess",
+          "line": 323,
+          "isDefault": false
+        },
+        {
+          "name": "revokeDemoAccess",
+          "line": 373,
+          "isDefault": false
+        },
+        {
+          "name": "deleteDemoAccess",
+          "line": 394,
+          "isDefault": false
+        },
+        {
+          "name": "answerDemoRun",
+          "line": 423,
+          "isDefault": false
+        },
+        {
+          "name": "deleteDemoRun",
+          "line": 491,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "refresh",
+          "callee": "revalidatePath",
+          "lineNumber": 34
+        },
+        {
+          "caller": "refresh",
+          "callee": "revalidatePath",
+          "lineNumber": 35
+        },
+        {
+          "caller": "refresh",
+          "callee": "revalidatePath",
+          "lineNumber": 36
+        },
+        {
+          "caller": "refresh",
+          "callee": "revalidatePath",
+          "lineNumber": 37
+        },
+        {
+          "caller": "refresh",
+          "callee": "revalidatePath",
+          "lineNumber": 38
+        },
+        {
+          "caller": "saveDemo",
+          "callee": "requirePermission",
+          "lineNumber": 90
+        },
+        {
+          "caller": "saveDemo",
+          "callee": "formData.getAll(\"block\").map",
+          "lineNumber": 92
+        },
+        {
+          "caller": "saveDemo",
+          "callee": "formData.getAll",
+          "lineNumber": 92
+        },
+        {
+          "caller": "saveDemo",
+          "callee": "formData.getAll(\"secret\").map",
+          "lineNumber": 93
+        },
+        {
+          "caller": "saveDemo",
+          "callee": "formData.getAll",
+          "lineNumber": 93
+        },
+        {
+          "caller": "saveDemo",
+          "callee": "formData.entries",
+          "lineNumber": 96
+        },
+        {
+          "caller": "saveDemo",
+          "callee": "scalar.append",
+          "lineNumber": 96
+        },
+        {
+          "caller": "saveDemo",
+          "callee": "parseForm",
+          "lineNumber": 98
+        },
+        {
+          "caller": "saveDemo",
+          "callee": "(await getSolutions({ includeHidden: true })).some",
+          "lineNumber": 102
+        },
+        {
+          "caller": "saveDemo",
+          "callee": "getSolutions",
+          "lineNumber": 102
+        },
+        {
+          "caller": "saveDemo",
+          "callee": "fail",
+          "lineNumber": 103
+        },
+        {
+          "caller": "saveDemo",
+          "callee": "z.array(DemoBlockSchema).max(50).safeParse",
+          "lineNumber": 106
+        },
+        {
+          "caller": "saveDemo",
+          "callee": "z.array(DemoBlockSchema).max",
+          "lineNumber": 106
+        },
+        {
+          "caller": "saveDemo",
+          "callee": "z.array",
+          "lineNumber": 106
+        },
+        {
+          "caller": "saveDemo",
+          "callee": "blockValues.map",
+          "lineNumber": 107
+        },
+        {
+          "caller": "saveDemo",
+          "callee": "JSON.parse",
+          "lineNumber": 109
+        },
+        {
+          "caller": "saveDemo",
+          "callee": "fail",
+          "lineNumber": 117
+        },
+        {
+          "caller": "saveDemo",
+          "callee": "blocks.map",
+          "lineNumber": 122
+        },
+        {
+          "caller": "saveDemo",
+          "callee": "fail",
+          "lineNumber": 123
+        },
+        {
+          "caller": "saveDemo",
+          "callee": "SecretInput.parse",
+          "lineNumber": 129
+        },
+        {
+          "caller": "saveDemo",
+          "callee": "JSON.parse",
+          "lineNumber": 129
+        },
+        {
+          "caller": "saveDemo",
+          "callee": "secrets.push",
+          "lineNumber": 130
+        },
+        {
+          "caller": "saveDemo",
+          "callee": "fail",
+          "lineNumber": 132
+        },
+        {
+          "caller": "saveDemo",
+          "callee": "encryptionConfigured",
+          "lineNumber": 135
+        },
+        {
+          "caller": "saveDemo",
+          "callee": "fail",
+          "lineNumber": 136
+        },
+        {
+          "caller": "saveDemo",
+          "callee": "blocks.map",
+          "lineNumber": 143
+        },
+        {
+          "caller": "saveDemo",
+          "callee": "b.fields.map",
+          "lineNumber": 145
+        },
+        {
+          "caller": "saveDemo",
+          "callee": "declaredSecrets",
+          "lineNumber": 149
+        },
+        {
+          "caller": "saveDemo",
+          "callee": "declared.some",
+          "lineNumber": 151
+        },
+        {
+          "caller": "saveDemo",
+          "callee": "fail",
+          "lineNumber": 152
+        },
+        {
+          "caller": "saveDemo",
+          "callee": "blocks.flatMap",
+          "lineNumber": 157
+        },
+        {
+          "caller": "saveDemo",
+          "callee": "fail",
+          "lineNumber": 159
+        },
+        {
+          "caller": "saveDemo",
+          "callee": "db\n      .select({ id: attachments.id })\n      .from(attachments)\n      .where",
+          "lineNumber": 160
+        },
+        {
+          "caller": "saveDemo",
+          "callee": "db\n      .select({ id: attachments.id })\n      .from",
+          "lineNumber": 160
+        },
+        {
+          "caller": "saveDemo",
+          "callee": "db\n      .select",
+          "lineNumber": 160
+        },
+        {
+          "caller": "saveDemo",
+          "callee": "and",
+          "lineNumber": 163
+        },
+        {
+          "caller": "saveDemo",
+          "callee": "inArray",
+          "lineNumber": 163
+        },
+        {
+          "caller": "saveDemo",
+          "callee": "eq",
+          "lineNumber": 163
+        },
+        {
+          "caller": "saveDemo",
+          "callee": "fail",
+          "lineNumber": 164
+        },
+        {
+          "caller": "saveDemo",
+          "callee": "db.select({ status: demos.status }).from(demos).where(eq(demos.id, demoId)).limit",
+          "lineNumber": 184
+        },
+        {
+          "caller": "saveDemo",
+          "callee": "db.select({ status: demos.status }).from(demos).where",
+          "lineNumber": 184
+        },
+        {
+          "caller": "saveDemo",
+          "callee": "db.select({ status: demos.status }).from",
+          "lineNumber": 184
+        },
+        {
+          "caller": "saveDemo",
+          "callee": "db.select",
+          "lineNumber": 184
+        },
+        {
+          "caller": "saveDemo",
+          "callee": "eq",
+          "lineNumber": 184
+        },
+        {
+          "caller": "saveDemo",
+          "callee": "fail",
+          "lineNumber": 185
+        },
+        {
+          "caller": "saveDemo",
+          "callee": "db.update(demos).set(values).where",
+          "lineNumber": 187
+        },
+        {
+          "caller": "saveDemo",
+          "callee": "db.update(demos).set",
+          "lineNumber": 187
+        },
+        {
+          "caller": "saveDemo",
+          "callee": "db.update",
+          "lineNumber": 187
+        },
+        {
+          "caller": "saveDemo",
+          "callee": "eq",
+          "lineNumber": 187
+        },
+        {
+          "caller": "saveDemo",
+          "callee": "db\n        .insert(demos)\n        .values({ ...values, createdById: staff.id })\n        .returning",
+          "lineNumber": 189
+        },
+        {
+          "caller": "saveDemo",
+          "callee": "db\n        .insert(demos)\n        .values",
+          "lineNumber": 189
+        },
+        {
+          "caller": "saveDemo",
+          "callee": "db\n        .insert",
+          "lineNumber": 189
+        },
+        {
+          "caller": "saveDemo",
+          "callee": "fail",
+          "lineNumber": 197
+        },
+        {
+          "caller": "saveDemo",
+          "callee": "encryptSecret",
+          "lineNumber": 203
+        },
+        {
+          "caller": "saveDemo",
+          "callee": "demoSecretAad",
+          "lineNumber": 203
+        },
+        {
+          "caller": "saveDemo",
+          "callee": "db\n      .insert(demoSecrets)\n      .values({ demoId, blockId: s.blockId, label: s.label, ciphertext, createdById: staff.id })\n      .onConflictDoUpdate",
+          "lineNumber": 204
+        },
+        {
+          "caller": "saveDemo",
+          "callee": "db\n      .insert(demoSecrets)\n      .values",
+          "lineNumber": 204
+        },
+        {
+          "caller": "saveDemo",
+          "callee": "db\n      .insert",
+          "lineNumber": 204
+        },
+        {
+          "caller": "saveDemo",
+          "callee": "declared.map",
+          "lineNumber": 214
+        },
+        {
+          "caller": "saveDemo",
+          "callee": "db\n    .delete(demoSecrets)\n    .where",
+          "lineNumber": 215
+        },
+        {
+          "caller": "saveDemo",
+          "callee": "db\n    .delete",
+          "lineNumber": 215
+        },
+        {
+          "caller": "saveDemo",
+          "callee": "and",
+          "lineNumber": 218
+        },
+        {
+          "caller": "saveDemo",
+          "callee": "eq",
+          "lineNumber": 219
+        },
+        {
+          "caller": "saveDemo",
+          "callee": "notInArray",
+          "lineNumber": 221
+        },
+        {
+          "caller": "saveDemo",
+          "callee": "sql",
+          "lineNumber": 221
+        },
+        {
+          "caller": "saveDemo",
+          "callee": "logActivity",
+          "lineNumber": 226
+        },
+        {
+          "caller": "saveDemo",
+          "callee": "db\n      .select({ userId: demoAccess.userId })\n      .from(demoAccess)\n      .where",
+          "lineNumber": 236
+        },
+        {
+          "caller": "saveDemo",
+          "callee": "db\n      .select({ userId: demoAccess.userId })\n      .from",
+          "lineNumber": 236
+        },
+        {
+          "caller": "saveDemo",
+          "callee": "db\n      .select",
+          "lineNumber": 236
+        },
+        {
+          "caller": "saveDemo",
+          "callee": "and",
+          "lineNumber": 239
+        },
+        {
+          "caller": "saveDemo",
+          "callee": "eq",
+          "lineNumber": 239
+        },
+        {
+          "caller": "saveDemo",
+          "callee": "sql",
+          "lineNumber": 239
+        },
+        {
+          "caller": "saveDemo",
+          "callee": "notifyMany",
+          "lineNumber": 240
+        },
+        {
+          "caller": "saveDemo",
+          "callee": "grants.map",
+          "lineNumber": 241
+        },
+        {
+          "caller": "saveDemo",
+          "callee": "refresh",
+          "lineNumber": 254
+        },
+        {
+          "caller": "saveDemo",
+          "callee": "redirect",
+          "lineNumber": 255
+        },
+        {
+          "caller": "saveDemo",
+          "callee": "succeed",
+          "lineNumber": 256
+        },
+        {
+          "caller": "deleteDemo",
+          "callee": "requirePermission",
+          "lineNumber": 261
+        },
+        {
+          "caller": "deleteDemo",
+          "callee": "Number",
+          "lineNumber": 262
+        },
+        {
+          "caller": "deleteDemo",
+          "callee": "formData.get",
+          "lineNumber": 262
+        },
+        {
+          "caller": "deleteDemo",
+          "callee": "Number.isInteger",
+          "lineNumber": 263
+        },
+        {
+          "caller": "deleteDemo",
+          "callee": "db.select().from(demos).where(eq(demos.id, id)).limit",
+          "lineNumber": 264
+        },
+        {
+          "caller": "deleteDemo",
+          "callee": "db.select().from(demos).where",
+          "lineNumber": 264
+        },
+        {
+          "caller": "deleteDemo",
+          "callee": "db.select().from",
+          "lineNumber": 264
+        },
+        {
+          "caller": "deleteDemo",
+          "callee": "db.select",
+          "lineNumber": 264
+        },
+        {
+          "caller": "deleteDemo",
+          "callee": "eq",
+          "lineNumber": 264
+        },
+        {
+          "caller": "deleteDemo",
+          "callee": "fail",
+          "lineNumber": 266
+        },
+        {
+          "caller": "deleteDemo",
+          "callee": "String(formData.get(\"confirm\") ?? \"\").trim",
+          "lineNumber": 267
+        },
+        {
+          "caller": "deleteDemo",
+          "callee": "String",
+          "lineNumber": 267
+        },
+        {
+          "caller": "deleteDemo",
+          "callee": "formData.get",
+          "lineNumber": 267
+        },
+        {
+          "caller": "deleteDemo",
+          "callee": "fail",
+          "lineNumber": 268
+        },
+        {
+          "caller": "deleteDemo",
+          "callee": "db.select({ key: attachments.key }).from(attachments).where",
+          "lineNumber": 271
+        },
+        {
+          "caller": "deleteDemo",
+          "callee": "db.select({ key: attachments.key }).from",
+          "lineNumber": 271
+        },
+        {
+          "caller": "deleteDemo",
+          "callee": "db.select",
+          "lineNumber": 271
+        },
+        {
+          "caller": "deleteDemo",
+          "callee": "eq",
+          "lineNumber": 271
+        },
+        {
+          "caller": "deleteDemo",
+          "callee": "db.delete(demos).where",
+          "lineNumber": 272
+        },
+        {
+          "caller": "deleteDemo",
+          "callee": "db.delete",
+          "lineNumber": 272
+        },
+        {
+          "caller": "deleteDemo",
+          "callee": "eq",
+          "lineNumber": 272
+        },
+        {
+          "caller": "deleteDemo",
+          "callee": "Promise.all",
+          "lineNumber": 274
+        },
+        {
+          "caller": "deleteDemo",
+          "callee": "files.map",
+          "lineNumber": 274
+        },
+        {
+          "caller": "deleteDemo",
+          "callee": "deleteObject(f.key).catch",
+          "lineNumber": 274
+        },
+        {
+          "caller": "deleteDemo",
+          "callee": "deleteObject",
+          "lineNumber": 274
+        },
+        {
+          "caller": "deleteDemo",
+          "callee": "logActivity",
+          "lineNumber": 276
+        },
+        {
+          "caller": "deleteDemo",
+          "callee": "refresh",
+          "lineNumber": 283
+        },
+        {
+          "caller": "deleteDemo",
+          "callee": "redirect",
+          "lineNumber": 284
+        },
+        {
+          "caller": "deleteDemoFile",
+          "callee": "requirePermission",
+          "lineNumber": 289
+        },
+        {
+          "caller": "deleteDemoFile",
+          "callee": "Number",
+          "lineNumber": 290
+        },
+        {
+          "caller": "deleteDemoFile",
+          "callee": "formData.get",
+          "lineNumber": 290
+        },
+        {
+          "caller": "deleteDemoFile",
+          "callee": "Number.isInteger",
+          "lineNumber": 291
+        },
+        {
+          "caller": "deleteDemoFile",
+          "callee": "db.select().from(attachments).where(eq(attachments.id, id)).limit",
+          "lineNumber": 292
+        },
+        {
+          "caller": "deleteDemoFile",
+          "callee": "db.select().from(attachments).where",
+          "lineNumber": 292
+        },
+        {
+          "caller": "deleteDemoFile",
+          "callee": "db.select().from",
+          "lineNumber": 292
+        },
+        {
+          "caller": "deleteDemoFile",
+          "callee": "db.select",
+          "lineNumber": 292
+        },
+        {
+          "caller": "deleteDemoFile",
+          "callee": "eq",
+          "lineNumber": 292
+        },
+        {
+          "caller": "deleteDemoFile",
+          "callee": "db.select().from(demos).where(eq(demos.id, file.demoId)).limit",
+          "lineNumber": 295
+        },
+        {
+          "caller": "deleteDemoFile",
+          "callee": "db.select().from(demos).where",
+          "lineNumber": 295
+        },
+        {
+          "caller": "deleteDemoFile",
+          "callee": "db.select().from",
+          "lineNumber": 295
+        },
+        {
+          "caller": "deleteDemoFile",
+          "callee": "db.select",
+          "lineNumber": 295
+        },
+        {
+          "caller": "deleteDemoFile",
+          "callee": "eq",
+          "lineNumber": 295
+        },
+        {
+          "caller": "deleteDemoFile",
+          "callee": "db.delete(attachments).where",
+          "lineNumber": 296
+        },
+        {
+          "caller": "deleteDemoFile",
+          "callee": "db.delete",
+          "lineNumber": 296
+        },
+        {
+          "caller": "deleteDemoFile",
+          "callee": "eq",
+          "lineNumber": 296
+        },
+        {
+          "caller": "deleteDemoFile",
+          "callee": "deleteObject(file.key).catch",
+          "lineNumber": 297
+        },
+        {
+          "caller": "deleteDemoFile",
+          "callee": "deleteObject",
+          "lineNumber": 297
+        },
+        {
+          "caller": "deleteDemoFile",
+          "callee": "(demo.blocks as DemoBlock[]).map",
+          "lineNumber": 299
+        },
+        {
+          "caller": "deleteDemoFile",
+          "callee": "db.update(demos).set({ blocks, updatedAt: new Date() }).where",
+          "lineNumber": 302
+        },
+        {
+          "caller": "deleteDemoFile",
+          "callee": "db.update(demos).set",
+          "lineNumber": 302
+        },
+        {
+          "caller": "deleteDemoFile",
+          "callee": "db.update",
+          "lineNumber": 302
+        },
+        {
+          "caller": "deleteDemoFile",
+          "callee": "eq",
+          "lineNumber": 302
+        },
+        {
+          "caller": "deleteDemoFile",
+          "callee": "logActivity",
+          "lineNumber": 304
+        },
+        {
+          "caller": "deleteDemoFile",
+          "callee": "refresh",
+          "lineNumber": 311
+        },
+        {
+          "caller": "grantDemoAccess",
+          "callee": "requirePermission",
+          "lineNumber": 324
+        },
+        {
+          "caller": "grantDemoAccess",
+          "callee": "parseForm",
+          "lineNumber": 325
+        },
+        {
+          "caller": "grantDemoAccess",
+          "callee": "fail",
+          "lineNumber": 327
+        },
+        {
+          "caller": "grantDemoAccess",
+          "callee": "db.select().from(demos).where(eq(demos.id, demoId)).limit",
+          "lineNumber": 331
+        },
+        {
+          "caller": "grantDemoAccess",
+          "callee": "db.select().from(demos).where",
+          "lineNumber": 331
+        },
+        {
+          "caller": "grantDemoAccess",
+          "callee": "db.select().from",
+          "lineNumber": 331
+        },
+        {
+          "caller": "grantDemoAccess",
+          "callee": "db.select",
+          "lineNumber": 331
+        },
+        {
+          "caller": "grantDemoAccess",
+          "callee": "eq",
+          "lineNumber": 331
+        },
+        {
+          "caller": "grantDemoAccess",
+          "callee": "fail",
+          "lineNumber": 332
+        },
+        {
+          "caller": "grantDemoAccess",
+          "callee": "db\n      .insert(demoAccess)\n      .values({ demoId, userId, grantedById: staff.id, expiresAt, note: note || null })\n      .onConflictDoUpdate",
+          "lineNumber": 336
+        },
+        {
+          "caller": "grantDemoAccess",
+          "callee": "db\n      .insert(demoAccess)\n      .values",
+          "lineNumber": 336
+        },
+        {
+          "caller": "grantDemoAccess",
+          "callee": "db\n      .insert",
+          "lineNumber": 336
+        },
+        {
+          "caller": "grantDemoAccess",
+          "callee": "logActivity",
+          "lineNumber": 345
+        },
+        {
+          "caller": "grantDemoAccess",
+          "callee": "notifyMany",
+          "lineNumber": 356
+        },
+        {
+          "caller": "grantDemoAccess",
+          "callee": "refresh",
+          "lineNumber": 367
+        },
+        {
+          "caller": "grantDemoAccess",
+          "callee": "succeed",
+          "lineNumber": 368
+        },
+        {
+          "caller": "revokeDemoAccess",
+          "callee": "requirePermission",
+          "lineNumber": 374
+        },
+        {
+          "caller": "revokeDemoAccess",
+          "callee": "Number",
+          "lineNumber": 375
+        },
+        {
+          "caller": "revokeDemoAccess",
+          "callee": "formData.get",
+          "lineNumber": 375
+        },
+        {
+          "caller": "revokeDemoAccess",
+          "callee": "Number.isInteger",
+          "lineNumber": 376
+        },
+        {
+          "caller": "revokeDemoAccess",
+          "callee": "db\n    .update(demoAccess)\n    .set({ revokedAt: new Date() })\n    .where(eq(demoAccess.id, id))\n    .returning",
+          "lineNumber": 377
+        },
+        {
+          "caller": "revokeDemoAccess",
+          "callee": "db\n    .update(demoAccess)\n    .set({ revokedAt: new Date() })\n    .where",
+          "lineNumber": 377
+        },
+        {
+          "caller": "revokeDemoAccess",
+          "callee": "db\n    .update(demoAccess)\n    .set",
+          "lineNumber": 377
+        },
+        {
+          "caller": "revokeDemoAccess",
+          "callee": "db\n    .update",
+          "lineNumber": 377
+        },
+        {
+          "caller": "revokeDemoAccess",
+          "callee": "eq",
+          "lineNumber": 380
+        },
+        {
+          "caller": "revokeDemoAccess",
+          "callee": "logActivity",
+          "lineNumber": 383
+        },
+        {
+          "caller": "revokeDemoAccess",
+          "callee": "refresh",
+          "lineNumber": 390
+        },
+        {
+          "caller": "deleteDemoAccess",
+          "callee": "requirePermission",
+          "lineNumber": 395
+        },
+        {
+          "caller": "deleteDemoAccess",
+          "callee": "Number",
+          "lineNumber": 396
+        },
+        {
+          "caller": "deleteDemoAccess",
+          "callee": "formData.get",
+          "lineNumber": 396
+        },
+        {
+          "caller": "deleteDemoAccess",
+          "callee": "Number.isInteger",
+          "lineNumber": 397
+        },
+        {
+          "caller": "deleteDemoAccess",
+          "callee": "db.delete(demoAccess).where(eq(demoAccess.id, id)).returning",
+          "lineNumber": 398
+        },
+        {
+          "caller": "deleteDemoAccess",
+          "callee": "db.delete(demoAccess).where",
+          "lineNumber": 398
+        },
+        {
+          "caller": "deleteDemoAccess",
+          "callee": "db.delete",
+          "lineNumber": 398
+        },
+        {
+          "caller": "deleteDemoAccess",
+          "callee": "eq",
+          "lineNumber": 398
+        },
+        {
+          "caller": "deleteDemoAccess",
+          "callee": "logActivity",
+          "lineNumber": 400
+        },
+        {
+          "caller": "deleteDemoAccess",
+          "callee": "refresh",
+          "lineNumber": 407
+        },
+        {
+          "caller": "answerDemoRun",
+          "callee": "requirePermission",
+          "lineNumber": 424
+        },
+        {
+          "caller": "answerDemoRun",
+          "callee": "parseForm",
+          "lineNumber": 425
+        },
+        {
+          "caller": "answerDemoRun",
+          "callee": "db.select().from(demoRuns).where(eq(demoRuns.id, runId)).limit",
+          "lineNumber": 429
+        },
+        {
+          "caller": "answerDemoRun",
+          "callee": "db.select().from(demoRuns).where",
+          "lineNumber": 429
+        },
+        {
+          "caller": "answerDemoRun",
+          "callee": "db.select().from",
+          "lineNumber": 429
+        },
+        {
+          "caller": "answerDemoRun",
+          "callee": "db.select",
+          "lineNumber": 429
+        },
+        {
+          "caller": "answerDemoRun",
+          "callee": "eq",
+          "lineNumber": 429
+        },
+        {
+          "caller": "answerDemoRun",
+          "callee": "fail",
+          "lineNumber": 430
+        },
+        {
+          "caller": "answerDemoRun",
+          "callee": "db.select().from(demos).where(eq(demos.id, run.demoId)).limit",
+          "lineNumber": 431
+        },
+        {
+          "caller": "answerDemoRun",
+          "callee": "db.select().from(demos).where",
+          "lineNumber": 431
+        },
+        {
+          "caller": "answerDemoRun",
+          "callee": "db.select().from",
+          "lineNumber": 431
+        },
+        {
+          "caller": "answerDemoRun",
+          "callee": "db.select",
+          "lineNumber": 431
+        },
+        {
+          "caller": "answerDemoRun",
+          "callee": "eq",
+          "lineNumber": 431
+        },
+        {
+          "caller": "answerDemoRun",
+          "callee": "db\n    .update(demoRuns)\n    .set({\n      outcome,\n      note: note || null,\n      handledById: staff.id,\n      result: summary ? { summary, fields: [], source: \"manual\" } : run.result,\n      durationMs: outcome === \"ok\" ? Date.now() - run.createdAt.getTime() : run.durationMs,\n      updatedAt: new Date(),\n    })\n    .where",
+          "lineNumber": 433
+        },
+        {
+          "caller": "answerDemoRun",
+          "callee": "db\n    .update(demoRuns)\n    .set",
+          "lineNumber": 433
+        },
+        {
+          "caller": "answerDemoRun",
+          "callee": "db\n    .update",
+          "lineNumber": 433
+        },
+        {
+          "caller": "answerDemoRun",
+          "callee": "Date.now",
+          "lineNumber": 440
+        },
+        {
+          "caller": "answerDemoRun",
+          "callee": "run.createdAt.getTime",
+          "lineNumber": 440
+        },
+        {
+          "caller": "answerDemoRun",
+          "callee": "eq",
+          "lineNumber": 443
+        },
+        {
+          "caller": "answerDemoRun",
+          "callee": "logActivity",
+          "lineNumber": 445
+        },
+        {
+          "caller": "answerDemoRun",
+          "callee": "notify",
+          "lineNumber": 461
+        },
+        {
+          "caller": "answerDemoRun",
+          "callee": "note?.slice",
+          "lineNumber": 465
+        },
+        {
+          "caller": "answerDemoRun",
+          "callee": "db.query.user.findFirst",
+          "lineNumber": 472
+        },
+        {
+          "caller": "answerDemoRun",
+          "callee": "e",
+          "lineNumber": 473
+        },
+        {
+          "caller": "answerDemoRun",
+          "callee": "sendEmail",
+          "lineNumber": 477
+        },
+        {
+          "caller": "answerDemoRun",
+          "callee": "refresh",
+          "lineNumber": 487
+        },
+        {
+          "caller": "answerDemoRun",
+          "callee": "succeed",
+          "lineNumber": 488
+        },
+        {
+          "caller": "deleteDemoRun",
+          "callee": "requirePermission",
+          "lineNumber": 492
+        },
+        {
+          "caller": "deleteDemoRun",
+          "callee": "Number",
+          "lineNumber": 493
+        },
+        {
+          "caller": "deleteDemoRun",
+          "callee": "formData.get",
+          "lineNumber": 493
+        },
+        {
+          "caller": "deleteDemoRun",
+          "callee": "Number.isInteger",
+          "lineNumber": 494
+        },
+        {
+          "caller": "deleteDemoRun",
+          "callee": "db.select({ key: attachments.key }).from(attachments).where",
+          "lineNumber": 495
+        },
+        {
+          "caller": "deleteDemoRun",
+          "callee": "db.select({ key: attachments.key }).from",
+          "lineNumber": 495
+        },
+        {
+          "caller": "deleteDemoRun",
+          "callee": "db.select",
+          "lineNumber": 495
+        },
+        {
+          "caller": "deleteDemoRun",
+          "callee": "eq",
+          "lineNumber": 495
+        },
+        {
+          "caller": "deleteDemoRun",
+          "callee": "db.delete(demoRuns).where(eq(demoRuns.id, id)).returning",
+          "lineNumber": 496
+        },
+        {
+          "caller": "deleteDemoRun",
+          "callee": "db.delete(demoRuns).where",
+          "lineNumber": 496
+        },
+        {
+          "caller": "deleteDemoRun",
+          "callee": "db.delete",
+          "lineNumber": 496
+        },
+        {
+          "caller": "deleteDemoRun",
+          "callee": "eq",
+          "lineNumber": 496
+        },
+        {
+          "caller": "deleteDemoRun",
+          "callee": "Promise.all",
+          "lineNumber": 498
+        },
+        {
+          "caller": "deleteDemoRun",
+          "callee": "files.map",
+          "lineNumber": 498
+        },
+        {
+          "caller": "deleteDemoRun",
+          "callee": "deleteObject(f.key).catch",
+          "lineNumber": 498
+        },
+        {
+          "caller": "deleteDemoRun",
+          "callee": "deleteObject",
+          "lineNumber": 498
+        },
+        {
+          "caller": "deleteDemoRun",
+          "callee": "logActivity",
+          "lineNumber": 499
+        },
+        {
+          "caller": "deleteDemoRun",
+          "callee": "refresh",
+          "lineNumber": 506
+        }
+      ],
+      "metrics": {
+        "importCount": 11,
+        "exportCount": 8,
+        "functionCount": 9,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/(app)/admin/demos/nouveau/page.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 31,
+      "nonEmptyLines": 29,
+      "functions": [
+        {
+          "name": "NouvelleDemoPage",
+          "startLine": 11,
+          "endLine": 31,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "metadata",
+          "line": 9,
+          "isDefault": false
+        },
+        {
+          "name": "NouvelleDemoPage",
+          "line": 11,
+          "isDefault": true
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "NouvelleDemoPage",
+          "callee": "requirePermission",
+          "lineNumber": 12
+        },
+        {
+          "caller": "NouvelleDemoPage",
+          "callee": "(await getSolutions({ includeHidden: true })).map",
+          "lineNumber": 23
+        },
+        {
+          "caller": "NouvelleDemoPage",
+          "callee": "getSolutions",
+          "lineNumber": 23
+        },
+        {
+          "caller": "NouvelleDemoPage",
+          "callee": "encryptionConfigured",
+          "lineNumber": 24
+        },
+        {
+          "caller": "NouvelleDemoPage",
+          "callee": "storageConfigured",
+          "lineNumber": 25
+        }
+      ],
+      "metrics": {
+        "importCount": 6,
+        "exportCount": 2,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/(app)/admin/parametres/page.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 134,
+      "nonEmptyLines": 126,
+      "functions": [
+        {
+          "name": "ParametresPage",
+          "startLine": 16,
+          "endLine": 105,
+          "params": []
+        },
+        {
+          "name": "ServiceRow",
+          "startLine": 107,
+          "endLine": 134,
+          "params": [
+            "{\n  ok,\n  label,\n  okHint,\n  offHint,\n}"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "metadata",
+          "line": 14,
+          "isDefault": false
+        },
+        {
+          "name": "ParametresPage",
+          "line": 16,
+          "isDefault": true
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "ParametresPage",
+          "callee": "requirePermission",
+          "lineNumber": 17
+        },
+        {
+          "caller": "ParametresPage",
+          "callee": "Promise.all",
+          "lineNumber": 18
+        },
+        {
+          "caller": "ParametresPage",
+          "callee": "getSettings",
+          "lineNumber": 18
+        },
+        {
+          "caller": "ParametresPage",
+          "callee": "getCompany",
+          "lineNumber": 18
+        },
+        {
+          "caller": "ParametresPage",
+          "callee": "Boolean",
+          "lineNumber": 20
+        },
+        {
+          "caller": "ParametresPage",
+          "callee": "Boolean",
+          "lineNumber": 21
+        },
+        {
+          "caller": "ParametresPage",
+          "callee": "can",
+          "lineNumber": 33
+        },
+        {
+          "caller": "ParametresPage",
+          "callee": "can",
+          "lineNumber": 47
+        },
+        {
+          "caller": "ParametresPage",
+          "callee": "storageConfigured",
+          "lineNumber": 48
+        },
+        {
+          "caller": "ParametresPage",
+          "callee": "emailConfigured",
+          "lineNumber": 65
+        },
+        {
+          "caller": "ParametresPage",
+          "callee": "storageConfigured",
+          "lineNumber": 71
+        },
+        {
+          "caller": "ParametresPage",
+          "callee": "encryptionConfigured",
+          "lineNumber": 83
+        },
+        {
+          "caller": "ParametresPage",
+          "callee": "Boolean",
+          "lineNumber": 89
+        },
+        {
+          "caller": "ServiceRow",
+          "callee": "cn",
+          "lineNumber": 121
+        }
+      ],
+      "metrics": {
+        "importCount": 11,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/(app)/dashboard/demos/[slug]/page.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 92,
+      "nonEmptyLines": 86,
+      "functions": [
+        {
+          "name": "DemoPage",
+          "startLine": 15,
+          "endLine": 92,
+          "params": [
+            "{ params }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "metadata",
+          "line": 13,
+          "isDefault": false
+        },
+        {
+          "name": "DemoPage",
+          "line": 15,
+          "isDefault": true
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "DemoPage",
+          "callee": "requireUser",
+          "lineNumber": 17
+        },
+        {
+          "caller": "DemoPage",
+          "callee": "getEntitledDemo",
+          "lineNumber": 21
+        },
+        {
+          "caller": "DemoPage",
+          "callee": "notFound",
+          "lineNumber": 22
+        },
+        {
+          "caller": "DemoPage",
+          "callee": "Promise.all",
+          "lineNumber": 25
+        },
+        {
+          "caller": "DemoPage",
+          "callee": "listDemoFiles",
+          "lineNumber": 25
+        },
+        {
+          "caller": "DemoPage",
+          "callee": "listRunsForUser",
+          "lineNumber": 25
+        },
+        {
+          "caller": "DemoPage",
+          "callee": "(await getSolutions({ includeHidden: true })).find",
+          "lineNumber": 26
+        },
+        {
+          "caller": "DemoPage",
+          "callee": "getSolutions",
+          "lineNumber": 26
+        },
+        {
+          "caller": "DemoPage",
+          "callee": "storageConfigured",
+          "lineNumber": 58
+        },
+        {
+          "caller": "DemoPage",
+          "callee": "formatDate",
+          "lineNumber": 74
+        },
+        {
+          "caller": "DemoPage",
+          "callee": "encodeURIComponent",
+          "lineNumber": 82
+        }
+      ],
+      "metrics": {
+        "importCount": 8,
+        "exportCount": 2,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/(app)/dashboard/demos/page.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 90,
+      "nonEmptyLines": 86,
+      "functions": [
+        {
+          "name": "DemosPage",
+          "startLine": 22,
+          "endLine": 90,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "metadata",
+          "line": 13,
+          "isDefault": false
+        },
+        {
+          "name": "DemosPage",
+          "line": 22,
+          "isDefault": true
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "DemosPage",
+          "callee": "requireUser",
+          "lineNumber": 23
+        },
+        {
+          "caller": "DemosPage",
+          "callee": "Promise.all",
+          "lineNumber": 24
+        },
+        {
+          "caller": "DemosPage",
+          "callee": "listEntitledDemos",
+          "lineNumber": 24
+        },
+        {
+          "caller": "DemosPage",
+          "callee": "getSolutions",
+          "lineNumber": 24
+        },
+        {
+          "caller": "DemosPage",
+          "callee": "now.getTime",
+          "lineNumber": 26
+        },
+        {
+          "caller": "DemosPage",
+          "callee": "demos.map",
+          "lineNumber": 53
+        },
+        {
+          "caller": "DemosPage",
+          "callee": "SERVICES.find",
+          "lineNumber": 54
+        },
+        {
+          "caller": "DemosPage",
+          "callee": "Array.from",
+          "lineNumber": 55
+        },
+        {
+          "caller": "DemosPage",
+          "callee": "blocks.map",
+          "lineNumber": 55
+        },
+        {
+          "caller": "DemosPage",
+          "callee": "formatDate",
+          "lineNumber": 70
+        },
+        {
+          "caller": "DemosPage",
+          "callee": "kinds.map",
+          "lineNumber": 76
+        }
+      ],
+      "metrics": {
+        "importCount": 9,
+        "exportCount": 2,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "components/dashboard/FileUpload.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 113,
+      "nonEmptyLines": 108,
+      "functions": [
+        {
+          "name": "FileUpload",
+          "startLine": 24,
+          "endLine": 113,
+          "params": [
+            "{\n  target = {},\n  internal = false,\n  disabled = false,\n  disabledReason,\n  label = \"Joindre un fichier\",\n  accept,\n  hint = \"PDF, images, documents Office, archives.\",\n  maxBytes,\n  onUploaded,\n}"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "FileUpload",
+          "line": 24,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "FileUpload",
+          "callee": "useRouter",
+          "lineNumber": 49
+        },
+        {
+          "caller": "FileUpload",
+          "callee": "useRef",
+          "lineNumber": 50
+        },
+        {
+          "caller": "FileUpload",
+          "callee": "useState",
+          "lineNumber": 51
+        },
+        {
+          "caller": "FileUpload",
+          "callee": "useState",
+          "lineNumber": 52
+        },
+        {
+          "caller": "FileUpload",
+          "callee": "useState",
+          "lineNumber": 53
+        },
+        {
+          "caller": "upload",
+          "callee": "setError",
+          "lineNumber": 56
+        },
+        {
+          "caller": "upload",
+          "callee": "setError",
+          "lineNumber": 58
+        },
+        {
+          "caller": "upload",
+          "callee": "formatBytes",
+          "lineNumber": 58
+        },
+        {
+          "caller": "upload",
+          "callee": "formatBytes",
+          "lineNumber": 58
+        },
+        {
+          "caller": "upload",
+          "callee": "setBusy",
+          "lineNumber": 61
+        },
+        {
+          "caller": "upload",
+          "callee": "uploadFile",
+          "lineNumber": 62
+        },
+        {
+          "caller": "upload",
+          "callee": "setBusy",
+          "lineNumber": 63
+        },
+        {
+          "caller": "upload",
+          "callee": "setProgress",
+          "lineNumber": 64
+        },
+        {
+          "caller": "upload",
+          "callee": "setError",
+          "lineNumber": 67
+        },
+        {
+          "caller": "upload",
+          "callee": "onUploaded",
+          "lineNumber": 70
+        },
+        {
+          "caller": "upload",
+          "callee": "router.refresh",
+          "lineNumber": 71
+        },
+        {
+          "caller": "FileUpload",
+          "callee": "upload",
+          "lineNumber": 91
+        },
+        {
+          "caller": "FileUpload",
+          "callee": "inputRef.current?.click",
+          "lineNumber": 97
+        },
+        {
+          "caller": "FileUpload",
+          "callee": "formatBytes",
+          "lineNumber": 104
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "components/dashboard/demos/DemoBlocks.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 378,
+      "nonEmptyLines": 363,
+      "functions": [
+        {
+          "name": "DemoBlocks",
+          "startLine": 40,
+          "endLine": 83,
+          "params": [
+            "{\n  demoId,\n  blocks,\n  files,\n  runs,\n  demoExpiresAt,\n  now,\n  storage,\n  maxUploadBytes,\n}"
+          ]
+        },
+        {
+          "name": "Expired",
+          "startLine": 85,
+          "endLine": 92,
+          "params": [
+            "{ at }"
+          ]
+        },
+        {
+          "name": "Body",
+          "startLine": 94,
+          "endLine": 356,
+          "params": [
+            "{\n  block: b,\n  demoId,\n  files,\n  runs,\n  demoExpiresAt,\n  now,\n  storage,\n  maxUploadBytes,\n}"
+          ]
+        },
+        {
+          "name": "Files",
+          "startLine": 358,
+          "endLine": 378,
+          "params": [
+            "{ files, title }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "DemoBlocks",
+          "line": 40,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "DemoBlocks",
+          "callee": "blocks.map",
+          "lineNumber": 61
+        },
+        {
+          "caller": "Expired",
+          "callee": "formatDate",
+          "lineNumber": 89
+        },
+        {
+          "caller": "Body",
+          "callee": "effectiveExpiry",
+          "lineNumber": 150
+        },
+        {
+          "caller": "Body",
+          "callee": "isExpired",
+          "lineNumber": 151
+        },
+        {
+          "caller": "Body",
+          "callee": "b.fields.map",
+          "lineNumber": 155
+        },
+        {
+          "caller": "Body",
+          "callee": "/^https?:\\/\\//.test",
+          "lineNumber": 161
+        },
+        {
+          "caller": "Body",
+          "callee": "formatDate",
+          "lineNumber": 177
+        },
+        {
+          "caller": "Body",
+          "callee": "files.find",
+          "lineNumber": 199
+        },
+        {
+          "caller": "Body",
+          "callee": "/\\.pdf$/i.test",
+          "lineNumber": 201
+        },
+        {
+          "caller": "Body",
+          "callee": "formatBytes",
+          "lineNumber": 210
+        },
+        {
+          "caller": "Body",
+          "callee": "effectiveExpiry",
+          "lineNumber": 228
+        },
+        {
+          "caller": "Body",
+          "callee": "isExpired",
+          "lineNumber": 229
+        },
+        {
+          "caller": "Body",
+          "callee": "formatDate",
+          "lineNumber": 260
+        },
+        {
+          "caller": "Body",
+          "callee": "runs.find",
+          "lineNumber": 266
+        },
+        {
+          "caller": "Body",
+          "callee": "runs.filter",
+          "lineNumber": 267
+        },
+        {
+          "caller": "Body",
+          "callee": "relativeTime",
+          "lineNumber": 286
+        },
+        {
+          "caller": "Body",
+          "callee": "b.accept.replaceAll",
+          "lineNumber": 295
+        },
+        {
+          "caller": "Body",
+          "callee": "done.map",
+          "lineNumber": 322
+        },
+        {
+          "caller": "Body",
+          "callee": "formatDate",
+          "lineNumber": 328
+        },
+        {
+          "caller": "Body",
+          "callee": "resultSource",
+          "lineNumber": 329
+        },
+        {
+          "caller": "Body",
+          "callee": "result.fields.map",
+          "lineNumber": 337
+        },
+        {
+          "caller": "Files",
+          "callee": "files.map",
+          "lineNumber": 363
+        },
+        {
+          "caller": "Files",
+          "callee": "formatBytes",
+          "lineNumber": 371
+        }
+      ],
+      "metrics": {
+        "importCount": 9,
+        "exportCount": 1,
+        "functionCount": 4,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "components/dashboard/demos/RevealSecret.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 133,
+      "nonEmptyLines": 123,
+      "functions": [
+        {
+          "name": "RevealSecret",
+          "startLine": 24,
+          "endLine": 110,
+          "params": [
+            "{\n  demoId,\n  blockId,\n  label,\n  multiline = false,\n}"
+          ]
+        },
+        {
+          "name": "CopyLine",
+          "startLine": 113,
+          "endLine": 133,
+          "params": [
+            "{ value, label }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "RevealSecret",
+          "line": 24,
+          "isDefault": false
+        },
+        {
+          "name": "CopyLine",
+          "line": 113,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "RevealSecret",
+          "callee": "useState",
+          "lineNumber": 36
+        },
+        {
+          "caller": "RevealSecret",
+          "callee": "useState",
+          "lineNumber": 37
+        },
+        {
+          "caller": "RevealSecret",
+          "callee": "useState",
+          "lineNumber": 38
+        },
+        {
+          "caller": "RevealSecret",
+          "callee": "useState",
+          "lineNumber": 39
+        },
+        {
+          "caller": "RevealSecret",
+          "callee": "useEffect",
+          "lineNumber": 41
+        },
+        {
+          "caller": "RevealSecret",
+          "callee": "setTimeout",
+          "lineNumber": 43
+        },
+        {
+          "caller": "RevealSecret",
+          "callee": "setValue",
+          "lineNumber": 43
+        },
+        {
+          "caller": "RevealSecret",
+          "callee": "clearTimeout",
+          "lineNumber": 44
+        },
+        {
+          "caller": "reveal",
+          "callee": "setBusy",
+          "lineNumber": 48
+        },
+        {
+          "caller": "reveal",
+          "callee": "setError",
+          "lineNumber": 49
+        },
+        {
+          "caller": "reveal",
+          "callee": "fetch",
+          "lineNumber": 51
+        },
+        {
+          "caller": "reveal",
+          "callee": "JSON.stringify",
+          "lineNumber": 54
+        },
+        {
+          "caller": "reveal",
+          "callee": "res.json().catch",
+          "lineNumber": 57
+        },
+        {
+          "caller": "reveal",
+          "callee": "res.json",
+          "lineNumber": 57
+        },
+        {
+          "caller": "reveal",
+          "callee": "setError",
+          "lineNumber": 59
+        },
+        {
+          "caller": "reveal",
+          "callee": "setValue",
+          "lineNumber": 62
+        },
+        {
+          "caller": "reveal",
+          "callee": "setBusy",
+          "lineNumber": 64
+        },
+        {
+          "caller": "copy",
+          "callee": "navigator.clipboard.writeText",
+          "lineNumber": 70
+        },
+        {
+          "caller": "copy",
+          "callee": "setCopied",
+          "lineNumber": 71
+        },
+        {
+          "caller": "copy",
+          "callee": "setTimeout",
+          "lineNumber": 72
+        },
+        {
+          "caller": "copy",
+          "callee": "setCopied",
+          "lineNumber": 72
+        },
+        {
+          "caller": "RevealSecret",
+          "callee": "setValue",
+          "lineNumber": 104
+        },
+        {
+          "caller": "CopyLine",
+          "callee": "useState",
+          "lineNumber": 114
+        },
+        {
+          "caller": "CopyLine",
+          "callee": "navigator.clipboard.writeText",
+          "lineNumber": 123
+        },
+        {
+          "caller": "CopyLine",
+          "callee": "setCopied",
+          "lineNumber": 124
+        },
+        {
+          "caller": "CopyLine",
+          "callee": "setTimeout",
+          "lineNumber": 125
+        },
+        {
+          "caller": "CopyLine",
+          "callee": "setCopied",
+          "lineNumber": 125
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "lib/crypto.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 74,
+      "nonEmptyLines": 67,
+      "functions": [
+        {
+          "name": "encryptionConfigured",
+          "startLine": 28,
+          "endLine": 35,
+          "params": []
+        },
+        {
+          "name": "key",
+          "startLine": 37,
+          "endLine": 47,
+          "params": []
+        },
+        {
+          "name": "encryptSecret",
+          "startLine": 49,
+          "endLine": 56,
+          "params": [
+            "plain",
+            "aad"
+          ]
+        },
+        {
+          "name": "decryptSecret",
+          "startLine": 58,
+          "endLine": 69,
+          "params": [
+            "blob",
+            "aad"
+          ]
+        },
+        {
+          "name": "demoSecretAad",
+          "startLine": 72,
+          "endLine": 74,
+          "params": [
+            "demoId",
+            "blockId",
+            "label"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "encryptionConfigured",
+          "line": 28,
+          "isDefault": false
+        },
+        {
+          "name": "encryptSecret",
+          "line": 49,
+          "isDefault": false
+        },
+        {
+          "name": "decryptSecret",
+          "line": 58,
+          "isDefault": false
+        },
+        {
+          "name": "demoSecretAad",
+          "line": 72,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "encryptionConfigured",
+          "callee": "key",
+          "lineNumber": 30
+        },
+        {
+          "caller": "key",
+          "callee": "Buffer.from",
+          "lineNumber": 40
+        },
+        {
+          "caller": "encryptSecret",
+          "callee": "randomBytes",
+          "lineNumber": 50
+        },
+        {
+          "caller": "encryptSecret",
+          "callee": "createCipheriv",
+          "lineNumber": 51
+        },
+        {
+          "caller": "encryptSecret",
+          "callee": "key",
+          "lineNumber": 51
+        },
+        {
+          "caller": "encryptSecret",
+          "callee": "cipher.setAAD",
+          "lineNumber": 52
+        },
+        {
+          "caller": "encryptSecret",
+          "callee": "Buffer.from",
+          "lineNumber": 52
+        },
+        {
+          "caller": "encryptSecret",
+          "callee": "Buffer.concat",
+          "lineNumber": 53
+        },
+        {
+          "caller": "encryptSecret",
+          "callee": "cipher.update",
+          "lineNumber": 53
+        },
+        {
+          "caller": "encryptSecret",
+          "callee": "cipher.final",
+          "lineNumber": 53
+        },
+        {
+          "caller": "encryptSecret",
+          "callee": "cipher.getAuthTag",
+          "lineNumber": 54
+        },
+        {
+          "caller": "encryptSecret",
+          "callee": "[VERSION, iv.toString(\"base64url\"), tag.toString(\"base64url\"), ct.toString(\"base64url\")].join",
+          "lineNumber": 55
+        },
+        {
+          "caller": "encryptSecret",
+          "callee": "iv.toString",
+          "lineNumber": 55
+        },
+        {
+          "caller": "encryptSecret",
+          "callee": "tag.toString",
+          "lineNumber": 55
+        },
+        {
+          "caller": "encryptSecret",
+          "callee": "ct.toString",
+          "lineNumber": 55
+        },
+        {
+          "caller": "decryptSecret",
+          "callee": "blob.split",
+          "lineNumber": 59
+        },
+        {
+          "caller": "decryptSecret",
+          "callee": "createDecipheriv",
+          "lineNumber": 63
+        },
+        {
+          "caller": "decryptSecret",
+          "callee": "key",
+          "lineNumber": 63
+        },
+        {
+          "caller": "decryptSecret",
+          "callee": "Buffer.from",
+          "lineNumber": 63
+        },
+        {
+          "caller": "decryptSecret",
+          "callee": "decipher.setAAD",
+          "lineNumber": 64
+        },
+        {
+          "caller": "decryptSecret",
+          "callee": "Buffer.from",
+          "lineNumber": 64
+        },
+        {
+          "caller": "decryptSecret",
+          "callee": "decipher.setAuthTag",
+          "lineNumber": 65
+        },
+        {
+          "caller": "decryptSecret",
+          "callee": "Buffer.from",
+          "lineNumber": 65
+        },
+        {
+          "caller": "decryptSecret",
+          "callee": "Buffer.concat([decipher.update(Buffer.from(ct, \"base64url\")), decipher.final()]).toString",
+          "lineNumber": 66
+        },
+        {
+          "caller": "decryptSecret",
+          "callee": "Buffer.concat",
+          "lineNumber": 66
+        },
+        {
+          "caller": "decryptSecret",
+          "callee": "decipher.update",
+          "lineNumber": 66
+        },
+        {
+          "caller": "decryptSecret",
+          "callee": "Buffer.from",
+          "lineNumber": 66
+        },
+        {
+          "caller": "decryptSecret",
+          "callee": "decipher.final",
+          "lineNumber": 66
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 4,
+        "functionCount": 5,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "lib/demos.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 286,
+      "nonEmptyLines": 252,
+      "functions": [
+        {
+          "name": "declaredSecrets",
+          "startLine": 163,
+          "endLine": 173,
+          "params": [
+            "blocks"
+          ]
+        },
+        {
+          "name": "parseBlocks",
+          "startLine": 177,
+          "endLine": 185,
+          "params": [
+            "raw"
+          ]
+        },
+        {
+          "name": "resultSource",
+          "startLine": 248,
+          "endLine": 250,
+          "params": [
+            "r"
+          ]
+        },
+        {
+          "name": "effectiveExpiry",
+          "startLine": 260,
+          "endLine": 271,
+          "params": [
+            "...dates"
+          ]
+        },
+        {
+          "name": "isExpired",
+          "startLine": 273,
+          "endLine": 275,
+          "params": [
+            "expiry",
+            "now"
+          ]
+        },
+        {
+          "name": "slugify",
+          "startLine": 278,
+          "endLine": 286,
+          "params": [
+            "title"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "LinkBlockSchema",
+          "line": 51,
+          "isDefault": false
+        },
+        {
+          "name": "CredentialsBlockSchema",
+          "line": 60,
+          "isDefault": false
+        },
+        {
+          "name": "MarkdownBlockSchema",
+          "line": 77,
+          "isDefault": false
+        },
+        {
+          "name": "HtmlBlockSchema",
+          "line": 83,
+          "isDefault": false
+        },
+        {
+          "name": "FileBlockSchema",
+          "line": 90,
+          "isDefault": false
+        },
+        {
+          "name": "SshBlockSchema",
+          "line": 98,
+          "isDefault": false
+        },
+        {
+          "name": "UploadBlockSchema",
+          "line": 110,
+          "isDefault": false
+        },
+        {
+          "name": "DemoBlockSchema",
+          "line": 122,
+          "isDefault": false
+        },
+        {
+          "name": "BLOCK_KINDS",
+          "line": 139,
+          "isDefault": false
+        },
+        {
+          "name": "BLOCK_LABELS",
+          "line": 149,
+          "isDefault": false
+        },
+        {
+          "name": "SSH_SECRET_LABEL",
+          "line": 160,
+          "isDefault": false
+        },
+        {
+          "name": "declaredSecrets",
+          "line": 163,
+          "isDefault": false
+        },
+        {
+          "name": "parseBlocks",
+          "line": 177,
+          "isDefault": false
+        },
+        {
+          "name": "DEMO_STATUSES",
+          "line": 189,
+          "isDefault": false
+        },
+        {
+          "name": "DEMO_LABELS",
+          "line": 192,
+          "isDefault": false
+        },
+        {
+          "name": "DEMO_TONE",
+          "line": 199,
+          "isDefault": false
+        },
+        {
+          "name": "VISIBILITY_LABELS",
+          "line": 205,
+          "isDefault": false
+        },
+        {
+          "name": "RUN_LABELS",
+          "line": 211,
+          "isDefault": false
+        },
+        {
+          "name": "RUN_TONE",
+          "line": 219,
+          "isDefault": false
+        },
+        {
+          "name": "resultSource",
+          "line": 248,
+          "isDefault": false
+        },
+        {
+          "name": "effectiveExpiry",
+          "line": 260,
+          "isDefault": false
+        },
+        {
+          "name": "isExpired",
+          "line": 273,
+          "isDefault": false
+        },
+        {
+          "name": "slugify",
+          "line": 278,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "declaredSecrets",
+          "callee": "out.push",
+          "lineNumber": 167
+        },
+        {
+          "caller": "declaredSecrets",
+          "callee": "out.push",
+          "lineNumber": 169
+        },
+        {
+          "caller": "parseBlocks",
+          "callee": "Array.isArray",
+          "lineNumber": 178
+        },
+        {
+          "caller": "parseBlocks",
+          "callee": "DemoBlockSchema.safeParse",
+          "lineNumber": 181
+        },
+        {
+          "caller": "parseBlocks",
+          "callee": "out.push",
+          "lineNumber": 182
+        },
+        {
+          "caller": "effectiveExpiry",
+          "callee": "Number.isNaN",
+          "lineNumber": 267
+        },
+        {
+          "caller": "effectiveExpiry",
+          "callee": "date.getTime",
+          "lineNumber": 267
+        },
+        {
+          "caller": "isExpired",
+          "callee": "expiry.getTime",
+          "lineNumber": 274
+        },
+        {
+          "caller": "isExpired",
+          "callee": "now.getTime",
+          "lineNumber": 274
+        },
+        {
+          "caller": "slugify",
+          "callee": "title\n    .normalize(\"NFKD\")\n    .replace(/[̀-ͯ]/g, \"\")\n    .toLowerCase()\n    .replace(/[^a-z0-9]+/g, \"-\")\n    .replace(/^-+|-+$/g, \"\")\n    .slice",
+          "lineNumber": 279
+        },
+        {
+          "caller": "slugify",
+          "callee": "title\n    .normalize(\"NFKD\")\n    .replace(/[̀-ͯ]/g, \"\")\n    .toLowerCase()\n    .replace(/[^a-z0-9]+/g, \"-\")\n    .replace",
+          "lineNumber": 279
+        },
+        {
+          "caller": "slugify",
+          "callee": "title\n    .normalize(\"NFKD\")\n    .replace(/[̀-ͯ]/g, \"\")\n    .toLowerCase()\n    .replace",
+          "lineNumber": 279
+        },
+        {
+          "caller": "slugify",
+          "callee": "title\n    .normalize(\"NFKD\")\n    .replace(/[̀-ͯ]/g, \"\")\n    .toLowerCase",
+          "lineNumber": 279
+        },
+        {
+          "caller": "slugify",
+          "callee": "title\n    .normalize(\"NFKD\")\n    .replace",
+          "lineNumber": 279
+        },
+        {
+          "caller": "slugify",
+          "callee": "title\n    .normalize",
+          "lineNumber": 279
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 23,
+        "functionCount": 6,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "lib/markdown.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 172,
+      "nonEmptyLines": 159,
+      "functions": [
+        {
+          "name": "inline",
+          "startLine": 18,
+          "endLine": 65,
+          "params": [
+            "text",
+            "keyBase"
+          ]
+        },
+        {
+          "name": "Markdown",
+          "startLine": 67,
+          "endLine": 172,
+          "params": [
+            "{ source }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "Markdown",
+          "line": 67,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "inline",
+          "callee": "re.exec",
+          "lineNumber": 25
+        },
+        {
+          "caller": "inline",
+          "callee": "out.push",
+          "lineNumber": 26
+        },
+        {
+          "caller": "inline",
+          "callee": "text.slice",
+          "lineNumber": 26
+        },
+        {
+          "caller": "inline",
+          "callee": "out.push",
+          "lineNumber": 30
+        },
+        {
+          "caller": "inline",
+          "callee": "tok.slice",
+          "lineNumber": 32
+        },
+        {
+          "caller": "inline",
+          "callee": "out.push",
+          "lineNumber": 36
+        },
+        {
+          "caller": "inline",
+          "callee": "tok.slice",
+          "lineNumber": 38
+        },
+        {
+          "caller": "inline",
+          "callee": "out.push",
+          "lineNumber": 42
+        },
+        {
+          "caller": "inline",
+          "callee": "tok.slice",
+          "lineNumber": 42
+        },
+        {
+          "caller": "inline",
+          "callee": "/^\\[([^\\]]+)\\]\\(([^)\\s]+)\\)$/.exec",
+          "lineNumber": 44
+        },
+        {
+          "caller": "inline",
+          "callee": "out.push",
+          "lineNumber": 45
+        },
+        {
+          "caller": "inline",
+          "callee": "LINK_OK.test",
+          "lineNumber": 46
+        },
+        {
+          "caller": "inline",
+          "callee": "href.startsWith",
+          "lineNumber": 50
+        },
+        {
+          "caller": "inline",
+          "callee": "out.push",
+          "lineNumber": 63
+        },
+        {
+          "caller": "inline",
+          "callee": "text.slice",
+          "lineNumber": 63
+        },
+        {
+          "caller": "Markdown",
+          "callee": "source.replace(/\\r\\n?/g, \"\\n\").split",
+          "lineNumber": 68
+        },
+        {
+          "caller": "Markdown",
+          "callee": "source.replace",
+          "lineNumber": 68
+        },
+        {
+          "caller": "Markdown",
+          "callee": "line.trim",
+          "lineNumber": 77
+        },
+        {
+          "caller": "Markdown",
+          "callee": "line.startsWith",
+          "lineNumber": 82
+        },
+        {
+          "caller": "Markdown",
+          "callee": "lines[i].startsWith",
+          "lineNumber": 85
+        },
+        {
+          "caller": "Markdown",
+          "callee": "body.push",
+          "lineNumber": 85
+        },
+        {
+          "caller": "Markdown",
+          "callee": "blocks.push",
+          "lineNumber": 87
+        },
+        {
+          "caller": "Markdown",
+          "callee": "body.join",
+          "lineNumber": 92
+        },
+        {
+          "caller": "Markdown",
+          "callee": "/^(#{1,3})\\s+(.*)$/.exec",
+          "lineNumber": 98
+        },
+        {
+          "caller": "Markdown",
+          "callee": "blocks.push",
+          "lineNumber": 108
+        },
+        {
+          "caller": "Markdown",
+          "callee": "inline",
+          "lineNumber": 110
+        },
+        {
+          "caller": "Markdown",
+          "callee": "/^(-{3,}|\\*{3,})$/.test",
+          "lineNumber": 117
+        },
+        {
+          "caller": "Markdown",
+          "callee": "line.trim",
+          "lineNumber": 117
+        },
+        {
+          "caller": "Markdown",
+          "callee": "blocks.push",
+          "lineNumber": 118
+        },
+        {
+          "caller": "Markdown",
+          "callee": "line.startsWith",
+          "lineNumber": 123
+        },
+        {
+          "caller": "Markdown",
+          "callee": "lines[i].startsWith",
+          "lineNumber": 125
+        },
+        {
+          "caller": "Markdown",
+          "callee": "body.push",
+          "lineNumber": 125
+        },
+        {
+          "caller": "Markdown",
+          "callee": "lines[i++].replace",
+          "lineNumber": 125
+        },
+        {
+          "caller": "Markdown",
+          "callee": "blocks.push",
+          "lineNumber": 126
+        },
+        {
+          "caller": "Markdown",
+          "callee": "inline",
+          "lineNumber": 128
+        },
+        {
+          "caller": "Markdown",
+          "callee": "body.join",
+          "lineNumber": 128
+        },
+        {
+          "caller": "Markdown",
+          "callee": "bullet.test",
+          "lineNumber": 136
+        },
+        {
+          "caller": "Markdown",
+          "callee": "ordered.test",
+          "lineNumber": 136
+        },
+        {
+          "caller": "Markdown",
+          "callee": "ordered.test",
+          "lineNumber": 137
+        },
+        {
+          "caller": "Markdown",
+          "callee": "re.test",
+          "lineNumber": 140
+        },
+        {
+          "caller": "Markdown",
+          "callee": "items.push",
+          "lineNumber": 140
+        },
+        {
+          "caller": "Markdown",
+          "callee": "lines[i++].replace",
+          "lineNumber": 140
+        },
+        {
+          "caller": "Markdown",
+          "callee": "blocks.push",
+          "lineNumber": 142
+        },
+        {
+          "caller": "Markdown",
+          "callee": "items.map",
+          "lineNumber": 147
+        },
+        {
+          "caller": "Markdown",
+          "callee": "inline",
+          "lineNumber": 148
+        },
+        {
+          "caller": "Markdown",
+          "callee": "lines[i].trim",
+          "lineNumber": 159
+        },
+        {
+          "caller": "Markdown",
+          "callee": "/^(#{1,3}\\s|```|>|\\s*[-*]\\s+|\\s*\\d+[.)]\\s+)/.test",
+          "lineNumber": 160
+        },
+        {
+          "caller": "Markdown",
+          "callee": "para.push",
+          "lineNumber": 162
+        },
+        {
+          "caller": "Markdown",
+          "callee": "blocks.push",
+          "lineNumber": 164
+        },
+        {
+          "caller": "Markdown",
+          "callee": "inline",
+          "lineNumber": 166
+        },
+        {
+          "caller": "Markdown",
+          "callee": "para.join",
+          "lineNumber": 166
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "lib/server/demos.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 148,
+      "nonEmptyLines": 137,
+      "functions": [
+        {
+          "name": "evaluate",
+          "startLine": 31,
+          "endLine": 38,
+          "params": [
+            "demo",
+            "grant",
+            "now"
+          ]
+        },
+        {
+          "name": "listEntitledDemos",
+          "startLine": 41,
+          "endLine": 54,
+          "params": [
+            "userId",
+            "now"
+          ]
+        },
+        {
+          "name": "getEntitledDemo",
+          "startLine": 56,
+          "endLine": 68,
+          "params": [
+            "userId",
+            "where",
+            "now"
+          ]
+        },
+        {
+          "name": "listSecretLabels",
+          "startLine": 71,
+          "endLine": 81,
+          "params": [
+            "demoId"
+          ]
+        },
+        {
+          "name": "listDemoFiles",
+          "startLine": 84,
+          "endLine": 96,
+          "params": [
+            "demoId"
+          ]
+        },
+        {
+          "name": "listRunsForUser",
+          "startLine": 99,
+          "endLine": 106,
+          "params": [
+            "userId",
+            "demoId"
+          ]
+        },
+        {
+          "name": "listRunsForDemo",
+          "startLine": 109,
+          "endLine": 121,
+          "params": [
+            "demoId"
+          ]
+        },
+        {
+          "name": "attachFiles",
+          "startLine": 123,
+          "endLine": 148,
+          "params": [
+            "runs",
+            "includeInternal"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "listEntitledDemos",
+          "line": 41,
+          "isDefault": false
+        },
+        {
+          "name": "getEntitledDemo",
+          "line": 56,
+          "isDefault": false
+        },
+        {
+          "name": "listSecretLabels",
+          "line": 71,
+          "isDefault": false
+        },
+        {
+          "name": "listDemoFiles",
+          "line": 84,
+          "isDefault": false
+        },
+        {
+          "name": "listRunsForUser",
+          "line": 99,
+          "isDefault": false
+        },
+        {
+          "name": "listRunsForDemo",
+          "line": 109,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "evaluate",
+          "callee": "effectiveExpiry",
+          "lineNumber": 35
+        },
+        {
+          "caller": "evaluate",
+          "callee": "isExpired",
+          "lineNumber": 36
+        },
+        {
+          "caller": "evaluate",
+          "callee": "parseBlocks",
+          "lineNumber": 37
+        },
+        {
+          "caller": "listEntitledDemos",
+          "callee": "db\n    .select({ demo: demos, grant: demoAccess })\n    .from(demos)\n    .leftJoin(demoAccess, and(eq(demoAccess.demoId, demos.id), eq(demoAccess.userId, userId)))\n    .where(\n      and(\n        eq(demos.status, \"publie\"),\n        or(eq(demos.visibility, \"all_clients\"), isNull(demoAccess.revokedAt)),\n      ),\n    )\n    .orderBy",
+          "lineNumber": 42
+        },
+        {
+          "caller": "listEntitledDemos",
+          "callee": "db\n    .select({ demo: demos, grant: demoAccess })\n    .from(demos)\n    .leftJoin(demoAccess, and(eq(demoAccess.demoId, demos.id), eq(demoAccess.userId, userId)))\n    .where",
+          "lineNumber": 42
+        },
+        {
+          "caller": "listEntitledDemos",
+          "callee": "db\n    .select({ demo: demos, grant: demoAccess })\n    .from(demos)\n    .leftJoin",
+          "lineNumber": 42
+        },
+        {
+          "caller": "listEntitledDemos",
+          "callee": "db\n    .select({ demo: demos, grant: demoAccess })\n    .from",
+          "lineNumber": 42
+        },
+        {
+          "caller": "listEntitledDemos",
+          "callee": "db\n    .select",
+          "lineNumber": 42
+        },
+        {
+          "caller": "listEntitledDemos",
+          "callee": "and",
+          "lineNumber": 45
+        },
+        {
+          "caller": "listEntitledDemos",
+          "callee": "eq",
+          "lineNumber": 45
+        },
+        {
+          "caller": "listEntitledDemos",
+          "callee": "eq",
+          "lineNumber": 45
+        },
+        {
+          "caller": "listEntitledDemos",
+          "callee": "and",
+          "lineNumber": 47
+        },
+        {
+          "caller": "listEntitledDemos",
+          "callee": "eq",
+          "lineNumber": 48
+        },
+        {
+          "caller": "listEntitledDemos",
+          "callee": "or",
+          "lineNumber": 49
+        },
+        {
+          "caller": "listEntitledDemos",
+          "callee": "eq",
+          "lineNumber": 49
+        },
+        {
+          "caller": "listEntitledDemos",
+          "callee": "isNull",
+          "lineNumber": 49
+        },
+        {
+          "caller": "listEntitledDemos",
+          "callee": "desc",
+          "lineNumber": 52
+        },
+        {
+          "caller": "listEntitledDemos",
+          "callee": "rows.map((r) => evaluate(r.demo, r.grant, now)).filter",
+          "lineNumber": 53
+        },
+        {
+          "caller": "listEntitledDemos",
+          "callee": "rows.map",
+          "lineNumber": 53
+        },
+        {
+          "caller": "listEntitledDemos",
+          "callee": "evaluate",
+          "lineNumber": 53
+        },
+        {
+          "caller": "getEntitledDemo",
+          "callee": "db\n    .select({ demo: demos, grant: demoAccess })\n    .from(demos)\n    .leftJoin(demoAccess, and(eq(demoAccess.demoId, demos.id), eq(demoAccess.userId, userId)))\n    .where(\"slug\" in where ? eq(demos.slug, where.slug) : eq(demos.id, where.id))\n    .limit",
+          "lineNumber": 61
+        },
+        {
+          "caller": "getEntitledDemo",
+          "callee": "db\n    .select({ demo: demos, grant: demoAccess })\n    .from(demos)\n    .leftJoin(demoAccess, and(eq(demoAccess.demoId, demos.id), eq(demoAccess.userId, userId)))\n    .where",
+          "lineNumber": 61
+        },
+        {
+          "caller": "getEntitledDemo",
+          "callee": "db\n    .select({ demo: demos, grant: demoAccess })\n    .from(demos)\n    .leftJoin",
+          "lineNumber": 61
+        },
+        {
+          "caller": "getEntitledDemo",
+          "callee": "db\n    .select({ demo: demos, grant: demoAccess })\n    .from",
+          "lineNumber": 61
+        },
+        {
+          "caller": "getEntitledDemo",
+          "callee": "db\n    .select",
+          "lineNumber": 61
+        },
+        {
+          "caller": "getEntitledDemo",
+          "callee": "and",
+          "lineNumber": 64
+        },
+        {
+          "caller": "getEntitledDemo",
+          "callee": "eq",
+          "lineNumber": 64
+        },
+        {
+          "caller": "getEntitledDemo",
+          "callee": "eq",
+          "lineNumber": 64
+        },
+        {
+          "caller": "getEntitledDemo",
+          "callee": "eq",
+          "lineNumber": 65
+        },
+        {
+          "caller": "getEntitledDemo",
+          "callee": "eq",
+          "lineNumber": 65
+        },
+        {
+          "caller": "getEntitledDemo",
+          "callee": "evaluate",
+          "lineNumber": 67
+        },
+        {
+          "caller": "listSecretLabels",
+          "callee": "db\n    .select({\n      blockId: demoSecrets.blockId,\n      label: demoSecrets.label,\n      revealCount: demoSecrets.revealCount,\n      updatedAt: demoSecrets.updatedAt,\n    })\n    .from(demoSecrets)\n    .where",
+          "lineNumber": 72
+        },
+        {
+          "caller": "listSecretLabels",
+          "callee": "db\n    .select({\n      blockId: demoSecrets.blockId,\n      label: demoSecrets.label,\n      revealCount: demoSecrets.revealCount,\n      updatedAt: demoSecrets.updatedAt,\n    })\n    .from",
+          "lineNumber": 72
+        },
+        {
+          "caller": "listSecretLabels",
+          "callee": "db\n    .select",
+          "lineNumber": 72
+        },
+        {
+          "caller": "listSecretLabels",
+          "callee": "eq",
+          "lineNumber": 80
+        },
+        {
+          "caller": "listDemoFiles",
+          "callee": "db\n    .select({\n      id: attachments.id,\n      filename: attachments.filename,\n      sizeBytes: attachments.sizeBytes,\n      contentType: attachments.contentType,\n      createdAt: attachments.createdAt,\n    })\n    .from(attachments)\n    .where(eq(attachments.demoId, demoId))\n    .orderBy",
+          "lineNumber": 85
+        },
+        {
+          "caller": "listDemoFiles",
+          "callee": "db\n    .select({\n      id: attachments.id,\n      filename: attachments.filename,\n      sizeBytes: attachments.sizeBytes,\n      contentType: attachments.contentType,\n      createdAt: attachments.createdAt,\n    })\n    .from(attachments)\n    .where",
+          "lineNumber": 85
+        },
+        {
+          "caller": "listDemoFiles",
+          "callee": "db\n    .select({\n      id: attachments.id,\n      filename: attachments.filename,\n      sizeBytes: attachments.sizeBytes,\n      contentType: attachments.contentType,\n      createdAt: attachments.createdAt,\n    })\n    .from",
+          "lineNumber": 85
+        },
+        {
+          "caller": "listDemoFiles",
+          "callee": "db\n    .select",
+          "lineNumber": 85
+        },
+        {
+          "caller": "listDemoFiles",
+          "callee": "eq",
+          "lineNumber": 94
+        },
+        {
+          "caller": "listDemoFiles",
+          "callee": "desc",
+          "lineNumber": 95
+        },
+        {
+          "caller": "listRunsForUser",
+          "callee": "db\n    .select()\n    .from(demoRuns)\n    .where(and(eq(demoRuns.userId, userId), eq(demoRuns.demoId, demoId)))\n    .orderBy",
+          "lineNumber": 100
+        },
+        {
+          "caller": "listRunsForUser",
+          "callee": "db\n    .select()\n    .from(demoRuns)\n    .where",
+          "lineNumber": 100
+        },
+        {
+          "caller": "listRunsForUser",
+          "callee": "db\n    .select()\n    .from",
+          "lineNumber": 100
+        },
+        {
+          "caller": "listRunsForUser",
+          "callee": "db\n    .select",
+          "lineNumber": 100
+        },
+        {
+          "caller": "listRunsForUser",
+          "callee": "and",
+          "lineNumber": 103
+        },
+        {
+          "caller": "listRunsForUser",
+          "callee": "eq",
+          "lineNumber": 103
+        },
+        {
+          "caller": "listRunsForUser",
+          "callee": "eq",
+          "lineNumber": 103
+        },
+        {
+          "caller": "listRunsForUser",
+          "callee": "desc",
+          "lineNumber": 104
+        },
+        {
+          "caller": "listRunsForUser",
+          "callee": "attachFiles",
+          "lineNumber": 105
+        },
+        {
+          "caller": "listRunsForDemo",
+          "callee": "db\n    .select({ run: demoRuns, client: { id: user.id, name: user.name, email: user.email } })\n    .from(demoRuns)\n    .innerJoin(user, eq(user.id, demoRuns.userId))\n    .where(eq(demoRuns.demoId, demoId))\n    .orderBy",
+          "lineNumber": 110
+        },
+        {
+          "caller": "listRunsForDemo",
+          "callee": "db\n    .select({ run: demoRuns, client: { id: user.id, name: user.name, email: user.email } })\n    .from(demoRuns)\n    .innerJoin(user, eq(user.id, demoRuns.userId))\n    .where",
+          "lineNumber": 110
+        },
+        {
+          "caller": "listRunsForDemo",
+          "callee": "db\n    .select({ run: demoRuns, client: { id: user.id, name: user.name, email: user.email } })\n    .from(demoRuns)\n    .innerJoin",
+          "lineNumber": 110
+        },
+        {
+          "caller": "listRunsForDemo",
+          "callee": "db\n    .select({ run: demoRuns, client: { id: user.id, name: user.name, email: user.email } })\n    .from",
+          "lineNumber": 110
+        },
+        {
+          "caller": "listRunsForDemo",
+          "callee": "db\n    .select",
+          "lineNumber": 110
+        },
+        {
+          "caller": "listRunsForDemo",
+          "callee": "eq",
+          "lineNumber": 113
+        },
+        {
+          "caller": "listRunsForDemo",
+          "callee": "eq",
+          "lineNumber": 114
+        },
+        {
+          "caller": "listRunsForDemo",
+          "callee": "desc",
+          "lineNumber": 115
+        },
+        {
+          "caller": "listRunsForDemo",
+          "callee": "attachFiles",
+          "lineNumber": 116
+        },
+        {
+          "caller": "listRunsForDemo",
+          "callee": "runs.map",
+          "lineNumber": 117
+        },
+        {
+          "caller": "listRunsForDemo",
+          "callee": "withFiles.map",
+          "lineNumber": 120
+        },
+        {
+          "caller": "attachFiles",
+          "callee": "db\n    .select()\n    .from(attachments)\n    .where(\n      and(\n        inArray(\n          attachments.demoRunId,\n          runs.map((r) => r.id),\n        ),\n        includeInternal ? undefined : eq(attachments.internal, false),\n      ),\n    )\n    .orderBy",
+          "lineNumber": 125
+        },
+        {
+          "caller": "attachFiles",
+          "callee": "db\n    .select()\n    .from(attachments)\n    .where",
+          "lineNumber": 125
+        },
+        {
+          "caller": "attachFiles",
+          "callee": "db\n    .select()\n    .from",
+          "lineNumber": 125
+        },
+        {
+          "caller": "attachFiles",
+          "callee": "db\n    .select",
+          "lineNumber": 125
+        },
+        {
+          "caller": "attachFiles",
+          "callee": "and",
+          "lineNumber": 129
+        },
+        {
+          "caller": "attachFiles",
+          "callee": "inArray",
+          "lineNumber": 130
+        },
+        {
+          "caller": "attachFiles",
+          "callee": "runs.map",
+          "lineNumber": 132
+        },
+        {
+          "caller": "attachFiles",
+          "callee": "eq",
+          "lineNumber": 134
+        },
+        {
+          "caller": "attachFiles",
+          "callee": "runs.map",
+          "lineNumber": 138
+        },
+        {
+          "caller": "attachFiles",
+          "callee": "files.filter",
+          "lineNumber": 139
+        },
+        {
+          "caller": "attachFiles",
+          "callee": "mine.filter",
+          "lineNumber": 144
+        },
+        {
+          "caller": "attachFiles",
+          "callee": "mine.filter",
+          "lineNumber": 145
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 6,
+        "functionCount": 8,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "lib/storage.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 215,
+      "nonEmptyLines": 198,
+      "functions": [
+        {
+          "name": "storageConfigured",
+          "startLine": 90,
+          "endLine": 96,
+          "params": []
+        },
+        {
+          "name": "s3",
+          "startLine": 98,
+          "endLine": 110,
+          "params": []
+        },
+        {
+          "name": "buildKey",
+          "startLine": 117,
+          "endLine": 125,
+          "params": [
+            "userId",
+            "filename"
+          ]
+        },
+        {
+          "name": "presignUpload",
+          "startLine": 128,
+          "endLine": 134,
+          "params": [
+            "key",
+            "contentType"
+          ]
+        },
+        {
+          "name": "presignDownload",
+          "startLine": 143,
+          "endLine": 161,
+          "params": [
+            "key",
+            "filename",
+            "inline"
+          ]
+        },
+        {
+          "name": "deleteObject",
+          "startLine": 163,
+          "endLine": 165,
+          "params": [
+            "key"
+          ]
+        },
+        {
+          "name": "isAllowedContentType",
+          "startLine": 167,
+          "endLine": 170,
+          "params": [
+            "value",
+            "opts"
+          ]
+        },
+        {
+          "name": "getObjectBytes",
+          "startLine": 177,
+          "endLine": 181,
+          "params": [
+            "key"
+          ]
+        },
+        {
+          "name": "putObject",
+          "startLine": 185,
+          "endLine": 187,
+          "params": [
+            "key",
+            "body",
+            "contentType"
+          ]
+        },
+        {
+          "name": "getObjectStream",
+          "startLine": 194,
+          "endLine": 215,
+          "params": [
+            "key",
+            "range"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "BUCKET",
+          "line": 30,
+          "isDefault": false
+        },
+        {
+          "name": "MAX_UPLOAD_BYTES",
+          "line": 37,
+          "isDefault": false
+        },
+        {
+          "name": "SITE_MAX_UPLOAD_BYTES",
+          "line": 45,
+          "isDefault": false
+        },
+        {
+          "name": "SITE_CONTENT_TYPES",
+          "line": 46,
+          "isDefault": false
+        },
+        {
+          "name": "ALLOWED_CONTENT_TYPES",
+          "line": 65,
+          "isDefault": false
+        },
+        {
+          "name": "storageConfigured",
+          "line": 90,
+          "isDefault": false
+        },
+        {
+          "name": "buildKey",
+          "line": 117,
+          "isDefault": false
+        },
+        {
+          "name": "presignUpload",
+          "line": 128,
+          "isDefault": false
+        },
+        {
+          "name": "presignDownload",
+          "line": 143,
+          "isDefault": false
+        },
+        {
+          "name": "deleteObject",
+          "line": 163,
+          "isDefault": false
+        },
+        {
+          "name": "isAllowedContentType",
+          "line": 167,
+          "isDefault": false
+        },
+        {
+          "name": "getObjectBytes",
+          "line": 177,
+          "isDefault": false
+        },
+        {
+          "name": "putObject",
+          "line": 185,
+          "isDefault": false
+        },
+        {
+          "name": "getObjectStream",
+          "line": 194,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "storageConfigured",
+          "callee": "Boolean",
+          "lineNumber": 91
+        },
+        {
+          "caller": "s3",
+          "callee": "storageConfigured",
+          "lineNumber": 100
+        },
+        {
+          "caller": "buildKey",
+          "callee": "filename\n    .normalize(\"NFKD\")\n    .replace(/[^\\w.\\- ]+/g, \"\")\n    .replace(/\\s+/g, \"-\")\n    .slice(-80)\n    .replace",
+          "lineNumber": 118
+        },
+        {
+          "caller": "buildKey",
+          "callee": "filename\n    .normalize(\"NFKD\")\n    .replace(/[^\\w.\\- ]+/g, \"\")\n    .replace(/\\s+/g, \"-\")\n    .slice",
+          "lineNumber": 118
+        },
+        {
+          "caller": "buildKey",
+          "callee": "filename\n    .normalize(\"NFKD\")\n    .replace(/[^\\w.\\- ]+/g, \"\")\n    .replace",
+          "lineNumber": 118
+        },
+        {
+          "caller": "buildKey",
+          "callee": "filename\n    .normalize(\"NFKD\")\n    .replace",
+          "lineNumber": 118
+        },
+        {
+          "caller": "buildKey",
+          "callee": "filename\n    .normalize",
+          "lineNumber": 118
+        },
+        {
+          "caller": "buildKey",
+          "callee": "crypto.randomUUID().slice",
+          "lineNumber": 124
+        },
+        {
+          "caller": "buildKey",
+          "callee": "crypto.randomUUID",
+          "lineNumber": 124
+        },
+        {
+          "caller": "presignUpload",
+          "callee": "getSignedUrl",
+          "lineNumber": 129
+        },
+        {
+          "caller": "presignUpload",
+          "callee": "s3",
+          "lineNumber": 130
+        },
+        {
+          "caller": "presignDownload",
+          "callee": "/\\.html?$/i.test",
+          "lineNumber": 148
+        },
+        {
+          "caller": "presignDownload",
+          "callee": "getSignedUrl",
+          "lineNumber": 150
+        },
+        {
+          "caller": "presignDownload",
+          "callee": "s3",
+          "lineNumber": 151
+        },
+        {
+          "caller": "presignDownload",
+          "callee": "filename.replace",
+          "lineNumber": 156
+        },
+        {
+          "caller": "deleteObject",
+          "callee": "s3().send",
+          "lineNumber": 164
+        },
+        {
+          "caller": "deleteObject",
+          "callee": "s3",
+          "lineNumber": 164
+        },
+        {
+          "caller": "isAllowedContentType",
+          "callee": "(SITE_CONTENT_TYPES as readonly string[]).includes",
+          "lineNumber": 168
+        },
+        {
+          "caller": "isAllowedContentType",
+          "callee": "(ALLOWED_CONTENT_TYPES as readonly string[]).includes",
+          "lineNumber": 169
+        },
+        {
+          "caller": "getObjectBytes",
+          "callee": "s3().send",
+          "lineNumber": 178
+        },
+        {
+          "caller": "getObjectBytes",
+          "callee": "s3",
+          "lineNumber": 178
+        },
+        {
+          "caller": "getObjectBytes",
+          "callee": "Buffer.from",
+          "lineNumber": 180
+        },
+        {
+          "caller": "getObjectBytes",
+          "callee": "res.Body.transformToByteArray",
+          "lineNumber": 180
+        },
+        {
+          "caller": "putObject",
+          "callee": "s3().send",
+          "lineNumber": 186
+        },
+        {
+          "caller": "putObject",
+          "callee": "s3",
+          "lineNumber": 186
+        },
+        {
+          "caller": "getObjectStream",
+          "callee": "s3().send",
+          "lineNumber": 204
+        },
+        {
+          "caller": "getObjectStream",
+          "callee": "s3",
+          "lineNumber": 204
+        },
+        {
+          "caller": "getObjectStream",
+          "callee": "res.Body.transformToWebStream",
+          "lineNumber": 209
+        },
+        {
+          "caller": "getObjectStream",
+          "callee": "Boolean",
+          "lineNumber": 213
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 14,
+        "functionCount": 10,
+        "classCount": 0
+      }
+    }
+  ]
+}

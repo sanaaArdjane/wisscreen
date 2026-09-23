@@ -1,0 +1,1155 @@
+{
+ "nodes": [
+  {
+   "id": "file:components/sections/ConnectedSolutions.tsx",
+   "type": "file",
+   "name": "ConnectedSolutions.tsx",
+   "filePath": "components/sections/ConnectedSolutions.tsx",
+   "summary": "Homepage section illustrating interoperability between solutions as a list of \"from -> to\" badge pairs with supporting copy, on a dark ground.",
+   "tags": [
+    "marketing-section",
+    "content-driven"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:components/sections/ConnectedSolutions.tsx:ConnectedSolutions",
+   "type": "function",
+   "name": "ConnectedSolutions",
+   "filePath": "components/sections/ConnectedSolutions.tsx",
+   "lineRange": [
+    8,
+    35
+   ],
+   "summary": "Renders the interoperability section as a vertical list of reveal-animated \"from -> to\" badge pairs with explanatory copy.",
+   "tags": [
+    "marketing-section",
+    "content-driven"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:components/sections/Contact.tsx",
+   "type": "file",
+   "name": "Contact.tsx",
+   "filePath": "components/sections/Contact.tsx",
+   "summary": "Homepage contact form section: collects name/email/solution/message, optionally gates submission behind Cloudflare Turnstile, and posts to /api/contact, showing success/error states inline.",
+   "tags": [
+    "marketing-section",
+    "form",
+    "contact",
+    "client-component"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:components/sections/Contact.tsx:Contact",
+   "type": "function",
+   "name": "Contact",
+   "filePath": "components/sections/Contact.tsx",
+   "lineRange": [
+    17,
+    148
+   ],
+   "summary": "Client component rendering contact details plus a controlled form that posts FormData to /api/contact, tracking sending/sent/error/verified state and optionally requiring Turnstile verification before submit.",
+   "tags": [
+    "marketing-section",
+    "form",
+    "contact",
+    "client-component"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:components/sections/DataCommitment.tsx",
+   "type": "file",
+   "name": "DataCommitment.tsx",
+   "filePath": "components/sections/DataCommitment.tsx",
+   "summary": "Homepage section listing the site's data-commitment pillars as an icon/title/text grid on a dark ground.",
+   "tags": [
+    "marketing-section",
+    "content-driven"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:components/sections/DataCommitment.tsx:DataCommitment",
+   "type": "function",
+   "name": "DataCommitment",
+   "filePath": "components/sections/DataCommitment.tsx",
+   "lineRange": [
+    7,
+    31
+   ],
+   "summary": "Renders the data-commitment pillars as a reveal-animated three-column icon/title/text grid.",
+   "tags": [
+    "marketing-section",
+    "content-driven"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:components/sections/DataIntelligence.tsx",
+   "type": "file",
+   "name": "DataIntelligence.tsx",
+   "filePath": "components/sections/DataIntelligence.tsx",
+   "summary": "Light-ground homepage section pairing a bullet list of data & intelligence capability points with one solution's cover media, plus an optional CTA.",
+   "tags": [
+    "marketing-section",
+    "content-driven"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:components/sections/DataIntelligence.tsx:DataIntelligence",
+   "type": "function",
+   "name": "DataIntelligence",
+   "filePath": "components/sections/DataIntelligence.tsx",
+   "lineRange": [
+    10,
+    59
+   ],
+   "summary": "Renders the data & intelligence copy column (heading, point list, optional CTA) alongside a solution's cover media in a two-column, order-reversed-on-mobile layout.",
+   "tags": [
+    "marketing-section",
+    "content-driven"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:components/sections/DeviceShowcase.tsx",
+   "type": "file",
+   "name": "DeviceShowcase.tsx",
+   "filePath": "components/sections/DeviceShowcase.tsx",
+   "summary": "Pinned, scroll-driven homepage section showing every solution running live on a drawn laptop and phone at once, with per-solution tabs, activation-shielded iframes (live previews with screenshot/mock fallback), and a zoom-to-fullscreen control for each device.",
+   "tags": [
+    "marketing-section",
+    "scroll-driven",
+    "complex-interaction",
+    "client-component"
+   ],
+   "complexity": "complex",
+   "languageNotes": "Scroll progress is the single source of truth for the active tab; layers never remount once mounted, and zoom is implemented as a CSS transform rather than a layout resize to avoid reflowing embedded cross-origin pages."
+  },
+  {
+   "id": "function:components/sections/DeviceShowcase.tsx:DeviceShowcase",
+   "type": "function",
+   "name": "DeviceShowcase",
+   "filePath": "components/sections/DeviceShowcase.tsx",
+   "lineRange": [
+    96,
+    603
+   ],
+   "summary": "Default-exported, pinned scroll section: derives the active solution and cross-fade progress from ScrollTrigger, renders the laptop/phone device pair with per-solution screens, handles tab clicks (scroll-to-offset), zoom, activation shields and live-preview mounting/visibility.",
+   "tags": [
+    "marketing-section",
+    "scroll-driven",
+    "client-component",
+    "complex-interaction"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "function:components/sections/DeviceShowcase.tsx:DeviceControls",
+   "type": "function",
+   "name": "DeviceControls",
+   "filePath": "components/sections/DeviceShowcase.tsx",
+   "lineRange": [
+    617,
+    700
+   ],
+   "summary": "Renders the per-device interaction chrome (activation shield/hint, zoom toggle, \"Ouvrir le site\" link) layered over a device frame, switching affordances based on interacting/zoomed state.",
+   "tags": [
+    "marketing-section",
+    "ui-component"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:components/sections/DeviceShowcase.tsx:Laptop",
+   "type": "function",
+   "name": "Laptop",
+   "filePath": "components/sections/DeviceShowcase.tsx",
+   "lineRange": [
+    703,
+    720
+   ],
+   "summary": "Draws the CSS laptop device frame (screen, hinge, base) around its children.",
+   "tags": [
+    "marketing-section",
+    "ui-component"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:components/sections/DeviceShowcase.tsx:Phone",
+   "type": "function",
+   "name": "Phone",
+   "filePath": "components/sections/DeviceShowcase.tsx",
+   "lineRange": [
+    722,
+    732
+   ],
+   "summary": "Draws the CSS phone device frame (notch, bezel) around its children.",
+   "tags": [
+    "marketing-section",
+    "ui-component"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:components/sections/DeviceShowcase.tsx:Screen",
+   "type": "function",
+   "name": "Screen",
+   "filePath": "components/sections/DeviceShowcase.tsx",
+   "lineRange": [
+    744,
+    790
+   ],
+   "summary": "Renders one solution's on-screen content, layering LivePreview (previewUrl), a screenshot/mockup image and the generated ScreenMock fallback in precedence order.",
+   "tags": [
+    "marketing-section",
+    "ui-component"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:components/sections/DeviceShowcase.tsx:ScreenMock",
+   "type": "function",
+   "name": "ScreenMock",
+   "filePath": "components/sections/DeviceShowcase.tsx",
+   "lineRange": [
+    792,
+    839
+   ],
+   "summary": "Generates an on-brand placeholder screen (using the solution's palette) shown when no real screenshot, mockup or live preview is available for a solution.",
+   "tags": [
+    "marketing-section",
+    "placeholder",
+    "ui-component"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:components/sections/FAQHome.tsx",
+   "type": "file",
+   "name": "FAQHome.tsx",
+   "filePath": "components/sections/FAQHome.tsx",
+   "summary": "Homepage FAQ section pairing a section heading with an Accordion of question/answer items.",
+   "tags": [
+    "marketing-section",
+    "faq"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:components/sections/FAQHome.tsx:FAQHome",
+   "type": "function",
+   "name": "FAQHome",
+   "filePath": "components/sections/FAQHome.tsx",
+   "lineRange": [
+    6,
+    19
+   ],
+   "summary": "Renders the homepage FAQ section: a heading beside an Accordion built from content.items.",
+   "tags": [
+    "marketing-section",
+    "faq"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:components/sections/Hero.tsx",
+   "type": "file",
+   "name": "Hero.tsx",
+   "filePath": "components/sections/Hero.tsx",
+   "summary": "The homepage hero: a server-rendered copy column on a light textured ground paired with an owner-selectable visual panel (3D globe, 3D infra stack, image, video, or slideshow), split via an owner-controlled CSS variable.",
+   "tags": [
+    "marketing-section",
+    "hero",
+    "server-component",
+    "entry-point"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:components/sections/Hero.tsx:Hero",
+   "type": "function",
+   "name": "Hero",
+   "filePath": "components/sections/Hero.tsx",
+   "lineRange": [
+    24,
+    111
+   ],
+   "summary": "Server-rendered homepage hero: lays out copy (badge, headline with TypeCycle word rotation, paragraph, CTAs, hint) against an owner-controlled `--hero-split` grid track sized by content.visual.split, with HeroVisual filling the other track.",
+   "tags": [
+    "marketing-section",
+    "hero",
+    "server-component"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:components/sections/HighlightsReel.tsx",
+   "type": "file",
+   "name": "HighlightsReel.tsx",
+   "filePath": "components/sections/HighlightsReel.tsx",
+   "summary": "Homepage \"Section 2\" auto-advancing carousel that cycles through each solution as a stats card or an image-fronted card, with GIF-driven stat tiles, autoplay gated on scroll visibility and reduced-motion, and a hand-drawn signal underline.",
+   "tags": [
+    "marketing-section",
+    "carousel",
+    "autoplay",
+    "client-component"
+   ],
+   "complexity": "complex",
+   "languageNotes": "Autoplay/countdown only run while the section intersects the viewport's middle band, using an inset-rootMargin IntersectionObserver rather than a threshold so it works regardless of the section's height."
+  },
+  {
+   "id": "function:components/sections/HighlightsReel.tsx:StatTile",
+   "type": "function",
+   "name": "StatTile",
+   "filePath": "components/sections/HighlightsReel.tsx",
+   "lineRange": [
+    54,
+    99
+   ],
+   "summary": "Renders one data tile (label + value) inside the \"cards\" highlight layout, with the middle tile of the three carrying the signal glow regardless of solution.",
+   "tags": [
+    "marketing-section",
+    "ui-component"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:components/sections/HighlightsReel.tsx:CardHeading",
+   "type": "function",
+   "name": "CardHeading",
+   "filePath": "components/sections/HighlightsReel.tsx",
+   "lineRange": [
+    108,
+    137
+   ],
+   "summary": "Renders a highlight card's category label, solution name and tagline, with an optional hand-drawn signal underline under the name.",
+   "tags": [
+    "marketing-section",
+    "ui-component"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:components/sections/HighlightsReel.tsx:CardCta",
+   "type": "function",
+   "name": "CardCta",
+   "filePath": "components/sections/HighlightsReel.tsx",
+   "lineRange": [
+    139,
+    149
+   ],
+   "summary": "Renders the signal-accented \"D\u00e9couvrir X\" link at the foot of a highlight card, linking to the solution's sub-landing page.",
+   "tags": [
+    "marketing-section",
+    "ui-component"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:components/sections/HighlightsReel.tsx:ImageCard",
+   "type": "function",
+   "name": "ImageCard",
+   "filePath": "components/sections/HighlightsReel.tsx",
+   "lineRange": [
+    193,
+    262
+   ],
+   "summary": "Renders the \"image\" highlight card variant: a full-bleed cover photo with a scrim, heading and CTA laid over it.",
+   "tags": [
+    "marketing-section",
+    "ui-component"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:components/sections/HighlightsReel.tsx:StatsCard",
+   "type": "function",
+   "name": "StatsCard",
+   "filePath": "components/sections/HighlightsReel.tsx",
+   "lineRange": [
+    265,
+    310
+   ],
+   "summary": "Renders the default \"cards\" highlight variant: heading at top, the solution's three stats rendered as StatTile tiles below.",
+   "tags": [
+    "marketing-section",
+    "ui-component"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:components/sections/HighlightsReel.tsx:GifTileVisual",
+   "type": "function",
+   "name": "GifTileVisual",
+   "filePath": "components/sections/HighlightsReel.tsx",
+   "lineRange": [
+    321,
+    375
+   ],
+   "summary": "Renders the animated GIF/preview visual behind one stat tile in the GIF-driven card variant, including its loading/fallback states.",
+   "tags": [
+    "marketing-section",
+    "ui-component"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:components/sections/HighlightsReel.tsx:GifStatTile",
+   "type": "function",
+   "name": "GifStatTile",
+   "filePath": "components/sections/HighlightsReel.tsx",
+   "lineRange": [
+    380,
+    402
+   ],
+   "summary": "Wraps GifTileVisual with hover/enter handling and ref forwarding so the parent card can track which stat tile is active.",
+   "tags": [
+    "marketing-section",
+    "ui-component"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:components/sections/HighlightsReel.tsx:GifMobileSlideshow",
+   "type": "function",
+   "name": "GifMobileSlideshow",
+   "filePath": "components/sections/HighlightsReel.tsx",
+   "lineRange": [
+    419,
+    520
+   ],
+   "summary": "Mobile-only slideshow that cycles a solution's GIF stat tiles one at a time, since the desktop hover interaction has no touch equivalent.",
+   "tags": [
+    "marketing-section",
+    "ui-component",
+    "mobile"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "function:components/sections/HighlightsReel.tsx:GifStatsCard",
+   "type": "function",
+   "name": "GifStatsCard",
+   "filePath": "components/sections/HighlightsReel.tsx",
+   "lineRange": [
+    563,
+    770
+   ],
+   "summary": "Full GIF-driven highlight card: composes heading, CardCta, the desktop hover grid of GifStatTile tiles and the mobile GifMobileSlideshow behind one shared active-tile state.",
+   "tags": [
+    "marketing-section",
+    "ui-component",
+    "complex-interaction"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "function:components/sections/HighlightsReel.tsx:HighlightCard",
+   "type": "function",
+   "name": "HighlightCard",
+   "filePath": "components/sections/HighlightsReel.tsx",
+   "lineRange": [
+    772,
+    787
+   ],
+   "summary": "Dispatches to the correct card variant (image/stats/GIF-stats) for a given active solution based on its highlightVariant.",
+   "tags": [
+    "marketing-section",
+    "ui-component"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:components/sections/HighlightsReel.tsx:HighlightsReel",
+   "type": "function",
+   "name": "HighlightsReel",
+   "filePath": "components/sections/HighlightsReel.tsx",
+   "lineRange": [
+    789,
+    1052
+   ],
+   "summary": "Default-exported carousel section: drives autoplay/countdown gated on scroll visibility, reduced motion and hover/pause state, and renders the active HighlightCard plus deck navigation and progress fill.",
+   "tags": [
+    "marketing-section",
+    "carousel",
+    "autoplay",
+    "client-component"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "file:components/sections/Integrations.tsx",
+   "type": "file",
+   "name": "Integrations.tsx",
+   "filePath": "components/sections/Integrations.tsx",
+   "summary": "Homepage section listing integration items as an icon/title/text grid on a dark ground.",
+   "tags": [
+    "marketing-section",
+    "content-driven"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:components/sections/Integrations.tsx:Integrations",
+   "type": "function",
+   "name": "Integrations",
+   "filePath": "components/sections/Integrations.tsx",
+   "lineRange": [
+    7,
+    31
+   ],
+   "summary": "Renders the integrations section as a reveal-animated icon/title/text grid of integration items.",
+   "tags": [
+    "marketing-section",
+    "content-driven"
+   ],
+   "complexity": "simple"
+  }
+ ],
+ "edges": [
+  {
+   "source": "file:components/sections/ConnectedSolutions.tsx",
+   "target": "file:components/ui/Badge.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/ConnectedSolutions.tsx",
+   "target": "file:components/ui/Container.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/ConnectedSolutions.tsx",
+   "target": "file:components/ui/Icon.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/ConnectedSolutions.tsx",
+   "target": "file:components/ui/Reveal.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/ConnectedSolutions.tsx",
+   "target": "file:components/ui/SectionHeading.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/ConnectedSolutions.tsx",
+   "target": "file:lib/content/schema.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/Contact.tsx",
+   "target": "file:components/ui/Container.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/Contact.tsx",
+   "target": "file:components/ui/Icon.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/Contact.tsx",
+   "target": "file:components/ui/SectionHeading.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/Contact.tsx",
+   "target": "file:components/ui/Turnstile.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/Contact.tsx",
+   "target": "file:lib/content/schema.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/Contact.tsx",
+   "target": "file:lib/types.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/DataCommitment.tsx",
+   "target": "file:components/ui/Container.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/DataCommitment.tsx",
+   "target": "file:components/ui/Icon.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/DataCommitment.tsx",
+   "target": "file:components/ui/Reveal.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/DataCommitment.tsx",
+   "target": "file:components/ui/SectionHeading.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/DataCommitment.tsx",
+   "target": "file:lib/content/schema.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/DataIntelligence.tsx",
+   "target": "file:components/ui/Button.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/DataIntelligence.tsx",
+   "target": "file:components/ui/Container.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/DataIntelligence.tsx",
+   "target": "file:components/ui/Icon.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/DataIntelligence.tsx",
+   "target": "file:components/ui/MediaSlot.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/DataIntelligence.tsx",
+   "target": "file:components/ui/Reveal.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/DataIntelligence.tsx",
+   "target": "file:components/ui/SectionHeading.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/DataIntelligence.tsx",
+   "target": "file:lib/content/schema.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/DataIntelligence.tsx",
+   "target": "file:lib/types.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/DeviceShowcase.tsx",
+   "target": "file:components/ui/Badge.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/DeviceShowcase.tsx",
+   "target": "file:components/ui/HandUnderline.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/DeviceShowcase.tsx",
+   "target": "file:components/ui/Icon.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/DeviceShowcase.tsx",
+   "target": "file:components/ui/LivePreview.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/DeviceShowcase.tsx",
+   "target": "file:lib/cn.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/DeviceShowcase.tsx",
+   "target": "file:lib/content/schema.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/DeviceShowcase.tsx",
+   "target": "file:lib/gsap.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/DeviceShowcase.tsx",
+   "target": "file:lib/palette.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/DeviceShowcase.tsx",
+   "target": "file:lib/scrollLock.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/DeviceShowcase.tsx",
+   "target": "file:lib/types.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/FAQHome.tsx",
+   "target": "file:components/ui/Accordion.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/FAQHome.tsx",
+   "target": "file:components/ui/Container.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/FAQHome.tsx",
+   "target": "file:components/ui/SectionHeading.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/FAQHome.tsx",
+   "target": "file:lib/content/schema.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/Hero.tsx",
+   "target": "file:components/sections/hero/HeroVisual.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/Hero.tsx",
+   "target": "file:components/ui/Badge.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/Hero.tsx",
+   "target": "file:components/ui/Button.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/Hero.tsx",
+   "target": "file:components/ui/TypeCycle.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/Hero.tsx",
+   "target": "file:lib/content/schema.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/Hero.tsx",
+   "target": "file:lib/types.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/HighlightsReel.tsx",
+   "target": "file:components/ui/Container.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/HighlightsReel.tsx",
+   "target": "file:components/ui/HandUnderline.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/HighlightsReel.tsx",
+   "target": "file:components/ui/Icon.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/HighlightsReel.tsx",
+   "target": "file:lib/cn.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/HighlightsReel.tsx",
+   "target": "file:lib/content/schema.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/HighlightsReel.tsx",
+   "target": "file:lib/gsap.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/HighlightsReel.tsx",
+   "target": "file:lib/palette.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/HighlightsReel.tsx",
+   "target": "file:lib/types.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/Integrations.tsx",
+   "target": "file:components/ui/Container.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/Integrations.tsx",
+   "target": "file:components/ui/Icon.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/Integrations.tsx",
+   "target": "file:components/ui/Reveal.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/Integrations.tsx",
+   "target": "file:components/ui/SectionHeading.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/Integrations.tsx",
+   "target": "file:lib/content/schema.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/sections/ConnectedSolutions.tsx",
+   "target": "function:components/sections/ConnectedSolutions.tsx:ConnectedSolutions",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:components/sections/Contact.tsx",
+   "target": "function:components/sections/Contact.tsx:Contact",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:components/sections/DataCommitment.tsx",
+   "target": "function:components/sections/DataCommitment.tsx:DataCommitment",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:components/sections/DataIntelligence.tsx",
+   "target": "function:components/sections/DataIntelligence.tsx:DataIntelligence",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:components/sections/DeviceShowcase.tsx",
+   "target": "function:components/sections/DeviceShowcase.tsx:DeviceShowcase",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:components/sections/DeviceShowcase.tsx",
+   "target": "function:components/sections/DeviceShowcase.tsx:DeviceControls",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:components/sections/DeviceShowcase.tsx",
+   "target": "function:components/sections/DeviceShowcase.tsx:Laptop",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:components/sections/DeviceShowcase.tsx",
+   "target": "function:components/sections/DeviceShowcase.tsx:Phone",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:components/sections/DeviceShowcase.tsx",
+   "target": "function:components/sections/DeviceShowcase.tsx:Screen",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:components/sections/DeviceShowcase.tsx",
+   "target": "function:components/sections/DeviceShowcase.tsx:ScreenMock",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:components/sections/FAQHome.tsx",
+   "target": "function:components/sections/FAQHome.tsx:FAQHome",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:components/sections/Hero.tsx",
+   "target": "function:components/sections/Hero.tsx:Hero",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:components/sections/HighlightsReel.tsx",
+   "target": "function:components/sections/HighlightsReel.tsx:StatTile",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:components/sections/HighlightsReel.tsx",
+   "target": "function:components/sections/HighlightsReel.tsx:CardHeading",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:components/sections/HighlightsReel.tsx",
+   "target": "function:components/sections/HighlightsReel.tsx:CardCta",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:components/sections/HighlightsReel.tsx",
+   "target": "function:components/sections/HighlightsReel.tsx:ImageCard",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:components/sections/HighlightsReel.tsx",
+   "target": "function:components/sections/HighlightsReel.tsx:StatsCard",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:components/sections/HighlightsReel.tsx",
+   "target": "function:components/sections/HighlightsReel.tsx:GifTileVisual",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:components/sections/HighlightsReel.tsx",
+   "target": "function:components/sections/HighlightsReel.tsx:GifStatTile",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:components/sections/HighlightsReel.tsx",
+   "target": "function:components/sections/HighlightsReel.tsx:GifMobileSlideshow",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:components/sections/HighlightsReel.tsx",
+   "target": "function:components/sections/HighlightsReel.tsx:GifStatsCard",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:components/sections/HighlightsReel.tsx",
+   "target": "function:components/sections/HighlightsReel.tsx:HighlightCard",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:components/sections/HighlightsReel.tsx",
+   "target": "function:components/sections/HighlightsReel.tsx:HighlightsReel",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:components/sections/Integrations.tsx",
+   "target": "function:components/sections/Integrations.tsx:Integrations",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:components/sections/ConnectedSolutions.tsx",
+   "target": "function:components/sections/ConnectedSolutions.tsx:ConnectedSolutions",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:components/sections/Contact.tsx",
+   "target": "function:components/sections/Contact.tsx:Contact",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:components/sections/DataCommitment.tsx",
+   "target": "function:components/sections/DataCommitment.tsx:DataCommitment",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:components/sections/DataIntelligence.tsx",
+   "target": "function:components/sections/DataIntelligence.tsx:DataIntelligence",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:components/sections/DeviceShowcase.tsx",
+   "target": "function:components/sections/DeviceShowcase.tsx:DeviceShowcase",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:components/sections/FAQHome.tsx",
+   "target": "function:components/sections/FAQHome.tsx:FAQHome",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:components/sections/Hero.tsx",
+   "target": "function:components/sections/Hero.tsx:Hero",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:components/sections/HighlightsReel.tsx",
+   "target": "function:components/sections/HighlightsReel.tsx:HighlightsReel",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:components/sections/Integrations.tsx",
+   "target": "function:components/sections/Integrations.tsx:Integrations",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  }
+ ]
+}

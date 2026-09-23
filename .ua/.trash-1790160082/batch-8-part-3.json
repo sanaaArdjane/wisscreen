@@ -1,0 +1,1389 @@
+{
+ "nodes": [
+  {
+   "id": "file:lib/money.ts",
+   "type": "file",
+   "name": "money.ts",
+   "filePath": "lib/money.ts",
+   "summary": "Money primitives used everywhere billing amounts are handled: cents-based line/total sums, French currency formatting, a tolerant string-to-cents parser, and `withVat` for the one TTC formula.",
+   "tags": [
+    "money",
+    "utility",
+    "billing",
+    "formatting"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:lib/pdf/BillingDocument.tsx",
+   "type": "file",
+   "name": "BillingDocument.tsx",
+   "filePath": "lib/pdf/BillingDocument.tsx",
+   "summary": "`@react-pdf/renderer` document component rendering a devis or facture as a styled A4 PDF \u2014 header, client block, line-item table, totals, bank details and legal footer \u2014 using company identity resolved per document.",
+   "tags": [
+    "pdf",
+    "billing",
+    "react-pdf",
+    "rendering"
+   ],
+   "complexity": "complex",
+   "languageNotes": "`clean()` strips U+202F (the French `Intl` thousands separator) because Helvetica's built-in font can't render it; every printed string goes through it."
+  },
+  {
+   "id": "file:lib/pdf/render.ts",
+   "type": "file",
+   "name": "render.ts",
+   "filePath": "lib/pdf/render.ts",
+   "summary": "Server-side PDF renderer: loads a quote or invoice with its client, resolves the effective company identity, fetches the logo/signature bytes from object storage, and renders `BillingDocument` to a PDF buffer.",
+   "tags": [
+    "pdf",
+    "billing",
+    "server",
+    "storage"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:lib/quota-labels.ts",
+   "type": "file",
+   "name": "quota-labels.ts",
+   "filePath": "lib/quota-labels.ts",
+   "summary": "Display labels and tones for the services/subscriptions/quotas domain: metric names, a standing-vs-consumable metric check, subscription status labels/tones, and service category/billing-period labels.",
+   "tags": [
+    "constants",
+    "quotas",
+    "subscriptions",
+    "labels"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:lib/ref.ts",
+   "type": "file",
+   "name": "ref.ts",
+   "filePath": "lib/ref.ts",
+   "summary": "Builds and parses the `PREFIX-YYMM-NNNN` reference codes used for requests, quotes and invoices, and computes the next sequence number per prefix/period from the existing refs (the caller retries on a unique-index collision).",
+   "tags": [
+    "utility",
+    "billing",
+    "reference-codes"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:lib/server/queries.ts",
+   "type": "file",
+   "name": "queries.ts",
+   "filePath": "lib/server/queries.ts",
+   "summary": "Central server-only Drizzle query layer for the dashboard/admin: requests, messages, attachments, documents (quotes/invoices), demo runs, contact leads, staff assignees, admin/client dashboard counters, the unread-lead badge count, a merged request thread, and the billable-clients list.",
+   "tags": [
+    "database",
+    "drizzle",
+    "server",
+    "queries",
+    "dashboard"
+   ],
+   "complexity": "complex",
+   "languageNotes": "Counters use raw `sql<number>` aggregate expressions with `FILTER (WHERE \u2026)` for single-query multi-metric counts."
+  },
+  {
+   "id": "file:lib/settings.ts",
+   "type": "file",
+   "name": "settings.ts",
+   "filePath": "lib/settings.ts",
+   "summary": "Typed key/value app settings store (`app_settings`): defaults, allowed keys, get/set helpers, and `getDocumentCompany`/`getCompany` which resolve the stored company identity (optionally merged with per-document overrides) for billing documents.",
+   "tags": [
+    "config",
+    "database",
+    "settings",
+    "billing"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:lib/money.ts:lineTotalCents",
+   "type": "function",
+   "name": "lineTotalCents",
+   "filePath": "lib/money.ts",
+   "lineRange": [
+    8,
+    10
+   ],
+   "summary": "Rounds a billing line's `quantity * unitCents` to whole cents.",
+   "tags": [
+    "money",
+    "utility"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:lib/money.ts:totalCents",
+   "type": "function",
+   "name": "totalCents",
+   "filePath": "lib/money.ts",
+   "lineRange": [
+    12,
+    14
+   ],
+   "summary": "Sums an array of lines' `lineTotalCents`.",
+   "tags": [
+    "money",
+    "utility"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:lib/money.ts:formatMoney",
+   "type": "function",
+   "name": "formatMoney",
+   "filePath": "lib/money.ts",
+   "lineRange": [
+    20,
+    26
+   ],
+   "summary": "Formats a cents amount as a localized (`fr-FR`) currency string.",
+   "tags": [
+    "money",
+    "formatting"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:lib/money.ts:parseMoneyToCents",
+   "type": "function",
+   "name": "parseMoneyToCents",
+   "filePath": "lib/money.ts",
+   "lineRange": [
+    29,
+    33
+   ],
+   "summary": "Parses a French-formatted money string (comma decimal, optional spaces) into integer cents, or `undefined` if it doesn't match.",
+   "tags": [
+    "money",
+    "parsing"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:lib/money.ts:withVat",
+   "type": "function",
+   "name": "withVat",
+   "filePath": "lib/money.ts",
+   "lineRange": [
+    40,
+    42
+   ],
+   "summary": "The one TTC formula: applies a VAT rate to a cents amount and rounds to whole cents.",
+   "tags": [
+    "money",
+    "billing"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:lib/pdf/BillingDocument.tsx:pdfMoney",
+   "type": "function",
+   "name": "pdfMoney",
+   "filePath": "lib/pdf/BillingDocument.tsx",
+   "lineRange": [
+    57,
+    61
+   ],
+   "summary": "Formats a cents amount as `fr-FR` currency text safe for the PDF's Helvetica font (via `clean`).",
+   "tags": [
+    "pdf",
+    "money",
+    "formatting"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:lib/pdf/BillingDocument.tsx:BillingDocument",
+   "type": "function",
+   "name": "BillingDocument",
+   "filePath": "lib/pdf/BillingDocument.tsx",
+   "lineRange": [
+    111,
+    293
+   ],
+   "summary": "The full PDF layout for a devis/facture: header with company identity, client block, dated meta, line-item table, totals, bank details and legal footer, using `effectiveCompany`-resolved identity.",
+   "tags": [
+    "pdf",
+    "react-pdf",
+    "billing",
+    "layout"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "function:lib/pdf/render.ts:loadImage",
+   "type": "function",
+   "name": "loadImage",
+   "filePath": "lib/pdf/render.ts",
+   "lineRange": [
+    20,
+    32
+   ],
+   "summary": "Fetches a logo/signature attachment's bytes and content type from object storage by attachment id, returning `undefined` if storage isn't configured or the fetch fails.",
+   "tags": [
+    "storage",
+    "pdf",
+    "internal"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:lib/pdf/render.ts:renderBillingPdf",
+   "type": "function",
+   "name": "renderBillingPdf",
+   "filePath": "lib/pdf/render.ts",
+   "lineRange": [
+    36,
+    101
+   ],
+   "summary": "Loads a quote or invoice with its client, resolves the effective company identity and its logo/signature images, and renders `BillingDocument` to a PDF byte buffer plus a suggested filename.",
+   "tags": [
+    "pdf",
+    "server",
+    "billing"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:lib/quota-labels.ts:isStandingMetric",
+   "type": "function",
+   "name": "isStandingMetric",
+   "filePath": "lib/quota-labels.ts",
+   "lineRange": [
+    27,
+    29
+   ],
+   "summary": "True when a quota metric key represents a standing (non-consumable) capability rather than a countable usage metric.",
+   "tags": [
+    "predicate",
+    "quotas"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:lib/ref.ts:refPeriod",
+   "type": "function",
+   "name": "refPeriod",
+   "filePath": "lib/ref.ts",
+   "lineRange": [
+    16,
+    20
+   ],
+   "summary": "Formats a date as the `YYMM` period segment used in reference codes.",
+   "tags": [
+    "utility",
+    "reference-codes"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:lib/ref.ts:buildRef",
+   "type": "function",
+   "name": "buildRef",
+   "filePath": "lib/ref.ts",
+   "lineRange": [
+    22,
+    24
+   ],
+   "summary": "Builds a full `PREFIX-YYMM-NNNN` reference string from a prefix, sequence number and date.",
+   "tags": [
+    "utility",
+    "reference-codes"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:lib/ref.ts:refSequence",
+   "type": "function",
+   "name": "refSequence",
+   "filePath": "lib/ref.ts",
+   "lineRange": [
+    27,
+    30
+   ],
+   "summary": "Extracts the numeric sequence suffix from a reference code.",
+   "tags": [
+    "utility",
+    "reference-codes"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:lib/ref.ts:nextRef",
+   "type": "function",
+   "name": "nextRef",
+   "filePath": "lib/ref.ts",
+   "lineRange": [
+    33,
+    39
+   ],
+   "summary": "Computes the next sequential reference for a prefix/period from the list of existing refs for that period.",
+   "tags": [
+    "utility",
+    "reference-codes",
+    "billing"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:lib/server/queries.ts:listRequests",
+   "type": "function",
+   "name": "listRequests",
+   "filePath": "lib/server/queries.ts",
+   "lineRange": [
+    23,
+    30
+   ],
+   "summary": "Lists a user's own support/service requests, most recent first, capped by `limit`.",
+   "tags": [
+    "query",
+    "requests"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:lib/server/queries.ts:getOwnRequest",
+   "type": "function",
+   "name": "getOwnRequest",
+   "filePath": "lib/server/queries.ts",
+   "lineRange": [
+    32,
+    39
+   ],
+   "summary": "Fetches one request by id, scoped to its owning user.",
+   "tags": [
+    "query",
+    "requests"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:lib/server/queries.ts:getRequestById",
+   "type": "function",
+   "name": "getRequestById",
+   "filePath": "lib/server/queries.ts",
+   "lineRange": [
+    41,
+    49
+   ],
+   "summary": "Fetches one request with its client, for staff/admin views (no ownership check).",
+   "tags": [
+    "query",
+    "requests",
+    "admin"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:lib/server/queries.ts:listMessages",
+   "type": "function",
+   "name": "listMessages",
+   "filePath": "lib/server/queries.ts",
+   "lineRange": [
+    56,
+    67
+   ],
+   "summary": "Lists a request's thread messages with their authors, optionally including internal (staff-only) notes.",
+   "tags": [
+    "query",
+    "requests",
+    "thread"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:lib/server/queries.ts:listAttachments",
+   "type": "function",
+   "name": "listAttachments",
+   "filePath": "lib/server/queries.ts",
+   "lineRange": [
+    69,
+    79
+   ],
+   "summary": "Lists a request's attachments, optionally including internal-only ones.",
+   "tags": [
+    "query",
+    "requests",
+    "attachments"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:lib/server/queries.ts:listOwnDocuments",
+   "type": "function",
+   "name": "listOwnDocuments",
+   "filePath": "lib/server/queries.ts",
+   "lineRange": [
+    81,
+    88
+   ],
+   "summary": "Lists a user's own non-internal document attachments together with the request each belongs to.",
+   "tags": [
+    "query",
+    "attachments",
+    "documents"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:lib/server/queries.ts:listQuotes",
+   "type": "function",
+   "name": "listQuotes",
+   "filePath": "lib/server/queries.ts",
+   "lineRange": [
+    90,
+    101
+   ],
+   "summary": "Lists quotes with their client, optionally scoped to one user, newest first.",
+   "tags": [
+    "query",
+    "billing",
+    "quotes"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:lib/server/queries.ts:listInvoices",
+   "type": "function",
+   "name": "listInvoices",
+   "filePath": "lib/server/queries.ts",
+   "lineRange": [
+    103,
+    112
+   ],
+   "summary": "Lists invoices with their client, optionally scoped to one user, newest first.",
+   "tags": [
+    "query",
+    "billing",
+    "invoices"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:lib/server/queries.ts:listDemoRuns",
+   "type": "function",
+   "name": "listDemoRuns",
+   "filePath": "lib/server/queries.ts",
+   "lineRange": [
+    114,
+    122
+   ],
+   "summary": "Lists demo runs with their client, optionally scoped to one user and capped by `limit`.",
+   "tags": [
+    "query",
+    "demos"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:lib/server/queries.ts:listLeads",
+   "type": "function",
+   "name": "listLeads",
+   "filePath": "lib/server/queries.ts",
+   "lineRange": [
+    124,
+    127
+   ],
+   "summary": "Lists contact-form leads, optionally filtered by status.",
+   "tags": [
+    "query",
+    "leads",
+    "admin"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:lib/server/queries.ts:listAssignees",
+   "type": "function",
+   "name": "listAssignees",
+   "filePath": "lib/server/queries.ts",
+   "lineRange": [
+    130,
+    136
+   ],
+   "summary": "Lists staff/admin users eligible to be assigned a request.",
+   "tags": [
+    "query",
+    "admin",
+    "requests"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:lib/server/queries.ts:adminCounters",
+   "type": "function",
+   "name": "adminCounters",
+   "filePath": "lib/server/queries.ts",
+   "lineRange": [
+    139,
+    182
+   ],
+   "summary": "Single-pass aggregate counters for the admin dashboard: open/new/unassigned requests, unpaid/paid invoice totals, user/staff/suspended counts, unread leads and pending quotes.",
+   "tags": [
+    "query",
+    "admin",
+    "dashboard",
+    "aggregate"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:lib/server/queries.ts:clientCounters",
+   "type": "function",
+   "name": "clientCounters",
+   "filePath": "lib/server/queries.ts",
+   "lineRange": [
+    185,
+    220
+   ],
+   "summary": "Aggregate counters for a client's own dashboard: open requests, pending quotes, unpaid invoice total/count, and document count.",
+   "tags": [
+    "query",
+    "dashboard",
+    "aggregate"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:lib/server/queries.ts:openRequestsQueue",
+   "type": "function",
+   "name": "openRequestsQueue",
+   "filePath": "lib/server/queries.ts",
+   "lineRange": [
+    223,
+    231
+   ],
+   "summary": "Lists the newest open (`nouvelle`/`en_cours`) requests with their clients, for the staff queue.",
+   "tags": [
+    "query",
+    "admin",
+    "requests"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:lib/server/queries.ts:unreadLeadCount",
+   "type": "function",
+   "name": "unreadLeadCount",
+   "filePath": "lib/server/queries.ts",
+   "lineRange": [
+    233,
+    239
+   ],
+   "summary": "Counts unread, non-archived contact leads, for the admin notification badge.",
+   "tags": [
+    "query",
+    "admin",
+    "leads"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:lib/server/queries.ts:listThread",
+   "type": "function",
+   "name": "listThread",
+   "filePath": "lib/server/queries.ts",
+   "lineRange": [
+    246,
+    265
+   ],
+   "summary": "Loads a request's messages and attachments together and groups the attachments by the message they belong to, sorted chronologically.",
+   "tags": [
+    "query",
+    "requests",
+    "thread"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:lib/server/queries.ts:listBillableClients",
+   "type": "function",
+   "name": "listBillableClients",
+   "filePath": "lib/server/queries.ts",
+   "lineRange": [
+    268,
+    274
+   ],
+   "summary": "Lists non-staff users as candidate clients for a new quote/invoice.",
+   "tags": [
+    "query",
+    "billing",
+    "admin"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:lib/settings.ts:getSettings",
+   "type": "function",
+   "name": "getSettings",
+   "filePath": "lib/settings.ts",
+   "lineRange": [
+    49,
+    64
+   ],
+   "summary": "Reads all stored app settings and merges them over `DEFAULT_SETTINGS`.",
+   "tags": [
+    "config",
+    "database"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:lib/settings.ts:getSetting",
+   "type": "function",
+   "name": "getSetting",
+   "filePath": "lib/settings.ts",
+   "lineRange": [
+    66,
+    73
+   ],
+   "summary": "Reads one setting by key, falling back to its default.",
+   "tags": [
+    "config",
+    "database"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:lib/settings.ts:setSetting",
+   "type": "function",
+   "name": "setSetting",
+   "filePath": "lib/settings.ts",
+   "lineRange": [
+    75,
+    87
+   ],
+   "summary": "Upserts one setting's value, recording who changed it.",
+   "tags": [
+    "config",
+    "database"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:lib/settings.ts:getDocumentCompany",
+   "type": "function",
+   "name": "getDocumentCompany",
+   "filePath": "lib/settings.ts",
+   "lineRange": [
+    91,
+    93
+   ],
+   "summary": "Resolves the company identity to print on a specific document: the stored company merged with that document's own overrides.",
+   "tags": [
+    "billing",
+    "config"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:lib/settings.ts:getCompany",
+   "type": "function",
+   "name": "getCompany",
+   "filePath": "lib/settings.ts",
+   "lineRange": [
+    95,
+    98
+   ],
+   "summary": "Reads the stored company identity setting (or its default).",
+   "tags": [
+    "billing",
+    "config"
+   ],
+   "complexity": "simple"
+  }
+ ],
+ "edges": [
+  {
+   "source": "file:lib/money.ts",
+   "target": "function:lib/money.ts:lineTotalCents",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:lib/money.ts",
+   "target": "function:lib/money.ts:lineTotalCents",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:lib/money.ts",
+   "target": "function:lib/money.ts:totalCents",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:lib/money.ts",
+   "target": "function:lib/money.ts:totalCents",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:lib/money.ts",
+   "target": "function:lib/money.ts:formatMoney",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:lib/money.ts",
+   "target": "function:lib/money.ts:formatMoney",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:lib/money.ts",
+   "target": "function:lib/money.ts:parseMoneyToCents",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:lib/money.ts",
+   "target": "function:lib/money.ts:parseMoneyToCents",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:lib/money.ts",
+   "target": "function:lib/money.ts:withVat",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:lib/money.ts",
+   "target": "function:lib/money.ts:withVat",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:lib/pdf/BillingDocument.tsx",
+   "target": "function:lib/pdf/BillingDocument.tsx:pdfMoney",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:lib/pdf/BillingDocument.tsx",
+   "target": "function:lib/pdf/BillingDocument.tsx:pdfMoney",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:lib/pdf/BillingDocument.tsx",
+   "target": "function:lib/pdf/BillingDocument.tsx:BillingDocument",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:lib/pdf/BillingDocument.tsx",
+   "target": "function:lib/pdf/BillingDocument.tsx:BillingDocument",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:lib/pdf/render.ts",
+   "target": "function:lib/pdf/render.ts:loadImage",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:lib/pdf/render.ts",
+   "target": "function:lib/pdf/render.ts:renderBillingPdf",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:lib/pdf/render.ts",
+   "target": "function:lib/pdf/render.ts:renderBillingPdf",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:lib/quota-labels.ts",
+   "target": "function:lib/quota-labels.ts:isStandingMetric",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:lib/quota-labels.ts",
+   "target": "function:lib/quota-labels.ts:isStandingMetric",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:lib/ref.ts",
+   "target": "function:lib/ref.ts:refPeriod",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:lib/ref.ts",
+   "target": "function:lib/ref.ts:refPeriod",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:lib/ref.ts",
+   "target": "function:lib/ref.ts:buildRef",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:lib/ref.ts",
+   "target": "function:lib/ref.ts:buildRef",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:lib/ref.ts",
+   "target": "function:lib/ref.ts:refSequence",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:lib/ref.ts",
+   "target": "function:lib/ref.ts:refSequence",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:lib/ref.ts",
+   "target": "function:lib/ref.ts:nextRef",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:lib/ref.ts",
+   "target": "function:lib/ref.ts:nextRef",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:lib/server/queries.ts",
+   "target": "function:lib/server/queries.ts:listRequests",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:lib/server/queries.ts",
+   "target": "function:lib/server/queries.ts:listRequests",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:lib/server/queries.ts",
+   "target": "function:lib/server/queries.ts:getOwnRequest",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:lib/server/queries.ts",
+   "target": "function:lib/server/queries.ts:getOwnRequest",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:lib/server/queries.ts",
+   "target": "function:lib/server/queries.ts:getRequestById",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:lib/server/queries.ts",
+   "target": "function:lib/server/queries.ts:getRequestById",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:lib/server/queries.ts",
+   "target": "function:lib/server/queries.ts:listMessages",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:lib/server/queries.ts",
+   "target": "function:lib/server/queries.ts:listMessages",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:lib/server/queries.ts",
+   "target": "function:lib/server/queries.ts:listAttachments",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:lib/server/queries.ts",
+   "target": "function:lib/server/queries.ts:listAttachments",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:lib/server/queries.ts",
+   "target": "function:lib/server/queries.ts:listOwnDocuments",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:lib/server/queries.ts",
+   "target": "function:lib/server/queries.ts:listOwnDocuments",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:lib/server/queries.ts",
+   "target": "function:lib/server/queries.ts:listQuotes",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:lib/server/queries.ts",
+   "target": "function:lib/server/queries.ts:listQuotes",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:lib/server/queries.ts",
+   "target": "function:lib/server/queries.ts:listInvoices",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:lib/server/queries.ts",
+   "target": "function:lib/server/queries.ts:listInvoices",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:lib/server/queries.ts",
+   "target": "function:lib/server/queries.ts:listDemoRuns",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:lib/server/queries.ts",
+   "target": "function:lib/server/queries.ts:listDemoRuns",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:lib/server/queries.ts",
+   "target": "function:lib/server/queries.ts:listLeads",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:lib/server/queries.ts",
+   "target": "function:lib/server/queries.ts:listLeads",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:lib/server/queries.ts",
+   "target": "function:lib/server/queries.ts:listAssignees",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:lib/server/queries.ts",
+   "target": "function:lib/server/queries.ts:listAssignees",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:lib/server/queries.ts",
+   "target": "function:lib/server/queries.ts:adminCounters",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:lib/server/queries.ts",
+   "target": "function:lib/server/queries.ts:adminCounters",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:lib/server/queries.ts",
+   "target": "function:lib/server/queries.ts:clientCounters",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:lib/server/queries.ts",
+   "target": "function:lib/server/queries.ts:clientCounters",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:lib/server/queries.ts",
+   "target": "function:lib/server/queries.ts:openRequestsQueue",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:lib/server/queries.ts",
+   "target": "function:lib/server/queries.ts:openRequestsQueue",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:lib/server/queries.ts",
+   "target": "function:lib/server/queries.ts:unreadLeadCount",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:lib/server/queries.ts",
+   "target": "function:lib/server/queries.ts:unreadLeadCount",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:lib/server/queries.ts",
+   "target": "function:lib/server/queries.ts:listThread",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:lib/server/queries.ts",
+   "target": "function:lib/server/queries.ts:listThread",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:lib/server/queries.ts",
+   "target": "function:lib/server/queries.ts:listBillableClients",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:lib/server/queries.ts",
+   "target": "function:lib/server/queries.ts:listBillableClients",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:lib/settings.ts",
+   "target": "function:lib/settings.ts:getSettings",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:lib/settings.ts",
+   "target": "function:lib/settings.ts:getSettings",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:lib/settings.ts",
+   "target": "function:lib/settings.ts:getSetting",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:lib/settings.ts",
+   "target": "function:lib/settings.ts:getSetting",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:lib/settings.ts",
+   "target": "function:lib/settings.ts:setSetting",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:lib/settings.ts",
+   "target": "function:lib/settings.ts:setSetting",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:lib/settings.ts",
+   "target": "function:lib/settings.ts:getDocumentCompany",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:lib/settings.ts",
+   "target": "function:lib/settings.ts:getDocumentCompany",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:lib/settings.ts",
+   "target": "function:lib/settings.ts:getCompany",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:lib/settings.ts",
+   "target": "function:lib/settings.ts:getCompany",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:lib/money.ts",
+   "target": "file:lib/db/schema.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:lib/pdf/BillingDocument.tsx",
+   "target": "file:lib/db/schema.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:lib/pdf/BillingDocument.tsx",
+   "target": "file:lib/settings.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:lib/pdf/render.ts",
+   "target": "file:lib/db/index.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:lib/pdf/render.ts",
+   "target": "file:lib/db/schema.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:lib/pdf/render.ts",
+   "target": "file:lib/pdf/BillingDocument.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:lib/pdf/render.ts",
+   "target": "file:lib/settings.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:lib/pdf/render.ts",
+   "target": "file:lib/storage.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:lib/server/queries.ts",
+   "target": "file:lib/db/index.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:lib/server/queries.ts",
+   "target": "file:lib/db/schema.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:lib/settings.ts",
+   "target": "file:lib/company.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:lib/settings.ts",
+   "target": "file:lib/db/index.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:lib/settings.ts",
+   "target": "file:lib/db/schema.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "function:lib/pdf/BillingDocument.tsx:pdfMoney",
+   "target": "function:lib/pdf/BillingDocument.tsx:clean",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:lib/pdf/render.ts:renderBillingPdf",
+   "target": "function:lib/settings.ts:getDocumentCompany",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:lib/pdf/render.ts:renderBillingPdf",
+   "target": "function:lib/pdf/render.ts:loadImage",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:lib/pdf/render.ts:renderBillingPdf",
+   "target": "function:lib/pdf/BillingDocument.tsx:BillingDocument",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:lib/ref.ts:nextRef",
+   "target": "function:lib/ref.ts:refPeriod",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:lib/ref.ts:nextRef",
+   "target": "function:lib/ref.ts:refSequence",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:lib/ref.ts:nextRef",
+   "target": "function:lib/ref.ts:buildRef",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:lib/ref.ts:buildRef",
+   "target": "function:lib/ref.ts:refPeriod",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:lib/server/queries.ts:listThread",
+   "target": "function:lib/server/queries.ts:listMessages",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:lib/server/queries.ts:listThread",
+   "target": "function:lib/server/queries.ts:listAttachments",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:lib/settings.ts:getDocumentCompany",
+   "target": "function:lib/company.ts:effectiveCompany",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:lib/settings.ts:getDocumentCompany",
+   "target": "function:lib/settings.ts:getCompany",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:lib/settings.ts:getCompany",
+   "target": "function:lib/settings.ts:getSetting",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:lib/money.ts:totalCents",
+   "target": "function:lib/money.ts:lineTotalCents",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  }
+ ]
+}

@@ -1,0 +1,1 @@
+{"batchIndex": 15, "totalBatches": 26, "files": [{"path": ".github/workflows/ci-cd.yml", "language": "yaml", "sizeLines": 104, "fileCategory": "infra"}], "batchImportData": {".github/workflows/ci-cd.yml": []}, "neighborMap": {}}

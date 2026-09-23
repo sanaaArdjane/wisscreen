@@ -1,0 +1,67 @@
+{
+  "nodes": [
+    {
+      "id": "document:.claude/skills/neon/references/auth.md",
+      "type": "document",
+      "name": "auth.md",
+      "filePath": ".claude/skills/neon/references/auth.md",
+      "summary": "Vendored Neon agent-skill reference pointing agents to the neon-auth skill for login/identity decisions (Managed Better Auth, existing Better Auth, or self-managed) and where to fetch its setup docs.",
+      "tags": ["documentation", "vendored", "neon", "authentication", "reference"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:.claude/skills/neon/references/claimable-neon.md",
+      "type": "document",
+      "name": "claimable-neon.md",
+      "filePath": ".claude/skills/neon/references/claimable-neon.md",
+      "summary": "Vendored Neon agent-skill reference for the Claimable Neon flow: provisioning a temporary Neon project before a human account exists, and the CLI/REST steps to later claim it into a real organization.",
+      "tags": ["documentation", "vendored", "neon", "provisioning", "cli"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:.claude/skills/neon/references/function-triggers.md",
+      "type": "document",
+      "name": "function-triggers.md",
+      "filePath": ".claude/skills/neon/references/function-triggers.md",
+      "summary": "Vendored Neon agent-skill reference describing branch-scoped Function Triggers (cron schedules and storage-object-created events) and how to declare, list, or manage them via neon.ts, the CLI, MCP, or REST.",
+      "tags": ["documentation", "vendored", "neon", "serverless", "cron"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:.claude/skills/neon/references/logs-loki.md",
+      "type": "document",
+      "name": "logs-loki.md",
+      "filePath": ".claude/skills/neon/references/logs-loki.md",
+      "summary": "Vendored Neon agent-skill reference for reading branch-scoped Functions/Object-Storage logs via the CLI, the Loki-compatible read API, or the @neon/sdk paginated query iterator.",
+      "tags": ["documentation", "vendored", "neon", "observability", "logging"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:.claude/skills/neon/references/parse-env.md",
+      "type": "document",
+      "name": "parse-env.md",
+      "filePath": ".claude/skills/neon/references/parse-env.md",
+      "summary": "Vendored Neon agent-skill reference for @neon/env's parseEnv helper, which validates and types environment variables against a neon.ts config, optionally scoped to a subset of required keys.",
+      "tags": ["documentation", "vendored", "neon", "configuration", "typescript"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:.claude/skills/neon/references/sdk.md",
+      "type": "document",
+      "name": "sdk.md",
+      "filePath": ".claude/skills/neon/references/sdk.md",
+      "summary": "Vendored Neon agent-skill reference introducing @neon/sdk, the official fetch-based, zero-dependency TypeScript client for the Neon API that succeeds the axios-based @neondatabase/api-client.",
+      "tags": ["documentation", "vendored", "neon", "sdk", "api-client"],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "document:.claude/skills/neon/references/sdk.md",
+      "target": "document:.claude/skills/neon/references/logs-loki.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    }
+  ]
+}

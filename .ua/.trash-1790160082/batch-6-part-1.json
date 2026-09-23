@@ -1,0 +1,947 @@
+{
+  "nodes": [
+    {
+      "id": "file:app/api/documents/[kind]/[id]/route.ts",
+      "type": "file",
+      "name": "route.ts",
+      "filePath": "app/api/documents/[kind]/[id]/route.ts",
+      "summary": "API route that streams a generated PDF (devis or facture) for a given document id, enforcing ownership or the billing:read permission before rendering it with renderBillingPdf.",
+      "tags": [
+        "api-handler",
+        "pdf",
+        "billing",
+        "authorization"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/api/notifications/[id]/open/route.ts",
+      "type": "file",
+      "name": "route.ts",
+      "filePath": "app/api/notifications/[id]/open/route.ts",
+      "summary": "API route that marks a single notification as read for the current user and redirects to its target href, used when a user clicks a notification link.",
+      "tags": [
+        "api-handler",
+        "notifications",
+        "redirect"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/api/notifications/route.ts",
+      "type": "file",
+      "name": "route.ts",
+      "filePath": "app/api/notifications/route.ts",
+      "summary": "API route returning the current user's unread notification count and a page of recent notifications, polled by the dashboard notification bell.",
+      "tags": [
+        "api-handler",
+        "notifications"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/api/realtime/route.ts",
+      "type": "file",
+      "name": "route.ts",
+      "filePath": "app/api/realtime/route.ts",
+      "summary": "Server-Sent Events endpoint that streams live realtime events (unread count, notifications) to the signed-in user's browser tab, backed by Postgres LISTEN/NOTIFY via lib/realtime.ts.",
+      "tags": [
+        "api-handler",
+        "sse",
+        "realtime",
+        "streaming"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:app/api/uploads/route.ts",
+      "type": "file",
+      "name": "route.ts",
+      "filePath": "app/api/uploads/route.ts",
+      "summary": "API route handling the full upload lifecycle: presigning S3-style PUT URLs, recording finished uploads as attachments after authorizing the target (request, message, demo, demo run, company, or site), and presigning downloads with per-target access checks.",
+      "tags": [
+        "api-handler",
+        "file-upload",
+        "authorization",
+        "storage"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:app/media/[id]/route.ts",
+      "type": "file",
+      "name": "route.ts",
+      "filePath": "app/media/[id]/route.ts",
+      "summary": "Public route that streams a public image/video attachment from the private object storage bucket by its database id, passing through Range headers for video seeking and caching for a year.",
+      "tags": [
+        "api-handler",
+        "media",
+        "storage"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:components/dashboard/FilterBar.tsx",
+      "type": "file",
+      "name": "FilterBar.tsx",
+      "filePath": "components/dashboard/FilterBar.tsx",
+      "summary": "Client component rendering a debounced search box plus dropdown filters that write their state into the URL's search params, used across admin list pages.",
+      "tags": [
+        "component",
+        "filter",
+        "search"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:components/dashboard/NotificationFeed.tsx",
+      "type": "file",
+      "name": "NotificationFeed.tsx",
+      "filePath": "components/dashboard/NotificationFeed.tsx",
+      "summary": "Renders a list of notification rows (read/unread styling, relative timestamps, mark-all-read/clear actions) shared by the dashboard and admin notification pages.",
+      "tags": [
+        "component",
+        "notifications"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:app/api/documents/[kind]/[id]/route.ts:GET",
+      "type": "function",
+      "name": "GET",
+      "filePath": "app/api/documents/[kind]/[id]/route.ts",
+      "lineRange": [
+        15,
+        42
+      ],
+      "summary": "Resolves the requested billing document (devis/facture) by kind and id, checks the caller owns it or holds billing:read, then streams the rendered PDF inline or as a download based on the dl query param.",
+      "tags": [
+        "api-handler",
+        "pdf-generation",
+        "authorization"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:app/api/notifications/[id]/open/route.ts:GET",
+      "type": "function",
+      "name": "GET",
+      "filePath": "app/api/notifications/[id]/open/route.ts",
+      "lineRange": [
+        19,
+        53
+      ],
+      "summary": "Marks the given notification id as read (scoped to the current user), publishes the updated unread state over realtime, then redirects to the notification's in-app href or to the dashboard root if the target isn't a safe in-app path.",
+      "tags": [
+        "api-handler",
+        "notifications",
+        "realtime"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:app/api/notifications/route.ts:GET",
+      "type": "function",
+      "name": "GET",
+      "filePath": "app/api/notifications/route.ts",
+      "lineRange": [
+        11,
+        34
+      ],
+      "summary": "Fetches the current user's unread count and recent notifications in parallel and returns them as JSON with ISO-formatted timestamps.",
+      "tags": [
+        "api-handler",
+        "notifications"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:app/api/realtime/route.ts:GET",
+      "type": "function",
+      "name": "GET",
+      "filePath": "app/api/realtime/route.ts",
+      "lineRange": [
+        27,
+        115
+      ],
+      "summary": "Opens a ReadableStream SSE connection for the current user: sends the initial unread count, subscribes to realtime events via subscribe(), heartbeats every 25s, and tears the stream down after 30 minutes or on client disconnect.",
+      "tags": [
+        "sse",
+        "realtime",
+        "streaming"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:app/api/uploads/route.ts:resolveTarget",
+      "type": "function",
+      "name": "resolveTarget",
+      "filePath": "app/api/uploads/route.ts",
+      "lineRange": [
+        96,
+        159
+      ],
+      "summary": "Resolves and authorizes which entity (request, message, demo, demo run, company settings, or site content) an upload/download should attach to, checking staff permissions or demo entitlement for each target kind.",
+      "tags": [
+        "authorization",
+        "file-upload"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:app/api/uploads/route.ts:POST",
+      "type": "function",
+      "name": "POST",
+      "filePath": "app/api/uploads/route.ts",
+      "lineRange": [
+        161,
+        184
+      ],
+      "summary": "Presign step: validates the upload request body, checks the content type is allowed, resolves and authorizes the target, then returns a presigned S3 PUT URL and object key.",
+      "tags": [
+        "api-handler",
+        "file-upload"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:app/api/uploads/route.ts:PUT",
+      "type": "function",
+      "name": "PUT",
+      "filePath": "app/api/uploads/route.ts",
+      "lineRange": [
+        187,
+        259
+      ],
+      "summary": "Finalize step: after the browser has uploaded directly to storage, validates the key belongs to the current user, re-authorizes the target, consumes storage quota, records the attachments row, and logs the activity.",
+      "tags": [
+        "api-handler",
+        "file-upload",
+        "quotas"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:app/api/uploads/route.ts:GET",
+      "type": "function",
+      "name": "GET",
+      "filePath": "app/api/uploads/route.ts",
+      "lineRange": [
+        269,
+        283
+      ],
+      "summary": "Looks up an attachment by id, checks the caller may download it, then redirects to a freshly presigned download URL.",
+      "tags": [
+        "api-handler",
+        "file-upload"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:app/api/uploads/route.ts:mayDownload",
+      "type": "function",
+      "name": "mayDownload",
+      "filePath": "app/api/uploads/route.ts",
+      "lineRange": [
+        285,
+        299
+      ],
+      "summary": "Authorization check for reading an attachment: allows the uploader, staff with the right permission, or a customer entitled to the demo it belongs to.",
+      "tags": [
+        "authorization",
+        "file-upload"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:app/api/uploads/route.ts:mayAttachTo",
+      "type": "function",
+      "name": "mayAttachTo",
+      "filePath": "app/api/uploads/route.ts",
+      "lineRange": [
+        302,
+        313
+      ],
+      "summary": "Authorization check for attaching an upload to a support request: allows staff with requests:write or the request's own owner.",
+      "tags": [
+        "authorization"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:app/media/[id]/route.ts:GET",
+      "type": "function",
+      "name": "GET",
+      "filePath": "app/media/[id]/route.ts",
+      "lineRange": [
+        23,
+        56
+      ],
+      "summary": "Looks up a public attachment's storage key and content type, streams the bytes from object storage with Range support, and sets long-lived cache headers since ids are immutable.",
+      "tags": [
+        "media",
+        "storage",
+        "streaming"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:components/dashboard/FilterBar.tsx:FilterBar",
+      "type": "function",
+      "name": "FilterBar",
+      "filePath": "components/dashboard/FilterBar.tsx",
+      "lineRange": [
+        28,
+        114
+      ],
+      "summary": "Renders a search input (debounced via a client-side timeout) and a row of select filters, pushing changes to the URL query string with useTransition so list pages re-render from server data.",
+      "tags": [
+        "component",
+        "filter",
+        "url-state"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:components/dashboard/NotificationFeed.tsx:NotificationFeed",
+      "type": "function",
+      "name": "NotificationFeed",
+      "filePath": "components/dashboard/NotificationFeed.tsx",
+      "lineRange": [
+        40,
+        129
+      ],
+      "summary": "Renders notification rows with unread styling and relative timestamps, an empty state, and the mark-all-read / clear-read action buttons above the list.",
+      "tags": [
+        "component",
+        "notifications"
+      ],
+      "complexity": "moderate"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:app/api/documents/[kind]/[id]/route.ts",
+      "target": "function:app/api/documents/[kind]/[id]/route.ts:GET",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:app/api/documents/[kind]/[id]/route.ts",
+      "target": "function:app/api/documents/[kind]/[id]/route.ts:GET",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/api/notifications/[id]/open/route.ts",
+      "target": "function:app/api/notifications/[id]/open/route.ts:GET",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:app/api/notifications/[id]/open/route.ts",
+      "target": "function:app/api/notifications/[id]/open/route.ts:GET",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/api/notifications/route.ts",
+      "target": "function:app/api/notifications/route.ts:GET",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:app/api/notifications/route.ts",
+      "target": "function:app/api/notifications/route.ts:GET",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/api/realtime/route.ts",
+      "target": "function:app/api/realtime/route.ts:GET",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:app/api/realtime/route.ts",
+      "target": "function:app/api/realtime/route.ts:GET",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/api/uploads/route.ts",
+      "target": "function:app/api/uploads/route.ts:resolveTarget",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:app/api/uploads/route.ts",
+      "target": "function:app/api/uploads/route.ts:POST",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:app/api/uploads/route.ts",
+      "target": "function:app/api/uploads/route.ts:POST",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/api/uploads/route.ts",
+      "target": "function:app/api/uploads/route.ts:PUT",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:app/api/uploads/route.ts",
+      "target": "function:app/api/uploads/route.ts:PUT",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/api/uploads/route.ts",
+      "target": "function:app/api/uploads/route.ts:GET",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:app/api/uploads/route.ts",
+      "target": "function:app/api/uploads/route.ts:GET",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/api/uploads/route.ts",
+      "target": "function:app/api/uploads/route.ts:mayDownload",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:app/api/uploads/route.ts",
+      "target": "function:app/api/uploads/route.ts:mayAttachTo",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:app/media/[id]/route.ts",
+      "target": "function:app/media/[id]/route.ts:GET",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:app/media/[id]/route.ts",
+      "target": "function:app/media/[id]/route.ts:GET",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:components/dashboard/FilterBar.tsx",
+      "target": "function:components/dashboard/FilterBar.tsx:FilterBar",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:components/dashboard/FilterBar.tsx",
+      "target": "function:components/dashboard/FilterBar.tsx:FilterBar",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:components/dashboard/NotificationFeed.tsx",
+      "target": "function:components/dashboard/NotificationFeed.tsx:NotificationFeed",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:components/dashboard/NotificationFeed.tsx",
+      "target": "function:components/dashboard/NotificationFeed.tsx:NotificationFeed",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/api/documents/[kind]/[id]/route.ts",
+      "target": "file:lib/guard.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/api/documents/[kind]/[id]/route.ts",
+      "target": "file:lib/pdf/render.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/api/documents/[kind]/[id]/route.ts",
+      "target": "file:lib/permissions.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/api/notifications/[id]/open/route.ts",
+      "target": "file:lib/db/index.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/api/notifications/[id]/open/route.ts",
+      "target": "file:lib/db/schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/api/notifications/[id]/open/route.ts",
+      "target": "file:lib/guard.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/api/notifications/[id]/open/route.ts",
+      "target": "file:lib/realtime.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/api/notifications/route.ts",
+      "target": "file:lib/account.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/api/notifications/route.ts",
+      "target": "file:lib/guard.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/api/realtime/route.ts",
+      "target": "file:lib/account.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/api/realtime/route.ts",
+      "target": "file:lib/guard.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/api/realtime/route.ts",
+      "target": "file:lib/realtime.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/api/uploads/route.ts",
+      "target": "file:lib/account.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/api/uploads/route.ts",
+      "target": "file:lib/db/index.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/api/uploads/route.ts",
+      "target": "file:lib/db/schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/api/uploads/route.ts",
+      "target": "file:lib/guard.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/api/uploads/route.ts",
+      "target": "file:lib/permissions.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/api/uploads/route.ts",
+      "target": "file:lib/quotas.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/api/uploads/route.ts",
+      "target": "file:lib/server/demos.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/api/uploads/route.ts",
+      "target": "file:lib/storage.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/media/[id]/route.ts",
+      "target": "file:lib/db/index.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/media/[id]/route.ts",
+      "target": "file:lib/db/schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/media/[id]/route.ts",
+      "target": "file:lib/storage.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:components/dashboard/FilterBar.tsx",
+      "target": "file:components/ui/Icon.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:components/dashboard/FilterBar.tsx",
+      "target": "file:lib/cn.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:components/dashboard/NotificationFeed.tsx",
+      "target": "file:app/(app)/dashboard/notifications/MarkAllReadButton.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:components/dashboard/NotificationFeed.tsx",
+      "target": "file:app/(app)/dashboard/notifications/actions.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:components/dashboard/NotificationFeed.tsx",
+      "target": "file:components/dashboard/PageHeader.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:components/dashboard/NotificationFeed.tsx",
+      "target": "file:components/dashboard/ui.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:components/dashboard/NotificationFeed.tsx",
+      "target": "file:components/ui/Icon.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:components/dashboard/NotificationFeed.tsx",
+      "target": "file:lib/cn.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:components/dashboard/NotificationFeed.tsx",
+      "target": "file:lib/format.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:components/dashboard/NotificationFeed.tsx",
+      "target": "file:lib/types.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "function:app/api/documents/[kind]/[id]/route.ts:GET",
+      "target": "function:lib/guard.ts:getCurrentUser",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:app/api/documents/[kind]/[id]/route.ts:GET",
+      "target": "function:lib/permissions.ts:can",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:app/api/documents/[kind]/[id]/route.ts:GET",
+      "target": "function:lib/pdf/render.ts:renderBillingPdf",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:app/api/notifications/[id]/open/route.ts:GET",
+      "target": "function:lib/guard.ts:getCurrentUser",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:app/api/notifications/[id]/open/route.ts:GET",
+      "target": "function:lib/realtime.ts:publish",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:app/api/notifications/route.ts:GET",
+      "target": "function:lib/guard.ts:getCurrentUser",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:app/api/notifications/route.ts:GET",
+      "target": "function:lib/account.ts:unreadCount",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:app/api/notifications/route.ts:GET",
+      "target": "function:lib/account.ts:recentNotifications",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:app/api/realtime/route.ts:GET",
+      "target": "function:lib/guard.ts:getCurrentUser",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:app/api/realtime/route.ts:GET",
+      "target": "function:lib/realtime.ts:subscribe",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:app/api/realtime/route.ts:GET",
+      "target": "function:lib/account.ts:unreadCount",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:app/api/uploads/route.ts:resolveTarget",
+      "target": "function:lib/permissions.ts:can",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:app/api/uploads/route.ts:resolveTarget",
+      "target": "function:lib/server/demos.ts:getEntitledDemo",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:app/api/uploads/route.ts:POST",
+      "target": "function:lib/guard.ts:getCurrentUser",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:app/api/uploads/route.ts:POST",
+      "target": "function:lib/storage.ts:storageConfigured",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:app/api/uploads/route.ts:POST",
+      "target": "function:lib/storage.ts:isAllowedContentType",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:app/api/uploads/route.ts:POST",
+      "target": "function:lib/storage.ts:buildKey",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:app/api/uploads/route.ts:POST",
+      "target": "function:lib/storage.ts:presignUpload",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:app/api/uploads/route.ts:PUT",
+      "target": "function:lib/guard.ts:getCurrentUser",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:app/api/uploads/route.ts:PUT",
+      "target": "function:lib/storage.ts:isAllowedContentType",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:app/api/uploads/route.ts:PUT",
+      "target": "function:lib/quotas.ts:consume",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:app/api/uploads/route.ts:PUT",
+      "target": "function:lib/storage.ts:deleteObject",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:app/api/uploads/route.ts:PUT",
+      "target": "function:lib/account.ts:logActivity",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:app/api/uploads/route.ts:GET",
+      "target": "function:lib/guard.ts:getCurrentUser",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:app/api/uploads/route.ts:GET",
+      "target": "function:lib/storage.ts:presignDownload",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:app/api/uploads/route.ts:mayDownload",
+      "target": "function:lib/permissions.ts:can",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:app/api/uploads/route.ts:mayDownload",
+      "target": "function:lib/server/demos.ts:getEntitledDemo",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:app/api/uploads/route.ts:mayAttachTo",
+      "target": "function:lib/permissions.ts:can",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:app/media/[id]/route.ts:GET",
+      "target": "function:lib/storage.ts:storageConfigured",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:app/media/[id]/route.ts:GET",
+      "target": "function:lib/storage.ts:getObjectStream",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:components/dashboard/FilterBar.tsx:FilterBar",
+      "target": "function:lib/cn.ts:cn",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:components/dashboard/NotificationFeed.tsx:NotificationFeed",
+      "target": "function:lib/cn.ts:cn",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:components/dashboard/NotificationFeed.tsx:NotificationFeed",
+      "target": "function:lib/format.ts:relativeTime",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    }
+  ]
+}

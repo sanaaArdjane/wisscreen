@@ -1,0 +1,217 @@
+{
+  "nodes": [
+    {
+      "id": "file:app/(app)/dashboard/demandes/[id]/CloseRequestButton.tsx",
+      "type": "file",
+      "name": "CloseRequestButton.tsx",
+      "filePath": "app/(app)/dashboard/demandes/[id]/CloseRequestButton.tsx",
+      "summary": "Client component for the client dashboard's request detail page that arms then submits a two-step close action for a support request, avoiding an unstyleable native confirm() dialog.",
+      "tags": ["dashboard", "client-component", "confirm-action", "request-thread"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/(app)/dashboard/demandes/[id]/page.tsx",
+      "type": "file",
+      "name": "page.tsx",
+      "filePath": "app/(app)/dashboard/demandes/[id]/page.tsx",
+      "summary": "Server component rendering a client's single support request: details, the message thread with composer, request metadata, and any linked quotes.",
+      "tags": ["dashboard", "server-component", "request-detail", "data-fetching"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:components/dashboard/ChatComposer.tsx",
+      "type": "file",
+      "name": "ChatComposer.tsx",
+      "filePath": "components/dashboard/ChatComposer.tsx",
+      "summary": "Form component for replying to a request thread: grows a textarea, manages an internal-note toggle and file attachments, submits via a server action, then uploads any queued files through the presigned upload client.",
+      "tags": ["dashboard", "form", "file-upload", "client-component", "request-thread"],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:components/dashboard/Thread.tsx",
+      "type": "file",
+      "name": "Thread.tsx",
+      "filePath": "components/dashboard/Thread.tsx",
+      "summary": "Shared conversation UI used by both the client and staff dashboards: groups messages by author/day, shows an unread divider and 'Lu' read receipts, and renders attachments alongside day-separated chat bubbles.",
+      "tags": ["dashboard", "request-thread", "component", "messaging"],
+      "complexity": "complex",
+      "languageNotes": "Formats all timestamps with an explicit Africa/Algiers timezone since the component renders on a server that may run in UTC."
+    },
+    {
+      "id": "file:components/dashboard/ThreadViewport.tsx",
+      "type": "file",
+      "name": "ThreadViewport.tsx",
+      "filePath": "components/dashboard/ThreadViewport.tsx",
+      "summary": "Scrollable viewport wrapper around a message thread that auto-scrolls to the bottom on new messages, tracks whether the reader has scrolled away, and fires onOpen when the thread becomes visible.",
+      "tags": ["dashboard", "scroll", "client-component", "request-thread"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:lib/upload-client.ts",
+      "type": "file",
+      "name": "upload-client.ts",
+      "filePath": "lib/upload-client.ts",
+      "summary": "Browser-side upload helper: requests a presigned URL, PUTs the file via XHR with progress events, then records the attachment server-side. Used by every file-upload component in the dashboard.",
+      "tags": ["utility", "file-upload", "client-side", "http"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:app/(app)/dashboard/demandes/[id]/CloseRequestButton.tsx:CloseRequestButton",
+      "type": "function",
+      "name": "CloseRequestButton",
+      "filePath": "app/(app)/dashboard/demandes/[id]/CloseRequestButton.tsx",
+      "lineRange": [12, 35],
+      "summary": "Two-step close control: the first click arms a confirmation row, the second submits the closeOwnRequest server action for the given request id.",
+      "tags": ["confirm-action", "form", "client-component"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:app/(app)/dashboard/demandes/[id]/page.tsx:DemandeDetailPage",
+      "type": "function",
+      "name": "DemandeDetailPage",
+      "filePath": "app/(app)/dashboard/demandes/[id]/page.tsx",
+      "lineRange": [29, 158],
+      "summary": "Loads a client's own request, its thread and related quotes, guards against a missing/foreign id with notFound(), and composes the detail layout: header, thread plus composer, info panel, and linked quotes.",
+      "tags": ["server-component", "data-fetching", "page", "request-detail"],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:components/dashboard/ChatComposer.tsx:ChatComposer",
+      "type": "function",
+      "name": "ChatComposer",
+      "filePath": "components/dashboard/ChatComposer.tsx",
+      "lineRange": [32, 233],
+      "summary": "Controlled composer form: auto-grows the textarea, validates and queues attachments client-side, submits the message via useActionState, then uploads queued files against the new message id and resets the form.",
+      "tags": ["form", "file-upload", "client-component", "state-management"],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:components/dashboard/Thread.tsx:Thread",
+      "type": "function",
+      "name": "Thread",
+      "filePath": "components/dashboard/Thread.tsx",
+      "lineRange": [93, 198],
+      "summary": "Groups messages into day/author clusters, computes the first unread message and read status, and renders the scrollable viewport, day separators, message groups, loose attachments and composer slot.",
+      "tags": ["messaging", "component", "grouping"],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:components/dashboard/Thread.tsx:MessageGroup",
+      "type": "function",
+      "name": "MessageGroup",
+      "filePath": "components/dashboard/Thread.tsx",
+      "lineRange": [200, 278],
+      "summary": "Renders one consecutive run of messages from a single author as chat bubbles, with avatar, internal-note styling, per-message hover timestamps, inline attachments and a 'Lu' read receipt on the viewer's latest message.",
+      "tags": ["messaging", "component", "chat-bubble"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:components/dashboard/Thread.tsx:FileList",
+      "type": "function",
+      "name": "FileList",
+      "filePath": "components/dashboard/Thread.tsx",
+      "lineRange": [280, 299],
+      "summary": "Renders a list of thread attachments as download links with filename, size and an internal badge.",
+      "tags": ["component", "file-list"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:components/dashboard/ThreadViewport.tsx:ThreadViewport",
+      "type": "function",
+      "name": "ThreadViewport",
+      "filePath": "components/dashboard/ThreadViewport.tsx",
+      "lineRange": [18, 88],
+      "summary": "Tracks the scroll position of the message list, auto-scrolls to bottom on new messages unless the reader has scrolled away, and calls onOpen (marking the thread read) once it comes into view.",
+      "tags": ["scroll", "client-component", "intersection"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:lib/upload-client.ts:uploadFile",
+      "type": "function",
+      "name": "uploadFile",
+      "filePath": "lib/upload-client.ts",
+      "lineRange": [33, 91],
+      "summary": "Orchestrates a client upload: requests a presigned PUT URL for the target, uploads the file with progress callbacks, then records the attachment on the server, reporting step-by-step status.",
+      "tags": ["file-upload", "http", "async"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:lib/upload-client.ts:putWithProgress",
+      "type": "function",
+      "name": "putWithProgress",
+      "filePath": "lib/upload-client.ts",
+      "lineRange": [94, 111],
+      "summary": "Wraps a presigned PUT in XMLHttpRequest to expose upload progress events, since fetch cannot report upload progress.",
+      "tags": ["http", "xhr", "utility"],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    { "source": "file:app/(app)/dashboard/demandes/[id]/CloseRequestButton.tsx", "target": "function:app/(app)/dashboard/demandes/[id]/CloseRequestButton.tsx:CloseRequestButton", "type": "contains", "direction": "forward", "weight": 1.0 },
+    { "source": "file:app/(app)/dashboard/demandes/[id]/page.tsx", "target": "function:app/(app)/dashboard/demandes/[id]/page.tsx:DemandeDetailPage", "type": "contains", "direction": "forward", "weight": 1.0 },
+    { "source": "file:components/dashboard/ChatComposer.tsx", "target": "function:components/dashboard/ChatComposer.tsx:ChatComposer", "type": "contains", "direction": "forward", "weight": 1.0 },
+    { "source": "file:components/dashboard/Thread.tsx", "target": "function:components/dashboard/Thread.tsx:Thread", "type": "contains", "direction": "forward", "weight": 1.0 },
+    { "source": "file:components/dashboard/Thread.tsx", "target": "function:components/dashboard/Thread.tsx:MessageGroup", "type": "contains", "direction": "forward", "weight": 1.0 },
+    { "source": "file:components/dashboard/Thread.tsx", "target": "function:components/dashboard/Thread.tsx:FileList", "type": "contains", "direction": "forward", "weight": 1.0 },
+    { "source": "file:components/dashboard/ThreadViewport.tsx", "target": "function:components/dashboard/ThreadViewport.tsx:ThreadViewport", "type": "contains", "direction": "forward", "weight": 1.0 },
+    { "source": "file:lib/upload-client.ts", "target": "function:lib/upload-client.ts:uploadFile", "type": "contains", "direction": "forward", "weight": 1.0 },
+    { "source": "file:lib/upload-client.ts", "target": "function:lib/upload-client.ts:putWithProgress", "type": "contains", "direction": "forward", "weight": 1.0 },
+
+    { "source": "file:app/(app)/dashboard/demandes/[id]/CloseRequestButton.tsx", "target": "function:app/(app)/dashboard/demandes/[id]/CloseRequestButton.tsx:CloseRequestButton", "type": "exports", "direction": "forward", "weight": 0.8 },
+    { "source": "file:app/(app)/dashboard/demandes/[id]/page.tsx", "target": "function:app/(app)/dashboard/demandes/[id]/page.tsx:DemandeDetailPage", "type": "exports", "direction": "forward", "weight": 0.8 },
+    { "source": "file:components/dashboard/ChatComposer.tsx", "target": "function:components/dashboard/ChatComposer.tsx:ChatComposer", "type": "exports", "direction": "forward", "weight": 0.8 },
+    { "source": "file:components/dashboard/Thread.tsx", "target": "function:components/dashboard/Thread.tsx:Thread", "type": "exports", "direction": "forward", "weight": 0.8 },
+    { "source": "file:components/dashboard/ThreadViewport.tsx", "target": "function:components/dashboard/ThreadViewport.tsx:ThreadViewport", "type": "exports", "direction": "forward", "weight": 0.8 },
+    { "source": "file:lib/upload-client.ts", "target": "function:lib/upload-client.ts:uploadFile", "type": "exports", "direction": "forward", "weight": 0.8 },
+
+    { "source": "file:app/(app)/dashboard/demandes/[id]/CloseRequestButton.tsx", "target": "file:app/(app)/dashboard/demandes/actions.ts", "type": "imports", "direction": "forward", "weight": 0.7 },
+
+    { "source": "file:app/(app)/dashboard/demandes/[id]/page.tsx", "target": "file:app/(app)/dashboard/demandes/[id]/CloseRequestButton.tsx", "type": "imports", "direction": "forward", "weight": 0.7 },
+    { "source": "file:app/(app)/dashboard/demandes/[id]/page.tsx", "target": "file:app/(app)/dashboard/demandes/actions.ts", "type": "imports", "direction": "forward", "weight": 0.7 },
+    { "source": "file:app/(app)/dashboard/demandes/[id]/page.tsx", "target": "file:components/dashboard/ChatComposer.tsx", "type": "imports", "direction": "forward", "weight": 0.7 },
+    { "source": "file:app/(app)/dashboard/demandes/[id]/page.tsx", "target": "file:components/dashboard/PageHeader.tsx", "type": "imports", "direction": "forward", "weight": 0.7 },
+    { "source": "file:app/(app)/dashboard/demandes/[id]/page.tsx", "target": "file:components/dashboard/Thread.tsx", "type": "imports", "direction": "forward", "weight": 0.7 },
+    { "source": "file:app/(app)/dashboard/demandes/[id]/page.tsx", "target": "file:components/dashboard/ui.tsx", "type": "imports", "direction": "forward", "weight": 0.7 },
+    { "source": "file:app/(app)/dashboard/demandes/[id]/page.tsx", "target": "file:lib/content/index.ts", "type": "imports", "direction": "forward", "weight": 0.7 },
+    { "source": "file:app/(app)/dashboard/demandes/[id]/page.tsx", "target": "file:lib/format.ts", "type": "imports", "direction": "forward", "weight": 0.7 },
+    { "source": "file:app/(app)/dashboard/demandes/[id]/page.tsx", "target": "file:lib/guard.ts", "type": "imports", "direction": "forward", "weight": 0.7 },
+    { "source": "file:app/(app)/dashboard/demandes/[id]/page.tsx", "target": "file:lib/money.ts", "type": "imports", "direction": "forward", "weight": 0.7 },
+    { "source": "file:app/(app)/dashboard/demandes/[id]/page.tsx", "target": "file:lib/requests.ts", "type": "imports", "direction": "forward", "weight": 0.7 },
+    { "source": "file:app/(app)/dashboard/demandes/[id]/page.tsx", "target": "file:lib/server/queries.ts", "type": "imports", "direction": "forward", "weight": 0.7 },
+    { "source": "file:app/(app)/dashboard/demandes/[id]/page.tsx", "target": "file:lib/storage.ts", "type": "imports", "direction": "forward", "weight": 0.7 },
+
+    { "source": "file:components/dashboard/ChatComposer.tsx", "target": "file:components/ui/Icon.tsx", "type": "imports", "direction": "forward", "weight": 0.7 },
+    { "source": "file:components/dashboard/ChatComposer.tsx", "target": "file:lib/actions.ts", "type": "imports", "direction": "forward", "weight": 0.7 },
+    { "source": "file:components/dashboard/ChatComposer.tsx", "target": "file:lib/cn.ts", "type": "imports", "direction": "forward", "weight": 0.7 },
+    { "source": "file:components/dashboard/ChatComposer.tsx", "target": "file:lib/format.ts", "type": "imports", "direction": "forward", "weight": 0.7 },
+    { "source": "file:components/dashboard/ChatComposer.tsx", "target": "file:lib/upload-client.ts", "type": "imports", "direction": "forward", "weight": 0.7 },
+
+    { "source": "file:components/dashboard/Thread.tsx", "target": "file:components/dashboard/ThreadViewport.tsx", "type": "imports", "direction": "forward", "weight": 0.7 },
+    { "source": "file:components/dashboard/Thread.tsx", "target": "file:components/ui/Icon.tsx", "type": "imports", "direction": "forward", "weight": 0.7 },
+    { "source": "file:components/dashboard/Thread.tsx", "target": "file:lib/cn.ts", "type": "imports", "direction": "forward", "weight": 0.7 },
+    { "source": "file:components/dashboard/Thread.tsx", "target": "file:lib/format.ts", "type": "imports", "direction": "forward", "weight": 0.7 },
+
+    { "source": "file:components/dashboard/ThreadViewport.tsx", "target": "file:components/ui/Icon.tsx", "type": "imports", "direction": "forward", "weight": 0.7 },
+
+    { "source": "function:app/(app)/dashboard/demandes/[id]/page.tsx:DemandeDetailPage", "target": "function:lib/guard.ts:requireUser", "type": "calls", "direction": "forward", "weight": 0.8 },
+    { "source": "function:app/(app)/dashboard/demandes/[id]/page.tsx:DemandeDetailPage", "target": "function:lib/server/queries.ts:getOwnRequest", "type": "calls", "direction": "forward", "weight": 0.8 },
+    { "source": "function:app/(app)/dashboard/demandes/[id]/page.tsx:DemandeDetailPage", "target": "function:lib/server/queries.ts:listThread", "type": "calls", "direction": "forward", "weight": 0.8 },
+    { "source": "function:app/(app)/dashboard/demandes/[id]/page.tsx:DemandeDetailPage", "target": "function:lib/server/queries.ts:listQuotes", "type": "calls", "direction": "forward", "weight": 0.8 },
+    { "source": "function:app/(app)/dashboard/demandes/[id]/page.tsx:DemandeDetailPage", "target": "function:lib/content/index.ts:getSolutions", "type": "calls", "direction": "forward", "weight": 0.8 },
+    { "source": "function:app/(app)/dashboard/demandes/[id]/page.tsx:DemandeDetailPage", "target": "function:lib/format.ts:formatDateTime", "type": "calls", "direction": "forward", "weight": 0.8 },
+    { "source": "function:app/(app)/dashboard/demandes/[id]/page.tsx:DemandeDetailPage", "target": "function:lib/money.ts:formatMoney", "type": "calls", "direction": "forward", "weight": 0.8 },
+    { "source": "function:app/(app)/dashboard/demandes/[id]/page.tsx:DemandeDetailPage", "target": "function:lib/storage.ts:storageConfigured", "type": "calls", "direction": "forward", "weight": 0.8 },
+    { "source": "function:app/(app)/dashboard/demandes/[id]/page.tsx:DemandeDetailPage", "target": "function:app/(app)/dashboard/demandes/actions.ts:markThreadRead", "type": "calls", "direction": "forward", "weight": 0.8 },
+    { "source": "function:app/(app)/dashboard/demandes/[id]/page.tsx:DemandeDetailPage", "target": "function:app/(app)/dashboard/demandes/[id]/CloseRequestButton.tsx:CloseRequestButton", "type": "calls", "direction": "forward", "weight": 0.8 },
+    { "source": "function:app/(app)/dashboard/demandes/[id]/page.tsx:DemandeDetailPage", "target": "function:components/dashboard/Thread.tsx:Thread", "type": "calls", "direction": "forward", "weight": 0.8 },
+    { "source": "function:app/(app)/dashboard/demandes/[id]/page.tsx:DemandeDetailPage", "target": "function:components/dashboard/ChatComposer.tsx:ChatComposer", "type": "calls", "direction": "forward", "weight": 0.8 },
+    { "source": "function:app/(app)/dashboard/demandes/[id]/page.tsx:DemandeDetailPage", "target": "function:components/dashboard/PageHeader.tsx:PageHeader", "type": "calls", "direction": "forward", "weight": 0.8 },
+    { "source": "function:app/(app)/dashboard/demandes/[id]/page.tsx:DemandeDetailPage", "target": "function:components/dashboard/PageHeader.tsx:Panel", "type": "calls", "direction": "forward", "weight": 0.8 },
+    { "source": "function:app/(app)/dashboard/demandes/[id]/page.tsx:DemandeDetailPage", "target": "function:components/dashboard/ui.tsx:StatusChip", "type": "calls", "direction": "forward", "weight": 0.8 },
+
+    { "source": "function:components/dashboard/ChatComposer.tsx:ChatComposer", "target": "function:lib/upload-client.ts:uploadFile", "type": "calls", "direction": "forward", "weight": 0.8 },
+    { "source": "function:components/dashboard/ChatComposer.tsx:ChatComposer", "target": "function:lib/format.ts:formatBytes", "type": "calls", "direction": "forward", "weight": 0.8 },
+
+    { "source": "function:components/dashboard/Thread.tsx:Thread", "target": "function:components/dashboard/ThreadViewport.tsx:ThreadViewport", "type": "calls", "direction": "forward", "weight": 0.8 }
+  ]
+}

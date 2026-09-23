@@ -1,0 +1,874 @@
+{
+  "nodes": [
+    {
+      "id": "file:app/(app)/admin/factures/page.tsx",
+      "type": "file",
+      "name": "page.tsx",
+      "filePath": "app/(app)/admin/factures/page.tsx",
+      "summary": "Admin list page for all invoices (factures) with status filters, effective status (a human sets it, no payment provider) and totals, linking to each invoice's document editor.",
+      "tags": [
+        "admin",
+        "billing",
+        "invoices",
+        "server-component"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:app/(app)/admin/factures/page.tsx:AdminFacturesPage",
+      "type": "function",
+      "name": "AdminFacturesPage",
+      "filePath": "app/(app)/admin/factures/page.tsx",
+      "lineRange": [
+        25,
+        146
+      ],
+      "summary": "Server component enforcing billing:read, listing invoices with effectiveInvoiceStatus and TTC totals, and rendering the invoices table.",
+      "tags": [
+        "server-component",
+        "authorization",
+        "data-fetching",
+        "billing"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:app/(app)/admin/journal/actions.ts",
+      "type": "file",
+      "name": "actions.ts",
+      "filePath": "app/(app)/admin/journal/actions.ts",
+      "summary": "Server action to purge activity-log entries older than a chosen date, keeping the last 30 days un-purgeable and logging the purge itself so the audit trail records who emptied it.",
+      "tags": [
+        "server-action",
+        "audit-log",
+        "data-retention"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:app/(app)/admin/journal/actions.ts:purgeActivity",
+      "type": "function",
+      "name": "purgeActivity",
+      "filePath": "app/(app)/admin/journal/actions.ts",
+      "lineRange": [
+        28,
+        48
+      ],
+      "summary": "Deletes activityLog rows older than the given date (rejecting dates within the last 30 days), then logs the purge action itself with the count deleted before revalidating /admin/journal.",
+      "tags": [
+        "server-action",
+        "audit-log",
+        "validation"
+      ],
+      "complexity": "moderate",
+      "languageNotes": "Deliberately logs the destructive action after it runs so the audit trail cannot be silently erased."
+    },
+    {
+      "id": "file:app/(app)/admin/journal/page.tsx",
+      "type": "file",
+      "name": "page.tsx",
+      "filePath": "app/(app)/admin/journal/page.tsx",
+      "summary": "Admin page for the activity/audit journal: filterable log of actions taken across the platform, plus the PurgeForm for clearing old entries.",
+      "tags": [
+        "admin",
+        "audit-log",
+        "server-component"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:app/(app)/admin/journal/page.tsx:JournalPage",
+      "type": "function",
+      "name": "JournalPage",
+      "filePath": "app/(app)/admin/journal/page.tsx",
+      "lineRange": [
+        96,
+        209
+      ],
+      "summary": "Server component enforcing activity:read, listing filtered activityLog entries with actor and target info, and rendering PurgeForm for staff with activity:delete.",
+      "tags": [
+        "server-component",
+        "authorization",
+        "filtering",
+        "audit-log"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:app/(app)/admin/messages/LeadActions.tsx",
+      "type": "file",
+      "name": "LeadActions.tsx",
+      "filePath": "app/(app)/admin/messages/LeadActions.tsx",
+      "summary": "Client-side controls for one contact lead row: a status-change form and a confirm-guarded delete button, both bound to the messages server actions.",
+      "tags": [
+        "component",
+        "form",
+        "contact-leads"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:app/(app)/admin/messages/LeadActions.tsx:LeadActions",
+      "type": "function",
+      "name": "LeadActions",
+      "filePath": "app/(app)/admin/messages/LeadActions.tsx",
+      "lineRange": [
+        11,
+        32
+      ],
+      "summary": "Renders the status dropdown/quick actions for a single contact lead, submitting to setLeadStatus.",
+      "tags": [
+        "component",
+        "form"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:app/(app)/admin/messages/LeadActions.tsx:DeleteLeadButton",
+      "type": "function",
+      "name": "DeleteLeadButton",
+      "filePath": "app/(app)/admin/messages/LeadActions.tsx",
+      "lineRange": [
+        34,
+        44
+      ],
+      "summary": "Confirm-guarded delete button for a contact lead, submitting to deleteLead via ConfirmButton.",
+      "tags": [
+        "component",
+        "confirm-action"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/(app)/admin/messages/actions.ts",
+      "type": "file",
+      "name": "actions.ts",
+      "filePath": "app/(app)/admin/messages/actions.ts",
+      "summary": "Server actions for the contact-leads inbox: changing a lead's status and deleting a lead, both permission-checked and logged.",
+      "tags": [
+        "server-action",
+        "contact-leads"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:app/(app)/admin/messages/actions.ts:setLeadStatus",
+      "type": "function",
+      "name": "setLeadStatus",
+      "filePath": "app/(app)/admin/messages/actions.ts",
+      "lineRange": [
+        17,
+        40
+      ],
+      "summary": "Updates a contact lead's status after checking permission, logs the change, and revalidates the messages list.",
+      "tags": [
+        "server-action",
+        "contact-leads",
+        "validation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:app/(app)/admin/messages/actions.ts:deleteLead",
+      "type": "function",
+      "name": "deleteLead",
+      "filePath": "app/(app)/admin/messages/actions.ts",
+      "lineRange": [
+        43,
+        58
+      ],
+      "summary": "Deletes a contact lead row after checking permission and logs the deletion.",
+      "tags": [
+        "server-action",
+        "contact-leads",
+        "authorization"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/(app)/admin/messages/page.tsx",
+      "type": "file",
+      "name": "page.tsx",
+      "filePath": "app/(app)/admin/messages/page.tsx",
+      "summary": "Admin inbox page for contact-form leads (/admin/messages) \u2014 what the public contact form now writes to instead of silently dropping \u2014 with status filters and LeadActions per row.",
+      "tags": [
+        "admin",
+        "contact-leads",
+        "server-component"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:app/(app)/admin/messages/page.tsx:MessagesPage",
+      "type": "function",
+      "name": "MessagesPage",
+      "filePath": "app/(app)/admin/messages/page.tsx",
+      "lineRange": [
+        29,
+        117
+      ],
+      "summary": "Server component enforcing messages:read (or similar), listing contact_leads with filters, and rendering the inbox table with LeadActions.",
+      "tags": [
+        "server-component",
+        "authorization",
+        "filtering",
+        "data-fetching"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:app/(app)/admin/notifications/envoyer/actions.ts",
+      "type": "file",
+      "name": "actions.ts",
+      "filePath": "app/(app)/admin/notifications/envoyer/actions.ts",
+      "summary": "Server action powering the broadcast composer: sends one in-app notification (and optionally an e-mail) to a chosen audience segment (clients, team, new signups, or a plan's subscribers), excluding suspended accounts.",
+      "tags": [
+        "server-action",
+        "notifications",
+        "broadcast",
+        "email"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:app/(app)/admin/notifications/envoyer/actions.ts:broadcast",
+      "type": "function",
+      "name": "broadcast",
+      "filePath": "app/(app)/admin/notifications/envoyer/actions.ts",
+      "lineRange": [
+        32,
+        120
+      ],
+      "summary": "Validates the broadcast form, resolves the target segment to a set of non-banned users (by role, signup recency, or plan subscription), writes one notifications row per recipient via notifyMany, optionally e-mails each one, logs the broadcast, and revalidates.",
+      "tags": [
+        "server-action",
+        "notifications",
+        "segmentation",
+        "email"
+      ],
+      "complexity": "complex",
+      "languageNotes": "Suspended (banned) accounts are excluded from every segment since they cannot sign in to see an in-app notification."
+    },
+    {
+      "id": "file:app/(app)/admin/notifications/envoyer/page.tsx",
+      "type": "file",
+      "name": "page.tsx",
+      "filePath": "app/(app)/admin/notifications/envoyer/page.tsx",
+      "summary": "Admin page hosting the broadcast composer (BroadcastForm) that staff with notifications:write use to message an audience segment \u2014 moved here from /admin/notifications, which is now the staff member's own feed.",
+      "tags": [
+        "admin",
+        "notifications",
+        "broadcast",
+        "server-component"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:app/(app)/admin/notifications/envoyer/page.tsx:AdminNotificationsPage",
+      "type": "function",
+      "name": "AdminNotificationsPage",
+      "filePath": "app/(app)/admin/notifications/envoyer/page.tsx",
+      "lineRange": [
+        13,
+        105
+      ],
+      "summary": "Server component enforcing notifications:write, loading plan options for segment targeting, and rendering PageHeader plus BroadcastForm.",
+      "tags": [
+        "server-component",
+        "authorization",
+        "form"
+      ],
+      "complexity": "moderate"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:app/(app)/admin/factures/page.tsx",
+      "target": "file:components/dashboard/FilterBar.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/factures/page.tsx",
+      "target": "file:components/dashboard/PageHeader.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/factures/page.tsx",
+      "target": "file:components/dashboard/pills.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/factures/page.tsx",
+      "target": "file:components/dashboard/ui.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/factures/page.tsx",
+      "target": "file:components/ui/Icon.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/factures/page.tsx",
+      "target": "file:lib/billing.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/factures/page.tsx",
+      "target": "file:lib/db/index.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/factures/page.tsx",
+      "target": "file:lib/db/schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/factures/page.tsx",
+      "target": "file:lib/format.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/factures/page.tsx",
+      "target": "file:lib/guard.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/factures/page.tsx",
+      "target": "file:lib/money.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/factures/page.tsx",
+      "target": "file:lib/permissions.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/factures/page.tsx",
+      "target": "function:app/(app)/admin/factures/page.tsx:AdminFacturesPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:app/(app)/admin/factures/page.tsx",
+      "target": "function:app/(app)/admin/factures/page.tsx:AdminFacturesPage",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/(app)/admin/journal/actions.ts",
+      "target": "file:lib/account.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/journal/actions.ts",
+      "target": "file:lib/actions.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/journal/actions.ts",
+      "target": "file:lib/db/index.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/journal/actions.ts",
+      "target": "file:lib/db/schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/journal/actions.ts",
+      "target": "file:lib/guard.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/journal/actions.ts",
+      "target": "function:app/(app)/admin/journal/actions.ts:purgeActivity",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:app/(app)/admin/journal/actions.ts",
+      "target": "function:app/(app)/admin/journal/actions.ts:purgeActivity",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:app/(app)/admin/journal/actions.ts:purgeActivity",
+      "target": "function:lib/account.ts:logActivity",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/(app)/admin/journal/page.tsx",
+      "target": "file:app/(app)/admin/journal/PurgeForm.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/journal/page.tsx",
+      "target": "file:components/dashboard/FilterBar.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/journal/page.tsx",
+      "target": "file:components/dashboard/PageHeader.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/journal/page.tsx",
+      "target": "file:components/dashboard/ui.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/journal/page.tsx",
+      "target": "file:lib/db/index.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/journal/page.tsx",
+      "target": "file:lib/db/schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/journal/page.tsx",
+      "target": "file:lib/format.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/journal/page.tsx",
+      "target": "file:lib/guard.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/journal/page.tsx",
+      "target": "file:lib/permissions.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/journal/page.tsx",
+      "target": "function:app/(app)/admin/journal/page.tsx:JournalPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:app/(app)/admin/journal/page.tsx",
+      "target": "function:app/(app)/admin/journal/page.tsx:JournalPage",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/(app)/admin/journal/page.tsx",
+      "target": "file:app/(app)/admin/journal/actions.ts",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:app/(app)/admin/messages/LeadActions.tsx",
+      "target": "file:app/(app)/admin/messages/actions.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/messages/LeadActions.tsx",
+      "target": "file:components/dashboard/ui.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/messages/LeadActions.tsx",
+      "target": "function:app/(app)/admin/messages/LeadActions.tsx:LeadActions",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:app/(app)/admin/messages/LeadActions.tsx",
+      "target": "function:app/(app)/admin/messages/LeadActions.tsx:DeleteLeadButton",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:app/(app)/admin/messages/LeadActions.tsx",
+      "target": "function:app/(app)/admin/messages/LeadActions.tsx:LeadActions",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/(app)/admin/messages/LeadActions.tsx",
+      "target": "function:app/(app)/admin/messages/LeadActions.tsx:DeleteLeadButton",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:app/(app)/admin/messages/LeadActions.tsx:LeadActions",
+      "target": "function:app/(app)/admin/messages/actions.ts:setLeadStatus",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:app/(app)/admin/messages/LeadActions.tsx:DeleteLeadButton",
+      "target": "function:app/(app)/admin/messages/actions.ts:deleteLead",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/(app)/admin/messages/actions.ts",
+      "target": "file:lib/account.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/messages/actions.ts",
+      "target": "file:lib/db/index.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/messages/actions.ts",
+      "target": "file:lib/db/schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/messages/actions.ts",
+      "target": "file:lib/guard.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/messages/actions.ts",
+      "target": "function:app/(app)/admin/messages/actions.ts:setLeadStatus",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:app/(app)/admin/messages/actions.ts",
+      "target": "function:app/(app)/admin/messages/actions.ts:deleteLead",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:app/(app)/admin/messages/actions.ts",
+      "target": "function:app/(app)/admin/messages/actions.ts:setLeadStatus",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/(app)/admin/messages/actions.ts",
+      "target": "function:app/(app)/admin/messages/actions.ts:deleteLead",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/(app)/admin/messages/page.tsx",
+      "target": "file:app/(app)/admin/messages/LeadActions.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/messages/page.tsx",
+      "target": "file:components/dashboard/FilterBar.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/messages/page.tsx",
+      "target": "file:components/dashboard/PageHeader.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/messages/page.tsx",
+      "target": "file:components/dashboard/ui.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/messages/page.tsx",
+      "target": "file:lib/content/index.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/messages/page.tsx",
+      "target": "file:lib/db/index.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/messages/page.tsx",
+      "target": "file:lib/db/schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/messages/page.tsx",
+      "target": "file:lib/format.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/messages/page.tsx",
+      "target": "file:lib/guard.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/messages/page.tsx",
+      "target": "file:lib/permissions.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/messages/page.tsx",
+      "target": "function:app/(app)/admin/messages/page.tsx:MessagesPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:app/(app)/admin/messages/page.tsx",
+      "target": "function:app/(app)/admin/messages/page.tsx:MessagesPage",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/(app)/admin/notifications/envoyer/actions.ts",
+      "target": "file:app/(app)/admin/notifications/envoyer/segments.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/notifications/envoyer/actions.ts",
+      "target": "file:lib/account.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/notifications/envoyer/actions.ts",
+      "target": "file:lib/actions.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/notifications/envoyer/actions.ts",
+      "target": "file:lib/db/index.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/notifications/envoyer/actions.ts",
+      "target": "file:lib/db/schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/notifications/envoyer/actions.ts",
+      "target": "file:lib/email.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/notifications/envoyer/actions.ts",
+      "target": "file:lib/guard.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/notifications/envoyer/actions.ts",
+      "target": "file:lib/site.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/notifications/envoyer/actions.ts",
+      "target": "function:app/(app)/admin/notifications/envoyer/actions.ts:broadcast",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:app/(app)/admin/notifications/envoyer/actions.ts",
+      "target": "function:app/(app)/admin/notifications/envoyer/actions.ts:broadcast",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:app/(app)/admin/notifications/envoyer/actions.ts:broadcast",
+      "target": "function:lib/account.ts:notifyMany",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:app/(app)/admin/notifications/envoyer/actions.ts:broadcast",
+      "target": "function:lib/email.ts:sendEmail",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/(app)/admin/notifications/envoyer/page.tsx",
+      "target": "file:app/(app)/admin/notifications/envoyer/BroadcastForm.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/notifications/envoyer/page.tsx",
+      "target": "file:components/dashboard/PageHeader.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/notifications/envoyer/page.tsx",
+      "target": "file:components/dashboard/ui.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/notifications/envoyer/page.tsx",
+      "target": "file:lib/db/index.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/notifications/envoyer/page.tsx",
+      "target": "file:lib/db/schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/notifications/envoyer/page.tsx",
+      "target": "file:lib/format.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/notifications/envoyer/page.tsx",
+      "target": "file:lib/guard.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/(app)/admin/notifications/envoyer/page.tsx",
+      "target": "function:app/(app)/admin/notifications/envoyer/page.tsx:AdminNotificationsPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:app/(app)/admin/notifications/envoyer/page.tsx",
+      "target": "function:app/(app)/admin/notifications/envoyer/page.tsx:AdminNotificationsPage",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/(app)/admin/notifications/envoyer/page.tsx",
+      "target": "file:app/(app)/admin/notifications/envoyer/actions.ts",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    }
+  ]
+}

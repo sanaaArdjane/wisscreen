@@ -1,0 +1,1631 @@
+{
+ "nodes": [
+  {
+   "id": "file:components/dashboard/site/SolutionEditor.tsx",
+   "type": "file",
+   "name": "SolutionEditor.tsx",
+   "filePath": "components/dashboard/site/SolutionEditor.tsx",
+   "summary": "Full editor for one solution's identity, content, layout and media, composed of tabbed SpecForm panels plus bespoke gallery/stat-GIF slot editors, submitting through the saveSolution server action.",
+   "tags": [
+    "component",
+    "admin",
+    "site-editor",
+    "form",
+    "cms"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "function:components/dashboard/site/SolutionEditor.tsx:SolutionEditor",
+   "type": "function",
+   "name": "SolutionEditor",
+   "filePath": "components/dashboard/site/SolutionEditor.tsx",
+   "summary": "Top-level tabbed editor for one solution \u2014 identity, content, layout, media \u2014 tracking dirty state and submitting via saveSolution.",
+   "tags": [
+    "component",
+    "admin",
+    "cms",
+    "form",
+    "client-component"
+   ],
+   "complexity": "complex",
+   "lineRange": [
+    47,
+    178
+   ]
+  },
+  {
+   "id": "function:components/dashboard/site/SolutionEditor.tsx:Heading",
+   "type": "function",
+   "name": "Heading",
+   "filePath": "components/dashboard/site/SolutionEditor.tsx",
+   "summary": "Section heading with a FieldHint tooltip, reused across the solution editor's tabs.",
+   "tags": [
+    "component",
+    "admin",
+    "ui"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    190,
+    200
+   ]
+  },
+  {
+   "id": "function:components/dashboard/site/SolutionEditor.tsx:PlaceholderSlot",
+   "type": "function",
+   "name": "PlaceholderSlot",
+   "filePath": "components/dashboard/site/SolutionEditor.tsx",
+   "summary": "Renders one gallery slot's placeholder preview and its asset-clearing control.",
+   "tags": [
+    "component",
+    "admin",
+    "media"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    203,
+    227
+   ]
+  },
+  {
+   "id": "function:components/dashboard/site/SolutionEditor.tsx:GalleryEditor",
+   "type": "function",
+   "name": "GalleryEditor",
+   "filePath": "components/dashboard/site/SolutionEditor.tsx",
+   "summary": "Renders the solution's gallery media slots (MediaField per positional slot) plus the highlight image/variant controls.",
+   "tags": [
+    "component",
+    "admin",
+    "media",
+    "form"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    234,
+    334
+   ]
+  },
+  {
+   "id": "function:components/dashboard/site/SolutionEditor.tsx:StatGifs",
+   "type": "function",
+   "name": "StatGifs",
+   "filePath": "components/dashboard/site/SolutionEditor.tsx",
+   "summary": "Renders the per-stat GIF media slots shown on the solution's stat tiles.",
+   "tags": [
+    "component",
+    "admin",
+    "media",
+    "form"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    337,
+    383
+   ]
+  },
+  {
+   "id": "file:components/dashboard/site/SpecForm.tsx",
+   "type": "file",
+   "name": "SpecForm.tsx",
+   "filePath": "components/dashboard/site/SpecForm.tsx",
+   "summary": "Generic form renderer that turns a FieldSpec array (from lib/content/forms) into inputs \u2014 text, select, checkbox, asset, list and strings fields \u2014 recursively, driving every /admin/site editor from one declarative spec.",
+   "tags": [
+    "component",
+    "admin",
+    "site-editor",
+    "form",
+    "generic"
+   ],
+   "complexity": "complex",
+   "languageNotes": "Field kinds are data-driven from FieldSpec rather than hand-coded per screen, so a new editable field is a spec entry, not a new component."
+  },
+  {
+   "id": "function:components/dashboard/site/SpecForm.tsx:SpecProvider",
+   "type": "function",
+   "name": "SpecProvider",
+   "filePath": "components/dashboard/site/SpecForm.tsx",
+   "summary": "Context provider carrying the current SpecFormContext (path/value helpers) to descendant fields.",
+   "tags": [
+    "component",
+    "context",
+    "admin"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    33,
+    35
+   ]
+  },
+  {
+   "id": "function:components/dashboard/site/SpecForm.tsx:SpecForm",
+   "type": "function",
+   "name": "SpecForm",
+   "filePath": "components/dashboard/site/SpecForm.tsx",
+   "summary": "Recursively renders an array of FieldSpec into inputs, dispatching each field kind to FieldRow.",
+   "tags": [
+    "component",
+    "admin",
+    "form",
+    "generic"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    40,
+    67
+   ]
+  },
+  {
+   "id": "function:components/dashboard/site/SpecForm.tsx:Label",
+   "type": "function",
+   "name": "Label",
+   "filePath": "components/dashboard/site/SpecForm.tsx",
+   "summary": "Field label wired to its htmlFor id and required marker.",
+   "tags": [
+    "component",
+    "admin",
+    "ui"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    69,
+    83
+   ]
+  },
+  {
+   "id": "function:components/dashboard/site/SpecForm.tsx:Help",
+   "type": "function",
+   "name": "Help",
+   "filePath": "components/dashboard/site/SpecForm.tsx",
+   "summary": "Renders a field's description text plus its FieldHint tooltip.",
+   "tags": [
+    "component",
+    "admin",
+    "ui"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    85,
+    98
+   ]
+  },
+  {
+   "id": "function:components/dashboard/site/SpecForm.tsx:FieldRow",
+   "type": "function",
+   "name": "FieldRow",
+   "filePath": "components/dashboard/site/SpecForm.tsx",
+   "summary": "Dispatches one FieldSpec to its concrete input \u2014 text, textarea, select, checkbox, icon, asset (MediaField), list, strings, or nested cards \u2014 reading/writing through the shared path-based value object.",
+   "tags": [
+    "component",
+    "admin",
+    "form",
+    "generic"
+   ],
+   "complexity": "complex",
+   "lineRange": [
+    100,
+    314
+   ]
+  },
+  {
+   "id": "function:components/dashboard/site/SpecForm.tsx:RowControls",
+   "type": "function",
+   "name": "RowControls",
+   "filePath": "components/dashboard/site/SpecForm.tsx",
+   "summary": "Move-up/move-down/remove controls for one row of a ListField.",
+   "tags": [
+    "component",
+    "admin",
+    "ui"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    341,
+    370
+   ]
+  },
+  {
+   "id": "function:components/dashboard/site/SpecForm.tsx:ListField",
+   "type": "function",
+   "name": "ListField",
+   "filePath": "components/dashboard/site/SpecForm.tsx",
+   "summary": "Renders a repeatable list of card-shaped sub-forms (e.g. FAQ items, stats) with add/remove/reorder.",
+   "tags": [
+    "component",
+    "admin",
+    "form",
+    "list"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    372,
+    457
+   ]
+  },
+  {
+   "id": "function:components/dashboard/site/SpecForm.tsx:StringsField",
+   "type": "function",
+   "name": "StringsField",
+   "filePath": "components/dashboard/site/SpecForm.tsx",
+   "summary": "Renders a repeatable list of plain strings (e.g. tags, bullet points) with add/remove/reorder.",
+   "tags": [
+    "component",
+    "admin",
+    "form",
+    "list"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    459,
+    518
+   ]
+  },
+  {
+   "id": "file:components/layout/Navbar.tsx",
+   "type": "file",
+   "name": "Navbar.tsx",
+   "filePath": "components/layout/Navbar.tsx",
+   "summary": "Site navbar shaped after the dashboard's AppShell chrome: floating pill on load, snapping to a full-width bar on scroll, adapting light/dark to the opening section, with Connexion/Cr\u00e9er un compte CTAs.",
+   "tags": [
+    "component",
+    "navigation",
+    "marketing",
+    "client-component"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:components/layout/Navbar.tsx:Navbar",
+   "type": "function",
+   "name": "Navbar",
+   "filePath": "components/layout/Navbar.tsx",
+   "summary": "Public navbar that floats as a pill on load and snaps to a full-width bar on scroll, adapts light/dark to the current route's opening section, and renders solution links plus Connexion/Cr\u00e9er un compte CTAs.",
+   "tags": [
+    "component",
+    "navigation",
+    "marketing",
+    "client-component"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    11,
+    158
+   ]
+  },
+  {
+   "id": "file:lib/content/defaults.ts",
+   "type": "file",
+   "name": "defaults.ts",
+   "filePath": "lib/content/defaults.ts",
+   "summary": "Default content for every editable site_content block (general, hero, footer, homepage sections) and the conversion helpers (toSolutionContent, toMediaContent, blankSolution) that seed site_solutions from the legacy services.ts/media.ts data.",
+   "tags": [
+    "data-model",
+    "cms",
+    "defaults",
+    "content"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "function:lib/content/defaults.ts:toSolutionContent",
+   "type": "function",
+   "name": "toSolutionContent",
+   "filePath": "lib/content/defaults.ts",
+   "summary": "Converts a legacy services.ts Service object into the site_solutions `content` jsonb shape.",
+   "tags": [
+    "data-model",
+    "cms",
+    "conversion"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    447,
+    471
+   ]
+  },
+  {
+   "id": "function:lib/content/defaults.ts:toMediaContent",
+   "type": "function",
+   "name": "toMediaContent",
+   "filePath": "lib/content/defaults.ts",
+   "summary": "Converts a legacy media.ts SolutionMedia entry into the site_solutions `media` jsonb shape.",
+   "tags": [
+    "data-model",
+    "cms",
+    "conversion"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    474,
+    490
+   ]
+  },
+  {
+   "id": "function:lib/content/defaults.ts:blankSolution",
+   "type": "function",
+   "name": "blankSolution",
+   "filePath": "lib/content/defaults.ts",
+   "summary": "Builds an empty solution content/media pair (for createSolution) seeded with a given slug and name.",
+   "tags": [
+    "data-model",
+    "cms",
+    "factory"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    512,
+    543
+   ]
+  },
+  {
+   "id": "file:lib/content/forms.ts",
+   "type": "file",
+   "name": "forms.ts",
+   "filePath": "lib/content/forms.ts",
+   "summary": "Declarative FieldSpec definitions for every /admin/site form (general, hero, footer, homepage sections, solution identity/content/layout/media), each field carrying a required `where` describing its location on the live page.",
+   "tags": [
+    "data-model",
+    "cms",
+    "form-spec",
+    "admin"
+   ],
+   "complexity": "complex",
+   "languageNotes": "Every field spec must declare a `where` (page/section/anchor/size) by convention \u2014 a field without one doesn't compile \u2014 which is what powers FieldHint's live-page links."
+  },
+  {
+   "id": "function:lib/content/forms.ts:heading",
+   "type": "function",
+   "name": "heading",
+   "filePath": "lib/content/forms.ts",
+   "summary": "Shared FieldSpec builder for a homepage section's eyebrow/title/subtitle fields, wired to their `where` locations.",
+   "tags": [
+    "form-spec",
+    "admin",
+    "helper"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    84,
+    107
+   ]
+  },
+  {
+   "id": "function:lib/content/forms.ts:cta",
+   "type": "function",
+   "name": "cta",
+   "filePath": "lib/content/forms.ts",
+   "summary": "FieldSpec builder for a call-to-action's label/href pair.",
+   "tags": [
+    "form-spec",
+    "admin",
+    "helper"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    117,
+    133
+   ]
+  },
+  {
+   "id": "function:lib/content/forms.ts:iconItems",
+   "type": "function",
+   "name": "iconItems",
+   "filePath": "lib/content/forms.ts",
+   "summary": "FieldSpec builder for a repeatable list of icon+label items (e.g. feature bullets).",
+   "tags": [
+    "form-spec",
+    "admin",
+    "helper"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    135,
+    149
+   ]
+  },
+  {
+   "id": "function:lib/content/forms.ts:whereHref",
+   "type": "function",
+   "name": "whereHref",
+   "filePath": "lib/content/forms.ts",
+   "summary": "Builds the link URL (page + #section anchor) that FieldHint uses to open the live page at a field's location.",
+   "tags": [
+    "form-spec",
+    "admin",
+    "navigation"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    1003,
+    1008
+   ]
+  },
+  {
+   "id": "file:lib/content/index.ts",
+   "type": "file",
+   "name": "index.ts",
+   "filePath": "lib/content/index.ts",
+   "summary": "Read/merge layer for the owner-editable site content: deep-merges stored site_content/site_solutions rows over the code defaults, re-validates with Zod, and exposes the cached getSiteContent/getSolutions/getSolution readers used across the app.",
+   "tags": [
+    "data-access",
+    "cms",
+    "caching",
+    "cache-invalidation"
+   ],
+   "complexity": "complex",
+   "languageNotes": "Caches only the raw database rows (unstable_cache) and re-runs the deep-merge/Zod-parse on every read, so a new field ships with its default immediately instead of being pinned by a stale, already-assembled cached object."
+  },
+  {
+   "id": "function:lib/content/index.ts:mergeOver",
+   "type": "function",
+   "name": "mergeOver",
+   "filePath": "lib/content/index.ts",
+   "summary": "Deep-merges a stored jsonb object over its code default, recursing into plain objects and letting stored arrays/scalars win outright.",
+   "tags": [
+    "cms",
+    "data-merge",
+    "utility"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    46,
+    56
+   ]
+  },
+  {
+   "id": "function:lib/content/index.ts:resolveBlock",
+   "type": "function",
+   "name": "resolveBlock",
+   "filePath": "lib/content/index.ts",
+   "summary": "Resolves one site_content block by deep-merging its stored row over the default and re-validating with its Zod schema, falling back to the default on a parse failure.",
+   "tags": [
+    "cms",
+    "validation",
+    "caching"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    64,
+    73
+   ]
+  },
+  {
+   "id": "function:lib/content/index.ts:assemble",
+   "type": "function",
+   "name": "assemble",
+   "filePath": "lib/content/index.ts",
+   "summary": "Resolves every SECTION_KEY block plus general/hero/footer from the raw stored rows into one assembled site-content object.",
+   "tags": [
+    "cms",
+    "data-merge"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    75,
+    85
+   ]
+  },
+  {
+   "id": "function:lib/content/index.ts:readSiteContent",
+   "type": "function",
+   "name": "readSiteContent",
+   "filePath": "lib/content/index.ts",
+   "summary": "Cached reader returning the fully assembled, Zod-validated site content (falls back to defaults if the database is unreachable, since unstable_cache never caches a throw).",
+   "tags": [
+    "cms",
+    "data-access",
+    "caching"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    101,
+    107
+   ]
+  },
+  {
+   "id": "function:lib/content/index.ts:readContentUpdates",
+   "type": "function",
+   "name": "readContentUpdates",
+   "filePath": "lib/content/index.ts",
+   "summary": "Returns the last-updated timestamp for each stored site_content block, used to show 'saved X ago' in the admin editors.",
+   "tags": [
+    "cms",
+    "admin",
+    "metadata"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    110,
+    119
+   ]
+  },
+  {
+   "id": "function:lib/content/index.ts:toRecord",
+   "type": "function",
+   "name": "toRecord",
+   "filePath": "lib/content/index.ts",
+   "summary": "Assembles one site_solutions row (content + media, deep-merged and validated) into the SolutionRecord shape used by admin editors.",
+   "tags": [
+    "cms",
+    "data-merge"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    121,
+    141
+   ]
+  },
+  {
+   "id": "function:lib/content/index.ts:readSolutionRecords",
+   "type": "function",
+   "name": "readSolutionRecords",
+   "filePath": "lib/content/index.ts",
+   "summary": "Cached reader returning every solution record (including hidden ones on request), seeding site_solutions from SERVICES on first use.",
+   "tags": [
+    "cms",
+    "data-access",
+    "caching"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    163,
+    169
+   ]
+  },
+  {
+   "id": "function:lib/content/index.ts:toService",
+   "type": "function",
+   "name": "toService",
+   "filePath": "lib/content/index.ts",
+   "summary": "Converts an assembled SolutionRecord back into the public Service shape the marketing pages render.",
+   "tags": [
+    "cms",
+    "conversion"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    172,
+    183
+   ]
+  },
+  {
+   "id": "function:lib/content/index.ts:getSiteContent",
+   "type": "function",
+   "name": "getSiteContent",
+   "filePath": "lib/content/index.ts",
+   "summary": "Public entry point returning the assembled site content, revalidated every 10 minutes as a static-rendering safety net.",
+   "tags": [
+    "cms",
+    "data-access",
+    "public-api"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    208,
+    214
+   ]
+  },
+  {
+   "id": "function:lib/content/index.ts:getSolutions",
+   "type": "function",
+   "name": "getSolutions",
+   "filePath": "lib/content/index.ts",
+   "summary": "Public entry point returning published (or all, with includeHidden) solutions as Service objects, ordered by position.",
+   "tags": [
+    "cms",
+    "data-access",
+    "public-api"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    222,
+    230
+   ]
+  },
+  {
+   "id": "function:lib/content/index.ts:getSolution",
+   "type": "function",
+   "name": "getSolution",
+   "filePath": "lib/content/index.ts",
+   "summary": "Public entry point returning one published solution by slug, or undefined.",
+   "tags": [
+    "cms",
+    "data-access",
+    "public-api"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    232,
+    234
+   ]
+  },
+  {
+   "id": "file:lib/data/media.ts",
+   "type": "file",
+   "name": "media.ts",
+   "filePath": "lib/data/media.ts",
+   "summary": "Central registry of every photo/video/link on the site (SOLUTION_MEDIA per slug, HOME_MEDIA) plus withMedia/applyMedia which copy those assets onto the default Service/media objects built from services.ts.",
+   "tags": [
+    "data-model",
+    "media-registry",
+    "defaults"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "function:lib/data/media.ts:applyMedia",
+   "type": "function",
+   "name": "applyMedia",
+   "filePath": "lib/data/media.ts",
+   "summary": "Copies a SOLUTION_MEDIA/HOME_MEDIA descriptor's asset fields onto a Service/media object, conditionally so an absent key leaves the field undefined rather than overwriting it, and derives highlightVariant from a supplied highlight photo.",
+   "tags": [
+    "media-registry",
+    "data-merge"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    258,
+    294
+   ]
+  },
+  {
+   "id": "function:lib/data/media.ts:withMedia",
+   "type": "function",
+   "name": "withMedia",
+   "filePath": "lib/data/media.ts",
+   "summary": "Looks up a service's slug in SOLUTION_MEDIA and applies it, returning the service untouched if no entry exists.",
+   "tags": [
+    "media-registry",
+    "factory"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    297,
+    299
+   ]
+  },
+  {
+   "id": "file:lib/data/services.ts",
+   "type": "file",
+   "name": "services.ts",
+   "filePath": "lib/data/services.ts",
+   "summary": "Default copy and structure (no media) for the four solutions \u2014 OCR, Cloud Infrastructure, WIFACILITY, SETYCORE \u2014 merged with lib/data/media.ts via withMedia to build the exported SERVICES array.",
+   "tags": [
+    "data-model",
+    "content",
+    "defaults"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "function:lib/data/services.ts:getServiceBySlug",
+   "type": "function",
+   "name": "getServiceBySlug",
+   "filePath": "lib/data/services.ts",
+   "summary": "Finds one built Service by slug in the SERVICES array.",
+   "tags": [
+    "data-access",
+    "utility"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    259,
+    261
+   ]
+  },
+  {
+   "id": "file:lib/seo/schema.ts",
+   "type": "file",
+   "name": "schema.ts",
+   "filePath": "lib/seo/schema.ts",
+   "summary": "JSON-LD schema.org builders (Organization, WebSite, BreadcrumbList, Service, FAQPage) used by the root layout and solution pages for structured data.",
+   "tags": [
+    "seo",
+    "json-ld",
+    "structured-data",
+    "utility"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:lib/seo/schema.ts:organizationSchema",
+   "type": "function",
+   "name": "organizationSchema",
+   "filePath": "lib/seo/schema.ts",
+   "summary": "Builds the Organization JSON-LD schema for the site.",
+   "tags": [
+    "seo",
+    "json-ld"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    5,
+    13
+   ]
+  },
+  {
+   "id": "function:lib/seo/schema.ts:websiteSchema",
+   "type": "function",
+   "name": "websiteSchema",
+   "filePath": "lib/seo/schema.ts",
+   "summary": "Builds the WebSite JSON-LD schema for the site.",
+   "tags": [
+    "seo",
+    "json-ld"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    16,
+    23
+   ]
+  },
+  {
+   "id": "function:lib/seo/schema.ts:breadcrumbSchema",
+   "type": "function",
+   "name": "breadcrumbSchema",
+   "filePath": "lib/seo/schema.ts",
+   "summary": "Builds a BreadcrumbList JSON-LD schema for a solution's sub-landing page.",
+   "tags": [
+    "seo",
+    "json-ld"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    26,
+    46
+   ]
+  },
+  {
+   "id": "function:lib/seo/schema.ts:serviceSchema",
+   "type": "function",
+   "name": "serviceSchema",
+   "filePath": "lib/seo/schema.ts",
+   "summary": "Builds a Service JSON-LD schema describing one solution.",
+   "tags": [
+    "seo",
+    "json-ld"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    49,
+    63
+   ]
+  },
+  {
+   "id": "function:lib/seo/schema.ts:faqSchema",
+   "type": "function",
+   "name": "faqSchema",
+   "filePath": "lib/seo/schema.ts",
+   "summary": "Builds a FAQPage JSON-LD schema from a solution's FAQ entries.",
+   "tags": [
+    "seo",
+    "json-ld"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    67,
+    81
+   ]
+  },
+  {
+   "id": "file:lib/site.ts",
+   "type": "file",
+   "name": "site.ts",
+   "filePath": "lib/site.ts",
+   "summary": "Site-wide constants (URL, name, locale, description) read by metadata, manifest, sitemap, robots and JSON-LD builders.",
+   "tags": [
+    "config",
+    "constants",
+    "seo"
+   ],
+   "complexity": "simple"
+  }
+ ],
+ "edges": [
+  {
+   "source": "file:components/dashboard/site/SolutionEditor.tsx",
+   "target": "function:components/dashboard/site/SolutionEditor.tsx:SolutionEditor",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:components/dashboard/site/SolutionEditor.tsx",
+   "target": "function:components/dashboard/site/SolutionEditor.tsx:SolutionEditor",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:components/dashboard/site/SolutionEditor.tsx",
+   "target": "function:components/dashboard/site/SolutionEditor.tsx:Heading",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:components/dashboard/site/SolutionEditor.tsx",
+   "target": "function:components/dashboard/site/SolutionEditor.tsx:PlaceholderSlot",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:components/dashboard/site/SolutionEditor.tsx",
+   "target": "function:components/dashboard/site/SolutionEditor.tsx:GalleryEditor",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:components/dashboard/site/SolutionEditor.tsx",
+   "target": "function:components/dashboard/site/SolutionEditor.tsx:StatGifs",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:components/dashboard/site/SolutionEditor.tsx",
+   "target": "file:app/(app)/admin/site/actions.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/dashboard/site/SolutionEditor.tsx",
+   "target": "file:components/dashboard/site/FieldHint.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/dashboard/site/SolutionEditor.tsx",
+   "target": "file:components/dashboard/site/MediaField.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/dashboard/site/SolutionEditor.tsx",
+   "target": "file:components/dashboard/site/SpecForm.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/dashboard/site/SolutionEditor.tsx",
+   "target": "file:components/dashboard/ui.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/dashboard/site/SolutionEditor.tsx",
+   "target": "file:components/ui/Icon.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/dashboard/site/SolutionEditor.tsx",
+   "target": "file:lib/actions.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/dashboard/site/SolutionEditor.tsx",
+   "target": "file:lib/cn.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/dashboard/site/SolutionEditor.tsx",
+   "target": "file:lib/content/forms.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/dashboard/site/SolutionEditor.tsx",
+   "target": "file:lib/content/schema.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/dashboard/site/SpecForm.tsx",
+   "target": "function:components/dashboard/site/SpecForm.tsx:SpecProvider",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:components/dashboard/site/SpecForm.tsx",
+   "target": "function:components/dashboard/site/SpecForm.tsx:SpecProvider",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:components/dashboard/site/SpecForm.tsx",
+   "target": "function:components/dashboard/site/SpecForm.tsx:SpecForm",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:components/dashboard/site/SpecForm.tsx",
+   "target": "function:components/dashboard/site/SpecForm.tsx:SpecForm",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:components/dashboard/site/SpecForm.tsx",
+   "target": "function:components/dashboard/site/SpecForm.tsx:Label",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:components/dashboard/site/SpecForm.tsx",
+   "target": "function:components/dashboard/site/SpecForm.tsx:Help",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:components/dashboard/site/SpecForm.tsx",
+   "target": "function:components/dashboard/site/SpecForm.tsx:FieldRow",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:components/dashboard/site/SpecForm.tsx",
+   "target": "function:components/dashboard/site/SpecForm.tsx:RowControls",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:components/dashboard/site/SpecForm.tsx",
+   "target": "function:components/dashboard/site/SpecForm.tsx:ListField",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:components/dashboard/site/SpecForm.tsx",
+   "target": "function:components/dashboard/site/SpecForm.tsx:StringsField",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:components/dashboard/site/SpecForm.tsx",
+   "target": "file:components/dashboard/site/FieldHint.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/dashboard/site/SpecForm.tsx",
+   "target": "file:components/dashboard/site/IconPicker.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/dashboard/site/SpecForm.tsx",
+   "target": "file:components/dashboard/site/MediaField.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/dashboard/site/SpecForm.tsx",
+   "target": "file:components/ui/Icon.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/dashboard/site/SpecForm.tsx",
+   "target": "file:lib/cn.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/dashboard/site/SpecForm.tsx",
+   "target": "file:lib/content/forms.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/dashboard/site/SpecForm.tsx",
+   "target": "file:lib/types.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/layout/Navbar.tsx",
+   "target": "function:components/layout/Navbar.tsx:Navbar",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:components/layout/Navbar.tsx",
+   "target": "function:components/layout/Navbar.tsx:Navbar",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:components/layout/Navbar.tsx",
+   "target": "file:lib/cn.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:lib/content/defaults.ts",
+   "target": "function:lib/content/defaults.ts:toSolutionContent",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:lib/content/defaults.ts",
+   "target": "function:lib/content/defaults.ts:toSolutionContent",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:lib/content/defaults.ts",
+   "target": "function:lib/content/defaults.ts:toMediaContent",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:lib/content/defaults.ts",
+   "target": "function:lib/content/defaults.ts:toMediaContent",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:lib/content/defaults.ts",
+   "target": "function:lib/content/defaults.ts:blankSolution",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:lib/content/defaults.ts",
+   "target": "function:lib/content/defaults.ts:blankSolution",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:lib/content/defaults.ts",
+   "target": "file:lib/content/schema.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:lib/content/defaults.ts",
+   "target": "file:lib/data/media.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:lib/content/defaults.ts",
+   "target": "file:lib/data/services.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:lib/content/defaults.ts",
+   "target": "file:lib/types.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:lib/content/forms.ts",
+   "target": "function:lib/content/forms.ts:heading",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:lib/content/forms.ts",
+   "target": "function:lib/content/forms.ts:cta",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:lib/content/forms.ts",
+   "target": "function:lib/content/forms.ts:iconItems",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:lib/content/forms.ts",
+   "target": "function:lib/content/forms.ts:whereHref",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:lib/content/forms.ts",
+   "target": "function:lib/content/forms.ts:whereHref",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:lib/content/forms.ts",
+   "target": "file:lib/content/schema.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:lib/content/forms.ts",
+   "target": "file:lib/types.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:lib/content/index.ts",
+   "target": "function:lib/content/index.ts:mergeOver",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:lib/content/index.ts",
+   "target": "function:lib/content/index.ts:mergeOver",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:lib/content/index.ts",
+   "target": "function:lib/content/index.ts:resolveBlock",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:lib/content/index.ts",
+   "target": "function:lib/content/index.ts:resolveBlock",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:lib/content/index.ts",
+   "target": "function:lib/content/index.ts:assemble",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:lib/content/index.ts",
+   "target": "function:lib/content/index.ts:readSiteContent",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:lib/content/index.ts",
+   "target": "function:lib/content/index.ts:readSiteContent",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:lib/content/index.ts",
+   "target": "function:lib/content/index.ts:readContentUpdates",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:lib/content/index.ts",
+   "target": "function:lib/content/index.ts:readContentUpdates",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:lib/content/index.ts",
+   "target": "function:lib/content/index.ts:toRecord",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:lib/content/index.ts",
+   "target": "function:lib/content/index.ts:readSolutionRecords",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:lib/content/index.ts",
+   "target": "function:lib/content/index.ts:readSolutionRecords",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:lib/content/index.ts",
+   "target": "function:lib/content/index.ts:toService",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:lib/content/index.ts",
+   "target": "function:lib/content/index.ts:toService",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:lib/content/index.ts",
+   "target": "function:lib/content/index.ts:getSiteContent",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:lib/content/index.ts",
+   "target": "function:lib/content/index.ts:getSiteContent",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:lib/content/index.ts",
+   "target": "function:lib/content/index.ts:getSolutions",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:lib/content/index.ts",
+   "target": "function:lib/content/index.ts:getSolutions",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:lib/content/index.ts",
+   "target": "function:lib/content/index.ts:getSolution",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:lib/content/index.ts",
+   "target": "function:lib/content/index.ts:getSolution",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:lib/content/index.ts",
+   "target": "file:lib/content/defaults.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:lib/content/index.ts",
+   "target": "file:lib/content/schema.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:lib/content/index.ts",
+   "target": "file:lib/data/media.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:lib/content/index.ts",
+   "target": "file:lib/db/index.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:lib/content/index.ts",
+   "target": "file:lib/db/schema.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:lib/content/index.ts",
+   "target": "file:lib/types.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:lib/data/media.ts",
+   "target": "function:lib/data/media.ts:applyMedia",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:lib/data/media.ts",
+   "target": "function:lib/data/media.ts:applyMedia",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:lib/data/media.ts",
+   "target": "function:lib/data/media.ts:withMedia",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:lib/data/media.ts",
+   "target": "function:lib/data/media.ts:withMedia",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:lib/data/media.ts",
+   "target": "file:lib/types.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:lib/data/services.ts",
+   "target": "function:lib/data/services.ts:getServiceBySlug",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:lib/data/services.ts",
+   "target": "function:lib/data/services.ts:getServiceBySlug",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:lib/data/services.ts",
+   "target": "file:lib/data/media.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:lib/data/services.ts",
+   "target": "file:lib/types.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:lib/seo/schema.ts",
+   "target": "function:lib/seo/schema.ts:organizationSchema",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:lib/seo/schema.ts",
+   "target": "function:lib/seo/schema.ts:organizationSchema",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:lib/seo/schema.ts",
+   "target": "function:lib/seo/schema.ts:websiteSchema",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:lib/seo/schema.ts",
+   "target": "function:lib/seo/schema.ts:websiteSchema",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:lib/seo/schema.ts",
+   "target": "function:lib/seo/schema.ts:breadcrumbSchema",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:lib/seo/schema.ts",
+   "target": "function:lib/seo/schema.ts:breadcrumbSchema",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:lib/seo/schema.ts",
+   "target": "function:lib/seo/schema.ts:serviceSchema",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:lib/seo/schema.ts",
+   "target": "function:lib/seo/schema.ts:serviceSchema",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:lib/seo/schema.ts",
+   "target": "function:lib/seo/schema.ts:faqSchema",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:lib/seo/schema.ts",
+   "target": "function:lib/seo/schema.ts:faqSchema",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:lib/seo/schema.ts",
+   "target": "file:lib/site.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:lib/seo/schema.ts",
+   "target": "file:lib/types.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "function:components/dashboard/site/SolutionEditor.tsx:SolutionEditor",
+   "target": "function:app/(app)/admin/site/actions.ts:saveSolution",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:lib/content/defaults.ts:blankSolution",
+   "target": "function:lib/content/defaults.ts:toMediaContent",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:lib/content/index.ts:resolveBlock",
+   "target": "function:lib/content/index.ts:mergeOver",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:lib/content/index.ts:assemble",
+   "target": "function:lib/content/index.ts:resolveBlock",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:lib/content/index.ts:toRecord",
+   "target": "function:lib/content/index.ts:mergeOver",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:lib/content/index.ts:readSiteContent",
+   "target": "function:lib/content/index.ts:assemble",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:lib/content/index.ts:readSolutionRecords",
+   "target": "function:lib/content/index.ts:toRecord",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:lib/content/index.ts:getSiteContent",
+   "target": "function:lib/content/index.ts:readSiteContent",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:lib/content/index.ts:getSolutions",
+   "target": "function:lib/content/index.ts:readSolutionRecords",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:lib/content/index.ts:getSolutions",
+   "target": "function:lib/content/index.ts:toService",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:lib/content/index.ts:getSolution",
+   "target": "function:lib/content/index.ts:getSolutions",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:lib/data/media.ts:withMedia",
+   "target": "function:lib/data/media.ts:applyMedia",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:lib/data/media.ts",
+   "target": "file:__tests__/lib.test.ts",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:lib/data/services.ts",
+   "target": "file:__tests__/lib.test.ts",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "function:lib/data/media.ts:withMedia",
+   "target": "file:__tests__/lib.test.ts",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  }
+ ]
+}

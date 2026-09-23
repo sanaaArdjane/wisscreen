@@ -1,0 +1,840 @@
+{
+ "nodes": [
+  {
+   "id": "file:app/api/preview-status/route.ts",
+   "type": "file",
+   "name": "route.ts",
+   "filePath": "app/api/preview-status/route.ts",
+   "summary": "Server-side allowlisted probe that checks whether a solution's previewUrl permits being framed (X-Frame-Options / CSP frame-ancestors), so DeviceShowcase and SolutionHero know whether to show the live iframe or fall back to a screenshot.",
+   "tags": [
+    "api-handler",
+    "security",
+    "iframe",
+    "ssrf-protection"
+   ],
+   "complexity": "complex",
+   "languageNotes": "Reads X-Frame-Options/CSP server-side because browser-exposed signals cannot distinguish a cross-origin load from a framing refusal; the allowlist against SERVICES exists specifically to prevent an open SSRF proxy."
+  },
+  {
+   "id": "function:app/api/preview-status/route.ts:sourceMatches",
+   "type": "function",
+   "name": "sourceMatches",
+   "filePath": "app/api/preview-status/route.ts",
+   "summary": "Matches one CSP frame-ancestors / X-Frame-Options source token (host, wildcard subdomain, or keyword like 'self'/'none') against the target origin.",
+   "tags": [
+    "security",
+    "csp",
+    "utility"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    43,
+    66
+   ]
+  },
+  {
+   "id": "function:app/api/preview-status/route.ts:judge",
+   "type": "function",
+   "name": "judge",
+   "filePath": "app/api/preview-status/route.ts",
+   "summary": "Reads the response headers of a probed URL and decides whether framing is allowed, honoring X-Frame-Options first and CSP frame-ancestors second.",
+   "tags": [
+    "security",
+    "csp",
+    "header-parsing"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    68,
+    89
+   ]
+  },
+  {
+   "id": "function:app/api/preview-status/route.ts:probe",
+   "type": "function",
+   "name": "probe",
+   "filePath": "app/api/preview-status/route.ts",
+   "summary": "Fetches a target URL server-side with a timeout and hands its headers to judge(), defaulting to 'allowed' on a network failure.",
+   "tags": [
+    "security",
+    "fetch",
+    "network"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    91,
+    113
+   ]
+  },
+  {
+   "id": "function:app/api/preview-status/route.ts:allowedUrls",
+   "type": "function",
+   "name": "allowedUrls",
+   "filePath": "app/api/preview-status/route.ts",
+   "summary": "Builds the allowlist of previewUrl values from SERVICES that this endpoint is permitted to probe, preventing an open SSRF proxy.",
+   "tags": [
+    "security",
+    "allowlist",
+    "ssrf-protection"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    116,
+    125
+   ]
+  },
+  {
+   "id": "function:app/api/preview-status/route.ts:GET",
+   "type": "function",
+   "name": "GET",
+   "filePath": "app/api/preview-status/route.ts",
+   "summary": "Route handler validating the requested url against the allowlist, then returning the cached probe verdict for whether it can be framed.",
+   "tags": [
+    "api-handler",
+    "security",
+    "caching"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    127,
+    143
+   ]
+  },
+  {
+   "id": "file:app/layout.tsx",
+   "type": "file",
+   "name": "layout.tsx",
+   "filePath": "app/layout.tsx",
+   "summary": "Root document layout: builds global metadata (title, OG, icons) from site content, loads fonts, and renders the organization JSON-LD schema around every page.",
+   "tags": [
+    "layout",
+    "entry-point",
+    "seo",
+    "root"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:app/layout.tsx:generateMetadata",
+   "type": "function",
+   "name": "generateMetadata",
+   "filePath": "app/layout.tsx",
+   "summary": "Builds the root Next.js Metadata object (title, description, canonical, Open Graph, icons) from the live site content.",
+   "tags": [
+    "seo",
+    "metadata",
+    "server-component"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    24,
+    81
+   ]
+  },
+  {
+   "id": "function:app/layout.tsx:RootLayout",
+   "type": "function",
+   "name": "RootLayout",
+   "filePath": "app/layout.tsx",
+   "summary": "Document-level root layout: sets html lang, loads fonts, and injects the organization JSON-LD schema around every route group.",
+   "tags": [
+    "entry-point",
+    "layout",
+    "root",
+    "seo"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    88,
+    100
+   ]
+  },
+  {
+   "id": "file:app/manifest.ts",
+   "type": "file",
+   "name": "manifest.ts",
+   "filePath": "app/manifest.ts",
+   "summary": "Web app manifest route describing the site's PWA metadata (name, icons, theme colors) from the brand constants.",
+   "tags": [
+    "config",
+    "pwa",
+    "manifest"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:app/manifest.ts:manifest",
+   "type": "function",
+   "name": "manifest",
+   "filePath": "app/manifest.ts",
+   "summary": "Returns the PWA web app manifest object (name, colors, icons) built from site brand constants.",
+   "tags": [
+    "config",
+    "pwa"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    4,
+    18
+   ]
+  },
+  {
+   "id": "file:app/opengraph-image.tsx",
+   "type": "file",
+   "name": "opengraph-image.tsx",
+   "filePath": "app/opengraph-image.tsx",
+   "summary": "Generates the site-wide default Open Graph share image used when a page has no more specific one.",
+   "tags": [
+    "seo",
+    "opengraph",
+    "image-generation"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:app/opengraph-image.tsx:Image",
+   "type": "function",
+   "name": "Image",
+   "filePath": "app/opengraph-image.tsx",
+   "summary": "Renders the site-wide default Open Graph share image used by pages without a more specific one.",
+   "tags": [
+    "seo",
+    "opengraph",
+    "image-generation"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    10,
+    79
+   ]
+  },
+  {
+   "id": "file:app/robots.ts",
+   "type": "file",
+   "name": "robots.ts",
+   "filePath": "app/robots.ts",
+   "summary": "robots.txt route declaring crawl rules and pointing to the sitemap.",
+   "tags": [
+    "seo",
+    "config",
+    "crawling"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:app/robots.ts:robots",
+   "type": "function",
+   "name": "robots",
+   "filePath": "app/robots.ts",
+   "summary": "Returns the robots.txt rules object, allowing crawlers and pointing at the sitemap URL.",
+   "tags": [
+    "seo",
+    "config"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    4,
+    13
+   ]
+  },
+  {
+   "id": "file:app/sitemap.ts",
+   "type": "file",
+   "name": "sitemap.ts",
+   "filePath": "app/sitemap.ts",
+   "summary": "Sitemap route listing the homepage and every published solution's sub-landing page for search engines.",
+   "tags": [
+    "seo",
+    "config",
+    "sitemap"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:app/sitemap.ts:sitemap",
+   "type": "function",
+   "name": "sitemap",
+   "filePath": "app/sitemap.ts",
+   "summary": "Builds the sitemap entries for the homepage and every published solution's sub-landing page.",
+   "tags": [
+    "seo",
+    "config"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    5,
+    23
+   ]
+  },
+  {
+   "id": "file:components/dashboard/site/BlockEditor.tsx",
+   "type": "file",
+   "name": "BlockEditor.tsx",
+   "filePath": "components/dashboard/site/BlockEditor.tsx",
+   "summary": "Generic client editor shell for a single /admin/site content block: renders its SpecForm panels, tracks dirty state via JSON diffing, submits through a server action with useActionState, and shows a saved/error toast.",
+   "tags": [
+    "component",
+    "admin",
+    "site-editor",
+    "form",
+    "client-component"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:components/dashboard/site/BlockEditor.tsx:panelsFor",
+   "type": "function",
+   "name": "panelsFor",
+   "filePath": "components/dashboard/site/BlockEditor.tsx",
+   "summary": "Picks which SpecForm field groups (and optional gallery panel) to render for a given block key.",
+   "tags": [
+    "admin",
+    "site-editor",
+    "helper"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    20,
+    33
+   ]
+  },
+  {
+   "id": "function:components/dashboard/site/BlockEditor.tsx:BlockEditor",
+   "type": "function",
+   "name": "BlockEditor",
+   "filePath": "components/dashboard/site/BlockEditor.tsx",
+   "summary": "Client shell for one editable content block: renders its SpecForm(s), tracks unsaved changes via JSON diff, and submits through a server action with pending/saved/error state.",
+   "tags": [
+    "component",
+    "admin",
+    "site-editor",
+    "form",
+    "client-component"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    44,
+    151
+   ]
+  },
+  {
+   "id": "file:components/dashboard/site/FieldHint.tsx",
+   "type": "file",
+   "name": "FieldHint.tsx",
+   "filePath": "components/dashboard/site/FieldHint.tsx",
+   "summary": "Tooltip shown next to a site-editor field describing where on the live page it renders, with a link that opens and flashes that section.",
+   "tags": [
+    "component",
+    "admin",
+    "site-editor",
+    "tooltip"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:components/dashboard/site/FieldHint.tsx:FieldHint",
+   "type": "function",
+   "name": "FieldHint",
+   "filePath": "components/dashboard/site/FieldHint.tsx",
+   "summary": "Renders a tooltip with the field's live-page location and a link that opens and flashes that section.",
+   "tags": [
+    "component",
+    "admin",
+    "site-editor",
+    "tooltip"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    21,
+    59
+   ]
+  },
+  {
+   "id": "file:components/dashboard/site/MediaField.tsx",
+   "type": "file",
+   "name": "MediaField.tsx",
+   "filePath": "components/dashboard/site/MediaField.tsx",
+   "summary": "Site-editor field for an image/video asset: lets the owner paste a URL or upload a file through /api/uploads, with drag-and-drop and preview.",
+   "tags": [
+    "component",
+    "admin",
+    "site-editor",
+    "upload",
+    "media"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:components/dashboard/site/MediaField.tsx:MediaField",
+   "type": "function",
+   "name": "MediaField",
+   "filePath": "components/dashboard/site/MediaField.tsx",
+   "summary": "Editable media slot supporting a pasted URL or a drag-and-drop/browse upload through /api/uploads, with progress and inline preview.",
+   "tags": [
+    "component",
+    "admin",
+    "upload",
+    "media",
+    "client-component"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    27,
+    200
+   ]
+  },
+  {
+   "id": "file:components/dashboard/site/NewSolutionForm.tsx",
+   "type": "file",
+   "name": "NewSolutionForm.tsx",
+   "filePath": "components/dashboard/site/NewSolutionForm.tsx",
+   "summary": "Small form (name + slug) that creates a new solution via the createSolution server action from the /admin/site/solutions index.",
+   "tags": [
+    "component",
+    "admin",
+    "site-editor",
+    "form"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:components/dashboard/site/NewSolutionForm.tsx:NewSolutionForm",
+   "type": "function",
+   "name": "NewSolutionForm",
+   "filePath": "components/dashboard/site/NewSolutionForm.tsx",
+   "summary": "Two-field (name, slug) form that calls createSolution via useActionState to add a new solution.",
+   "tags": [
+    "component",
+    "admin",
+    "form"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    10,
+    30
+   ]
+  }
+ ],
+ "edges": [
+  {
+   "source": "file:app/api/preview-status/route.ts",
+   "target": "function:app/api/preview-status/route.ts:sourceMatches",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:app/api/preview-status/route.ts",
+   "target": "function:app/api/preview-status/route.ts:sourceMatches",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:app/api/preview-status/route.ts",
+   "target": "function:app/api/preview-status/route.ts:judge",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:app/api/preview-status/route.ts",
+   "target": "function:app/api/preview-status/route.ts:probe",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:app/api/preview-status/route.ts",
+   "target": "function:app/api/preview-status/route.ts:allowedUrls",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:app/api/preview-status/route.ts",
+   "target": "function:app/api/preview-status/route.ts:GET",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:app/api/preview-status/route.ts",
+   "target": "function:app/api/preview-status/route.ts:GET",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:app/api/preview-status/route.ts",
+   "target": "file:lib/content/index.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/layout.tsx",
+   "target": "function:app/layout.tsx:generateMetadata",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:app/layout.tsx",
+   "target": "function:app/layout.tsx:generateMetadata",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:app/layout.tsx",
+   "target": "function:app/layout.tsx:RootLayout",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:app/layout.tsx",
+   "target": "function:app/layout.tsx:RootLayout",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:app/layout.tsx",
+   "target": "file:app/globals.css",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/layout.tsx",
+   "target": "file:components/seo/JsonLd.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/layout.tsx",
+   "target": "file:lib/content/index.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/layout.tsx",
+   "target": "file:lib/seo/schema.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/layout.tsx",
+   "target": "file:lib/site.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/manifest.ts",
+   "target": "function:app/manifest.ts:manifest",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:app/manifest.ts",
+   "target": "function:app/manifest.ts:manifest",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:app/manifest.ts",
+   "target": "file:lib/site.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/opengraph-image.tsx",
+   "target": "function:app/opengraph-image.tsx:Image",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:app/opengraph-image.tsx",
+   "target": "function:app/opengraph-image.tsx:Image",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:app/opengraph-image.tsx",
+   "target": "file:lib/site.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/robots.ts",
+   "target": "function:app/robots.ts:robots",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:app/robots.ts",
+   "target": "function:app/robots.ts:robots",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:app/robots.ts",
+   "target": "file:lib/site.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/sitemap.ts",
+   "target": "function:app/sitemap.ts:sitemap",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:app/sitemap.ts",
+   "target": "function:app/sitemap.ts:sitemap",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:app/sitemap.ts",
+   "target": "file:lib/content/index.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/sitemap.ts",
+   "target": "file:lib/site.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/dashboard/site/BlockEditor.tsx",
+   "target": "function:components/dashboard/site/BlockEditor.tsx:panelsFor",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:components/dashboard/site/BlockEditor.tsx",
+   "target": "function:components/dashboard/site/BlockEditor.tsx:BlockEditor",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:components/dashboard/site/BlockEditor.tsx",
+   "target": "function:components/dashboard/site/BlockEditor.tsx:BlockEditor",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:components/dashboard/site/BlockEditor.tsx",
+   "target": "file:app/(app)/admin/site/actions.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/dashboard/site/BlockEditor.tsx",
+   "target": "file:components/dashboard/site/SpecForm.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/dashboard/site/BlockEditor.tsx",
+   "target": "file:components/dashboard/ui.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/dashboard/site/BlockEditor.tsx",
+   "target": "file:components/ui/Icon.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/dashboard/site/BlockEditor.tsx",
+   "target": "file:lib/actions.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/dashboard/site/BlockEditor.tsx",
+   "target": "file:lib/content/forms.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/dashboard/site/BlockEditor.tsx",
+   "target": "file:lib/content/schema.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/dashboard/site/FieldHint.tsx",
+   "target": "function:components/dashboard/site/FieldHint.tsx:FieldHint",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:components/dashboard/site/FieldHint.tsx",
+   "target": "function:components/dashboard/site/FieldHint.tsx:FieldHint",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:components/dashboard/site/FieldHint.tsx",
+   "target": "file:components/ui/Icon.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/dashboard/site/FieldHint.tsx",
+   "target": "file:lib/content/forms.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/dashboard/site/MediaField.tsx",
+   "target": "function:components/dashboard/site/MediaField.tsx:MediaField",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:components/dashboard/site/MediaField.tsx",
+   "target": "function:components/dashboard/site/MediaField.tsx:MediaField",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:components/dashboard/site/MediaField.tsx",
+   "target": "file:components/ui/Icon.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/dashboard/site/MediaField.tsx",
+   "target": "file:lib/cn.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/dashboard/site/MediaField.tsx",
+   "target": "file:lib/upload-client.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/dashboard/site/NewSolutionForm.tsx",
+   "target": "function:components/dashboard/site/NewSolutionForm.tsx:NewSolutionForm",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:components/dashboard/site/NewSolutionForm.tsx",
+   "target": "function:components/dashboard/site/NewSolutionForm.tsx:NewSolutionForm",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:components/dashboard/site/NewSolutionForm.tsx",
+   "target": "file:app/(app)/admin/site/actions.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/dashboard/site/NewSolutionForm.tsx",
+   "target": "file:components/dashboard/ui.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:components/dashboard/site/NewSolutionForm.tsx",
+   "target": "file:lib/actions.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "function:app/layout.tsx:generateMetadata",
+   "target": "function:lib/content/index.ts:getSiteContent",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/layout.tsx:RootLayout",
+   "target": "function:lib/seo/schema.ts:organizationSchema",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:app/sitemap.ts:sitemap",
+   "target": "function:lib/content/index.ts:getSolutions",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:components/dashboard/site/BlockEditor.tsx:BlockEditor",
+   "target": "function:app/(app)/admin/site/actions.ts:saveBlock",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:app/api/preview-status/route.ts",
+   "target": "file:__tests__/lib.test.ts",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "function:app/api/preview-status/route.ts:sourceMatches",
+   "target": "file:__tests__/lib.test.ts",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  }
+ ]
+}

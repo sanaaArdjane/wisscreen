@@ -1,0 +1,370 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 6,
+  "filesSkipped": [],
+  "filesUnreadable": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 6,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 0,
+      "failed": 0,
+      "skipped": 6
+    }
+  },
+  "results": [
+    {
+      "path": ".claude/skills/neon-functions/references/ai-sdk.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 143,
+      "nonEmptyLines": 115,
+      "sections": [
+        {
+          "heading": "AI SDK agents on Neon Functions",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "1. Declare the gateway and the function",
+          "level": 2,
+          "line": 9
+        },
+        {
+          "heading": "2. The handler: stream a tool-calling agent",
+          "level": 2,
+          "line": 26
+        },
+        {
+          "heading": "3. Generate images and persist them",
+          "level": 2,
+          "line": 80
+        },
+        {
+          "heading": "4. Call it directly from the client (don't proxy the stream)",
+          "level": 2,
+          "line": 122
+        },
+        {
+          "heading": "5. Run and deploy",
+          "level": 2,
+          "line": 126
+        },
+        {
+          "heading": "Further reading",
+          "level": 2,
+          "line": 139
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 7
+      }
+    },
+    {
+      "path": ".claude/skills/neon-functions/references/function-triggers.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 247,
+      "nonEmptyLines": 189,
+      "sections": [
+        {
+          "heading": "Function Triggers",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Supported types",
+          "level": 2,
+          "line": 9
+        },
+        {
+          "heading": "Fields",
+          "level": 2,
+          "line": 20
+        },
+        {
+          "heading": "neon.ts (preferred)",
+          "level": 2,
+          "line": 34
+        },
+        {
+          "heading": "CLI",
+          "level": 2,
+          "line": 71
+        },
+        {
+          "heading": "MCP backup",
+          "level": 2,
+          "line": 93
+        },
+        {
+          "heading": "Delivery payload",
+          "level": 2,
+          "line": 110
+        },
+        {
+          "heading": "`parseTriggerDelivery` (both types)",
+          "level": 3,
+          "line": 146
+        },
+        {
+          "heading": "`parseTrigger` (Hono, schedule only)",
+          "level": 3,
+          "line": 178
+        },
+        {
+          "heading": "`parseTriggerInvocation` (`fetch`, schedule only)",
+          "level": 3,
+          "line": 197
+        },
+        {
+          "heading": "Local `neon dev`",
+          "level": 2,
+          "line": 217
+        },
+        {
+          "heading": "Inheritance",
+          "level": 2,
+          "line": 235
+        },
+        {
+          "heading": "Logs",
+          "level": 2,
+          "line": 241
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 13
+      }
+    },
+    {
+      "path": ".claude/skills/neon-functions/references/mastra-studio.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 127,
+      "nonEmptyLines": 92,
+      "sections": [
+        {
+          "heading": "Mastra agents with Mastra Studio observability",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "1. Define the agent against the Neon AI Gateway",
+          "level": 2,
+          "line": 7
+        },
+        {
+          "heading": "2. Wire observability to Mastra Studio",
+          "level": 2,
+          "line": 23
+        },
+        {
+          "heading": "3. Structured output through the gateway",
+          "level": 2,
+          "line": 55
+        },
+        {
+          "heading": "4. Create the Mastra project + token with the CLI",
+          "level": 2,
+          "line": 70
+        },
+        {
+          "heading": "5. Pass the creds via `neon.ts` (third-party env)",
+          "level": 2,
+          "line": 94
+        },
+        {
+          "heading": "6. Verify",
+          "level": 2,
+          "line": 118
+        },
+        {
+          "heading": "Further reading",
+          "level": 2,
+          "line": 122
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 8
+      }
+    },
+    {
+      "path": ".claude/skills/neon-functions/references/mcp.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 146,
+      "nonEmptyLines": 114,
+      "sections": [
+        {
+          "heading": "MCP servers on Neon Functions",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "The server",
+          "level": 2,
+          "line": 7
+        },
+        {
+          "heading": "Authenticating the server",
+          "level": 2,
+          "line": 87
+        },
+        {
+          "heading": "Option 1 — OAuth via the Better Auth MCP plugin (best for third-party clients)",
+          "level": 3,
+          "line": 94
+        },
+        {
+          "heading": "Option 2 — API key or session JWT via self-hosted Better Auth (simplest)",
+          "level": 3,
+          "line": 123
+        },
+        {
+          "heading": "Testing",
+          "level": 2,
+          "line": 144
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 6
+      }
+    },
+    {
+      "path": ".claude/skills/neon-functions/references/sentry.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 244,
+      "nonEmptyLines": 191,
+      "sections": [
+        {
+          "heading": "Sentry error monitoring on Neon Functions",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Sentry (errors, logs, and traces)",
+          "level": 2,
+          "line": 7
+        },
+        {
+          "heading": "Environment variables",
+          "level": 3,
+          "line": 19
+        },
+        {
+          "heading": "1. Initialize before anything else",
+          "level": 3,
+          "line": 28
+        },
+        {
+          "heading": "2. Provide the DSN as a deploy-time secret",
+          "level": 3,
+          "line": 85
+        },
+        {
+          "heading": "3. Create the request span and catch route errors",
+          "level": 3,
+          "line": 98
+        },
+        {
+          "heading": "4. Errors are for failures; logs are for the story",
+          "level": 3,
+          "line": 136
+        },
+        {
+          "heading": "5. Trace the agent itself",
+          "level": 3,
+          "line": 179
+        },
+        {
+          "heading": "Verifying the wiring",
+          "level": 3,
+          "line": 228
+        },
+        {
+          "heading": "Other Node integrations",
+          "level": 2,
+          "line": 236
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 10
+      }
+    },
+    {
+      "path": ".claude/skills/neon-functions/references/sse.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 163,
+      "nonEmptyLines": 131,
+      "sections": [
+        {
+          "heading": "Server-sent events (SSE) on Neon Functions",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Minimal SSE endpoint (no framework)",
+          "level": 2,
+          "line": 7
+        },
+        {
+          "heading": "With Hono",
+          "level": 2,
+          "line": 50
+        },
+        {
+          "heading": "Push to every client, across isolates",
+          "level": 2,
+          "line": 80
+        },
+        {
+          "heading": "Wire format (just text)",
+          "level": 2,
+          "line": 128
+        },
+        {
+          "heading": "Client",
+          "level": 2,
+          "line": 142
+        },
+        {
+          "heading": "Caveats",
+          "level": 2,
+          "line": 155
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 7
+      }
+    }
+  ]
+}

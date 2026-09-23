@@ -1,0 +1,80 @@
+{
+  "nodes": [
+    {
+      "id": "file:app/(auth)/AuthBackdrop.tsx",
+      "type": "file",
+      "name": "AuthBackdrop.tsx",
+      "filePath": "app/(auth)/AuthBackdrop.tsx",
+      "summary": "Decorative background for the auth split-screen: layered SVG wave lines fade out once the dynamically imported AuthScene 3D scene is ready, which itself only mounts on desktop widths with no reduced-motion preference.",
+      "tags": ["auth", "client-component", "decorative", "lazy-loading"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/(auth)/AuthVisual.tsx",
+      "type": "file",
+      "name": "AuthVisual.tsx",
+      "filePath": "app/(auth)/AuthVisual.tsx",
+      "summary": "Static hand-drawn SVG illustration (a dashboard mockup with folder/team cards and a flowing accent line) shown in the auth layout's pitch panel next to the sign-in/sign-up form.",
+      "tags": ["auth", "illustration", "svg", "decorative"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/(auth)/layout.tsx",
+      "type": "file",
+      "name": "layout.tsx",
+      "filePath": "app/(auth)/layout.tsx",
+      "summary": "Layout for the (auth) route group (/connexion, /inscription, /mot-de-passe-oublie, etc.): a light textured ground (.texture-weave-soft) with a two-panel split — a pitch panel (AuthVisual + copy) hidden below lg, and the form card holding the page's children.",
+      "tags": ["auth", "layout", "route-group", "server-component"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:app/(auth)/AuthBackdrop.tsx:AuthBackdrop",
+      "type": "function",
+      "name": "AuthBackdrop",
+      "filePath": "app/(auth)/AuthBackdrop.tsx",
+      "lineRange": [8, 52],
+      "summary": "Watches a media query (desktop width and no reduced motion) to decide whether to mount the dynamically imported AuthScene, rendering static SVG wave paths as the fallback/pre-load state that fades out once the scene signals it's ready.",
+      "tags": ["client-component", "media-query", "dynamic-import"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:app/(auth)/AuthVisual.tsx:AuthVisual",
+      "type": "function",
+      "name": "AuthVisual",
+      "filePath": "app/(auth)/AuthVisual.tsx",
+      "lineRange": [1, 39],
+      "summary": "Renders the on-brand SVG mockup illustration (dossiers/teams cards, a central W badge, an animated flow line) used in the auth layout's pitch panel.",
+      "tags": ["svg", "component", "decorative"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:app/(auth)/layout.tsx:AuthLayout",
+      "type": "function",
+      "name": "AuthLayout",
+      "filePath": "app/(auth)/layout.tsx",
+      "lineRange": [7, 53],
+      "summary": "Wraps every auth page in the site header, the AuthBackdrop wave/3D scene, and a two-panel layout: a pitch panel (AuthVisual plus copy, hidden below lg) and the form card that renders the page's children.",
+      "tags": ["layout", "route-group", "composition"],
+      "complexity": "moderate"
+    }
+  ],
+  "edges": [
+    { "source": "file:app/(auth)/AuthBackdrop.tsx", "target": "function:app/(auth)/AuthBackdrop.tsx:AuthBackdrop", "type": "contains", "direction": "forward", "weight": 1.0 },
+    { "source": "file:app/(auth)/AuthVisual.tsx", "target": "function:app/(auth)/AuthVisual.tsx:AuthVisual", "type": "contains", "direction": "forward", "weight": 1.0 },
+    { "source": "file:app/(auth)/layout.tsx", "target": "function:app/(auth)/layout.tsx:AuthLayout", "type": "contains", "direction": "forward", "weight": 1.0 },
+
+    { "source": "file:app/(auth)/AuthBackdrop.tsx", "target": "function:app/(auth)/AuthBackdrop.tsx:AuthBackdrop", "type": "exports", "direction": "forward", "weight": 0.8 },
+    { "source": "file:app/(auth)/AuthVisual.tsx", "target": "function:app/(auth)/AuthVisual.tsx:AuthVisual", "type": "exports", "direction": "forward", "weight": 0.8 },
+    { "source": "file:app/(auth)/layout.tsx", "target": "function:app/(auth)/layout.tsx:AuthLayout", "type": "exports", "direction": "forward", "weight": 0.8 },
+
+    { "source": "file:app/(auth)/layout.tsx", "target": "file:app/(app)/heroui.css", "type": "imports", "direction": "forward", "weight": 0.7 },
+    { "source": "file:app/(auth)/layout.tsx", "target": "file:app/(auth)/AuthBackdrop.tsx", "type": "imports", "direction": "forward", "weight": 0.7 },
+    { "source": "file:app/(auth)/layout.tsx", "target": "file:app/(auth)/AuthVisual.tsx", "type": "imports", "direction": "forward", "weight": 0.7 },
+    { "source": "file:app/(auth)/layout.tsx", "target": "file:app/(auth)/auth.css", "type": "imports", "direction": "forward", "weight": 0.7 },
+
+    { "source": "file:app/(auth)/AuthBackdrop.tsx", "target": "file:app/(auth)/AuthScene.tsx", "type": "depends_on", "direction": "forward", "weight": 0.6 },
+
+    { "source": "function:app/(auth)/layout.tsx:AuthLayout", "target": "function:app/(auth)/AuthBackdrop.tsx:AuthBackdrop", "type": "calls", "direction": "forward", "weight": 0.8 },
+    { "source": "function:app/(auth)/layout.tsx:AuthLayout", "target": "function:app/(auth)/AuthVisual.tsx:AuthVisual", "type": "calls", "direction": "forward", "weight": 0.8 }
+  ]
+}
