@@ -118,9 +118,11 @@ export const DEFAULT_FOOTER: FooterContent = {
       title: "Contact",
       includeSolutions: false,
       links: [
+        { label: "Nous contacter", href: "/contact" },
         { label: "Demander une démo", href: "#contact" },
-        { label: "Support partenaires", href: "#contact" },
         { label: "Support banques (Etaysir)", href: "#contact" },
+        { label: "Mentions légales", href: "/mentions-legales" },
+        { label: "Politique de confidentialité", href: "/politique-de-confidentialite" },
       ],
     },
   ],

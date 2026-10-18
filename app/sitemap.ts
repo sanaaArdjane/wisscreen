@@ -58,6 +58,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "weekly" as const,
       priority: 0.3,
     })),
+    /* The institutional pages. They rank for almost nothing, and that is not what
+       they are for: they are the checkable facts an assistant looks for before
+       naming a company, and in France they are required. */
+    ...["/contact", "/mentions-legales", "/politique-de-confidentialite"].map((path) => ({
+      url: `${SITE_URL}${path}`,
+      lastModified: BUILT_AT,
+      changeFrequency: "yearly" as const,
+      priority: 0.3,
+    })),
     ...posts.map((post) => ({
       url: `${SITE_URL}/blog/${post.slug}`,
       lastModified: post.updatedAt,

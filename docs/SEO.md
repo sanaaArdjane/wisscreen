@@ -222,7 +222,131 @@ marchés.
 
 ---
 
-## 7. Ce qui reste à faire
+## 7. Le moteur de contenu
+
+Le site comptait **5 URL publiques**. C'était le vrai plafond : aucune qualité technique
+ne positionne une page sur une requête dont elle ne parle pas. Trois choses ont été
+ajoutées, dans cet ordre.
+
+### 7.1 Métadonnées par page
+
+Un objet `seo { title, description, ogImage, canonical, noindex }` sur chaque solution,
+chaque article et chaque cas d'usage — en jsonb, donc **sans migration**. La chaîne de
+repli est résolue **en un seul endroit**, `resolveSeo()` dans `lib/seo/metadata.ts`, et
+pas en ligne dans chaque `generateMetadata` : c'est ainsi que les trois dérivent, l'une
+oubliant le frein global, l'autre posant `follow: false` et orphelinant ses liens
+internes.
+
+Deux détails qui sont des décisions :
+
+- `||` et non `??`. Un champ **vidé** par le propriétaire est une chaîne vide, et doit
+  se replier exactement comme un champ absent.
+- Un `noindex` **de page** garde `follow: true` — la page fait toujours partie du graphe
+  interne du site. Seul le frein global (`general.noindex`) coupe les deux, parce qu'il
+  sert à faire disparaître le site d'un coup.
+
+> ⚠️ **Le piège le plus coûteux du lot.** `toRecord()` fait un `safeParse` et, en cas
+> d'échec, se contente d'un `console.warn` puis `return null` : **la solution disparaît
+> du site, sans erreur visible**. Les schémas n'utilisent pas `.optional()`, donc une
+> clé requise absente des défauts suffit. Toute addition à `SolutionContentSchema` part
+> dans le **même commit** que `toSolutionContent()` et `blankSolution()`, et
+> `__tests__/seo.test.ts` prouve qu'une ligne ancienne, enregistrée avant le champ,
+> continue de parser après la fusion sur les défauts.
+
+> ⚠️ **Double `og:image`.** Définir `openGraph.images` ne remplace pas la convention de
+> fichier `opengraph-image.tsx` : Next émet **les deux balises**. L'image personnalisée
+> est donc servie par la route elle-même, et `generateMetadata` ne touche jamais à
+> `images`.
+
+### 7.2 Le blog
+
+Sur le CMS existant — ni MDX, ni service tiers : le dépôt avait déjà `SpecForm`,
+`BlockEditor` et un rendu Markdown sans `dangerouslySetInnerHTML`.
+
+- Table `site_posts` : une colonne par champ **requêté, trié, unique ou joint**
+  (`slug`, `published`, `publishedAt`, `authorId`, `updatedAt`), le reste en jsonb validé
+  par `PostContentSchema`. Migration `0004`, purement additive.
+- `updatedAt` est posé **à la main** dans chaque action. La colonne n'a pas de
+  `$onUpdate`, et c'est elle que le sitemap publie comme `lastModified` : une
+  modification qui ne l'écrit pas laisse la date de création en place.
+- **Aucun défaut en code.** Une solution a un défaut parce que le site doit décrire ce
+  qu'il vend même base coupée ; un article jamais écrit n'a rien sur quoi se replier.
+  Pas de base = blog vide, et c'est la bonne réponse.
+- **La pagination est un chemin**, `/blog/page/2`, pas `?page=2` : lire `searchParams`
+  rendrait la route dynamique. Et **chaque page est canonique d'elle-même** — la pointer
+  vers `/blog` est l'erreur classique qui désindexe tous les articles anciens.
+- `relatedSolutions` rend le maillage interne **structurel** : l'article liste les
+  solutions dont il parle, et chaque solution peut lister les articles qui la défendent.
+  Deux directions depuis un seul champ, plutôt qu'un lien que le rédacteur doit penser à
+  écrire.
+- **Le slug d'un article publié ne peut plus changer.** L'ancienne adresse renverrait une
+  404 et perdrait son classement ; une table de redirections pour quatre articles serait
+  de la machinerie spéculative. Le serveur refuse le renommage et dit pourquoi.
+- `BlogPosting` (`headline` tronqué à 110 caractères — au-delà, Google ignore l'objet
+  entier plutôt que de le tronquer), `publisher` par `@id` partagé, `author` en `Person`
+  seulement si le compte joint a un nom.
+- Lien « Blog » dans la navbar. Un index atteignable seulement depuis une colonne du pied
+  de page est un index que le visiteur ne voit jamais et que le crawler atteint en
+  dernier.
+
+### 7.3 Les pages par cas d'usage
+
+Route **imbriquée** `/solutions/[slug]/[usecase]`, stockée dans le jsonb de la solution.
+L'URL porte la relation, le fil d'Ariane reste honnête, et la page hérite de l'autorité
+de sa parente — une hiérarchie `/cas-usage/[x]` orpheline gaspillerait celle-ci.
+
+**La seule partie qui compte vraiment est le garde-fou.** `lib/content/usecases.ts`
+exporte **un prédicat**, consommé par `generateStaticParams`, le sitemap et l'éditeur :
+introduction ≥ 400 caractères, ≥ 3 problèmes **et** 3 bénéfices, preuve ≥ 200 caractères,
+et similarité trigramme < 85 % avec les cas voisins (ensemble + Jaccard, ~15 lignes, zéro
+dépendance). Un cas qui échoue est **absent partout** et son adresse renvoie une 404 — il
+n'est pas « masqué » : une page liée qui refuse d'être indexée est le pire des deux.
+
+Les seuils n'en font pas une bonne page ; ils n'excluent que la page qui n'a pas été
+écrite. Et **le verdict s'affiche dans l'éditeur**, avec le nombre de caractères
+manquants : « il manque 180 caractères d'introduction » est une instruction, tandis
+qu'une page qui disparaît sans rien dire est une règle qu'on combat.
+
+Détail de nommage, qui reviendra mordre sinon : les fonctions s'appellent `checkUseCase`
+et `isUseCasePublishable`, pas `useCaseIssues` — un nom commençant par `use` est un hook
+pour le lint React, et celui-ci est appelé dans un `.map` de composant.
+
+La similarité est mesurée en **trigrammes** et non en mots, parce que la duplication
+visée est un gabarit dont on a changé un nom : presque tous les mots correspondent déjà.
+
+### 7.4 Les pages institutionnelles
+
+`/contact`, `/mentions-legales`, `/politique-de-confidentialite`. Obligatoires en France,
+signaux E-E-A-T partout, et — c'est le point sous-estimé — ce sont des **faits
+vérifiables** qu'un moteur de réponse cherche avant de nommer une entreprise.
+
+Les mentions légales lisent l'identité éditée dans /admin/paramètres, **la même que
+celle imprimée sur les devis et factures** : la page légale et les factures ne peuvent
+pas se contredire. Une ligne dont la valeur est vide est **supprimée**, pas rendue
+blanche : un « NIS : » vide se lit comme un oubli.
+
+La politique de confidentialité décrit ce que le code fait réellement — le stockage
+privé à liens signés, les secrets de démonstration chiffrés, l'absence de traceur tiers.
+Une politique qui décrit un autre produit est pire que pas de politique, parce qu'elle
+est vérifiable.
+
+### 7.5 Ce que le contenu lui-même doit viser
+
+Le code produit les pages ; il ne produit pas le classement. Vous ne battrez pas OVH sur
+« hébergement cloud ». La longue traîne où vous êtes légitimes et où presque personne
+n'écrit en français :
+
+- **Local** : « ESN Alger », « hébergement de données en Algérie », « facturation
+  électronique Algérie ».
+- **Problème** : « extraire automatiquement les données d'une facture », « migrer un
+  serveur physique vers le cloud ».
+- **Comparaison** : « OCR vs saisie manuelle : le vrai coût ».
+
+Un article solide par semaine bat dix articles creux. Premiers résultats à 3–6 mois.
+
+---
+
+## 8. Ce qui reste à faire
 
 **Hors du code, et prioritaire** — rien n'est branché aujourd'hui :
 
@@ -239,17 +363,21 @@ marchés.
 
 **Dans le code** :
 
-- Les champs SEO par solution (titre et description distincts du texte du hero).
-- Le moteur de contenu : blog et pages par cas d'usage. **C'est le vrai plafond** —
-  5 URL publiques ne permettent pas de se positionner, quelle que soit la qualité
-  technique.
+- **Appliquer la migration `0004`** (`pnpm db:migrate`) : la table `site_posts` n'existe
+  pas encore en production. Sans elle, le blog rend son état vide — ce qui est correct,
+  mais l'onglet /admin/site → Blog ne peut rien enregistrer.
 - Éclater `contact.address` en sous-champs (rue, ville, code postal) : c'est ce qui pèse
   sur « agence informatique Alger ».
 - `useReportWebVitals` pour mesurer les Core Web Vitals sur le terrain.
+- Une image de partage par article (`opengraph-image.tsx` sous `/blog/[slug]`) : ils
+  héritent aujourd'hui de celle du site.
+
+**Hors du code, et c'est désormais le facteur limitant** : écrire. Le moteur est en
+place et il est vide.
 
 ---
 
-## 8. Vérifier après une modification
+## 9. Vérifier après une modification
 
 ```bash
 pnpm lint && pnpm test && pnpm typecheck && pnpm build
@@ -259,6 +387,8 @@ curl -s localhost:3000/robots.txt                 # groupes et interdictions
 curl -s localhost:3000/sitemap.xml                # des dates distinctes et réelles
 curl -s localhost:3000/ | grep -o 'application/ld+json[^<]*'   # Organization, WebSite, FAQPage
 curl -s localhost:3000/reinitialiser | grep 'name="robots"'    # noindex
+curl -s localhost:3000/blog/page/2 | grep -o 'rel="canonical"[^>]*'  # d'elle-même, pas /blog
+curl -s -o /dev/null -w '%{http_code}\n' localhost:3000/blog/un-brouillon   # 404
 du -sh public/                                    # le poids n'est pas reparti
 ```
 

@@ -230,7 +230,73 @@ arrivera.
 
 ---
 
-## 7. Ce qui ne se transpose pas
+## 7. Le moteur de contenu : un blog et des pages générées
+
+Un site techniquement irréprochable sans pages sur lesquelles se positionner ne se
+positionne sur rien. Ce qui suit est la liste des décisions à prendre, dans l'ordre où
+elles se présentent.
+
+### Le blog **[U]**
+
+- **La pagination est un chemin, pas un paramètre.** `/blog/page/2`, pas `?page=2`.
+  Sous Next, lire `searchParams` rend la route dynamique **[N]** ; partout ailleurs, un
+  chemin reste une URL propre, mémorisable et partageable.
+- **Chaque page paginée est canonique d'elle-même.** Les pointer toutes vers `/blog` est
+  l'erreur la plus fréquente : Google les traite alors comme des doublons de la page 1,
+  et tout article assez ancien pour en être tombé quitte l'index sans bruit.
+  `rel="prev"`/`rel="next"` ne servent plus à rien ; ce que les moteurs suivent, c'est
+  un lien ordinaire.
+- **Le slug se fige à la première publication.** Le changer renvoie une 404 à tous les
+  liens déjà partagés et jette le classement acquis. Refusez-le dans le code, en
+  expliquant pourquoi — ne comptez pas sur la discipline. Une table de redirections pour
+  une poignée d'articles est de la machinerie spéculative ; au-delà de quelques dizaines,
+  elle devient justifiée.
+- **Un brouillon doit répondre 404, pas 200.** Une page « pas encore prête » mais
+  servie est une page indexable.
+- **Le maillage interne doit être structurel.** Un champ « solutions liées » sur
+  l'article suffit à produire les deux directions (article → produit, produit →
+  articles). Un lien que le rédacteur doit penser à écrire est un lien qui manquera.
+- **La date de modification doit être réelle.** Si votre ORM ne met pas à jour la colonne
+  tout seul, écrivez-la à la main dans chaque action d'écriture : c'est elle que le
+  sitemap publie, et un sitemap qui ment sur ses dates est pire qu'absent. **[N]**
+- **Ne mettez en cache que les lignes brutes**, et laissez la fusion sur les défauts et
+  la validation tourner à chaque lecture. Mettre en cache le résultat *assemblé* fait
+  servir `undefined` pour tout champ ajouté par un déploiement, jusqu'à expiration de
+  l'entrée. **[N]**
+- **Pas de valeur par défaut pour un article.** Un contenu éditorial jamais écrit n'a
+  rien sur quoi se replier : base indisponible = liste vide, et c'est la bonne réponse.
+  (Un contenu *structurel* — ce que l'entreprise vend — mérite au contraire un défaut en
+  code.)
+
+### Les pages générées à partir de données **[U]**
+
+- **Imbriquez la route sous sa page parente** quand la relation existe :
+  `/produits/<produit>/<usage>` plutôt qu'un `/cas-usage/<usage>` orphelin. L'URL porte
+  la relation, le fil d'Ariane reste honnête, et la page hérite de l'autorité de sa
+  parente au lieu de repartir de zéro.
+- **Appliquez la règle du §6 avant d'en générer une seule.** Elle est beaucoup plus
+  facile à poser au début qu'à faire respecter après coup, sur vingt pages déjà en ligne.
+- **Plafonnez-vous.** Vingt par parent est déjà beaucoup ; cinq bonnes valent mieux.
+
+### Les pages institutionnelles **[U]**
+
+`/contact`, mentions légales, politique de confidentialité. Obligatoires dans l'UE, et —
+c'est le point sous-estimé — ce sont les **faits vérifiables** qu'un moteur de réponse
+cherche avant de nommer une entreprise : qui elle est, où elle est, comment la joindre.
+
+Deux règles :
+
+- **Une seule source pour l'identité.** Si l'application imprime déjà le nom, l'adresse
+  et les identifiants légaux sur des documents, la page légale doit lire *le même objet*.
+  Deux saisies finissent par diverger, et c'est la page publique qui aura tort.
+- **Une ligne vide se supprime, elle ne se rend pas vide.** Un intitulé sans valeur se
+  lit comme un oubli ; son absence ne se lit pas du tout.
+- **Décrivez le produit réel.** Une politique de confidentialité recopiée d'un gabarit
+  décrit un autre service — et c'est vérifiable, donc c'est pire que rien.
+
+---
+
+## 8. Ce qui ne se transpose pas
 
 **La stratégie éditoriale.** Elle dépend du marché, du métier et de la concurrence.
 Quelques principes tiennent, le reste est à refaire :
@@ -249,7 +315,7 @@ vend autre chose que du référencement.
 
 ---
 
-## 8. Mesurer, sinon rien
+## 9. Mesurer, sinon rien
 
 À brancher **avant** d'écrire la première ligne de contenu : **[U]**
 
@@ -265,7 +331,7 @@ vend autre chose que du référencement.
 
 ---
 
-## 9. La check-list, en une page
+## 10. La check-list, en une page
 
 ```
 [ ] Mesure branchée (Search Console, Bing, analytics)   ← avant tout le reste
@@ -284,5 +350,8 @@ vend autre chose que du référencement.
 [ ] llms.txt
 [ ] Métadonnées éditables, avec chaîne de repli et défauts dans le même commit
 [ ] Règle anti-contenu-mince si des pages sont générées
-[ ] Pages légales (confiance, et obligatoires dans l'UE)
+[ ] Pages légales, lisant la même identité que les documents de l'app
+[ ] Pagination en chemins, chaque page canonique d'elle-même
+[ ] Slug figé après publication ; brouillon en 404
+[ ] Maillage interne structurel (un champ, pas la mémoire du rédacteur)
 ```
