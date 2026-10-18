@@ -547,3 +547,71 @@ section[id]:target {
     outline-offset: -3px;
   }
 }
+
+/*
+ * `lib/markdown.tsx` was written for the dashboard and paints with its tokens —
+ * `text-fg`, `bg-soft`, `text-signal-fg`, `border-fg/10`. Those are declared in the
+ * `@theme` of `app/(app)/heroui.css`, which the marketing pages deliberately never
+ * load — so on `/blog` **those utility classes are not generated at all** and the
+ * elements carry no colour rule whatsoever. Measured: an `<h2>` came out the same
+ * `ink/80` as the paragraph under it, inherited from the wrapper; code blocks had no
+ * panel and links no accent.
+ *
+ * Declaring the missing variables does not help, because the utilities themselves do
+ * not exist here. So the article wrapper styles the elements directly, in marketing
+ * values. Descendant selectors win over the renderer's own utilities on specificity,
+ * with no `!important`.
+ *
+ * The type scale is reset here too: the renderer's `text-sm` is right for instructions
+ * inside a demo card and far too small for the body of an article.
+ */
+.markdown-article {
+  font-size: 1.0625rem;
+  line-height: 1.75;
+}
+
+.markdown-article :is(h2, h3, h4, h5, h6),
+.markdown-article strong {
+  color: var(--color-ink);
+}
+
+.markdown-article h2 {
+  font-size: 1.75rem;
+  line-height: 1.25;
+  margin-top: 1.5rem;
+}
+
+.markdown-article h3 {
+  font-size: 1.3125rem;
+  line-height: 1.35;
+  margin-top: 1rem;
+}
+
+.markdown-article :is(h4, h5, h6) {
+  font-size: 1.0625rem;
+  margin-top: 0.75rem;
+}
+
+.markdown-article :is(ul, ol, li, p, blockquote) {
+  font-size: 1.0625rem;
+}
+
+.markdown-article a {
+  /* The adaptive accent, so it stays legible if an article ever renders on a dark
+     ground — `--signal-text` is signal-deep on light, signal-soft on dark. */
+  color: var(--signal-text);
+}
+
+.markdown-article :is(code, pre) {
+  background-color: var(--color-mist);
+  color: var(--color-ink);
+}
+
+.markdown-article hr {
+  border-color: color-mix(in srgb, var(--color-ink) 12%, transparent);
+}
+
+.markdown-article blockquote {
+  border-color: color-mix(in srgb, var(--color-ink) 25%, transparent);
+  color: color-mix(in srgb, var(--color-ink) 80%, transparent);
+}

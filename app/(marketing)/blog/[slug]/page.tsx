@@ -131,7 +131,10 @@ export default async function PostPage({ params }: { params: Promise<Params> }) 
 
           {/* `headingOffset={1}`: the body's `#` is an `<h2>` under this page's own
               `<h1>`, which is what keeps the outline continuous. */}
-          <div className="flex flex-col gap-5 text-base leading-relaxed text-ink/80">
+          {/* `markdown-article` is what makes the dashboard-flavoured renderer readable
+              on a marketing page: it declares the tokens it paints with and resets its
+              type scale. See the note in globals.css. */}
+          <div className="markdown-article flex flex-col gap-5 text-ink/80">
             <Markdown source={content.body} headingOffset={1} />
           </div>
 
