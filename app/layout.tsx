@@ -41,6 +41,15 @@ export async function generateMetadata(): Promise<Metadata> {
     creator: SITE_NAME,
     publisher: SITE_NAME,
     keywords: general.keywords,
+    /* Pasted in /admin/site rather than deployed: claiming the property in Search
+       Console and Bing Webmaster Tools is a copy-paste, not a release. Empty strings
+       are dropped so no empty meta tag is emitted. */
+    verification: {
+      ...(general.verification.google ? { google: general.verification.google } : {}),
+      ...(general.verification.bing
+        ? { other: { "msvalidate.01": general.verification.bing } }
+        : {}),
+    },
     alternates: {
       canonical: "/",
     },
@@ -85,14 +94,26 @@ export async function generateMetadata(): Promise<Metadata> {
  * the auth pages must not inherit the marketing chrome — they moved down into
  * `app/(marketing)/layout.tsx`. The group leaves every public URL unchanged.
  */
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default async function RootLayout({ children }: LayoutProps<"/">) {
+  /* No second round trip: `generateMetadata` above already awaited this, and the read
+     is both cached and request-deduped. */
+  const { general } = await getSiteContent();
+
   return (
     <html
       lang="fr"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-paper text-ink" suppressHydrationWarning>
-        <JsonLd data={organizationSchema()} />
+        <JsonLd data={organizationSchema(general)} />
+        {/* Before the fixed navbar in tab order, so a keyboard user is not made to
+            walk the whole menu on every page. Visible only when focused. */}
+        <a
+          href="#contenu"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-ink focus:px-5 focus:py-3 focus:text-sm focus:font-[650] focus:text-paper"
+        >
+          Aller au contenu
+        </a>
         {children}
       </body>
     </html>

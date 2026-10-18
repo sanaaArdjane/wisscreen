@@ -47,6 +47,7 @@ export const DEFAULT_GENERAL: GeneralContent = {
     hours: "",
   },
   socials: { linkedin: "", facebook: "", instagram: "", x: "", youtube: "", tiktok: "" },
+  verification: { google: "", bing: "" },
 };
 
 export const DEFAULT_HERO: HeroContent = {
@@ -494,6 +495,8 @@ export type SolutionRecord = {
   slug: string;
   position: number;
   published: boolean;
+  /** When the row was last saved. `null` for a code default, which has no history. */
+  updatedAt: Date | null;
   content: SolutionContent;
   media: SolutionMediaContent;
 };
@@ -504,6 +507,7 @@ export const DEFAULT_SOLUTIONS: SolutionRecord[] = RAW_SERVICES.map((service, i)
   slug: service.slug,
   position: i,
   published: true,
+  updatedAt: null,
   content: toSolutionContent(service),
   media: toMediaContent(SOLUTION_MEDIA[service.slug]),
 }));

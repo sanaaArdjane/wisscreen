@@ -69,10 +69,10 @@ export default async function SolutionPage({ params }: { params: Promise<Params>
   const service = solutions.find((s) => s.slug === slug);
   if (!service) notFound();
 
-  const faq = faqSchema(service);
+  const faq = faqSchema(service.faq);
 
   return (
-    <main className="flex flex-1 flex-col">
+    <main id="contenu" className="flex flex-1 flex-col">
       <JsonLd data={serviceSchema(service)} />
       <JsonLd data={breadcrumbSchema(service)} />
       {faq && <JsonLd data={faq} />}

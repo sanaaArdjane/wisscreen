@@ -209,6 +209,33 @@ export const GENERAL_FORM: Field[] = [
       where: everywhere("Pied de page", "Icône du réseau"),
     })),
   },
+  {
+    kind: "group",
+    key: "verification",
+    label: "Vérification des moteurs de recherche",
+    where: everywhere("Code source de toutes les pages", "Balise de propriété, invisible pour les visiteurs"),
+    help:
+      "Collez ici le code fourni par chaque console quand elle vous demande de prouver " +
+      "que le site vous appartient. Laissez vide tant que vous n'avez pas ouvert le compte.",
+    fields: [
+      {
+        kind: "text",
+        key: "google",
+        label: "Google Search Console",
+        mono: true,
+        where: everywhere("Code source", "Balise google-site-verification"),
+        help: "La valeur seule, pas la balise entière.",
+      },
+      {
+        kind: "text",
+        key: "bing",
+        label: "Bing Webmaster Tools",
+        mono: true,
+        where: everywhere("Code source", "Balise msvalidate.01"),
+        help: "À ne pas négliger : l'index de Bing est celui que la recherche de ChatGPT interroge.",
+      },
+    ],
+  },
 ];
 
 const HERO = "Hero (haut de la page d'accueil)";

@@ -74,6 +74,21 @@ export const GeneralSchema = z.object({
     youtube: HrefSchema,
     tiktok: HrefSchema,
   }),
+  /**
+   * Ownership tokens for the search consoles, pasted in rather than deployed.
+   *
+   * Both platforms accept a `<meta>` tag as proof, which Next renders from
+   * `metadata.verification` — so claiming the site becomes a copy-paste in
+   * /admin/site instead of a code change and a deploy, which is the difference
+   * between it happening and it not.
+   *
+   * Bing's is worth as much as Google's here: its index is what ChatGPT's search
+   * reaches for, so it is the door to being quoted rather than only ranked.
+   */
+  verification: z.object({
+    google: text(120),
+    bing: text(120),
+  }),
 });
 
 export const HERO_MODES = ["earth", "stack", "image", "video", "slides"] as const;
