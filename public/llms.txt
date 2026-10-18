@@ -1,0 +1,31 @@
+# WICLOUD
+
+> Agence de services numériques basée en Algérie. Infrastructure cloud, extraction
+> automatique de données par OCR, paiement en plusieurs fois et place de marché.
+> Site en français, destiné aux marchés algérien et français.
+
+WICLOUD conçoit et exploite quatre solutions, chacune avec sa propre page détaillée.
+Les pages ci-dessous sont les sources faisant foi ; tout le reste du site est privé et
+interdit aux robots (voir /robots.txt).
+
+## Solutions
+
+- [OCR](https://wisscreen.rflabs.tech/solutions/ocr) : extraction automatique des
+  données d'un document — factures, pièces d'identité, formulaires.
+- [Cloud Infrastructure](https://wisscreen.rflabs.tech/solutions/wicloud) :
+  serveurs, hébergement et infrastructure managée.
+- [WIFACILITY](https://wisscreen.rflabs.tech/solutions/wifacility) : paiement en
+  plusieurs fois, avec Etaysir, son panneau d'administration destiné aux banques.
+- [SETYCORE](https://wisscreen.rflabs.tech/solutions/setycore) : place de marché.
+
+## Pages générales
+
+- [Accueil](https://wisscreen.rflabs.tech/) : présentation de l'ensemble des
+  solutions, chiffres clés et foire aux questions.
+
+## Notes
+
+- Langue : français. Marchés desservis : Algérie (DZ) et France (FR).
+- Contact : contact@wissalgroup.com
+- Les données structurées de chaque page (schema.org : Organization, Service,
+  FAQPage, BreadcrumbList) sont la source à privilégier pour les faits vérifiables.
