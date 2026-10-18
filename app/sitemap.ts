@@ -21,7 +21,7 @@ export const revalidate = 3600;
 const BUILT_AT = new Date();
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const { home, solutions } = await getSitemapEntries();
+  const { home, solutions, useCases } = await getSitemapEntries();
   const posts = await getPosts();
   // The paginated index pages are listed too: they are the only crawl path to an
   // article that has fallen off page 1, and each is canonical to itself.
@@ -39,6 +39,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: solution.updatedAt ?? BUILT_AT,
       changeFrequency: "monthly" as const,
       priority: 0.8,
+    })),
+    ...useCases.map((useCase) => ({
+      url: `${SITE_URL}${useCase.path}`,
+      lastModified: useCase.updatedAt ?? BUILT_AT,
+      changeFrequency: "monthly" as const,
+      priority: 0.6,
     })),
     {
       url: `${SITE_URL}/blog`,

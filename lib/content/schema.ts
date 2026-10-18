@@ -293,6 +293,32 @@ export const SeoSchema = z.object({
 });
 export type SeoContent = z.infer<typeof SeoSchema>;
 
+/**
+ * One "solution × cas d'usage" page — `/solutions/<slug>/<usecase>`.
+ *
+ * Stored inside the solution's own jsonb, so adding one is content and never a
+ * migration. The route is **nested** on purpose: the URL carries the relation, the
+ * breadcrumb stays honest, and the page inherits the parent's authority instead of
+ * stranding itself under a `/cas-usage/` hierarchy with nothing above it.
+ *
+ * The fields are shaped by what a thin-content page lacks: a real introduction, named
+ * problems, named benefits, and a concrete proof. `lib/content/usecases.ts` is what
+ * decides whether one is substantial enough to publish.
+ */
+export const UseCaseSchema = z.object({
+  slug: SlugSchema,
+  title: text(140),
+  /** The paragraph that has to carry the page. Measured by the publication rule. */
+  intro: longText(4000),
+  problems: z.array(longText(400)).max(8),
+  benefits: z.array(longText(400)).max(8),
+  /** A figure, a client situation, something checkable. Also measured. */
+  proof: longText(2000),
+  faq: z.array(z.object({ question: text(300), answer: longText(2000) })).max(10),
+  seo: SeoSchema,
+});
+export type UseCaseContent = z.infer<typeof UseCaseSchema>;
+
 /** A solution's copy and structure — `lib/data/services.ts`, one entry. */
 export const SolutionContentSchema = z.object({
   slug: SlugSchema,
@@ -316,6 +342,7 @@ export const SolutionContentSchema = z.object({
   }),
   team: text(200),
   highlightVariant: z.enum(["cards", "cards-gif", "image"]),
+  useCases: z.array(UseCaseSchema).max(20),
   seo: SeoSchema,
 });
 

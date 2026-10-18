@@ -3,6 +3,7 @@ import { unstable_cache } from "next/cache";
 import { db } from "@/lib/db";
 import { siteContent, siteSolutions } from "@/lib/db/schema";
 import { applyMedia } from "@/lib/data/media";
+import { publishableUseCases } from "./usecases";
 import type { Service } from "@/lib/types";
 import {
   BLOCK_SCHEMAS,
@@ -251,6 +252,8 @@ export async function getSolution(slug: string): Promise<Service | undefined> {
 export async function getSitemapEntries(): Promise<{
   home: Date | null;
   solutions: { slug: string; updatedAt: Date | null }[];
+  /** Only the use cases that pass `isUseCasePublishable` — the same ones that exist. */
+  useCases: { path: string; updatedAt: Date | null }[];
 }> {
   let records: SolutionRecord[];
   try {
@@ -269,10 +272,16 @@ export async function getSitemapEntries(): Promise<{
     home = null;
   }
 
+  const published = records.filter((record) => record.published);
+
   return {
     home,
-    solutions: records
-      .filter((record) => record.published)
-      .map(({ slug, updatedAt }) => ({ slug, updatedAt })),
+    solutions: published.map(({ slug, updatedAt }) => ({ slug, updatedAt })),
+    useCases: published.flatMap((record) =>
+      publishableUseCases(record.content.useCases).map((useCase) => ({
+        path: `/solutions/${record.slug}/${useCase.slug}`,
+        updatedAt: record.updatedAt,
+      })),
+    ),
   };
 }

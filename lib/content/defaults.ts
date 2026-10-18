@@ -508,6 +508,7 @@ export function toSolutionContent(service: Service): SolutionContent {
     // The code defaults never override their own metadata: a solution shipped in
     // `services.ts` has no SEO copy distinct from its editorial copy until someone
     // writes one in /admin/site.
+    useCases: [],
     seo: blankSeo(),
   };
 }
@@ -582,6 +583,7 @@ export function blankSolution(slug: string, name: string): { content: SolutionCo
       },
       team: "",
       highlightVariant: "cards",
+      useCases: [],
       seo: blankSeo(),
     },
     media: toMediaContent(undefined),

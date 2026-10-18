@@ -1263,3 +1263,97 @@ export const POST_FORM: Field[] = [
     ],
   },
 ];
+
+/* ───────────────────────────── Use cases ───────────────────────────── */
+
+/**
+ * One "solution × cas d'usage" page.
+ *
+ * These are the fields the publication rule measures (`lib/content/usecases.ts`), and
+ * the help text says so in each one — the owner should learn the threshold from the
+ * field, not from a page that silently refuses to appear.
+ */
+export const SOLUTION_USECASE_FORM: Field[] = [
+  {
+    kind: "list",
+    key: "useCases",
+    itemLabel: "cas d'usage",
+    titleKey: "title",
+    max: 20,
+    label: "Cas d'usage",
+    where: sol("Pages supplémentaires", "", "Chacun devient /solutions/<solution>/<adresse>"),
+    help:
+      "Une page par situation concrète. Elle n'est publiée que si elle est assez fournie — " +
+      "le verdict s'affiche sous chaque cas. Cinq bons valent mieux que vingt creux.",
+    empty: { slug: "", title: "", intro: "", problems: ["", "", ""], benefits: ["", "", ""], proof: "", faq: [], seo: { title: "", description: "", ogImage: "", canonical: "", noindex: false } },
+    fields: [
+      {
+        kind: "text",
+        key: "title",
+        label: "Titre",
+        where: sol("Cas d'usage", "", "Le grand titre de la page"),
+        help: "Formulez-le comme on le chercherait : « Extraire les données d'une facture ».",
+      },
+      {
+        kind: "text",
+        key: "slug",
+        label: "Adresse",
+        mono: true,
+        where: sol("Cas d'usage", "", "La fin de l'URL"),
+        help: "Minuscules, chiffres et tirets. Évitez de la changer une fois la page en ligne.",
+      },
+      {
+        kind: "text",
+        key: "intro",
+        label: "Introduction",
+        multiline: true,
+        rows: 8,
+        where: sol("Cas d'usage", "", "Le paragraphe sous le titre"),
+        help: "Au moins 400 caractères : c'est ce qui distingue une page d'un gabarit rempli.",
+      },
+      {
+        kind: "strings",
+        key: "problems",
+        itemLabel: "problème",
+        label: "Ce qui bloque aujourd'hui",
+        multiline: true,
+        max: 8,
+        where: sol("Cas d'usage", "", "La colonne de gauche"),
+        help: "Au moins 3.",
+      },
+      {
+        kind: "strings",
+        key: "benefits",
+        itemLabel: "bénéfice",
+        label: "Ce que la solution change",
+        multiline: true,
+        max: 8,
+        where: sol("Cas d'usage", "", "La colonne de droite"),
+        help: "Au moins 3.",
+      },
+      {
+        kind: "text",
+        key: "proof",
+        label: "Concrètement",
+        multiline: true,
+        rows: 6,
+        where: sol("Cas d'usage", "", "Le bloc gris « Concrètement »"),
+        help: "Au moins 200 caractères : un chiffre, un déploiement réel, quelque chose de vérifiable.",
+      },
+      {
+        kind: "list",
+        key: "faq",
+        itemLabel: "question",
+        titleKey: "question",
+        max: 10,
+        label: "Questions fréquentes",
+        where: sol("Cas d'usage", "", "La section dépliante en bas de page"),
+        empty: { question: "", answer: "" },
+        fields: [
+          { kind: "text", key: "question", label: "Question", where: sol("Cas d'usage", "", "L'intitulé replié") },
+          { kind: "text", key: "answer", label: "Réponse", multiline: true, rows: 4, where: sol("Cas d'usage", "", "Le texte déplié") },
+        ],
+      },
+    ],
+  },
+];
