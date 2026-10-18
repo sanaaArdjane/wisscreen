@@ -39,8 +39,9 @@ type Row = {
   id: number;
   slug: string;
   published: boolean;
-  publishedAt: Date | null;
-  updatedAt: Date;
+  // What the cache actually hands back — see `toDate`.
+  publishedAt: Date | string | null;
+  updatedAt: Date | string;
   authorName: string | null;
   content: unknown;
 };
@@ -62,6 +63,20 @@ async function loadPostRows(): Promise<Row[]> {
     .orderBy(desc(sitePosts.publishedAt), desc(sitePosts.createdAt));
 }
 
+/**
+ * Dates survive `unstable_cache` as **strings**, not `Date`s.
+ *
+ * The cache serialises its result to JSON, so a row that came from it has
+ * `"2026-10-18T…"` where the Drizzle type promises a `Date` — and the type system says
+ * nothing, because the cached function is typed by its *return annotation*. It fails
+ * later and somewhere else: `.toISOString()` is not a function, `Intl.format` throws
+ * "Invalid time value". Coerce once here, at the seam, and every consumer gets a real
+ * `Date` whether the row came from the cache or straight from the database.
+ */
+function toDate(value: Date | string): Date {
+  return value instanceof Date ? value : new Date(value);
+}
+
 /** An article whose stored payload no longer parses is skipped, not fatal. */
 function toPost(row: Row): Post | null {
   const content = PostContentSchema.safeParse(row.content);
@@ -73,8 +88,8 @@ function toPost(row: Row): Post | null {
     id: row.id,
     slug: row.slug,
     published: row.published,
-    publishedAt: row.publishedAt,
-    updatedAt: row.updatedAt,
+    publishedAt: row.publishedAt ? toDate(row.publishedAt) : null,
+    updatedAt: toDate(row.updatedAt),
     authorName: row.authorName,
     content: content.data,
   };
