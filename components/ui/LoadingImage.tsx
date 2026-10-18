@@ -22,6 +22,14 @@ import { cn } from "@/lib/cn";
  * paste `https://…` into `lib/data/services.ts` without also having to add the host to
  * `images.remotePatterns` in next.config.ts — the optimizer validates remote hosts, and
  * serving the file as-is skips that route entirely.
+ *
+ * **`priority` opts out of steps 1 and 2, and that is the whole point of it.** A
+ * `priority` image is the one the page is measured on — in `image` hero mode it *is*
+ * the LCP element. Covering it with an opaque panel and holding it at `opacity-0`
+ * until React has hydrated and `onLoad` has fired moves the Largest Contentful Paint
+ * from "when the browser decoded the image" to "when the JavaScript finished", which
+ * is exactly the metric being optimised. So a priority image paints straight away and
+ * keeps only the error path.
  */
 export function LoadingImage({
   src,
@@ -46,13 +54,15 @@ export function LoadingImage({
       {/* Opaque, not a tint: it has to hide the mock it is layered over. `abyss` rather
           than `ink` because the surfaces this lands on are mostly `ink` themselves — a
           same-value panel reads as an empty card instead of as something loading. */}
-      <div
-        className={cn(
-          "skeleton-sweep pointer-events-none absolute inset-0 overflow-hidden bg-abyss transition-opacity duration-500",
-          status === "ready" && "opacity-0",
-        )}
-        aria-hidden="true"
-      />
+      {!priority && (
+        <div
+          className={cn(
+            "skeleton-sweep pointer-events-none absolute inset-0 overflow-hidden bg-abyss transition-opacity duration-500",
+            status === "ready" && "opacity-0",
+          )}
+          aria-hidden="true"
+        />
+      )}
       <Image
         src={src}
         alt={alt}
@@ -63,8 +73,13 @@ export function LoadingImage({
         onLoad={() => setStatus("ready")}
         onError={() => setStatus("failed")}
         className={cn(
-          "object-cover transition-opacity duration-700 ease-out",
-          status === "ready" ? "opacity-100" : "opacity-0",
+          "object-cover",
+          priority
+            ? "opacity-100"
+            : cn(
+                "transition-opacity duration-700 ease-out",
+                status === "ready" ? "opacity-100" : "opacity-0",
+              ),
           className,
         )}
       />
