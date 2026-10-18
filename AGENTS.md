@@ -1517,6 +1517,24 @@ sampled p=0.45 while believing it was at p=0.30. Re-read the section's live
 `getBoundingClientRect()` and correct in a loop until `-rect.top / (height - innerHeight)`
 matches the progress you wanted.
 
+## SEO, performance et GEO
+
+Deux documents dans `docs/`, à lire avant de toucher aux médias, aux métadonnées ou aux
+données structurées :
+
+- **`docs/SEO.md`** — ce que le site valait au départ (103 Mo d'assets, 5 URL publiques,
+  trois pages d'authentification indexables), ce qui a changé, et pourquoi. Il porte les
+  décisions qu'on risque de « simplifier » sans le savoir : pourquoi pas de `hreflang`,
+  pourquoi pas de `LocalBusiness` tout de suite, pourquoi la clé `statGifs` garde son nom
+  alors qu'elle contient des `.mp4`, et pourquoi `sitemap.ts` / `robots.ts` /
+  `manifest.ts` / `opengraph-image.tsx` ont besoin d'un `revalidate`.
+- **`docs/SEO-PLAYBOOK.md`** — la méthode, transposable à un autre site.
+
+Le point le plus facile à casser : **une clé requise ajoutée à un schéma de contenu sans
+être ajoutée aux défauts** fait échouer le `safeParse` des lignes existantes, et
+`toRecord()` traite cet échec par un `console.warn` — la solution disparaît du site sans
+erreur visible. Schéma et défauts dans le même commit, toujours.
+
 ## Open items
 
 

@@ -5,19 +5,21 @@ import { revalidatePath, updateTag } from "next/cache";
 import { redirect } from "next/navigation";
 import type { z } from "zod";
 import { db } from "@/lib/db";
-import { siteContent, siteSolutions } from "@/lib/db/schema";
+import { siteContent, sitePosts, siteSolutions } from "@/lib/db/schema";
 import { requirePermission } from "@/lib/guard";
 import { logActivity } from "@/lib/account";
 import { fail, succeed, type ActionState } from "@/lib/actions";
 import {
   BLOCK_SCHEMAS,
+  PostContentSchema,
   SlugSchema,
   SolutionContentSchema,
   SolutionMediaSchema,
   type BlockKey,
 } from "@/lib/content/schema";
-import { DEFAULT_SOLUTIONS, blankSolution } from "@/lib/content/defaults";
+import { DEFAULT_SOLUTIONS, blankPost, blankSolution } from "@/lib/content/defaults";
 import { SITE_CONTENT_TAG, SITE_SOLUTIONS_TAG } from "@/lib/content";
+import { SITE_POSTS_TAG } from "@/lib/content/posts";
 
 /**
  * Everything /admin/site writes. Each action re-checks `site:write` — an action is a
@@ -267,4 +269,150 @@ export async function toggleSolution(formData: FormData): Promise<void> {
     });
   }
   refreshSite(SITE_SOLUTIONS_TAG);
+}
+
+/* ───────────────────────────── Blog ───────────────────────────── */
+
+/**
+ * Articles, same shape of write as the solutions above: validate, upsert, log, refresh.
+ *
+ * `updatedAt` is set by hand on every path. The column has a `defaultNow()` and **no**
+ * `$onUpdate`, so an edit that did not write it would leave the creation date in
+ * place — and that column is what the sitemap publishes as `lastModified`.
+ */
+export async function savePost(_prev: ActionState, formData: FormData): Promise<ActionState> {
+  const staff = await requirePermission("site:write");
+
+  const originalSlug = formData.get("originalSlug");
+  if (typeof originalSlug !== "string") return fail("Article inconnu.");
+
+  const content = PostContentSchema.safeParse(readJson(formData, "content"));
+  if (!content.success) {
+    return {
+      ok: false,
+      message: "Certains champs sont invalides — voir en rouge.",
+      fieldErrors: issuesToErrors(content.error, "content."),
+    };
+  }
+
+  const slug = SlugSchema.safeParse(String(formData.get("slug") ?? "").trim());
+  if (!slug.success) {
+    return { ok: false, message: "Adresse invalide.", fieldErrors: { slug: slug.error.issues[0]?.message ?? "Invalide." } };
+  }
+
+  const [row] = await db.select().from(sitePosts).where(eq(sitePosts.slug, originalSlug)).limit(1);
+  if (!row) return fail("Cet article n'existe plus.");
+
+  if (slug.data !== originalSlug) {
+    /* A published slug is the article's address everywhere it has been shared or
+       indexed. Renaming it 404s the old URL and throws away whatever ranking it had,
+       and a redirect table for a handful of articles would be more machinery than the
+       problem deserves — so the rename is simply refused once it is public. */
+    if (row.published) {
+      return {
+        ok: false,
+        message: "L'adresse d'un article publié ne peut plus changer : l'ancien lien renverrait une erreur.",
+        fieldErrors: { slug: "Masquez l'article d'abord si vous devez vraiment la changer." },
+      };
+    }
+    const [clash] = await db
+      .select({ id: sitePosts.id })
+      .from(sitePosts)
+      .where(and(eq(sitePosts.slug, slug.data), ne(sitePosts.id, row.id)))
+      .limit(1);
+    if (clash) return { ok: false, message: "Cette adresse est déjà utilisée.", fieldErrors: { slug: "Adresse déjà prise." } };
+  }
+
+  const published = formData.get("published") === "on";
+  await db
+    .update(sitePosts)
+    .set({
+      slug: slug.data,
+      content: content.data,
+      published,
+      // Backdating stays possible (the field is editable), but publishing for the
+      // first time has to stamp *something* or the article sorts last forever.
+      publishedAt: published ? (row.publishedAt ?? new Date()) : row.publishedAt,
+      updatedById: staff.id,
+      updatedAt: new Date(),
+    })
+    .where(eq(sitePosts.id, row.id));
+  await logActivity({ actorId: staff.id, action: "site.post_updated", entity: "site_post", entityId: row.id, meta: { slug: slug.data } });
+  refreshSite(SITE_POSTS_TAG);
+
+  if (slug.data !== originalSlug) redirect(`/admin/site/blog/${slug.data}?saved=1`);
+  return succeed(SAVED);
+}
+
+export async function createPost(_prev: ActionState, formData: FormData): Promise<ActionState> {
+  const staff = await requirePermission("site:write");
+  const title = String(formData.get("title") ?? "").trim();
+  if (title.length < 2) return { ok: false, message: "Donnez un titre.", fieldErrors: { title: "Au moins 2 caractères." } };
+
+  const slug = SlugSchema.safeParse(
+    String(formData.get("slug") ?? "").trim() ||
+      title
+        .normalize("NFKD")
+        .replace(/[̀-ͯ]/g, "")
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-+|-+$/g, "")
+        .slice(0, 60)
+        .replace(/-+$/, ""),
+  );
+  if (!slug.success) return { ok: false, message: "Adresse invalide.", fieldErrors: { slug: slug.error.issues[0]?.message ?? "Invalide." } };
+
+  const [clash] = await db.select({ id: sitePosts.id }).from(sitePosts).where(eq(sitePosts.slug, slug.data)).limit(1);
+  if (clash) return { ok: false, message: "Cette adresse est déjà utilisée.", fieldErrors: { slug: "Adresse déjà prise." } };
+
+  const [created] = await db
+    .insert(sitePosts)
+    .values({
+      slug: slug.data,
+      // Created as a draft: a 404 until the owner has written it and flips it on.
+      published: false,
+      content: blankPost(title),
+      authorId: staff.id,
+      updatedById: staff.id,
+    })
+    .returning({ id: sitePosts.id });
+  await logActivity({ actorId: staff.id, action: "site.post_created", entity: "site_post", entityId: created.id, meta: { slug: slug.data } });
+  refreshSite(SITE_POSTS_TAG);
+  redirect(`/admin/site/blog/${slug.data}`);
+}
+
+export async function deletePost(formData: FormData): Promise<void> {
+  const staff = await requirePermission("site:write");
+  const slug = String(formData.get("slug") ?? "");
+  const [row] = await db.delete(sitePosts).where(eq(sitePosts.slug, slug)).returning({ id: sitePosts.id });
+  if (row) {
+    await logActivity({ actorId: staff.id, action: "site.post_deleted", entity: "site_post", entityId: row.id, meta: { slug } });
+  }
+  refreshSite(SITE_POSTS_TAG);
+  redirect("/admin/site/blog");
+}
+
+export async function togglePost(formData: FormData): Promise<void> {
+  const staff = await requirePermission("site:write");
+  const slug = String(formData.get("slug") ?? "");
+  const [row] = await db
+    .update(sitePosts)
+    .set({
+      published: sql`not ${sitePosts.published}`,
+      publishedAt: sql`coalesce(${sitePosts.publishedAt}, now())`,
+      updatedAt: new Date(),
+      updatedById: staff.id,
+    })
+    .where(eq(sitePosts.slug, slug))
+    .returning({ id: sitePosts.id, published: sitePosts.published });
+  if (row) {
+    await logActivity({
+      actorId: staff.id,
+      action: row.published ? "site.post_published" : "site.post_hidden",
+      entity: "site_post",
+      entityId: row.id,
+      meta: { slug },
+    });
+  }
+  refreshSite(SITE_POSTS_TAG);
 }

@@ -11,6 +11,7 @@ const TABS: { href: string; label: string; icon: IconName; exact?: boolean }[] =
   { href: "/admin/site/hero", label: "Hero", icon: "sparkles" },
   { href: "/admin/site/accueil", label: "Sections de l'accueil", icon: "layers" },
   { href: "/admin/site/solutions", label: "Solutions", icon: "store" },
+  { href: "/admin/site/blog", label: "Blog", icon: "file-text" },
   { href: "/admin/site/general", label: "Général & pied de page", icon: "settings" },
 ];
 

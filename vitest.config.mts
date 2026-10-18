@@ -9,6 +9,9 @@ export default defineConfig({
   plugins: [tsconfigPaths(), react()],
   test: {
     environment: "jsdom",
+    // Fills the browser APIs jsdom lacks (matchMedia, IntersectionObserver) so
+    // components can use them without a `typeof` guard. See the file's own comment.
+    setupFiles: ["./__tests__/setup.ts"],
     // Only pick up our own tests — never the copies bundled inside dependencies.
     include: ["**/*.{test,spec}.{ts,tsx}"],
     exclude: ["node_modules/**", ".next/**"],

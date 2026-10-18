@@ -5,11 +5,14 @@ import { FormAlert, SubmitButton } from "@/components/dashboard/ui";
 import { Icon } from "@/components/ui/Icon";
 import { IDLE, type ActionState } from "@/lib/actions";
 import type { SolutionContent, SolutionMediaContent } from "@/lib/content/schema";
+import { checkUseCase } from "@/lib/content/usecases";
 import {
   SLOT_KIND_OPTIONS,
   SOLUTION_CONTENT_FORM,
   SOLUTION_IDENTITY_FORM,
   SOLUTION_LAYOUT_FORM,
+  SOLUTION_SEO_FORM,
+  SOLUTION_USECASE_FORM,
   SOLUTION_MEDIA_FORM,
   type Option,
   type Where,
@@ -20,18 +23,22 @@ import { SpecForm, SpecProvider } from "./SpecForm";
 import { FieldHint } from "./FieldHint";
 import { MediaField } from "./MediaField";
 
-type Tab = "identite" | "contenu" | "medias" | "mise-en-page";
+type Tab = "identite" | "contenu" | "medias" | "mise-en-page" | "cas-usage" | "referencement";
 const TABS: [Tab, string][] = [
   ["identite", "Identité"],
   ["contenu", "Contenu"],
   ["medias", "Médias"],
   ["mise-en-page", "Mise en page"],
+  ["cas-usage", "Cas d'usage"],
+  ["referencement", "Référencement"],
 ];
 
 /** Which tab a server error path belongs to, so a failed save opens the right one. */
 function tabOf(path: string): Tab {
   if (path.startsWith("media.") || path.startsWith("content.media")) return "medias";
   if (path === "content.highlightVariant") return "mise-en-page";
+  if (path.startsWith("content.seo")) return "referencement";
+  if (path.startsWith("content.useCases")) return "cas-usage";
   const key = path.split(".")[1] ?? "";
   if (SOLUTION_CONTENT_FORM.some((f) => f.key === key)) return "contenu";
   return "identite";
@@ -137,6 +144,13 @@ export function SolutionEditor({
           {tab === "identite" && <SpecForm fields={SOLUTION_IDENTITY_FORM} value={content} onChange={setC} />}
           {tab === "contenu" && <SpecForm fields={SOLUTION_CONTENT_FORM} value={content} onChange={setC} />}
           {tab === "mise-en-page" && <SpecForm fields={SOLUTION_LAYOUT_FORM} value={content} onChange={setC} />}
+          {tab === "referencement" && <SpecForm fields={SOLUTION_SEO_FORM} value={content} onChange={setC} />}
+          {tab === "cas-usage" && (
+            <div className="flex flex-col gap-6">
+              <SpecForm fields={SOLUTION_USECASE_FORM} value={content} onChange={setC} />
+              <UseCaseVerdicts useCases={content.useCases} slug={content.slug} />
+            </div>
+          )}
         </SpecProvider>
 
         {tab === "medias" && (
@@ -174,6 +188,52 @@ export function SolutionEditor({
       </div>
       <FormAlert state={state} />
     </form>
+  );
+}
+
+/**
+ * Why each use case is, or is not, a page.
+ *
+ * The rule lives in `lib/content/usecases.ts` and is what `generateStaticParams` and
+ * the sitemap obey; this only *displays* it. Showing it is the point: a page that
+ * disappears without saying why is a rule the owner fights instead of following.
+ */
+function UseCaseVerdicts({ useCases, slug }: { useCases: SolutionContent["useCases"]; slug: string }) {
+  if (useCases.length === 0) return null;
+  return (
+    <section className="flex flex-col gap-3">
+      <h3 className="text-base font-[650] text-fg">État de publication</h3>
+      <ul className="flex flex-col gap-2">
+        {useCases.map((useCase, i) => {
+          const issues = checkUseCase(useCase, useCases);
+          return (
+            <li key={useCase.slug || i} className="rounded-2xl p-4 ring-1 ring-fg/10">
+              <p className="flex flex-wrap items-center gap-2 text-sm font-[650] text-fg">
+                {useCase.title || `Cas d'usage ${i + 1}`}
+                {issues.length === 0 ? (
+                  <span className="rounded-full bg-signal/15 px-2 py-0.5 text-[11px] font-[650] text-fg ring-1 ring-signal/45">
+                    En ligne
+                  </span>
+                ) : (
+                  <span className="rounded-full px-2 py-0.5 text-[11px] font-[650] text-fg ring-1 ring-fg/30">
+                    Pas encore publiée
+                  </span>
+                )}
+              </p>
+              {issues.length === 0 ? (
+                <p className="mt-1 font-mono text-xs text-fg/80">/solutions/{slug}/{useCase.slug}</p>
+              ) : (
+                <ul className="mt-2 flex list-disc flex-col gap-1 pl-5 text-sm text-fg/80">
+                  {issues.map((issue, j) => (
+                    <li key={j}>{issue}</li>
+                  ))}
+                </ul>
+              )}
+            </li>
+          );
+        })}
+      </ul>
+    </section>
   );
 }
 

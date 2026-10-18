@@ -74,6 +74,33 @@ export const GeneralSchema = z.object({
     youtube: HrefSchema,
     tiktok: HrefSchema,
   }),
+  /**
+   * Ownership tokens for the search consoles, pasted in rather than deployed.
+   *
+   * Both platforms accept a `<meta>` tag as proof, which Next renders from
+   * `metadata.verification` — so claiming the site becomes a copy-paste in
+   * /admin/site instead of a code change and a deploy, which is the difference
+   * between it happening and it not.
+   *
+   * Bing's is worth as much as Google's here: its index is what ChatGPT's search
+   * reaches for, so it is the door to being quoted rather than only ranked.
+   */
+  verification: z.object({
+    google: text(120),
+    bing: text(120),
+  }),
+  /** Share card for the homepage. Empty = the generated `app/opengraph-image.tsx`. */
+  ogImage: AssetSchema,
+  /**
+   * The emergency brake: takes the whole public site out of the search indexes.
+   *
+   * It exists because this is the one thing an owner needs at two in the morning —
+   * a price published by mistake, a client named before their contract is signed —
+   * and without it the only remedy is a code change and a deploy. It drives both the
+   * `robots` meta tag and `robots.txt`, because a meta tag alone leaves pages that
+   * are already indexed in place until they are re-crawled.
+   */
+  noindex: z.boolean(),
 });
 
 export const HERO_MODES = ["earth", "stack", "image", "video", "slides"] as const;
@@ -246,6 +273,52 @@ const Audience = z.enum(["banques", "partenaires", "particuliers", "entreprises"
 const Palette = z.enum(["teal", "aqua", "steel"]);
 const MediaSlotKind = z.enum(["mock-dashboard", "mock-scan", "mock-chart", "video-slot", "image-slot"]);
 
+/**
+ * Overrides for one page's search and share metadata.
+ *
+ * Every field empty means "fall back to the editorial copy", which is the right answer
+ * most of the time: a hero paragraph written to convince a human usually also reads
+ * well in a result page. The override exists for the cases where it doesn't — a hero
+ * that opens on a question, say, or one too long for the ~160 characters Google shows.
+ *
+ * Shared by solutions, use-case pages and blog posts: the fallback chain differs per
+ * page type but the fields never do, and a second shape would drift from this one.
+ */
+export const SeoSchema = z.object({
+  title: text(70),
+  description: longText(320),
+  ogImage: AssetSchema,
+  canonical: HrefSchema,
+  noindex: z.boolean(),
+});
+export type SeoContent = z.infer<typeof SeoSchema>;
+
+/**
+ * One "solution × cas d'usage" page — `/solutions/<slug>/<usecase>`.
+ *
+ * Stored inside the solution's own jsonb, so adding one is content and never a
+ * migration. The route is **nested** on purpose: the URL carries the relation, the
+ * breadcrumb stays honest, and the page inherits the parent's authority instead of
+ * stranding itself under a `/cas-usage/` hierarchy with nothing above it.
+ *
+ * The fields are shaped by what a thin-content page lacks: a real introduction, named
+ * problems, named benefits, and a concrete proof. `lib/content/usecases.ts` is what
+ * decides whether one is substantial enough to publish.
+ */
+export const UseCaseSchema = z.object({
+  slug: SlugSchema,
+  title: text(140),
+  /** The paragraph that has to carry the page. Measured by the publication rule. */
+  intro: longText(4000),
+  problems: z.array(longText(400)).max(8),
+  benefits: z.array(longText(400)).max(8),
+  /** A figure, a client situation, something checkable. Also measured. */
+  proof: longText(2000),
+  faq: z.array(z.object({ question: text(300), answer: longText(2000) })).max(10),
+  seo: SeoSchema,
+});
+export type UseCaseContent = z.infer<typeof UseCaseSchema>;
+
 /** A solution's copy and structure — `lib/data/services.ts`, one entry. */
 export const SolutionContentSchema = z.object({
   slug: SlugSchema,
@@ -269,7 +342,37 @@ export const SolutionContentSchema = z.object({
   }),
   team: text(200),
   highlightVariant: z.enum(["cards", "cards-gif", "image"]),
+  useCases: z.array(UseCaseSchema).max(20),
+  seo: SeoSchema,
 });
+
+/* ───────────────────────────── Blog ───────────────────────────── */
+
+/**
+ * One article's editable payload — everything in `site_posts.content`.
+ *
+ * `relatedSolutions` is the piece that earns its place: it makes internal linking
+ * **structural** instead of hoping the author remembers to type a link. The article
+ * renders links down to the solutions it argues for, and each solution page renders
+ * the articles that point at it — both directions from one field.
+ *
+ * `faq` reuses `faqSchema()` verbatim and is the easiest rich result a how-to gets.
+ */
+export const PostContentSchema = z.object({
+  title: text(140),
+  /** Card copy, and the meta-description fallback. */
+  excerpt: longText(400),
+  cover: AssetSchema,
+  coverAlt: text(200),
+  category: text(60),
+  tags: z.array(text(40)).max(8),
+  /** Markdown, rendered by `lib/markdown.tsx` — never as an HTML string. */
+  body: longText(60_000),
+  relatedSolutions: z.array(SlugSchema).max(4),
+  faq: z.array(z.object({ question: text(300), answer: longText(2000) })).max(10),
+  seo: SeoSchema,
+});
+export type PostContent = z.infer<typeof PostContentSchema>;
 
 /** A solution's media — `lib/data/media.ts`, one entry. Empty string = unset. */
 export const SolutionMediaSchema = z.object({

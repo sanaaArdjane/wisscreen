@@ -124,6 +124,34 @@ export interface SubProject {
   description: string;
 }
 
+/** Overrides for a page's search and share metadata. Mirrors `SeoSchema`. */
+export interface SeoOverrides {
+  title: string;
+  description: string;
+  ogImage: string;
+  canonical: string;
+  noindex: boolean;
+}
+
+/**
+ * One "solution × cas d'usage" page. Mirrors `UseCaseSchema` in
+ * `lib/content/schema.ts`, for the same reason `SeoOverrides` does: this file must not
+ * import the content layer, which imports it back.
+ *
+ * Whether a use case is a page at all is decided by `lib/content/usecases.ts`, never
+ * by its presence here.
+ */
+export interface SolutionUseCase {
+  slug: string;
+  title: string;
+  intro: string;
+  problems: string[];
+  benefits: string[];
+  proof: string;
+  faq: ServiceFaq[];
+  seo: SeoOverrides;
+}
+
 export interface Service {
   slug: string;
   name: string;
@@ -142,6 +170,22 @@ export interface Service {
   subProjects?: SubProject[];
   media: { hero: MediaSlot; gallery: MediaSlot[] };
   team: string;
+  /**
+   * Per-page overrides for the search and share metadata, edited in
+   * /admin/site → Solutions → Référencement. Every field is `""` (or `false`) until
+   * someone writes one, and `generateMetadata` falls back to the editorial copy —
+   * the fallback chain is documented where it is read, not here.
+   *
+   * Optional on the type because `RAW_SERVICES` in `lib/data/services.ts` is written
+   * by hand and has no business carrying empty SEO objects; `toSolutionContent()`
+   * fills it in when a code default is turned into editable content.
+   */
+  seo?: SeoOverrides;
+  /**
+   * Extra pages hanging off this solution, at `/solutions/<slug>/<usecase>`. Optional
+   * for the same reason as `seo`: `RAW_SERVICES` is hand-written and ships none.
+   */
+  useCases?: SolutionUseCase[];
   /* ─────────────────────────────────────────────────────────────────────────────────────
      Everything below is media, and **none of it is set in `lib/data/services.ts`**: the
      values live in `lib/data/media.ts` and are copied onto the service by `withMedia`. The

@@ -5,7 +5,9 @@ import type {
   FooterContent,
   GeneralContent,
   HeroContent,
+  PostContent,
   SectionsContent,
+  SeoContent,
   SiteContent,
   SolutionContent,
   SolutionMediaContent,
@@ -47,6 +49,9 @@ export const DEFAULT_GENERAL: GeneralContent = {
     hours: "",
   },
   socials: { linkedin: "", facebook: "", instagram: "", x: "", youtube: "", tiktok: "" },
+  verification: { google: "", bing: "" },
+  ogImage: "",
+  noindex: false,
 };
 
 export const DEFAULT_HERO: HeroContent = {
@@ -86,7 +91,7 @@ export const DEFAULT_FOOTER: FooterContent = {
         { label: "À propos de WICLOUD", href: "#values" },
         { label: "Nos engagements", href: "#commitment" },
         { label: "Carrières", href: "#" },
-        { label: "Actualités", href: "#" },
+        { label: "Blog", href: "/blog" },
       ],
     },
     {
@@ -113,9 +118,11 @@ export const DEFAULT_FOOTER: FooterContent = {
       title: "Contact",
       includeSolutions: false,
       links: [
+        { label: "Nous contacter", href: "/contact" },
         { label: "Demander une démo", href: "#contact" },
-        { label: "Support partenaires", href: "#contact" },
         { label: "Support banques (Etaysir)", href: "#contact" },
+        { label: "Mentions légales", href: "/mentions-legales" },
+        { label: "Politique de confidentialité", href: "/politique-de-confidentialite" },
       ],
     },
   ],
@@ -444,6 +451,39 @@ export const DEFAULT_SITE_CONTENT: SiteContent = {
 /* ───────────────────────────── Default solutions ───────────────────────────── */
 
 /** A `services.ts` entry as the editable content shape (no media-derived fields). */
+/**
+ * An empty `seo` block: every field unset, so every field falls back.
+ *
+ * It is a function and not a shared constant because each caller stores its own copy
+ * in a different row — handing them all the same object would let one solution's edit
+ * surface on another before anything is saved.
+ */
+export function blankSeo(): SeoContent {
+  return { title: "", description: "", ogImage: "", canonical: "", noindex: false };
+}
+
+/**
+ * A new, empty article.
+ *
+ * There is no `DEFAULT_POSTS`: unlike a solution, an article that was never written
+ * has nothing to fall back to, so the blog's "default" is an empty list. See
+ * `lib/content/posts.ts`.
+ */
+export function blankPost(title: string): PostContent {
+  return {
+    title,
+    excerpt: "",
+    cover: "",
+    coverAlt: "",
+    category: "",
+    tags: [],
+    body: "",
+    relatedSolutions: [],
+    faq: [],
+    seo: blankSeo(),
+  };
+}
+
 export function toSolutionContent(service: Service): SolutionContent {
   return {
     slug: service.slug,
@@ -467,6 +507,11 @@ export function toSolutionContent(service: Service): SolutionContent {
     },
     team: service.team,
     highlightVariant: service.highlightVariant ?? "cards",
+    // The code defaults never override their own metadata: a solution shipped in
+    // `services.ts` has no SEO copy distinct from its editorial copy until someone
+    // writes one in /admin/site.
+    useCases: [],
+    seo: blankSeo(),
   };
 }
 
@@ -494,6 +539,8 @@ export type SolutionRecord = {
   slug: string;
   position: number;
   published: boolean;
+  /** When the row was last saved. `null` for a code default, which has no history. */
+  updatedAt: Date | null;
   content: SolutionContent;
   media: SolutionMediaContent;
 };
@@ -504,6 +551,7 @@ export const DEFAULT_SOLUTIONS: SolutionRecord[] = RAW_SERVICES.map((service, i)
   slug: service.slug,
   position: i,
   published: true,
+  updatedAt: null,
   content: toSolutionContent(service),
   media: toMediaContent(SOLUTION_MEDIA[service.slug]),
 }));
@@ -537,6 +585,8 @@ export function blankSolution(slug: string, name: string): { content: SolutionCo
       },
       team: "",
       highlightVariant: "cards",
+      useCases: [],
+      seo: blankSeo(),
     },
     media: toMediaContent(undefined),
   };

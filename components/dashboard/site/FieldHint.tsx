@@ -7,6 +7,7 @@ import { whereHref, type Where } from "@/lib/content/forms";
 const PAGE_LABEL: Record<Where["page"], string> = {
   home: "Page d'accueil",
   solution: "Page de la solution",
+  blog: "Page de l'article",
   everywhere: "Tout le site",
 };
 

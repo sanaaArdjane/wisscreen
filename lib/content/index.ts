@@ -3,6 +3,7 @@ import { unstable_cache } from "next/cache";
 import { db } from "@/lib/db";
 import { siteContent, siteSolutions } from "@/lib/db/schema";
 import { applyMedia } from "@/lib/data/media";
+import { publishableUseCases } from "./usecases";
 import type { Service } from "@/lib/types";
 import {
   BLOCK_SCHEMAS,
@@ -135,6 +136,7 @@ function toRecord(row: typeof siteSolutions.$inferSelect): SolutionRecord | null
     slug: row.slug,
     position: row.position,
     published: row.published,
+    updatedAt: row.updatedAt,
     content: content.data,
     media: media.data,
   };
@@ -231,4 +233,55 @@ export async function getSolutions(opts: { includeHidden?: boolean } = {}): Prom
 
 export async function getSolution(slug: string): Promise<Service | undefined> {
   return (await getSolutions()).find((s) => s.slug === slug);
+}
+
+/**
+ * What the sitemap needs, and nothing else: each published page with the date it was
+ * genuinely last edited.
+ *
+ * It exists as its own read because `Service` is a *rendering* type — a timestamp has
+ * no business among a hero component's props — and because `getSolutions()` has
+ * already thrown the row metadata away by the time it returns.
+ *
+ * `lastModified` is the only field in a sitemap a search engine can act on, and
+ * `new Date()` (what this used to be) tells it that every page changed on every crawl,
+ * which is the same as telling it nothing. `null` here means "never edited since the
+ * deploy" — the caller decides what date to use for that, rather than this read
+ * inventing one.
+ */
+export async function getSitemapEntries(): Promise<{
+  home: Date | null;
+  solutions: { slug: string; updatedAt: Date | null }[];
+  /** Only the use cases that pass `isUseCasePublishable` — the same ones that exist. */
+  useCases: { path: string; updatedAt: Date | null }[];
+}> {
+  let records: SolutionRecord[];
+  try {
+    records = assembleSolutions(await cachedSolutionRows()).records;
+  } catch {
+    records = DEFAULT_SOLUTIONS;
+  }
+
+  // The homepage is the sum of its blocks, so its date is the most recent of them.
+  let home: Date | null = null;
+  try {
+    for (const updatedAt of (await readContentUpdates()).values()) {
+      if (!home || updatedAt > home) home = updatedAt;
+    }
+  } catch {
+    home = null;
+  }
+
+  const published = records.filter((record) => record.published);
+
+  return {
+    home,
+    solutions: published.map(({ slug, updatedAt }) => ({ slug, updatedAt })),
+    useCases: published.flatMap((record) =>
+      publishableUseCases(record.content.useCases).map((useCase) => ({
+        path: `/solutions/${record.slug}/${useCase.slug}`,
+        updatedAt: record.updatedAt,
+      })),
+    ),
+  };
 }

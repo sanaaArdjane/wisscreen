@@ -636,3 +636,45 @@ export const siteSolutions = pgTable(
   },
   (t) => [uniqueIndex("site_solutions_slug_idx").on(t.slug)],
 );
+
+/**
+ * The blog — articles the desk writes, the only part of the public site that grows.
+ *
+ * Shaped like `site_solutions` on purpose: the columns are what is **queried, sorted,
+ * uniqued or joined**, and everything else is one `content` jsonb validated by
+ * `PostContentSchema`. That split is not a style preference — it is what lets the
+ * existing admin machinery (`SpecForm` over a `Field[]`, one JSON string posted to a
+ * server action) drive this table without a bespoke form. Nothing queries by title,
+ * so the title is not a column.
+ *
+ * `publishedAt` is separate from `createdAt` deliberately: it is the date shown to
+ * readers, the one in `datePublished`, and the sort key. It has to be editable — to
+ * back-date a migrated article — without lying about when the row was created.
+ *
+ * `updatedAt` is `dateModified` **and** the sitemap's `lastModified`. Note it has no
+ * `$onUpdate`: like `saveBlock` and `saveSolution`, the action sets it by hand. An
+ * action that forgets freezes every article's date at creation — which is the exact
+ * bug the sitemap work just finished removing.
+ */
+export const sitePosts = pgTable(
+  "site_posts",
+  {
+    id: serial("id").primaryKey(),
+    /** URL segment. Frozen once published: changing it 404s an indexed URL. */
+    slug: text("slug").notNull(),
+    published: boolean("published").default(false).notNull(),
+    /** Null until the first publication. */
+    publishedAt: timestamp("published_at"),
+    /** `PostContentSchema` — see `lib/content/schema.ts`. */
+    content: jsonb("content").notNull(),
+    /** A real staff account, so the byline can't rot into a free-text name. */
+    authorId: text("author_id").references(() => user.id, { onDelete: "set null" }),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+    updatedAt: timestamp("updated_at").defaultNow().notNull(),
+    updatedById: text("updated_by_id").references(() => user.id, { onDelete: "set null" }),
+  },
+  (t) => [
+    uniqueIndex("site_posts_slug_idx").on(t.slug),
+    index("site_posts_published_idx").on(t.published, t.publishedAt),
+  ],
+);
