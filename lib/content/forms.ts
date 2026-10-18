@@ -16,8 +16,11 @@ import type { BlockKey, SectionKey } from "./schema";
 /* ───────────────────────────── Locations ───────────────────────────── */
 
 export type Where = {
-  /** `solution` resolves to the solution page being edited (`/solutions/<slug>`). */
-  page: "home" | "solution" | "everywhere";
+  /**
+   * `solution` and `blog` resolve to the page being edited (`/solutions/<slug>`,
+   * `/blog/<slug>`); the others are fixed.
+   */
+  page: "home" | "solution" | "blog" | "everywhere";
   /** The section as the visitor sees it — its French title or a plain description. */
   section: string;
   /** Which element within the section. */
@@ -39,6 +42,12 @@ const sol = (section: string, anchor: string, detail?: string, size?: string): W
   page: "solution",
   section,
   anchor,
+  detail,
+  size,
+});
+const post = (section: string, detail?: string, size?: string): Where => ({
+  page: "blog",
+  section,
   detail,
   size,
 });
@@ -64,7 +73,7 @@ export type Field =
   | (Base & { kind: "icon" })
   | (Base & { kind: "asset"; accept: "image" | "video" | "media" })
   | (Base & { kind: "select"; options: Option[] | "solutions" })
-  | (Base & { kind: "multiselect"; options: Option[] })
+  | (Base & { kind: "multiselect"; options: Option[] | "solutions" })
   | (Base & { kind: "cards"; options: Option[] })
   | (Base & { kind: "group"; fields: Field[] })
   | (Base & {
@@ -1091,7 +1100,166 @@ export const BLOCK_FORMS: Partial<Record<BlockKey, Field[]>> = {
 /** Resolve a location to a URL on the public site. */
 export function whereHref(where: Where, slug?: string): string | null {
   if (where.page === "everywhere") return "/";
-  const base = where.page === "solution" ? (slug ? `/solutions/${slug}` : null) : "/";
+  const base =
+    where.page === "solution"
+      ? slug
+        ? `/solutions/${slug}`
+        : null
+      : where.page === "blog"
+        ? slug
+          ? `/blog/${slug}`
+          : "/blog"
+        : "/";
   if (!base) return null;
   return where.anchor ? `${base}#${where.anchor}` : base;
 }
+
+/* ───────────────────────────── Blog ───────────────────────────── */
+
+/**
+ * One article. Everything the public page shows, in the order it shows it.
+ *
+ * The SEO group is the same five overrides as a solution's, re-declared rather than
+ * shared because the *locations* differ — and `where` is what makes these specs worth
+ * reading. The fallback chain behind them is the shared one (`lib/seo/metadata.ts`).
+ */
+export const POST_FORM: Field[] = [
+  {
+    kind: "text",
+    key: "title",
+    label: "Titre de l'article",
+    where: post("Haut de l'article", "Le grand titre, et le titre dans Google"),
+  },
+  {
+    kind: "text",
+    key: "excerpt",
+    label: "Accroche",
+    multiline: true,
+    rows: 3,
+    where: post("Haut de l'article et carte du blog", "Le paragraphe d'introduction, repris sur /blog"),
+    help: "Sert aussi de description dans Google si vous ne la remplissez pas plus bas. 120 à 160 caractères.",
+  },
+  {
+    kind: "text",
+    key: "category",
+    label: "Catégorie",
+    where: post("Carte du blog et fil d'Ariane", "La petite étiquette verte"),
+    help: "Vide : « Article ».",
+  },
+  {
+    kind: "asset",
+    key: "cover",
+    accept: "image",
+    label: "Image de couverture",
+    where: post("Haut de l'article et carte du blog", "La grande image sous le titre", "1600 × 900 px (16:9)"),
+    help: "Facultative : sans image, la carte affiche un dégradé.",
+  },
+  {
+    kind: "text",
+    key: "coverAlt",
+    label: "Description de l'image",
+    where: post("Haut de l'article", "Lu par les lecteurs d'écran, jamais affiché"),
+    help: "Décrivez ce que montre l'image. Laissez vide si elle est purement décorative.",
+    showIf: (parent) => Boolean(parent.cover),
+  },
+  {
+    kind: "text",
+    key: "body",
+    label: "Article",
+    multiline: true,
+    rows: 24,
+    where: post("Corps de l'article", "Tout le texte"),
+    help:
+      "Markdown : # pour un titre, ## pour un sous-titre, - pour une liste, **gras**, " +
+      "[texte](lien), et une ligne ![description](/media/…) pour une image.",
+  },
+  {
+    kind: "strings",
+    key: "tags",
+    itemLabel: "mot-clé",
+    label: "Mots-clés",
+    max: 8,
+    where: post("Bas de l'article", "Les étiquettes sous le texte"),
+  },
+  {
+    kind: "multiselect",
+    key: "relatedSolutions",
+    label: "Solutions liées",
+    options: "solutions",
+    where: post("Bas de l'article", "Le bloc « La solution dont parle cet article »"),
+    help: "L'article pointe vers ces pages, et elles peuvent pointer vers lui.",
+  },
+  {
+    kind: "list",
+    key: "faq",
+    itemLabel: "question",
+    titleKey: "question",
+    max: 10,
+    label: "Questions fréquentes",
+    where: post("Bas de l'article", "La section dépliante « Questions fréquentes »"),
+    help:
+      "Une réponse courte et autonome par question : c'est le format que Google et les " +
+      "assistants (ChatGPT, Claude, Perplexity) savent citer tel quel.",
+    empty: { question: "", answer: "" },
+    fields: [
+      { kind: "text", key: "question", label: "Question", where: post("Questions fréquentes", "L'intitulé replié") },
+      {
+        kind: "text",
+        key: "answer",
+        label: "Réponse",
+        multiline: true,
+        rows: 4,
+        where: post("Questions fréquentes", "Le texte déplié"),
+      },
+    ],
+  },
+  {
+    kind: "group",
+    key: "seo",
+    label: "Référencement de cet article",
+    where: post("Google et partages", "Comment l'article apparaît hors du site"),
+    help: "Tout est facultatif : laissé vide, chaque champ reprend le texte de l'article.",
+    fields: [
+      {
+        kind: "text",
+        key: "title",
+        label: "Titre dans Google",
+        where: post("Google et onglet du navigateur", "Le titre cliquable dans les résultats"),
+        help: "Vide : le titre de l'article. Idéalement moins de 60 caractères.",
+      },
+      {
+        kind: "text",
+        key: "description",
+        label: "Description dans Google",
+        multiline: true,
+        rows: 3,
+        where: post("Google et aperçus de partage", "Le texte sous le titre, et sur LinkedIn / WhatsApp"),
+        help: "Vide : l'accroche de l'article.",
+      },
+      {
+        kind: "asset",
+        key: "ogImage",
+        accept: "image",
+        label: "Image de partage",
+        where: post("Partages sur les réseaux", "La vignette quand le lien est collé quelque part", "1200 × 630"),
+      },
+      {
+        kind: "text",
+        key: "canonical",
+        label: "URL canonique",
+        mono: true,
+        placeholder: "/blog/…",
+        where: post("Code source", "L'adresse de référence déclarée aux moteurs"),
+        help:
+          "À ne remplir que si cet article existe en double ailleurs et que l'autre fait foi. " +
+          "Mal réglée, elle fait disparaître la page des résultats.",
+      },
+      {
+        kind: "toggle",
+        key: "noindex",
+        label: "Retirer cet article des moteurs de recherche",
+        where: post("Code source", "L'article reste en ligne et accessible par lien, mais sort des résultats"),
+      },
+    ],
+  },
+];

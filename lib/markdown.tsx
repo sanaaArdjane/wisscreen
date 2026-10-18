@@ -15,6 +15,24 @@ import { Fragment, type ReactNode } from "react";
 
 const LINK_OK = /^(https?:\/\/|mailto:|\/(?!\/))/i;
 
+/**
+ * A heading's anchor id, from its own text.
+ *
+ * Deep links into an article (`/blog/mon-article#le-cout-reel`) and any table of
+ * contents both need one, and deriving it from the text keeps it stable as long as
+ * the wording is — which is the right trade: a renamed heading *should* break its
+ * old anchor rather than silently point somewhere else.
+ */
+export function slugifyHeading(text: string): string {
+  return text
+    .normalize("NFD")
+    .replace(/[̀-ͯ]/g, "") // accents: "coût" and "cout" must not differ
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, 80);
+}
+
 function inline(text: string, keyBase: string): ReactNode[] {
   const out: ReactNode[] = [];
   // Order matters: code first, so `**` inside backticks stays literal.
@@ -64,7 +82,22 @@ function inline(text: string, keyBase: string): ReactNode[] {
   return out;
 }
 
-export function Markdown({ source }: { source: string }) {
+export function Markdown({
+  source,
+  headingOffset = 2,
+}: {
+  source: string;
+  /**
+   * How far `#` sits below the page's own `<h1>`.
+   *
+   * Demo instructions are rendered inside a card that already has a heading or two
+   * above them, so `#` becomes `<h3>` — the default. An article's body is the page's
+   * main content and its `#` should be an `<h2>`, so the blog passes `1`. Getting
+   * this wrong doesn't look different; it just leaves a hole in the outline, which is
+   * precisely the kind of thing nobody notices and a crawler does.
+   */
+  headingOffset?: number;
+}) {
   const lines = source.replace(/\r\n?/g, "\n").split("\n");
   const blocks: ReactNode[] = [];
   let i = 0;
@@ -104,13 +137,41 @@ export function Markdown({ source }: { source: string }) {
           : level === 2
             ? "text-lg font-[650] text-fg"
             : "text-base font-[650] text-fg";
-      const Tag = (`h${level + 2}` as "h3" | "h4" | "h5");
+      const Tag = `h${Math.min(level + headingOffset, 6)}` as "h2" | "h3" | "h4" | "h5" | "h6";
       blocks.push(
-        <Tag key={key} className={cls}>
+        <Tag key={key} id={slugifyHeading(heading[2])} className={cls}>
           {inline(heading[2], key)}
         </Tag>,
       );
       i++;
+      continue;
+    }
+
+    /*
+     * A line that is nothing but an image.
+     *
+     * Rendered as a plain `<img>` rather than `next/image`, deliberately: Markdown
+     * carries no dimensions, and `next/image` needs them. Inventing a ratio to satisfy
+     * it would trade unoptimised bytes for layout shift on every article — the worse
+     * of the two, and the one Google actually scores. Images uploaded through the
+     * editor go to `/media/<id>`, which already serves them immutable and cached.
+     */
+    const image = /^!\[([^\]]*)\]\(([^)\s]+)\)$/.exec(line.trim());
+    if (image) {
+      const [, alt, src] = image;
+      i++;
+      if (!LINK_OK.test(src)) continue; // same filter as links: no javascript: URLs
+      blocks.push(
+        // eslint-disable-next-line @next/next/no-img-element -- see the note above
+        <img
+          key={key}
+          src={src}
+          alt={alt}
+          loading="lazy"
+          decoding="async"
+          className="w-full rounded-2xl"
+        />,
+      );
       continue;
     }
 
@@ -157,7 +218,7 @@ export function Markdown({ source }: { source: string }) {
     while (
       i < lines.length &&
       lines[i].trim() !== "" &&
-      !/^(#{1,3}\s|```|>|\s*[-*]\s+|\s*\d+[.)]\s+)/.test(lines[i])
+      !/^(#{1,3}\s|```|>|!\[[^\]]*\]\(|\s*[-*]\s+|\s*\d+[.)]\s+)/.test(lines[i])
     ) {
       para.push(lines[i++]);
     }

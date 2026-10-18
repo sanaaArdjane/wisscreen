@@ -147,3 +147,58 @@ export function faqSchema(faq: { question: string; answer: string }[]) {
     })),
   };
 }
+
+/** A breadcrumb trail from any list of (name, path) pairs. Paths, absolutised here. */
+export function breadcrumbTrail(items: { name: string; path: string }[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.name,
+      item: `${SITE_URL}${item.path}`,
+    })),
+  };
+}
+
+/**
+ * One article.
+ *
+ * `headline` is capped at 110 characters because Google documents that limit and
+ * silently drops the whole object past it — a long title would cost the article its
+ * rich result rather than just truncating it.
+ *
+ * `author` is a `Person` only when the joined staff account actually has a name; an
+ * article with no author falls back to the organisation, which is true rather than
+ * invented. `publisher` points at the shared `@id` instead of re-describing the
+ * company, so every page's markup adds to one entity.
+ */
+export function blogPostingSchema(post: {
+  slug: string;
+  title: string;
+  excerpt: string;
+  cover?: string;
+  publishedAt: Date | null;
+  updatedAt: Date;
+  authorName: string | null;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.title.slice(0, 110),
+    description: post.excerpt,
+    url: `${SITE_URL}/blog/${post.slug}`,
+    mainEntityOfPage: `${SITE_URL}/blog/${post.slug}`,
+    inLanguage: "fr",
+    ...(filled(post.cover)
+      ? { image: post.cover.startsWith("http") ? post.cover : `${SITE_URL}${post.cover}` }
+      : {}),
+    ...(post.publishedAt ? { datePublished: post.publishedAt.toISOString() } : {}),
+    dateModified: post.updatedAt.toISOString(),
+    author: filled(post.authorName)
+      ? { "@type": "Person", name: post.authorName }
+      : { "@id": ORGANIZATION_ID },
+    publisher: { "@id": ORGANIZATION_ID },
+  };
+}

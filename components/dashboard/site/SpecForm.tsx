@@ -218,6 +218,7 @@ function FieldRow({
     }
 
     case "multiselect": {
+      const options = field.options === "solutions" ? ctx.solutions : field.options;
       const selected = new Set(Array.isArray(value) ? (value as string[]) : []);
       return (
         <fieldset className="flex flex-col gap-1.5">
@@ -225,7 +226,7 @@ function FieldRow({
             <Label field={field} />
           </legend>
           <div className="flex flex-wrap gap-2">
-            {field.options.map((o) => {
+            {options.map((o) => {
               const on = selected.has(o.value);
               return (
                 <button
@@ -236,7 +237,7 @@ function FieldRow({
                     const next = new Set(selected);
                     if (on) next.delete(o.value);
                     else next.add(o.value);
-                    onChange(field.options.map((x) => x.value).filter((v) => next.has(v)));
+                    onChange(options.map((x) => x.value).filter((v) => next.has(v)));
                   }}
                   className={cn(
                     "rounded-full px-3.5 py-1.5 text-sm font-[650] ring-1 transition-colors",

@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { getSitemapEntries } from "@/lib/content";
+import { getPostPage, getPosts } from "@/lib/content/posts";
 import { SITE_URL } from "@/lib/site";
 
 /**
@@ -21,6 +22,10 @@ const BUILT_AT = new Date();
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const { home, solutions } = await getSitemapEntries();
+  const posts = await getPosts();
+  // The paginated index pages are listed too: they are the only crawl path to an
+  // article that has fallen off page 1, and each is canonical to itself.
+  const { pageCount } = await getPostPage(1);
 
   return [
     {
@@ -34,6 +39,24 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: solution.updatedAt ?? BUILT_AT,
       changeFrequency: "monthly" as const,
       priority: 0.8,
+    })),
+    {
+      url: `${SITE_URL}/blog`,
+      lastModified: posts[0]?.updatedAt ?? BUILT_AT,
+      changeFrequency: "weekly",
+      priority: 0.7,
+    },
+    ...Array.from({ length: Math.max(0, pageCount - 1) }, (_, i) => ({
+      url: `${SITE_URL}/blog/page/${i + 2}`,
+      lastModified: posts[0]?.updatedAt ?? BUILT_AT,
+      changeFrequency: "weekly" as const,
+      priority: 0.3,
+    })),
+    ...posts.map((post) => ({
+      url: `${SITE_URL}/blog/${post.slug}`,
+      lastModified: post.updatedAt,
+      changeFrequency: "monthly" as const,
+      priority: 0.6,
     })),
   ];
 }

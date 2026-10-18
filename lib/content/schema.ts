@@ -319,6 +319,34 @@ export const SolutionContentSchema = z.object({
   seo: SeoSchema,
 });
 
+/* ───────────────────────────── Blog ───────────────────────────── */
+
+/**
+ * One article's editable payload — everything in `site_posts.content`.
+ *
+ * `relatedSolutions` is the piece that earns its place: it makes internal linking
+ * **structural** instead of hoping the author remembers to type a link. The article
+ * renders links down to the solutions it argues for, and each solution page renders
+ * the articles that point at it — both directions from one field.
+ *
+ * `faq` reuses `faqSchema()` verbatim and is the easiest rich result a how-to gets.
+ */
+export const PostContentSchema = z.object({
+  title: text(140),
+  /** Card copy, and the meta-description fallback. */
+  excerpt: longText(400),
+  cover: AssetSchema,
+  coverAlt: text(200),
+  category: text(60),
+  tags: z.array(text(40)).max(8),
+  /** Markdown, rendered by `lib/markdown.tsx` — never as an HTML string. */
+  body: longText(60_000),
+  relatedSolutions: z.array(SlugSchema).max(4),
+  faq: z.array(z.object({ question: text(300), answer: longText(2000) })).max(10),
+  seo: SeoSchema,
+});
+export type PostContent = z.infer<typeof PostContentSchema>;
+
 /** A solution's media — `lib/data/media.ts`, one entry. Empty string = unset. */
 export const SolutionMediaSchema = z.object({
   site: AssetSchema,

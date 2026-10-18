@@ -5,6 +5,7 @@ import type {
   FooterContent,
   GeneralContent,
   HeroContent,
+  PostContent,
   SectionsContent,
   SeoContent,
   SiteContent,
@@ -90,7 +91,7 @@ export const DEFAULT_FOOTER: FooterContent = {
         { label: "À propos de WICLOUD", href: "#values" },
         { label: "Nos engagements", href: "#commitment" },
         { label: "Carrières", href: "#" },
-        { label: "Actualités", href: "#" },
+        { label: "Blog", href: "/blog" },
       ],
     },
     {
@@ -457,6 +458,28 @@ export const DEFAULT_SITE_CONTENT: SiteContent = {
  */
 export function blankSeo(): SeoContent {
   return { title: "", description: "", ogImage: "", canonical: "", noindex: false };
+}
+
+/**
+ * A new, empty article.
+ *
+ * There is no `DEFAULT_POSTS`: unlike a solution, an article that was never written
+ * has nothing to fall back to, so the blog's "default" is an empty list. See
+ * `lib/content/posts.ts`.
+ */
+export function blankPost(title: string): PostContent {
+  return {
+    title,
+    excerpt: "",
+    cover: "",
+    coverAlt: "",
+    category: "",
+    tags: [],
+    body: "",
+    relatedSolutions: [],
+    faq: [],
+    seo: blankSeo(),
+  };
 }
 
 export function toSolutionContent(service: Service): SolutionContent {
