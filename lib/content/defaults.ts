@@ -6,6 +6,7 @@ import type {
   GeneralContent,
   HeroContent,
   SectionsContent,
+  SeoContent,
   SiteContent,
   SolutionContent,
   SolutionMediaContent,
@@ -48,6 +49,8 @@ export const DEFAULT_GENERAL: GeneralContent = {
   },
   socials: { linkedin: "", facebook: "", instagram: "", x: "", youtube: "", tiktok: "" },
   verification: { google: "", bing: "" },
+  ogImage: "",
+  noindex: false,
 };
 
 export const DEFAULT_HERO: HeroContent = {
@@ -445,6 +448,17 @@ export const DEFAULT_SITE_CONTENT: SiteContent = {
 /* ───────────────────────────── Default solutions ───────────────────────────── */
 
 /** A `services.ts` entry as the editable content shape (no media-derived fields). */
+/**
+ * An empty `seo` block: every field unset, so every field falls back.
+ *
+ * It is a function and not a shared constant because each caller stores its own copy
+ * in a different row — handing them all the same object would let one solution's edit
+ * surface on another before anything is saved.
+ */
+export function blankSeo(): SeoContent {
+  return { title: "", description: "", ogImage: "", canonical: "", noindex: false };
+}
+
 export function toSolutionContent(service: Service): SolutionContent {
   return {
     slug: service.slug,
@@ -468,6 +482,10 @@ export function toSolutionContent(service: Service): SolutionContent {
     },
     team: service.team,
     highlightVariant: service.highlightVariant ?? "cards",
+    // The code defaults never override their own metadata: a solution shipped in
+    // `services.ts` has no SEO copy distinct from its editorial copy until someone
+    // writes one in /admin/site.
+    seo: blankSeo(),
   };
 }
 
@@ -541,6 +559,7 @@ export function blankSolution(slug: string, name: string): { content: SolutionCo
       },
       team: "",
       highlightVariant: "cards",
+      seo: blankSeo(),
     },
     media: toMediaContent(undefined),
   };

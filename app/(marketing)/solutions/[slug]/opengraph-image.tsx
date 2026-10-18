@@ -1,11 +1,15 @@
 import { ImageResponse } from "next/og";
 import { getSolution, getSolutions } from "@/lib/content";
-import { SITE_NAME } from "@/lib/site";
+import { SITE_NAME, SITE_URL } from "@/lib/site";
 
 /** One share-card image per solution — same orbit motif and ground as the root
  *  `opengraph-image.tsx`, with that solution's own name/category/tagline. */
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
+
+/** Reads editable content, so it cannot stay frozen on the build. Same reasoning as
+ *  `app/manifest.ts`: a file-convention route has no cache tag for `updateTag` to hit. */
+export const revalidate = 3600;
 
 export async function generateStaticParams() {
   return (await getSolutions()).map((service) => ({ slug: service.slug }));
@@ -18,6 +22,30 @@ export default async function Image({
 }) {
   const { slug } = await params;
   const service = await getSolution(slug);
+
+  /*
+   * A custom share card is served **from here**, not declared in `generateMetadata`.
+   *
+   * Next's file convention and an explicit `openGraph.images` do not replace one
+   * another — it emits both, and the page ships two `og:image` tags for scrapers to
+   * disagree over. Serving the owner's image as this route's response keeps exactly
+   * one tag, pointing at exactly one URL, whichever image is behind it.
+   */
+  const custom = service?.seo?.ogImage;
+  if (custom) {
+    const url = custom.startsWith("http") ? custom : `${SITE_URL}${custom}`;
+    const upstream = await fetch(url);
+    // A broken link falls through to the generated card rather than to a dead image.
+    if (upstream.ok) {
+      return new Response(upstream.body, {
+        headers: {
+          "Content-Type": upstream.headers.get("content-type") ?? "image/png",
+          "Cache-Control": "public, max-age=3600",
+        },
+      });
+    }
+  }
+
   const name = service?.name ?? SITE_NAME;
   const category = service?.category ?? "";
   const tagline = service?.tagline ?? "";

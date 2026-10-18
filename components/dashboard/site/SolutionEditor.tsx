@@ -10,6 +10,7 @@ import {
   SOLUTION_CONTENT_FORM,
   SOLUTION_IDENTITY_FORM,
   SOLUTION_LAYOUT_FORM,
+  SOLUTION_SEO_FORM,
   SOLUTION_MEDIA_FORM,
   type Option,
   type Where,
@@ -20,18 +21,20 @@ import { SpecForm, SpecProvider } from "./SpecForm";
 import { FieldHint } from "./FieldHint";
 import { MediaField } from "./MediaField";
 
-type Tab = "identite" | "contenu" | "medias" | "mise-en-page";
+type Tab = "identite" | "contenu" | "medias" | "mise-en-page" | "referencement";
 const TABS: [Tab, string][] = [
   ["identite", "Identité"],
   ["contenu", "Contenu"],
   ["medias", "Médias"],
   ["mise-en-page", "Mise en page"],
+  ["referencement", "Référencement"],
 ];
 
 /** Which tab a server error path belongs to, so a failed save opens the right one. */
 function tabOf(path: string): Tab {
   if (path.startsWith("media.") || path.startsWith("content.media")) return "medias";
   if (path === "content.highlightVariant") return "mise-en-page";
+  if (path.startsWith("content.seo")) return "referencement";
   const key = path.split(".")[1] ?? "";
   if (SOLUTION_CONTENT_FORM.some((f) => f.key === key)) return "contenu";
   return "identite";
@@ -137,6 +140,7 @@ export function SolutionEditor({
           {tab === "identite" && <SpecForm fields={SOLUTION_IDENTITY_FORM} value={content} onChange={setC} />}
           {tab === "contenu" && <SpecForm fields={SOLUTION_CONTENT_FORM} value={content} onChange={setC} />}
           {tab === "mise-en-page" && <SpecForm fields={SOLUTION_LAYOUT_FORM} value={content} onChange={setC} />}
+          {tab === "referencement" && <SpecForm fields={SOLUTION_SEO_FORM} value={content} onChange={setC} />}
         </SpecProvider>
 
         {tab === "medias" && (

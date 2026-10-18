@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { getSiteContent } from "@/lib/content";
 import { SITE_URL } from "@/lib/site";
 
 /**
@@ -56,7 +57,20 @@ const ANSWER_ENGINE_CRAWLERS = ["OAI-SearchBot", "ClaudeBot", "PerplexityBot", "
  */
 const TRAINING_CRAWLERS = ["GPTBot", "Google-Extended", "CCBot", "anthropic-ai"];
 
-export default function robots(): MetadataRoute.Robots {
+/** Reads editable content, so it cannot be left frozen on the build. Same reasoning as
+ *  `app/manifest.ts`: a file-convention route has no cache tag for `updateTag` to hit. */
+export const revalidate = 3600;
+
+export default async function robots(): Promise<MetadataRoute.Robots> {
+  const { general } = await getSiteContent();
+
+  /* The sitewide brake. A `noindex` meta tag asks politely for removal next crawl;
+     this stops the crawl outright. Both are needed, and both come from the same
+     switch in /admin/site. */
+  if (general.noindex) {
+    return { rules: { userAgent: "*", disallow: "/" }, host: SITE_URL };
+  }
+
   const allowPublic = (userAgent: string | string[]) => ({
     userAgent,
     allow: "/",

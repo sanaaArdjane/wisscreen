@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getSolution, getSolutions } from "@/lib/content";
+import { getSiteContent, getSolution, getSolutions } from "@/lib/content";
+import { resolveSeo } from "@/lib/seo/metadata";
 import { JsonLd } from "@/components/seo/JsonLd";
 import {
   breadcrumbSchema,
@@ -38,22 +39,35 @@ export async function generateMetadata({
   const service = await getSolution(slug);
   if (!service) return {};
 
+  const { general } = await getSiteContent();
+
+  /* `seo.ogImage` is deliberately absent from what follows: a custom share card is
+     served by this route's own opengraph-image.tsx. Declaring `openGraph.images` here
+     would *add* a second og:image rather than replace the generated one. */
+  const { title, description, canonical, robots } = resolveSeo({
+    seo: service.seo,
+    fallbackTitle: service.name,
+    fallbackDescription: service.heroDescription,
+    path: `/solutions/${service.slug}`,
+    siteNoindex: general.noindex,
+  });
   const path = `/solutions/${service.slug}`;
-  const title = service.name;
-  const description = service.heroDescription;
 
   return {
     title,
     description,
-    keywords: [service.name, service.category, service.tagline, "WICLOUD"],
-    alternates: { canonical: path },
+    keywords: [service.name, service.category, service.tagline, general.siteName || "WICLOUD"],
+    alternates: { canonical },
+    ...(robots ? { robots } : {}),
     openGraph: {
       type: "website",
       url: path,
       title,
       description,
       // images omitted on purpose — this route's own opengraph-image.tsx attaches
-      // automatically, same reasoning as the root layout.
+      // automatically, same reasoning as the root layout. Setting `images` here would
+      // *add* a second og:image rather than replace the generated one, which is why
+      // a custom `seo.ogImage` is served by that file instead of declared here.
     },
     twitter: {
       card: "summary_large_image",

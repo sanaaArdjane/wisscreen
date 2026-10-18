@@ -55,17 +55,22 @@ export async function generateMetadata(): Promise<Metadata> {
     },
     // Full-width, unclipped preview snippets/images — the opposite of Google's default
     // caps, which is worth opting out of for a marketing site that wants rich results.
-    robots: {
-      index: true,
-      follow: true,
-      googleBot: {
-        index: true,
-        follow: true,
-        "max-image-preview": "large",
-        "max-snippet": -1,
-        "max-video-preview": -1,
-      },
-    },
+    /* `general.noindex` is the sitewide brake from /admin/site. It flips the meta tag
+       here *and* `app/robots.ts` to `disallow: /` — the tag alone would leave pages
+       already in the index sitting there until they happen to be re-crawled. */
+    robots: general.noindex
+      ? { index: false, follow: false }
+      : {
+          index: true,
+          follow: true,
+          googleBot: {
+            index: true,
+            follow: true,
+            "max-image-preview": "large",
+            "max-snippet": -1,
+            "max-video-preview": -1,
+          },
+        },
     openGraph: {
       type: "website",
       locale: SITE_LOCALE,

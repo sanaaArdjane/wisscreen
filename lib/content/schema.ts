@@ -89,6 +89,18 @@ export const GeneralSchema = z.object({
     google: text(120),
     bing: text(120),
   }),
+  /** Share card for the homepage. Empty = the generated `app/opengraph-image.tsx`. */
+  ogImage: AssetSchema,
+  /**
+   * The emergency brake: takes the whole public site out of the search indexes.
+   *
+   * It exists because this is the one thing an owner needs at two in the morning —
+   * a price published by mistake, a client named before their contract is signed —
+   * and without it the only remedy is a code change and a deploy. It drives both the
+   * `robots` meta tag and `robots.txt`, because a meta tag alone leaves pages that
+   * are already indexed in place until they are re-crawled.
+   */
+  noindex: z.boolean(),
 });
 
 export const HERO_MODES = ["earth", "stack", "image", "video", "slides"] as const;
@@ -261,6 +273,26 @@ const Audience = z.enum(["banques", "partenaires", "particuliers", "entreprises"
 const Palette = z.enum(["teal", "aqua", "steel"]);
 const MediaSlotKind = z.enum(["mock-dashboard", "mock-scan", "mock-chart", "video-slot", "image-slot"]);
 
+/**
+ * Overrides for one page's search and share metadata.
+ *
+ * Every field empty means "fall back to the editorial copy", which is the right answer
+ * most of the time: a hero paragraph written to convince a human usually also reads
+ * well in a result page. The override exists for the cases where it doesn't — a hero
+ * that opens on a question, say, or one too long for the ~160 characters Google shows.
+ *
+ * Shared by solutions, use-case pages and blog posts: the fallback chain differs per
+ * page type but the fields never do, and a second shape would drift from this one.
+ */
+export const SeoSchema = z.object({
+  title: text(70),
+  description: longText(320),
+  ogImage: AssetSchema,
+  canonical: HrefSchema,
+  noindex: z.boolean(),
+});
+export type SeoContent = z.infer<typeof SeoSchema>;
+
 /** A solution's copy and structure — `lib/data/services.ts`, one entry. */
 export const SolutionContentSchema = z.object({
   slug: SlugSchema,
@@ -284,6 +316,7 @@ export const SolutionContentSchema = z.object({
   }),
   team: text(200),
   highlightVariant: z.enum(["cards", "cards-gif", "image"]),
+  seo: SeoSchema,
 });
 
 /** A solution's media — `lib/data/media.ts`, one entry. Empty string = unset. */

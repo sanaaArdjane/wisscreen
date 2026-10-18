@@ -124,6 +124,15 @@ export interface SubProject {
   description: string;
 }
 
+/** Overrides for a page's search and share metadata. Mirrors `SeoSchema`. */
+export interface SeoOverrides {
+  title: string;
+  description: string;
+  ogImage: string;
+  canonical: string;
+  noindex: boolean;
+}
+
 export interface Service {
   slug: string;
   name: string;
@@ -142,6 +151,17 @@ export interface Service {
   subProjects?: SubProject[];
   media: { hero: MediaSlot; gallery: MediaSlot[] };
   team: string;
+  /**
+   * Per-page overrides for the search and share metadata, edited in
+   * /admin/site → Solutions → Référencement. Every field is `""` (or `false`) until
+   * someone writes one, and `generateMetadata` falls back to the editorial copy —
+   * the fallback chain is documented where it is read, not here.
+   *
+   * Optional on the type because `RAW_SERVICES` in `lib/data/services.ts` is written
+   * by hand and has no business carrying empty SEO objects; `toSolutionContent()`
+   * fills it in when a code default is turned into editable content.
+   */
+  seo?: SeoOverrides;
   /* ─────────────────────────────────────────────────────────────────────────────────────
      Everything below is media, and **none of it is set in `lib/data/services.ts`**: the
      values live in `lib/data/media.ts` and are copied onto the service by `withMedia`. The

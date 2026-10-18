@@ -941,6 +941,68 @@ export const SOLUTION_LAYOUT_FORM: Field[] = [
   },
 ];
 
+/**
+ * The « Référencement » tab of a solution.
+ *
+ * Every field here is an **override**, and the help text says what it overrides —
+ * because the honest default for all of them is "leave it empty". The editorial copy
+ * was written to convince a human and usually reads perfectly well in a result page;
+ * these exist for the cases where it doesn't.
+ */
+export const SOLUTION_SEO_FORM: Field[] = [
+  {
+    kind: "group",
+    key: "seo",
+    label: "Référencement de cette page",
+    where: sol("Google et partages", "", "Comment cette page apparaît hors du site"),
+    help: "Tout est facultatif : laissé vide, chaque champ reprend le texte de la page.",
+    fields: [
+      {
+        kind: "text",
+        key: "title",
+        label: "Titre dans Google",
+        where: sol("Google et onglet du navigateur", "", "Le titre cliquable dans les résultats"),
+        help: "Vide : le nom de la solution. Idéalement moins de 60 caractères.",
+      },
+      {
+        kind: "text",
+        key: "description",
+        label: "Description dans Google",
+        multiline: true,
+        rows: 3,
+        where: sol("Google et aperçus de partage", "", "Le texte sous le titre, et sur LinkedIn / WhatsApp"),
+        help: "Vide : le texte d'accroche du hero. Idéalement entre 120 et 160 caractères.",
+      },
+      {
+        kind: "asset",
+        key: "ogImage",
+        accept: "image",
+        label: "Image de partage",
+        where: sol("Partages sur les réseaux", "", "La vignette quand le lien est collé quelque part", "1200 × 630"),
+        help: "Vide : une image est générée avec le nom et la signature de la solution.",
+      },
+      {
+        kind: "text",
+        key: "canonical",
+        label: "URL canonique",
+        mono: true,
+        placeholder: "/solutions/…",
+        where: sol("Code source", "", "L'adresse de référence déclarée aux moteurs"),
+        help:
+          "À ne remplir que si cette page existe en double ailleurs et que l'autre fait foi. " +
+          "Mal réglée, elle fait disparaître la page des résultats.",
+      },
+      {
+        kind: "toggle",
+        key: "noindex",
+        label: "Retirer cette page des moteurs de recherche",
+        where: sol("Code source", "", "La page reste en ligne et accessible par lien, mais sort des résultats"),
+        help: "Les liens internes restent suivis : la page sort des résultats sans isoler le reste du site.",
+      },
+    ],
+  },
+];
+
 export const SOLUTION_MEDIA_FORM: Field[] = [
   {
     kind: "asset",
