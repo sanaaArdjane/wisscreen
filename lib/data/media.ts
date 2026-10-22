@@ -230,6 +230,14 @@ export const SOLUTION_MEDIA: Record<string, SolutionMedia> = {
 
 export const HOME_MEDIA = {
   /**
+   * The logo in the navbar and footer, on a transparent ground (`components/layout/Logo.tsx`).
+   * Cut out of `sety-corp.jpg`; `logoLight` is the same artwork with the dark half of the
+   * wordmark turned white, for the dark bar and the footer. 579 × 171 px.
+   */
+  logo: "/photos/sety-corp.png" as Asset,
+  logoLight: "/photos/sety-corp-light.png" as Asset,
+
+  /**
    * The full-bleed clip in `UniverseReveal` — the footage the headline "WICLOUD" is
    * clipped out of, so it ends up being the *fill of display type on white*. That puts a
    * real constraint on any replacement: it has to stay dark enough to hold 3:1 against

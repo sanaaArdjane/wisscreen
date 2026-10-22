@@ -5,19 +5,18 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/cn";
 import { Icon } from "@/components/ui/Icon";
+import { Logo } from "@/components/layout/Logo";
 import type { NavContent } from "@/lib/content/schema";
 
 /**
  * The menu comes from `/admin/site/navigation` (the `nav` block), so an entry is plain
  * data: a label, a link, and optionally a dropdown of children.
  */
-export function Navbar({ items, brand }: { items: NavContent["items"]; brand: string }) {
+export function Navbar({ items, brand, logo }: { items: NavContent["items"]; brand: string; logo: { src: string; light: string } }) {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   // Index of the dropdown showing on desktop. One at a time; hover and keyboard focus both open it.
   const [menu, setMenu] = useState<number | null>(null);
-  // The wordmark splits in two so its second half can carry the accent, whatever the name is.
-  const cut = Math.ceil(brand.length / 2);
 
   // Which colour family the bar wears. It follows the page's opening ground, not the
   // scroll: the homepage hero is light, every other page opens on `section-ink`. Scroll
@@ -69,9 +68,8 @@ export function Navbar({ items, brand }: { items: NavContent["items"]; brand: st
               ),
         )}
       >
-        <Link href="/" className="text-lg font-semibold uppercase tracking-[0.14em] md:text-xl">
-          {brand.slice(0, cut)}
-          <span className="text-accent">{brand.slice(cut)}</span>
+        <Link href="/" aria-label={brand}>
+          <Logo logo={logo} name={brand} onDark={dark} />
         </Link>
 
         <ul className="hidden items-center gap-6 text-sm font-medium md:flex lg:gap-8">

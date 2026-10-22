@@ -1,3 +1,4 @@
+import { Logo } from "@/components/layout/Logo";
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { Icon } from "@/components/ui/Icon";
@@ -13,7 +14,9 @@ export function Footer({
   footer,
   general,
   solutions,
+  logo,
 }: {
+  logo: { src: string; light: string };
   footer: FooterContent;
   general: GeneralContent;
   solutions: { slug: string; name: string }[];
@@ -27,9 +30,7 @@ export function Footer({
       <Container className="py-16">
         <div className="grid grid-cols-2 gap-10 md:grid-cols-5">
           <div className="col-span-2 flex flex-col gap-5">
-            <p className="text-sm font-semibold uppercase tracking-[0.14em]">
-              WI<span className="text-aqua">CLOUD</span>
-            </p>
+            <Logo logo={logo} name={general.siteName} onDark />
             {footer.blurb && <p className="max-w-xs text-sm leading-relaxed text-paper/75">{footer.blurb}</p>}
 
             {(contact.email || contact.phone || contact.address) && (

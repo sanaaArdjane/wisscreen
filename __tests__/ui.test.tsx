@@ -302,7 +302,7 @@ describe("isRemote (LoadingImage helper)", () => {
 });
 
 const renderFooter = () =>
-  render(<Footer footer={DEFAULT_FOOTER} general={DEFAULT_GENERAL} solutions={SERVICES} />);
+  render(<Footer logo={{ src: "/l.png", light: "/l.png" }} footer={DEFAULT_FOOTER} general={DEFAULT_GENERAL} solutions={SERVICES} />);
 
 describe("Footer", () => {
   it("renders a contentinfo landmark linking to every solution page", () => {

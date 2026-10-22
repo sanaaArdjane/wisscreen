@@ -184,8 +184,8 @@ export function AppShell({
         >
           <div className="flex h-[76px] shrink-0 items-center gap-3 px-5">
             <Link href={home} className={cn("min-w-0 flex-1 items-center text-xl font-[650] leading-none", sidebarMode === "open" ? "flex" : sidebarMode === "hover" ? "flex lg:hidden lg:group-hover/sidebar:flex" : "flex lg:hidden")}>
-              <span className="shrink-0">W</span>
-              <span className={cn("w-[92px] overflow-hidden whitespace-nowrap opacity-100 transition-[opacity,width] duration-200", sidebarMode === "hover" && "lg:w-0 lg:opacity-0 lg:group-hover/sidebar:w-[92px] lg:group-hover/sidebar:opacity-100")}>I<span className="text-signal-soft">CLOUD</span></span>
+              <span className="shrink-0">S</span>
+              <span className={cn("w-[108px] overflow-hidden whitespace-nowrap opacity-100 transition-[opacity,width] duration-200", sidebarMode === "hover" && "lg:w-0 lg:opacity-0 lg:group-hover/sidebar:w-[108px] lg:group-hover/sidebar:opacity-100")}>ETY<span className="text-signal-soft">CORP</span></span>
             </Link>
             <button
               type="button"
