@@ -63,5 +63,5 @@
     "vite-tsconfig-paths": "^6.1.1",
     "vitest": "^4.1.11"
   },
-  "packageManager": "pnpm@12.14.0"
+  "packageManager": "pnpm@11.22.0"
 }
