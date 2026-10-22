@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 /**
- * Who WICLOUD is on paper: the header, footer and signature of every devis and
+ * Who SETYCORP is on paper: the header, footer and signature of every devis and
  * facture PDF. One setting holding an object rather than twenty keys, because
  * it is edited as one form and read as one thing.
  *
@@ -41,7 +41,7 @@ export type CompanyIdentity = {
 };
 
 export const DEFAULT_COMPANY: CompanyIdentity = {
-  name: "WICLOUD",
+  name: "SETYCORP",
   legalForm: "",
   capital: "",
   address: "",

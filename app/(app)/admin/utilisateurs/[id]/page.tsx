@@ -85,6 +85,16 @@ export default async function UserDetailPage({ params }: PageProps<"/admin/utili
             {target.banned && (
               <StatusChip label="Suspendu" tone="bg-fg text-on-fg border-fg" />
             )}
+            {target.role === "user" && can(staff, "requests:write") && (
+              <Link href={`/admin/demandes/nouvelle?client=${target.id}`} className={pillSmall}>
+                Nouvelle demande
+              </Link>
+            )}
+            {target.role === "user" && can(staff, "demos:write") && (
+              <Link href={`/admin/demos/nouveau?client=${target.id}`} className={pillSmall}>
+                Créer une démo
+              </Link>
+            )}
           </>
         }
       />

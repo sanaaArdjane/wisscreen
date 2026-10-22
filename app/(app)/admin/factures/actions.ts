@@ -13,6 +13,7 @@ import { fail, optionalText, parseForm, succeed, type ActionState } from "@/lib/
 import { formatMoney, totalCents } from "@/lib/money";
 import { allocateRef, readLines, readOverrides } from "@/lib/billing-lines";
 import { emailBillingDocument } from "@/lib/billing-send";
+import { flash } from "@/lib/flash";
 
 /**
  * Invoices. They used to be reachable only from an accepted quote, with no way
@@ -104,6 +105,7 @@ export async function saveInvoice(_prev: ActionState, formData: FormData): Promi
     meta: { ref: created.ref, amountCents },
   });
   refresh();
+  await flash("Facture créée.");
   redirect(`/admin/factures/${created.id}`);
 }
 
@@ -259,5 +261,6 @@ export async function deleteInvoice(_prev: ActionState, formData: FormData): Pro
     meta: { ref: invoice.ref, status: invoice.status, amountCents: invoice.amountCents },
   });
   refresh();
+  await flash("Facture supprimée.");
   redirect("/admin/factures");
 }

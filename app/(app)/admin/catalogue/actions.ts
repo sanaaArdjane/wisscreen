@@ -11,6 +11,7 @@ import { logActivity } from "@/lib/account";
 import { checkbox, fail, parseForm, succeed, type ActionState } from "@/lib/actions";
 import { parseMoneyToCents } from "@/lib/money";
 import { listLines, parseGrants, parseLines } from "@/lib/kv";
+import { flash } from "@/lib/flash";
 
 /**
  * The catalogue of what WICLOUD sells — the table is still called `plans`,
@@ -100,7 +101,10 @@ export async function saveCatalogueItem(_prev: ActionState, formData: FormData):
   });
 
   refresh(d.slug);
-  if (!d.originalSlug || d.originalSlug !== d.slug) redirect(`/admin/catalogue/${d.slug}`);
+  if (!d.originalSlug || d.originalSlug !== d.slug) {
+    await flash("Offre enregistrée.");
+    redirect(`/admin/catalogue/${d.slug}`);
+  }
   return succeed("Offre enregistrée.");
 }
 
@@ -133,5 +137,6 @@ export async function deleteCatalogueItem(_prev: ActionState, formData: FormData
     meta: { name: item.name, detachedSubscriptions: n },
   });
   refresh();
+  await flash("Offre supprimée.");
   redirect("/admin/catalogue");
 }

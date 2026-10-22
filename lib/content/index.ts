@@ -56,7 +56,7 @@ export function mergeOver<T>(base: T, stored: unknown): T {
 }
 
 function defaultBlock(key: BlockKey): unknown {
-  if (key === "general" || key === "hero" || key === "footer") return DEFAULT_SITE_CONTENT[key];
+  if (key === "general" || key === "hero" || key === "footer" || key === "nav") return DEFAULT_SITE_CONTENT[key];
   return DEFAULT_SITE_CONTENT.sections[key];
 }
 
@@ -80,6 +80,7 @@ function assemble(rows: { key: string; value: unknown }[]): SiteContent {
     general: resolveBlock("general", stored.get("general")) as SiteContent["general"],
     hero: resolveBlock("hero", stored.get("hero")) as SiteContent["hero"],
     footer: resolveBlock("footer", stored.get("footer")) as SiteContent["footer"],
+    nav: resolveBlock("nav", stored.get("nav")) as SiteContent["nav"],
     sections: sections as SiteContent["sections"],
   };
 }

@@ -5,7 +5,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { and, eq, inArray, notInArray, sql } from "drizzle-orm";
 import { db } from "@/lib/db";
-import { attachments, demoAccess, demoRuns, demoSecrets, demos } from "@/lib/db/schema";
+import { attachments, demoAccess, demoRuns, demoSecrets, demos, requests, user } from "@/lib/db/schema";
 import { requirePermission } from "@/lib/guard";
 import { logActivity, notify, notifyMany } from "@/lib/account";
 import { fail, parseForm, succeed, type ActionState } from "@/lib/actions";
@@ -20,6 +20,7 @@ import { getSolutions } from "@/lib/content";
 import { deleteObject } from "@/lib/storage";
 import { sendEmail } from "@/lib/email";
 import { SITE_URL } from "@/lib/site";
+import { flash } from "@/lib/flash";
 
 /**
  * The desk's side of demos: author them, grant them, and answer the files
@@ -98,6 +99,23 @@ export async function saveDemo(_prev: ActionState, formData: FormData): Promise<
   const parsed = parseForm(DemoSchema, scalar);
   if (!parsed.ok) return parsed.state;
   const data = parsed.data;
+
+  // Set when the demo is authored from a demande or for a named client: the
+  // customer is attached on creation, so there is no second "grant" step.
+  const grantUserId = String(formData.get("grantUserId") ?? "") || null;
+  let fromRequestId = Number(formData.get("fromRequestId")) || null;
+  if (grantUserId && !data.demoId) {
+    const [target] = await db.select({ id: user.id }).from(user).where(eq(user.id, grantUserId)).limit(1);
+    if (!target) return fail("Client introuvable.");
+    if (fromRequestId) {
+      const [own] = await db
+        .select({ id: requests.id })
+        .from(requests)
+        .where(and(eq(requests.id, fromRequestId), eq(requests.userId, grantUserId)))
+        .limit(1);
+      if (!own) fromRequestId = null;
+    }
+  }
   // Solutions are edited in /admin/site, so the slug is checked against the live list.
   if (data.serviceSlug && !(await getSolutions({ includeHidden: true })).some((s) => s.slug === data.serviceSlug)) {
     return fail("Vérifiez les champs signalés.", { serviceSlug: "Solution inconnue." });
@@ -231,6 +249,39 @@ export async function saveDemo(_prev: ActionState, formData: FormData): Promise<
     meta: { slug: data.slug, status: data.status, blocks: blocks.length, secretsChanged: secrets.length },
   });
 
+  if (grantUserId && !data.demoId) {
+    await db
+      .insert(demoAccess)
+      .values({
+        demoId,
+        userId: grantUserId,
+        grantedById: staff.id,
+        note: fromRequestId ? `Demande #${fromRequestId}` : null,
+      })
+      .onConflictDoNothing();
+    await logActivity({
+      actorId: staff.id,
+      action: "demo.access_granted",
+      entity: "demo",
+      entityId: demoId,
+      meta: { userIds: [grantUserId], requestId: fromRequestId },
+    });
+    // A published demo is announced below; a draft still deserves a word so the
+    // customer knows the demande is being handled.
+    if (data.status !== "publie") {
+      await notify({
+        userId: grantUserId,
+        type: fromRequestId ? "request" : "demo",
+        title: `Une démo est en préparation : ${data.title}`,
+        body: "Elle sera visible dans votre espace dès sa publication.",
+        href: fromRequestId ? `/dashboard/demandes/${fromRequestId}` : "/dashboard/demos",
+        actorId: staff.id,
+        entity: fromRequestId ? "request" : "demo",
+        entityId: fromRequestId ?? demoId,
+      });
+    }
+  }
+
   // Publishing tells the people who can now open it.
   if (data.status === "publie" && !wasPublished) {
     const grants = await db
@@ -252,7 +303,10 @@ export async function saveDemo(_prev: ActionState, formData: FormData): Promise<
   }
 
   refresh(demoId, data.slug);
-  if (!data.demoId) redirect(`/admin/demos/${demoId}`);
+  if (!data.demoId) {
+    await flash("Démo créée.");
+    redirect(`/admin/demos/${demoId}`);
+  }
   return succeed(secrets.length ? "Démo enregistrée. Identifiants chiffrés." : "Démo enregistrée.");
 }
 
@@ -281,6 +335,7 @@ export async function deleteDemo(_prev: ActionState, formData: FormData): Promis
     meta: { slug: demo.slug, title: demo.title },
   });
   refresh(undefined, demo.slug);
+  await flash("Démo supprimée.");
   redirect("/admin/demos");
 }
 
@@ -309,6 +364,7 @@ export async function deleteDemoFile(formData: FormData): Promise<void> {
     meta: { filename: file.filename },
   });
   refresh(file.demoId, demo?.slug);
+  await flash("Fichier supprimé.");
 }
 
 /* ───────────────────────────────── Access ───────────────────────────────── */
@@ -330,6 +386,10 @@ export async function grantDemoAccess(_prev: ActionState, formData: FormData): P
 
   const [demo] = await db.select().from(demos).where(eq(demos.id, demoId)).limit(1);
   if (!demo) return fail("Démo introuvable.");
+
+  // A posted id that is not an account would otherwise hit the FK and throw.
+  const known = await db.select({ id: user.id }).from(user).where(inArray(user.id, userIds));
+  if (known.length !== new Set(userIds).size) return fail("Client introuvable.");
 
   for (const userId of userIds) {
     // A re-grant after a revoke revives the row rather than adding a second one.
@@ -370,6 +430,47 @@ export async function grantDemoAccess(_prev: ActionState, formData: FormData): P
   );
 }
 
+/** From a demande: hand one customer an existing demo, then come back to the thread. */
+export async function attachDemoToRequest(formData: FormData): Promise<void> {
+  const staff = await requirePermission("demos:write");
+  const demoId = Number(formData.get("demoId"));
+  const requestId = Number(formData.get("requestId"));
+  if (!Number.isInteger(demoId) || !Number.isInteger(requestId)) return;
+
+  const [req] = await db.select().from(requests).where(eq(requests.id, requestId)).limit(1);
+  const [demo] = await db.select().from(demos).where(eq(demos.id, demoId)).limit(1);
+  if (!req || !demo) return;
+
+  await db
+    .insert(demoAccess)
+    .values({ demoId, userId: req.userId, grantedById: staff.id, note: `Demande ${req.ref}` })
+    .onConflictDoUpdate({
+      target: [demoAccess.demoId, demoAccess.userId],
+      set: { revokedAt: null, grantedById: staff.id, note: `Demande ${req.ref}` },
+    });
+  await logActivity({
+    actorId: staff.id,
+    action: "demo.access_granted",
+    entity: "demo",
+    entityId: demoId,
+    meta: { userIds: [req.userId], requestId },
+  });
+  await notify({
+    userId: req.userId,
+    type: "demo",
+    title: `Nouvelle démo : ${demo.title}`,
+    body: demo.status === "publie" ? demo.summary || undefined : "Elle sera visible dès sa publication.",
+    href: demo.status === "publie" ? `/dashboard/demos/${demo.slug}` : `/dashboard/demandes/${requestId}`,
+    actorId: staff.id,
+    entity: "demo",
+    entityId: demoId,
+  });
+  refresh(demoId, demo.slug);
+  revalidatePath(`/admin/demandes/${requestId}`);
+  await flash("Démo attribuée au client.");
+  redirect(`/admin/demandes/${requestId}`);
+}
+
 export async function revokeDemoAccess(formData: FormData): Promise<void> {
   const staff = await requirePermission("demos:write");
   const id = Number(formData.get("accessId"));
@@ -388,6 +489,7 @@ export async function revokeDemoAccess(formData: FormData): Promise<void> {
     meta: { userId: row.userId },
   });
   refresh(row.demoId);
+  await flash("Accès retiré.");
 }
 
 /** Forget a grant entirely, history included. The red one. */
@@ -405,6 +507,7 @@ export async function deleteDemoAccess(formData: FormData): Promise<void> {
     meta: { userId: row.userId },
   });
   refresh(row.demoId);
+  await flash("Accès supprimé.");
 }
 
 /* ────────────────────────────────── Runs ────────────────────────────────── */
@@ -504,4 +607,5 @@ export async function deleteDemoRun(formData: FormData): Promise<void> {
     meta: { demoId: run.demoId, userId: run.userId },
   });
   refresh(run.demoId ?? undefined);
+  await flash("Exécution supprimée.");
 }

@@ -5,8 +5,9 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { and, eq, isNull } from "drizzle-orm";
 import { db } from "@/lib/db";
-import { requestMessages, requests } from "@/lib/db/schema";
+import { demoAccess, demos, plans, requestMessages, requests, subscriptions, user as userTable } from "@/lib/db/schema";
 import { requirePermission } from "@/lib/guard";
+import { can } from "@/lib/permissions";
 import { logActivity, notify, staffWith } from "@/lib/account";
 import { publish, publishMany } from "@/lib/realtime";
 import { canTransition, STATUS_LABELS, type RequestStatus } from "@/lib/requests";
@@ -15,6 +16,10 @@ import { sendEmail } from "@/lib/email";
 import { SITE_URL } from "@/lib/site";
 import { REQUEST_PRIORITIES } from "@/lib/requests";
 import { parseMoneyToCents } from "@/lib/money";
+import { insertWithRef } from "@/lib/server/request-ref";
+import { getSolutions } from "@/lib/content";
+import { REQUEST_TYPES } from "@/lib/requests";
+import { flash } from "@/lib/flash";
 
 /**
  * The desk's side of a request.
@@ -314,5 +319,150 @@ export async function deleteRequest(_prev: ActionState, formData: FormData): Pro
 
   revalidatePath("/admin/demandes");
   revalidatePath("/dashboard/demandes");
+  await flash("Demande supprimée.");
   redirect("/admin/demandes");
+}
+
+/* ───────────────────── A demande opened by the desk ───────────────────── */
+
+const ForClientSchema = z.object({
+  userId: z.string().min(1, "Choisissez un client."),
+  title: z.string().trim().min(4, "Donnez un titre d'au moins 4 caractères.").max(160),
+  details: z.string().trim().min(10, "Décrivez la proposition en quelques mots.").max(5000),
+  type: z.enum(REQUEST_TYPES),
+  serviceSlug: z
+    .string()
+    .transform((v) => (v === "" ? undefined : v))
+    .optional(),
+  priority: z.enum(REQUEST_PRIORITIES),
+  /** Optional extras handed over with the message. */
+  demoId: z.coerce.number().int().positive().optional().or(z.literal("").transform(() => undefined)),
+  planSlug: z
+    .string()
+    .transform((v) => (v === "" ? undefined : v))
+    .optional(),
+});
+
+/**
+ * The reverse of a customer's demande: the desk proposes a demo, a service or a
+ * consultation to a named customer. It is an ordinary request owned by the
+ * customer (so it shows in their space and carries the same thread), assigned to
+ * the staff member who opened it, with their text as the first message so the
+ * thread reads as team-initiated.
+ */
+export async function createRequestForClient(_prev: ActionState, formData: FormData): Promise<ActionState> {
+  const staff = await requirePermission("requests:write");
+  const parsed = parseForm(ForClientSchema, formData);
+  if (!parsed.ok) return parsed.state;
+  const d = parsed.data;
+
+  const [client] = await db.select().from(userTable).where(eq(userTable.id, d.userId)).limit(1);
+  if (!client) return fail("Vérifiez les champs signalés.", { userId: "Client introuvable." });
+  if (d.serviceSlug && !(await getSolutions({ includeHidden: true })).some((s) => s.slug === d.serviceSlug)) {
+    return fail("Vérifiez les champs signalés.", { serviceSlug: "Solution inconnue." });
+  }
+
+  // The extras need their own permission, and are checked before anything is written
+  // so a refused one cannot leave a half-built demande behind.
+  let demo: typeof demos.$inferSelect | undefined;
+  if (d.demoId) {
+    if (!can(staff, "demos:write")) return fail("Vous ne pouvez pas attribuer de démo.", { demoId: "Non autorisé." });
+    [demo] = await db.select().from(demos).where(eq(demos.id, d.demoId)).limit(1);
+    if (!demo) return fail("Vérifiez les champs signalés.", { demoId: "Démo introuvable." });
+  }
+  let plan: typeof plans.$inferSelect | undefined;
+  if (d.planSlug) {
+    if (!can(staff, "subscriptions:write")) return fail("Vous ne pouvez pas provisionner de service.", { planSlug: "Non autorisé." });
+    [plan] = await db.select().from(plans).where(eq(plans.slug, d.planSlug)).limit(1);
+    if (!plan) return fail("Vérifiez les champs signalés.", { planSlug: "Offre introuvable." });
+  }
+
+  const created = await insertWithRef({
+    userId: client.id,
+    title: d.title,
+    details: d.details,
+    type: d.type,
+    serviceSlug: d.serviceSlug,
+    priority: d.priority,
+    assignedToId: staff.id,
+  });
+
+  if (demo) {
+    await db
+      .insert(demoAccess)
+      .values({ demoId: demo.id, userId: client.id, grantedById: staff.id, note: `Demande ${created.ref}` })
+      .onConflictDoUpdate({
+        target: [demoAccess.demoId, demoAccess.userId],
+        set: { revokedAt: null, grantedById: staff.id, note: `Demande ${created.ref}` },
+      });
+    await logActivity({
+      actorId: staff.id,
+      action: "demo.access_granted",
+      entity: "demo",
+      entityId: demo.id,
+      meta: { userIds: [client.id], requestId: created.id },
+    });
+  }
+  if (plan) {
+    // A pending service, priced from the catalogue; the desk moves it forward from the
+    // service page. Quotas are not granted here — that stays an explicit choice there.
+    const [sub] = await db
+      .insert(subscriptions)
+      .values({
+        userId: client.id,
+        planSlug: plan.slug,
+        label: plan.name,
+        requestId: created.id,
+        priceCents: plan.priceCents,
+        currency: plan.currency,
+        billingPeriod: plan.billingPeriod,
+        resourceSpec: plan.specs ?? {},
+        status: "pending",
+      })
+      .returning({ id: subscriptions.id });
+    await logActivity({
+      actorId: staff.id,
+      action: "subscription.provisioned",
+      entity: "subscription",
+      entityId: sub.id,
+      meta: { userId: client.id, planSlug: plan.slug, status: "pending", requestId: created.id },
+    });
+    revalidatePath("/admin/abonnements");
+    revalidatePath("/dashboard/abonnement");
+  }
+  await db.insert(requestMessages).values({ requestId: created.id, authorId: staff.id, body: d.details });
+
+  await logActivity({
+    actorId: staff.id,
+    action: "request.created_for_client",
+    entity: "request",
+    entityId: created.id,
+    meta: { ref: created.ref, type: created.type, userId: client.id },
+  });
+  await notify({
+    userId: client.id,
+    type: "request",
+    title: `Une proposition de SETYCORP : ${created.title}`,
+    body: [
+      d.details.slice(0, 200),
+      demo ? `Démo attribuée : ${demo.title}.` : "",
+      plan ? `Service proposé : ${plan.name}.` : "",
+    ]
+      .filter(Boolean)
+      .join(" "),
+    href: `/dashboard/demandes/${created.id}`,
+    actorId: staff.id,
+    entity: "request",
+    entityId: created.id,
+  });
+  await sendEmail({
+    to: client.email,
+    subject: `${created.title} — ${created.ref}`,
+    text: `${d.details}${demo ? `\n\nDémo mise à votre disposition : ${demo.title}.` : ""}${plan ? `\n\nService proposé : ${plan.name}.` : ""}\n\nVous pouvez répondre directement depuis votre espace.`,
+    action: { label: "Ouvrir la demande", url: `${SITE_URL}/dashboard/demandes/${created.id}` },
+  });
+
+  refresh(created.id);
+  await flash("Demande envoyée au client.");
+  redirect(`/admin/demandes/${created.id}`);
 }

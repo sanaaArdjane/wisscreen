@@ -18,6 +18,7 @@ import {
 } from "@/lib/content/schema";
 import { DEFAULT_SOLUTIONS, blankSolution } from "@/lib/content/defaults";
 import { SITE_CONTENT_TAG, SITE_SOLUTIONS_TAG } from "@/lib/content";
+import { flash } from "@/lib/flash";
 
 /**
  * Everything /admin/site writes. Each action re-checks `site:write` — an action is a
@@ -89,6 +90,7 @@ export async function resetBlock(formData: FormData): Promise<void> {
   await db.delete(siteContent).where(eq(siteContent.key, key));
   await logActivity({ actorId: staff.id, action: "site.content_reset", entity: "site_content", entityId: key });
   refreshSite(SITE_CONTENT_TAG);
+  await flash("Bloc réinitialisé aux valeurs par défaut.");
 }
 
 /* ───────────────────────────── Solutions ───────────────────────────── */
@@ -170,7 +172,10 @@ export async function saveSolution(_prev: ActionState, formData: FormData): Prom
   refreshSite(SITE_SOLUTIONS_TAG);
 
   // The editor's URL is the slug, so a rename has to move the page along with it.
-  if (slug !== originalSlug) redirect(`/admin/site/solutions/${slug}?saved=1`);
+  if (slug !== originalSlug) {
+    await flash("Solution enregistrée.");
+    redirect(`/admin/site/solutions/${slug}?saved=1`);
+  }
   return succeed(SAVED);
 }
 
@@ -210,6 +215,7 @@ export async function createSolution(_prev: ActionState, formData: FormData): Pr
     .returning({ id: siteSolutions.id });
   await logActivity({ actorId: staff.id, action: "site.solution_created", entity: "site_solution", entityId: created.id, meta: { slug: slug.data } });
   refreshSite(SITE_SOLUTIONS_TAG);
+  await flash("Solution créée.");
   redirect(`/admin/site/solutions/${slug.data}`);
 }
 
@@ -222,6 +228,7 @@ export async function deleteSolution(formData: FormData): Promise<void> {
     await logActivity({ actorId: staff.id, action: "site.solution_deleted", entity: "site_solution", entityId: row.id, meta: { slug } });
   }
   refreshSite(SITE_SOLUTIONS_TAG);
+  await flash("Solution supprimée.");
   redirect("/admin/site/solutions");
 }
 
@@ -246,6 +253,7 @@ export async function moveSolution(formData: FormData): Promise<void> {
   });
   await logActivity({ actorId: staff.id, action: "site.solution_moved", entity: "site_solution", meta: { slug, dir } });
   refreshSite(SITE_SOLUTIONS_TAG);
+  await flash("Ordre des solutions mis à jour.");
 }
 
 export async function toggleSolution(formData: FormData): Promise<void> {
@@ -267,4 +275,5 @@ export async function toggleSolution(formData: FormData): Promise<void> {
     });
   }
   refreshSite(SITE_SOLUTIONS_TAG);
+  await flash("Visibilité mise à jour.");
 }

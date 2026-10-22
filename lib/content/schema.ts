@@ -125,6 +125,22 @@ export const FooterSchema = z.object({
   tagline: text(200),
 });
 
+/**
+ * The public navbar. A top-level item with no `children` is a plain link; with children
+ * it opens a dropdown (its own `href` is then where the label itself goes).
+ */
+export const NavSchema = z.object({
+  items: z
+    .array(
+      z.object({
+        label: text(40),
+        href: HrefSchema,
+        children: z.array(z.object({ label: text(60), href: HrefSchema })).max(12),
+      }),
+    )
+    .max(8),
+});
+
 /* ───────────────────────────── Homepage sections, in page order ───────────────────────────── */
 
 export const SectionSchemas = {
@@ -221,6 +237,7 @@ export type GeneralContent = z.infer<typeof GeneralSchema>;
 export type HeroContent = z.infer<typeof HeroSchema>;
 export type HeroSlide = z.infer<typeof HeroSlideSchema>;
 export type FooterContent = z.infer<typeof FooterSchema>;
+export type NavContent = z.infer<typeof NavSchema>;
 export type SectionContent<K extends SectionKey> = z.infer<(typeof SectionSchemas)[K]>;
 export type SectionsContent = { [K in SectionKey]: SectionContent<K> };
 
@@ -228,15 +245,17 @@ export type SiteContent = {
   general: GeneralContent;
   hero: HeroContent;
   footer: FooterContent;
+  nav: NavContent;
   sections: SectionsContent;
 };
 
 /** Every row key `site_content` may hold. */
-export type BlockKey = "general" | "hero" | "footer" | SectionKey;
+export type BlockKey = "general" | "hero" | "footer" | "nav" | SectionKey;
 export const BLOCK_SCHEMAS: Record<BlockKey, z.ZodType> = {
   general: GeneralSchema,
   hero: HeroSchema,
   footer: FooterSchema,
+  nav: NavSchema,
   ...SectionSchemas,
 };
 

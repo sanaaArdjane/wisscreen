@@ -101,7 +101,7 @@ export default async function DemandeDetailPage({
                     requestId={request.id}
                     allowFiles={storageConfigured()}
                     maxBytes={MAX_UPLOAD_BYTES}
-                    placeholder="Écrire à l'équipe WICLOUD…"
+                    placeholder="Écrire à l'équipe SETYCORP…"
                   />
                 )
               }

@@ -5,6 +5,7 @@ import type {
   FooterContent,
   GeneralContent,
   HeroContent,
+  NavContent,
   SectionsContent,
   SiteContent,
   SolutionContent,
@@ -21,12 +22,12 @@ import type {
  */
 
 export const DEFAULT_GENERAL: GeneralContent = {
-  siteName: "WICLOUD",
-  seoTitle: "WICLOUD — Cloud & services numériques",
+  siteName: "SETYCORP",
+  seoTitle: "SETYCORP — Cloud & services numériques",
   seoDescription:
-    "WICLOUD, le cloud souverain et les services qui tournent dessus : infrastructure, données, paiement et commerce en ligne, pour les entreprises, les banques et les particuliers.",
+    "SETYCORP, le cloud souverain et les services qui tournent dessus : infrastructure, données, paiement et commerce en ligne, pour les entreprises, les banques et les particuliers.",
   keywords: [
-    "WICLOUD",
+    "SETYCORP",
     "OCR",
     "extraction de données",
     "reconnaissance de caractères",
@@ -54,7 +55,7 @@ export const DEFAULT_HERO: HeroContent = {
   headline: "Le cloud qui fait tourner",
   words: ["vos services", "vos données", "vos applications", "votre activité"],
   paragraph:
-    "WICLOUD héberge, connecte et opère les services numériques des entreprises, des banques et des particuliers — infrastructure cloud, données, paiement et commerce en ligne, réunis sur une seule plateforme souveraine.",
+    "SETYCORP héberge, connecte et opère les services numériques des entreprises, des banques et des particuliers — infrastructure cloud, données, paiement et commerce en ligne, réunis sur une seule plateforme souveraine.",
   primaryCta: { label: "Découvrir nos solutions", href: "#solutions" },
   secondaryCta: { label: "Nous contacter", href: "#contact" },
   hint: "Faites pivoter la scène — cliquez sur une solution pour l'explorer",
@@ -83,7 +84,7 @@ export const DEFAULT_FOOTER: FooterContent = {
       title: "Entreprise",
       includeSolutions: false,
       links: [
-        { label: "À propos de WICLOUD", href: "#values" },
+        { label: "À propos de SETYCORP", href: "#values" },
         { label: "Nos engagements", href: "#commitment" },
         { label: "Carrières", href: "#" },
         { label: "Actualités", href: "#" },
@@ -119,8 +120,39 @@ export const DEFAULT_FOOTER: FooterContent = {
       ],
     },
   ],
-  copyright: "© {année} WICLOUD. Tous droits réservés.",
+  copyright: "© {année} SETYCORP. Tous droits réservés.",
   tagline: "OCR · Cloud · WIFACILITY · SETYCORE — et bientôt plus de solutions.",
+};
+
+/**
+ * The navbar. Only WIFACILITY and the OCR entry have a page of their own that already
+ * exists; the rest point at an anchor of the relevant solution page or at the contact
+ * form, and are edited in /admin/site/navigation.
+ */
+export const DEFAULT_NAV: NavContent = {
+  items: [
+    { label: "WIFACILITY", href: "/solutions/wifacility", children: [] },
+    {
+      label: "WICLOUD",
+      href: "/solutions/wicloud",
+      children: [
+        { label: "Services", href: "/solutions/wicloud#fonctionnalites" },
+        { label: "Démo", href: "/solutions/wicloud#apercu" },
+        { label: "Consultation", href: "/solutions/wicloud#contact" },
+        { label: "Infrastructure", href: "/solutions/wicloud#presentation" },
+        { label: "VPN", href: "/solutions/wicloud#fonctionnalites" },
+      ],
+    },
+    {
+      label: "DATA",
+      href: "/solutions/ocr",
+      children: [
+        { label: "OCR", href: "/solutions/ocr" },
+        { label: "Chatbot", href: "/solutions/chatbot" },
+      ],
+    },
+    { label: "ERP", href: "/solutions/erp", children: [] },
+  ],
 };
 
 export const DEFAULT_SECTIONS: SectionsContent = {
@@ -165,7 +197,7 @@ export const DEFAULT_SECTIONS: SectionsContent = {
       eyebrow: "Data & Intelligence",
       title: "L'intelligence artificielle, intégrée à votre cloud.",
       description:
-        "Notre équipe Data développe, entraîne et opère ses propres modèles, directement sur l'infrastructure WICLOUD — sans dépendre de fournisseurs externes pour comprendre vos documents les plus sensibles.",
+        "Notre équipe Data développe, entraîne et opère ses propres modèles, directement sur l'infrastructure SETYCORP — sans dépendre de fournisseurs externes pour comprendre vos documents les plus sensibles.",
     },
     points: [
       { icon: "scan", title: "Compréhension de documents", text: "Nos modèles ne lisent pas que du texte : ils comprennent la structure d'un document — champs, tableaux, signatures." },
@@ -180,7 +212,7 @@ export const DEFAULT_SECTIONS: SectionsContent = {
     badge: "Fiabilité 24/7",
     stat: "99,95%",
     paragraph:
-      "de disponibilité garantie sur notre Cloud Infrastructure, la plateforme qui fait tourner l'ensemble des solutions WICLOUD — surveillée en continu pour que vos équipes n'aient jamais à s'en inquiéter.",
+      "de disponibilité garantie sur notre Cloud Infrastructure, la plateforme qui fait tourner l'ensemble des solutions SETYCORP — surveillée en continu pour que vos équipes n'aient jamais à s'en inquiéter.",
     points: [
       { label: "Supervision", value: "24/7 par notre équipe infrastructure" },
       { label: "Redondance", value: "Réplication multi-instances des services critiques" },
@@ -193,7 +225,7 @@ export const DEFAULT_SECTIONS: SectionsContent = {
       eyebrow: "La plateforme",
       title: "Une console pour piloter tous vos services.",
       description:
-        "Infrastructure, données, paiement ou vente en ligne : chaque service WICLOUD se pilote depuis une interface claire, pensée pour les équipes qui l'utilisent au quotidien.",
+        "Infrastructure, données, paiement ou vente en ligne : chaque service SETYCORP se pilote depuis une interface claire, pensée pour les équipes qui l'utilisent au quotidien.",
     },
     panels: [
       { slug: "wifacility", title: "Etaysir — panneau bancaire", text: "Les banques pilotent l'intégralité du cycle de financement : scoring, validation, échéanciers, recouvrement." },
@@ -207,7 +239,7 @@ export const DEFAULT_SECTIONS: SectionsContent = {
       eyebrow: "Un seul cloud",
       title: "Un cloud, plusieurs services, tous connectés.",
       description:
-        "WICLOUD n'est pas une collection d'outils isolés : chaque service tourne sur le même socle cloud et s'intègre aux autres, de l'hébergement jusqu'au paiement.",
+        "SETYCORP n'est pas une collection d'outils isolés : chaque service tourne sur le même socle cloud et s'intègre aux autres, de l'hébergement jusqu'au paiement.",
     },
     links: [
       { from: "OCR", to: "WIFACILITY", text: "Les pièces justificatives d'un dossier de financement sont lues et vérifiées automatiquement par OCR avant validation." },
@@ -221,7 +253,7 @@ export const DEFAULT_SECTIONS: SectionsContent = {
       eyebrow: "Pour qui ?",
       title: "Un cloud pour chaque acteur de votre écosystème.",
       description:
-        "Entreprise, banque, partenaire ou particulier : les services WICLOUD s'adaptent à votre activité, de l'hébergement jusqu'aux applications métier.",
+        "Entreprise, banque, partenaire ou particulier : les services SETYCORP s'adaptent à votre activité, de l'hébergement jusqu'aux applications métier.",
     },
     labels: { banques: "Banques", entreprises: "Entreprises", partenaires: "Partenaires", particuliers: "Particuliers" },
     ctaLabel: "Découvrir",
@@ -231,7 +263,7 @@ export const DEFAULT_SECTIONS: SectionsContent = {
     heading: {
       eyebrow: "Le socle cloud",
       title: "Pensé pour l'échelle, dès le premier jour.",
-      description: "Chaque service hébergé sur WICLOUD hérite des mêmes standards de sécurité, de disponibilité et de supervision.",
+      description: "Chaque service hébergé sur SETYCORP hérite des mêmes standards de sécurité, de disponibilité et de supervision.",
     },
     specs: [
       { icon: "globe", value: "100%", label: "Données hébergées en environnement souverain, sous votre contrôle." },
@@ -263,7 +295,7 @@ export const DEFAULT_SECTIONS: SectionsContent = {
     heading: {
       eyebrow: "Intégrations & API",
       title: "Vos systèmes, connectés en toute simplicité.",
-      description: "Le cloud WICLOUD se branche à votre écosystème existant — pas l'inverse.",
+      description: "Le cloud SETYCORP se branche à votre écosystème existant — pas l'inverse.",
     },
     items: [
       { icon: "link", title: "API REST", text: "Chaque service du cloud expose une API documentée pour s'intégrer à vos systèmes existants." },
@@ -283,7 +315,7 @@ export const DEFAULT_SECTIONS: SectionsContent = {
         "Notre cloud héberge des données sensibles — identité, finances, transactions. La sécurité est pensée dès la conception de chaque service, pas ajoutée après coup.",
     },
     items: [
-      { icon: "lock", title: "Chiffrement de bout en bout", text: "Les données sont chiffrées au repos et en transit, sur l'ensemble du cloud WICLOUD." },
+      { icon: "lock", title: "Chiffrement de bout en bout", text: "Les données sont chiffrées au repos et en transit, sur l'ensemble du cloud SETYCORP." },
       { icon: "shield", title: "Contrôle d'accès strict", text: "Rôles, permissions et journaux d'audit pour savoir qui accède à quoi, à tout moment." },
       { icon: "check", title: "Traçabilité & conformité", text: "Chaque action sensible — validation d'un dossier, traitement d'un document — est tracée et auditable." },
     ],
@@ -293,7 +325,7 @@ export const DEFAULT_SECTIONS: SectionsContent = {
     heading: {
       eyebrow: "Quelle solution pour vous ?",
       title: "Trouvez le service adapté à votre situation.",
-      description: "Selon votre profil, un ou plusieurs services WICLOUD répondent directement à votre besoin.",
+      description: "Selon votre profil, un ou plusieurs services SETYCORP répondent directement à votre besoin.",
     },
     profiles: [
       {
@@ -319,7 +351,7 @@ export const DEFAULT_SECTIONS: SectionsContent = {
       },
       {
         title: "Vous développez une plateforme",
-        text: "Hébergez, sécurisez et faites évoluer vos applications sur le cloud qui fait tourner tous les services WICLOUD.",
+        text: "Hébergez, sécurisez et faites évoluer vos applications sur le cloud qui fait tourner tous les services SETYCORP.",
         solutions: [{ name: "Cloud Infrastructure", slug: "wicloud" }],
       },
     ],
@@ -328,12 +360,12 @@ export const DEFAULT_SECTIONS: SectionsContent = {
     hidden: false,
     heading: {
       eyebrow: "Accompagnement à la migration",
-      title: "Passer au cloud WICLOUD, sans friction.",
+      title: "Passer au cloud SETYCORP, sans friction.",
       description: "Que vous migriez une infrastructure existante ou partiez de zéro, notre équipe vous accompagne à chaque étape.",
     },
     cta: { label: "Démarrer un projet", href: "#contact" },
     steps: [
-      { title: "Audit", text: "Nous étudions votre existant et identifions les services WICLOUD les plus pertinents." },
+      { title: "Audit", text: "Nous étudions votre existant et identifions les services SETYCORP les plus pertinents." },
       { title: "Plan de migration", text: "Un plan par étapes est défini pour limiter l'impact sur vos opérations en cours." },
       { title: "Déploiement accompagné", text: "Nos équipes vous accompagnent pendant tout le déploiement, environnement de test compris." },
       { title: "Formation", text: "Vos équipes sont formées à l'utilisation des tableaux de bord et des API." },
@@ -342,7 +374,7 @@ export const DEFAULT_SECTIONS: SectionsContent = {
   whyUs: {
     hidden: false,
     heading: {
-      eyebrow: "Pourquoi WICLOUD",
+      eyebrow: "Pourquoi SETYCORP",
       title: "Un partenaire cloud, pas juste un fournisseur.",
       description: "Au-delà de l'hébergement, c'est un accompagnement dans la durée que nous proposons à chaque entreprise, banque et partenaire.",
     },
@@ -360,7 +392,7 @@ export const DEFAULT_SECTIONS: SectionsContent = {
     heading: {
       eyebrow: "Toutes nos solutions",
       title: "Explorez chaque service en détail.",
-      description: "D'autres services rejoindront le cloud WICLOUD — cette page s'enrichira au fur et à mesure.",
+      description: "D'autres services rejoindront le cloud SETYCORP — cette page s'enrichira au fur et à mesure.",
     },
     ctaPrefix: "Découvrir",
   },
@@ -379,7 +411,7 @@ export const DEFAULT_SECTIONS: SectionsContent = {
   },
   values: {
     hidden: false,
-    heading: { eyebrow: "Nos valeurs", title: "Ce qui guide WICLOUD.", description: "" },
+    heading: { eyebrow: "Nos valeurs", title: "Ce qui guide SETYCORP.", description: "" },
     items: [
       { icon: "lock", title: "Sécurité & confidentialité", text: "La protection des données de nos partenaires et de leurs clients guide chacune de nos décisions produit." },
       { icon: "sparkles", title: "Innovation continue", text: "Nos équipes Cloud, Data et Ingénierie font évoluer nos services en continu, au rythme des besoins du marché." },
@@ -391,12 +423,12 @@ export const DEFAULT_SECTIONS: SectionsContent = {
     heading: { eyebrow: "Questions fréquentes", title: "Tout ce que vous devez savoir.", description: "" },
     items: [
       {
-        title: "Que propose WICLOUD, concrètement ?",
+        title: "Que propose SETYCORP, concrètement ?",
         content:
           "Un cloud souverain et les services qui tournent dessus : hébergement et infrastructure, traitement de données, paiement et vente en ligne. Consultez la section « Quelle solution pour vous ? » ou contactez-nous directement.",
       },
       {
-        title: "Les services WICLOUD sont-ils connectés entre eux ?",
+        title: "Les services SETYCORP sont-ils connectés entre eux ?",
         content:
           "Oui. Tous nos services tournent sur le même cloud et sont conçus pour fonctionner ensemble : ce que vous activez aujourd'hui se connecte à ce que vous ajouterez demain.",
       },
@@ -406,7 +438,7 @@ export const DEFAULT_SECTIONS: SectionsContent = {
       },
       { title: "Où sont hébergées les données ?", content: "Sur notre cloud souverain, avec un contrôle total sur la localisation des données." },
       {
-        title: "Comment devenir partenaire de WICLOUD ?",
+        title: "Comment devenir partenaire de SETYCORP ?",
         content: "Contactez notre équipe via le formulaire ci-dessous — nous reviendrons vers vous rapidement pour étudier votre projet.",
       },
     ],
@@ -438,6 +470,7 @@ export const DEFAULT_SITE_CONTENT: SiteContent = {
   general: DEFAULT_GENERAL,
   hero: DEFAULT_HERO,
   footer: DEFAULT_FOOTER,
+  nav: DEFAULT_NAV,
   sections: DEFAULT_SECTIONS,
 };
 

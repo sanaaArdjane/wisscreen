@@ -14,7 +14,7 @@
 const rawSiteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://wisscreen.rflabs.tech";
 
 export const SITE_URL = rawSiteUrl.replace(/\/+$/, "");
-export const SITE_NAME = "WICLOUD";
+export const SITE_NAME = "SETYCORP";
 export const SITE_LOCALE = "fr_FR";
 export const SITE_DESCRIPTION =
-  "WICLOUD, le cloud souverain et les services qui tournent dessus : infrastructure, données, paiement et commerce en ligne, pour les entreprises, les banques et les particuliers.";
+  "SETYCORP, le cloud souverain et les services qui tournent dessus : infrastructure, données, paiement et commerce en ligne, pour les entreprises, les banques et les particuliers.";

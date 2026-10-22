@@ -15,12 +15,12 @@ import type { SectionContent } from "@/lib/content/schema";
  * at the end, where the finished headline is still filled with moving footage.
  *
  * The beat, in order: full-bleed video; the ground resolving to paper with the camera
- * sitting inside the counter of the "O" in "WICLOUD"; a long zoom out until the whole
+ * sitting inside the counter of the "O" in "SETYCORP"; a long zoom out until the whole
  * word is legible, centred; the word lifts to its resting place; the pitch lands under
  * it.
  */
 
-const WORD = "WICLOUD";
+const WORD = "SETYCORP";
 
 
 /* Typography shared by the SVG word and the invisible <h2> that anchors it. The h2 is
@@ -75,9 +75,9 @@ const GHOST = 0.08;
 const VIDEO_DIM = 0.5;
 const VIDEO_PUNCH = 0.15;
 
-/* The opening frame sits inside the counter (the enclosed hole) of the "O" in "WICLOUD",
+/* The opening frame sits inside the counter (the enclosed hole) of the "O" in "SETYCORP",
    so the cut to paper reads as a blank white screen that a giant letterform then grows
-   into. Index 4 of "WICLOUD"; measured off the <h2> with a Range, so the letter is
+   into. Index 5 of "SETYCORP"; measured off the <h2> with a Range, so the letter is
    located exactly rather than estimated.
 
    The two em fractions are *measured*, not estimated — there is no DOM API for a glyph's
@@ -91,7 +91,7 @@ const VIDEO_PUNCH = 0.15;
    would exactly touch the stage's shorter axis, and the focus point is never quite the
    counter's centre, so it needs headroom. Re-run the canvas scan — not your eye — for all
    three if the display face or `ZOOM_CHAR` ever changes. */
-const ZOOM_CHAR = 4;
+const ZOOM_CHAR = 5;
 const COUNTER_EM = 0.515;
 const COUNTER_DROP = 0;
 const COUNTER_FILL = 1.6;

@@ -4,13 +4,20 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/cn";
+import { Icon } from "@/components/ui/Icon";
+import type { NavContent } from "@/lib/content/schema";
 
-/** Only what the nav draws, so the client payload stays small. */
-export type NavSolution = { slug: string; name: string; shortName: string };
-
-export function Navbar({ solutions: SERVICES }: { solutions: NavSolution[] }) {
+/**
+ * The menu comes from `/admin/site/navigation` (the `nav` block), so an entry is plain
+ * data: a label, a link, and optionally a dropdown of children.
+ */
+export function Navbar({ items, brand }: { items: NavContent["items"]; brand: string }) {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  // Index of the dropdown showing on desktop. One at a time; hover and keyboard focus both open it.
+  const [menu, setMenu] = useState<number | null>(null);
+  // The wordmark splits in two so its second half can carry the accent, whatever the name is.
+  const cut = Math.ceil(brand.length / 2);
 
   // Which colour family the bar wears. It follows the page's opening ground, not the
   // scroll: the homepage hero is light, every other page opens on `section-ink`. Scroll
@@ -63,15 +70,77 @@ export function Navbar({ solutions: SERVICES }: { solutions: NavSolution[] }) {
         )}
       >
         <Link href="/" className="text-lg font-semibold uppercase tracking-[0.14em] md:text-xl">
-          WI<span className="text-accent">CLOUD</span>
+          {brand.slice(0, cut)}
+          <span className="text-accent">{brand.slice(cut)}</span>
         </Link>
 
-        <ul className="hidden items-center gap-8 text-sm font-medium md:flex">
-          {SERVICES.map((service) => (
-            <li key={service.slug}>
-              <Link href={`/solutions/${service.slug}`} className="relative opacity-80 transition-opacity hover:opacity-100">
-                {service.shortName}
-              </Link>
+        <ul className="hidden items-center gap-6 text-sm font-medium md:flex lg:gap-8">
+          {items.map((item, i) => (
+            <li
+              key={`${item.label}-${i}`}
+              className="relative"
+              onMouseEnter={() => item.children.length > 0 && setMenu(i)}
+              onMouseLeave={() => setMenu((m) => (m === i ? null : m))}
+              onBlur={(e) => {
+                if (!e.currentTarget.contains(e.relatedTarget)) setMenu((m) => (m === i ? null : m));
+              }}
+              onKeyDown={(e) => {
+                if (e.key === "Escape") setMenu(null);
+              }}
+            >
+              {item.children.length === 0 ? (
+                <Link href={item.href} className="opacity-80 transition-opacity hover:opacity-100">
+                  {item.label}
+                </Link>
+              ) : (
+                <>
+                  <span className="flex items-center gap-1">
+                    <Link href={item.href} className="opacity-80 transition-opacity hover:opacity-100">
+                      {item.label}
+                    </Link>
+                    <button
+                      type="button"
+                      aria-label={`Sous-menu ${item.label}`}
+                      aria-haspopup="true"
+                      aria-expanded={menu === i}
+                      onClick={() => setMenu((m) => (m === i ? null : i))}
+                      className="rounded-full p-1 opacity-80 transition-opacity hover:opacity-100"
+                    >
+                      <Icon
+                        name="chevron-down"
+                        className={cn("size-3.5 transition-transform", menu === i && "rotate-180")}
+                      />
+                    </button>
+                  </span>
+                  {menu === i && (
+                    // `pt-3` is a hover bridge: the gap between the label and the panel
+                    // belongs to the <li>, so the pointer never leaves it on the way down.
+                    <div className="absolute left-1/2 top-full z-10 -translate-x-1/2 pt-3">
+                      <ul
+                        className={cn(
+                          "min-w-48 rounded-2xl p-2 shadow-lg ring-1",
+                          dark ? "on-dark bg-ink text-paper ring-white/12" : "bg-paper text-ink ring-ink/10",
+                        )}
+                      >
+                        {item.children.map((child, j) => (
+                          <li key={`${child.label}-${j}`}>
+                            <Link
+                              href={child.href}
+                              onClick={() => setMenu(null)}
+                              className={cn(
+                                "block whitespace-nowrap rounded-xl px-3.5 py-2 text-sm",
+                                dark ? "hover:bg-white/10" : "hover:bg-mist",
+                              )}
+                            >
+                              {child.label}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </>
+              )}
             </li>
           ))}
         </ul>
@@ -125,11 +194,22 @@ export function Navbar({ solutions: SERVICES }: { solutions: NavSolution[] }) {
           )}
         >
           <ul className="flex flex-col gap-4 text-base font-medium">
-            {SERVICES.map((service) => (
-              <li key={service.slug}>
-                <Link href={`/solutions/${service.slug}`} onClick={() => setOpen(false)}>
-                  {service.name}
+            {items.map((item, i) => (
+              <li key={`${item.label}-${i}`}>
+                <Link href={item.href} onClick={() => setOpen(false)}>
+                  {item.label}
                 </Link>
+                {item.children.length > 0 && (
+                  <ul className={cn("mt-2 flex flex-col gap-2 border-l pl-4 text-sm", dark ? "border-white/15" : "border-ink/10")}>
+                    {item.children.map((child, j) => (
+                      <li key={`${child.label}-${j}`}>
+                        <Link href={child.href} onClick={() => setOpen(false)} className="opacity-80">
+                          {child.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </li>
             ))}
             <li>

@@ -24,7 +24,14 @@ import { Icon } from "@/components/ui/Icon";
  * half-typed reply survives it — so the only cost is a cheap RSC round trip.
  */
 
-type Toast = { id: number; title: string; body?: string | null; href?: string | null };
+type Toast = {
+  id: number;
+  title: string;
+  body?: string | null;
+  href?: string | null;
+  /** Set on action outcomes; notification toasts leave it unset. */
+  tone?: "ok" | "error";
+};
 
 type LatestRow = {
   id: number;
@@ -42,6 +49,20 @@ const RealtimeContext = createContext<{ unread: number; connected: boolean }>({
 export function useRealtime() {
   return useContext(RealtimeContext);
 }
+
+type PushToast = (t: { title: string; tone: "ok" | "error" }) => void;
+const ToastContext = createContext<PushToast | null>(null);
+
+/**
+ * The outcome of something the person just did. `null` outside the signed-in
+ * shell, so a form rendered elsewhere keeps its inline banner.
+ */
+export function useToast(): PushToast | null {
+  return useContext(ToastContext);
+}
+
+/** Action outcomes get fresh negative ids; notification ids are positive rows. */
+let localToastId = 0;
 
 /** Toasts stay long enough to read a title twice. */
 const TOAST_MS = 6_000;
@@ -77,6 +98,15 @@ export function RealtimeProvider({
   const dismiss = useCallback((id: number) => {
     setToasts((all) => all.filter((t) => t.id !== id));
   }, []);
+
+  const pushToast = useCallback<PushToast>(
+    ({ title, tone }) => {
+      const id = --localToastId;
+      setToasts((all) => [...all, { id, title, tone }].slice(-3));
+      setTimeout(() => dismiss(id), TOAST_MS);
+    },
+    [dismiss],
+  );
 
   const sync = useCallback(
     async (toast: boolean) => {
@@ -153,8 +183,10 @@ export function RealtimeProvider({
 
   return (
     <RealtimeContext.Provider value={{ unread, connected }}>
-      {children}
-      <ToastStack toasts={toasts} onDismiss={dismiss} />
+      <ToastContext.Provider value={pushToast}>
+        {children}
+        <ToastStack toasts={toasts} onDismiss={dismiss} />
+      </ToastContext.Provider>
     </RealtimeContext.Provider>
   );
 }
@@ -170,10 +202,19 @@ function ToastStack({ toasts, onDismiss }: { toasts: Toast[]; onDismiss: (id: nu
       {toasts.map((t) => (
         <div
           key={t.id}
-          role="status"
+          role={t.tone === "error" ? "alert" : "status"}
           className="pointer-events-auto flex items-start gap-3 rounded-2xl border border-fg/15 bg-panel p-4 shadow-lg"
         >
-          <span aria-hidden className="mt-1.5 size-2 shrink-0 rounded-full bg-signal" />
+          {/* The dot carries the tone; the text stays `fg` (an accent on its own tint fails 4.5:1).
+              A failure is a hollow ring, not red — red is reserved for destructive controls. */}
+          <span
+            aria-hidden
+            className={
+              t.tone === "error"
+                ? "mt-1.5 size-2 shrink-0 rounded-full border-2 border-fg"
+                : "mt-1.5 size-2 shrink-0 rounded-full bg-signal"
+            }
+          />
           <div className="min-w-0 flex-1">
             {t.href ? (
               <Link
@@ -211,4 +252,27 @@ export function UnreadBadge() {
       {unread > 99 ? "99+" : unread}
     </span>
   );
+}
+
+/**
+ * Shows the one-shot message a server action left in the `wc-flash` cookie
+ * (`lib/flash.ts`) and clears it. The layout re-renders with a new `flash` string
+ * whenever an action sets the cookie, which is the trigger.
+ */
+export function FlashToast({ flash }: { flash?: string }) {
+  const push = useToast();
+  const shown = useRef<number | null>(null);
+  useEffect(() => {
+    if (!flash || !push) return;
+    try {
+      const f = JSON.parse(flash) as { id: number; ok: boolean; message: string };
+      if (shown.current === f.id) return;
+      shown.current = f.id;
+      push({ title: f.message, tone: f.ok ? "ok" : "error" });
+    } catch {
+      /* a malformed cookie is not worth a toast */
+    }
+    document.cookie = "wc-flash=; path=/; max-age=0; samesite=lax";
+  }, [flash, push]);
+  return null;
 }

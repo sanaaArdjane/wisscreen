@@ -16,7 +16,7 @@ export default async function MarketingLayout({ children }: LayoutProps<"/">) {
   const [content, solutions] = await Promise.all([getSiteContent(), getSolutions()]);
   return (
     <>
-      <Navbar solutions={solutions.map(({ slug, name, shortName }) => ({ slug, name, shortName }))} />
+      <Navbar items={content.nav.items} brand={content.general.siteName} />
       {children}
       <Footer
         footer={content.footer}

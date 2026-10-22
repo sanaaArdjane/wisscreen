@@ -4,6 +4,8 @@ import { and, desc, eq, ilike, inArray, isNull, or, type SQL } from "drizzle-orm
 import { db } from "@/lib/db";
 import { requests, user as userTable } from "@/lib/db/schema";
 import { requirePermission } from "@/lib/guard";
+import { can } from "@/lib/permissions";
+import { pillPrimary } from "@/components/dashboard/pills";
 import { PageHeader, Panel } from "@/components/dashboard/PageHeader";
 import { EmptyState, StatusChip } from "@/components/dashboard/ui";
 import { FilterBar } from "@/components/dashboard/FilterBar";
@@ -20,7 +22,7 @@ import { relativeTime } from "@/lib/format";
 export const metadata: Metadata = { title: "Demandes" };
 
 export default async function AdminDemandesPage({ searchParams }: PageProps<"/admin/demandes">) {
-  await requirePermission("requests:read");
+  const staff = await requirePermission("requests:read");
   const { statut, q, attribution } = await searchParams;
 
   const filters: SQL[] = [];
@@ -64,6 +66,13 @@ export default async function AdminDemandesPage({ searchParams }: PageProps<"/ad
       <PageHeader
         title="Demandes"
         description="La file complète : attribution, statut et historique de chaque dossier."
+        actions={
+          can(staff, "requests:write") ? (
+            <Link href="/admin/demandes/nouvelle" className={pillPrimary}>
+              Nouvelle demande pour un client
+            </Link>
+          ) : undefined
+        }
       />
 
       <FilterBar

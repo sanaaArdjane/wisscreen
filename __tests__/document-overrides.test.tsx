@@ -13,7 +13,7 @@ beforeAll(() => {
 });
 afterEach(cleanup);
 
-const base = { ...DEFAULT_COMPANY, name: "WICLOUD", rc: "16/00-111", nif: "0021", vatRate: 19, bank: "BNA" };
+const base = { ...DEFAULT_COMPANY, name: "SETYCORP", rc: "16/00-111", nif: "0021", vatRate: 19, bank: "BNA" };
 
 describe("per-document company overrides", () => {
   it("falls back to Paramètres for absent keys and wins when present", () => {

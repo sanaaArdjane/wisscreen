@@ -23,7 +23,7 @@ const geistMono = Geist_Mono({
  */
 export async function generateMetadata(): Promise<Metadata> {
   const { general } = await getSiteContent();
-  const SITE_NAME = general.siteName || "WICLOUD";
+  const SITE_NAME = general.siteName || "SETYCORP";
   const TITLE_DEFAULT = general.seoTitle || SITE_NAME;
   const SITE_DESCRIPTION = general.seoDescription;
 
@@ -32,7 +32,7 @@ export async function generateMetadata(): Promise<Metadata> {
     title: {
       default: TITLE_DEFAULT,
       // Every route below sets a bare title (e.g. "OCR") and gets this suffix for free,
-      // instead of every generateMetadata call re-concatenating "— WICLOUD" itself.
+      // instead of every generateMetadata call re-concatenating "— SETYCORP" itself.
       template: `%s — ${SITE_NAME}`,
     },
     description: SITE_DESCRIPTION,

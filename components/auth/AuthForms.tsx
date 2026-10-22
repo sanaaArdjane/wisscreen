@@ -82,9 +82,14 @@ function Alert({ children, tone = "error" }: { children: ReactNode; tone?: "erro
 function PasswordField({
   value,
   onChange,
+  label = "Mot de passe",
+  onGenerate,
 }: {
   value: string;
   onChange: (next: string) => void;
+  label?: string;
+  /** Called with the generated password, so a caller with a confirm field can fill it too. */
+  onGenerate?: (generated: string) => void;
 }) {
   const id = useId();
   const [shown, setShown] = useState(false);
@@ -93,7 +98,7 @@ function PasswordField({
   return (
     <div className="flex w-full flex-col gap-1.5">
       <label htmlFor={id} className="text-sm font-medium text-ink">
-        Mot de passe <span aria-hidden className="text-danger-fg">*</span>
+        {label} <span aria-hidden className="text-danger-fg">*</span>
       </label>
 
       <div className="flex gap-2">
@@ -121,7 +126,9 @@ function PasswordField({
         <button
           type="button"
           onClick={() => {
-            onChange(generatePassword());
+            const generated = generatePassword();
+            onChange(generated);
+            onGenerate?.(generated);
             setShown(true);
           }}
           className="shrink-0 rounded-xl border border-ink/15 bg-mist px-3.5 text-sm font-medium text-ink transition-colors hover:bg-ink/10"
@@ -134,22 +141,76 @@ function PasswordField({
           only on submit. The list is always rendered — a checklist that appears once
           you have already failed is a scold, not a guide. */}
       <ul id={`${id}-rules`} aria-live="polite" className="mt-1.5 grid gap-1 sm:grid-cols-2">
-        {checks.map(({ rule, ok }) => (
-          <li
-            key={rule.id}
-            className={`flex items-center gap-1.5 text-xs ${ok ? "text-signal-deep" : "text-ink/80"}`}
-          >
-            {/* A dot rather than a cross for the unmet state: the list is visible from
-                the first keystroke, so a cross would be scolding someone mid-word. */}
-            {ok ? (
-              <Icon name="check" className="size-3.5 shrink-0" />
-            ) : (
-              <span aria-hidden className="size-1.5 shrink-0 rounded-full bg-ink/40" />
-            )}
-            {rule.label}
-          </li>
-        ))}
+        {checks.map(({ rule, ok }) => {
+          // Red only once something has been typed: the list is visible from the
+          // first keystroke, and a field that scolds an empty box is noise. Colour is
+          // never the only signal — each state also has its own icon.
+          const typing = value.length > 0;
+          return (
+            <li
+              key={rule.id}
+              className={`flex items-center gap-1.5 text-xs ${
+                ok ? "text-signal-deep" : typing ? "text-danger-fg" : "text-ink/80"
+              }`}
+            >
+              {ok ? (
+                <Icon name="check" className="size-3.5 shrink-0" />
+              ) : typing ? (
+                <Icon name="close" className="size-3.5 shrink-0" />
+              ) : (
+                <span aria-hidden className="size-1.5 shrink-0 rounded-full bg-ink/40" />
+              )}
+              {rule.label}
+            </li>
+          );
+        })}
       </ul>
+    </div>
+  );
+}
+
+/**
+ * The confirmation input with its verdict underneath: red while the two differ, green
+ * the moment they match. Empty stays quiet, for the same reason the checklist does.
+ */
+function ConfirmPasswordField({ value, onChange, password }: { value: string; onChange: (next: string) => void; password: string }) {
+  const id = useId();
+  const typing = value.length > 0;
+  const match = typing && value === password;
+  return (
+    <div className="flex w-full flex-col gap-1.5">
+      <label htmlFor={id} className="text-sm font-medium text-ink">
+        Confirmer le mot de passe <span aria-hidden className="text-danger-fg">*</span>
+      </label>
+      <input
+        id={id}
+        name="confirm"
+        type="password"
+        autoComplete="new-password"
+        required
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        aria-describedby={`${id}-match`}
+        aria-invalid={typing && !match}
+      />
+      <p
+        id={`${id}-match`}
+        aria-live="polite"
+        className={`flex min-h-4 items-center gap-1.5 text-xs ${match ? "text-signal-deep" : "text-danger-fg"}`}
+      >
+        {typing &&
+          (match ? (
+            <>
+              <Icon name="check" className="size-3.5 shrink-0" />
+              Les mots de passe correspondent
+            </>
+          ) : (
+            <>
+              <Icon name="close" className="size-3.5 shrink-0" />
+              Les mots de passe ne correspondent pas
+            </>
+          ))}
+      </p>
     </div>
   );
 }
@@ -305,7 +366,7 @@ export function SignInForm({
 
   return (
     <>
-      <Heading title="Connexion" subtitle="Accédez à votre espace WICLOUD." />
+      <Heading title="Connexion" subtitle="Accédez à votre espace SETYCORP." />
 
       {googleEnabled && (
         <>
@@ -528,6 +589,9 @@ export function ResetPasswordForm() {
   const token = params.get("token");
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
+  const [password, setPassword] = useState("");
+  const [confirm, setConfirm] = useState("");
+  const ready = isStrongPassword(password) && password === confirm;
 
   if (!token) {
     return (
@@ -548,22 +612,19 @@ export function ResetPasswordForm() {
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const form = new FormData(event.currentTarget);
-    const password = String(form.get("password") ?? "");
-    if (password !== String(form.get("confirm") ?? "")) {
-      setError("Les deux mots de passe ne correspondent pas.");
-      return;
-    }
-    if (password.length < 10) {
-      setError("Le mot de passe doit contenir au moins 10 caractères.");
-      return;
-    }
+    if (!ready) return;
     setError(null);
     setBusy(true);
     const { error } = await authClient.resetPassword({ newPassword: password, token: token! });
     setBusy(false);
     if (error) {
-      setError("Ce lien a expiré. Demandez-en un nouveau.");
+      // A weak password is the server's verdict too, and its message names what is
+      // missing; anything else on this endpoint is an expired or used token.
+      setError(
+        error.code === "PASSWORD_TOO_WEAK"
+          ? describeError(error.code, error.message ?? "Mot de passe trop faible.")
+          : "Ce lien a expiré. Demandez-en un nouveau.",
+      );
       return;
     }
     router.push("/connexion");
@@ -574,22 +635,14 @@ export function ResetPasswordForm() {
       <Heading title="Nouveau mot de passe" />
       <form onSubmit={onSubmit} className="flex flex-col gap-4">
         {error && <Alert>{error}</Alert>}
-        <Field
-          name="password"
+        <PasswordField
           label="Nouveau mot de passe"
-          type="password"
-          autoComplete="new-password"
-          description="10 caractères minimum."
-          isRequired
+          value={password}
+          onChange={setPassword}
+          onGenerate={setConfirm}
         />
-        <Field
-          name="confirm"
-          label="Confirmer le mot de passe"
-          type="password"
-          autoComplete="new-password"
-          isRequired
-        />
-        <Button type="submit" fullWidth isDisabled={busy}>
+        <ConfirmPasswordField value={confirm} onChange={setConfirm} password={password} />
+        <Button type="submit" fullWidth isDisabled={busy || !ready}>
           {busy && <Spinner className="size-4" />}
           Enregistrer
         </Button>

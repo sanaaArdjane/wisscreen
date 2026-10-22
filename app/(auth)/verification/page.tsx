@@ -10,7 +10,7 @@ export default function VerificationPage() {
       <h1 className="text-2xl font-semibold tracking-tight text-ink">Confirmez votre adresse</h1>
       <p className="mt-2 text-sm text-ink/80">
         Un e-mail vient de vous être envoyé. Ouvrez-le et cliquez sur le lien pour activer
-        votre espace WICLOUD.
+        votre espace SETYCORP.
       </p>
       <p className="mt-4 text-sm text-ink/80">
         Rien reçu ? Vérifiez vos indésirables, puis réessayez de vous connecter — un

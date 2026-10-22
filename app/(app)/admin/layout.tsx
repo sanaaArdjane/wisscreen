@@ -4,6 +4,7 @@ import { isImpersonating, requireStaff } from "@/lib/guard";
 import { unreadCount } from "@/lib/account";
 import { getSetting } from "@/lib/settings";
 import { getTheme } from "@/lib/theme-server";
+import { readFlash } from "@/lib/flash";
 import { can } from "@/lib/permissions";
 
 /**
@@ -37,6 +38,7 @@ export default async function AdminLayout({ children }: LayoutProps<"/admin">) {
       announcement={announcement || undefined}
       impersonating={impersonating}
       theme={theme}
+      flash={await readFlash()}
     >
       {children}
     </AppShell>

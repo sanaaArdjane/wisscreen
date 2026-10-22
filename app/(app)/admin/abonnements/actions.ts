@@ -17,6 +17,7 @@ import {
   grantServiceQuotas,
   revokeServiceQuotas,
 } from "@/lib/quotas";
+import { flash } from "@/lib/flash";
 
 /**
  * Provisioned services — a server, an SMTP allowance, an AI plan a customer
@@ -146,7 +147,10 @@ export async function saveService(_prev: ActionState, formData: FormData): Promi
   }
 
   refresh(d.userId, id);
-  if (!d.subscriptionId) redirect(`/admin/abonnements/${id}`);
+  if (!d.subscriptionId) {
+    await flash("Service créé.");
+    redirect(`/admin/abonnements/${id}`);
+  }
   return succeed("Service enregistré.");
 }
 
@@ -185,5 +189,6 @@ export async function deleteService(_prev: ActionState, formData: FormData): Pro
     meta: { userId: row.sub.userId, label: row.sub.label, revokedQuotas: parsed.data.revokeQuotas },
   });
   refresh(row.sub.userId);
+  await flash("Service supprimé.");
   redirect("/admin/abonnements");
 }

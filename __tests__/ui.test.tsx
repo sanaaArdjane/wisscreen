@@ -317,6 +317,6 @@ describe("Footer", () => {
   it("shows the current year in the copyright line", () => {
     renderFooter();
     const year = String(new Date().getFullYear());
-    expect(screen.getByText(new RegExp(`${year} WICLOUD`))).toBeTruthy();
+    expect(screen.getByText(new RegExp(`${year} SETYCORP`))).toBeTruthy();
   });
 });

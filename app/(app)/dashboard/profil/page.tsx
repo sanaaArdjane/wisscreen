@@ -11,7 +11,7 @@ export const metadata: Metadata = { title: "Mon profil" };
 
 const ROLE_LABELS: Record<string, string> = {
   admin: "Administrateur",
-  staff: "Équipe WICLOUD",
+  staff: "Équipe SETYCORP",
   user: "Client",
 };
 

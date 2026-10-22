@@ -25,7 +25,7 @@ export const RAW_SERVICES: Service[] = [
     heroDescription:
       "Notre moteur OCR, développé en interne par l'équipe Data, lit, comprend et structure vos documents et images — cartes d'identité, factures, relevés, contrats — pour les transformer instantanément en données prêtes à l'emploi.",
     description: [
-      "OCR est le moteur d'extraction de données de WICLOUD. Conçu et entraîné par notre équipe Data, il combine reconnaissance optique de caractères, vision par ordinateur et modèles de compréhension de documents pour extraire automatiquement les informations contenues dans des fichiers scannés, des photos ou des PDF.",
+      "OCR est le moteur d'extraction de données de SETYCORP. Conçu et entraîné par notre équipe Data, il combine reconnaissance optique de caractères, vision par ordinateur et modèles de compréhension de documents pour extraire automatiquement les informations contenues dans des fichiers scannés, des photos ou des PDF.",
       "Pensé pour les flux à fort volume, OCR s'intègre directement dans vos processus métier : onboarding client, vérification d'identité, traitement de factures, dématérialisation d'archives. Chaque document est analysé, structuré puis restitué au format dont vos systèmes ont besoin (JSON, API, base de données).",
       "Le moteur continue d'apprendre : nouveaux types de documents, nouvelles langues, nouveaux formats — l'équipe Data enrichit continuellement les modèles pour améliorer la précision au fil du temps.",
       "Cette page évoluera avec plus de détails techniques, de cas d'usage et de métriques de performance au fur et à mesure des mises à jour du produit.",
@@ -66,7 +66,7 @@ export const RAW_SERVICES: Service[] = [
         { kind: "video-slot", label: "Démonstration vidéo du moteur OCR" },
       ],
     },
-    team: "Développé par l'équipe Data de WICLOUD",
+    team: "Développé par l'équipe Data de SETYCORP",
   },
   {
     slug: "wicloud",
@@ -79,7 +79,7 @@ export const RAW_SERVICES: Service[] = [
       "Cloud Infrastructure est notre plateforme d'infrastructure cloud, pensée à la manière des grands fournisseurs internationaux mais conçue pour répondre aux exigences locales de souveraineté, de performance et de sécurité des données.",
     description: [
       "Cloud Infrastructure fournit les briques essentielles pour héberger, déployer et faire évoluer des applications modernes : calcul, stockage, réseau, bases de données managées et outils de supervision, le tout piloté depuis une seule console.",
-      "Conçue dès le départ pour supporter l'ensemble des solutions WICLOUD (OCR, WIFACILITY, SETYCORE), Cloud Infrastructure garantit une infrastructure homogène, sécurisée et scalable, avec un contrôle total sur la localisation des données.",
+      "Conçue dès le départ pour supporter l'ensemble des solutions SETYCORP (OCR, WIFACILITY, SETYCORE), Cloud Infrastructure garantit une infrastructure homogène, sécurisée et scalable, avec un contrôle total sur la localisation des données.",
       "Notre équipe infrastructure surveille la plateforme 24/7, avec des mécanismes de redondance, de sauvegarde et de reprise après sinistre pour garantir une disponibilité continue.",
       "D'autres services (fonctions serverless, CDN, IA managée) rejoindront Cloud Infrastructure au fil des prochaines versions — cette page sera enrichie en conséquence.",
     ],
@@ -109,7 +109,7 @@ export const RAW_SERVICES: Service[] = [
       { question: "Peut-on migrer une infrastructure existante vers Cloud Infrastructure ?", answer: "Oui, notre équipe accompagne la migration avec un plan par étapes pour limiter les interruptions de service." },
       { question: "Quel est le modèle de facturation ?", answer: "Un modèle à l'usage, avec des paliers adaptés aux besoins des partenaires et entreprises — détails à venir." },
       { question: "Quel est le SLA de disponibilité ?", answer: "99,95% de disponibilité garantie, avec supervision 24/7 par notre équipe infrastructure." },
-      { question: "Cloud Infrastructure héberge-t-il les autres solutions WICLOUD ?", answer: "Oui, OCR, WIFACILITY et SETYCORE fonctionnent tous nativement sur notre Cloud Infrastructure." },
+      { question: "Cloud Infrastructure héberge-t-il les autres solutions SETYCORP ?", answer: "Oui, OCR, WIFACILITY et SETYCORE fonctionnent tous nativement sur notre Cloud Infrastructure." },
     ],
     media: {
       hero: { kind: "mock-dashboard", label: "Console Cloud — vue d'ensemble de l'infrastructure" },
@@ -119,7 +119,7 @@ export const RAW_SERVICES: Service[] = [
         { kind: "video-slot", label: "Présentation vidéo de la console Cloud" },
       ],
     },
-    team: "Opéré par l'équipe Infrastructure de WICLOUD",
+    team: "Opéré par l'équipe Infrastructure de SETYCORP",
   },
   {
     slug: "wifacility",
@@ -191,7 +191,7 @@ export const RAW_SERVICES: Service[] = [
         { kind: "image-slot", label: "Parcours client de simulation d'achat échelonné" },
       ],
     },
-    team: "Porté par les équipes Produit & Ingénierie de WICLOUD",
+    team: "Porté par les équipes Produit & Ingénierie de SETYCORP",
   },
   {
     slug: "setycore",
@@ -244,7 +244,100 @@ export const RAW_SERVICES: Service[] = [
         { kind: "video-slot", label: "Démonstration de la marketplace SETYCORE" },
       ],
     },
-    team: "Développé par l'équipe Produit de WICLOUD",
+    team: "Développé par l'équipe Produit de SETYCORP",
+  },
+  // Stubs: the navbar's DATA > Chatbot and ERP entries need a page to land on. Copy is
+  // deliberately thin and honest about being a first draft — the owner fills both in
+  // from /admin/site/solutions.
+  {
+    slug: "chatbot",
+    name: "Chatbot IA",
+    shortName: "Chatbot",
+    icon: "sparkles",
+    category: "Data & Intelligence",
+    tagline: "Un assistant conversationnel branché sur vos documents et vos données.",
+    heroDescription:
+      "Le Chatbot SETYCORP répond à vos clients et à vos équipes à partir de vos propres contenus : FAQ, documents, base de connaissances. Cette page sera complétée prochainement.",
+    description: [
+      "Le Chatbot s'appuie sur vos documents et vos données pour répondre avec précision, en français comme dans d'autres langues, sur votre site, votre application ou vos canaux de messagerie.",
+      "Il se connecte à l'OCR pour exploiter des documents numérisés et à vos outils existants pour déclencher des actions : ouvrir un dossier, répondre à une question de suivi, transmettre à un humain.",
+      "Cette page est un brouillon : le périmètre exact sera précisé avec vous.",
+    ],
+    audiences: ["entreprises", "partenaires"],
+    palette: { primary: "aqua", secondary: "teal" },
+    stats: [
+      { value: "24/7", label: "Disponibilité de l'assistant" },
+      { value: "FR · EN · AR", label: "Langues prises en charge (à confirmer)" },
+      { value: "Sur mesure", label: "Entraîné sur vos contenus" },
+    ],
+    features: [
+      { title: "Réponses sourcées", description: "Chaque réponse s'appuie sur vos documents et peut en citer la source.", icon: "file-text" },
+      { title: "Multicanal", description: "Site web, application, messagerie : un seul assistant, plusieurs points d'entrée.", icon: "layers" },
+      { title: "Passage à un humain", description: "Transfert vers votre équipe quand la question dépasse l'assistant.", icon: "users" },
+    ],
+    steps: [
+      { title: "Cadrage", description: "Nous définissons avec vous les usages et les sources de connaissance." },
+      { title: "Entraînement", description: "L'assistant est configuré sur vos contenus et testé sur des cas réels." },
+      { title: "Mise en ligne", description: "Déploiement sur vos canaux, avec un suivi des questions posées." },
+    ],
+    faq: [
+      { question: "Mes données servent-elles à entraîner un modèle public ?", answer: "Non. Les contenus que vous nous confiez restent à votre usage — détails à confirmer lors du cadrage." },
+      { question: "Quand ce service sera-t-il disponible ?", answer: "Cette page est un brouillon : contactez-nous pour une démonstration et un calendrier." },
+    ],
+    media: {
+      hero: { kind: "mock-dashboard", label: "Console du Chatbot" },
+      gallery: [
+        { kind: "mock-chart", label: "Statistiques des conversations" },
+        { kind: "image-slot", label: "Widget de chat sur un site" },
+        { kind: "video-slot", label: "Démonstration du Chatbot" },
+      ],
+    },
+    team: "Développé par l'équipe Data de SETYCORP",
+  },
+  {
+    slug: "erp",
+    name: "ERP",
+    shortName: "ERP",
+    icon: "layers",
+    category: "Gestion d'entreprise",
+    tagline: "Un système de gestion unique pour vos ventes, vos stocks et votre comptabilité.",
+    heroDescription:
+      "L'ERP SETYCORP centralise la gestion de votre activité et se connecte à nos autres solutions. Son contenu détaillé sera défini avec vous : cette page est un brouillon.",
+    description: [
+      "L'ERP regroupe les modules de gestion dont une entreprise a besoin : ventes, achats, stocks, facturation et suivi financier, dans un seul outil.",
+      "Il s'interface avec SETYCORE pour la vente en ligne, WIFACILITY pour le paiement échelonné et l'OCR pour la saisie automatique des documents.",
+      "Les modules proposés seront précisés ensemble — cette page est un brouillon à compléter.",
+    ],
+    audiences: ["entreprises", "partenaires"],
+    palette: { primary: "steel", secondary: "teal" },
+    stats: [
+      { value: "1", label: "Outil pour toute la gestion" },
+      { value: "Modulaire", label: "Vous n'activez que ce dont vous avez besoin" },
+      { value: "Connecté", label: "Intégré aux solutions SETYCORP" },
+    ],
+    features: [
+      { title: "Ventes & facturation", description: "Devis, commandes et factures dans un même flux.", icon: "receipt" },
+      { title: "Stocks & achats", description: "Suivi des niveaux de stock et des commandes fournisseurs.", icon: "database" },
+      { title: "Pilotage", description: "Tableaux de bord financiers et indicateurs d'activité.", icon: "bar-chart" },
+    ],
+    steps: [
+      { title: "Analyse des besoins", description: "Nous identifions les modules utiles à votre activité." },
+      { title: "Paramétrage", description: "Configuration, reprise de vos données et connexions aux autres outils." },
+      { title: "Déploiement", description: "Formation de vos équipes et accompagnement au lancement." },
+    ],
+    faq: [
+      { question: "Quels modules l'ERP contient-il ?", answer: "Le périmètre est en cours de définition : contactez-nous pour en discuter." },
+      { question: "Peut-on le connecter à notre outil actuel ?", answer: "Oui, des connecteurs sont prévus — à préciser selon votre existant." },
+    ],
+    media: {
+      hero: { kind: "mock-dashboard", label: "Tableau de bord ERP" },
+      gallery: [
+        { kind: "mock-chart", label: "Pilotage financier" },
+        { kind: "image-slot", label: "Gestion des stocks" },
+        { kind: "video-slot", label: "Démonstration de l'ERP" },
+      ],
+    },
+    team: "Développé par l'équipe Produit de SETYCORP",
   },
 ];
 

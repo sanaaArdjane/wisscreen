@@ -7,6 +7,7 @@ import { db } from "@/lib/db";
 import { contactLeads } from "@/lib/db/schema";
 import { requirePermission } from "@/lib/guard";
 import { logActivity } from "@/lib/account";
+import { flash } from "@/lib/flash";
 
 const StatusSchema = z.object({
   id: z.coerce.number().int().positive(),
@@ -37,6 +38,7 @@ export async function setLeadStatus(formData: FormData): Promise<void> {
 
   revalidatePath("/admin/messages");
   revalidatePath("/admin");
+  await flash("Statut mis à jour.");
 }
 
 /** Delete a contact message outright — spam, a duplicate, a test. */
@@ -55,4 +57,5 @@ export async function deleteLead(formData: FormData): Promise<void> {
   });
   revalidatePath("/admin/messages");
   revalidatePath("/admin");
+  await flash("Message supprimé.");
 }

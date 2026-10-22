@@ -12,6 +12,7 @@ import { allocateRef, readLines, readOverrides } from "@/lib/billing-lines";
 import { emailBillingDocument } from "@/lib/billing-send";
 import { formatMoney, totalCents } from "@/lib/money";
 import { fail, optionalText, parseForm, succeed, type ActionState } from "@/lib/actions";
+import { flash } from "@/lib/flash";
 
 /**
  * Quotes, and turning an accepted one into an invoice.
@@ -100,6 +101,7 @@ export async function saveQuote(_prev: ActionState, formData: FormData): Promise
     meta: { ref, amountCents },
   });
 
+  await flash("Devis créé.");
   redirect(`/admin/devis/${created.id}`);
 }
 
@@ -174,7 +176,10 @@ export async function invoiceFromQuote(formData: FormData): Promise<void> {
   if (!Number.isInteger(id)) return;
 
   const [quote] = await db.select().from(quotes).where(eq(quotes.id, id)).limit(1);
-  if (!quote || quote.status !== "accepte") return;
+  if (!quote || quote.status !== "accepte") {
+    await flash("Le devis doit être accepté avant d'établir une facture.", false);
+    return;
+  }
 
   const [existing] = await db
     .select({ id: invoices.id })
@@ -182,6 +187,7 @@ export async function invoiceFromQuote(formData: FormData): Promise<void> {
     .where(eq(invoices.quoteId, id))
     .limit(1);
   if (existing) {
+    await flash("Une facture existe déjà pour ce devis.", false);
     redirect(`/admin/factures/${existing.id}`);
   }
 
@@ -212,6 +218,7 @@ export async function invoiceFromQuote(formData: FormData): Promise<void> {
   });
 
   revalidatePath("/admin/factures");
+  await flash("Facture créée.");
   redirect(`/admin/factures/${created.id}`);
 }
 
@@ -247,5 +254,6 @@ export async function deleteQuote(_prev: ActionState, formData: FormData): Promi
 
   revalidatePath("/admin/devis");
   revalidatePath("/dashboard/devis");
+  await flash("Devis supprimé.");
   redirect("/admin/devis");
 }

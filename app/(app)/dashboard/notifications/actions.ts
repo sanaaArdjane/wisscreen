@@ -6,6 +6,7 @@ import { db } from "@/lib/db";
 import { notifications } from "@/lib/db/schema";
 import { requireUser } from "@/lib/guard";
 import { publish } from "@/lib/realtime";
+import { flash } from "@/lib/flash";
 
 /**
  * The caller's own feed. Every statement is scoped to the caller by its WHERE —
@@ -28,6 +29,7 @@ export async function markAllRead(): Promise<void> {
     .set({ readAt: new Date() })
     .where(and(eq(notifications.userId, user.id), isNull(notifications.readAt)));
   await done(user.id);
+  await flash("Tout est marqué comme lu.");
 }
 
 export async function markRead(formData: FormData): Promise<void> {
@@ -49,6 +51,7 @@ export async function deleteNotification(formData: FormData): Promise<void> {
     .delete(notifications)
     .where(and(eq(notifications.id, id), eq(notifications.userId, user.id)));
   await done(user.id);
+  await flash("Notification supprimée.");
 }
 
 /** "Tout effacer" clears what has been *read*. Wiping unread ones in one click
@@ -60,4 +63,5 @@ export async function clearRead(): Promise<void> {
     .delete(notifications)
     .where(and(eq(notifications.userId, user.id), isNotNull(notifications.readAt)));
   await done(user.id);
+  await flash("Notifications lues effacées.");
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import { useFormStatus } from "react-dom";
-import { useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import {
   Button,
   Chip,
@@ -18,6 +18,7 @@ import {
 } from "@heroui/react";
 import { cn } from "@/lib/cn";
 import type { ActionState } from "@/lib/actions";
+import { useToast } from "@/components/dashboard/RealtimeProvider";
 
 /**
  * The dashboard's shared form and display pieces.
@@ -130,6 +131,7 @@ export function TextAreaField({
  */
 export function CheckboxField({
   name,
+  value = "on",
   label,
   description,
   defaultChecked,
@@ -137,6 +139,8 @@ export function CheckboxField({
   className,
 }: {
   name: string;
+  /** What the box posts when checked — a row id when several boxes share a name. */
+  value?: string;
   label: ReactNode;
   description?: string;
   defaultChecked?: boolean;
@@ -149,7 +153,7 @@ export function CheckboxField({
         <input
           type="checkbox"
           name={name}
-          value="on"
+          value={value}
           defaultChecked={defaultChecked}
           disabled={isDisabled}
           className="peer sr-only"
@@ -277,6 +281,16 @@ export function SubmitButton({
  * to exactly the people who most need to know the form went through.
  */
 export function FormAlert({ state }: { state: ActionState }) {
+  const toast = useToast();
+  const toasted = useRef<ActionState | null>(null);
+  useEffect(() => {
+    if (!toast || !state.message || toasted.current === state) return;
+    toasted.current = state;
+    toast({ title: state.message, tone: state.ok ? "ok" : "error" });
+  }, [toast, state]);
+
+  // The banner stays beside the toast: it carries what must outlive six seconds
+  // (a generated password, the fields a failure is about).
   if (!state.message) return null;
   return (
     <p

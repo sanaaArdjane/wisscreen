@@ -1,4 +1,5 @@
 import { NextResponse, type NextRequest } from "next/server";
+import { SITE_URL } from "@/lib/site";
 
 /**
  * Next 16 renamed `middleware.ts` to `proxy.ts` (same mechanism — see
@@ -29,7 +30,7 @@ export function proxy(request: NextRequest) {
   const signedIn = SESSION_COOKIES.some((name) => request.cookies.has(name));
   if (signedIn) return NextResponse.next();
 
-  const url = new URL("/connexion", request.url);
+  const url = new URL("/connexion", SITE_URL);
   url.searchParams.set("next", request.nextUrl.pathname + request.nextUrl.search);
   return NextResponse.redirect(url);
 }

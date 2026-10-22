@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { and, desc, eq, isNull } from "drizzle-orm";
+import { db } from "@/lib/db";
+import { demoAccess, demos } from "@/lib/db/schema";
+import { attachDemoToRequest } from "../../demos/actions";
 import { requirePermission } from "@/lib/guard";
 import { can } from "@/lib/permissions";
 import { getRequestById, listAssignees, listThread } from "@/lib/server/queries";
@@ -39,6 +43,14 @@ export default async function AdminRequestPage({ params }: PageProps<"/admin/dem
   if (!row) notFound();
 
   const { request, client } = row;
+  const granted = new Set(
+    (
+      await db
+        .select({ demoId: demoAccess.demoId })
+        .from(demoAccess)
+        .where(and(eq(demoAccess.userId, client.id), isNull(demoAccess.revokedAt)))
+    ).map((g) => g.demoId),
+  );
   const writable = can(staff, "requests:write");
 
   // `true` here, unlike the client page: the desk sees internal notes and files.
@@ -46,6 +58,17 @@ export default async function AdminRequestPage({ params }: PageProps<"/admin/dem
     listThread(request.id, true),
     writable ? listAssignees() : [],
   ]);
+
+  // Demos this customer cannot open yet (no live grant).
+  const attachable = can(staff, "demos:write")
+    ? (
+        await db
+          .select({ id: demos.id, title: demos.title, status: demos.status })
+          .from(demos)
+          .orderBy(desc(demos.createdAt))
+          .limit(100)
+      ).filter((d) => !granted.has(d.id))
+    : [];
 
   const service = (await getSolutions({ includeHidden: true })).find((s) => s.slug === request.serviceSlug);
   const status = request.status as RequestStatus;
@@ -69,6 +92,14 @@ export default async function AdminRequestPage({ params }: PageProps<"/admin/dem
                 className={pillPrimary}
               >
                 Établir un devis
+              </Link>
+            )}
+            {can(staff, "demos:write") && (
+              <Link
+                href={`/admin/demos/nouveau?demande=${request.id}`}
+                className={request.type === "demo" ? pillPrimary : pillSmall}
+              >
+                Créer une démo
               </Link>
             )}
             {can(staff, "subscriptions:write") && (
@@ -171,6 +202,29 @@ export default async function AdminRequestPage({ params }: PageProps<"/admin/dem
               )}
             </dl>
           </Panel>
+
+          {can(staff, "demos:write") && attachable.length > 0 && (
+            <Panel title="Attribuer une démo existante">
+              <form action={attachDemoToRequest} className="flex flex-col gap-3">
+                <input type="hidden" name="requestId" value={request.id} />
+                <select
+                  name="demoId"
+                  required
+                  className="w-full rounded-2xl bg-soft px-3 py-2.5 text-sm text-fg focus:outline-none focus:ring-2 focus:ring-fg"
+                >
+                  {attachable.map((d) => (
+                    <option key={d.id} value={d.id}>
+                      {d.title}
+                      {d.status === "publie" ? "" : " (brouillon)"}
+                    </option>
+                  ))}
+                </select>
+                <button type="submit" className={pillSmall}>
+                  Attribuer à {client.name}
+                </button>
+              </form>
+            </Panel>
+          )}
 
           {writable && (
             <>

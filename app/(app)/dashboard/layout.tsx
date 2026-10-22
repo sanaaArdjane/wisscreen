@@ -6,6 +6,7 @@ import { redirect } from "next/navigation";
 import { unreadCount } from "@/lib/account";
 import { getSetting } from "@/lib/settings";
 import { getTheme } from "@/lib/theme-server";
+import { readFlash } from "@/lib/flash";
 
 /**
  * Every client-dashboard page renders inside this, so the session check happens
@@ -44,6 +45,7 @@ export default async function DashboardLayout({ children }: LayoutProps<"/dashbo
       announcement={announcement || undefined}
       impersonating={impersonating}
       theme={theme}
+      flash={await readFlash()}
     >
       {children}
     </AppShell>

@@ -8,6 +8,7 @@ import { requireUser } from "@/lib/guard";
 import { logActivity, notifyStaff } from "@/lib/account";
 import { consume } from "@/lib/quotas";
 import { getEntitledDemo } from "@/lib/server/demos";
+import { flash } from "@/lib/flash";
 
 /**
  * The customer's side of an `upload` block: open a run, drop files into it,
@@ -54,6 +55,7 @@ export async function startDemoRun(formData: FormData): Promise<void> {
       outcome: "quota",
     });
     revalidatePath(`/dashboard/demos/${entitled.demo.slug}`);
+    await flash("Quota de traitement atteint pour cette démo.", false);
     return;
   }
 
@@ -79,6 +81,7 @@ export async function startDemoRun(formData: FormData): Promise<void> {
     meta: { demoId },
   });
   revalidatePath(`/dashboard/demos/${entitled.demo.slug}`);
+  await flash("Exécution ouverte : ajoutez vos fichiers.");
 }
 
 /** "Envoyer pour traitement": the files are in, tell the desk. */
@@ -124,4 +127,5 @@ export async function submitDemoRun(formData: FormData): Promise<void> {
     meta: { files: n },
   });
   revalidatePath(`/dashboard/demos/${entitled.demo.slug}`);
+  await flash("Fichiers envoyés pour traitement.");
 }

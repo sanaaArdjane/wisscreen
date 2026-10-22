@@ -118,7 +118,10 @@ export function DemoEditor({
   encryption,
   storage,
   maxUploadBytes,
+  grant,
 }: {
+  /** Attach this customer on creation (and note the demande it answers). */
+  grant?: { userId: string; requestId?: number; label: string };
   meta?: Meta;
   initialBlocks?: DemoBlock[];
   /** `blockId:label` pairs that already have a value. Never the values. */
@@ -169,6 +172,15 @@ export function DemoEditor({
   return (
     <form action={action} className="flex flex-col gap-8">
       {meta.demoId && <input type="hidden" name="demoId" value={meta.demoId} />}
+      {grant && !meta.demoId && (
+        <>
+          <input type="hidden" name="grantUserId" value={grant.userId} />
+          {grant.requestId && <input type="hidden" name="fromRequestId" value={grant.requestId} />}
+          <p className="rounded-2xl bg-soft px-4 py-3 text-sm text-fg">
+            Accès attribué automatiquement à <span className="font-[650]">{grant.label}</span> dès la création.
+          </p>
+        </>
+      )}
       {blocks.map((b) => (
         <input key={b.id} type="hidden" name="block" value={JSON.stringify(b)} />
       ))}

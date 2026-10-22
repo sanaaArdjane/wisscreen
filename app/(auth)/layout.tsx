@@ -14,8 +14,8 @@ export default function AuthLayout({ children }: LayoutProps<"/">) {
     >
       <AuthBackdrop />
       <header className="relative mx-auto flex w-full max-w-7xl items-center justify-between px-6 py-6 sm:px-10 lg:px-12">
-        <Link href="/" className="text-xl font-[650] tracking-tight text-ink" aria-label="WICLOUD, accueil">
-          WICLOUD<span className="text-signal-deep">.</span>
+        <Link href="/" className="text-xl font-[650] tracking-tight text-ink" aria-label="SETYCORP, accueil">
+          SETYCORP<span className="text-signal-deep">.</span>
         </Link>
         <Link
           href="/"
@@ -34,7 +34,7 @@ export default function AuthLayout({ children }: LayoutProps<"/">) {
           <div className="mb-8 inline-flex size-14 items-center justify-center rounded-[30%] bg-paper text-2xl font-[650] text-ink" aria-hidden>
             W
           </div>
-          <p className="text-sm font-semibold text-signal-deep">Votre espace WICLOUD</p>
+          <p className="text-sm font-semibold text-signal-deep">Votre espace SETYCORP</p>
           <h2 className="mt-5 text-5xl font-[650] leading-[1.08] text-ink xl:text-6xl">
             Tout votre travail, au même endroit.
           </h2>

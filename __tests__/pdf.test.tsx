@@ -14,7 +14,7 @@ import { DEFAULT_COMPANY, type CompanyIdentity } from "@/lib/settings";
 const doc: BillingDoc = {
   kind: "quote",
   ref: "DV-2609-0007",
-  title: "Migration de l'infrastructure vers WICLOUD — phase 1",
+  title: "Migration de l'infrastructure vers SETYCORP — phase 1",
   status: "envoye",
   lines: [
     { label: "Audit de l'existant et plan de migration", quantity: 1, unitCents: 150000_00 },
@@ -31,7 +31,7 @@ const doc: BillingDoc = {
 
 const full: CompanyIdentity = {
   ...DEFAULT_COMPANY,
-  name: "WICLOUD",
+  name: "SETYCORP",
   legalForm: "SARL",
   capital: "10 000 000 DZD",
   address: "12 rue des Frères Bouadou",

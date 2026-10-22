@@ -45,7 +45,7 @@ export async function generateMetadata({
   return {
     title,
     description,
-    keywords: [service.name, service.category, service.tagline, "WICLOUD"],
+    keywords: [service.name, service.category, service.tagline, "SETYCORP"],
     alternates: { canonical: path },
     openGraph: {
       type: "website",

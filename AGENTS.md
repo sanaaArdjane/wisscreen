@@ -11,11 +11,18 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 <!-- Everything below MUST stay outside the block above: `next dev` regenerates
      that block and will silently delete anything placed inside it. -->
 
-# WICLOUD — marketing site + platform
+# SETYCORP — marketing site + platform
 
 IT solutions agency site. One Apple-`/macbook-pro`-style long-form homepage presenting every
 solution, plus one rich sub-landing page per solution. Copy language is **French**, and all
 current copy is a first draft the client will revise..
+
+> **Rebrand.** The company is SETYCORP (it was WICLOUD). `WICLOUD` survives only as the name of
+> one solution (slug `wicloud`, which also names image paths and the `data-wicloud-app` CSS hook —
+> internal identifiers, deliberately not renamed). Values already saved in the database
+> (`general.siteName` in /admin/site, `company.name` in /admin/parametres) override the code
+> defaults, so a live instance needs those two edited by hand. The reveal word is `SETYCORP`
+> with `ZOOM_CHAR = 5` (the "O"); re-run the canvas counter scan below if the face changes.
 
 ## Stack decisions
 
@@ -1541,3 +1548,28 @@ matches the progress you wanted.
   horizontally in a real 390px browser too — so the mobile preview of it looks clipped. The
   other three solutions fall through to their generated mocks.
 - Only 4 solutions modeled; the registry is built to extend.
+
+
+## Added with the SETYCORP rebrand
+
+- **Env comes from Doppler** (`doppler.yaml`: project `wisscreen`, config `dev`). The `db:*` scripts run
+  under `doppler run --`; `pnpm dev:doppler` starts Next the same way. `NEXT_PUBLIC_*` are build-time, so
+  the Docker build still takes them from CI variables. Production's `NEXT_PUBLIC_SITE_URL` must be the real
+  origin: redirects are built from `SITE_URL`, never `request.url` (the container binds `0.0.0.0`).
+- **Toasts.** `FormAlert` also fires a toast for every `useActionState` form. Actions that return nothing
+  (deletes, status changes, anything that redirects) call `flash()` from `lib/flash.ts`: a 30-second
+  `wc-flash` cookie that the admin/dashboard layout hands to `AppShell`, which toasts and clears it.
+  Failures are a hollow ring, not red (red stays for destructive controls). `app/(app)/error.tsx` replaces
+  Next's generic error screen for thrown server errors.
+- **`CheckboxField` takes a `value`** (default `"on"`). Boxes that share a name and identify rows must pass
+  the id: the demo "Accorder l'accès" form posted the literal `on` as a user id and hit the foreign key.
+- **Demos from a demande.** `/admin/demos/nouveau?demande=ID` (or `?client=ID`) prefills the editor and
+  attaches that customer on creation (`grantUserId` / `fromRequestId`, create only). The demande page also
+  has "Attribuer une démo existante" (`attachDemoToRequest`). `/admin/demandes/nouvelle` lets the desk open a
+  demande *for* a customer (`createRequestForClient`, shared `insertWithRef` in `lib/server/request-ref.ts`).
+- **The navbar is the `nav` content block** (`NavSchema`, edited at /admin/site/navigation). A top-level item
+  with `children` is a dropdown. Defaults: WIFACILITY, WICLOUD (dropdown), DATA (OCR, Chatbot), ERP. `chatbot`
+  and `erp` are stub solutions in `lib/data/services.ts` so those entries land on a page.
+- **Password UX.** `ResetPasswordForm` shares `PasswordField` with sign-up: live checklist (red for unmet
+  once typing, green when met), a confirm field with a match indicator, Générer fills both fields, submit is
+  disabled until strong and matching. Red is allowed here for field validation (owner's call).

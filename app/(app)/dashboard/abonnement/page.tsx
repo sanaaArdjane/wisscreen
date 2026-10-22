@@ -30,7 +30,7 @@ function price(cents: number | null, currency: string, period: string) {
 }
 
 /**
- * What this customer has bought from WICLOUD — servers, infrastructure,
+ * What this customer has bought from SETYCORP — servers, infrastructure,
  * metered services — and how much of the metered ones they have used.
  *
  * It used to be "your plan", a platform tier that capped how many demandes
@@ -55,7 +55,7 @@ export default async function MesServicesPage() {
     <>
       <PageHeader
         title="Mes services"
-        description="Vos serveurs, votre infrastructure et vos services à la consommation chez WICLOUD."
+        description="Vos serveurs, votre infrastructure et vos services à la consommation chez SETYCORP."
         actions={
           <Link href="/dashboard/demandes/nouvelle?type=service" className={pillPrimary}>
             <Icon name="plus" className="size-4" />

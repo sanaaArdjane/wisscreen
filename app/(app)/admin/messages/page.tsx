@@ -86,7 +86,7 @@ export default async function MessagesPage({ searchParams }: PageProps<"/admin/m
               <p className="whitespace-pre-wrap text-sm text-fg/80">{lead.message}</p>
               <div className="mt-4 flex flex-wrap items-center gap-3 border-t border-fg/10 pt-4">
                 <a
-                  href={`mailto:${lead.email}?subject=${encodeURIComponent("Votre message à WICLOUD")}`}
+                  href={`mailto:${lead.email}?subject=${encodeURIComponent("Votre message à SETYCORP")}`}
                   className="text-sm font-[650] text-fg underline underline-offset-4"
                 >
                   Répondre par e-mail

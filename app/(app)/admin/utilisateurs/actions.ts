@@ -16,6 +16,7 @@ import { ALL_PERMISSIONS, ROLES, can, isRoleDefault, type PermissionKey } from "
 import { checkbox, fail, optionalText, parseForm, succeed, type ActionState } from "@/lib/actions";
 import { sendEmail } from "@/lib/email";
 import { SITE_URL } from "@/lib/site";
+import { flash } from "@/lib/flash";
 
 /**
  * Account administration.
@@ -172,8 +173,8 @@ export async function createAccount(_prev: ActionState, formData: FormData): Pro
   if (parsed.data.sendInvite) {
     await sendEmail({
       to: parsed.data.email,
-      subject: "Votre accès WICLOUD",
-      text: `Bonjour ${parsed.data.name},\n\nUn accès à la plateforme WICLOUD vient d'être créé pour vous.\n\nIdentifiant : ${parsed.data.email}\nMot de passe provisoire : ${generated}\n\nChangez-le depuis votre profil dès votre première connexion.`,
+      subject: "Votre accès SETYCORP",
+      text: `Bonjour ${parsed.data.name},\n\nUn accès à la plateforme SETYCORP vient d'être créé pour vous.\n\nIdentifiant : ${parsed.data.email}\nMot de passe provisoire : ${generated}\n\nChangez-le depuis votre profil dès votre première connexion.`,
       action: { label: "Se connecter", url: `${SITE_URL}/connexion` },
     });
   }
@@ -243,6 +244,7 @@ export async function unsuspendUser(formData: FormData): Promise<void> {
     entityId: userId,
   });
   refresh(userId);
+  await flash("Compte réactivé.");
 }
 
 /* ───────────────────────────── Profile & flags ───────────────────────────── */
@@ -446,6 +448,7 @@ export async function deleteQuota(formData: FormData): Promise<void> {
   });
   refresh(userId);
   revalidatePath("/admin/abonnements");
+  await flash("Quota supprimé.");
 }
 
 /* ───────────────────────── Notifications & access ────────────────────────── */
@@ -551,5 +554,6 @@ export async function deleteUser(_prev: ActionState, formData: FormData): Promis
   });
 
   revalidatePath("/admin/utilisateurs");
+  await flash("Utilisateur supprimé.");
   redirect("/admin/utilisateurs");
 }

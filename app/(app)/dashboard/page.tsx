@@ -29,7 +29,7 @@ export const metadata: Metadata = { title: "Mon espace" };
 
 /**
  * The customer's home: what needs their answer, what they have running with
- * WICLOUD, what they can try, and what just happened.
+ * SETYCORP, what they can try, and what just happened.
  *
  * The order is deliberate — "à faire" first, because a devis waiting on the
  * customer is the one thing on this page that blocks work on the agency's side.

@@ -155,7 +155,7 @@ export const GENERAL_FORM: Field[] = [
     kind: "text",
     key: "siteName",
     label: "Nom du site",
-    where: everywhere("Onglet du navigateur et partages", "Suffixe des titres de page (« OCR — WICLOUD »)"),
+    where: everywhere("Onglet du navigateur et partages", "Suffixe des titres de page (« OCR — SETYCORP »)"),
   },
   {
     kind: "text",
@@ -385,12 +385,50 @@ export const FOOTER_FORM: Field[] = [
   { kind: "text", key: "tagline", label: "Ligne de fin", where: everywhere("Pied de page", "Ligne tout en bas à droite") },
 ];
 
+export const NAV_FORM: Field[] = [
+  {
+    kind: "list",
+    key: "items",
+    label: "Entrées du menu",
+    itemLabel: "entrée",
+    titleKey: "label",
+    max: 8,
+    where: everywhere("Barre de navigation", "Les entrées du menu en haut de toutes les pages, de gauche à droite"),
+    empty: { label: "", href: "", children: [] },
+    fields: [
+      { kind: "text", key: "label", label: "Texte", where: everywhere("Barre de navigation", "Texte de l'entrée") },
+      {
+        kind: "text",
+        key: "href",
+        label: "Lien",
+        mono: true,
+        where: everywhere("Barre de navigation", "Où mène l'entrée elle-même (et sur mobile, son titre de groupe)"),
+        help: "/solutions/ocr, #contact, https://…",
+      },
+      {
+        kind: "list",
+        key: "children",
+        label: "Sous-menu",
+        itemLabel: "sous-entrée",
+        titleKey: "label",
+        max: 12,
+        where: everywhere("Barre de navigation", "Liens du menu déroulant. Vide : l'entrée est un simple lien"),
+        empty: { label: "", href: "" },
+        fields: [
+          { kind: "text", key: "label", label: "Texte", where: everywhere("Barre de navigation", "Texte du lien du sous-menu") },
+          { kind: "text", key: "href", label: "Lien", mono: true, where: everywhere("Barre de navigation", "Destination du lien du sous-menu"), help: "/solutions/wicloud#fonctionnalites, #contact, https://…" },
+        ],
+      },
+    ],
+  },
+];
+
 /* ───────────────────────────── Homepage sections ───────────────────────────── */
 
 export const SECTION_META: Record<SectionKey, { title: string; anchor: string; summary: string }> = {
   highlights: { title: "L'essentiel, en un coup d'œil", anchor: "highlights", summary: "Le carrousel de cartes des solutions" },
   performance: { title: "Performance cloud", anchor: "performance", summary: "Les chiffres clés de chaque solution" },
-  reveal: { title: "WICLOUD (vidéo dans le mot)", anchor: "univers", summary: "La vidéo qui se révèle dans le mot WICLOUD" },
+  reveal: { title: "SETYCORP (vidéo dans le mot)", anchor: "univers", summary: "La vidéo qui se révèle dans le mot SETYCORP" },
   devices: { title: "Nos interfaces", anchor: "interfaces", summary: "Les solutions sur un ordinateur et un téléphone" },
   dataIntelligence: { title: "Data & Intelligence", anchor: "data-intelligence", summary: "L'IA conçue en interne" },
   reliability: { title: "Fiabilité 24/7", anchor: "reliability", summary: "Le grand chiffre de disponibilité" },
@@ -403,7 +441,7 @@ export const SECTION_META: Record<SectionKey, { title: string; anchor: string; s
   security: { title: "Sécurité & conformité", anchor: "security", summary: "Les trois piliers de sécurité" },
   finder: { title: "Quelle solution pour vous ?", anchor: "finder", summary: "Les profils et leurs solutions" },
   migration: { title: "Accompagnement à la migration", anchor: "migration", summary: "Les étapes d'accompagnement" },
-  whyUs: { title: "Pourquoi WICLOUD", anchor: "why-us", summary: "Les avantages en accordéon" },
+  whyUs: { title: "Pourquoi SETYCORP", anchor: "why-us", summary: "Les avantages en accordéon" },
   solutionsGrid: { title: "Toutes nos solutions", anchor: "solutions", summary: "La grille de toutes les solutions" },
   commitment: { title: "Souveraineté & responsabilité", anchor: "commitment", summary: "Les engagements sur les données" },
   values: { title: "Nos valeurs", anchor: "values", summary: "Les trois valeurs" },
@@ -426,7 +464,7 @@ export const SECTION_FORMS: Record<SectionKey, Field[]> = {
   performance: [...sectionBase("performance"), sectionHeading("performance")],
   reveal: [
     ...sectionBase("reveal"),
-    { kind: "text", key: "badge", label: "Étiquette", where: w("reveal", "Étiquette verte au-dessus du mot WICLOUD") },
+    { kind: "text", key: "badge", label: "Étiquette", where: w("reveal", "Étiquette verte au-dessus du mot SETYCORP") },
     {
       kind: "list",
       key: "pitch",
@@ -996,6 +1034,7 @@ export const SLOT_KIND_OPTIONS = SLOT_KINDS;
 export const BLOCK_FORMS: Partial<Record<BlockKey, Field[]>> = {
   general: GENERAL_FORM,
   footer: FOOTER_FORM,
+  nav: NAV_FORM,
   ...SECTION_FORMS,
 };
 

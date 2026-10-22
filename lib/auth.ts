@@ -33,7 +33,7 @@ function isOwnerEmail(email: string): boolean {
 }
 
 export const auth = betterAuth({
-  appName: "WICLOUD",
+  appName: "SETYCORP",
   baseURL: process.env.BETTER_AUTH_URL ?? SITE_URL,
   secret: process.env.BETTER_AUTH_SECRET,
   // Production trusts exactly one origin. Development also trusts localhost on
@@ -71,8 +71,8 @@ export const auth = betterAuth({
       sendDeleteAccountVerification: async ({ user, url }) => {
         await sendEmail({
           to: user.email,
-          subject: "Confirmer la suppression de votre compte WICLOUD",
-          text: "Vous avez demandé la suppression de votre compte WICLOUD. Cette action est définitive : vos demandes, devis, factures et documents seront supprimés.\n\nSi vous n'êtes pas à l'origine de cette demande, ignorez cet e-mail.",
+          subject: "Confirmer la suppression de votre compte SETYCORP",
+          text: "Vous avez demandé la suppression de votre compte SETYCORP. Cette action est définitive : vos demandes, devis, factures et documents seront supprimés.\n\nSi vous n'êtes pas à l'origine de cette demande, ignorez cet e-mail.",
           action: { label: "Confirmer la suppression", url },
         });
       },
@@ -86,7 +86,7 @@ export const auth = betterAuth({
     sendResetPassword: async ({ user, url }) => {
       await sendEmail({
         to: user.email,
-        subject: "Réinitialiser votre mot de passe WICLOUD",
+        subject: "Réinitialiser votre mot de passe SETYCORP",
         text: "Vous avez demandé à réinitialiser votre mot de passe. Ce lien est valable une heure.\n\nSi vous n'êtes pas à l'origine de cette demande, aucune action n'est nécessaire.",
         action: { label: "Choisir un nouveau mot de passe", url },
       });
@@ -100,7 +100,7 @@ export const auth = betterAuth({
       await sendEmail({
         to: user.email,
         subject: "Confirmez votre adresse e-mail",
-        text: `Bienvenue sur WICLOUD, ${user.name}.\n\nConfirmez votre adresse pour activer votre espace client.`,
+        text: `Bienvenue sur SETYCORP, ${user.name}.\n\nConfirmez votre adresse pour activer votre espace client.`,
         action: { label: "Confirmer mon adresse", url },
       });
     },
@@ -193,7 +193,7 @@ export const auth = betterAuth({
 
         await sendEmail({
           to: email,
-          subject: "Votre lien de connexion WICLOUD",
+          subject: "Votre lien de connexion SETYCORP",
           text: "Voici votre lien de connexion. Il est valable 10 minutes et ne fonctionne qu'une fois.\n\nSi vous n'avez pas demandé à vous connecter, ignorez cet e-mail.",
           action: { label: "Se connecter", url },
         });

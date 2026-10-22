@@ -52,6 +52,16 @@ export default async function SiteOverviewPage() {
       updated: lastSection,
     },
     {
+      href: "/admin/site/navigation",
+      icon: "menu",
+      title: "Navigation",
+      lines: [
+        content.nav.items.map((i) => i.label).join(" · ") || "Aucune entrée",
+        `${content.nav.items.filter((i) => i.children.length > 0).length} menu(s) déroulant(s)`,
+      ],
+      updated: updates.get("nav"),
+    },
+    {
       href: "/admin/site/solutions",
       icon: "store",
       title: "Solutions",

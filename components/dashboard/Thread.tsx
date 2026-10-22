@@ -199,7 +199,7 @@ export function Thread({
 
 function MessageGroup({ group: g, lastMineId }: { group: Group; lastMineId?: number }) {
   const first = g.messages[0];
-  const name = g.mine ? "Vous" : (g.authorName ?? "Équipe WICLOUD");
+  const name = g.mine ? "Vous" : (g.authorName ?? "Équipe SETYCORP");
   return (
     <article className={cn("flex gap-3", g.mine ? "flex-row-reverse" : "flex-row")}>
       <span
@@ -214,7 +214,7 @@ function MessageGroup({ group: g, lastMineId }: { group: Group; lastMineId?: num
       <div className={cn("flex min-w-0 max-w-[min(42rem,85%)] flex-col gap-1", g.mine ? "items-end" : "items-start")}>
         <p className="flex items-baseline gap-2 px-1 text-xs">
           <span className="font-[650] text-fg">{name}</span>
-          {!g.mine && g.authorSide === "team" && g.authorName && <span className="text-fg/80">· Équipe WICLOUD</span>}
+          {!g.mine && g.authorSide === "team" && g.authorName && <span className="text-fg/80">· Équipe SETYCORP</span>}
           <time dateTime={first.createdAt.toISOString()} title={full.format(first.createdAt)} className="text-fg/80">
             {time.format(first.createdAt)}
           </time>

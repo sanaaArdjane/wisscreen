@@ -13,7 +13,7 @@ import { formatDate } from "@/lib/format";
 export const metadata: Metadata = { title: "Mes démos" };
 
 /**
- * The demos WICLOUD has opened for this customer.
+ * The demos SETYCORP has opened for this customer.
  *
  * It used to be four simulated sandboxes every account saw; a demo is now
  * something the desk prepares and hands to a named customer, so an account

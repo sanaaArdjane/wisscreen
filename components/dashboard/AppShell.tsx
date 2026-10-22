@@ -8,7 +8,7 @@ import { cn } from "@/lib/cn";
 import { authClient } from "@/lib/auth-client";
 import { isActive, type NavItem } from "@/components/dashboard/nav";
 import { isDarkTheme, THEME_COOKIE, type Theme } from "@/lib/theme";
-import { RealtimeProvider, UnreadBadge, useRealtime } from "@/components/dashboard/RealtimeProvider";
+import { FlashToast, RealtimeProvider, UnreadBadge, useRealtime } from "@/components/dashboard/RealtimeProvider";
 
 /**
  * The frame both dashboards share: a fixed sidebar on `lg`, a slide-over drawer
@@ -40,6 +40,7 @@ export function AppShell({
   announcement,
   impersonating,
   theme: initialTheme = "system",
+  flash,
   children,
 }: {
   nav: NavItem[];
@@ -52,6 +53,8 @@ export function AppShell({
   impersonating?: boolean;
   /** From the `wc-theme` cookie, so the first paint is already the right one. */
   theme?: Theme;
+  /** A pending one-shot message from a server action (`lib/flash.ts`). */
+  flash?: string;
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
@@ -144,6 +147,7 @@ export function AppShell({
   // below can all read one live count from one stream.
   return (
     <RealtimeProvider initialUnread={unread}>
+    <FlashToast flash={flash} />
     <div
       data-wicloud-app
       // `system` renders no attribute: `color-scheme: light dark` follows the OS.

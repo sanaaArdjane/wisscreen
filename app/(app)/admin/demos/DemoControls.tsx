@@ -55,6 +55,7 @@ export function GrantForm({
               <div key={c.id} className={shown.includes(c) ? undefined : "hidden"}>
                 <CheckboxField
                   name="userId"
+                  value={c.id}
                   label={
                     <span>
                       <span className="font-[650]">{c.name}</span>{" "}

@@ -3,18 +3,19 @@
 import { z } from "zod";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { and, eq, isNull, like, ne, or } from "drizzle-orm";
+import { and, eq, isNull, ne, or } from "drizzle-orm";
 import { db } from "@/lib/db";
 import { requestMessages, requests } from "@/lib/db/schema";
 import { requireUser } from "@/lib/guard";
 import { logActivity, notify, notifyStaff, staffWith } from "@/lib/account";
 import { publishMany } from "@/lib/realtime";
-import { nextRef, refPeriod } from "@/lib/ref";
+import { insertWithRef } from "@/lib/server/request-ref";
 import { REQUEST_TYPES } from "@/lib/requests";
 import { getSolutions } from "@/lib/content";
 import { parseForm, fail, type ActionState } from "@/lib/actions";
 import { sendEmail, adminEmail } from "@/lib/email";
 import { SITE_URL } from "@/lib/site";
+import { flash } from "@/lib/flash";
 
 const NewRequestSchema = z.object({
   title: z.string().trim().min(4, "Donnez un titre d'au moins 4 caractères.").max(160),
@@ -34,41 +35,6 @@ async function isKnownSolution(slug: string | undefined): Promise<boolean> {
   return (await getSolutions({ includeHidden: true })).some((s) => s.slug === slug);
 }
 
-/**
- * Allocates the next `WC-YYMM-NNNN` and inserts, retrying on the unique index.
- *
- * Two people submitting in the same second can compute the same sequence — the
- * index is what makes that safe, and this loop is what makes it invisible. Three
- * attempts is plenty: each retry re-reads the max, so a collision only repeats
- * if a third request lands inside the same window.
- */
-async function insertWithRef(
-  values: Omit<typeof requests.$inferInsert, "ref">,
-): Promise<typeof requests.$inferSelect> {
-  for (let attempt = 0; attempt < 3; attempt += 1) {
-    const existing = await db
-      .select({ ref: requests.ref })
-      .from(requests)
-      .where(like(requests.ref, `WC-${refPeriod()}-%`));
-    const ref = nextRef(
-      "WC",
-      existing.map((r) => r.ref),
-    );
-    try {
-      const [row] = await db
-        .insert(requests)
-        .values({ ...values, ref })
-        .returning();
-      return row;
-    } catch (err) {
-      const isDuplicate =
-        typeof err === "object" && err !== null && "code" in err && err.code === "23505";
-      if (!isDuplicate || attempt === 2) throw err;
-    }
-  }
-  throw new Error("unreachable");
-}
-
 export async function createRequest(
   _prev: ActionState,
   formData: FormData,
@@ -81,7 +47,7 @@ export async function createRequest(
   }
 
   // Filing a demande is not metered. It used to spend a `requests.monthly`
-  // quota, which capped how often a customer could ask WICLOUD for work —
+  // quota, which capped how often a customer could ask SETYCORP for work —
   // the one thing an agency never wants to ration.
   const created = await insertWithRef({
     userId: user.id,
@@ -118,6 +84,7 @@ export async function createRequest(
     action: { label: "Ouvrir la demande", url: `${SITE_URL}/admin/demandes/${created.id}` },
   });
 
+  await flash("Demande envoyée. Nous vous répondons sous 48 h ouvrées.");
   redirect(`/dashboard/demandes/${created.id}`);
 }
 
@@ -259,4 +226,5 @@ export async function closeOwnRequest(formData: FormData): Promise<void> {
 
   revalidatePath(`/dashboard/demandes/${id}`);
   revalidatePath("/dashboard/demandes");
+  await flash("Demande clôturée.");
 }
