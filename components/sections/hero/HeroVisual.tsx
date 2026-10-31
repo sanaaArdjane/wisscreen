@@ -43,7 +43,7 @@ const InfraStack = dynamic(() => import("@/components/three/InfraStack"), {
  * | slides  | a carousel of photos and clips                                |
  *
  * The 3D modes are full-bleed and transparent over the hero's light woven ground; the
- * media modes sit in an inset, rounded dark frame that clears the navbar.
+ * media modes sit in an inset, rounded light frame that clears the navbar.
  */
 export function HeroVisual({ visual, solutions }: { visual: HeroContent["visual"]; solutions: Service[] }) {
   if (visual.mode === "earth" || visual.mode === "stack") {
@@ -52,7 +52,7 @@ export function HeroVisual({ visual, solutions }: { visual: HeroContent["visual"
 
   return (
     <div className="absolute inset-0 px-4 pb-6 pt-20 sm:px-6 lg:pb-10 lg:pl-2 lg:pr-8 lg:pt-28">
-      <div className="relative h-full w-full overflow-hidden rounded-3xl border border-white/10 bg-ink shadow-2xl">
+      <div className="relative h-full w-full overflow-hidden rounded-3xl bg-mist shadow-[0_1px_2px_rgba(53,70,102,.04),0_8px_24px_rgba(53,70,102,.06)]">
         {visual.mode === "image" && (
           visual.image ? (
             <LoadingImage
@@ -87,10 +87,8 @@ export function HeroVisual({ visual, solutions }: { visual: HeroContent["visual"
 function EmptyMedia({ label }: { label: string }) {
   return (
     <div className="absolute inset-0 flex items-center justify-center">
-      <div className="absolute inset-0 opacity-30 [background-image:radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.5)_1px,transparent_0)] [background-size:22px_22px]" />
-      <div className="absolute -right-16 -top-16 h-72 w-72 rounded-full bg-teal/20 blur-3xl" />
-      <div className="absolute -bottom-20 -left-16 h-72 w-72 rounded-full bg-signal/15 blur-3xl" />
-      <p className="relative text-xs font-semibold uppercase tracking-[0.14em] text-paper/70">{label}</p>
+      <div className="absolute inset-0 [background-image:radial-gradient(circle_at_1px_1px,rgba(53,70,102,0.13)_1px,transparent_0)] [background-size:22px_22px]" />
+      <p className="relative text-xs font-medium uppercase tracking-[0.08em] text-steel">{label}</p>
     </div>
   );
 }

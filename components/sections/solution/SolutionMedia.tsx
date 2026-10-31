@@ -13,7 +13,7 @@ export function SolutionMedia({ service }: { service: Service }) {
   const allPlaceholders = service.media.gallery.every((slot) => !slot.src);
 
   return (
-    <section id="media" className="py-28">
+    <section id="media" className="section-paper py-24 text-ink md:py-32 lg:py-40">
       <Container className="flex flex-col gap-16">
         <SectionHeading
           eyebrow="Images, vidéos & démo"
@@ -25,7 +25,7 @@ export function SolutionMedia({ service }: { service: Service }) {
           }
         />
 
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8">
           {service.media.gallery.map((slot) => (
             <Reveal key={slot.label}>
               <div data-reveal-item>
@@ -35,14 +35,14 @@ export function SolutionMedia({ service }: { service: Service }) {
           ))}
         </div>
 
-        <Reveal className="flex flex-col items-start gap-6 rounded-3xl border border-white/10 p-8 md:flex-row md:items-center md:justify-between">
+        <Reveal className="flex flex-col items-start gap-6 rounded-2xl bg-mist p-8 md:flex-row md:p-10 md:items-center md:justify-between">
           <div data-reveal-item className="flex items-start gap-4">
-            <span className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-white/10 ${paletteText[service.palette.primary]}`}>
+            <span className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-paper ${paletteText[service.palette.primary]}`}>
               <Icon name="zap" className="h-5 w-5" />
             </span>
             <div>
-              <p className="text-lg font-semibold">Environnement de démonstration</p>
-              <p className="mt-1 max-w-xl text-sm leading-relaxed opacity-65">
+              <p className="text-lg font-medium">Environnement de démonstration</p>
+              <p className="mt-1 max-w-xl text-base leading-relaxed text-ink/80">
                 Un accès à un environnement de démonstration de {service.name} peut être fourni sur demande à nos
                 partenaires et prospects qualifiés.
               </p>

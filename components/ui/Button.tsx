@@ -7,8 +7,8 @@ type Variant = "primary" | "secondary" | "ghost";
 
 const VARIANTS: Record<Variant, string> = {
   primary: "control-signal",
-  secondary: "bg-ink text-paper hover:bg-abyss",
-  ghost: "bg-transparent text-inherit border border-current/25 hover:border-current/60",
+  secondary: "control-tint",
+  ghost: "bg-transparent text-ink border border-ink/15 hover:border-ink/35 hover:bg-ink/5",
 };
 
 export function Button({
@@ -27,7 +27,7 @@ export function Button({
   onClick?: () => void;
 }) {
   const classes = cn(
-    "group inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-medium tracking-tight transition-all duration-300 ease-out",
+    "group inline-flex items-center gap-2 rounded-full px-6 py-3.5 text-[0.9375rem] font-medium tracking-tight transition-all duration-300 ease-out",
     VARIANTS[variant],
     className,
   );

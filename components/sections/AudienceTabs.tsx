@@ -22,8 +22,8 @@ export function AudienceTabs({
   );
 
   return (
-    <section id="pour-qui" className="bg-paper py-28 text-ink">
-      <Container className="flex flex-col gap-14">
+    <section id="pour-qui" className="section-paper py-24 md:py-32 lg:py-40 text-ink">
+      <Container className="flex flex-col gap-16">
         <SectionHeading
           eyebrow={content.heading.eyebrow}
           title={content.heading.title}
@@ -34,22 +34,22 @@ export function AudienceTabs({
           {(active) => {
             const filtered = solutions.filter((service) => service.audiences.includes(active as Audience));
             return (
-              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8">
                 {filtered.map((service) => (
                   <Link
                     key={service.slug}
                     href={`/solutions/${service.slug}`}
-                    className="group flex flex-col gap-4 rounded-3xl border border-ink/10 p-6 transition-colors hover:border-teal/40"
+                    className="group flex flex-col gap-4 rounded-2xl bg-mist p-8 transition-colors hover:bg-mint"
                   >
-                    <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-ink text-paper">
+                    <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-paper text-signal">
                       <Icon name={service.icon} className="h-5 w-5" />
                     </span>
                     <div>
-                      <p className="text-xs font-semibold uppercase tracking-[0.12em] opacity-50">{service.category}</p>
-                      <p className="mt-1 text-xl font-semibold">{service.name}</p>
-                      <p className="mt-2 text-sm leading-relaxed opacity-70">{service.tagline}</p>
+                      <p className="text-xs font-medium uppercase tracking-[0.12em] text-steel">{service.category}</p>
+                      <p className="mt-1 text-xl font-medium">{service.name}</p>
+                      <p className="mt-2 text-base leading-relaxed text-ink/80">{service.tagline}</p>
                     </div>
-                    <span className="mt-auto inline-flex items-center gap-2 text-sm font-medium text-teal-deep">
+                    <span className="mt-auto inline-flex items-center gap-2 text-sm font-medium text-signal">
                       {content.ctaLabel}
                       <Icon name="arrow-right" className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                     </span>

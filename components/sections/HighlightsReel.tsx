@@ -17,7 +17,7 @@ import type { PaletteToken, Service, ServiceStat } from "@/lib/types";
 import { Container } from "@/components/ui/Container";
 import { Icon } from "@/components/ui/Icon";
 import { HandUnderline } from "@/components/ui/HandUnderline";
-import { paletteBg, paletteText } from "@/lib/palette";
+import { paletteText } from "@/lib/palette";
 import { cn } from "@/lib/cn";
 import { gsap } from "@/lib/gsap";
 
@@ -109,6 +109,14 @@ function StatClip({ src }: { src: string }) {
   );
 }
 
+/** Fill, icon and numeral colours for stat tile `index` — mint and signal for the middle
+ *  one, mist and ink for the outer two. Shared by both tile variants. */
+function tileTone(service: Service, index: number) {
+  if (index === 1) return { fill: "bg-mint", icon: "text-signal", numeral: "text-signal" };
+  const accent: PaletteToken = index === 0 ? service.palette.primary : service.palette.secondary;
+  return { fill: "bg-mist", icon: paletteText[accent], numeral: "text-ink" };
+}
+
 /** One of the "cards" variant's three data tiles. */
 function StatTile({
   service,
@@ -121,34 +129,19 @@ function StatTile({
   value: string;
   label: string;
 }) {
-  // The middle tile is the card's focal point, so it takes the signal accent — the one
-  // hue on the page that isn't blue-green. The outer two carry the solution's own
-  // cool pairing, which is what keeps the signal tile reading as deliberate.
-  const isSignal = index === 1;
-  const accent: PaletteToken =
-    index === 0 ? service.palette.primary : service.palette.secondary;
-  const glowClass = isSignal ? "bg-signal" : paletteBg[accent];
-  const iconClass = isSignal ? "text-signal-soft" : paletteText[accent];
+  // The middle tile is the card's focal point: a mint fill with a signal numeral. The
+  // outer two are plain mist, with the solution's own cool hue on the icon only.
+  const { fill, icon, numeral } = tileTone(service, index);
 
   return (
-    <div className="relative h-60 w-full flex-1 overflow-hidden rounded-2xl border border-white/20 bg-[#26334c] p-5 shadow-2xl">
-      <div
-        className={cn(
-          "absolute -bottom-1/4 -left-1/4 h-[115%] w-[115%] rounded-full opacity-95 blur-lg",
-          glowClass,
-        )}
-      />
-      <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-[#26334c]/25 to-[#26334c]/75" />
-      <div className="absolute inset-0 opacity-25 [background-image:radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.5)_1px,transparent_0)] [background-size:18px_18px]" />
-      <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-white/15" />
-
+    <div className={cn("relative h-60 w-full flex-1 overflow-hidden rounded-2xl p-6", fill)}>
       <div className="relative flex h-full flex-col justify-between">
-        <Icon name={service.icon} className={cn("h-5 w-5", iconClass)} />
+        <Icon name={service.icon} className={cn("h-5 w-5", icon)} />
         <div>
-          <p className="font-display text-2xl font-semibold leading-none md:text-4xl">
+          <p className={cn("font-display text-2xl font-medium leading-none md:text-4xl", numeral)}>
             {value}
           </p>
-          <p className="mt-2 text-[11px] leading-snug text-paper/70 md:text-xs">
+          <p className="mt-2 text-[11px] leading-snug text-steel md:text-xs">
             {label}
           </p>
         </div>
@@ -176,7 +169,7 @@ function CardHeading({
       {showCategory && (
         <p
           className={cn(
-            "text-xs font-semibold uppercase tracking-[0.14em] text-signal",
+            "text-xs font-medium uppercase tracking-[0.08em] text-signal",
           )}
         >
           {service.category}
@@ -184,12 +177,12 @@ function CardHeading({
       )}
       <h3
         className={cn(
-          "font-display text-2xl font-semibold leading-tight md:text-4xl",
+          "font-display text-2xl font-medium leading-tight md:text-4xl",
           showCategory && "mt-3",
         )}
       >
         &quot; {service.name} &quot;.{" "}
-        <span className="text-paper/90">{service.tagline}</span>
+        <span className="text-ink/80">{service.tagline}</span>
       </h3>
     </div>
   );
@@ -209,28 +202,19 @@ function CardCta({ service }: { service: Service }) {
 
 const CARD_WIDTH = "w-[90%] sm:w-[84%] lg:w-[76%]";
 const CARD_HEIGHT = "min-h-[30rem] md:min-h-[38rem]";
-/** A signal hairline edge, not a neon bloom: just enough to separate one card from the
- *  next. The glow is deliberately tight (12px, tucked in by -4px) so it delineates the
- *  card rather than lighting up the section around it. rgba(19,193,130) is `signal`.
- *
- *  The edge is the brand value `#13B78C` at full strength: it is 4.05:1 against the
- *  card's own `#354666` and 3.23:1 against the lightened hover state, so the hairline
- *  keeps its 3:1 boundary in *both* states without needing a raised-surface tint. */
+/** A white card on the tinted section, separated by fill alone. The hairline ring is
+ *  barely there at rest and picks up the signal hue on hover. No translate for the
+ *  lift: the carousel viewport is `overflow-hidden` and would clip the card's top edge. */
 const CARD_SHELL = cn(
-  "on-dark on-dark-raised group relative shrink-0 overflow-hidden rounded-[2rem] text-paper",
-  "border border-signal/55 bg-[#354666]",
-  // inset top line = lit top edge; the single outer layer is the whole glow
-  "shadow-[inset_0_1px_0_0_rgba(255,255,255,0.10),0_0_12px_-4px_rgba(19,193,130,0.45)]",
-  "transition-[border-color,box-shadow,background-color] duration-500 ease-out",
-  "hover:border-signal hover:bg-[#3f5578]",
-  "hover:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.16),0_0_18px_-4px_rgba(19,193,130,0.65)]",
+  "group relative shrink-0 overflow-hidden rounded-2xl bg-paper text-ink",
+  "ring-1 ring-ink/5 transition-[box-shadow] duration-500 ease-out hover:ring-signal/40",
 );
 
 /**
  * "image" variant: the photo fills the entire card edge to edge, with the copy over it.
  *
  * **Nothing dims the photo except what the text needs.** It used to sit under a
- * full-height wash (`from-abyss/85 … to-abyss/70`) because the copy was split top and
+ * full-height wash because the copy was split top and
  * bottom, and an 85% scrim over the top third meant the top third was not really showing
  * a photo at all. All the copy is anchored at the bottom now, so the scrim is a single
  * bottom-up gradient and the upper ~half of the frame is the untouched image.
@@ -238,10 +222,10 @@ const CARD_SHELL = cn(
  * There is no eyebrow here (see `CardHeading`'s `showCategory`) — the copy block is
  * just the name, tagline and CTA.
  *
- * The scrim is a proper vignette (peaks at 0.9 alpha right at the bottom, still at 0.62
- * a quarter of the way up) rather than a bare-minimum wash — since a solution's photo can
- * be anything up to plain white, the copy needs a guaranteed dark floor under it instead
- * of one tuned for a specific image.
+ * The scrim is a light vignette (near-opaque paper right at the bottom, still at 0.8 a
+ * quarter of the way up) rather than a bare-minimum wash — since a solution's photo can
+ * be anything up to near-black, the ink copy needs a guaranteed light floor under it
+ * instead of one tuned for a specific image.
  *
  * **One scale, gated by hover OR being the active card.** Both triggers target the same
  * value on the same element, so they never compound — hovering the active card doesn't
@@ -261,7 +245,7 @@ function ImageCard({ service, active }: { service: Service; active: boolean }) {
         {service.highlightImage ? (
           <>
             {!loaded && (
-              <div className="skeleton-sweep absolute inset-0 overflow-hidden bg-white/5" />
+              <div className="skeleton-sweep absolute inset-0 overflow-hidden bg-mist" />
             )}
             <div
               className={cn(
@@ -287,27 +271,18 @@ function ImageCard({ service, active }: { service: Service; active: boolean }) {
           </>
         ) : (
           <div className="absolute inset-0">
-            <div
-              className={cn(
-                "absolute -bottom-1/4 -left-1/4 h-[120%] w-[80%] rounded-full opacity-55 blur-3xl",
-                paletteBg[service.palette.primary],
-              )}
-            />
-            <div className="absolute -right-24 -top-24 h-96 w-96 rounded-full bg-teal/25 blur-3xl" />
             <div className="absolute inset-0 flex items-center justify-center px-8 text-center">
-              {/* `/70`, not `/55`: at 55% this lands at 4.14:1 on the card, under the
-                  floor. It only showed up once the audit stopped mis-parsing `lab()`. */}
-              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-paper/70">
+              <p className="text-xs font-medium uppercase tracking-[0.08em] text-steel">
                 Visuel plein cadre à venir — 2400 × 1200 px
               </p>
             </div>
           </div>
         )}
 
-        {/* A vignette sized for contrast, not just a dark floor: it has to hold the copy
-            legible even on a white/light photo, so it runs stronger and further up the
+        {/* A vignette sized for contrast, not just a light floor: it has to hold the ink
+            copy legible even on a dark photo, so it runs stronger and further up the
             card than a minimal scrim would. */}
-        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_top,rgba(19,26,38,0.97)_0%,rgba(19,26,38,0.75)_28%,rgba(19,26,38,0.32)_52%,transparent_72%)]" />
+        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_top,rgba(255,255,255,0.97)_0%,rgba(255,255,255,0.8)_28%,rgba(255,255,255,0.35)_52%,transparent_72%)]" />
 
         {/* absolute inset-0, not h-full: the parent only has a min-height, so a
             percentage height would collapse and the copy would not sit on the floor. */}
@@ -327,21 +302,6 @@ function StatsCard({ service }: { service: Service }) {
       href={`/solutions/${service.slug}`}
       className={cn(CARD_SHELL, CARD_WIDTH)}
     >
-      <div className="pointer-events-none absolute inset-0">
-        <div className="absolute inset-0 opacity-30 [background-image:radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.4)_1px,transparent_0)] [background-size:32px_32px]" />
-        <div
-          className={cn(
-            "absolute -right-24 -top-24 h-80 w-80 rounded-full opacity-25 blur-3xl",
-            paletteBg[service.palette.primary],
-          )}
-        />
-        <div
-          className={cn(
-            "absolute -bottom-28 -left-20 h-80 w-80 rounded-full opacity-20 blur-3xl",
-            paletteBg[service.palette.secondary],
-          )}
-        />
-      </div>
 
       <div
         className={cn("relative flex h-full flex-col p-8 md:p-12", CARD_HEIGHT)}
@@ -386,40 +346,29 @@ function GifTileVisual({
   index: number;
   stat: ServiceStat;
 }) {
-  const isSignal = index === 1;
-  const accent: PaletteToken =
-    index === 0 ? service.palette.primary : service.palette.secondary;
-  const glowClass = isSignal ? "bg-signal" : paletteBg[accent];
-  const iconClass = isSignal ? "text-signal-soft" : paletteText[accent];
+  const { fill, icon, numeral } = tileTone(service, index);
 
   return (
     <>
-      {stat.gif ? (
-        <StatClip src={stat.gif} />
-      ) : (
-        <div className="absolute inset-0">
-          <div
-            className={cn(
-              "absolute -bottom-1/4 -left-1/4 h-[115%] w-[115%] rounded-full opacity-95 blur-lg",
-              glowClass,
-            )}
-          />
-          <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-[#26334c]/25 to-[#26334c]/75" />
-          <div className="absolute inset-0 opacity-25 [background-image:radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.5)_1px,transparent_0)] [background-size:18px_18px]" />
-        </div>
+      {/* The tile's own fill, opaque, so the reveal clone erases what it grows over. */}
+      <div className={cn("absolute inset-0", fill)} />
+      {stat.gif && (
+        <>
+          <StatClip src={stat.gif} />
+          {/* Bottom-anchored light scrim only — same technique as ImageCard — so a
+              real photo stays legible instead of being washed out. */}
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-paper/95 via-paper/40 to-transparent" />
+        </>
       )}
-      {/* Bottom-anchored scrim only — same technique as ImageCard — so a real photo
-          stays legible instead of being washed out. */}
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#131c2c]/85 via-[#131c2c]/15 to-transparent" />
-      <div className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-white/15" />
+      <div className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-ink/5" />
 
-      <div className="relative flex h-full flex-col justify-between p-5">
-        <Icon name={service.icon} className={cn("h-5 w-5", iconClass)} />
+      <div className="relative flex h-full flex-col justify-between p-6">
+        <Icon name={service.icon} className={cn("h-5 w-5", icon)} />
         <div>
-          <p className="font-display text-2xl font-semibold leading-none md:text-4xl">
+          <p className={cn("font-display text-2xl font-medium leading-none md:text-4xl", numeral)}>
             {stat.value}
           </p>
-          <p className="mt-2 line-clamp-2 text-[11px] leading-snug text-paper/70 md:text-xs">
+          <p className="mt-2 line-clamp-2 text-[11px] leading-snug text-steel md:text-xs">
             {stat.label}
           </p>
         </div>
@@ -448,7 +397,7 @@ function GifStatTile({
     <div
       ref={tileRef}
       onMouseEnter={onEnter}
-      className="relative h-[17rem] w-full flex-1 overflow-hidden rounded-2xl border border-white/20 bg-[#26334c] shadow-2xl"
+      className="relative h-[17rem] w-full flex-1 overflow-hidden rounded-2xl bg-mist"
     >
       <GifTileVisual service={service} index={index} stat={stat} />
     </div>
@@ -514,7 +463,7 @@ function GifMobileSlideshow({
         onKeyDown={(e) => {
           if (e.key === "Enter" || e.key === " ") toggle(e);
         }}
-        className="relative aspect-[4/3] w-full cursor-pointer overflow-hidden rounded-2xl border border-white/20 bg-[#26334c] shadow-2xl"
+        className="relative aspect-[4/3] w-full cursor-pointer overflow-hidden rounded-2xl bg-mist"
       >
         {/* Exactly one clip in the DOM at a time — swapping `src`/content outright
             on the 1s tick, not cross-fading 3 stacked layers. Overlapping two
@@ -528,13 +477,13 @@ function GifMobileSlideshow({
         {stats[active]?.gif ? (
           <StatClip key={stats[active].gif} src={stats[active].gif!} />
         ) : (
-          <div className="absolute inset-0 flex items-center justify-center bg-abyss">
-            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-paper/60">
+          <div className="absolute inset-0 flex items-center justify-center bg-mist">
+            <p className="text-xs font-medium uppercase tracking-[0.08em] text-steel">
               Démo à venir
             </p>
           </div>
         )}
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#131c2c]/70 via-transparent to-transparent" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-paper/70 via-transparent to-transparent" />
 
         {/* Which photo is showing, and a nudge that the card is tappable. */}
         <div className="pointer-events-none absolute inset-x-0 bottom-3 flex items-center justify-center gap-1.5">
@@ -543,7 +492,7 @@ function GifMobileSlideshow({
               key={stat.label}
               className={cn(
                 "h-1.5 rounded-full transition-all duration-300",
-                active === i ? "w-4 bg-signal" : "w-1.5 bg-white/40",
+                active === i ? "w-4 bg-signal" : "w-1.5 bg-ink/25",
               )}
             />
           ))}
@@ -552,16 +501,16 @@ function GifMobileSlideshow({
         {/* The stats panel — rises to fully cover the photos, and back down again. */}
         <div
           className={cn(
-            "absolute inset-0 flex flex-col justify-center gap-4 bg-abyss p-6 transition-transform duration-500 ease-out motion-reduce:transition-none",
+            "absolute inset-0 flex flex-col justify-center gap-4 bg-paper p-6 transition-transform duration-500 ease-out motion-reduce:transition-none",
             revealed ? "translate-y-0" : "translate-y-full",
           )}
         >
           {stats.map((stat) => (
             <div key={stat.label}>
-              <p className="font-display text-2xl font-semibold leading-none text-paper">
+              <p className="font-display text-2xl font-medium leading-none text-ink">
                 {stat.value}
               </p>
-              <p className="mt-1 text-xs leading-snug text-paper/70">
+              <p className="mt-1 text-xs leading-snug text-steel">
                 {stat.label}
               </p>
             </div>
@@ -753,21 +702,6 @@ function GifStatsCard({ service }: { service: Service }) {
       onMouseLeave={closeCard}
       className={cn(CARD_SHELL, CARD_WIDTH)}
     >
-      <div className="pointer-events-none absolute inset-0">
-        <div className="absolute inset-0 opacity-30 [background-image:radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.4)_1px,transparent_0)] [background-size:32px_32px]" />
-        <div
-          className={cn(
-            "absolute -right-24 -top-24 h-80 w-80 rounded-full opacity-25 blur-3xl",
-            paletteBg[service.palette.primary],
-          )}
-        />
-        <div
-          className={cn(
-            "absolute -bottom-28 -left-20 h-80 w-80 rounded-full opacity-20 blur-3xl",
-            paletteBg[service.palette.secondary],
-          )}
-        />
-      </div>
 
       <div
         className={cn("relative flex h-full flex-col p-8 md:p-12", CARD_HEIGHT)}
@@ -813,7 +747,7 @@ function GifStatsCard({ service }: { service: Service }) {
             overlayRefs.current[i] = el;
           }}
           aria-hidden={hovered !== i}
-          className="pointer-events-none absolute left-0 top-0 z-0 h-full w-full overflow-hidden rounded-[2rem] opacity-0"
+          className="pointer-events-none absolute left-0 top-0 z-0 h-full w-full overflow-hidden rounded-2xl opacity-0"
         >
           <GifTileVisual service={service} index={i} stat={stat} />
         </div>
@@ -961,41 +895,10 @@ export function HighlightsReel({
     <section
       ref={sectionRef}
       id="highlights"
-      className="relative overflow-hidden bg-abyss pb-24 pt-28 text-paper md:pb-32 md:pt-36"
+      className="section-tint relative overflow-hidden texture-3d py-24 md:py-32 lg:py-40"
     >
-      {/* The hero's cloud glow reads as continuing *behind* this section: a wide, very
-          soft glow bleeding down over the top edge, fading back to the section ground.
-          Paired with the hero's own bottom falloff, the scene dissolves into the
-          background exactly where the copy begins instead of being cut off at the seam.
-          Overflow-hidden keeps the oversized ellipses from forcing a scrollbar.
-
-          This sits BEFORE the dot overlay on purpose. An opaque gradient here would
-          hide this section's dots while the hero's stay visible, and that texture
-          discontinuity draws a hard line across the seam — the very thing it's meant
-          to remove. Behind the dots, the texture runs unbroken through the fade. */}
-      <div
-        className="pointer-events-none absolute inset-x-0 top-0 h-80 overflow-hidden md:h-[26rem]"
-        // Masked to zero at the very top edge. Without this the glow starts abruptly
-        // AT the boundary, so the hero side (no glow) and this side (full glow) differ
-        // by a step and draw exactly the hard line the vignette exists to remove.
-        // Ramping from nothing means both sides agree on the seam itself.
-        style={{
-          maskImage:
-            "linear-gradient(to bottom, transparent 0%, black 42%, transparent 100%)",
-          WebkitMaskImage:
-            "linear-gradient(to bottom, transparent 0%, black 42%, transparent 100%)",
-        }}
-      >
-        <div className="absolute -top-40 left-1/2 h-[34rem] w-[80rem] -translate-x-1/2 rounded-[50%] bg-steel/35 blur-3xl" />
-        <div className="absolute -top-24 left-1/2 h-72 w-[44rem] -translate-x-1/2 rounded-[50%] bg-teal/20 blur-3xl" />
-      </div>
-
-      {/* Same ground as the hero's falloff, so the two sections read as one continuous
-          surface — the dot texture carries through instead of a colour transition. */}
-      <div className="pointer-events-none absolute inset-0 opacity-40 [background-image:radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.5)_1px,transparent_0)] [background-size:30px_30px]" />
-
       <Container className="relative flex flex-wrap items-end justify-between gap-6">
-        <h2 className="font-display text-4xl font-semibold leading-tight text-paper md:text-6xl">
+        <h2 className="font-display text-4xl font-medium leading-tight text-ink md:text-6xl">
           <span ref={underlineRef} className="relative inline-block">
             {content.titleUnderlined}
             <HandUnderline
@@ -1006,7 +909,7 @@ export function HighlightsReel({
         </h2>
         <Link
           href={content.link.href || "#solutions"}
-          className="group inline-flex items-center gap-2 text-sm font-medium text-paper/70 transition-colors hover:text-aqua"
+          className="group inline-flex items-center gap-2 text-sm font-medium text-ink/80 transition-colors hover:text-signal"
         >
           {content.link.label}
           <span className="flex h-6 w-6 items-center justify-center rounded-full border border-current">
@@ -1019,15 +922,14 @@ export function HighlightsReel({
       </Container>
 
       {/* Full-bleed carousel: the first card lines up with the heading, later cards
-          bleed off the right edge. `relative` is needed because the dot overlay above
-          is absolutely positioned, so static siblings would paint underneath it. */}
+          bleed off the right edge. */}
       <div
-        className="carousel-inset relative mt-12 overflow-hidden"
+        className="carousel-inset relative mt-16 overflow-hidden"
         ref={emblaRef}
         onMouseEnter={() => setHoverPaused(true)}
         onMouseLeave={() => setHoverPaused(false)}
       >
-        <div className="flex gap-5 md:gap-7">
+        <div className="flex gap-6 lg:gap-8">
           {solutions.map((service, i) => (
             <HighlightCard
               key={service.slug}
@@ -1040,7 +942,7 @@ export function HighlightsReel({
 
       {/* Progress pill + play/pause, centred under the deck */}
       <div className="relative mt-10 flex items-center justify-center gap-4">
-        <div className="flex items-center gap-2.5 rounded-full bg-white/10 px-4 py-3">
+        <div className="flex items-center gap-2.5 rounded-full bg-paper px-4 py-3">
           {solutions.map((service, i) => {
             const isActive = i === selected;
             return (
@@ -1053,13 +955,13 @@ export function HighlightsReel({
                 className={cn(
                   "relative h-1.5 overflow-hidden rounded-full transition-all duration-500",
                   isActive
-                    ? "w-12 bg-white/25"
-                    : "w-1.5 bg-white/40 hover:bg-white/70",
+                    ? "w-12 bg-ink/15"
+                    : "w-1.5 bg-ink/25 hover:bg-ink/50",
                 )}
               >
                 {isActive && (
                   <span
-                    className="absolute inset-y-0 left-0 rounded-full bg-paper"
+                    className="absolute inset-y-0 left-0 rounded-full bg-signal"
                     style={{ width: `${autoplay ? progress : 100}%` }}
                   />
                 )}
@@ -1076,7 +978,7 @@ export function HighlightsReel({
               ? "Mettre en pause le défilement"
               : "Reprendre le défilement"
           }
-          className="flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-paper transition-colors hover:bg-white/20"
+          className="flex h-11 w-11 items-center justify-center rounded-full bg-paper text-ink transition-colors hover:bg-mint"
         >
           {autoplay ? (
             <svg

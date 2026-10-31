@@ -5,7 +5,7 @@ import type { SectionContent } from "@/lib/content/schema";
 
 export function WhyUs({ content }: { content: SectionContent<"whyUs"> }) {
   return (
-    <section id="why-us" className="section-ink py-28">
+    <section id="why-us" className="section-tint py-24 md:py-32 lg:py-40">
       <Container className="grid grid-cols-1 gap-16 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
         <SectionHeading
           eyebrow={content.heading.eyebrow}

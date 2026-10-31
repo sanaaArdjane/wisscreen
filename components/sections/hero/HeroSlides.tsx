@@ -81,7 +81,7 @@ export function HeroSlides({ slides, interval }: { slides: HeroSlide[]; interval
                 />
               )}
               {slide.caption && (
-                <p className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-abyss/90 to-transparent px-6 pb-16 pt-16 text-sm font-medium text-paper md:text-base">
+                <p className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-paper/95 via-paper/70 to-transparent px-6 pb-16 pt-16 text-sm font-medium text-ink md:text-base">
                   {slide.caption}
                 </p>
               )}
@@ -92,7 +92,7 @@ export function HeroSlides({ slides, interval }: { slides: HeroSlide[]; interval
 
       {slides.length > 1 && (
         <>
-          <div className="absolute bottom-5 left-1/2 flex -translate-x-1/2 gap-2 rounded-full bg-abyss/60 px-3 py-2 backdrop-blur">
+          <div className="absolute bottom-5 left-1/2 flex -translate-x-1/2 gap-2 rounded-full bg-paper/85 px-3 py-2 ring-1 ring-ink/10 backdrop-blur">
             {slides.map((_, i) => (
               <button
                 key={i}
@@ -102,7 +102,7 @@ export function HeroSlides({ slides, interval }: { slides: HeroSlide[]; interval
                 aria-current={i === selected}
                 className={cn(
                   "h-1.5 rounded-full transition-all duration-300",
-                  i === selected ? "w-8 bg-signal" : "w-1.5 bg-white/50 hover:bg-white/80",
+                  i === selected ? "w-8 bg-signal" : "w-1.5 bg-ink/25 hover:bg-ink/50",
                 )}
               />
             ))}
@@ -111,7 +111,7 @@ export function HeroSlides({ slides, interval }: { slides: HeroSlide[]; interval
             type="button"
             onClick={() => embla?.scrollPrev()}
             aria-label="Diapositive précédente"
-            className="absolute left-4 top-1/2 flex h-10 w-10 -translate-y-1/2 rotate-180 items-center justify-center rounded-full border border-white/20 bg-abyss/60 text-paper backdrop-blur transition-colors hover:border-aqua"
+            className="absolute left-4 top-1/2 flex h-10 w-10 -translate-y-1/2 rotate-180 items-center justify-center rounded-full border border-ink/10 bg-paper/85 text-ink backdrop-blur transition-colors hover:bg-paper hover:border-ink/20"
           >
             <Icon name="chevron-right" className="h-5 w-5" />
           </button>
@@ -119,7 +119,7 @@ export function HeroSlides({ slides, interval }: { slides: HeroSlide[]; interval
             type="button"
             onClick={() => embla?.scrollNext()}
             aria-label="Diapositive suivante"
-            className="absolute right-4 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-abyss/60 text-paper backdrop-blur transition-colors hover:border-aqua"
+            className="absolute right-4 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-ink/10 bg-paper/85 text-ink backdrop-blur transition-colors hover:bg-paper hover:border-ink/20"
           >
             <Icon name="chevron-right" className="h-5 w-5" />
           </button>

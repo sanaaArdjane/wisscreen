@@ -391,33 +391,33 @@ function ServiceMarker({
               <div
                 // w-fit keeps the pill compact: as a block-level flex child it would
                 // otherwise stretch to the (much wider) card below it.
-                className={`glass-panel mx-auto flex w-fit items-center gap-2 whitespace-nowrap rounded-full px-4 py-2.5 text-paper shadow-xl transition-colors duration-300 ${
-                  isActive ? "border-signal-soft/80" : ""
+                className={`glass-panel mx-auto flex w-fit items-center gap-2 whitespace-nowrap rounded-full px-4 py-2.5 text-ink shadow-[0_1px_2px_rgba(53,70,102,.04),0_8px_24px_rgba(53,70,102,.06)] transition-colors duration-300 ${
+                  isActive ? "!border-signal" : ""
                 }`}
               >
                 <Icon
                   name={service.icon}
-                  className={`h-4 w-4 ${isActive ? "text-signal-soft" : "text-signal"}`}
+                  className="h-4 w-4 text-signal"
                 />
-                <span className="text-base font-semibold tracking-tight">
+                <span className="text-base font-medium tracking-tight">
                   {service.shortName}
                 </span>
               </div>
 
               {isActive && (
-                <div className="mt-2.5 flex w-[38rem] overflow-hidden rounded-2xl border border-signal-soft/30 bg-[#2c3a56]/96 text-paper shadow-2xl backdrop-blur-md">
+                <div className="mt-2.5 flex w-[38rem] overflow-hidden rounded-2xl bg-paper/95 text-ink ring-1 ring-ink/10 shadow-[0_1px_2px_rgba(53,70,102,.04),0_8px_24px_rgba(53,70,102,.06)] backdrop-blur-md">
                   {/* Text — left column */}
                   <div className="flex w-[15rem] shrink-0 flex-col justify-center p-5">
-                    <p className="text-[10px] font-semibold uppercase leading-tight tracking-[0.14em] text-signal-soft">
+                    <p className="text-[10px] font-medium uppercase leading-tight tracking-[0.08em] text-signal">
                       {service.category}
                     </p>
-                    <p className="mt-1.5 text-lg font-semibold leading-tight">
+                    <p className="mt-1.5 text-lg font-medium leading-tight">
                       {service.name}
                     </p>
-                    <p className="mt-2 text-xs leading-relaxed opacity-80">
+                    <p className="mt-2 text-xs leading-relaxed text-ink/80">
                       {service.tagline}
                     </p>
-                    <p className="mt-3 inline-flex items-center gap-1.5 text-xs font-medium text-signal-soft">
+                    <p className="mt-3 inline-flex items-center gap-1.5 text-xs font-medium text-signal">
                       Découvrir
                       <Icon name="arrow-right" className="h-3.5 w-3.5" />
                     </p>
@@ -426,7 +426,7 @@ function ServiceMarker({
                   {/* Project preview — right column, large. Drops in a real GIF as soon
                     as `previewGif` is set on the service, otherwise shows a labelled
                     placeholder. */}
-                  <div className="relative min-h-[16.5rem] flex-1 overflow-hidden border-l border-signal-soft/20 bg-[#233047]">
+                  <div className="relative min-h-[16.5rem] flex-1 overflow-hidden border-l border-ink/10 bg-mist">
                     {service.previewGif ? (
                       // eslint-disable-next-line @next/next/no-img-element -- animated GIF: next/image would strip the animation
                       <img
@@ -436,13 +436,13 @@ function ServiceMarker({
                       />
                     ) : (
                       <div className="flex h-full w-full flex-col items-center justify-center gap-2">
-                        <div className="absolute inset-0 opacity-30 [background-image:radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.5)_1px,transparent_0)] [background-size:18px_18px]" />
+                        <div className="absolute inset-0 [background-image:radial-gradient(circle_at_1px_1px,rgba(53,70,102,0.13)_1px,transparent_0)] [background-size:18px_18px]" />
                         <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-teal/20 blur-2xl" />
-                        <div className="absolute -bottom-12 -left-10 h-32 w-32 rounded-full bg-signal/25 blur-2xl" />
-                        <span className="relative flex h-10 w-10 items-center justify-center rounded-full border border-signal-soft/45 text-signal-soft">
+                        <div className="absolute -bottom-12 -left-10 h-32 w-32 rounded-full bg-mint blur-2xl" />
+                        <span className="relative flex h-10 w-10 items-center justify-center rounded-full border border-signal/40 bg-paper text-signal">
                           <Icon name="sparkles" className="h-5 w-5" />
                         </span>
-                        <span className="relative text-[10px] font-semibold uppercase tracking-[0.14em] opacity-55">
+                        <span className="relative text-[10px] font-medium uppercase tracking-[0.08em] text-steel">
                           Aperçu du projet
                         </span>
                       </div>
@@ -751,18 +751,18 @@ export default function EarthNetwork({
         aria-hidden="true"
         // Top-right, and above the copy band's z-30: anchored at the bottom it sat
         // underneath that band's gradient overlay, which washed the text out.
-        className={`pointer-events-none absolute right-5 top-24 z-[31] max-w-[15.5rem] rounded-2xl border border-aqua/30 bg-[#2c3a56]/95 px-4 py-3 text-paper shadow-2xl backdrop-blur-md transition-all duration-300 ${
+        className={`pointer-events-none absolute right-5 top-24 z-[31] max-w-[15.5rem] rounded-2xl bg-paper/90 px-4 py-3 text-ink ring-1 ring-ink/10 shadow-[0_1px_2px_rgba(53,70,102,.04),0_8px_24px_rgba(53,70,102,.06)] backdrop-blur-md transition-all duration-300 ${
           paused ? "translate-y-0 opacity-100" : "-translate-y-2 opacity-0"
         }`}
       >
-        <p className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.12em] text-aqua">
+        <p className="flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.08em] text-signal">
           <Icon name="move" className="h-3.5 w-3.5" />
           Zone interactive
         </p>
-        <p className="mt-1.5 text-[11px] leading-relaxed opacity-90">
+        <p className="mt-1.5 text-[11px] leading-relaxed text-ink/80">
           Glissez pour tourner le globe, molette pour zoomer.
         </p>
-        <p className="mt-1 text-[11px] font-medium leading-relaxed text-aqua">
+        <p className="mt-1 text-[11px] font-medium leading-relaxed text-signal">
           Sortez de cette zone pour faire défiler la page.
         </p>
       </div>

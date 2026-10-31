@@ -14,15 +14,12 @@ import * as THREE from "three";
 export const AQUA = "#7FC9C8";
 export const TEAL = "#379F9E";
 export const PAPER = "#FFFFFF";
-/* The signal accent in the scene. It is the ACTIVE colour: idle markers, arcs and
-   bands are cool, and hovering one turns it green — so the hue carries the interaction
-   state rather than just decorating. #00FFA9 is safe to use freely in here: it's far
-   too bright to carry text anywhere (1.3:1 on paper), but an additively-blended glow
-   has no contrast floor. */
-export const SIGNAL_BRIGHT = "#00FFA9";
-export const SIGNAL_SOFT = "#4ED39D";
-/** The brand value, for lit geometry that would blow out at SIGNAL_BRIGHT. */
-export const SIGNAL = "#13B78C";
+/* The signal accent in the scene: the brand teal. It is the ACTIVE colour — idle
+   geometry is cool, and hovering turns it teal, so the hue carries the interaction
+   state. SIGNAL_SOFT is the deep shade, which still reads on the light hero ground. */
+export const SIGNAL_BRIGHT = "#1099A5";
+export const SIGNAL_SOFT = "#0E6F78";
+export const SIGNAL = "#1099A5";
 
 /** Deterministic pseudo-random from an index — pure, so it's safe during render
  * (unlike Math.random, which React's purity rules forbid). */

@@ -14,9 +14,7 @@ export function Footer({
   footer,
   general,
   solutions,
-  logo,
 }: {
-  logo: { src: string; light: string };
   footer: FooterContent;
   general: GeneralContent;
   solutions: { slug: string; name: string }[];
@@ -26,27 +24,27 @@ export function Footer({
   const year = String(new Date().getFullYear());
 
   return (
-    <footer className="section-ink border-t border-white/10">
-      <Container className="py-16">
-        <div className="grid grid-cols-2 gap-10 md:grid-cols-5">
+    <footer className="section-tint texture-3d border-t border-ink/10 text-ink">
+      <Container className="py-24 md:py-32">
+        <div className="grid grid-cols-2 gap-12 md:grid-cols-5">
           <div className="col-span-2 flex flex-col gap-5">
-            <Logo logo={logo} name={general.siteName} onDark />
-            {footer.blurb && <p className="max-w-xs text-sm leading-relaxed text-paper/75">{footer.blurb}</p>}
+            <Logo name={general.siteName} />
+            {footer.blurb && <p className="max-w-xs text-sm leading-relaxed text-ink/80">{footer.blurb}</p>}
 
             {(contact.email || contact.phone || contact.address) && (
-              <ul className="flex flex-col gap-2 text-sm text-paper/80">
+              <ul className="flex flex-col gap-2 text-sm text-steel">
                 {contact.email && (
                   <li>
-                    <a href={`mailto:${contact.email}`} className="inline-flex items-center gap-2 hover:text-aqua">
-                      <Icon name="mail" className="h-4 w-4 text-aqua" />
+                    <a href={`mailto:${contact.email}`} className="inline-flex items-center gap-2 hover:text-ink">
+                      <Icon name="mail" className="h-4 w-4 text-signal" />
                       {contact.email}
                     </a>
                   </li>
                 )}
                 {contact.phone && (
                   <li>
-                    <a href={`tel:${contact.phone.replace(/[^\d+]/g, "")}`} className="inline-flex items-center gap-2 hover:text-aqua">
-                      <Icon name="send" className="h-4 w-4 text-aqua" />
+                    <a href={`tel:${contact.phone.replace(/[^\d+]/g, "")}`} className="inline-flex items-center gap-2 hover:text-ink">
+                      <Icon name="send" className="h-4 w-4 text-signal" />
                       {contact.phone}
                     </a>
                   </li>
@@ -57,16 +55,16 @@ export function Footer({
                       href={`https://wa.me/${contact.whatsapp.replace(/[^\d]/g, "")}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 hover:text-aqua"
+                      className="inline-flex items-center gap-2 hover:text-ink"
                     >
-                      <Icon name="send" className="h-4 w-4 text-aqua" />
+                      <Icon name="send" className="h-4 w-4 text-signal" />
                       WhatsApp · {contact.whatsapp}
                     </a>
                   </li>
                 )}
                 {contact.address && (
                   <li className="inline-flex items-center gap-2">
-                    <Icon name="home" className="h-4 w-4 text-aqua" />
+                    <Icon name="home" className="h-4 w-4 text-signal" />
                     {contact.address}
                   </li>
                 )}
@@ -82,7 +80,7 @@ export function Footer({
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={SOCIAL_LABELS[key]}
-                      className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 text-paper/80 transition-colors hover:border-aqua hover:text-aqua"
+                      className="flex h-9 w-9 items-center justify-center rounded-full border border-ink/15 text-steel transition-colors hover:border-ink/30 hover:text-ink"
                     >
                       <SocialIcon name={key} className="h-4 w-4" />
                     </a>
@@ -100,11 +98,11 @@ export function Footer({
             ];
             return (
               <div key={i} className="flex flex-col gap-3">
-                <p className="text-xs font-semibold uppercase tracking-[0.12em] text-paper/70">{column.title}</p>
-                <ul className="flex flex-col gap-2.5 text-sm text-paper/80">
+                <p className="text-xs font-medium uppercase tracking-[0.08em] text-ink">{column.title}</p>
+                <ul className="flex flex-col gap-3 text-sm text-steel">
                   {links.map((link, j) => (
                     <li key={j}>
-                      <Link href={link.href || "#"} className="transition-colors hover:text-aqua">
+                      <Link href={link.href || "#"} className="transition-colors hover:text-ink">
                         {link.label}
                       </Link>
                     </li>
@@ -115,7 +113,7 @@ export function Footer({
           })}
         </div>
 
-        <div className="mt-16 flex flex-col gap-4 border-t border-white/10 pt-8 text-xs text-paper/70 md:flex-row md:items-center md:justify-between">
+        <div className="mt-20 flex flex-col gap-4 border-t border-ink/10 pt-8 text-xs text-steel md:flex-row md:items-center md:justify-between">
           <p>{footer.copyright.replace("{année}", year)}</p>
           {footer.tagline && <p>{footer.tagline}</p>}
         </div>

@@ -34,7 +34,7 @@ export function Tabs({
               onClick={() => setActive(tab.id)}
               className={cn(
                 "rounded-full px-5 py-2.5 text-sm font-medium tracking-tight transition-colors duration-300",
-                isActive ? "control-accent" : "bg-current/8 text-inherit hover:bg-current/14",
+                isActive ? "control-signal" : "control-tint",
               )}
             >
               {tab.label}

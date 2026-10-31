@@ -373,7 +373,7 @@ export function UniverseReveal({ content }: { content: SectionContent<"reveal"> 
                 }}
                 style={{ opacity: 0 }}
               >
-                <p className="font-semibold leading-snug">{block.title}</p>
+                <p className="font-medium leading-snug">{block.title}</p>
                 {/* `/80` rather than the site's usual `opacity-70`: ink at 70% on paper
                     lands at 4.12:1, under the 4.5:1 floor for this size. */}
                 <p className="mt-2 text-sm leading-relaxed text-ink/80 md:text-base">{block.body}</p>
@@ -388,7 +388,7 @@ export function UniverseReveal({ content }: { content: SectionContent<"reveal"> 
           type="button"
           onClick={() => setOverride(!shouldPlay)}
           aria-label={shouldPlay ? "Mettre la vidéo en pause" : "Lire la vidéo"}
-          className="absolute right-6 top-24 z-30 flex h-11 w-11 items-center justify-center rounded-full bg-ink/55 text-paper ring-1 ring-white/25 backdrop-blur-md transition-colors hover:bg-ink/75 md:right-10"
+          className="absolute right-6 top-24 z-30 flex h-11 w-11 items-center justify-center rounded-full bg-paper/85 text-ink ring-1 ring-ink/10 backdrop-blur-md transition-colors hover:bg-paper md:right-10"
         >
           {shouldPlay ? (
             <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor" aria-hidden="true">

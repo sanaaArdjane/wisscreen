@@ -6,7 +6,6 @@ import { ScrollTrigger } from "@/lib/gsap";
 import type { Service } from "@/lib/types";
 import { Badge } from "@/components/ui/Badge";
 import { Icon } from "@/components/ui/Icon";
-import { paletteBg } from "@/lib/palette";
 import { lockScroll } from "@/lib/scrollLock";
 import { cn } from "@/lib/cn";
 
@@ -27,8 +26,8 @@ import { cn } from "@/lib/cn";
  * scroll to that frames one. `manual` therefore wins over the scroll until it is toggled
  * back — the one deliberate exception to the single-source-of-truth rule here.
  *
- * The ground is **textured paper**, and the frame carries `on-dark` itself: it is the dark
- * surface, so the accent variables have to be overridden there rather than on the section.
+ * The ground is **textured paper** and the frame is light too: the placeholder is a mist
+ * panel, and over real footage the copy sits on a paper scrim in ink.
  *
  * **The geometry is written as explicit px, not a `scale()`.** A scaled card would take
  * its border radius, its chrome and any text inside it along for the ride, so the corners
@@ -149,7 +148,7 @@ export function SolutionVideoReveal({ service }: { service: Service }) {
       copyRef.current.style.transform = `translate3d(0, ${((1 - copy) * 28).toFixed(2)}px, 0)`;
     }
     // The scrim rides the copy: over the small card there is no text to protect, and
-    // darkening the footage early only makes the card look switched off.
+    // washing the footage out early only makes the card look switched off.
     if (scrimRef.current) scrimRef.current.style.opacity = String(copy);
     // ...and the placeholder's glyph rides it inversely. With no video set, its label sits
     // dead centre and the copy lands over it — on a short stage the two collide outright.
@@ -271,7 +270,7 @@ export function SolutionVideoReveal({ service }: { service: Service }) {
   const toggleStretch = () => setManual((prev) => (prev === "card" ? null : "card"));
 
   const control =
-    "flex h-9 w-9 items-center justify-center rounded-full bg-abyss/70 text-paper ring-1 ring-white/25 backdrop-blur-md transition-colors hover:bg-abyss/90";
+    "flex h-9 w-9 items-center justify-center rounded-full bg-paper/85 text-ink ring-1 ring-ink/10 backdrop-blur-md transition-colors hover:bg-paper";
 
   return (
     <section
@@ -314,19 +313,14 @@ export function SolutionVideoReveal({ service }: { service: Service }) {
             WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, black 12%, black 100%)",
           }}
         />
-        <div className="pointer-events-none absolute -left-40 top-0 h-[30rem] w-[52rem] rounded-[50%] bg-mist/70 blur-3xl" />
-        <div className="pointer-events-none absolute -right-32 bottom-0 h-[26rem] w-[46rem] rounded-[50%] bg-mist/60 blur-3xl" />
 
         <div
           ref={frameRef}
           className={cn(
-            // `on-dark` belongs on the frame now, not the section: the ground is paper, so
-            // the accent variables have to be overridden by the *dark surface itself* —
-            // the frame — or the eyebrow inside it resolves to `signal-deep` and lands at
-            // ~2:1 on the footage. The ring gives the card an edge on white, which a
-            // shadow alone does not at the top.
-            "on-dark relative overflow-hidden bg-[#0b1018] text-paper ring-1 ring-ink/10",
-            "shadow-[0_34px_90px_-32px_rgba(38,51,76,0.45)]",
+            // The ring gives the card an edge on white, which a shadow alone does not at
+            // the top.
+            "relative overflow-hidden bg-mist text-ink ring-1 ring-ink/10",
+            "shadow-[0_1px_2px_rgba(53,70,102,.04),0_8px_24px_rgba(53,70,102,.06)]",
             isFull && "fixed inset-0 z-[100] h-full w-full rounded-none",
           )}
         >
@@ -344,7 +338,7 @@ export function SolutionVideoReveal({ service }: { service: Service }) {
               tabIndex={-1}
             />
           ) : (
-            <VideoMock service={service} foregroundRef={mockRef} />
+            <VideoMock foregroundRef={mockRef} />
           )}
 
           {/* Loading state. With a poster the frame is never empty, so it only needs a
@@ -352,21 +346,20 @@ export function SolutionVideoReveal({ service }: { service: Service }) {
               covers the whole frame until the first frame decodes. */}
           {hasVideo && !ready && (
             service.presentationPoster ? (
-              <span className="absolute left-4 top-4 flex items-center gap-2 rounded-full bg-abyss/80 px-3 py-1.5 text-[11px] font-medium text-paper/80 backdrop-blur-sm">
+              <span className="absolute left-4 top-4 flex items-center gap-2 rounded-full bg-paper/90 px-3 py-1.5 text-[11px] font-medium text-ink ring-1 ring-ink/10 backdrop-blur-sm">
                 <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-signal" />
                 Chargement de la vidéo
               </span>
             ) : (
-              <div className="skeleton-sweep absolute inset-0 overflow-hidden bg-ink" aria-hidden="true" />
+              <div className="skeleton-sweep absolute inset-0 overflow-hidden bg-mist" aria-hidden="true" />
             )
           )}
 
-          {/* Scrim under the copy. Two stops rather than one flat wash: the bottom carries
-              the text, the top only needs enough to keep the controls readable on bright
-              footage. */}
+          {/* Paper scrim under the copy, so ink text holds on any footage. Strongest at the
+              bottom where the text sits; the top stays clear. */}
           <div
             ref={scrimRef}
-            className="pointer-events-none absolute inset-0 bg-gradient-to-t from-abyss/90 via-abyss/40 to-abyss/25"
+            className="pointer-events-none absolute inset-0 bg-gradient-to-t from-paper/95 via-paper/75 to-transparent"
             style={{ opacity: 0 }}
             aria-hidden="true"
           />
@@ -380,10 +373,10 @@ export function SolutionVideoReveal({ service }: { service: Service }) {
             style={{ opacity: 0 }}
           >
             <Badge className="border-signal/40 text-signal">Vidéo de présentation</Badge>
-            <h2 className="font-display text-balance text-3xl font-semibold leading-[1.05] md:text-5xl">
+            <h2 className="font-display text-balance text-3xl font-medium leading-[1.05] md:text-5xl">
               {service.name} en action.
             </h2>
-            <p className="max-w-2xl text-balance text-sm leading-relaxed text-paper/85 md:text-base">
+            <p className="max-w-2xl text-balance text-base leading-relaxed text-ink/80 md:text-lg">
               {service.tagline}
             </p>
           </div>
@@ -478,39 +471,25 @@ export function SolutionVideoReveal({ service }: { service: Service }) {
  * `MediaSlot`: a slot with no asset still looks designed, never broken.
  */
 function VideoMock({
-  service,
   foregroundRef,
 }: {
-  service: Service;
   /** The glyph and label, faded out by `paint` as the section's own copy arrives. */
   foregroundRef: RefObject<HTMLDivElement | null>;
 }) {
   return (
     <div className="absolute inset-0">
-      <div
-        className={cn(
-          "absolute -left-1/4 -top-1/3 h-[140%] w-2/3 rounded-full opacity-25 blur-3xl",
-          paletteBg[service.palette.primary],
-        )}
-      />
-      <div
-        className={cn(
-          "absolute -bottom-1/3 -right-1/4 h-[140%] w-2/3 rounded-full opacity-20 blur-3xl",
-          paletteBg[service.palette.secondary],
-        )}
-      />
-      <div className="absolute inset-0 opacity-20 [background-image:radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.45)_1px,transparent_0)] [background-size:28px_28px]" />
+      <div className="absolute inset-0 [background-image:radial-gradient(circle_at_1px_1px,rgba(53,70,102,0.12)_1px,transparent_0)] [background-size:28px_28px]" />
 
       <div
         ref={foregroundRef}
         className="absolute inset-0 flex flex-col items-center justify-center gap-5"
       >
-        <span className="flex h-16 w-16 items-center justify-center rounded-full bg-white/10 ring-1 ring-white/20">
-          <svg viewBox="0 0 24 24" className="ml-1 h-6 w-6 text-paper" fill="currentColor" aria-hidden="true">
+        <span className="flex h-16 w-16 items-center justify-center rounded-full bg-paper text-signal ring-1 ring-ink/10">
+          <svg viewBox="0 0 24 24" className="ml-1 h-6 w-6" fill="currentColor" aria-hidden="true">
             <path d="M8 5v14l11-7z" />
           </svg>
         </span>
-        <p className="text-xs font-semibold uppercase tracking-[0.14em] text-paper/70">
+        <p className="text-xs font-medium uppercase tracking-[0.14em] text-ink/80">
           Vidéo de présentation — à venir
         </p>
       </div>

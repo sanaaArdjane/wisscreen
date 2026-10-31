@@ -8,7 +8,6 @@ import { LivePreview } from "@/components/ui/LivePreview";
 import type { PreviewStatus } from "@/components/ui/LivePreview";
 import { LoadingImage } from "@/components/ui/LoadingImage";
 import { PaletteAura } from "@/components/sections/solution/PaletteAura";
-import { paletteBg } from "@/lib/palette";
 import { lockScroll } from "@/lib/scrollLock";
 import { cn } from "@/lib/cn";
 
@@ -178,13 +177,13 @@ export function SolutionHeroStage({
     <section
       id="apercu"
       className={cn(
-        "section-ink relative flex flex-col overflow-hidden",
+        "texture-weave-soft relative flex flex-col overflow-hidden text-ink",
         // Expanded, the section is exactly one screen — it *is* the frame. At rest it is
         // at least a screen and grows if the copy needs more than that.
         expanded ? "h-svh" : "min-h-svh",
       )}
     >
-      <PaletteAura primary={service.palette.primary} secondary={service.palette.secondary} />
+      <PaletteAura />
 
       {/* Copy left at 35vw, frame right with the rest — which is what lets the frame be a
           real browser window rather than the letterbox it was when it sat under a
@@ -250,13 +249,13 @@ export function SolutionHeroStage({
           <div
             ref={frameRef}
             className={cn(
-              "relative flex w-full flex-col overflow-hidden bg-[#0b1018] transition-[border-radius] duration-700 ease-out motion-reduce:transition-none",
+              "relative flex w-full flex-col overflow-hidden bg-paper transition-[border-radius] duration-700 ease-out motion-reduce:transition-none",
               // The border stays on all four sides in every state, with the side ones going
               // transparent when the frame is edge to edge: dropping to `border-y` changes
               // the box by 1px on each side and the whole frame jumps at the end of the
               // transition.
-              "border border-white/12",
-              mode === "inset" && "rounded-2xl shadow-[0_30px_90px_-30px_rgba(0,0,0,0.85)] md:rounded-[1.75rem]",
+              "border border-ink/10",
+              mode === "inset" && "rounded-2xl shadow-[0_1px_2px_rgba(53,70,102,.04),0_8px_24px_rgba(53,70,102,.06)] md:rounded-[1.75rem]",
               mode === "hero" && "rounded-none border-x-transparent",
               mode === "full" && "fixed inset-0 z-[100] max-w-none rounded-none border-transparent",
             )}
@@ -274,7 +273,7 @@ export function SolutionHeroStage({
             />
 
             <div
-              className="relative min-h-0 flex-1 overflow-hidden bg-[#0d1420]"
+              className="relative min-h-0 flex-1 overflow-hidden bg-mist"
               onMouseLeave={() => interacting && setInteracting(false)}
             >
               <FrameMock service={service} />
@@ -312,7 +311,7 @@ export function SolutionHeroStage({
                   onClick={() => setInteracting(true)}
                   className="group absolute inset-0 flex cursor-pointer items-end justify-center pb-3 focus-visible:outline-none"
                 >
-                  <span className="rounded-full bg-abyss/85 px-3 py-1.5 text-[11px] font-medium text-paper/80 ring-1 ring-white/15 backdrop-blur-sm transition-colors group-hover:bg-abyss group-hover:text-paper group-focus-visible:bg-abyss">
+                  <span className="rounded-full bg-paper/90 px-3 py-1.5 text-[11px] font-medium text-ink ring-1 ring-ink/10 backdrop-blur-sm transition-colors group-hover:bg-paper group-focus-visible:bg-paper">
                     Cliquez pour naviguer dans le site
                   </span>
                 </button>
@@ -324,7 +323,7 @@ export function SolutionHeroStage({
                 <button
                   type="button"
                   onClick={() => setInteracting(false)}
-                  className="absolute bottom-3 left-1/2 z-10 -translate-x-1/2 rounded-full bg-abyss/85 px-3 py-1.5 text-[11px] font-medium text-paper/80 ring-1 ring-white/15 backdrop-blur-sm transition-colors hover:bg-abyss hover:text-paper"
+                  className="absolute bottom-3 left-1/2 z-10 -translate-x-1/2 rounded-full bg-paper/90 px-3 py-1.5 text-[11px] font-medium text-ink ring-1 ring-ink/10 backdrop-blur-sm transition-colors hover:bg-paper"
                 >
                   Navigation active · Échap pour reprendre le défilement
                 </button>
@@ -354,18 +353,18 @@ function FrameChrome({
   onToggleFull: () => void;
 }) {
   const button =
-    "flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-paper/70 transition-colors hover:bg-white/10 hover:text-paper focus-visible:bg-white/10 focus-visible:text-paper";
+    "flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-steel transition-colors hover:bg-ink/5 hover:text-ink focus-visible:bg-ink/5 focus-visible:text-ink";
 
   return (
-    <div className="relative z-10 flex shrink-0 items-center gap-2 border-b border-white/10 bg-white/[0.04] px-3 py-2 md:px-4">
+    <div className="relative z-10 flex shrink-0 items-center gap-2 border-b border-ink/10 bg-mist px-3 py-2 md:px-4">
       <span className="flex shrink-0 items-center gap-1.5" aria-hidden="true">
-        <span className="h-2.5 w-2.5 rounded-full bg-white/25" />
-        <span className="h-2.5 w-2.5 rounded-full bg-white/25" />
-        <span className="h-2.5 w-2.5 rounded-full bg-white/25" />
+        <span className="h-2.5 w-2.5 rounded-full bg-ink/15" />
+        <span className="h-2.5 w-2.5 rounded-full bg-ink/15" />
+        <span className="h-2.5 w-2.5 rounded-full bg-ink/15" />
       </span>
 
       <div className="flex min-w-0 flex-1 justify-center">
-        <span className="flex min-w-0 items-center gap-2 rounded-full bg-black/30 px-3 py-1 text-[11px] text-paper/70">
+        <span className="flex min-w-0 items-center gap-2 rounded-full bg-paper px-3 py-1 text-[11px] text-steel ring-1 ring-ink/10">
           <Icon name="lock" className="h-3 w-3 shrink-0" strokeWidth={2} />
           <span className="truncate">{host ?? "aperçu du projet"}</span>
           {/* A pulse rather than a spinner: it is 11px tall and next to text. */}
@@ -421,24 +420,12 @@ function FrameChrome({
 function FrameMock({ service }: { service: Service }) {
   return (
     <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 px-6 text-center">
-      <div
-        className={cn(
-          "absolute -right-1/4 -top-1/3 h-[130%] w-2/3 rounded-full opacity-25 blur-3xl",
-          paletteBg[service.palette.primary],
-        )}
-      />
-      <div
-        className={cn(
-          "absolute -bottom-1/3 -left-1/4 h-[130%] w-2/3 rounded-full opacity-20 blur-3xl",
-          paletteBg[service.palette.secondary],
-        )}
-      />
-      <div className="absolute inset-0 opacity-25 [background-image:radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.45)_1px,transparent_0)] [background-size:26px_26px]" />
+      <div className="absolute inset-0 [background-image:radial-gradient(circle_at_1px_1px,rgba(53,70,102,0.12)_1px,transparent_0)] [background-size:26px_26px]" />
 
-      <span className="relative flex h-14 w-14 items-center justify-center rounded-2xl bg-white/10 ring-1 ring-white/15">
+      <span className="relative flex h-14 w-14 items-center justify-center rounded-2xl bg-paper text-signal ring-1 ring-ink/10">
         <Icon name={service.icon} className="h-6 w-6" strokeWidth={1.4} />
       </span>
-      <p className="relative text-xs font-semibold uppercase tracking-[0.14em] text-paper/70">
+      <p className="relative text-xs font-medium uppercase tracking-[0.14em] text-ink/80">
         Aperçu de {service.name} — à venir
       </p>
     </div>

@@ -95,7 +95,7 @@ export default async function PostPage({ params }: { params: Promise<Params> }) 
       />
       {faq && <JsonLd data={faq} />}
 
-      <article className="pb-24 pt-32">
+      <article className="pb-24 pt-36 md:pb-32 md:pt-44">
         <Container className="flex max-w-[48rem] flex-col gap-8">
           <nav aria-label="Fil d'Ariane" className="text-xs text-ink/80">
             <Link href="/blog" className="text-accent hover:underline">
@@ -106,11 +106,11 @@ export default async function PostPage({ params }: { params: Promise<Params> }) 
           </nav>
 
           <header className="flex flex-col gap-4">
-            <h1 className="text-4xl font-semibold leading-[1.1] text-ink md:text-5xl">
+            <h1 className="text-4xl font-medium leading-[1.1] text-ink md:text-5xl">
               {content.title}
             </h1>
-            <p className="text-lg text-ink/80">{content.excerpt}</p>
-            <p className="text-sm text-ink/80">
+            <p className="text-lg leading-relaxed text-ink/80">{content.excerpt}</p>
+            <p className="text-sm text-steel">
               {post.authorName ? `${post.authorName} · ` : ""}
               {postDate(post)} · {readingMinutes(content.body)} min de lecture
             </p>
@@ -154,9 +154,9 @@ export default async function PostPage({ params }: { params: Promise<Params> }) 
       </article>
 
       {content.faq.length > 0 && (
-        <section className="section-ink py-24">
+        <section className="section-tint py-24 md:py-32">
           <Container className="flex max-w-[48rem] flex-col gap-8">
-            <h2 className="text-3xl font-semibold text-paper">Questions fréquentes</h2>
+            <h2 className="text-3xl font-medium text-ink">Questions fréquentes</h2>
             <Accordion
               items={content.faq.map((item) => ({ title: item.question, content: item.answer }))}
             />
@@ -165,18 +165,18 @@ export default async function PostPage({ params }: { params: Promise<Params> }) 
       )}
 
       {solutions.length > 0 && (
-        <section className="py-24">
-          <Container className="flex max-w-[48rem] flex-col gap-6">
-            <h2 className="text-2xl font-semibold text-ink">La solution dont parle cet article</h2>
+        <section className="py-24 md:py-32">
+          <Container className="flex max-w-[48rem] flex-col gap-8">
+            <h2 className="text-2xl font-medium text-ink">La solution dont parle cet article</h2>
             <ul className="flex flex-col gap-3">
               {solutions.map((service) => (
                 <li key={service.slug}>
                   <Link
                     href={`/solutions/${service.slug}`}
-                    className="group flex items-center justify-between gap-4 rounded-2xl border border-ink/10 px-5 py-4 hover:bg-ink/5"
+                    className="group flex items-center justify-between gap-4 rounded-2xl bg-mist px-8 py-6 transition-colors hover:bg-mint"
                   >
                     <span className="flex flex-col">
-                      <span className="font-[650] text-ink">{service.name}</span>
+                      <span className="font-medium text-ink">{service.name}</span>
                       <span className="text-sm text-ink/80">{service.tagline}</span>
                     </span>
                     <Icon
@@ -192,10 +192,10 @@ export default async function PostPage({ params }: { params: Promise<Params> }) 
       )}
 
       {more.length > 0 && (
-        <section className="bg-mist py-24">
-          <Container className="flex flex-col gap-10">
-            <h2 className="text-2xl font-semibold text-ink">À lire aussi</h2>
-            <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3">
+        <section className="section-mint py-24 md:py-32">
+          <Container className="flex flex-col gap-16">
+            <h2 className="text-2xl font-medium text-ink">À lire aussi</h2>
+            <div className="grid grid-cols-1 gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3 lg:gap-x-8">
               {more.map((other) => (
                 <PostCard key={other.slug} post={other} />
               ))}

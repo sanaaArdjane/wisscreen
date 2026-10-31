@@ -42,7 +42,7 @@ export function Hero({ content, solutions }: { content: HeroContent; solutions: 
         </div>
 
         {/* The copy. z-30 keeps it above the scene's label overlay where the two meet. */}
-        <div className="relative z-30 order-2 flex flex-col justify-center gap-5 px-6 pb-16 pt-4 md:px-10 lg:order-1 lg:py-28 lg:pl-12 lg:pr-4 xl:pl-16">
+        <div className="relative z-30 order-2 flex flex-col justify-center gap-7 px-6 pb-24 pt-8 md:px-10 lg:order-1 lg:py-40 lg:pl-12 lg:pr-8 xl:pl-20">
           {/* `hero-rise` is a CSS animation with fill-mode both, so each line holds its
               hidden state through its delay and never flashes in first. */}
           {content.badge && (
@@ -58,7 +58,7 @@ export function Hero({ content, solutions }: { content: HeroContent; solutions: 
           )}
 
           <h1
-            className="hero-rise font-display text-4xl font-semibold leading-[1.06] md:text-5xl lg:text-[2.6rem] xl:text-[3.25rem]"
+            className="hero-rise font-display text-4xl font-medium leading-[1.06] tracking-[-0.02em] md:text-5xl lg:text-[2.6rem] xl:text-[3.25rem]"
             style={{ animationDelay: "0.27s" }}
           >
             {content.headline}{" "}
@@ -79,7 +79,7 @@ export function Hero({ content, solutions }: { content: HeroContent; solutions: 
             </p>
           )}
 
-          <div className="hero-rise flex flex-wrap items-center gap-3" style={{ animationDelay: "0.51s" }}>
+          <div className="hero-rise mt-2 flex flex-wrap items-center gap-3" style={{ animationDelay: "0.51s" }}>
             {content.primaryCta.label && (
               <Button href={content.primaryCta.href || "#solutions"} variant="primary">
                 {content.primaryCta.label}
@@ -103,9 +103,6 @@ export function Hero({ content, solutions }: { content: HeroContent; solutions: 
         </div>
       </div>
 
-      {/* No seam falloff any more: the hero is paper and HighlightsReel is `abyss`, so the
-          boundary is a deliberate light -> dark change. A gradient to abyss over a light
-          section is just a dark smear. */}
     </section>
   );
 }

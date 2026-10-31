@@ -51,13 +51,11 @@ export function LoadingImage({
 
   return (
     <>
-      {/* Opaque, not a tint: it has to hide the mock it is layered over. `abyss` rather
-          than `ink` because the surfaces this lands on are mostly `ink` themselves — a
-          same-value panel reads as an empty card instead of as something loading. */}
+      {/* Opaque, not a tint: it has to hide the mock it is layered over. */}
       {!priority && (
         <div
           className={cn(
-            "skeleton-sweep pointer-events-none absolute inset-0 overflow-hidden bg-abyss transition-opacity duration-500",
+            "skeleton-sweep pointer-events-none absolute inset-0 overflow-hidden bg-mist transition-opacity duration-500",
             status === "ready" && "opacity-0",
           )}
           aria-hidden="true"

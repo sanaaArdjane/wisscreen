@@ -29,8 +29,8 @@ export default async function Image() {
           flexDirection: "column",
           justifyContent: "center",
           padding: "80px",
-          background: "#131c2c",
-          color: "#FFFFFF",
+          background: "#FFFFFF",
+          color: "#354666",
           fontFamily: "sans-serif",
         }}
       >
@@ -42,7 +42,7 @@ export default async function Image() {
               width: 40,
               height: 40,
               borderRadius: "50%",
-              border: "6px solid #13C182",
+              border: "6px solid #1099A5",
               display: "flex",
               position: "relative",
             }}
@@ -55,7 +55,7 @@ export default async function Image() {
                 width: 16,
                 height: 16,
                 borderRadius: "50%",
-                background: "#13C182",
+                background: "#1099A5",
               }}
             />
           </div>
@@ -64,7 +64,7 @@ export default async function Image() {
               fontSize: 28,
               letterSpacing: 4,
               textTransform: "uppercase",
-              color: "#4ED39D",
+              color: "#0E6F78",
             }}
           >
             {siteName}
@@ -77,7 +77,7 @@ export default async function Image() {
           style={{
             fontSize: 28,
             marginTop: 28,
-            color: "rgba(255,255,255,0.75)",
+            color: "#366479",
             maxWidth: 860,
           }}
         >

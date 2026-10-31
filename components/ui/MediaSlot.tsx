@@ -37,12 +37,11 @@ export function MediaSlot({
   return (
     <div
       className={cn(
-        "relative aspect-[16/10] w-full overflow-hidden rounded-3xl border border-white/10 bg-ink text-paper",
+        "relative aspect-[16/10] w-full overflow-hidden rounded-3xl bg-mist text-ink",
         className,
       )}
     >
-      <div className="absolute inset-0 opacity-40 [background-image:radial-gradient(circle_at_1px_1px,currentColor_1px,transparent_0)] [background-size:22px_22px]" />
-      <div className={cn("absolute -right-16 -top-16 h-56 w-56 rounded-full blur-3xl opacity-30", TOKEN_BG[accent])} />
+      <div className="absolute inset-0 opacity-[0.08] [background-image:radial-gradient(circle_at_1px_1px,currentColor_1px,transparent_0)] [background-size:22px_22px]" />
 
       {slot.kind === "mock-dashboard" && <DashboardMock accent={accent} />}
       {slot.kind === "mock-scan" && <ScanMock accent={accent} />}
@@ -61,22 +60,22 @@ export function MediaSlot({
           controls
           playsInline
           preload="metadata"
-          className="absolute inset-0 h-full w-full bg-abyss object-cover"
+          className="absolute inset-0 h-full w-full bg-mist object-cover"
         />
       )}
       {slot.src && !isVideo && (
         <LoadingImage src={slot.src} alt={slot.label} sizes={sizes} priority={priority} />
       )}
 
-      {/* Scrim only when there is a photo under the label — over the mock the label sits
-          on a dark ground already, and an extra gradient would just mute the artwork.
+      {/* Paper scrim only when there is a photo under the label — over the mock the label
+          sits on the light ground already, and an extra gradient would just mute the artwork.
           A video's own controls occupy that strip, so it gets neither. */}
       {hasAsset && !isVideo && (
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-abyss/90 to-transparent" />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-paper/95 via-paper/70 to-transparent" />
       )}
 
       {!(hasAsset && isVideo) && (
-        <span className="absolute bottom-4 left-5 right-5 text-xs font-medium uppercase tracking-[0.12em] text-paper/75">
+        <span className="absolute bottom-4 left-5 right-5 text-xs font-medium uppercase tracking-[0.12em] text-ink/80">
           {slot.label}
         </span>
       )}
@@ -86,20 +85,20 @@ export function MediaSlot({
 
 function DashboardMock({ accent }: { accent: PaletteToken }) {
   return (
-    <div className="absolute inset-6 flex flex-col gap-3 rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur-sm">
+    <div className="absolute inset-6 flex flex-col gap-3 rounded-2xl bg-paper p-4 ring-1 ring-ink/5">
       <div className="flex items-center gap-2">
-        <span className="h-2.5 w-2.5 rounded-full bg-white/25" />
-        <span className="h-2.5 w-2.5 rounded-full bg-white/25" />
-        <span className="h-2.5 w-2.5 rounded-full bg-white/25" />
-        <span className="ml-auto h-3 w-20 rounded-full bg-white/15" />
+        <span className="h-2.5 w-2.5 rounded-full bg-ink/15" />
+        <span className="h-2.5 w-2.5 rounded-full bg-ink/15" />
+        <span className="h-2.5 w-2.5 rounded-full bg-ink/15" />
+        <span className="ml-auto h-3 w-20 rounded-full bg-ink/10" />
       </div>
       <div className="grid flex-1 grid-cols-3 gap-3">
-        <div className="col-span-1 flex flex-col gap-2 rounded-xl bg-white/5 p-3">
+        <div className="col-span-1 flex flex-col gap-2 rounded-xl bg-mist p-3">
           {[0, 1, 2, 3].map((row) => (
-            <span key={row} className="h-2 rounded-full bg-white/15" style={{ width: `${70 - row * 12}%` }} />
+            <span key={row} className="h-2 rounded-full bg-ink/10" style={{ width: `${70 - row * 12}%` }} />
           ))}
         </div>
-        <div className="col-span-2 flex items-end gap-2 rounded-xl bg-white/5 p-3">
+        <div className="col-span-2 flex items-end gap-2 rounded-xl bg-mist p-3">
           {[40, 65, 50, 80, 60, 90, 45].map((h, i) => (
             <span key={i} className={cn("w-full rounded-t-md", TOKEN_BG[accent])} style={{ height: `${h}%`, opacity: 0.85 }} />
           ))}
@@ -112,12 +111,12 @@ function DashboardMock({ accent }: { accent: PaletteToken }) {
 function ScanMock({ accent }: { accent: PaletteToken }) {
   return (
     <div className="absolute inset-6 flex items-center justify-center">
-      <div className="relative h-full w-2/3 rounded-xl border border-white/15 bg-white/5 p-4">
+      <div className="relative h-full w-2/3 rounded-xl bg-paper p-4 ring-1 ring-ink/5">
         {[0, 1, 2, 3, 4].map((row) => (
-          <span key={row} className="mb-3 block h-2 rounded-full bg-white/15" style={{ width: `${90 - row * 10}%` }} />
+          <span key={row} className="mb-3 block h-2 rounded-full bg-ink/10" style={{ width: `${90 - row * 10}%` }} />
         ))}
         <span className={cn("absolute inset-x-0 h-0.5 opacity-80", TOKEN_BG[accent])} style={{ top: "55%" }} />
-        <span className={cn("absolute right-3 top-3 rounded-full px-2 py-0.5 text-[10px] font-semibold text-ink", TOKEN_BG[accent])}>
+        <span className="absolute right-3 top-3 rounded-full bg-mint px-2 py-0.5 text-[10px] font-medium text-ink">
           OCR
         </span>
       </div>
@@ -127,11 +126,11 @@ function ScanMock({ accent }: { accent: PaletteToken }) {
 
 function ChartMock({ accent }: { accent: PaletteToken }) {
   return (
-    <div className="absolute inset-6 flex items-end gap-2 rounded-2xl border border-white/10 bg-white/5 p-5">
+    <div className="absolute inset-6 flex items-end gap-2 rounded-2xl bg-paper p-5 ring-1 ring-ink/5">
       {[30, 55, 40, 70, 85, 60, 95, 75].map((h, i) => (
         <span
           key={i}
-          className={cn("w-full rounded-t-lg", i === 6 ? TOKEN_BG[accent] : "bg-white/15")}
+          className={cn("w-full rounded-t-lg", i === 6 ? TOKEN_BG[accent] : "bg-ink/10")}
           style={{ height: `${h}%` }}
         />
       ))}
@@ -142,8 +141,8 @@ function ChartMock({ accent }: { accent: PaletteToken }) {
 function VideoMock({ accent }: { accent: PaletteToken }) {
   return (
     <div className="absolute inset-0 flex items-center justify-center">
-      <div className={cn("flex h-16 w-16 items-center justify-center rounded-full", TOKEN_BG[accent])}>
-        <svg viewBox="0 0 24 24" className="ml-1 h-6 w-6 text-ink" fill="currentColor">
+      <div className="flex h-16 w-16 items-center justify-center rounded-full bg-paper ring-1 ring-ink/10">
+        <svg viewBox="0 0 24 24" className={cn("ml-1 h-6 w-6", TOKEN_TEXT[accent])} fill="currentColor">
           <path d="M8 5v14l11-7z" />
         </svg>
       </div>

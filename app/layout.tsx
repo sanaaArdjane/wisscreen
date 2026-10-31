@@ -115,7 +115,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
             walk the whole menu on every page. Visible only when focused. */}
         <a
           href="#contenu"
-          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-ink focus:px-5 focus:py-3 focus:text-sm focus:font-[650] focus:text-paper"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] control-signal focus:rounded-full focus:px-5 focus:py-3 focus:text-sm focus:font-medium"
         >
           Aller au contenu
         </a>

@@ -42,17 +42,17 @@ export function PostCard({ post }: { post: Post }) {
         ) : (
           /* No cover is a normal state, not an error: an article is worth publishing
              without one, and a broken frame would say otherwise. */
-          <div className="absolute inset-0 bg-gradient-to-br from-mist to-steel-pale/40" />
+          <div className="absolute inset-0 bg-mist" />
         )}
       </div>
 
       <div className="flex flex-col gap-2">
-        <p className="text-xs font-semibold uppercase tracking-[0.12em] text-signal-deep">
+        <p className="text-xs font-medium uppercase tracking-[0.12em] text-signal">
           {content.category || "Article"}
         </p>
-        <h2 className="text-xl font-semibold leading-snug text-ink">{content.title}</h2>
-        <p className="line-clamp-3 text-sm text-ink/80">{content.excerpt}</p>
-        <p className="text-xs text-ink/80">
+        <h2 className="text-xl font-medium leading-snug text-ink">{content.title}</h2>
+        <p className="line-clamp-3 text-base leading-relaxed text-ink/80">{content.excerpt}</p>
+        <p className="text-xs text-steel">
           {postDate(post)} · {readingMinutes(content.body)} min de lecture
         </p>
         <span className="mt-1 inline-flex items-center gap-2 text-sm font-medium text-accent">

@@ -53,7 +53,7 @@ export function Contact({
   };
 
   return (
-    <section id="contact" className="bg-paper py-28 text-ink">
+    <section id="contact" className="section-paper texture-3d py-24 md:py-32 lg:py-40 text-ink">
       <Container className="grid grid-cols-1 gap-16 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
         <div className="flex flex-col gap-10">
           <SectionHeading
@@ -63,52 +63,52 @@ export function Contact({
           />
           <div className="flex flex-col gap-4 text-sm">
             {contact.email && (
-              <a href={`mailto:${contact.email}`} className="flex items-center gap-3 text-ink/80 hover:text-teal-deep">
-                <Icon name="mail" className="h-4 w-4 text-teal-deep" />
+              <a href={`mailto:${contact.email}`} className="flex items-center gap-3 text-ink/80 hover:text-signal">
+                <Icon name="mail" className="h-4 w-4 text-signal" />
                 {contact.email}
               </a>
             )}
             {contact.phone && (
-              <a href={`tel:${contact.phone.replace(/[^\d+]/g, "")}`} className="flex items-center gap-3 text-ink/80 hover:text-teal-deep">
-                <Icon name="send" className="h-4 w-4 text-teal-deep" />
+              <a href={`tel:${contact.phone.replace(/[^\d+]/g, "")}`} className="flex items-center gap-3 text-ink/80 hover:text-signal">
+                <Icon name="send" className="h-4 w-4 text-signal" />
                 {contact.phone}
               </a>
             )}
             {contact.address && (
               <p className="flex items-center gap-3 text-ink/80">
-                <Icon name="home" className="h-4 w-4 text-teal-deep" />
+                <Icon name="home" className="h-4 w-4 text-signal" />
                 {contact.address}
               </p>
             )}
             {contact.hours && (
               <p className="flex items-center gap-3 text-ink/80">
-                <Icon name="clock" className="h-4 w-4 text-teal-deep" />
+                <Icon name="clock" className="h-4 w-4 text-signal" />
                 {contact.hours}
               </p>
             )}
             {content.supportLine && (
               <p className="flex items-center gap-3 text-ink/80">
-                <Icon name="users" className="h-4 w-4 text-teal-deep" />
+                <Icon name="users" className="h-4 w-4 text-signal" />
                 {content.supportLine}
               </p>
             )}
           </div>
         </div>
 
-        <form onSubmit={onSubmit} className="flex flex-col gap-5 rounded-3xl border border-ink/10 p-8">
+        <form onSubmit={onSubmit} className="flex flex-col gap-5 rounded-2xl bg-mist p-8 md:p-10">
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
             <label className="flex flex-col gap-2 text-sm font-medium">
               {form.name}
-              <input required type="text" name="name" className="rounded-xl border border-ink/15 bg-transparent px-4 py-3 text-sm outline-none focus:border-teal" />
+              <input required type="text" name="name" className="rounded-full border border-ink/15 bg-paper px-5 py-3 text-sm outline-none focus:border-signal focus:ring-2 focus:ring-signal/30" />
             </label>
             <label className="flex flex-col gap-2 text-sm font-medium">
               {form.email}
-              <input required type="email" name="email" className="rounded-xl border border-ink/15 bg-transparent px-4 py-3 text-sm outline-none focus:border-teal" />
+              <input required type="email" name="email" className="rounded-full border border-ink/15 bg-paper px-5 py-3 text-sm outline-none focus:border-signal focus:ring-2 focus:ring-signal/30" />
             </label>
           </div>
           <label className="flex flex-col gap-2 text-sm font-medium">
             {form.solution}
-            <select name="solution" className="rounded-xl border border-ink/15 bg-transparent px-4 py-3 text-sm outline-none focus:border-teal">
+            <select name="solution" className="rounded-full border border-ink/15 bg-paper px-5 py-3 text-sm outline-none focus:border-signal focus:ring-2 focus:ring-signal/30">
               <option value="">{form.solutionPlaceholder}</option>
               {solutions.map((service) => (
                 <option key={service.slug} value={service.slug}>
@@ -120,7 +120,7 @@ export function Contact({
           </label>
           <label className="flex flex-col gap-2 text-sm font-medium">
             {form.message}
-            <textarea required name="message" rows={4} className="resize-none rounded-xl border border-ink/15 bg-transparent px-4 py-3 text-sm outline-none focus:border-teal" />
+            <textarea required name="message" rows={4} className="resize-none rounded-2xl border border-ink/15 bg-paper px-5 py-3 text-sm outline-none focus:border-signal focus:ring-2 focus:ring-signal/30" />
           </label>
           {TURNSTILE_SITE_KEY && (
             <Turnstile
@@ -137,10 +137,10 @@ export function Contact({
             {sending ? form.sending : form.submit}
             <Icon name="arrow-right" className="h-4 w-4" />
           </button>
-          {sent && <p className="text-sm font-medium text-teal-deep">{form.success}</p>}
+          {sent && <p className="text-sm font-medium text-signal">{form.success}</p>}
           {/* No error hue in the brand palette (see AGENTS.md) — plain ink carries the
               tone via copy instead of inventing a red. */}
-          {error && <p className="text-sm font-semibold text-ink">{form.error}</p>}
+          {error && <p className="text-sm font-medium text-ink">{form.error}</p>}
         </form>
       </Container>
     </section>

@@ -43,7 +43,7 @@ export function SolutionContact({ service }: { service: Service }) {
   };
 
   return (
-    <section id="contact" className="bg-paper py-28 text-ink">
+    <section id="contact" className="section-paper py-24 text-ink md:py-32 lg:py-40">
       <Container className="grid grid-cols-1 gap-16 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
         <SectionHeading
           eyebrow="Contact"
@@ -51,21 +51,21 @@ export function SolutionContact({ service }: { service: Service }) {
           description={`Parlez-nous de votre besoin — l'équipe derrière ${service.name} vous répond rapidement.`}
         />
 
-        <form onSubmit={onSubmit} className="flex flex-col gap-5 rounded-3xl border border-ink/10 p-8">
+        <form onSubmit={onSubmit} className="flex flex-col gap-5 rounded-2xl bg-mist p-8 md:p-10">
           <input type="hidden" name="solution" value={service.slug} />
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
             <label className="flex flex-col gap-2 text-sm font-medium">
               Nom complet
-              <input required type="text" name="name" className="rounded-xl border border-ink/15 bg-transparent px-4 py-3 text-sm outline-none focus:border-teal" />
+              <input required type="text" name="name" className="rounded-full border border-ink/15 bg-paper px-5 py-3 text-sm outline-none focus:border-signal" />
             </label>
             <label className="flex flex-col gap-2 text-sm font-medium">
               E-mail professionnel
-              <input required type="email" name="email" className="rounded-xl border border-ink/15 bg-transparent px-4 py-3 text-sm outline-none focus:border-teal" />
+              <input required type="email" name="email" className="rounded-full border border-ink/15 bg-paper px-5 py-3 text-sm outline-none focus:border-signal" />
             </label>
           </div>
           <label className="flex flex-col gap-2 text-sm font-medium">
             Votre message
-            <textarea required name="message" rows={4} placeholder={`Dites-nous en plus sur votre besoin autour de ${service.name}...`} className="resize-none rounded-xl border border-ink/15 bg-transparent px-4 py-3 text-sm outline-none focus:border-teal" />
+            <textarea required name="message" rows={4} placeholder={`Dites-nous en plus sur votre besoin autour de ${service.name}...`} className="resize-none rounded-2xl border border-ink/15 bg-paper px-5 py-3 text-sm outline-none focus:border-signal" />
           </label>
           {TURNSTILE_SITE_KEY && (
             <Turnstile
@@ -82,10 +82,10 @@ export function SolutionContact({ service }: { service: Service }) {
             {sending ? "Envoi…" : "Envoyer"}
             <Icon name="arrow-right" className="h-4 w-4" />
           </button>
-          {sent && <p className="text-sm font-medium text-teal-deep">Merci — votre message a bien été enregistré, nous revenons vers vous rapidement.</p>}
+          {sent && <p className="text-sm font-medium text-signal">Merci — votre message a bien été enregistré, nous revenons vers vous rapidement.</p>}
           {/* No error hue in the brand palette (see AGENTS.md) — plain ink carries the
               tone via copy instead of inventing a red. */}
-          {error && <p className="text-sm font-semibold text-ink">Une erreur est survenue — merci de réessayer.</p>}
+          {error && <p className="text-sm font-medium text-ink">Une erreur est survenue — merci de réessayer.</p>}
         </form>
       </Container>
     </section>

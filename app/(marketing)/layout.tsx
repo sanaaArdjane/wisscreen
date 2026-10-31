@@ -1,6 +1,5 @@
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
-import { HOME_MEDIA } from "@/lib/data/media";
 import { getSiteContent, getSolutions } from "@/lib/content";
 
 /**
@@ -17,12 +16,11 @@ export default async function MarketingLayout({ children }: LayoutProps<"/">) {
   const [content, solutions] = await Promise.all([getSiteContent(), getSolutions()]);
   return (
     <>
-      <Navbar items={content.nav.items} brand={content.general.siteName} logo={{ src: HOME_MEDIA.logo, light: HOME_MEDIA.logoLight }} />
+      <Navbar items={content.nav.items} brand={content.general.siteName} />
       {children}
       <Footer
         footer={content.footer}
         general={content.general}
-        logo={{ src: HOME_MEDIA.logo, light: HOME_MEDIA.logoLight }}
         solutions={solutions.map(({ slug, name }) => ({ slug, name }))}
       />
     </>

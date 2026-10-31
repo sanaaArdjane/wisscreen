@@ -45,7 +45,7 @@ export function Accordion({
   };
 
   return (
-    <div className={cn("divide-y divide-current/12", className)}>
+    <div className={cn("divide-y divide-ink/10", className)}>
       {items.map((item, index) => {
         const isOpen = openIndex === index;
         return (
@@ -59,8 +59,8 @@ export function Accordion({
               <span className="text-lg font-medium md:text-xl">{item.title}</span>
               <span
                 className={cn(
-                  "flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-current/25 transition-transform duration-300",
-                  isOpen && "rotate-45 border-aqua text-aqua",
+                  "flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-ink/15 transition-transform duration-300",
+                  isOpen && "rotate-45 border-signal text-signal",
                 )}
               >
                 <Icon name="arrow-right" className="h-4 w-4 rotate-[-45deg]" strokeWidth={2} />
@@ -77,7 +77,7 @@ export function Accordion({
               style={{ height: index === defaultOpen ? "auto" : 0 }}
               className="overflow-hidden"
             >
-              <div className="pb-6 pr-14 text-base leading-relaxed opacity-70">{item.content}</div>
+              <div className="pb-6 pr-14 text-base leading-relaxed text-ink/80">{item.content}</div>
             </div>
           </div>
         );

@@ -78,7 +78,7 @@ describe("Button", () => {
 
   it("maps each variant to its class contract", () => {
     const { rerender } = render(<Button variant="secondary">x</Button>);
-    expect(screen.getByRole("button").className).toContain("bg-ink");
+    expect(screen.getByRole("button").className).toContain("control-tint");
     rerender(<Button variant="ghost">x</Button>);
     expect(screen.getByRole("button").className).toContain("bg-transparent");
   });
@@ -129,7 +129,7 @@ describe("Container", () => {
     );
     const root = container.firstElementChild as HTMLElement;
     expect(root.textContent).toBe("content");
-    expect(root.className).toContain("max-w-[1280px]");
+    expect(root.className).toContain("max-w-[1200px]");
     expect(root.className).toContain("py-10");
   });
 });
@@ -176,16 +176,16 @@ describe("Tabs", () => {
   it("activates the first tab by default and passes its id to the render prop", () => {
     render(<Tabs tabs={tabs}>{(active) => <div data-testid="panel">active:{active}</div>}</Tabs>);
     expect(screen.getByTestId("panel").textContent).toBe("active:a");
-    expect(screen.getByRole("button", { name: "Alpha" }).className).toContain("control-accent");
-    expect(screen.getByRole("button", { name: "Beta" }).className).not.toContain("control-accent");
+    expect(screen.getByRole("button", { name: "Alpha" }).className).toContain("control-signal");
+    expect(screen.getByRole("button", { name: "Beta" }).className).not.toContain("control-signal");
   });
 
   it("switches the active tab and the rendered content on click", () => {
     render(<Tabs tabs={tabs}>{(active) => <div data-testid="panel">active:{active}</div>}</Tabs>);
     fireEvent.click(screen.getByRole("button", { name: "Beta" }));
     expect(screen.getByTestId("panel").textContent).toBe("active:b");
-    expect(screen.getByRole("button", { name: "Beta" }).className).toContain("control-accent");
-    expect(screen.getByRole("button", { name: "Alpha" }).className).not.toContain("control-accent");
+    expect(screen.getByRole("button", { name: "Beta" }).className).toContain("control-signal");
+    expect(screen.getByRole("button", { name: "Alpha" }).className).not.toContain("control-signal");
   });
 
   it("respects an explicit defaultTab", () => {
@@ -302,7 +302,7 @@ describe("isRemote (LoadingImage helper)", () => {
 });
 
 const renderFooter = () =>
-  render(<Footer logo={{ src: "/l.png", light: "/l.png" }} footer={DEFAULT_FOOTER} general={DEFAULT_GENERAL} solutions={SERVICES} />);
+  render(<Footer footer={DEFAULT_FOOTER} general={DEFAULT_GENERAL} solutions={SERVICES} />);
 
 describe("Footer", () => {
   it("renders a contentinfo landmark linking to every solution page", () => {

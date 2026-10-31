@@ -7,18 +7,18 @@ import { paletteText } from "@/lib/palette";
 
 export function SolutionFeatures({ service }: { service: Service }) {
   return (
-    <section id="fonctionnalites" className="section-ink py-28">
+    <section id="fonctionnalites" className="section-tint texture-3d py-24 md:py-32 lg:py-40">
       <Container className="flex flex-col gap-16">
         <SectionHeading eyebrow="Fonctionnalités" title="Tout ce dont vous avez besoin, inclus." />
 
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:gap-8 lg:grid-cols-3">
           {service.features.map((feature) => (
-            <Reveal key={feature.title} className="flex flex-col gap-4 rounded-3xl border border-white/10 p-7">
-              <span data-reveal-item className={`flex h-11 w-11 items-center justify-center rounded-2xl bg-white/10 ${paletteText[service.palette.primary]}`}>
+            <Reveal key={feature.title} className="flex flex-col gap-4 rounded-2xl bg-paper p-8 md:p-10">
+              <span data-reveal-item className={`flex h-11 w-11 items-center justify-center rounded-2xl bg-mist ${paletteText[service.palette.primary]}`}>
                 <Icon name={feature.icon} className="h-5 w-5" />
               </span>
-              <p data-reveal-item className="text-lg font-semibold">{feature.title}</p>
-              <p data-reveal-item className="text-sm leading-relaxed opacity-65">{feature.description}</p>
+              <p data-reveal-item className="text-lg font-medium">{feature.title}</p>
+              <p data-reveal-item className="text-base leading-relaxed text-ink/80">{feature.description}</p>
             </Reveal>
           ))}
         </div>

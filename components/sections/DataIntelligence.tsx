@@ -16,7 +16,7 @@ export function DataIntelligence({
   solution?: Service;
 }) {
   return (
-    <section id="data-intelligence" className="bg-paper py-28 text-ink">
+    <section id="data-intelligence" className="section-paper texture-3d py-24 text-ink md:py-32 lg:py-40">
       <Container className="grid grid-cols-1 items-center gap-16 lg:grid-cols-2">
         <Reveal className="order-2 flex flex-col gap-8 lg:order-1">
           <div data-reveal-item>
@@ -29,12 +29,12 @@ export function DataIntelligence({
           <div className="flex flex-col gap-6">
             {content.points.map((point, i) => (
               <div key={i} data-reveal-item className="flex gap-4">
-                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-ink/5 text-teal-deep">
+                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-mist text-signal">
                   <Icon name={point.icon} className="h-5 w-5" />
                 </span>
                 <div>
-                  <p className="font-semibold">{point.title}</p>
-                  <p className="mt-1 text-sm leading-relaxed opacity-70">{point.text}</p>
+                  <p className="font-medium">{point.title}</p>
+                  <p className="mt-1 text-base leading-relaxed text-ink/80">{point.text}</p>
                 </div>
               </div>
             ))}

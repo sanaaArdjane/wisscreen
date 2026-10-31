@@ -54,11 +54,11 @@ export default async function ContactPage() {
       <Contact content={sections.contact} contact={general.contact} solutions={solutions} />
 
       {address && (
-        <section className="bg-mist py-16">
+        <section className="section-tint py-16 md:py-20">
           <Container className="flex max-w-[48rem] items-start gap-3 text-sm text-ink/80">
             <Icon name="globe" className="mt-0.5 h-5 w-5 shrink-0 text-accent" />
             <p>
-              <span className="font-[650] text-ink">{company.name}</span>
+              <span className="font-medium text-ink">{company.name}</span>
               <br />
               {address}
             </p>

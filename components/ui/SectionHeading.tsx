@@ -19,7 +19,7 @@ export function SectionHeading({
   return (
     <Reveal
       className={cn(
-        "flex flex-col gap-5",
+        "flex flex-col gap-6",
         align === "center" ? "items-center text-center" : "items-start text-left",
         className,
       )}
@@ -32,7 +32,7 @@ export function SectionHeading({
       <h2
         data-reveal-item
         className={cn(
-          "font-display text-balance text-4xl font-semibold leading-[1.05] md:text-6xl",
+          "font-display text-balance text-4xl font-medium leading-[1.08] md:text-5xl lg:text-6xl",
           align === "center" && "max-w-3xl",
         )}
       >
@@ -42,7 +42,7 @@ export function SectionHeading({
         <p
           data-reveal-item
           className={cn(
-            "max-w-2xl text-lg leading-relaxed opacity-70 md:text-xl",
+            "max-w-2xl text-lg leading-relaxed text-ink/80 md:text-xl",
             align === "center" && "mx-auto",
           )}
         >

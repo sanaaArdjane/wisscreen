@@ -17,8 +17,8 @@ export function OcrDemo({
   if (!ocr) return null;
 
   return (
-    <section id="ocr-demo" className="bg-paper py-28 text-ink">
-      <Container className="grid grid-cols-1 items-center gap-16 lg:grid-cols-2">
+    <section id="ocr-demo" className="section-paper py-24 md:py-32 lg:py-40 text-ink">
+      <Container className="grid grid-cols-1 items-center gap-16 lg:grid-cols-2 lg:gap-20">
         <Reveal>
           <div data-reveal-item>
             {ocr.media.gallery[0] && <MediaSlot slot={ocr.media.gallery[0]} accent={ocr.palette.primary} />}
@@ -31,11 +31,11 @@ export function OcrDemo({
             title={content.heading.title}
             description={content.heading.description || undefined}
           />
-          <Reveal className="flex flex-col divide-y divide-ink/10 rounded-2xl border border-ink/10">
+          <Reveal className="flex flex-col divide-y divide-ink/10 rounded-2xl bg-mist px-2">
             {content.fields.map((field, i) => (
               <div key={i} data-reveal-item className="flex items-center justify-between px-6 py-4">
                 <span className="text-sm font-medium">{field.label}</span>
-                <span className="flex items-center gap-2 text-sm font-medium text-teal-deep">
+                <span className="flex items-center gap-2 text-sm font-medium text-signal">
                   <Icon name="check" className="h-4 w-4" strokeWidth={2} />
                   {field.value}
                 </span>

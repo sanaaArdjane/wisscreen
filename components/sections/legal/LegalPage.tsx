@@ -20,12 +20,12 @@ export function LegalPage({
   children: ReactNode;
 }) {
   return (
-    <main id="contenu" className="flex flex-1 flex-col pb-24 pt-32">
-      <Container className="flex max-w-[44rem] flex-col gap-10">
+    <main id="contenu" className="flex flex-1 flex-col pb-24 pt-36 md:pb-32 md:pt-44">
+      <Container className="flex max-w-[44rem] flex-col gap-12">
         <header className="flex flex-col gap-3">
-          <h1 className="text-4xl font-semibold leading-[1.1] text-ink md:text-5xl">{title}</h1>
-          <p className="text-lg text-ink/80">{intro}</p>
-          {updatedAt && <p className="text-sm text-ink/80">Dernière mise à jour : {updatedAt}</p>}
+          <h1 className="text-4xl font-medium leading-[1.1] text-ink md:text-5xl">{title}</h1>
+          <p className="text-lg leading-relaxed text-ink/80">{intro}</p>
+          {updatedAt && <p className="text-sm text-steel">Dernière mise à jour : {updatedAt}</p>}
         </header>
         {children}
       </Container>
@@ -36,7 +36,7 @@ export function LegalPage({
 export function Section({ title, children }: { title: string; children: ReactNode }) {
   return (
     <section className="flex flex-col gap-3">
-      <h2 className="text-xl font-semibold text-ink">{title}</h2>
+      <h2 className="text-xl font-medium text-ink">{title}</h2>
       <div className="flex flex-col gap-3 text-base leading-relaxed text-ink/80">{children}</div>
     </section>
   );
@@ -51,7 +51,7 @@ export function Facts({ rows }: { rows: [string, string | undefined][] }) {
   const filled = rows.filter(([, value]) => value && value.trim());
   if (filled.length === 0) {
     return (
-      <p className="rounded-2xl bg-mist px-5 py-4 text-sm">
+      <p className="rounded-2xl bg-mist px-8 py-6 text-sm text-ink/80">
         Ces informations seront publiées dès que l&apos;immatriculation de la société sera finalisée.
       </p>
     );
@@ -60,7 +60,7 @@ export function Facts({ rows }: { rows: [string, string | undefined][] }) {
     <dl className="flex flex-col divide-y divide-ink/10 rounded-2xl ring-1 ring-ink/10">
       {filled.map(([label, value]) => (
         <div key={label} className="flex flex-col gap-0.5 px-5 py-3 sm:flex-row sm:gap-6">
-          <dt className="text-sm font-[650] text-ink sm:w-52 sm:shrink-0">{label}</dt>
+          <dt className="text-sm font-medium text-ink sm:w-52 sm:shrink-0">{label}</dt>
           <dd className="text-sm text-ink/80">{value}</dd>
         </div>
       ))}

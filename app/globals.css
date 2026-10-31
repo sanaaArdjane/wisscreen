@@ -1,40 +1,42 @@
 @import "tailwindcss";
 
 /* ---------------------------------------------------------------------- */
-/* WICLOUD design tokens.                                                  */
+/* SETYCORP "Daylight" tokens — docs/DESIGN.md is the reference.           */
 /*                                                                         */
-/* Cool family (exact):  #354666  #366479  #379f9e  #ffffff                */
-/* Signal accent (exact): #13B78C — the one deliberate hue outside it.      */
-/* Every other token is a tint/shade of one of those. Introduce no others.  */
+/* Light only: there is no dark surface on the public site. Ink and steel  */
+/* survive as TEXT colours; every ground is white or one of three washes.  */
 /* ---------------------------------------------------------------------- */
 @theme inline {
-  --color-paper: #ffffff; /* brand */
-  --color-mist: #eef2f6; /* light wash — tint of ink */
-  /* #379f9e is a mid-tone: as small text it clears neither white (3.2:1) nor the
-     dark surfaces (3.0:1). So accent TEXT uses a tint/shade picked for its ground —
-     `aqua` on dark (5.0:1), `teal-deep` on light (4.9:1) — while plain `teal` is for
-     fills, glows, borders and large display type, where 3:1 is enough. `steel` has
-     the same problem inverted (6.5:1 on white, 1.5:1 on ink), hence `steel-pale`.
-     The resolution is automatic — see the --accent-* / --pt-* blocks below. */
-  --color-aqua: #7fc9c8; /* light tint of teal — accent text on dark */
-  --color-teal-deep: #2b7d7c; /* shade of teal — accent text on light */
-  --color-teal: #379f9e; /* brand — fills, glows, large type */
-  --color-steel: #366479; /* brand — mid surface */
-  --color-ink: #354666; /* brand — darkest surface */
-  --color-steel-pale: #9fbdd0; /* light tint of steel — steel's accent text on dark */
-  --color-abyss: #26334c; /* shade of ink, for depth behind the 3D scene */
+  /* Grounds */
+  --color-paper: #ffffff; /* canvas */
+  --color-mist: #e7f5f6; /* aqua wash — tinted sections, cards on white */
+  --color-mint-wash: #e7f4ec; /* second tinted section, used sparingly */
+  --color-mint: #c7f2e0; /* chips, highlights, hover fills — never a whole section */
 
-  /* The signal accent. One hue, used scarcely — primary CTAs, the hand-drawn
-     underline, the highlight-card edge, the hero caret, the meteors. It is the only
-     thing on the page that isn't blue-green, which is exactly why it must stay rare.
-     #13B78C is the brand value and it is a BRIGHT mid-tone (L=0.399), which inverts
-     the constraints the old warm accent had: it is strong on dark grounds (4.05:1 on
-     ink, 5.41:1 on abyss) and weak on light ones (2.34:1 on paper). So the fill takes
-     a DARK label, and small accent text on a light ground has to drop to the shade. */
-  --color-signal: #13b78c; /* signal accent — fills, borders, glows */
-  --color-signal-soft: #4ed39d; /* light tint — accent text on dark (5.0:1 on ink) */
-  --color-signal-deep: #0d7d55; /* shade — accent text on light (5.1:1 on paper, 4.6:1 on mist) */
-  --color-signal-bright: #00ffa9; /* glows and 3D only — 1.3:1 on paper, never carries text */
+  /* Text */
+  --color-ink: #354666; /* headlines and body — 9.5:1 on paper, 7.8:1 on mint */
+  --color-steel: #366479; /* secondary text — 6.5:1 on paper, 5.3:1 on mint */
+
+  /* Identity from the original site — fills, borders, glows, large type only.
+     None of these carries small text on a light ground. */
+  --color-teal: #379f9e;
+  --color-teal-deep: #2b7d7c;
+  --color-aqua: #7fc9c8;
+  --color-steel-pale: #9fbdd0;
+
+  /* The action colour. The token keeps its old name (`signal`, from when the accent was a
+     green) so every `text-signal` / `control-signal` call site still means "the accent".
+     #1099a5 is a mid-tone: 3.43:1 on paper, ~3:1 on the washes, 2.81:1 on mint — fine for
+     fills, icons and type >=24px, never small text. Two shades do the 4.5:1 jobs. */
+  --color-signal: #1099a5; /* brand — fills, icons, focus, large type */
+  --color-signal-strong: #0a7681; /* filled CTA — white label 5.36:1 */
+  --color-signal-deep: #0e6f78; /* small accent text — >=4.8:1 on every ground */
+  --color-signal-bright: #1099a5; /* 3D glows; kept as its own name for the scene constants */
+
+  /* Back-office only. /dashboard and /admin still use these (a dark theme, label ink on
+     filled chips, the billing preview). The public site must not: no dark surfaces. */
+  --color-abyss: #26334c;
+  --color-signal-soft: #4ed39d;
 
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
@@ -95,8 +97,8 @@ body {
 }
 
 ::selection {
-  background: var(--color-teal);
-  color: var(--color-abyss);
+  background: var(--color-mint);
+  color: var(--color-ink);
 }
 
 /* Slim, tech-styled scrollbar */
@@ -108,165 +110,129 @@ body {
   background: var(--color-paper);
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--color-ink);
+  background: var(--color-steel-pale);
   border-radius: 999px;
   border: 2px solid var(--color-paper);
 }
 
-/* Dark section rhythm: sections alternate paper / ink like the reference site */
-.section-ink {
-  background: var(--color-ink);
-  color: var(--color-paper);
+@layer components {
+/* Section grounds. Every section carries a texture — a fine ink dot grid — and no
+   gradient: the owner wants flat, light grounds with grain. The rhythm is white, then a
+   wash; `section-mint` is the rarer third beat. Alpha lives in the dot colour so the grid
+   can't be lightened twice by an `opacity-*` on the same element. */
+.section-paper,
+.section-tint,
+.section-mint {
+  color: var(--color-ink);
+  background-image: radial-gradient(circle at 1px 1px, rgba(53, 70, 102, 0.11) 1px, transparent 0);
+  background-size: 24px 24px;
 }
-.section-abyss {
-  background: var(--color-abyss);
-  color: var(--color-paper);
+.section-paper {
+  background-color: var(--color-paper);
 }
-
-/* Ground-adaptive accent, for components that render on both light and dark
-   sections (SectionHeading, Badge). Small accent text can't be one fixed value:
-   see the token comment above. Anything nested in a dark section inherits the
-   tint; everything else falls back to the shade. */
-:root {
-  --accent-text: var(--color-teal-deep);
+.section-tint {
+  background-color: var(--color-mist);
 }
-.section-ink,
-.section-abyss,
-/* Anything painted ink or abyss is a dark ground by definition. `.on-dark` is the
-   escape hatch for the rest: surfaces that are dark but don't use those utilities —
-   the navbar (transparent over the hero, glass-panel over light sections) and the
-   highlight cards (arbitrary-value background). It sets only the vars, no paint. */
-.bg-ink,
-.bg-abyss,
-.on-dark {
-  --accent-text: var(--color-aqua);
-}
-.text-accent {
-  color: var(--accent-text);
-}
-.border-accent\/40 {
-  border-color: color-mix(in srgb, var(--accent-text) 40%, transparent);
+.section-mint {
+  background-color: var(--color-mint-wash);
 }
 
-/* Accent-filled controls (primary button, active tab), also ground-adaptive.
-   A single fill can't work on both grounds: brand teal only reaches ~3:1 against
-   either white or ink, so the label would fail AA whichever way round it went.
-   Each ground gets the tint/shade that clears 4.5:1 for the label *and* 3:1 for
-   the control's own edge; hover swaps to the ground's opposite extreme. */
-:root {
-  --accent-fill: var(--color-teal-deep);
-  --accent-fill-label: var(--color-paper);
-  --accent-fill-hover: var(--color-ink);
+/* The 3D texture for the big sections: a perspective grid floor receding behind the
+   content, drawn on a pseudo-element so no component markup changes.
+
+   - `isolation: isolate` makes the section its own stacking context, so the floor's
+     `z-index: -1` lands above the section's background but under every child.
+   - `overflow: clip`, not `hidden`: `hidden` makes a scroll container, and that breaks
+     `position: sticky` on anything inside (DeviceShowcase's stage, the pinned sections).
+   - In `@layer components` so utilities on the same element win: DeviceShowcase's stage
+     is `sticky`, and an unlayered `position: relative` here would silently unpin it.
+   - The fade at the far edge is a *mask* on the lines, not a colour gradient on the
+     ground: the ground itself stays flat. */
+.texture-3d {
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
 }
-.section-ink,
-.section-abyss,
-.bg-ink,
-.bg-abyss,
-.on-dark {
-  --accent-fill: var(--color-aqua);
-  --accent-fill-label: var(--color-ink);
-  --accent-fill-hover: var(--color-paper);
+.texture-3d::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  left: -50%;
+  right: -50%;
+  bottom: 0;
+  height: 62%;
+  pointer-events: none;
+  background-image:
+    linear-gradient(to right, rgba(16, 153, 165, 0.22) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(16, 153, 165, 0.22) 1px, transparent 1px);
+  background-size: 72px 72px;
+  transform: perspective(520px) rotateX(64deg);
+  transform-origin: 50% 100%;
+  mask-image: linear-gradient(to top, #000 0%, #000 25%, transparent 92%);
+  -webkit-mask-image: linear-gradient(to top, #000 0%, #000 25%, transparent 92%);
+}
+/* A mirrored ceiling for the tallest sections, so the content sits inside a room
+   rather than on a floor. */
+.texture-3d-room::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  left: -50%;
+  right: -50%;
+  top: 0;
+  height: 38%;
+  pointer-events: none;
+  background-image:
+    linear-gradient(to right, rgba(16, 153, 165, 0.17) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(16, 153, 165, 0.17) 1px, transparent 1px);
+  background-size: 72px 72px;
+  transform: perspective(520px) rotateX(-64deg);
+  transform-origin: 50% 0%;
+  mask-image: linear-gradient(to bottom, #000 0%, transparent 85%);
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, transparent 85%);
+}
 }
 
-/* Per-service accent text (`lib/palette.ts` -> paletteText). Each solution owns a
-   palette token, but a token is one hex and small text needs 4.5:1 on whichever
-   ground it lands on — so the token names a *role* and the ground picks the value.
-   teal and aqua converge on dark (aqua IS the light tint of teal); the identity is
-   carried by the fills and glows, which only need 3:1 and keep the exact brand hex. */
-:root {
-  --pt-teal: var(--color-teal-deep);
-  --pt-aqua: var(--color-teal-deep);
-  --pt-steel: var(--color-steel);
-}
-.section-ink,
-.section-abyss,
-.bg-ink,
-.bg-abyss,
-.on-dark {
-  --pt-teal: var(--color-aqua);
-  --pt-aqua: var(--color-aqua);
-  --pt-steel: var(--color-steel-pale);
-}
-/* Signal accent. Like the old warm accent, the FILL is the same `signal` on both
-   grounds, so the primary CTA looks identical site-wide — but the label is DARK, not
-   white: `signal` is a bright mid-tone, so paper on it is 2.34:1 while `abyss` on it
-   is 5.41:1.
-
-   The edge problem is inverted too. `signal` against ink is 4.05:1, so a dark ground
-   gives the control its own boundary for free; against paper it is only 2.34:1, so it
-   is the LIGHT ground that needs the 1px ring — `signal-deep`, 5.1:1 on paper, which
-   carries the 3:1 non-text requirement at the boundary. Accent TEXT flips the usual
-   way round: the shade on light, the brand value itself is fine on dark. */
-:root {
-  --signal-text: var(--color-signal-deep);
-  --signal-fill: var(--color-signal);
-  --signal-fill-label: var(--color-abyss);
-  --signal-fill-hover: var(--color-ink);
-  --signal-fill-hover-label: var(--color-paper);
-  --signal-ring: var(--color-signal-deep);
-}
-.section-ink,
-.section-abyss,
-.bg-ink,
-.bg-abyss,
-.on-dark {
-  --signal-text: var(--color-signal-soft);
-  /* Hover inverts to paper rather than darkening, so the control stays visible
-     against the dark ground; signal-deep on paper is 5.1:1. */
-  --signal-fill-hover: var(--color-paper);
-  --signal-fill-hover-label: var(--color-signal-deep);
-  /* No ring needed here — signal on ink is already 4.05:1, its own edge. */
-  --signal-ring: transparent;
-}
+/* Accent text and controls. These used to be ground-adaptive (a different tint on every
+   dark ground); with no dark grounds left, each resolves to one value. The classes stay
+   because they are the vocabulary the components already speak. */
+.text-accent,
 .text-signal {
-  color: var(--signal-text);
+  color: var(--color-signal-deep);
 }
 .fill-signal {
-  fill: var(--signal-text);
+  fill: var(--color-signal);
 }
+.border-accent\/40,
 .border-signal\/40 {
-  border-color: color-mix(in srgb, var(--signal-text) 40%, transparent);
+  border-color: color-mix(in srgb, var(--color-signal-deep) 40%, transparent);
 }
-.control-signal {
-  background-color: var(--signal-fill);
-  color: var(--signal-fill-label);
-  box-shadow: inset 0 0 0 1px var(--signal-ring);
+.control-signal,
+.control-accent {
+  background-color: var(--color-signal-strong);
+  color: var(--color-paper);
 }
-.control-signal:hover {
-  background-color: var(--signal-fill-hover);
-  color: var(--signal-fill-hover-label);
+.control-signal:hover,
+.control-accent:hover {
+  background-color: var(--color-signal-deep);
 }
-
-/* A "raised" dark surface: the highlight cards start lighter than a section and
-   lighten *further* on hover (a deliberate effect — the card should feel lit). That
-   costs the standard dark tints their 4.5:1: on the hovered card `aqua` falls to
-   3.99, `steel-pale` to 3.83, `signal-soft` to 4.00. The card has only 0.005 of
-   luminance headroom before that happens, so it cannot both lighten visibly and use
-   the section tints — the raised surface gets its own paler set instead, which clears
-   4.5:1 in *both* the resting and hovered states. */
-.on-dark-raised {
-  --signal-text: #86e5bc; /* pale signal — 6.3:1 at rest, 5.0:1 hovered */
-  --accent-text: #a9dedd; /* pale aqua — 6.4:1 / 5.1:1 */
-  --pt-teal: #a9dedd;
-  --pt-aqua: #a9dedd;
-  --pt-steel: #c3d7e4; /* pale steel — 6.4:1 / 5.1:1 */
+/* Secondary action: a 10% wash of the brand with an ink label (Mercury's tint pill). */
+.control-tint {
+  background-color: color-mix(in srgb, var(--color-signal) 10%, transparent);
+  color: var(--color-ink);
+}
+.control-tint:hover {
+  background-color: color-mix(in srgb, var(--color-signal) 18%, transparent);
 }
 
-.pt-teal {
-  color: var(--pt-teal);
-}
+/* Per-solution accent text (`lib/palette.ts` -> paletteText). Identity lives in the fills
+   (`paletteBg` / `paletteBorder`); the text roles all resolve to legible shades. */
+.pt-teal,
 .pt-aqua {
-  color: var(--pt-aqua);
+  color: var(--color-teal-deep);
 }
 .pt-steel {
-  color: var(--pt-steel);
-}
-.control-accent {
-  background-color: var(--accent-fill);
-  color: var(--accent-fill-label);
-}
-.control-accent:hover {
-  background-color: var(--accent-fill-hover);
+  color: var(--color-steel);
 }
 
 .text-balance {
@@ -294,51 +260,30 @@ html[data-immersive] header {
   display: none;
 }
 
-/* The hero's ground: a pale cool gradient under a fine woven grid — lightest at the
-   top-left where the copy sits, deepening diagonally toward `aqua` behind the 3D scene.
-   Four layers in one shorthand, painted back to front: the two 1px repeating gradients
-   that make the weave, a white top-left highlight, then the mist -> steel-pale -> aqua
-   ramp.
-
-   The ramp stays in the STEEL half of the palette (mist -> steel-pale -> a shade of it),
-   not the teal half: `aqua` as the deep stop turned the whole ground green.
-
-   Contrast: `ink` clears 9:1 against every stop, so body copy is safe anywhere on it.
-   `signal-deep` is NOT — 4.5:1 on `mist`, ~2.9:1 on the deep stop — so accent text has to
-   stay in the light third. That is where the copy column is, and it is why the highlight
-   is placed at 18%/12% rather than centred. */
-/* A lighter cousin for the auth shell (`app/(auth)/layout.tsx`): same 4px weave, a much
-   shallower ramp and a different angle, so the two pages read as the same material without
-   being the same picture.
-
-   It has to stay this light. Both panels on that page are translucent — the pitch panel is
-   `bg-mist/85` and the form card `bg-paper/90` — so the ground composites through them, and
-   `signal-deep` is already only 4.57:1 on `mist`. A deeper ramp takes it under the floor
-   through a panel that looks opaque. */
+/* The hero's ground (`texture-weave`) and its lighter cousin for the auth shell
+   (`texture-weave-soft`): flat white under a fine 1px-in-4px woven grid. No colour ramp —
+   the owner asked for textured, flat grounds — so every text colour clears its floor
+   anywhere on them, exactly as on plain paper. */
 .texture-weave-soft {
   background-color: var(--color-paper);
   background-image:
     repeating-linear-gradient(0deg, rgba(53, 70, 102, 0.05) 0 1px, transparent 1px 4px),
-    repeating-linear-gradient(90deg, rgba(53, 70, 102, 0.07) 0 1px, transparent 1px 4px),
-    radial-gradient(110% 80% at 12% 6%, rgba(255, 255, 255, 0.98) 0%, rgba(255, 255, 255, 0) 55%),
-    linear-gradient(150deg, var(--color-paper) 0%, var(--color-mist) 38%, #d8e6ee 100%);
+    repeating-linear-gradient(90deg, rgba(53, 70, 102, 0.07) 0 1px, transparent 1px 4px);
 }
 
 .texture-weave {
-  background-color: var(--color-mist);
+  background-color: var(--color-paper);
   background-image:
-    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.55) 0 1px, transparent 1px 4px),
-    repeating-linear-gradient(90deg, rgba(53, 70, 102, 0.07) 0 1px, transparent 1px 4px),
-    radial-gradient(125% 95% at 18% 12%, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0) 58%),
-    linear-gradient(128deg, var(--color-mist) 0%, #d6e5ee 34%, var(--color-steel-pale) 66%, #86bcd3 100%);
+    repeating-linear-gradient(0deg, rgba(53, 70, 102, 0.045) 0 1px, transparent 1px 4px),
+    repeating-linear-gradient(90deg, rgba(53, 70, 102, 0.06) 0 1px, transparent 1px 4px);
 }
 
-/* Reusable "glass" chrome for cards floating over dark 3D scenes */
+/* White glass for chrome floating over the 3D scenes and media. */
 .glass-panel {
-  background: color-mix(in srgb, var(--color-ink) 55%, transparent);
+  background: color-mix(in srgb, var(--color-paper) 82%, transparent);
   backdrop-filter: blur(18px) saturate(140%);
   -webkit-backdrop-filter: blur(18px) saturate(140%);
-  border: 1px solid color-mix(in srgb, var(--color-aqua) 35%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-ink) 8%, transparent);
 }
 
 /* Hero copy entrance. Deliberately CSS rather than a JS tween: `animation-fill-mode:
@@ -597,9 +542,7 @@ section[id]:target {
 }
 
 .markdown-article a {
-  /* The adaptive accent, so it stays legible if an article ever renders on a dark
-     ground — `--signal-text` is signal-deep on light, signal-soft on dark. */
-  color: var(--signal-text);
+  color: var(--color-signal-deep);
 }
 
 .markdown-article :is(code, pre) {

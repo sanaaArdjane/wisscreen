@@ -11,18 +11,18 @@ export function SolutionRelated({ others }: { others: Service[] }) {
   if (others.length === 0) return null;
 
   return (
-    <section id="autres-solutions" className="py-28">
+    <section id="autres-solutions" className="section-paper py-24 text-ink md:py-32 lg:py-40">
       <Container className="flex flex-col gap-16">
         <SectionHeading eyebrow="Découvrez aussi" title="Les autres solutions de l'écosystème." />
 
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-3">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-3 lg:gap-8">
           {others.map((other) => (
             <Reveal key={other.slug}>
               <Link href={`/solutions/${other.slug}`} data-reveal-item className="group flex flex-col gap-4">
                 <MediaSlot slot={other.media.hero} accent={other.palette.primary} className="transition-transform duration-500 group-hover:scale-[1.02]" />
                 <div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.12em] opacity-50">{other.category}</p>
-                  <p className="mt-1 text-xl font-semibold">{other.name}</p>
+                  <p className="text-xs font-medium uppercase tracking-[0.12em] text-steel">{other.category}</p>
+                  <p className="mt-1 text-xl font-medium">{other.name}</p>
                   <span className="mt-2 inline-flex items-center gap-2 text-sm font-medium text-accent">
                     Découvrir
                     <Icon name="arrow-right" className="h-4 w-4 transition-transform group-hover:translate-x-1" />

@@ -7,10 +7,9 @@
  *     etched with its own pattern (app tiles, disk clusters, server racks, circuit
  *     traces), with blinking status LEDs and a scan line sweeping across it.
  *   - Light pillars at the corners carry packets between the layers.
- *   - Each solution is a glowing module docked on one layer, linked to the next by a
- *     beam — the services sit *on* the platform, and talk to each other through it.
- *   - A glowing grid floor below, motes rising from it into the stack, and a faint
- *     halo above the top layer.
+ *   - Each solution is a module docked on one layer, linked to the next by a beam — the
+ *     services sit *on* the platform, and talk to each other through it.
+ *   - A grid floor below, and motes rising from it into the stack.
  *
  * The stack unfolds on entry (layers start pressed together), then floats and turns.
  * The sky behind it lives in `./sky`.
@@ -35,16 +34,15 @@ import {
   radialGlowTexture,
 } from "./sky";
 
-/* The hero's ground is LIGHT (`.texture-weave`), so this scene draws no sky at all and
-   anything drawn over the BACKGROUND has to be dark and normally blended — additive over
-   a pale ground composites toward white and disappears. `WIRE` / `WIRE_HOT` are those:
-   steel and signal-deep, the two cool values that hold 3:1 against the whole gradient.
-
-   Anything drawn ON a layer's own glass plate keeps additive blending, because the plate
-   is still dark: the etched pattern, the scan line, the status LEDs and the modules' core
-   lights all sit on `#1d2a42` and still read as light. Don't "unify" the two. */
+/* Everything is LIGHT: the hero's ground (`.texture-weave`), the frosted plates and the
+   modules. So nothing is additively blended — additive over a pale surface composites
+   toward white and disappears. Lines and dots are drawn normally in `WIRE` (steel) /
+   `WIRE_HOT` (teal), and the plates' etching in the deep teal. */
 const WIRE = "#366479";
-const WIRE_HOT = "#0D7D55";
+const WIRE_HOT = "#1099A5";
+const TEAL_DEEP = "#0E6F78";
+const FROST = "#E7F5F6";
+const MINT = "#C7F2E0";
 
 const INTRO_DURATION = 1.4;
 const INTRO_DELAY = 0.5;
@@ -97,8 +95,8 @@ const PILLARS: [number, number][] = [
 ];
 
 /* ------------------------------------------------------------------------------------
- * Etched layer patterns — drawn once to a canvas, white on transparent, tinted by the
- * material and additively blended so they read as light in the glass.
+ * Etched layer patterns — drawn once to a canvas, white on transparent, and tinted by
+ * the material so they read as teal lines in the frosted glass.
  * ---------------------------------------------------------------------------------- */
 
 function patternTexture(pattern: Pattern) {
@@ -255,8 +253,8 @@ function Blinkers({ seed, active, still }: { seed: number; active: boolean; stil
     const positions = new Float32Array(count * 3);
     const colors = new Float32Array(count * 3);
     const seeds = new Float32Array(count);
-    const a = new THREE.Color(AQUA);
-    const g = new THREE.Color(SIGNAL_SOFT);
+    const a = new THREE.Color(WIRE);
+    const g = new THREE.Color(WIRE_HOT);
     for (let i = 0; i < count; i++) {
       positions.set(
         [
@@ -299,7 +297,6 @@ function Blinkers({ seed, active, still }: { seed: number; active: boolean; stil
         uniforms={uniforms}
         transparent
         depthWrite={false}
-        blending={THREE.AdditiveBlending}
         vertexShader={/* glsl */ `
           uniform float uTime;
           uniform float uPixelRatio;
@@ -316,7 +313,7 @@ function Blinkers({ seed, active, still }: { seed: number; active: boolean; stil
             float on = step(0.28, fract(uTime * rate + aSeed * 7.0));
             gl_PointSize = (9.0 + uBoost * 5.0) * uPixelRatio * 8.0 / -mv.z;
             gl_Position = projectionMatrix * mv;
-            vColor = mix(aColor, vec3(0.0, 1.0, 0.66), uBoost * 0.6);
+            vColor = mix(aColor, vec3(0.063, 0.6, 0.647), uBoost * 0.6);
             vAlpha = mix(0.25, 1.0, on) * (0.8 + uBoost * 0.2);
           }
         `}
@@ -361,13 +358,13 @@ function Layer({
     if (glass.current) {
       glass.current.emissiveIntensity = THREE.MathUtils.lerp(
         glass.current.emissiveIntensity,
-        active ? 0.55 : 0.12,
+        active ? 0.22 : 0.04,
         0.1,
       );
     }
   });
 
-  const tint = active ? SIGNAL_SOFT : AQUA;
+  const tint = active ? SIGNAL : TEAL_DEEP;
   return (
     <group>
       {/* The glass slab */}
@@ -375,21 +372,21 @@ function Layer({
         <boxGeometry args={[LAYER_W, LAYER_H, LAYER_D]} />
         <meshStandardMaterial
           ref={glass}
-          color="#1d2a42"
+          color={FROST}
           emissive={active ? SIGNAL : TEAL}
-          emissiveIntensity={0.12}
-          metalness={0.4}
-          roughness={0.3}
+          emissiveIntensity={0.04}
+          metalness={0.05}
+          roughness={0.45}
           transparent
           opacity={0.62}
           depthWrite={false}
         />
       </mesh>
       <lineSegments geometry={edges}>
-        <lineBasicMaterial color={active ? WIRE_HOT : WIRE} transparent opacity={active ? 1 : 0.7} />
+        <lineBasicMaterial color={active ? TEAL_DEEP : WIRE_HOT} transparent opacity={active ? 1 : 0.7} />
       </lineSegments>
 
-      {/* Etched pattern, as light in the top face */}
+      {/* Etched pattern in the top face */}
       {etch && (
         <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, LAYER_H / 2 + 0.004, 0]}>
           <planeGeometry args={[LAYER_W, LAYER_D]} />
@@ -397,9 +394,8 @@ function Layer({
             map={etch}
             color={tint}
             transparent
-            opacity={active ? 0.75 : 0.42}
+            opacity={active ? 0.7 : 0.35}
             depthWrite={false}
-            blending={THREE.AdditiveBlending}
           />
         </mesh>
       )}
@@ -408,11 +404,10 @@ function Layer({
       <mesh ref={scan} rotation={[-Math.PI / 2, 0, 0]} position={[0, LAYER_H / 2 + 0.01, 0]}>
         <planeGeometry args={[0.07, LAYER_D - 0.1]} />
         <meshBasicMaterial
-          color={active ? SIGNAL_BRIGHT : AQUA}
+          color={active ? TEAL_DEEP : WIRE_HOT}
           transparent
           opacity={0}
           depthWrite={false}
-          blending={THREE.AdditiveBlending}
         />
       </mesh>
 
@@ -651,11 +646,11 @@ function ServiceModule({
   glow: THREE.CanvasTexture | null;
   showLabel: boolean;
 }) {
-  // Alternate the idle colour so the stack mixes signal and cool rather than reading
-  // as one hue (an even 2/2 split across four solutions). Hover escalates to
-  // signal-bright with a white core — the active state has to read on a module that
-  // is already green.
-  const idle = index % 2 === 1 ? SIGNAL_SOFT : AQUA;
+  // Alternate the case so the stack mixes paper and mint rather than reading as one
+  // tone (an even 2/2 split across four solutions). Hover deepens the teal glow and
+  // scales the module up, so the active state reads on either case.
+  const idle = index % 2 === 1 ? SIGNAL_SOFT : SIGNAL;
+  const shell = index % 2 === 1 ? MINT : PAPER;
   const isActive = hovered === index;
   const portal = overlayRef as RefObject<HTMLElement> | undefined;
 
@@ -674,8 +669,8 @@ function ServiceModule({
     if (halo.current) {
       const pulse = 0.5 + 0.5 * Math.sin(elapsed.current * 2.2);
       (halo.current.material as THREE.SpriteMaterial).opacity = isActive
-        ? 0.75
-        : 0.28 + pulse * 0.14;
+        ? 0.35
+        : 0.1 + pulse * 0.08;
     }
   });
 
@@ -701,31 +696,30 @@ function ServiceModule({
           <meshBasicMaterial transparent opacity={0} depthWrite={false} />
         </mesh>
 
-        {/* A dark glass case lit from within, so the module reads as a coloured light
-            source rather than a pale block under the scene's white key light. */}
+        {/* A light case (paper or mint) with a faint teal glow from within. */}
         <RoundedBox args={[0.56, 0.3, 0.56]} radius={0.07} smoothness={3}>
           <meshStandardMaterial
-            color="#1d2a42"
-            metalness={0.5}
-            roughness={0.2}
+            color={shell}
+            metalness={0.05}
+            roughness={0.35}
             emissive={isActive ? SIGNAL_BRIGHT : idle}
-            emissiveIntensity={isActive ? 1.4 : 0.75}
+            emissiveIntensity={isActive ? 0.3 : 0.08}
           />
         </RoundedBox>
-        {/* White core light on top */}
+        {/* Teal core on top, and a soft halo — normal blending, so both stay visible
+            on the light ground. */}
         {glow && (
           <>
             <sprite position={[0, 0.2, 0]} scale={isActive ? [0.34, 0.34, 1] : [0.2, 0.2, 1]}>
-              <spriteMaterial map={glow} color={PAPER} transparent opacity={0.95} depthWrite={false} blending={THREE.AdditiveBlending} />
+              <spriteMaterial map={glow} color={isActive ? SIGNAL : TEAL_DEEP} transparent opacity={0.9} depthWrite={false} />
             </sprite>
             <sprite ref={halo} scale={[1.4, 1.4, 1]}>
               <spriteMaterial
                 map={glow}
                 color={isActive ? SIGNAL_BRIGHT : idle}
                 transparent
-                opacity={0.3}
+                opacity={0.1}
                 depthWrite={false}
-                blending={THREE.AdditiveBlending}
               />
             </sprite>
           </>
@@ -749,26 +743,26 @@ function ServiceModule({
               <div
                 // w-fit keeps the pill compact: as a block-level flex child it would
                 // otherwise stretch to the (much wider) card below it.
-                className={`glass-panel mx-auto flex w-fit items-center gap-2 whitespace-nowrap rounded-full px-4 py-2.5 text-paper shadow-xl transition-colors duration-300 ${
-                  isActive ? "border-signal-soft/80" : ""
+                className={`glass-panel mx-auto flex w-fit items-center gap-2 whitespace-nowrap rounded-full px-4 py-2.5 text-ink shadow-[0_1px_2px_rgba(53,70,102,.04),0_8px_24px_rgba(53,70,102,.06)] transition-colors duration-300 ${
+                  isActive ? "!border-signal" : ""
                 }`}
               >
                 <Icon
                   name={service.icon}
-                  className={`h-4 w-4 ${isActive ? "text-signal-soft" : "text-signal"}`}
+                  className="h-4 w-4 text-signal"
                 />
-                <span className="text-base font-semibold tracking-tight">{service.shortName}</span>
+                <span className="text-base font-medium tracking-tight">{service.shortName}</span>
               </div>
 
               {isActive && (
-                <div className="mt-2.5 flex w-[38rem] overflow-hidden rounded-2xl border border-signal-soft/30 bg-[#2c3a56]/96 text-paper shadow-2xl backdrop-blur-md">
+                <div className="mt-2.5 flex w-[38rem] overflow-hidden rounded-2xl bg-paper/95 text-ink ring-1 ring-ink/10 shadow-[0_1px_2px_rgba(53,70,102,.04),0_8px_24px_rgba(53,70,102,.06)] backdrop-blur-md">
                   <div className="flex w-[15rem] shrink-0 flex-col justify-center p-5">
-                    <p className="text-[10px] font-semibold uppercase leading-tight tracking-[0.14em] text-signal-soft">
+                    <p className="text-[10px] font-medium uppercase leading-tight tracking-[0.08em] text-signal">
                       {service.category}
                     </p>
-                    <p className="mt-1.5 text-lg font-semibold leading-tight">{service.name}</p>
-                    <p className="mt-2 text-xs leading-relaxed opacity-80">{service.tagline}</p>
-                    <p className="mt-3 inline-flex items-center gap-1.5 text-xs font-medium text-signal-soft">
+                    <p className="mt-1.5 text-lg font-medium leading-tight">{service.name}</p>
+                    <p className="mt-2 text-xs leading-relaxed text-ink/80">{service.tagline}</p>
+                    <p className="mt-3 inline-flex items-center gap-1.5 text-xs font-medium text-signal">
                       Découvrir
                       <Icon name="arrow-right" className="h-3.5 w-3.5" />
                     </p>
@@ -776,7 +770,7 @@ function ServiceModule({
 
                   {/* Project preview. Drops in a real GIF as soon as `previewGif` is
                       set on the service, otherwise shows a labelled placeholder. */}
-                  <div className="relative min-h-[16.5rem] flex-1 overflow-hidden border-l border-signal-soft/20 bg-[#233047]">
+                  <div className="relative min-h-[16.5rem] flex-1 overflow-hidden border-l border-ink/10 bg-mist">
                     {service.previewGif ? (
                       // eslint-disable-next-line @next/next/no-img-element -- animated GIF: next/image would strip the animation
                       <img
@@ -786,13 +780,13 @@ function ServiceModule({
                       />
                     ) : (
                       <div className="flex h-full w-full flex-col items-center justify-center gap-2">
-                        <div className="absolute inset-0 opacity-30 [background-image:radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.5)_1px,transparent_0)] [background-size:18px_18px]" />
+                        <div className="absolute inset-0 [background-image:radial-gradient(circle_at_1px_1px,rgba(53,70,102,0.13)_1px,transparent_0)] [background-size:18px_18px]" />
                         <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-teal/20 blur-2xl" />
-                        <div className="absolute -bottom-12 -left-10 h-32 w-32 rounded-full bg-signal/25 blur-2xl" />
-                        <span className="relative flex h-10 w-10 items-center justify-center rounded-full border border-signal-soft/45 text-signal-soft">
+                        <div className="absolute -bottom-12 -left-10 h-32 w-32 rounded-full bg-mint blur-2xl" />
+                        <span className="relative flex h-10 w-10 items-center justify-center rounded-full border border-signal/40 bg-paper text-signal">
                           <Icon name="sparkles" className="h-5 w-5" />
                         </span>
-                        <span className="relative text-[10px] font-semibold uppercase tracking-[0.14em] opacity-55">
+                        <span className="relative text-[10px] font-medium uppercase tracking-[0.08em] text-steel">
                           Aperçu du projet
                         </span>
                       </div>
@@ -1007,7 +1001,7 @@ export default function InfraStack({
     <>
       <Canvas
         dpr={[1, 1.5]}
-        // No antialiasing: fill rate from the additive layers is the real cost, and
+        // No antialiasing: fill rate from the translucent layers is the real cost, and
         // the soft sprites and textures are already smooth.
         gl={{ antialias: false, alpha: true, powerPreference: "high-performance" }}
         camera={{ position: [0, 3.6, 10.6], fov: 40 }}
@@ -1039,18 +1033,18 @@ export default function InfraStack({
           band's z-30, whose gradient would otherwise wash it out. */}
       <div
         aria-hidden="true"
-        className={`pointer-events-none absolute right-5 top-24 z-[31] max-w-[15.5rem] rounded-2xl border border-aqua/30 bg-[#2c3a56]/95 px-4 py-3 text-paper shadow-2xl backdrop-blur-md transition-all duration-300 ${
+        className={`pointer-events-none absolute right-5 top-24 z-[31] max-w-[15.5rem] rounded-2xl bg-paper/90 px-4 py-3 text-ink ring-1 ring-ink/10 shadow-[0_1px_2px_rgba(53,70,102,.04),0_8px_24px_rgba(53,70,102,.06)] backdrop-blur-md transition-all duration-300 ${
           paused ? "translate-y-0 opacity-100" : "-translate-y-2 opacity-0"
         }`}
       >
-        <p className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.12em] text-aqua">
+        <p className="flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.08em] text-signal">
           <Icon name="move" className="h-3.5 w-3.5" />
           Zone interactive
         </p>
-        <p className="mt-1.5 text-[11px] leading-relaxed opacity-90">
+        <p className="mt-1.5 text-[11px] leading-relaxed text-ink/80">
           Glissez pour faire pivoter l&apos;infrastructure, molette pour zoomer.
         </p>
-        <p className="mt-1 text-[11px] font-medium leading-relaxed text-aqua">
+        <p className="mt-1 text-[11px] font-medium leading-relaxed text-signal">
           Sortez de cette zone pour faire défiler la page.
         </p>
       </div>

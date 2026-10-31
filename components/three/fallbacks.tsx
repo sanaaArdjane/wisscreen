@@ -16,12 +16,12 @@
 export function EarthNetworkFallback({ message }: { message?: string } = {}) {
   return (
     <div className="absolute inset-0 flex items-center justify-center overflow-hidden">
-      <div className="absolute inset-0 opacity-40 [background-image:radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.5)_1px,transparent_0)] [background-size:30px_30px]" />
+      <div className="absolute inset-0 [background-image:radial-gradient(circle_at_1px_1px,rgba(53,70,102,0.13)_1px,transparent_0)] [background-size:30px_30px]" />
       <div className="absolute h-[28rem] w-[28rem] max-w-[80vw] rounded-full bg-aqua/10 blur-3xl" />
 
       <div className="relative flex flex-col items-center gap-6">
-        <div className="relative h-[20rem] w-[20rem] max-w-[68vw] rounded-full border border-aqua/25 bg-[radial-gradient(circle_at_35%_28%,#3d5175_0%,#2b3852_55%,#233047_100%)] shadow-2xl">
-          <div className="absolute inset-0 rounded-full opacity-55 [background-image:radial-gradient(circle_at_1px_1px,rgba(127,201,200,0.6)_1px,transparent_0)] [background-size:15px_15px]" />
+        <div className="relative h-[20rem] w-[20rem] max-w-[68vw] rounded-full border border-teal/30 bg-[radial-gradient(circle_at_35%_28%,#ffffff_0%,#E7F5F6_55%,#C7F2E0_100%)] shadow-[0_1px_2px_rgba(53,70,102,.04),0_8px_24px_rgba(53,70,102,.06)]">
+          <div className="absolute inset-0 rounded-full [background-image:radial-gradient(circle_at_1px_1px,rgba(16,153,165,0.35)_1px,transparent_0)] [background-size:15px_15px]" />
           <div className="absolute inset-x-0 top-1/2 h-px -translate-y-1/2 bg-teal/35" />
           <div className="absolute inset-x-0 top-[30%] h-px bg-aqua/15" />
           <div className="absolute inset-x-0 top-[70%] h-px bg-aqua/15" />
@@ -29,7 +29,7 @@ export function EarthNetworkFallback({ message }: { message?: string } = {}) {
         </div>
 
         {message && (
-          <p className="max-w-xs text-center text-xs uppercase tracking-[0.14em] text-aqua/70">
+          <p className="max-w-xs text-center text-xs uppercase tracking-[0.14em] text-steel">
             {message}
           </p>
         )}
@@ -61,22 +61,20 @@ export function EarthSkyPlaceholder() {
 export function InfraStackFallback({ message }: { message?: string } = {}) {
   return (
     <div className="absolute inset-0 flex items-center justify-center overflow-hidden">
-      <div className="absolute inset-0 opacity-40 [background-image:radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.5)_1px,transparent_0)] [background-size:30px_30px]" />
+      <div className="absolute inset-0 [background-image:radial-gradient(circle_at_1px_1px,rgba(53,70,102,0.13)_1px,transparent_0)] [background-size:30px_30px]" />
       <div className="relative flex flex-col items-center gap-8">
         <div className="relative h-[15rem] w-[22rem] max-w-[78vw] [perspective:900px]">
           <div className="absolute inset-0 flex flex-col justify-center gap-7 [transform:rotateX(58deg)_rotateZ(-30deg)] [transform-style:preserve-3d]">
             {[0, 1, 2, 3].map((i) => (
               <div
                 key={i}
-                className={`h-24 rounded-2xl border bg-[#1d2a42]/70 shadow-xl ${
-                  i === 1 ? "border-signal/60" : "border-steel/45"
+                className={`h-24 rounded-2xl border bg-mist/70 ${
+                  i === 1 ? "border-signal" : "border-steel-pale"
                 }`}
               />
             ))}
           </div>
         </div>
-        {/* `text-ink`, not `text-aqua`: the hero's ground is light now, and aqua is 1.9:1
-            on it. Plain ink clears 9:1 against every stop of `.texture-weave`. */}
         {message && (
           <p className="max-w-xs text-center text-xs uppercase tracking-[0.14em] text-ink">
             {message}

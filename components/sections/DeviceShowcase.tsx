@@ -327,12 +327,8 @@ export function DeviceShowcase({
       id="interfaces"
       // Roughly one screen of scroll per solution, plus the lead-in and tail. `shrink-0`
       // because the section is a flex item in <main> and its height is the mechanism.
-      // `on-dark` is required, not decorative: the ground is an arbitrary value rather
-      // than a palette token, so none of the `.bg-ink` / `.bg-abyss` selectors that carry
-      // the dark-ground accent overrides would match, and `.text-signal` / `.text-accent`
-      // would resolve to their light-ground values on a near-black section.
       className={cn(
-        "on-dark relative shrink-0 bg-[#0f1520] text-paper",
+        "relative shrink-0 bg-mist text-ink",
         !reduceMotion && "h-[360svh]",
       )}
     >
@@ -341,20 +337,15 @@ export function DeviceShowcase({
         // The ground is painted *here*, on the sticky stage, not only on the section.
         // `position: sticky` creates a stacking context, and a stacking context isolates
         // blending — so a `mix-blend-*` child can only see what is painted inside the
-        // stage. With the colour on the section alone, the mockup's black matte had
-        // nothing to blend into and stayed a black rectangle.
+        // stage. With the colour on the section alone, the mockup's white matte had
+        // nothing to blend into and stayed a white rectangle.
         className={cn(
-          "relative flex w-full flex-col justify-center overflow-hidden bg-[#0f1520]",
+          "section-tint texture-3d texture-3d-room relative flex w-full flex-col justify-center overflow-hidden",
           // `pt` clears the fixed navbar: the stage is centred in the viewport, so
           // without it the eyebrow sits underneath the glass bar.
           reduceMotion ? "py-24" : "sticky top-0 h-svh pb-8 pt-16",
         )}
       >
-        {/* Two soft washes so the ground isn't a flat slab — the devices sit *in* the
-            section rather than on it. Same technique as PerformanceMetrics' mist washes,
-            inverted for a dark ground. */}
-        <div className="pointer-events-none absolute -left-32 top-[12%] h-[28rem] w-[40rem] rounded-[50%] bg-teal/10 blur-3xl" />
-        <div className="pointer-events-none absolute -right-40 bottom-[6%] h-[24rem] w-[34rem] rounded-[50%] bg-steel/15 blur-3xl" />
 
         {/* Wider than the site's `Container` on purpose — the devices are the whole
             point of this section, and 1280 caps them well below what the viewport can
@@ -362,7 +353,7 @@ export function DeviceShowcase({
         <div className="relative mx-auto flex w-full max-w-[84rem] flex-col gap-4 px-6 md:px-10">
           <div className="text-center lg:text-left">
             <Badge className="text-signal border-signal/40">{content.badge}</Badge>
-            <h2 className="font-display mt-4 text-balance text-xl font-semibold leading-[1.05] md:text-3xl">
+            <h2 className="font-display mt-4 text-balance text-xl font-medium leading-[1.05] md:text-3xl">
               {content.title}
             </h2>
           </div>
@@ -428,12 +419,12 @@ export function DeviceShowcase({
                         alt={`${service.name} sur ordinateur portable`}
                         fill
                         sizes="(min-width: 1024px) 64rem, 100vw"
-                        // `screen` makes a black matte vanish: screen(0, ground) == ground,
-                        // so a mockup exported on black composites onto the section (and
-                        // the washes behind it) with no visible rectangle. It lifts the
-                        // image's own darks to the ground colour, which is the same thing
+                        // `multiply` makes a white matte vanish: multiply(1, ground) ==
+                        // ground, so a mockup exported on white composites onto the section
+                        // (and the washes behind it) with no visible rectangle. It tints the
+                        // image's own lights to the ground colour, which is the same thing
                         // the eye expects from a device sitting on that ground.
-                        className="object-contain mix-blend-screen"
+                        className="object-contain mix-blend-multiply"
                       />
                     ) : (
                       <Laptop>
@@ -501,8 +492,8 @@ export function DeviceShowcase({
 
             {/* Keyed on the slug so React remounts it and the entrance replays on change. */}
             <div key={current.slug} className="hero-rise text-center lg:text-left">
-              <p className="text-accent text-xs font-semibold uppercase tracking-[0.14em]">{current.category}</p>
-              <h3 className="font-display mt-2 text-2xl font-semibold leading-tight md:text-3xl">
+              <p className="text-accent text-xs font-medium uppercase tracking-[0.08em]">{current.category}</p>
+              <h3 className="font-display mt-2 text-2xl font-medium leading-tight md:text-3xl">
                 {/* `relative inline-block` is what HandUnderline positions against, and it
                     also keeps the rule the width of the word rather than the column. */}
                 <span className="relative inline-block">
@@ -510,11 +501,11 @@ export function DeviceShowcase({
                   <HandUnderline className="underline-draw" />
                 </span>
               </h3>
-              <p className="mt-3 text-sm leading-relaxed text-paper/70 md:text-base">{current.tagline}</p>
+              <p className="mt-3 text-sm leading-relaxed text-ink/80 md:text-base">{current.tagline}</p>
               <ul className="mt-5 flex flex-col gap-2.5 text-left">
                 {current.features.slice(0, 3).map((feature) => (
                   <li key={feature.title} className="flex items-center gap-3 text-sm">
-                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-white/8">
+                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-paper text-signal">
                       <Icon name={feature.icon} className="h-3.5 w-3.5" />
                     </span>
                     {feature.title}
@@ -538,7 +529,7 @@ export function DeviceShowcase({
                     href={current.previewUrl}
                     target="_blank"
                     rel="noreferrer noopener"
-                    className="inline-flex items-center gap-1.5 rounded-full border border-white/20 px-3 py-1.5 text-xs font-medium text-paper/80 transition-colors hover:border-white/40 hover:text-paper"
+                    className="inline-flex items-center gap-1.5 rounded-full border border-ink/15 px-3 py-1.5 text-xs font-medium text-ink transition-colors hover:border-ink/30"
                   >
                     Ouvrir le site
                     <Icon name="move" className="h-3.5 w-3.5" />
@@ -551,7 +542,7 @@ export function DeviceShowcase({
           {/* Tabs scroll horizontally rather than wrapping: a second row would change the
               stage's height mid-scroll, and the stage has no height to spare. */}
           <div className="-mx-6 w-[calc(100%+3rem)] overflow-x-auto px-6 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-            <div className="flex w-max min-w-full items-center justify-center gap-6 border-b border-white/15 md:gap-10">
+            <div className="flex w-max min-w-full items-center justify-center gap-6 border-b border-ink/10 md:gap-10">
               {SERVICES.map((service, i) => (
                 <button
                   key={service.slug}
@@ -560,7 +551,7 @@ export function DeviceShowcase({
                   aria-current={i === active}
                   className={cn(
                     "-mb-px whitespace-nowrap border-b-2 pb-3 text-sm font-medium tracking-tight transition-colors duration-300 md:text-base",
-                    i === active ? "border-current text-paper" : "border-transparent text-paper/70 hover:text-paper",
+                    i === active ? "border-current text-ink" : "border-transparent text-ink/80 hover:text-ink",
                   )}
                 >
                   {service.name}
@@ -579,7 +570,7 @@ export function DeviceShowcase({
               type="button"
               aria-label="Fermer l'aperçu agrandi"
               onClick={closeZoom}
-              className="absolute inset-0 z-30 touch-manipulation cursor-default bg-abyss/85 backdrop-blur-sm"
+              className="absolute inset-0 z-30 touch-manipulation cursor-default bg-paper/80 backdrop-blur-sm"
             />
             {/* Outside the device, so it is not scaled up with it. The one close path
                 guaranteed to work regardless of where keyboard focus ended up (see the
@@ -590,7 +581,7 @@ export function DeviceShowcase({
             <button
               type="button"
               onClick={closeZoom}
-              className="absolute right-5 top-5 z-50 flex touch-manipulation items-center gap-2 rounded-full bg-abyss/90 px-4 py-2.5 text-sm font-medium text-paper ring-1 ring-white/25 backdrop-blur-md transition-colors hover:bg-abyss md:right-8"
+              className="absolute right-5 top-5 z-50 flex touch-manipulation items-center gap-2 rounded-full bg-paper px-4 py-2.5 text-sm font-medium text-ink shadow-[0_1px_2px_rgba(53,70,102,.04),0_8px_24px_rgba(53,70,102,.06)] ring-1 ring-ink/10 transition-colors hover:bg-mist md:right-8"
             >
               <Icon name="minimize" className="h-4 w-4" />
               Fermer
@@ -649,7 +640,7 @@ function DeviceControls({
         >
           <span
             className={cn(
-              "rounded-full bg-abyss/85 font-medium text-paper/80 ring-1 ring-white/15 backdrop-blur-sm transition-colors group-hover:bg-abyss group-hover:text-paper",
+              "rounded-full bg-paper/90 font-medium text-ink ring-1 ring-ink/10 backdrop-blur-sm transition-colors group-hover:bg-paper",
               device === "laptop" ? "px-3 py-1.5 text-[11px]" : "px-2 py-1 text-[9px]",
             )}
           >
@@ -662,7 +653,7 @@ function DeviceControls({
         <button
           type="button"
           onClick={onRelease}
-          className="absolute bottom-1 left-1/2 z-30 -translate-x-1/2 touch-manipulation rounded-full bg-abyss/85 px-3 py-1.5 text-[11px] font-medium text-paper/80 ring-1 ring-white/15 backdrop-blur-sm transition-colors hover:bg-abyss hover:text-paper"
+          className="absolute bottom-1 left-1/2 z-30 -translate-x-1/2 touch-manipulation rounded-full bg-paper/90 px-3 py-1.5 text-[11px] font-medium text-ink ring-1 ring-ink/10 backdrop-blur-sm transition-colors hover:bg-paper"
         >
           Échap pour défiler
         </button>
@@ -687,7 +678,7 @@ function DeviceControls({
           aria-label={`Agrandir ${label}`}
           title={`Agrandir ${label}`}
           className={cn(
-            "absolute z-30 flex touch-manipulation items-center justify-center rounded-full bg-abyss/80 text-paper ring-1 ring-white/25 backdrop-blur-md transition-colors hover:bg-abyss",
+            "absolute z-30 flex touch-manipulation items-center justify-center rounded-full bg-paper/90 text-ink ring-1 ring-ink/10 backdrop-blur-md transition-colors hover:bg-paper",
             "before:absolute before:-inset-2.5 before:content-['']",
             device === "laptop" ? "right-2 top-2 h-9 w-9" : "-left-2.5 -top-2.5 h-8 w-8",
           )}
@@ -703,29 +694,26 @@ function DeviceControls({
 function Laptop({ children }: { children: ReactNode }) {
   return (
     <div className="relative">
-      <div className="relative rounded-[1.1rem] border border-white/15 bg-[#20283a] p-[0.55rem] shadow-2xl md:rounded-[1.4rem] md:p-[0.7rem]">
-        <div className="relative aspect-16/10 w-full overflow-hidden rounded-[0.6rem] bg-[#1b2436] md:rounded-[0.8rem]">
+      <div className="relative rounded-[1.1rem] border border-ink/10 bg-[#dfe7ee] p-[0.55rem] shadow-[0_1px_2px_rgba(53,70,102,.04),0_8px_24px_rgba(53,70,102,.06)] md:rounded-[1.4rem] md:p-[0.7rem]">
+        <div className="relative aspect-16/10 w-full overflow-hidden rounded-[0.6rem] bg-paper md:rounded-[0.8rem]">
           {children}
           {/* Notch, above the screen content but inside the bezel's radius. */}
-          <div className="absolute left-1/2 top-0 z-10 h-[1.2%] w-[14%] -translate-x-1/2 rounded-b-[0.35rem] bg-[#20283a]" />
-          {/* One soft diagonal sheen, so the panel reads as glass rather than a poster. */}
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-white/10" />
+          <div className="absolute left-1/2 top-0 z-10 h-[1.2%] w-[14%] -translate-x-1/2 rounded-b-[0.35rem] bg-[#dfe7ee]" />
         </div>
       </div>
       {/* Base — wider than the lid, with the thumb notch cut into the middle. */}
-      <div className="mx-auto h-2 w-[104%] -translate-x-[2%] rounded-b-[0.4rem] bg-gradient-to-b from-[#2b3346] to-[#161c29] md:h-2.5" />
-      <div className="mx-auto h-1.5 w-[13%] rounded-b-[0.5rem] bg-[#11161f]" />
+      <div className="mx-auto h-2 w-[104%] -translate-x-[2%] rounded-b-[0.4rem] bg-[#cfdae3] md:h-2.5" />
+      <div className="mx-auto h-1.5 w-[13%] rounded-b-[0.5rem] bg-[#b9c6d2]" />
     </div>
   );
 }
 
 function Phone({ children }: { children: ReactNode }) {
   return (
-    <div className="rounded-[1.4rem] border border-white/15 bg-[#20283a] p-[0.3rem] shadow-2xl lg:rounded-[1.8rem] lg:p-[0.4rem]">
-      <div className="relative aspect-9/19.5 w-full overflow-hidden rounded-[1.15rem] bg-[#1b2436] lg:rounded-[1.5rem]">
+    <div className="rounded-[1.4rem] border border-ink/10 bg-[#dfe7ee] p-[0.3rem] shadow-[0_1px_2px_rgba(53,70,102,.04),0_8px_24px_rgba(53,70,102,.06)] lg:rounded-[1.8rem] lg:p-[0.4rem]">
+      <div className="relative aspect-9/19.5 w-full overflow-hidden rounded-[1.15rem] bg-paper lg:rounded-[1.5rem]">
         {children}
-        <div className="absolute left-1/2 top-[2%] z-10 h-[3%] w-[32%] -translate-x-1/2 rounded-full bg-black/70" />
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-white/10" />
+        <div className="absolute left-1/2 top-[2%] z-10 h-[3%] w-[32%] -translate-x-1/2 rounded-full bg-[#dfe7ee]" />
       </div>
     </div>
   );
@@ -792,17 +780,16 @@ function Screen({
 function ScreenMock({ service, compact }: { service: Service; compact: boolean }) {
   const accent: PaletteToken = service.palette.primary;
   return (
-    // Deliberately darker than the section: the placeholder has to separate from the
-    // ground the way a real screenshot will, or the bezel edge disappears.
-    <div className="absolute inset-0 flex flex-col bg-[#1b2436]">
-      <div className={cn("absolute -right-1/4 -top-1/4 h-2/3 w-2/3 rounded-full opacity-25 blur-3xl", paletteBg[accent])} />
-      <div className="absolute inset-0 opacity-20 [background-image:radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.5)_1px,transparent_0)] [background-size:16px_16px]" />
+    // Paper against the mist section: the placeholder has to separate from the ground
+    // the way a real screenshot will, or the bezel edge disappears.
+    <div className="absolute inset-0 flex flex-col bg-paper">
+      <div className="absolute inset-0 opacity-20 [background-image:radial-gradient(circle_at_1px_1px,rgba(53,70,102,0.5)_1px,transparent_0)] [background-size:16px_16px]" />
 
-      <div className="relative flex items-center gap-1.5 border-b border-white/10 px-[3%] py-[1.6%]">
-        <span className="h-1 w-1 rounded-full bg-white/30 md:h-1.5 md:w-1.5" />
-        <span className="h-1 w-1 rounded-full bg-white/30 md:h-1.5 md:w-1.5" />
-        <span className="h-1 w-1 rounded-full bg-white/30 md:h-1.5 md:w-1.5" />
-        <span className="ml-[4%] h-1.5 w-[28%] rounded-full bg-white/10" />
+      <div className="relative flex items-center gap-1.5 border-b border-ink/10 px-[3%] py-[1.6%]">
+        <span className="h-1 w-1 rounded-full bg-ink/15 md:h-1.5 md:w-1.5" />
+        <span className="h-1 w-1 rounded-full bg-ink/15 md:h-1.5 md:w-1.5" />
+        <span className="h-1 w-1 rounded-full bg-ink/15 md:h-1.5 md:w-1.5" />
+        <span className="ml-[4%] h-1.5 w-[28%] rounded-full bg-ink/10" />
       </div>
 
       <div className="relative flex flex-1 gap-[3%] p-[3%]">
@@ -811,7 +798,7 @@ function ScreenMock({ service, compact }: { service: Service; compact: boolean }
           <div className="flex w-[18%] flex-col gap-[5%]">
             <span className={cn("h-[7%] w-[70%] rounded-full opacity-80", paletteBg[accent])} />
             {[0, 1, 2, 3, 4].map((row) => (
-              <span key={row} className="h-[5%] rounded-full bg-white/10" style={{ width: `${90 - row * 9}%` }} />
+              <span key={row} className="h-[5%] rounded-full bg-ink/10" style={{ width: `${90 - row * 9}%` }} />
             ))}
           </div>
         )}
@@ -819,19 +806,19 @@ function ScreenMock({ service, compact }: { service: Service; compact: boolean }
         <div className="flex flex-1 flex-col gap-[4%]">
           <div className="flex items-center gap-[3%]">
             <span className={cn("flex items-center rounded-md p-1 opacity-90", paletteBg[accent])}>
-              <Icon name={service.icon} className="h-3 w-3 text-abyss md:h-3.5 md:w-3.5" />
+              <Icon name={service.icon} className="h-3 w-3 text-ink md:h-3.5 md:w-3.5" />
             </span>
-            <span className="h-1.5 flex-1 rounded-full bg-white/12" />
+            <span className="h-1.5 flex-1 rounded-full bg-ink/10" />
           </div>
           <div className={cn("grid flex-1 gap-[3%]", compact ? "grid-cols-2" : "grid-cols-3")}>
             {[0, 1, 2, 3, 4, 5].slice(0, compact ? 4 : 6).map((cell) => (
-              <div key={cell} className="rounded-md border border-white/10 bg-white/5 p-[7%]">
-                <span className="block h-1 w-1/2 rounded-full bg-white/20" />
+              <div key={cell} className="rounded-md bg-mist p-[7%]">
+                <span className="block h-1 w-1/2 rounded-full bg-ink/15" />
                 <span className={cn("mt-[14%] block h-2 w-3/4 rounded-full opacity-70", paletteBg[accent])} />
               </div>
             ))}
           </div>
-          <div className="h-[22%] rounded-md border border-white/10 bg-white/5" />
+          <div className="h-[22%] rounded-md bg-mist" />
         </div>
       </div>
     </div>

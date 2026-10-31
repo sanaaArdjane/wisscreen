@@ -76,7 +76,7 @@ export function HeroVideo({
           type="button"
           onClick={() => setOverride(!playing)}
           aria-label={playing ? "Mettre la vidéo en pause" : "Lire la vidéo"}
-          className="absolute bottom-4 right-4 z-10 flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-abyss/70 text-paper backdrop-blur transition-colors hover:border-aqua"
+          className="absolute bottom-4 right-4 z-10 flex h-10 w-10 items-center justify-center rounded-full border border-ink/10 bg-paper/85 text-ink backdrop-blur transition-colors hover:bg-paper hover:border-ink/20"
         >
           {playing ? (
             <span className="flex gap-1" aria-hidden="true">

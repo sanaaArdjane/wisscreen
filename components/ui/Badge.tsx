@@ -6,7 +6,7 @@ export function Badge({ children, className, ...rest }: ComponentPropsWithoutRef
     <span
       {...rest}
       className={cn(
-        "inline-flex items-center gap-2 rounded-full border border-current/20 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.14em]",
+        "inline-flex items-center gap-2 rounded-full border border-current/20 bg-paper px-4 py-1.5 text-xs font-medium uppercase tracking-[0.12em]",
         className,
       )}
     >

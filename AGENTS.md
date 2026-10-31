@@ -34,16 +34,13 @@ current copy is a first draft the client will revise..
   horizontal reels.
 - 3D: `@react-three/fiber` + `drei`. No postprocessing dependency — glow is faked with
   additive-blended canvas-gradient sprites and a hand-written fresnel shader.
-- Palette is a **cool family plus exactly one signal accent**; invent no other hues. The
-  cool brand values are `--color-paper #FFFFFF`, `--color-teal #379F9E`,
-  `--color-steel #366479`, `--color-ink #354666`; the signal accent is
-  `--color-signal #13C182`. Everything else is a tint or shade of one of those, added only
-  to make text legible: `--color-mist #EEF2F6`, `--color-abyss #26334C`,
-  `--color-aqua #7FC9C8`, `--color-teal-deep #2B7D7C`, `--color-steel-pale #9FBDD0`,
-  `--color-signal-soft #4ED39D`, `--color-signal-deep #0D7D55`,
-  `--color-signal-bright #00FFA9`.
-  The accent was a warm `ember #C5522C` until the client replaced it with this green; if
-  you find an orange anywhere it is a leftover, not a deliberate exception.
+- **The public site is light only — "Daylight", `docs/DESIGN.md`.** The owner's rule: no
+  dark colours. Grounds are `paper #FFFFFF`, `mist #E7F5F6`, `mint-wash #E7F4EC`, with
+  `mint #C7F2E0` for chips and highlights. Ink `#354666` and steel `#366479` survive as
+  **text** only. The action colour is teal `#1099A5`; it is still named `signal` in the
+  tokens so every `text-signal` / `control-signal` call site kept its meaning. `teal`,
+  `teal-deep`, `aqua` and `steel-pale` are identity fills/borders, never small text.
+  `abyss` and `signal-soft` are still defined, but only because the back-office uses them.
 - **One functional exception: red, for destructive controls, in the dashboard only.** The
   owner asked for every delete to be red. `--danger` in `app/(app)/heroui.css` (scoped to
   `[data-wicloud-app]`, so the marketing pages never see it) is `#b42318` with a white label
@@ -54,118 +51,42 @@ current copy is a first draft the client will revise..
   errors, no warnings, no decoration. Use `ConfirmButton` (`components/dashboard/ui.tsx`):
   the arming step is *not* red, only the irreversible one is.
 
-### The signal accent, and why it stays rare
+### Daylight: the rules that are easy to break
 
-An all-teal/slate site reads flat, so `signal` breaks it. Where it goes:
+The previous design alternated white with dark navy sections and resolved every accent
+per ground (`.on-dark`, `.on-dark-raised`, `--accent-text`…). All of that is gone: there is
+one ground family, so each accent class resolves to one value. What remains load-bearing:
 
-- **Primary CTAs** — `Button` primary, the navbar CTA, both contact submits.
-- **Eyebrow "mini titles"** — every `SectionHeading` badge, plus the hand-written ones in
-  `Hero`, `Reliability`, `SolutionHero` and `DeviceShowcase`. This is the widest use, and
-  it works because an eyebrow is small, uppercase and sits above a cool heading.
-- **The hand-drawn underline** (`components/ui/HandUnderline.tsx`) — under "L'essentiel" in
-  `HighlightsReel` and under the service name in `DeviceShowcase`. Shared component rather
-  than a duplicated 1.1KB path; it fills with `.fill-signal`, so the ground picks the value
-  and the caller owns the animation (`underline-draw` to wipe it in, `opacity-0` to hold).
-- **Section 2 (`HighlightsReel`)** — card category labels, the "Découvrir X" CTAs, the
-  middle stat tile's glow, the hand-drawn underline under "L'essentiel", and the card
-  edge. That edge is a **hairline, not a neon bloom**: one tight `0 0 12px -4px`
-  `rgba(19,193,130,…)` glow plus a `border-signal/55`, sized to separate one card from the
-  next and nothing more. It replaced a four-layer aqua bloom that lit up the whole section.
-  The edge uses the brand value at full strength on both card states — 4.05:1 at rest,
-  3.23:1 hovered — so it keeps its 3:1 boundary without a raised-surface tint.
-- **The 3D scene** — the solution nodes **alternate signal/cool by index** (`index % 2`,
-  an even 2/2 split across the four solutions), and the node pill's icon is `signal`.
-  Hover then escalates to `signal-bright` with a white orb core and a brighter glow, so the
-  active state still reads on a node that is already green — don't "simplify" that back
-  to a plain accent/cool swap or hovering an accented node becomes invisible. Also: the
-  ~20% of the layers' status LEDs and rising motes, the active layer (edges, etch, scan
-  line, underglow), active module links, one rim light, one nebula, and the meteors.
-- **The scene's hover card** — border, category mini title, "Découvrir" link, and the
-  preview placeholder's badge and one blur blob.
+- **Three teals, because `#1099A5` is a mid-tone.** It is 3.43:1 on paper and 2.81:1 on
+  `mint`, so it is for fills, icons, focus, the hand-drawn underline and type ≥24px.
+  `signal-strong #0A7681` is the filled CTA (white label 5.36:1); `signal-deep #0E6F78` is
+  small accent text (≥4.8:1 on every ground, mint included). `.text-signal`,
+  `.text-accent`, `.control-signal`, `.control-accent` and `.control-tint` (10% teal pill,
+  ink label) encode that — use the classes, not raw `text-[#1099a5]`.
+- **No gradients, always a texture** (owner's call). Section grounds are `section-paper`,
+  `section-tint` and `section-mint`, each a flat colour under the same ink dot grid; the
+  hero and auth shell use the flat 1px weave (`texture-weave`, `texture-weave-soft`). The
+  only gradients left are legibility scrims under text laid over a photo or video, and the
+  masks that fade the 3D grid's lines.
+- **`texture-3d` is the big-section 3D: a perspective grid floor on `::before`**
+  (`texture-3d-room` adds a mirrored ceiling on `::after`). It lives in `@layer
+  components` on purpose — DeviceShowcase's stage is `sticky`, and an unlayered
+  `position: relative` would unpin it. It uses `overflow: clip`, not `hidden`, for the same
+  reason (a scroll container breaks sticky descendants), and `isolation: isolate` so the
+  `z-index: -1` floor paints above the section's ground but under its content.
+- **Body copy is `text-ink` or `text-ink/80`, nothing lighter**, and secondary text is
+  `text-steel`. `opacity-70` on ink falls to ~4.1:1 on the washes.
+- **The logo is live text** (`components/layout/Logo.tsx`), not a bitmap: the supplied
+  file read "Setycore" and was an upscaled JPEG in the retired green.
+- **The navbar shows one CTA, "Nous contacter" → `/contact`.** Connexion / Créer un compte
+  are off the public bar for now (owner's call); the routes still work, and the footer's
+  "Espace client" column still links them.
+- `DeviceShowcase` mockups now use `mix-blend-multiply` (a **white** matte vanishes on a
+  light ground); `mix-blend-screen` would only work on the old near-black stage.
 
-Still cool on purpose: headings, body copy, audience/link tags (`SolutionsGrid`,
-`ConnectedSolutions`, `SolutionFinder`), `Tabs`, form focus rings, and the per-solution
-identity colours in `paletteBg`/`paletteBorder`. The accent marks structure and actions;
-the solutions keep their own cool identity.
-
-**`#13C182` is a bright mid-tone (L=0.399), which inverts every constraint the old warm
-accent had.** It is strong on dark grounds and weak on light ones:
-
-| hex | on `paper` | on `ink` | on `abyss` |
-| --- | --- | --- | --- |
-| `signal #13C182` | 2.34:1 ✗ | 4.05:1 ✗ | 5.41:1 ✓ |
-| `signal-soft #4ED39D` | 1.89:1 ✗ | 5.01:1 ✓ | 6.70:1 ✓ |
-| `signal-deep #0D7D55` | 5.14:1 ✓ | — | — |
-
-Three consequences, all of them load-bearing:
-
-- **The filled CTA takes a dark label, not white.** `paper` on `signal` is 2.34:1;
-  `abyss` on it is 5.41:1. That is `--signal-fill-label`.
-- **The ring moved to the *light* ground.** `signal` on ink is 4.05:1, so a dark ground
-  gives the control its own edge for free; on paper it is 2.34:1 and fails the 3:1
-  non-text floor, so `.control-signal` adds a 1px `signal-deep` inset ring there (5.14:1
-  on paper). This is the exact opposite of what `ember` needed — don't "restore" it.
-- **Accent text flips the usual way round.** `--signal-text` is `signal-deep` on light and
-  `signal-soft` on dark; the brand value itself never carries small text on either ground.
-  `signal-deep` also clears `mist` (4.57:1), which `ember` never did (4.04:1).
-
-`#00FFA9` peaks at 1.3:1 on paper, so it can never carry text; it lives as `signal-bright`
-for additively-blended 3D glows and the marker hover state, where there is no contrast
-floor.
-
-Utilities: `.control-signal` (filled CTA), `.text-signal`, `.border-signal/40`,
-`.fill-signal` (SVG). The 3D scene keeps its own constants — `SIGNAL`, `SIGNAL_SOFT`,
-`SIGNAL_BRIGHT` in `components/three/sky.tsx`.
-
-### `.on-dark-raised` — why the highlight cards need their own tints
-
-The cards start lighter than a section and lighten *further* on hover (`bg-[#354666]` →
-`bg-[#3f5578]`), which is a deliberate effect the client asked for. It also costs every
-standard dark tint its 4.5:1: on the hovered card `aqua` drops to 3.99, `steel-pale` to
-3.83, `signal-soft` to 4.00. The resting card has only **0.005** of luminance headroom
-before that happens, so a card cannot both lighten visibly and use the section tints.
-
-`.on-dark-raised` (on `CARD_SHELL`, alongside `.on-dark`) overrides `--signal-text`,
-`--accent-text` and the `--pt-*` trio with a paler set that clears 4.5:1 in *both* the
-resting and hovered states. **Audit the cards in their hover state**, not just at rest —
-these failures were live for a while precisely because a resting-state audit misses them.
-Pin the state before auditing: `card.style.backgroundColor = '#3f5578'`.
-
-### Accent colours are ground-adaptive, and that is not optional
-
-Both accents are mid-tones and fail WCAG AA (4.5:1) for small text on *at least one* ground:
-
-| hex | on `paper` | on `ink` |
-| --- | --- | --- |
-| `teal #379F9E` | 3.2:1 ✗ | 3.0:1 ✗ |
-| `steel #366479` | 6.5:1 ✓ | 1.5:1 ✗ |
-| `aqua #7FC9C8` | 1.9:1 ✗ | 5.0:1 ✓ |
-| `teal-deep #2B7D7C` | 4.9:1 ✓ | — |
-| `steel-pale #9FBDD0` | — | 4.8:1 ✓ |
-
-So **no single hex works for accent text**. `app/globals.css` resolves it with CSS variables
-that a dark ground overrides, which means nesting alone picks the right value:
-
-- `--accent-text` → `.text-accent`, `.border-accent/40` — the generic accent (eyebrow badges,
-  inline links). Used by `SectionHeading`, `Navbar`, `SolutionsGrid`.
-- `--accent-fill` / `-label` / `-hover` → `.control-accent` — filled controls. Used by
-  `Button` (primary), `Tabs` (active), and the contact-form submits. Each ground gets the
-  tint/shade that clears 4.5:1 for the label *and* 3:1 for the control's own edge.
-- `--pt-teal` / `--pt-aqua` / `--pt-steel` → `.pt-*`, which is what `paletteText` in
-  `lib/palette.ts` returns. A solution's palette token names a **role**, not a hex; the
-  ground picks the value. `teal` and `aqua` converge on dark grounds — `aqua` *is* the light
-  tint of teal — and the per-solution identity is carried by `paletteBg` / `paletteBorder`,
-  which keep the exact brand hex (fills and borders only need 3:1).
-
-The override applies under `.section-ink`, `.section-abyss`, `.bg-ink`, `.bg-abyss`, and
-`.on-dark`. **`.on-dark` is the escape hatch** for a dark surface that uses none of those —
-the `Navbar` (transparent over the hero, glass-panel over light sections) and the
-`HighlightsReel` cards (arbitrary-value `bg-[#354666]`). It sets only the variables, no paint.
-
-Rules of thumb: plain `text-teal` / `text-steel` never belongs on small text — use the
-adaptive class. Plain `teal` is correct for fills, glows, borders and display type ≥24px.
-`text-aqua` / `text-teal-deep` are fine only in a component that renders on exactly one
-ground, and `git grep` for the section wrapper before assuming which.
+Sections further down this file were written for the dark design. Where one mentions
+`on-dark`, `abyss` grounds, aqua accent text or the hero → Section 2 seam glow, the
+behaviour notes still hold but the colours are superseded by the list above.
 
 There is a contrast audit snippet worth re-running after any palette change: walk every
 element with a text node, resolve its nearest opaque ancestor background, and assert

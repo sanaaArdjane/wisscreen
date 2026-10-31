@@ -85,19 +85,19 @@ export default async function UseCasePage({ params }: { params: Promise<Params> 
       />
       {faq && <JsonLd data={faq} />}
 
-      <section className="section-ink pb-20 pt-32">
+      <section className="texture-weave-soft pb-24 pt-36 text-ink md:pb-32 md:pt-44">
         <Container className="flex max-w-[52rem] flex-col gap-6">
-          <nav aria-label="Fil d'Ariane" className="text-xs text-paper/80">
+          <nav aria-label="Fil d'Ariane" className="text-xs text-steel">
             <Link href={`/solutions/${service.slug}`} className="text-accent hover:underline">
               {service.name}
             </Link>
             <span aria-hidden="true"> / </span>
             Cas d&apos;usage
           </nav>
-          <h1 className="text-4xl font-semibold leading-[1.1] text-paper md:text-5xl">
+          <h1 className="text-4xl font-medium leading-[1.1] text-ink md:text-5xl">
             {useCase.title}
           </h1>
-          <p className="whitespace-pre-line text-lg leading-relaxed text-paper/80">{useCase.intro}</p>
+          <p className="whitespace-pre-line text-lg leading-relaxed text-ink/80">{useCase.intro}</p>
           <div className="flex flex-wrap gap-3 pt-2">
             <Button href="/#contact">Parler à un expert</Button>
             <Button href={`/solutions/${service.slug}`} variant="ghost">
@@ -107,10 +107,10 @@ export default async function UseCasePage({ params }: { params: Promise<Params> 
         </Container>
       </section>
 
-      <section className="py-24">
-        <Container className="grid max-w-[64rem] grid-cols-1 gap-12 md:grid-cols-2">
+      <section className="py-24 md:py-32">
+        <Container className="grid max-w-[64rem] grid-cols-1 gap-16 md:grid-cols-2">
           <div className="flex flex-col gap-5">
-            <h2 className="text-2xl font-semibold text-ink">Ce qui bloque aujourd&apos;hui</h2>
+            <h2 className="text-2xl font-medium text-ink">Ce qui bloque aujourd&apos;hui</h2>
             <ul className="flex flex-col gap-3">
               {useCase.problems.filter(Boolean).map((problem, i) => (
                 <li key={i} className="flex gap-3 text-base text-ink/80">
@@ -121,7 +121,7 @@ export default async function UseCasePage({ params }: { params: Promise<Params> 
             </ul>
           </div>
           <div className="flex flex-col gap-5">
-            <h2 className="text-2xl font-semibold text-ink">Ce que {service.name} change</h2>
+            <h2 className="text-2xl font-medium text-ink">Ce que {service.name} change</h2>
             <ul className="flex flex-col gap-3">
               {useCase.benefits.filter(Boolean).map((benefit, i) => (
                 <li key={i} className="flex gap-3 text-base text-ink/80">
@@ -134,17 +134,17 @@ export default async function UseCasePage({ params }: { params: Promise<Params> 
         </Container>
       </section>
 
-      <section className="bg-mist py-24">
+      <section className="section-tint py-24 md:py-32">
         <Container className="flex max-w-[52rem] flex-col gap-4">
-          <h2 className="text-2xl font-semibold text-ink">Concrètement</h2>
+          <h2 className="text-2xl font-medium text-ink">Concrètement</h2>
           <p className="whitespace-pre-line text-base leading-relaxed text-ink/80">{useCase.proof}</p>
         </Container>
       </section>
 
       {useCase.faq.length > 0 && (
-        <section className="py-24">
-          <Container className="flex max-w-[52rem] flex-col gap-8">
-            <h2 className="text-3xl font-semibold text-ink">Questions fréquentes</h2>
+        <section className="py-24 md:py-32">
+          <Container className="flex max-w-[52rem] flex-col gap-12">
+            <h2 className="text-3xl font-medium text-ink">Questions fréquentes</h2>
             <Accordion
               items={useCase.faq.map((item) => ({ title: item.question, content: item.answer }))}
             />
@@ -153,11 +153,11 @@ export default async function UseCasePage({ params }: { params: Promise<Params> 
       )}
 
       {(siblings.length > 0 || posts.length > 0) && (
-        <section className="section-ink py-24">
-          <Container className="flex flex-col gap-10">
+        <section className="section-mint py-24 md:py-32">
+          <Container className="flex flex-col gap-16">
             {siblings.length > 0 && (
               <div className="flex flex-col gap-4">
-                <h2 className="text-2xl font-semibold text-paper">
+                <h2 className="text-2xl font-medium text-ink">
                   Autres cas d&apos;usage de {service.name}
                 </h2>
                 <ul className="flex flex-wrap gap-3">
@@ -165,7 +165,7 @@ export default async function UseCasePage({ params }: { params: Promise<Params> 
                     <li key={other.slug}>
                       <Link
                         href={`/solutions/${service.slug}/${other.slug}`}
-                        className="inline-flex rounded-full px-4 py-2 text-sm font-medium text-paper ring-1 ring-white/20 hover:bg-white/10"
+                        className="control-tint inline-flex rounded-full px-4 py-2 text-sm font-medium"
                       >
                         {other.title}
                       </Link>
@@ -176,8 +176,8 @@ export default async function UseCasePage({ params }: { params: Promise<Params> 
             )}
             {posts.length > 0 && (
               <div className="flex flex-col gap-6">
-                <h2 className="text-2xl font-semibold text-paper">À lire sur le sujet</h2>
-                <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3">
+                <h2 className="text-2xl font-medium text-ink">À lire sur le sujet</h2>
+                <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8">
                   {posts.map((post) => (
                     <PostCard key={post.slug} post={post} />
                   ))}

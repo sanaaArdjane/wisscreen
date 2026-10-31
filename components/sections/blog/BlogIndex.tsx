@@ -24,8 +24,8 @@ export function BlogIndex({
   pageCount: number;
 }) {
   return (
-    <section className="py-24">
-      <Container className="flex flex-col gap-14">
+    <section className="pb-24 pt-36 md:pb-32 md:pt-44">
+      <Container className="flex flex-col gap-16">
         <SectionHeading
           eyebrow="Ressources"
           title="Le blog SETYCORP."
@@ -33,11 +33,11 @@ export function BlogIndex({
         />
 
         {posts.length === 0 ? (
-          <p className="rounded-3xl bg-mist px-6 py-16 text-center text-sm text-ink/80">
+          <p className="rounded-2xl bg-mist px-8 py-16 text-center text-sm text-ink/80">
             Les premiers articles arrivent bientôt.
           </p>
         ) : (
-          <Reveal className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3">
+          <Reveal className="grid grid-cols-1 gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3 lg:gap-x-8">
             {posts.map((post) => (
               <PostCard key={post.slug} post={post} />
             ))}
@@ -54,8 +54,8 @@ export function BlogIndex({
                 aria-current={n === page ? "page" : undefined}
                 className={
                   n === page
-                    ? "rounded-full bg-ink px-4 py-2 text-sm font-[650] text-paper"
-                    : "rounded-full px-4 py-2 text-sm font-[650] text-ink ring-1 ring-ink/15 hover:bg-ink/5"
+                    ? "rounded-full bg-mint px-4 py-2 text-sm font-medium text-ink ring-1 ring-signal/25"
+                    : "rounded-full px-4 py-2 text-sm font-medium text-ink ring-1 ring-ink/15 hover:bg-ink/5"
                 }
               >
                 {n}

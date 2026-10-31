@@ -13,7 +13,7 @@ export function PlatformShowcase({
   solutions: Service[];
 }) {
   return (
-    <section id="platform" className="bg-paper py-28 text-ink">
+    <section id="platform" className="section-paper py-24 md:py-32 lg:py-40 text-ink">
       <Container className="flex flex-col gap-16">
         <SectionHeading
           eyebrow={content.heading.eyebrow}
@@ -22,7 +22,7 @@ export function PlatformShowcase({
           align="center"
         />
 
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-3 lg:gap-8">
           {content.panels.map((panel, i) => {
             const service = solutions.find((s) => s.slug === panel.slug);
             if (!service) return null;
@@ -32,8 +32,8 @@ export function PlatformShowcase({
                   <MediaSlot slot={service.media.hero} accent={service.palette.primary} />
                 </div>
                 <div data-reveal-item>
-                  <p className="text-lg font-semibold">{panel.title}</p>
-                  <p className="mt-2 text-sm leading-relaxed opacity-70">{panel.text}</p>
+                  <p className="text-lg font-medium">{panel.title}</p>
+                  <p className="mt-2 text-base leading-relaxed text-ink/80">{panel.text}</p>
                 </div>
               </Reveal>
             );

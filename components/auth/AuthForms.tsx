@@ -117,7 +117,7 @@ function PasswordField({
           <button
             type="button"
             onClick={() => setShown((v) => !v)}
-            className="absolute inset-y-0 right-0 flex w-11 items-center justify-center rounded-r-xl text-ink/70 hover:text-ink"
+            className="absolute inset-y-0 right-0 flex w-11 items-center justify-center rounded-r-xl text-steel hover:text-ink"
             aria-label={shown ? "Masquer le mot de passe" : "Afficher le mot de passe"}
           >
             <Icon name={shown ? "eye-off" : "eye"} className="size-4" />
@@ -218,7 +218,7 @@ function ConfirmPasswordField({ value, onChange, password }: { value: string; on
 function Heading({ title, subtitle }: { title: string; subtitle?: string }) {
   return (
     <div className="mb-8">
-      <h1 className="text-3xl font-[650] leading-tight text-ink sm:text-4xl">{title}.</h1>
+      <h1 className="text-3xl font-medium leading-tight text-ink sm:text-4xl">{title}.</h1>
       {subtitle && <p className="mt-3 text-base font-light leading-relaxed text-ink/80">{subtitle}</p>}
     </div>
   );
@@ -406,7 +406,7 @@ export function SignInForm({
               setMode(mode === "magic" ? "password" : "magic");
               setError(null);
             }}
-            className="self-start font-semibold text-ink underline decoration-ink/25 underline-offset-4 hover:decoration-ink"
+            className="self-start font-medium text-ink underline decoration-ink/25 underline-offset-4 hover:decoration-ink"
           >
             {mode === "magic"
               ? "Se connecter avec un mot de passe"
@@ -415,7 +415,7 @@ export function SignInForm({
         )}
         <Link
           href="/mot-de-passe-oublie"
-          className="self-start font-semibold text-ink underline decoration-ink/25 underline-offset-4 hover:decoration-ink"
+          className="self-start font-medium text-ink underline decoration-ink/25 underline-offset-4 hover:decoration-ink"
         >
           Mot de passe oublié ?
         </Link>
@@ -423,7 +423,7 @@ export function SignInForm({
 
       <p className="mt-8 border-t border-ink/10 pt-6 text-sm text-ink/80">
         Pas encore de compte ?{" "}
-        <Link href="/inscription" className="font-semibold text-ink underline decoration-ink/25 underline-offset-4 hover:decoration-ink">
+        <Link href="/inscription" className="font-medium text-ink underline decoration-ink/25 underline-offset-4 hover:decoration-ink">
           Créer un compte
         </Link>
       </p>
@@ -517,7 +517,7 @@ export function SignUpForm({
 
       <p className="mt-8 border-t border-ink/10 pt-6 text-sm text-ink/80">
         Déjà inscrit ?{" "}
-        <Link href="/connexion" className="font-semibold text-ink underline decoration-ink/25 underline-offset-4 hover:decoration-ink">
+        <Link href="/connexion" className="font-medium text-ink underline decoration-ink/25 underline-offset-4 hover:decoration-ink">
           Se connecter
         </Link>
       </p>
