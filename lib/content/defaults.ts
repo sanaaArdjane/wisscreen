@@ -56,11 +56,11 @@ export const DEFAULT_GENERAL: GeneralContent = {
 };
 
 export const DEFAULT_HERO: HeroContent = {
-  badge: "Cloud & services numériques",
-  headline: "Le cloud qui fait tourner",
-  words: ["vos services", "vos données", "vos applications", "votre activité"],
+  badge: "Plateforme de solutions numériques",
+  headline: "Une seule plateforme pour",
+  words: ["vos paiements", "votre cloud", "vos documents", "votre gestion", "vos clients"],
   paragraph:
-    "SETYCORP héberge, connecte et opère les services numériques des entreprises, des banques et des particuliers — infrastructure cloud, données, paiement et commerce en ligne, réunis sur une seule plateforme souveraine.",
+    "SETYCORP réunit sur une plateforme souveraine les solutions numériques des entreprises, des banques et des particuliers : paiement échelonné, infrastructure cloud, extraction de données, marketplace, ERP et assistant IA — conçues pour fonctionner ensemble.",
   primaryCta: { label: "Découvrir nos solutions", href: "#solutions" },
   secondaryCta: { label: "Nous contacter", href: "#contact" },
   hint: "Faites pivoter la scène — cliquez sur une solution pour l'explorer",

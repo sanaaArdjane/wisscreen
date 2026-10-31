@@ -850,7 +850,12 @@ function Scene({
       services.map((_, i) => {
         const layer = LAYERS[i % LAYERS.length];
         const [x, z] = DOCKS[i % DOCKS.length];
-        return new THREE.Vector3(x, layer.y + LAYER_H / 2, z);
+        // With more solutions than layers, a layer takes a second module. It docks on the
+        // mirrored corner — reusing the first dock put two modules (OCR + Chatbot, Cloud +
+        // ERP) inside each other. A third would sit on the centre line.
+        const slot = Math.floor(i / LAYERS.length);
+        const [dx, dz] = slot === 0 ? [x, z] : slot === 1 ? [-x, -z] : [0, -z];
+        return new THREE.Vector3(dx, layer.y + LAYER_H / 2, dz);
       }),
     [services],
   );
