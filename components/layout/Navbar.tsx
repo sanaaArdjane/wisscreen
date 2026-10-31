@@ -141,6 +141,13 @@ export function Navbar({ items, brand, logo }: { items: NavContent["items"]; bra
               )}
             </li>
           ))}
+          {/* The blog's only sitewide link. An index reachable from one footer column
+              is an index a crawler reaches last and a visitor never. */}
+          <li>
+            <Link href="/blog" className="relative opacity-80 transition-opacity hover:opacity-100">
+              Blog
+            </Link>
+          </li>
         </ul>
 
         {/* Auth entry points, and no link to /admin anywhere: staff reach the
@@ -210,6 +217,11 @@ export function Navbar({ items, brand, logo }: { items: NavContent["items"]; bra
                 )}
               </li>
             ))}
+            <li>
+              <Link href="/blog" onClick={() => setOpen(false)}>
+                Blog
+              </Link>
+            </li>
             <li>
               <Link href="#contact" onClick={() => setOpen(false)}>
                 Nous contacter

@@ -1,4 +1,5 @@
 import { ImageResponse } from "next/og";
+import { getSiteContent } from "@/lib/content";
 import { SITE_NAME, SITE_DESCRIPTION } from "@/lib/site";
 
 /** Default share-card image — used for the homepage and as the fallback anywhere a
@@ -7,7 +8,17 @@ import { SITE_NAME, SITE_DESCRIPTION } from "@/lib/site";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-export default function Image() {
+/** Same reasoning as `app/manifest.ts`: a file-convention route is generated once at
+ *  build, so reading editable copy without this would pin the share card to whatever
+ *  the site was called on deploy day. */
+export const revalidate = 3600;
+
+export default async function Image() {
+  const { general } = await getSiteContent();
+  const siteName = general.siteName || SITE_NAME;
+  const headline = general.seoTitle || "Le cloud qui fait tourner vos services";
+  const description = general.seoDescription || SITE_DESCRIPTION;
+
   return new ImageResponse(
     (
       <div
@@ -56,11 +67,11 @@ export default function Image() {
               color: "#4ED39D",
             }}
           >
-            {SITE_NAME}
+            {siteName}
           </div>
         </div>
         <div style={{ fontSize: 64, fontWeight: 700, lineHeight: 1.1, maxWidth: 920 }}>
-          Le cloud qui fait tourner vos services
+          {headline}
         </div>
         <div
           style={{
@@ -70,7 +81,7 @@ export default function Image() {
             maxWidth: 860,
           }}
         >
-          {SITE_DESCRIPTION}
+          {description}
         </div>
       </div>
     ),

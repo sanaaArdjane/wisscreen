@@ -50,6 +50,65 @@ const subscribeCanHover = (onChange: () => void) => {
 const getCanHover = () => window.matchMedia(CAN_HOVER_QUERY).matches;
 const getCanHoverOnServer = () => false;
 
+/** `/photos/ocr_2.mp4` → `/photos/ocr_2-poster.webp`, by convention of the registry. */
+function posterFor(src: string): string | undefined {
+  return src.endsWith(".mp4") ? src.replace(/\.mp4$/, "-poster.webp") : undefined;
+}
+
+/**
+ * A stat tile's looping clip.
+ *
+ * This was a bare `<img>` pointed at an animated GIF, and the three GIFs behind it
+ * weighed **74 MB**. `next/image` passes animated GIFs through untouched, and these
+ * were rendered with no lazy loading at all, so the homepage shipped them in full to
+ * every visitor. Re-encoded to H.264 the same three clips weigh 4.2 MB.
+ *
+ * Two details carry the rest of the saving:
+ *  - **`preload="none"` with a `poster`.** The tile costs one ~50 KB still until the
+ *    browser is actually asked to play it; the video bytes are fetched by `play()`.
+ *  - **`muted` is set as a *property*, not left to the attribute.** React does not
+ *    render `muted` during SSR, and autoplay policies read the property — the same
+ *    trap `UniverseReveal` documents. Hence the effect rather than an `autoPlay` prop.
+ *
+ * Reduced motion keeps the poster and never calls `play()`, which is the honest
+ * reading of the preference for a decorative loop.
+ */
+function StatClip({ src }: { src: string }) {
+  const ref = useRef<HTMLVideoElement>(null);
+  const reduceMotion = useSyncExternalStore(
+    subscribeReduceMotion,
+    getReduceMotion,
+    getReduceMotionOnServer,
+  );
+
+  useEffect(() => {
+    const video = ref.current;
+    if (!video) return;
+    video.muted = true;
+    if (reduceMotion) {
+      video.pause();
+      return;
+    }
+    // Rejected autoplay is not an error worth surfacing: the poster stays up.
+    void video.play().catch(() => {});
+  }, [reduceMotion, src]);
+
+  return (
+    <video
+      ref={ref}
+      src={src}
+      poster={posterFor(src)}
+      muted
+      loop
+      playsInline
+      preload="none"
+      aria-hidden="true"
+      tabIndex={-1}
+      className="absolute inset-0 h-full w-full object-cover"
+    />
+  );
+}
+
 /** One of the "cards" variant's three data tiles. */
 function StatTile({
   service,
@@ -336,12 +395,7 @@ function GifTileVisual({
   return (
     <>
       {stat.gif ? (
-        <img
-          src={stat.gif}
-          alt=""
-          aria-hidden="true"
-          className="absolute inset-0 h-full w-full object-cover"
-        />
+        <StatClip src={stat.gif} />
       ) : (
         <div className="absolute inset-0">
           <div
@@ -462,18 +516,17 @@ function GifMobileSlideshow({
         }}
         className="relative aspect-[4/3] w-full cursor-pointer overflow-hidden rounded-2xl border border-white/20 bg-[#26334c] shadow-2xl"
       >
-        {/* Exactly one image in the DOM at a time — swapping `src`/content outright
+        {/* Exactly one clip in the DOM at a time — swapping `src`/content outright
             on the 1s tick, not cross-fading 3 stacked layers. Overlapping two
-            partially-transparent copies of near-identical photos read as a glitchy
-            double-exposure rather than a clean cycle, especially at the placeholder
-            GIF's native size. A hard cut has nothing to overlap. */}
+            partially-transparent copies of near-identical frames read as a glitchy
+            double-exposure rather than a clean cycle, especially at the clip's
+            native size. A hard cut has nothing to overlap.
+
+            `key` is the src: React would otherwise reuse the same <video> element
+            across the tick and keep playing the previous clip's buffered frames
+            under the new source. */}
         {stats[active]?.gif ? (
-          <img
-            src={stats[active].gif}
-            alt=""
-            aria-hidden="true"
-            className="absolute inset-0 h-full w-full object-cover"
-          />
+          <StatClip key={stats[active].gif} src={stats[active].gif!} />
         ) : (
           <div className="absolute inset-0 flex items-center justify-center bg-abyss">
             <p className="text-xs font-semibold uppercase tracking-[0.14em] text-paper/60">

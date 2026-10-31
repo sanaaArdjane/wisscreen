@@ -1,8 +1,24 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import AuthVisual from "./AuthVisual";
 import AuthBackdrop from "./AuthBackdrop";
 import "../(app)/heroui.css";
 import "./auth.css";
+
+/**
+ * Nothing in this group belongs in a search index, and until now that was left to
+ * each page to remember: `/connexion` and `/inscription` set it, `/reinitialiser`,
+ * `/mot-de-passe-oublie` and `/verification` did not — and the build prerenders them
+ * as static, indexable HTML. A password-reset form in Google's index is the kind of
+ * thing nobody notices until it is quoted back at them.
+ *
+ * Here it covers the whole group, the way `app/(app)/layout.tsx` already does for the
+ * dashboard, so a page added later inherits it rather than having to remember.
+ * `follow: false` as well: there is nothing worth crawling onward from these.
+ */
+export const metadata: Metadata = {
+  robots: { index: false, follow: false },
+};
 
 export default function AuthLayout({ children }: LayoutProps<"/">) {
   return (

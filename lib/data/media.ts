@@ -51,10 +51,11 @@ import type { Service } from "@/lib/types";
  *        Deliberately the same file as the first slot of OCR's own gallery, so the demo
  *        panel and the solution page cannot drift apart.
  *
- *   "L'essentiel, en un coup d'oeil." (stat tiles) → `statGifs`   looping GIF, one per tile
+ *   "L'essentiel, en un coup d'oeil." (stat tiles) → `statGifs`   looping .mp4, one per tile
  *        Only used by a solution whose `highlightVariant` is "cards-gif" (OCR). Hovering a
- *        stat tile expands its GIF to fill the whole card; without an entry the tile still
+ *        stat tile expands its clip to fill the whole card; without an entry the tile still
  *        opens on hover but shows a "Démo à venir" placeholder.
+ *        Despite the key's name these are **video files** — see the note on OCR's entry.
  *
  *   The 3D globe's hover card          → `preview`  (a short looping GIF)
  *
@@ -82,7 +83,7 @@ import type { Service } from "@/lib/types";
  *   video               16:9        the solution page's scroll-stretched video
  *   videoPoster       1920 × 1080   its first frame, shown while it buffers
  *   gallery[]         1600 × 1000   the "Images, vidéos & démo" grid
- *   statGifs[]             –        looping GIF per stat tile, "cards-gif" variant only
+ *   statGifs[]        1280 × 720    looping .mp4 per stat tile, "cards-gif" variant only
  *   site                 URL        the live project, framed
  */
 
@@ -141,28 +142,40 @@ export const SOLUTION_MEDIA: Record<string, SolutionMedia> = {
   ocr: {
     // site: "https://ocr.example.com",              // live URL — framed in the hero + homepage device screens (desktop)
     // siteMobile: "https://ocr.example.com/m",       // live URL for the phone frame only; defaults to `site` — rarely needed
-    cover: "/photos/ocrGif_1.gif", // 1600×1000 — grid card, "Data & Intelligence" panel, "Solutions liées" card
-    // highlight: "/photos/ocrGif_1.gif", // 2400×1200 — homepage carousel card; NOT used while highlightVariant is "cards-gif" (see statGifs below)
-    screenshot: "/photos/ocrGif_1.gif", // 2560×1600 — plain screenshot shown inside the drawn laptop
-    screenshotMobile: "/photos/ocrGif_1.gif", // 1170×2532 — same screen, inside the drawn phone
-    // mockup: "/photos/ocrGif_2.gif", // finished mockup that already contains a device — replaces the drawn laptop entirely
-    preview: "/photos/ocrGif_1.gif", // looping GIF — the 3D globe's hover card
+    cover: "/photos/ocr_1-poster.webp", // 1600×1000 — grid card, "Data & Intelligence" panel, "Solutions liées" card
+    // highlight: "/photos/ocr_1-poster.webp", // 2400×1200 — homepage carousel card; NOT used while highlightVariant is "cards-gif" (see statGifs below)
+    screenshot: "/photos/ocr_1-poster.webp", // 2560×1600 — plain screenshot shown inside the drawn laptop
+    screenshotMobile: "/photos/ocr_1-poster.webp", // 1170×2532 — same screen, inside the drawn phone
+    // mockup: "/photos/ocr_2-poster.webp", // finished mockup that already contains a device — replaces the drawn laptop entirely
+    preview: "/photos/ocr_1-poster.webp", // still frame — the 3D globe's hover card
     video: "/videos/ocr_video.webm", // 16:9 — the scroll-stretched "Vidéo de présentation"
     videoPoster: "/photos/ocr2.jpg", // 1920×1080 — first frame, shown while the video buffers
     gallery: [
-      "/photos/ocrGif_2.gif", // "Extraction de données" panel
-      "/photos/ocrGif_1.gif", // "OCR en action" panel
+      "/photos/ocr_2-poster.webp", // "Extraction de données" panel
+      "/photos/ocr_1-poster.webp", // "OCR en action" panel
       "/videos/ocr_video.webm", // "Types de documents reconnus" panel
     ],
-    // Temporary: a real public-domain looping GIF (Wikimedia Commons — Muybridge's
-    // galloping horse), pasted in as an absolute URL, just to test the hover-expand
-    // mechanism end to end with actual animation instead of a static test photo. Swap
-    // each for its own real GIF later — a local /photos/… path works exactly the same.
-    // Only read while highlightVariant is "cards-gif" (see lib/data/services.ts).
+    // Looping clips for the hover-expand stat tiles. Only read while
+    // highlightVariant is "cards-gif" (see lib/data/services.ts).
+    //
+    // **These are .mp4, not .gif, and the key name is the only thing left of the
+    // GIF era.** The three source GIFs weighed 74 MB between them and shipped
+    // unoptimised — next/image passes animated GIFs straight through — on the
+    // homepage, through a bare <img> with no lazy loading. Re-encoded to H.264
+    // they weigh 4.2 MB: 37 MB → 2.2, 30 MB → 1.3, 7.5 MB → 0.66.
+    //
+    // The key keeps its name on purpose: `statGifs` is part of
+    // `SolutionMediaSchema` and therefore lives in the `site_solutions.media`
+    // jsonb. Renaming it would make every stored row fail its `safeParse`, and
+    // that failure is silent — the solution simply vanishes from the site.
+    //
+    // A `.webm` companion was measured and dropped: VP9 came out at 7.1 MB
+    // against H.264's 2.2 MB on this screen-capture content, so a second source
+    // would have cost bytes rather than saved them.
     statGifs: [
-      "/photos/ocrGif_2.gif", // "< 2 m — Temps de traitement par document" tile
-      "/photos/ocrGif_1.gif", // "99,2% — Précision moyenne d'extraction" tile
-      "/photos/ocrGif_3.gif", // "30+ — Types de documents reconnus" tile
+      "/photos/ocr_2.mp4", // "< 2 m — Temps de traitement par document" tile
+      "/photos/ocr_1.mp4", // "99,2% — Précision moyenne d'extraction" tile
+      "/photos/ocr_3.mp4", // "30+ — Types de documents reconnus" tile
     ],
   },
 
@@ -244,8 +257,15 @@ export const HOME_MEDIA = {
    * paper inside the glyphs. The current clip has mean relative luminance 0.05 (~10.5:1).
    * Measure a candidate rather than eyeballing it — draw it to a canvas and histogram the
    * luminance — or expect to re-grade `VIDEO_DIM` in that component.
+   *
+   * Re-encoded from the original 3840×2160 / 11.4 Mbps master to 1080p: **15 MB → 1.3 MB**.
+   * 4K was pointless here — the clip is a full-bleed background that the component then
+   * grades to `brightness(0.5)`, and it is fetched a whole viewport ahead on a server with
+   * no CDN in front of it. Mean luma was verified unchanged across the re-encode
+   * (`signalstats` YAVG 83.6 → 83.7), so the contrast constraint above still holds.
+   * The filename carries the resolution so the URL changes with the bytes.
    */
-  revealVideo: "/videos/lp_video2s.mp4" as Asset,
+  revealVideo: "/videos/lp_reveal-1080.mp4" as Asset,
 };
 
 /* ─────────────────────────────────────────────────────────────────────────────────────────

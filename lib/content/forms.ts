@@ -16,8 +16,11 @@ import type { BlockKey, SectionKey } from "./schema";
 /* ───────────────────────────── Locations ───────────────────────────── */
 
 export type Where = {
-  /** `solution` resolves to the solution page being edited (`/solutions/<slug>`). */
-  page: "home" | "solution" | "everywhere";
+  /**
+   * `solution` and `blog` resolve to the page being edited (`/solutions/<slug>`,
+   * `/blog/<slug>`); the others are fixed.
+   */
+  page: "home" | "solution" | "blog" | "everywhere";
   /** The section as the visitor sees it — its French title or a plain description. */
   section: string;
   /** Which element within the section. */
@@ -39,6 +42,12 @@ const sol = (section: string, anchor: string, detail?: string, size?: string): W
   page: "solution",
   section,
   anchor,
+  detail,
+  size,
+});
+const post = (section: string, detail?: string, size?: string): Where => ({
+  page: "blog",
+  section,
   detail,
   size,
 });
@@ -64,7 +73,7 @@ export type Field =
   | (Base & { kind: "icon" })
   | (Base & { kind: "asset"; accept: "image" | "video" | "media" })
   | (Base & { kind: "select"; options: Option[] | "solutions" })
-  | (Base & { kind: "multiselect"; options: Option[] })
+  | (Base & { kind: "multiselect"; options: Option[] | "solutions" })
   | (Base & { kind: "cards"; options: Option[] })
   | (Base & { kind: "group"; fields: Field[] })
   | (Base & {
@@ -208,6 +217,33 @@ export const GENERAL_FORM: Field[] = [
       placeholder: "https://…",
       where: everywhere("Pied de page", "Icône du réseau"),
     })),
+  },
+  {
+    kind: "group",
+    key: "verification",
+    label: "Vérification des moteurs de recherche",
+    where: everywhere("Code source de toutes les pages", "Balise de propriété, invisible pour les visiteurs"),
+    help:
+      "Collez ici le code fourni par chaque console quand elle vous demande de prouver " +
+      "que le site vous appartient. Laissez vide tant que vous n'avez pas ouvert le compte.",
+    fields: [
+      {
+        kind: "text",
+        key: "google",
+        label: "Google Search Console",
+        mono: true,
+        where: everywhere("Code source", "Balise google-site-verification"),
+        help: "La valeur seule, pas la balise entière.",
+      },
+      {
+        kind: "text",
+        key: "bing",
+        label: "Bing Webmaster Tools",
+        mono: true,
+        where: everywhere("Code source", "Balise msvalidate.01"),
+        help: "À ne pas négliger : l'index de Bing est celui que la recherche de ChatGPT interroge.",
+      },
+    ],
   },
 ];
 
@@ -952,6 +988,68 @@ export const SOLUTION_LAYOUT_FORM: Field[] = [
   },
 ];
 
+/**
+ * The « Référencement » tab of a solution.
+ *
+ * Every field here is an **override**, and the help text says what it overrides —
+ * because the honest default for all of them is "leave it empty". The editorial copy
+ * was written to convince a human and usually reads perfectly well in a result page;
+ * these exist for the cases where it doesn't.
+ */
+export const SOLUTION_SEO_FORM: Field[] = [
+  {
+    kind: "group",
+    key: "seo",
+    label: "Référencement de cette page",
+    where: sol("Google et partages", "", "Comment cette page apparaît hors du site"),
+    help: "Tout est facultatif : laissé vide, chaque champ reprend le texte de la page.",
+    fields: [
+      {
+        kind: "text",
+        key: "title",
+        label: "Titre dans Google",
+        where: sol("Google et onglet du navigateur", "", "Le titre cliquable dans les résultats"),
+        help: "Vide : le nom de la solution. Idéalement moins de 60 caractères.",
+      },
+      {
+        kind: "text",
+        key: "description",
+        label: "Description dans Google",
+        multiline: true,
+        rows: 3,
+        where: sol("Google et aperçus de partage", "", "Le texte sous le titre, et sur LinkedIn / WhatsApp"),
+        help: "Vide : le texte d'accroche du hero. Idéalement entre 120 et 160 caractères.",
+      },
+      {
+        kind: "asset",
+        key: "ogImage",
+        accept: "image",
+        label: "Image de partage",
+        where: sol("Partages sur les réseaux", "", "La vignette quand le lien est collé quelque part", "1200 × 630"),
+        help: "Vide : une image est générée avec le nom et la signature de la solution.",
+      },
+      {
+        kind: "text",
+        key: "canonical",
+        label: "URL canonique",
+        mono: true,
+        placeholder: "/solutions/…",
+        where: sol("Code source", "", "L'adresse de référence déclarée aux moteurs"),
+        help:
+          "À ne remplir que si cette page existe en double ailleurs et que l'autre fait foi. " +
+          "Mal réglée, elle fait disparaître la page des résultats.",
+      },
+      {
+        kind: "toggle",
+        key: "noindex",
+        label: "Retirer cette page des moteurs de recherche",
+        where: sol("Code source", "", "La page reste en ligne et accessible par lien, mais sort des résultats"),
+        help: "Les liens internes restent suivis : la page sort des résultats sans isoler le reste du site.",
+      },
+    ],
+  },
+];
+
 export const SOLUTION_MEDIA_FORM: Field[] = [
   {
     kind: "asset",
@@ -1041,7 +1139,260 @@ export const BLOCK_FORMS: Partial<Record<BlockKey, Field[]>> = {
 /** Resolve a location to a URL on the public site. */
 export function whereHref(where: Where, slug?: string): string | null {
   if (where.page === "everywhere") return "/";
-  const base = where.page === "solution" ? (slug ? `/solutions/${slug}` : null) : "/";
+  const base =
+    where.page === "solution"
+      ? slug
+        ? `/solutions/${slug}`
+        : null
+      : where.page === "blog"
+        ? slug
+          ? `/blog/${slug}`
+          : "/blog"
+        : "/";
   if (!base) return null;
   return where.anchor ? `${base}#${where.anchor}` : base;
 }
+
+/* ───────────────────────────── Blog ───────────────────────────── */
+
+/**
+ * One article. Everything the public page shows, in the order it shows it.
+ *
+ * The SEO group is the same five overrides as a solution's, re-declared rather than
+ * shared because the *locations* differ — and `where` is what makes these specs worth
+ * reading. The fallback chain behind them is the shared one (`lib/seo/metadata.ts`).
+ */
+export const POST_FORM: Field[] = [
+  {
+    kind: "text",
+    key: "title",
+    label: "Titre de l'article",
+    where: post("Haut de l'article", "Le grand titre, et le titre dans Google"),
+  },
+  {
+    kind: "text",
+    key: "excerpt",
+    label: "Accroche",
+    multiline: true,
+    rows: 3,
+    where: post("Haut de l'article et carte du blog", "Le paragraphe d'introduction, repris sur /blog"),
+    help: "Sert aussi de description dans Google si vous ne la remplissez pas plus bas. 120 à 160 caractères.",
+  },
+  {
+    kind: "text",
+    key: "category",
+    label: "Catégorie",
+    where: post("Carte du blog et fil d'Ariane", "La petite étiquette verte"),
+    help: "Vide : « Article ».",
+  },
+  {
+    kind: "asset",
+    key: "cover",
+    accept: "image",
+    label: "Image de couverture",
+    where: post("Haut de l'article et carte du blog", "La grande image sous le titre", "1600 × 900 px (16:9)"),
+    help: "Facultative : sans image, la carte affiche un dégradé.",
+  },
+  {
+    kind: "text",
+    key: "coverAlt",
+    label: "Description de l'image",
+    where: post("Haut de l'article", "Lu par les lecteurs d'écran, jamais affiché"),
+    help: "Décrivez ce que montre l'image. Laissez vide si elle est purement décorative.",
+    showIf: (parent) => Boolean(parent.cover),
+  },
+  {
+    kind: "text",
+    key: "body",
+    label: "Article",
+    multiline: true,
+    rows: 24,
+    where: post("Corps de l'article", "Tout le texte"),
+    help:
+      "Markdown : # pour un titre, ## pour un sous-titre, - pour une liste, **gras**, " +
+      "[texte](lien), et une ligne ![description](/media/…) pour une image.",
+  },
+  {
+    kind: "strings",
+    key: "tags",
+    itemLabel: "mot-clé",
+    label: "Mots-clés",
+    max: 8,
+    where: post("Bas de l'article", "Les étiquettes sous le texte"),
+  },
+  {
+    kind: "multiselect",
+    key: "relatedSolutions",
+    label: "Solutions liées",
+    options: "solutions",
+    where: post("Bas de l'article", "Le bloc « La solution dont parle cet article »"),
+    help: "L'article pointe vers ces pages, et elles peuvent pointer vers lui.",
+  },
+  {
+    kind: "list",
+    key: "faq",
+    itemLabel: "question",
+    titleKey: "question",
+    max: 10,
+    label: "Questions fréquentes",
+    where: post("Bas de l'article", "La section dépliante « Questions fréquentes »"),
+    help:
+      "Une réponse courte et autonome par question : c'est le format que Google et les " +
+      "assistants (ChatGPT, Claude, Perplexity) savent citer tel quel.",
+    empty: { question: "", answer: "" },
+    fields: [
+      { kind: "text", key: "question", label: "Question", where: post("Questions fréquentes", "L'intitulé replié") },
+      {
+        kind: "text",
+        key: "answer",
+        label: "Réponse",
+        multiline: true,
+        rows: 4,
+        where: post("Questions fréquentes", "Le texte déplié"),
+      },
+    ],
+  },
+  {
+    kind: "group",
+    key: "seo",
+    label: "Référencement de cet article",
+    where: post("Google et partages", "Comment l'article apparaît hors du site"),
+    help: "Tout est facultatif : laissé vide, chaque champ reprend le texte de l'article.",
+    fields: [
+      {
+        kind: "text",
+        key: "title",
+        label: "Titre dans Google",
+        where: post("Google et onglet du navigateur", "Le titre cliquable dans les résultats"),
+        help: "Vide : le titre de l'article. Idéalement moins de 60 caractères.",
+      },
+      {
+        kind: "text",
+        key: "description",
+        label: "Description dans Google",
+        multiline: true,
+        rows: 3,
+        where: post("Google et aperçus de partage", "Le texte sous le titre, et sur LinkedIn / WhatsApp"),
+        help: "Vide : l'accroche de l'article.",
+      },
+      {
+        kind: "asset",
+        key: "ogImage",
+        accept: "image",
+        label: "Image de partage",
+        where: post("Partages sur les réseaux", "La vignette quand le lien est collé quelque part", "1200 × 630"),
+      },
+      {
+        kind: "text",
+        key: "canonical",
+        label: "URL canonique",
+        mono: true,
+        placeholder: "/blog/…",
+        where: post("Code source", "L'adresse de référence déclarée aux moteurs"),
+        help:
+          "À ne remplir que si cet article existe en double ailleurs et que l'autre fait foi. " +
+          "Mal réglée, elle fait disparaître la page des résultats.",
+      },
+      {
+        kind: "toggle",
+        key: "noindex",
+        label: "Retirer cet article des moteurs de recherche",
+        where: post("Code source", "L'article reste en ligne et accessible par lien, mais sort des résultats"),
+      },
+    ],
+  },
+];
+
+/* ───────────────────────────── Use cases ───────────────────────────── */
+
+/**
+ * One "solution × cas d'usage" page.
+ *
+ * These are the fields the publication rule measures (`lib/content/usecases.ts`), and
+ * the help text says so in each one — the owner should learn the threshold from the
+ * field, not from a page that silently refuses to appear.
+ */
+export const SOLUTION_USECASE_FORM: Field[] = [
+  {
+    kind: "list",
+    key: "useCases",
+    itemLabel: "cas d'usage",
+    titleKey: "title",
+    max: 20,
+    label: "Cas d'usage",
+    where: sol("Pages supplémentaires", "", "Chacun devient /solutions/<solution>/<adresse>"),
+    help:
+      "Une page par situation concrète. Elle n'est publiée que si elle est assez fournie — " +
+      "le verdict s'affiche sous chaque cas. Cinq bons valent mieux que vingt creux.",
+    empty: { slug: "", title: "", intro: "", problems: ["", "", ""], benefits: ["", "", ""], proof: "", faq: [], seo: { title: "", description: "", ogImage: "", canonical: "", noindex: false } },
+    fields: [
+      {
+        kind: "text",
+        key: "title",
+        label: "Titre",
+        where: sol("Cas d'usage", "", "Le grand titre de la page"),
+        help: "Formulez-le comme on le chercherait : « Extraire les données d'une facture ».",
+      },
+      {
+        kind: "text",
+        key: "slug",
+        label: "Adresse",
+        mono: true,
+        where: sol("Cas d'usage", "", "La fin de l'URL"),
+        help: "Minuscules, chiffres et tirets. Évitez de la changer une fois la page en ligne.",
+      },
+      {
+        kind: "text",
+        key: "intro",
+        label: "Introduction",
+        multiline: true,
+        rows: 8,
+        where: sol("Cas d'usage", "", "Le paragraphe sous le titre"),
+        help: "Au moins 400 caractères : c'est ce qui distingue une page d'un gabarit rempli.",
+      },
+      {
+        kind: "strings",
+        key: "problems",
+        itemLabel: "problème",
+        label: "Ce qui bloque aujourd'hui",
+        multiline: true,
+        max: 8,
+        where: sol("Cas d'usage", "", "La colonne de gauche"),
+        help: "Au moins 3.",
+      },
+      {
+        kind: "strings",
+        key: "benefits",
+        itemLabel: "bénéfice",
+        label: "Ce que la solution change",
+        multiline: true,
+        max: 8,
+        where: sol("Cas d'usage", "", "La colonne de droite"),
+        help: "Au moins 3.",
+      },
+      {
+        kind: "text",
+        key: "proof",
+        label: "Concrètement",
+        multiline: true,
+        rows: 6,
+        where: sol("Cas d'usage", "", "Le bloc gris « Concrètement »"),
+        help: "Au moins 200 caractères : un chiffre, un déploiement réel, quelque chose de vérifiable.",
+      },
+      {
+        kind: "list",
+        key: "faq",
+        itemLabel: "question",
+        titleKey: "question",
+        max: 10,
+        label: "Questions fréquentes",
+        where: sol("Cas d'usage", "", "La section dépliante en bas de page"),
+        empty: { question: "", answer: "" },
+        fields: [
+          { kind: "text", key: "question", label: "Question", where: sol("Cas d'usage", "", "L'intitulé replié") },
+          { kind: "text", key: "answer", label: "Réponse", multiline: true, rows: 4, where: sol("Cas d'usage", "", "Le texte déplié") },
+        ],
+      },
+    ],
+  },
+];

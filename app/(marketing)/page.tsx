@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { websiteSchema } from "@/lib/seo/schema";
+import { faqSchema, websiteSchema } from "@/lib/seo/schema";
 import { getSiteContent, getSolutions } from "@/lib/content";
 import { Hero } from "@/components/sections/Hero";
 import { HighlightsReel } from "@/components/sections/HighlightsReel";
@@ -55,10 +55,20 @@ export default async function Home() {
   const s = content.sections;
   const bySlug = (slug: string) => solutions.find((x) => x.slug === slug);
   const hasSolutions = solutions.length > 0;
+  /* The section stores `{ title, content }`; schema.org wants `{ question, answer }`.
+     Null when the section is hidden or empty — don't describe questions the page
+     doesn't ask. */
+  const homeFaq = s.faq.hidden
+    ? null
+    : faqSchema(s.faq.items.map((item) => ({ question: item.title, answer: item.content })));
 
   return (
-    <main className="flex flex-1 flex-col">
-      <JsonLd data={websiteSchema()} />
+    <main id="contenu" className="flex flex-1 flex-col">
+      <JsonLd data={websiteSchema(content.general)} />
+      {/* The homepage FAQ ships real Q&A and was the one place emitting none — the
+          solution pages have had `FAQPage` all along. It is also the single easiest
+          thing on this site for an answer engine to quote. */}
+      {homeFaq && <JsonLd data={homeFaq} />}
       <Hero content={content.hero} solutions={solutions} />
       {!s.highlights.hidden && hasSolutions && <HighlightsReel content={s.highlights} solutions={solutions} />}
       {!s.performance.hidden && hasSolutions && <PerformanceMetrics content={s.performance} solutions={solutions} />}
