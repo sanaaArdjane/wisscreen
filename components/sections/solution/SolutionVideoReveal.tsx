@@ -376,11 +376,12 @@ export function SolutionVideoReveal({ service }: { service: Service }) {
               clean && "opacity-0 group-hover:opacity-100 group-focus-within:opacity-100",
             )}
           >
-            {/* Paper scrim under the copy, so ink text holds on any footage. Strongest at the
-                bottom where the text sits; the top stays clear. */}
+            {/* Dark teal-900 scrim under the copy, the same as the highlight cards: white
+                text holds on any footage (10.2:1) without bleaching it the way a paper wash
+                did. Strongest at the bottom where the text sits; the top stays clear. */}
             <div
               ref={scrimRef}
-              className="pointer-events-none absolute inset-0 bg-gradient-to-t from-paper/95 via-paper/75 to-transparent"
+              className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_top,rgba(7,69,74,0.92)_0%,rgba(7,69,74,0.6)_35%,transparent_70%)]"
               style={{ opacity: 0 }}
               aria-hidden="true"
             />
@@ -388,16 +389,16 @@ export function SolutionVideoReveal({ service }: { service: Service }) {
             <div
               ref={copyRef}
               // The bottom padding has to clear the control row, which is anchored to the
-              // frame's bottom-right: on a phone the frame is tall and narrow, so a single
+              // frame's bottom-left: on a phone the frame is tall and narrow, so a single
               // percentage puts the tagline's last line straight behind the buttons.
               className="pointer-events-none absolute inset-0 flex flex-col items-center justify-end gap-4 px-6 pb-[22%] text-center md:pb-[14%]"
               style={{ opacity: 0 }}
             >
               <Badge className="border-signal/40 text-signal">Vidéo de présentation</Badge>
-              <h2 className="font-display text-balance text-3xl font-medium leading-[1.05] md:text-5xl">
+              <h2 className="font-display text-balance text-3xl font-medium leading-[1.05] text-paper md:text-5xl">
                 {service.name} en action.
               </h2>
-              <p className="max-w-2xl text-balance text-base leading-relaxed text-ink/80 md:text-lg">
+              <p className="max-w-2xl text-balance text-base leading-relaxed text-paper/85 md:text-lg">
                 {service.tagline}
               </p>
             </div>
