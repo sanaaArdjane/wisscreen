@@ -115,9 +115,21 @@ export function SolutionVideoReveal({ service }: { service: Service }) {
      réduire and it stays a card; "full" is only reached from fullscreen. */
   const [manual, setManual] = useState<Manual>(null);
   const [ready, setReady] = useState(false);
+  /* A tap on a playing video brings the overlay back for a few seconds — touch has no
+     hover to do it. */
+  const [peek, setPeek] = useState(false);
+  useEffect(() => {
+    if (!peek) return;
+    const t = window.setTimeout(() => setPeek(false), 3000);
+    return () => window.clearTimeout(t);
+  }, [peek]);
 
   const hasVideo = Boolean(service.presentationVideo);
   const shouldPlay = hasVideo && inView && (override ?? (stretched || reduceMotion));
+  /* While a real video is playing full size, the copy, scrim and controls step aside so
+     the footage is the only thing on screen; hover, keyboard focus or a tap brings them
+     back. Paused, it is all visible — the play button can never be the thing that hid. */
+  const clean = shouldPlay && (stretched || reduceMotion || isFull) && !peek;
 
   const paint = useCallback((p: number, reduced: boolean, manual: Manual) => {
     progressRef.current = p;
@@ -319,10 +331,13 @@ export function SolutionVideoReveal({ service }: { service: Service }) {
           className={cn(
             // The ring gives the card an edge on white, which a shadow alone does not at
             // the top.
-            "relative overflow-hidden bg-mist text-ink ring-1 ring-ink/10",
-            "shadow-[0_1px_2px_rgba(53,70,102,.04),0_8px_24px_rgba(53,70,102,.06)]",
+            "group relative overflow-hidden bg-mist text-ink ring-1 ring-ink/10",
+            "shadow-card",
             isFull && "fixed inset-0 z-[100] h-full w-full rounded-none",
           )}
+          onPointerDown={(e) => {
+            if (e.pointerType !== "mouse") setPeek(true);
+          }}
         >
           {hasVideo ? (
             <video
@@ -355,109 +370,116 @@ export function SolutionVideoReveal({ service }: { service: Service }) {
             )
           )}
 
-          {/* Paper scrim under the copy, so ink text holds on any footage. Strongest at the
-              bottom where the text sits; the top stays clear. */}
           <div
-            ref={scrimRef}
-            className="pointer-events-none absolute inset-0 bg-gradient-to-t from-paper/95 via-paper/75 to-transparent"
-            style={{ opacity: 0 }}
-            aria-hidden="true"
-          />
-
-          <div
-            ref={copyRef}
-            // The bottom padding has to clear the control row, which is anchored to the
-            // frame's bottom-right: on a phone the frame is tall and narrow, so a single
-            // percentage puts the tagline's last line straight behind the buttons.
-            className="pointer-events-none absolute inset-0 flex flex-col items-center justify-end gap-4 px-6 pb-[22%] text-center md:pb-[14%]"
-            style={{ opacity: 0 }}
-          >
-            <Badge className="border-signal/40 text-signal">Vidéo de présentation</Badge>
-            <h2 className="font-display text-balance text-3xl font-medium leading-[1.05] md:text-5xl">
-              {service.name} en action.
-            </h2>
-            <p className="max-w-2xl text-balance text-base leading-relaxed text-ink/80 md:text-lg">
-              {service.tagline}
-            </p>
-          </div>
-
-          {/* Bottom-right rather than the reference's top-right: the site's navbar is
-              fixed and glassy, and at full bleed a top-right control lands underneath it. */}
-          <div className="absolute bottom-4 right-4 flex items-center gap-2">
-            {hasVideo && (
-              <>
-                <button
-                  type="button"
-                  onClick={() => setOverride(!shouldPlay)}
-                  aria-label={shouldPlay ? "Mettre la vidéo en pause" : "Lire la vidéo"}
-                  title={shouldPlay ? "Mettre la vidéo en pause" : "Lire la vidéo"}
-                  className={control}
-                >
-                  {shouldPlay ? (
-                    <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor" aria-hidden="true">
-                      <rect x="7" y="5" width="3.5" height="14" rx="1" />
-                      <rect x="13.5" y="5" width="3.5" height="14" rx="1" />
-                    </svg>
-                  ) : (
-                    <svg viewBox="0 0 24 24" className="ml-0.5 h-4 w-4" fill="currentColor" aria-hidden="true">
-                      <path d="M8 5v14l11-7z" />
-                    </svg>
-                  )}
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setMuted(!muted)}
-                  aria-label={muted ? "Activer le son" : "Couper le son"}
-                  title={muted ? "Activer le son" : "Couper le son"}
-                  className={control}
-                >
-                  <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor" aria-hidden="true">
-                    <path d="M4 9h3l5-4v14l-5-4H4z" />
-                    {muted ? (
-                      <path
-                        d="M16 9l5 6M21 9l-5 6"
-                        stroke="currentColor"
-                        strokeWidth="1.8"
-                        strokeLinecap="round"
-                        fill="none"
-                      />
-                    ) : (
-                      <path
-                        d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"
-                        stroke="currentColor"
-                        strokeWidth="1.8"
-                        strokeLinecap="round"
-                        fill="none"
-                      />
-                    )}
-                  </svg>
-                </button>
-              </>
+            className={cn(
+              "pointer-events-none absolute inset-0 transition-opacity duration-500",
+              clean && "opacity-0 group-hover:opacity-100 group-focus-within:opacity-100",
             )}
+          >
+            {/* Paper scrim under the copy, so ink text holds on any footage. Strongest at the
+                bottom where the text sits; the top stays clear. */}
+            <div
+              ref={scrimRef}
+              className="pointer-events-none absolute inset-0 bg-gradient-to-t from-paper/95 via-paper/75 to-transparent"
+              style={{ opacity: 0 }}
+              aria-hidden="true"
+            />
 
-            {/* Nothing to scroll to under reduced motion — the section isn't pinned, so
-                the frame has no scroll-derived size to jump between. */}
-            {!reduceMotion && !isFull && (
+            <div
+              ref={copyRef}
+              // The bottom padding has to clear the control row, which is anchored to the
+              // frame's bottom-right: on a phone the frame is tall and narrow, so a single
+              // percentage puts the tagline's last line straight behind the buttons.
+              className="pointer-events-none absolute inset-0 flex flex-col items-center justify-end gap-4 px-6 pb-[22%] text-center md:pb-[14%]"
+              style={{ opacity: 0 }}
+            >
+              <Badge className="border-signal/40 text-signal">Vidéo de présentation</Badge>
+              <h2 className="font-display text-balance text-3xl font-medium leading-[1.05] md:text-5xl">
+                {service.name} en action.
+              </h2>
+              <p className="max-w-2xl text-balance text-base leading-relaxed text-ink/80 md:text-lg">
+                {service.tagline}
+              </p>
+            </div>
+
+            {/* Bottom-left: top-right lands under the fixed navbar at full bleed, and
+                bottom-right is where the site's "Retour en haut" button floats. */}
+            <div className="pointer-events-auto absolute bottom-4 left-4 flex items-center gap-2">
+              {hasVideo && (
+                <>
+                  <button
+                    type="button"
+                    onClick={() => setOverride(!shouldPlay)}
+                    aria-label={shouldPlay ? "Mettre la vidéo en pause" : "Lire la vidéo"}
+                    title={shouldPlay ? "Mettre la vidéo en pause" : "Lire la vidéo"}
+                    className={control}
+                  >
+                    {shouldPlay ? (
+                      <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor" aria-hidden="true">
+                        <rect x="7" y="5" width="3.5" height="14" rx="1" />
+                        <rect x="13.5" y="5" width="3.5" height="14" rx="1" />
+                      </svg>
+                    ) : (
+                      <svg viewBox="0 0 24 24" className="ml-0.5 h-4 w-4" fill="currentColor" aria-hidden="true">
+                        <path d="M8 5v14l11-7z" />
+                      </svg>
+                    )}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setMuted(!muted)}
+                    aria-label={muted ? "Activer le son" : "Couper le son"}
+                    title={muted ? "Activer le son" : "Couper le son"}
+                    className={control}
+                  >
+                    <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor" aria-hidden="true">
+                      <path d="M4 9h3l5-4v14l-5-4H4z" />
+                      {muted ? (
+                        <path
+                          d="M16 9l5 6M21 9l-5 6"
+                          stroke="currentColor"
+                          strokeWidth="1.8"
+                          strokeLinecap="round"
+                          fill="none"
+                        />
+                      ) : (
+                        <path
+                          d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"
+                          stroke="currentColor"
+                          strokeWidth="1.8"
+                          strokeLinecap="round"
+                          fill="none"
+                        />
+                      )}
+                    </svg>
+                  </button>
+                </>
+              )}
+
+              {/* Nothing to scroll to under reduced motion — the section isn't pinned, so
+                  the frame has no scroll-derived size to jump between. */}
+              {!reduceMotion && !isFull && (
+                <button
+                  type="button"
+                  onClick={toggleStretch}
+                  aria-label={manual === "card" ? "Agrandir la vidéo" : "Réduire la vidéo"}
+                  title={manual === "card" ? "Agrandir la vidéo" : "Réduire la vidéo"}
+                  className={control}
+                >
+                  <Icon name="move" className="h-4 w-4" />
+                </button>
+              )}
+
               <button
                 type="button"
-                onClick={toggleStretch}
-                aria-label={manual === "card" ? "Agrandir la vidéo" : "Réduire la vidéo"}
-                title={manual === "card" ? "Agrandir la vidéo" : "Réduire la vidéo"}
+                onClick={() => (isFull ? exitFull() : enterFull())}
+                aria-label={isFull ? "Quitter le plein écran" : "Afficher en plein écran"}
+                title={isFull ? "Quitter le plein écran" : "Afficher en plein écran"}
                 className={control}
               >
-                <Icon name="move" className="h-4 w-4" />
+                <Icon name={isFull ? "minimize" : "maximize"} className="h-4 w-4" />
               </button>
-            )}
-
-            <button
-              type="button"
-              onClick={() => (isFull ? exitFull() : enterFull())}
-              aria-label={isFull ? "Quitter le plein écran" : "Afficher en plein écran"}
-              title={isFull ? "Quitter le plein écran" : "Afficher en plein écran"}
-              className={control}
-            >
-              <Icon name={isFull ? "minimize" : "maximize"} className="h-4 w-4" />
-            </button>
+            </div>
           </div>
         </div>
       </div>

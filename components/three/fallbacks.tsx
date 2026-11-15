@@ -20,7 +20,7 @@ export function EarthNetworkFallback({ message }: { message?: string } = {}) {
       <div className="absolute h-[28rem] w-[28rem] max-w-[80vw] rounded-full bg-aqua/10 blur-3xl" />
 
       <div className="relative flex flex-col items-center gap-6">
-        <div className="relative h-[20rem] w-[20rem] max-w-[68vw] rounded-full border border-teal/30 bg-[radial-gradient(circle_at_35%_28%,#ffffff_0%,#E7F5F6_55%,#C7F2E0_100%)] shadow-[0_1px_2px_rgba(53,70,102,.04),0_8px_24px_rgba(53,70,102,.06)]">
+        <div className="relative h-[20rem] w-[20rem] max-w-[68vw] rounded-full border border-teal/30 bg-[radial-gradient(circle_at_35%_28%,#ffffff_0%,#E7F5F6_55%,#C7F2E0_100%)] shadow-card">
           <div className="absolute inset-0 rounded-full [background-image:radial-gradient(circle_at_1px_1px,rgba(16,153,165,0.35)_1px,transparent_0)] [background-size:15px_15px]" />
           <div className="absolute inset-x-0 top-1/2 h-px -translate-y-1/2 bg-teal/35" />
           <div className="absolute inset-x-0 top-[30%] h-px bg-aqua/15" />

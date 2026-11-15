@@ -52,7 +52,7 @@ export function HeroVisual({ visual, solutions }: { visual: HeroContent["visual"
 
   return (
     <div className="absolute inset-0 px-4 pb-6 pt-20 sm:px-6 lg:pb-10 lg:pl-2 lg:pr-8 lg:pt-28">
-      <div className="relative h-full w-full overflow-hidden rounded-3xl bg-mist shadow-[0_1px_2px_rgba(53,70,102,.04),0_8px_24px_rgba(53,70,102,.06)]">
+      <div className="relative h-full w-full overflow-hidden rounded-3xl bg-mist shadow-card">
         {visual.mode === "image" && (
           visual.image ? (
             <LoadingImage

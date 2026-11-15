@@ -1,5 +1,6 @@
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
+import { ScrollTop } from "@/components/ui/ScrollTop";
 import { getSiteContent, getSolutions } from "@/lib/content";
 
 /**
@@ -23,6 +24,7 @@ export default async function MarketingLayout({ children }: LayoutProps<"/">) {
         general={content.general}
         solutions={solutions.map(({ slug, name }) => ({ slug, name }))}
       />
+      <ScrollTop />
     </>
   );
 }

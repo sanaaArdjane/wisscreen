@@ -25,7 +25,7 @@ import type { MoneyLine } from "@/lib/db/schema";
 const INK = "#354666";
 const ABYSS = "#26334C";
 const MIST = "#EEF2F6";
-const TEAL_DEEP = "#2B7D7C";
+const TEAL_DEEP = "#0B6D75";
 const SIGNAL = "#13C182";
 const MUTED = "#5d6b85"; // ink at ~80% on paper — 5.4:1, the dashboard's second level
 

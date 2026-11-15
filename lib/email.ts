@@ -101,11 +101,11 @@ function wrap(text: string, action?: { label: string; url: string }): string {
   return `<!doctype html><html lang="fr"><body style="margin:0;background:#eef2f6;padding:32px 16px;font-family:'Segoe UI',Arial,Helvetica,sans-serif">
   <div style="max-width:560px;margin:0 auto;background:#ffffff;border-radius:16px;overflow:hidden;border:1px solid rgba(53,70,102,.12)">
     <div style="background:#354666;padding:20px 28px">
-      <span style="color:#ffffff;font-size:18px;font-weight:600;letter-spacing:-.02em">SETY<span style="color:#4ed39d">CORP</span></span>
+      <span style="color:#ffffff;font-size:18px;font-weight:600;letter-spacing:-.02em">SETY<span style="color:#3ed294">CORP</span></span>
     </div>
     <div style="padding:28px">${paragraphs}${button}</div>
     <div style="padding:16px 28px;border-top:1px solid rgba(53,70,102,.1)">
-      <p style="margin:0;font-size:12px;color:rgba(53,70,102,.7)">${SITE_NAME} — <a href="${SITE_URL}" style="color:#0d7d55">${SITE_URL.replace(/^https?:\/\//, "")}</a></p>
+      <p style="margin:0;font-size:12px;color:rgba(53,70,102,.7)">${SITE_NAME} — <a href="${SITE_URL}" style="color:#0b7247">${SITE_URL.replace(/^https?:\/\//, "")}</a></p>
     </div>
   </div>
 </body></html>`;

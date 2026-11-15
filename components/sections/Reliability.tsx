@@ -16,7 +16,7 @@ export function Reliability({ content }: { content: SectionContent<"reliability"
         <Reveal>
           <StatCounter
             value={content.stat}
-            className="font-display block text-7xl font-medium tracking-[-0.02em] text-signal md:text-9xl"
+            className="font-display block text-7xl font-medium tracking-[-0.02em] text-green-700 md:text-9xl"
           />
         </Reveal>
         <Reveal>

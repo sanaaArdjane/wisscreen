@@ -255,7 +255,7 @@ export function SolutionHeroStage({
               // the box by 1px on each side and the whole frame jumps at the end of the
               // transition.
               "border border-ink/10",
-              mode === "inset" && "rounded-2xl shadow-[0_1px_2px_rgba(53,70,102,.04),0_8px_24px_rgba(53,70,102,.06)] md:rounded-[1.75rem]",
+              mode === "inset" && "rounded-2xl shadow-card md:rounded-[1.75rem]",
               mode === "hero" && "rounded-none border-x-transparent",
               mode === "full" && "fixed inset-0 z-[100] max-w-none rounded-none border-transparent",
             )}

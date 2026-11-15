@@ -11,14 +11,14 @@ import { useMemo, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 
-export const AQUA = "#7FC9C8";
-export const TEAL = "#379F9E";
+export const AQUA = "#68BFC6";
+export const TEAL = "#3BABB5";
 export const PAPER = "#FFFFFF";
 /* The signal accent in the scene: the brand teal. It is the ACTIVE colour — idle
    geometry is cool, and hovering turns it teal, so the hue carries the interaction
    state. SIGNAL_SOFT is the deep shade, which still reads on the light hero ground. */
 export const SIGNAL_BRIGHT = "#1099A5";
-export const SIGNAL_SOFT = "#0E6F78";
+export const SIGNAL_SOFT = "#09575E";
 export const SIGNAL = "#1099A5";
 
 /** Deterministic pseudo-random from an index — pure, so it's safe during render

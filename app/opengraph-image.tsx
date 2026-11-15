@@ -64,7 +64,7 @@ export default async function Image() {
               fontSize: 28,
               letterSpacing: 4,
               textTransform: "uppercase",
-              color: "#0E6F78",
+              color: "#09575E",
             }}
           >
             {siteName}

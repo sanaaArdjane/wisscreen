@@ -45,7 +45,7 @@ export default function AuthLayout({ children }: LayoutProps<"/">) {
         {/* Both panels sit on a textured light ground, so they need their own edge — at
             `bg-mist/85` on `paper` there was nothing separating them from the page or from
             each other. A hairline ring plus the one soft shadow the design allows. */}
-        <div className="hidden max-w-[680px] overflow-hidden rounded-[32px] bg-mist/85 p-10 shadow-[0_1px_2px_rgba(53,70,102,.04),0_8px_24px_rgba(53,70,102,.06)] ring-1 ring-ink/10 lg:block xl:p-12">
+        <div className="hidden max-w-[680px] overflow-hidden rounded-[32px] bg-mist/85 p-10 shadow-card ring-1 ring-ink/10 lg:block xl:p-12">
           <div className="mb-8 inline-flex size-14 items-center justify-center rounded-[30%] bg-paper text-2xl font-medium text-ink" aria-hidden>
             W
           </div>
@@ -59,7 +59,7 @@ export default function AuthLayout({ children }: LayoutProps<"/">) {
           <AuthVisual />
         </div>
 
-        <div className="w-full max-w-[440px] justify-self-center rounded-3xl bg-paper/95 p-6 shadow-[0_1px_2px_rgba(53,70,102,.04),0_8px_24px_rgba(53,70,102,.06)] ring-1 ring-ink/12 backdrop-blur-sm sm:p-9 lg:justify-self-end">
+        <div className="w-full max-w-[440px] justify-self-center rounded-3xl bg-paper/95 p-6 shadow-card ring-1 ring-ink/12 backdrop-blur-sm sm:p-9 lg:justify-self-end">
           {children}
         </div>
       </main>

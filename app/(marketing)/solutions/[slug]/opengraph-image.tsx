@@ -95,7 +95,7 @@ export default async function Image({
               fontSize: 24,
               letterSpacing: 3,
               textTransform: "uppercase",
-              color: "#0E6F78",
+              color: "#09575E",
             }}
           >
             {SITE_NAME}
@@ -106,7 +106,7 @@ export default async function Image({
             fontSize: 22,
             textTransform: "uppercase",
             letterSpacing: 2,
-            color: "#0E6F78",
+            color: "#09575E",
             marginBottom: 12,
           }}
         >
