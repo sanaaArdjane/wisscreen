@@ -161,9 +161,12 @@ function StatTile({
 function CardHeading({
   service,
   showCategory = true,
+  onPhoto = false,
 }: {
   service: Service;
   showCategory?: boolean;
+  /** Over the image card's dark scrim: white title, light tagline. */
+  onPhoto?: boolean;
 }) {
   return (
     <div className="max-w-xl">
@@ -180,18 +183,25 @@ function CardHeading({
         className={cn(
           "font-display text-2xl font-medium leading-tight md:text-4xl",
           showCategory && "mt-3",
+          onPhoto && "text-paper",
         )}
       >
         &quot; {service.name} &quot;.{" "}
-        <span className="text-ink/80">{service.tagline}</span>
+        <span className={onPhoto ? "text-paper/85" : "text-ink/80"}>{service.tagline}</span>
       </h3>
     </div>
   );
 }
 
-function CardCta({ service }: { service: Service }) {
+function CardCta({ service, onPhoto = false }: { service: Service; onPhoto?: boolean }) {
   return (
-    <span className="relative inline-flex items-center gap-2 text-sm font-medium text-signal">
+    <span
+      className={cn(
+        "relative inline-flex items-center gap-2 text-sm font-medium",
+        // green-300 on the teal-900 scrim is 6.4:1; `text-signal` is the light-ground green.
+        onPhoto ? "text-green-300" : "text-signal",
+      )}
+    >
       Découvrir {service.name}
       <Icon
         name="arrow-right"
@@ -223,10 +233,11 @@ const CARD_SHELL = cn(
  * There is no eyebrow here (see `CardHeading`'s `showCategory`) — the copy block is
  * just the name, tagline and CTA.
  *
- * The scrim is a light vignette (near-opaque paper right at the bottom, still at 0.8 a
- * quarter of the way up) rather than a bare-minimum wash — since a solution's photo can
- * be anything up to near-black, the ink copy needs a guaranteed light floor under it
- * instead of one tuned for a specific image.
+ * The scrim is a DARK vignette in teal-900, the deepest SetyCore teal, with white copy
+ * over it. It used to be a white wash with ink copy, which bleached the photo's lower
+ * half and still left the title fighting bright parts of the image. A photo can be
+ * anything, so the copy needs a guaranteed floor under it: near-opaque teal at the
+ * bottom, still 0.75 a quarter of the way up. White on teal-900 is 10.2:1.
  *
  * **One scale, gated by hover OR being the active card.** Both triggers target the same
  * value on the same element, so they never compound — hovering the active card doesn't
@@ -280,16 +291,15 @@ function ImageCard({ service, active }: { service: Service; active: boolean }) {
           </div>
         )}
 
-        {/* A vignette sized for contrast, not just a light floor: it has to hold the ink
-            copy legible even on a dark photo, so it runs stronger and further up the
-            card than a minimal scrim would. */}
-        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_top,rgba(255,255,255,0.97)_0%,rgba(255,255,255,0.8)_28%,rgba(255,255,255,0.35)_52%,transparent_72%)]" />
+        {/* A vignette sized for contrast: it has to hold the white copy legible even on a
+            bright photo, so it runs stronger and further up than a minimal scrim would. */}
+        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_top,rgba(7,69,74,0.94)_0%,rgba(7,69,74,0.75)_30%,rgba(7,69,74,0.3)_55%,transparent_75%)]" />
 
         {/* absolute inset-0, not h-full: the parent only has a min-height, so a
             percentage height would collapse and the copy would not sit on the floor. */}
         <div className="absolute inset-0 flex flex-col justify-end gap-6 p-8 md:p-12">
-          <CardHeading service={service} showCategory={false} />
-          <CardCta service={service} />
+          <CardHeading service={service} showCategory={false} onPhoto />
+          <CardCta service={service} onPhoto />
         </div>
       </div>
     </Link>
@@ -347,7 +357,12 @@ function GifTileVisual({
   index: number;
   stat: ServiceStat;
 }) {
-  const { fill, icon, numeral, caption } = tileTone(service, index);
+  const tone = tileTone(service, index);
+  // Over footage the copy sits on the same dark teal scrim as `ImageCard`, so it goes
+  // white (10.2:1 on teal-900); without footage the tile keeps its light tone.
+  const { fill, icon, numeral, caption } = stat.gif
+    ? { ...tone, icon: "text-green-300", numeral: "text-paper", caption: "text-paper/85" }
+    : tone;
 
   return (
     <>
@@ -356,9 +371,9 @@ function GifTileVisual({
       {stat.gif && (
         <>
           <StatClip src={stat.gif} />
-          {/* Bottom-anchored light scrim only — same technique as ImageCard — so a
-              real photo stays legible instead of being washed out. */}
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-paper/95 via-paper/40 to-transparent" />
+          {/* Bottom-anchored dark teal scrim — same technique as ImageCard — so the
+              white copy holds on any footage without bleaching the clip. */}
+          <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_top,rgba(7,69,74,0.92)_0%,rgba(7,69,74,0.6)_40%,transparent_75%)]" />
         </>
       )}
       <div className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-ink/5" />
