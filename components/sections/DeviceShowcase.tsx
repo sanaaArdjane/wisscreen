@@ -581,7 +581,7 @@ export function DeviceShowcase({
             <button
               type="button"
               onClick={closeZoom}
-              className="absolute right-5 top-5 z-50 flex touch-manipulation items-center gap-2 rounded-full bg-paper px-4 py-2.5 text-sm font-medium text-ink shadow-[0_1px_2px_rgba(53,70,102,.04),0_8px_24px_rgba(53,70,102,.06)] ring-1 ring-ink/10 transition-colors hover:bg-mist md:right-8"
+              className="absolute right-5 top-5 z-50 flex touch-manipulation items-center gap-2 rounded-full bg-paper px-4 py-2.5 text-sm font-medium text-ink shadow-card ring-1 ring-ink/10 transition-colors hover:bg-mist md:right-8"
             >
               <Icon name="minimize" className="h-4 w-4" />
               Fermer
@@ -694,7 +694,7 @@ function DeviceControls({
 function Laptop({ children }: { children: ReactNode }) {
   return (
     <div className="relative">
-      <div className="relative rounded-[1.1rem] border border-ink/10 bg-[#dfe7ee] p-[0.55rem] shadow-[0_1px_2px_rgba(53,70,102,.04),0_8px_24px_rgba(53,70,102,.06)] md:rounded-[1.4rem] md:p-[0.7rem]">
+      <div className="relative rounded-[1.1rem] border border-ink/10 bg-[#dfe7ee] p-[0.55rem] shadow-card md:rounded-[1.4rem] md:p-[0.7rem]">
         <div className="relative aspect-16/10 w-full overflow-hidden rounded-[0.6rem] bg-paper md:rounded-[0.8rem]">
           {children}
           {/* Notch, above the screen content but inside the bezel's radius. */}
@@ -710,7 +710,7 @@ function Laptop({ children }: { children: ReactNode }) {
 
 function Phone({ children }: { children: ReactNode }) {
   return (
-    <div className="rounded-[1.4rem] border border-ink/10 bg-[#dfe7ee] p-[0.3rem] shadow-[0_1px_2px_rgba(53,70,102,.04),0_8px_24px_rgba(53,70,102,.06)] lg:rounded-[1.8rem] lg:p-[0.4rem]">
+    <div className="rounded-[1.4rem] border border-ink/10 bg-[#dfe7ee] p-[0.3rem] shadow-card lg:rounded-[1.8rem] lg:p-[0.4rem]">
       <div className="relative aspect-9/19.5 w-full overflow-hidden rounded-[1.15rem] bg-paper lg:rounded-[1.5rem]">
         {children}
         <div className="absolute left-1/2 top-[2%] z-10 h-[3%] w-[32%] -translate-x-1/2 rounded-full bg-[#dfe7ee]" />

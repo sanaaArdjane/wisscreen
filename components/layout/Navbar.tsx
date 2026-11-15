@@ -50,7 +50,7 @@ export function Navbar({ items, brand }: { items: NavContent["items"]; brand: st
                 // snap while the padding and radius animate.
                 "max-w-[160rem] rounded-none border-b border-ink/10 bg-paper/85 px-6 py-3 ring-1 ring-transparent md:px-10",
               )
-            : "max-w-[1280px] rounded-full border-b border-transparent bg-paper/85 px-5 py-2.5 ring-1 ring-ink/10 md:px-6",
+            : "max-w-[1280px] rounded-full border-b border-transparent bg-paper/85 px-5 py-2.5 shadow-soft ring-1 ring-ink/10 md:px-6",
         )}
       >
         <Link
@@ -108,7 +108,7 @@ export function Navbar({ items, brand }: { items: NavContent["items"]; brand: st
                     // `pt-3` is a hover bridge: the gap between the label and the panel
                     // belongs to the <li>, so the pointer never leaves it on the way down.
                     <div className="absolute left-1/2 top-full z-10 -translate-x-1/2 pt-3">
-                      <ul className="min-w-48 rounded-2xl bg-paper p-2 text-ink shadow-[0_1px_2px_rgba(53,70,102,.04),0_8px_24px_rgba(53,70,102,.06)] ring-1 ring-ink/10">
+                      <ul className="min-w-48 rounded-2xl bg-paper p-2 text-ink shadow-card ring-1 ring-ink/10">
                         {item.children.map((child, j) => (
                           <li key={`${child.label}-${j}`}>
                             <Link

@@ -212,3 +212,9 @@ body:has([data-wicloud-app]) ::-webkit-scrollbar-thumb {
 [data-wicloud-app] .button {
   border-radius: 9999px;
 }
+
+/* Destructive buttons carry the owner's red spread shadow, so the one red control on a
+   page also reads as raised. Only the armed (irreversible) step is `danger`. */
+[data-wicloud-app] .button--danger {
+  box-shadow: 0 6px 16px -8px var(--Spread-Red);
+}

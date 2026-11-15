@@ -743,7 +743,7 @@ function ServiceModule({
               <div
                 // w-fit keeps the pill compact: as a block-level flex child it would
                 // otherwise stretch to the (much wider) card below it.
-                className={`glass-panel mx-auto flex w-fit items-center gap-2 whitespace-nowrap rounded-full px-4 py-2.5 text-ink shadow-[0_1px_2px_rgba(53,70,102,.04),0_8px_24px_rgba(53,70,102,.06)] transition-colors duration-300 ${
+                className={`glass-panel mx-auto flex w-fit items-center gap-2 whitespace-nowrap rounded-full px-4 py-2.5 text-ink shadow-card transition-colors duration-300 ${
                   isActive ? "!border-signal" : ""
                 }`}
               >
@@ -755,7 +755,7 @@ function ServiceModule({
               </div>
 
               {isActive && (
-                <div className="mt-2.5 flex w-[38rem] overflow-hidden rounded-2xl bg-paper/95 text-ink ring-1 ring-ink/10 shadow-[0_1px_2px_rgba(53,70,102,.04),0_8px_24px_rgba(53,70,102,.06)] backdrop-blur-md">
+                <div className="mt-2.5 flex w-[38rem] overflow-hidden rounded-2xl bg-paper/95 text-ink ring-1 ring-ink/10 shadow-card backdrop-blur-md">
                   <div className="flex w-[15rem] shrink-0 flex-col justify-center p-5">
                     <p className="text-[10px] font-medium uppercase leading-tight tracking-[0.08em] text-signal">
                       {service.category}
@@ -1038,7 +1038,7 @@ export default function InfraStack({
           band's z-30, whose gradient would otherwise wash it out. */}
       <div
         aria-hidden="true"
-        className={`pointer-events-none absolute right-5 top-24 z-[31] max-w-[15.5rem] rounded-2xl bg-paper/90 px-4 py-3 text-ink ring-1 ring-ink/10 shadow-[0_1px_2px_rgba(53,70,102,.04),0_8px_24px_rgba(53,70,102,.06)] backdrop-blur-md transition-all duration-300 ${
+        className={`pointer-events-none absolute right-5 top-24 z-[31] max-w-[15.5rem] rounded-2xl bg-paper/90 px-4 py-3 text-ink ring-1 ring-ink/10 shadow-card backdrop-blur-md transition-all duration-300 ${
           paused ? "translate-y-0 opacity-100" : "-translate-y-2 opacity-0"
         }`}
       >

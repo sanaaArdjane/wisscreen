@@ -332,7 +332,7 @@ export function SolutionVideoReveal({ service }: { service: Service }) {
             // The ring gives the card an edge on white, which a shadow alone does not at
             // the top.
             "group relative overflow-hidden bg-mist text-ink ring-1 ring-ink/10",
-            "shadow-[0_1px_2px_rgba(53,70,102,.04),0_8px_24px_rgba(53,70,102,.06)]",
+            "shadow-card",
             isFull && "fixed inset-0 z-[100] h-full w-full rounded-none",
           )}
           onPointerDown={(e) => {

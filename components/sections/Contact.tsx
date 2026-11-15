@@ -99,16 +99,16 @@ export function Contact({
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
             <label className="flex flex-col gap-2 text-sm font-medium">
               {form.name}
-              <input required type="text" name="name" className="rounded-full border border-ink/15 bg-paper px-5 py-3 text-sm outline-none focus:border-signal focus:ring-2 focus:ring-signal/30" />
+              <input required type="text" name="name" className="rounded-full border border-ink/15 bg-paper px-5 py-3 shadow-soft text-sm outline-none focus:border-signal focus:ring-2 focus:ring-signal/30" />
             </label>
             <label className="flex flex-col gap-2 text-sm font-medium">
               {form.email}
-              <input required type="email" name="email" className="rounded-full border border-ink/15 bg-paper px-5 py-3 text-sm outline-none focus:border-signal focus:ring-2 focus:ring-signal/30" />
+              <input required type="email" name="email" className="rounded-full border border-ink/15 bg-paper px-5 py-3 shadow-soft text-sm outline-none focus:border-signal focus:ring-2 focus:ring-signal/30" />
             </label>
           </div>
           <label className="flex flex-col gap-2 text-sm font-medium">
             {form.solution}
-            <select name="solution" className="rounded-full border border-ink/15 bg-paper px-5 py-3 text-sm outline-none focus:border-signal focus:ring-2 focus:ring-signal/30">
+            <select name="solution" className="rounded-full border border-ink/15 bg-paper px-5 py-3 shadow-soft text-sm outline-none focus:border-signal focus:ring-2 focus:ring-signal/30">
               <option value="">{form.solutionPlaceholder}</option>
               {solutions.map((service) => (
                 <option key={service.slug} value={service.slug}>

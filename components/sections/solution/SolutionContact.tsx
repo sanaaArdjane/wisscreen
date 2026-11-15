@@ -56,11 +56,11 @@ export function SolutionContact({ service }: { service: Service }) {
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
             <label className="flex flex-col gap-2 text-sm font-medium">
               Nom complet
-              <input required type="text" name="name" className="rounded-full border border-ink/15 bg-paper px-5 py-3 text-sm outline-none focus:border-signal" />
+              <input required type="text" name="name" className="rounded-full border border-ink/15 bg-paper px-5 py-3 shadow-soft text-sm outline-none focus:border-signal" />
             </label>
             <label className="flex flex-col gap-2 text-sm font-medium">
               E-mail professionnel
-              <input required type="email" name="email" className="rounded-full border border-ink/15 bg-paper px-5 py-3 text-sm outline-none focus:border-signal" />
+              <input required type="email" name="email" className="rounded-full border border-ink/15 bg-paper px-5 py-3 shadow-soft text-sm outline-none focus:border-signal" />
             </label>
           </div>
           <label className="flex flex-col gap-2 text-sm font-medium">

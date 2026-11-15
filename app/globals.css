@@ -64,6 +64,10 @@
   --color-green-800: #0b7247;
   --color-green-900: #095a38;
 
+  /* Shadows built on the owner's spread tokens (declared in :root below). */
+  --shadow-card: 0 1px 2px rgba(32, 92, 78, 0.06), 0 12px 28px -14px var(--spread-shadow-color);
+  --shadow-soft: 0 6px 18px -10px var(--Spread-Gray);
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 
@@ -226,19 +230,26 @@ body {
 }
 }
 
-/* Accent text and controls. These used to be ground-adaptive (a different tint on every
-   dark ground); with no dark grounds left, each resolves to one value. The classes stay
-   because they are the vocabulary the components already speak. */
-.text-accent,
-.text-signal {
+/* Accent text. Two roles, two SetyCore families:
+   - `text-accent` — inline links: the main brand, teal-800 (8.3:1 on paper).
+   - `text-signal` — the SECOND colour, green: eyebrows, badges, section icons, the
+     "Découvrir →" links, stat numerals. green-800 is the lightest green that carries small
+     text on every ground (6.0:1 paper, 5.5:1 green-50, 4.9:1 mint); green-700 is 4.2:1.
+   Filled buttons (`control-signal`) stay teal: teal is the brand, green the accent. */
+.text-accent {
   color: var(--color-signal-deep);
 }
-.fill-signal {
-  fill: var(--color-signal);
+.text-signal {
+  color: var(--color-green-800);
 }
-.border-accent\/40,
-.border-signal\/40 {
+.fill-signal {
+  fill: var(--color-green-500);
+}
+.border-accent\/40 {
   border-color: color-mix(in srgb, var(--color-signal-deep) 40%, transparent);
+}
+.border-signal\/40 {
+  border-color: color-mix(in srgb, var(--color-green-800) 40%, transparent);
 }
 .control-signal,
 .control-accent {
