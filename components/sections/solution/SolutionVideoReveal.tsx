@@ -131,6 +131,21 @@ export function SolutionVideoReveal({ service }: { service: Service }) {
      back. Paused, it is all visible — the play button can never be the thing that hid. */
   const clean = shouldPlay && (stretched || reduceMotion || isFull) && !peek;
 
+  /* 1.5 s after the frame fills the screen the copy settles: it drops to the bottom edge
+     and the teal vignette fades away, leaving the footage clean with a caption over it.
+     Shrinking the frame back brings the vignette and the centred copy back at once. */
+  const full = stretched || reduceMotion || isFull;
+  const [timerDone, setTimerDone] = useState(false);
+  const settled = full && timerDone;
+  useEffect(() => {
+    if (!full) return;
+    const t = window.setTimeout(() => setTimerDone(true), 1500);
+    return () => {
+      window.clearTimeout(t);
+      setTimerDone(false);
+    };
+  }, [full]);
+
   const paint = useCallback((p: number, reduced: boolean, manual: Manual) => {
     progressRef.current = p;
     const section = sectionRef.current;
@@ -370,41 +385,57 @@ export function SolutionVideoReveal({ service }: { service: Service }) {
             )
           )}
 
-          <div
-            className={cn(
-              "pointer-events-none absolute inset-0 transition-opacity duration-500",
-              clean && "opacity-0 group-hover:opacity-100 group-focus-within:opacity-100",
-            )}
-          >
-            {/* Paper scrim under the copy, so ink text holds on any footage. Strongest at the
-                bottom where the text sits; the top stays clear. */}
+          <div className="pointer-events-none absolute inset-0">
+            {/* Dark teal-900 scrim under the copy, the same as the highlight cards: white
+                text holds on any footage (10.2:1) without bleaching it the way a paper wash
+                did. Strongest at the bottom where the text sits; the top stays clear. */}
             <div
-              ref={scrimRef}
-              className="pointer-events-none absolute inset-0 bg-gradient-to-t from-paper/95 via-paper/75 to-transparent"
-              style={{ opacity: 0 }}
+              className={cn(
+                "pointer-events-none absolute inset-0 transition-opacity duration-700",
+                settled && "opacity-0",
+              )}
               aria-hidden="true"
-            />
+            >
+              <div
+                ref={scrimRef}
+                className="absolute inset-0 bg-[linear-gradient(to_top,rgba(7,69,74,0.92)_0%,rgba(7,69,74,0.6)_35%,transparent_70%)]"
+                style={{ opacity: 0 }}
+              />
+            </div>
 
             <div
               ref={copyRef}
-              // The bottom padding has to clear the control row, which is anchored to the
-              // frame's bottom-right: on a phone the frame is tall and narrow, so a single
-              // percentage puts the tagline's last line straight behind the buttons.
-              className="pointer-events-none absolute inset-0 flex flex-col items-center justify-end gap-4 px-6 pb-[22%] text-center md:pb-[14%]"
+              // Before it settles the copy sits well up the frame, over the vignette; on a
+              // phone the frame is tall and narrow, so a single percentage would put the
+              // tagline behind the control row. Settled, it drops to just above the controls
+              // and carries a soft shadow instead of the vignette to stay legible.
+              className={cn(
+                "pointer-events-none absolute inset-0 flex flex-col items-center justify-end gap-4 px-6 text-center transition-[padding] duration-700 ease-out",
+                settled
+                  ? "pb-20 [text-shadow:0_1px_3px_rgba(7,69,74,0.55),0_2px_18px_rgba(7,69,74,0.45)] md:pb-16"
+                  : "pb-[22%] md:pb-[14%]",
+              )}
               style={{ opacity: 0 }}
             >
               <Badge className="border-signal/40 text-signal">Vidéo de présentation</Badge>
-              <h2 className="font-display text-balance text-3xl font-medium leading-[1.05] md:text-5xl">
+              <h2 className="font-display text-balance text-3xl font-medium leading-[1.05] text-paper md:text-5xl">
                 {service.name} en action.
               </h2>
-              <p className="max-w-2xl text-balance text-base leading-relaxed text-ink/80 md:text-lg">
+              <p className="max-w-2xl text-balance text-base leading-relaxed text-paper/85 md:text-lg">
                 {service.tagline}
               </p>
             </div>
 
             {/* Bottom-left: top-right lands under the fixed navbar at full bleed, and
                 bottom-right is where the site's "Retour en haut" button floats. */}
-            <div className="pointer-events-auto absolute bottom-4 left-4 flex items-center gap-2">
+            {/* While the video plays full size the buttons step aside; hover, focus or a tap
+                brings them back, and pausing keeps them up. */}
+            <div
+              className={cn(
+                "pointer-events-auto absolute bottom-4 left-4 flex items-center gap-2 transition-opacity duration-500",
+                clean && "opacity-0 group-hover:opacity-100 group-focus-within:opacity-100",
+              )}
+            >
               {hasVideo && (
                 <>
                   <button
