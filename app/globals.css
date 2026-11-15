@@ -243,13 +243,29 @@ body {
   color: var(--color-green-800);
 }
 .fill-signal {
-  fill: var(--color-green-500);
+  fill: var(--color-green-400);
+}
+/* Bright green goes where it carries no small text of its own: icons inside a green
+   element (decorative, beside their label) take green-600. */
+.text-signal svg,
+svg.text-signal {
+  color: var(--color-green-600);
 }
 .border-accent\/40 {
   border-color: color-mix(in srgb, var(--color-signal-deep) 40%, transparent);
 }
 .border-signal\/40 {
-  border-color: color-mix(in srgb, var(--color-green-800) 40%, transparent);
+  border-color: var(--color-green-400);
+}
+/* Green badges (eyebrows, category tags) are filled pills, like the "core" flag of the
+   logo: green-300 with dark teal type (teal-900, 6.4:1). Unlayered, so it beats a
+   `bg-paper` utility on the same element. */
+.border-signal\/40.text-signal {
+  background-color: var(--color-green-300);
+  color: var(--color-teal-900);
+}
+.border-signal\/40.text-signal svg {
+  color: inherit;
 }
 .control-signal,
 .control-accent {

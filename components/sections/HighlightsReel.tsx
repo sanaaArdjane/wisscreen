@@ -109,12 +109,13 @@ function StatClip({ src }: { src: string }) {
   );
 }
 
-/** Fill, icon and numeral colours for stat tile `index` — mint and signal for the middle
- *  one, mist and ink for the outer two. Shared by both tile variants. */
+/** Fill, icon, numeral and caption colours for stat tile `index` — bright SetyCore green
+ *  (green-300) with dark teal type for the middle one, mist and ink for the outer two.
+ *  Shared by both tile variants. teal-900 on green-300 is 6.4:1; steel would be 3.9:1. */
 function tileTone(service: Service, index: number) {
-  if (index === 1) return { fill: "bg-mint", icon: "text-signal", numeral: "text-signal" };
+  if (index === 1) return { fill: "bg-green-300", icon: "text-teal-900", numeral: "text-teal-900", caption: "text-teal-900" };
   const accent: PaletteToken = index === 0 ? service.palette.primary : service.palette.secondary;
-  return { fill: "bg-mist", icon: paletteText[accent], numeral: "text-ink" };
+  return { fill: "bg-mist", icon: paletteText[accent], numeral: "text-ink", caption: "text-steel" };
 }
 
 /** One of the "cards" variant's three data tiles. */
@@ -129,9 +130,9 @@ function StatTile({
   value: string;
   label: string;
 }) {
-  // The middle tile is the card's focal point: a mint fill with a signal numeral. The
+  // The middle tile is the card's focal point: a bright green fill with dark type. The
   // outer two are plain mist, with the solution's own cool hue on the icon only.
-  const { fill, icon, numeral } = tileTone(service, index);
+  const { fill, icon, numeral, caption } = tileTone(service, index);
 
   return (
     <div className={cn("relative h-60 w-full flex-1 overflow-hidden rounded-2xl p-6", fill)}>
@@ -141,7 +142,7 @@ function StatTile({
           <p className={cn("font-display text-2xl font-medium leading-none md:text-4xl", numeral)}>
             {value}
           </p>
-          <p className="mt-2 text-[11px] leading-snug text-steel md:text-xs">
+          <p className={cn("mt-2 text-[11px] leading-snug md:text-xs", caption)}>
             {label}
           </p>
         </div>
@@ -346,7 +347,7 @@ function GifTileVisual({
   index: number;
   stat: ServiceStat;
 }) {
-  const { fill, icon, numeral } = tileTone(service, index);
+  const { fill, icon, numeral, caption } = tileTone(service, index);
 
   return (
     <>
@@ -368,7 +369,7 @@ function GifTileVisual({
           <p className={cn("font-display text-2xl font-medium leading-none md:text-4xl", numeral)}>
             {stat.value}
           </p>
-          <p className="mt-2 line-clamp-2 text-[11px] leading-snug text-steel md:text-xs">
+          <p className={cn("mt-2 line-clamp-2 text-[11px] leading-snug md:text-xs", caption)}>
             {stat.label}
           </p>
         </div>
