@@ -1,26 +1,24 @@
+import Image from "next/image";
+import { HOME_MEDIA } from "@/lib/data/media";
 import { cn } from "@/lib/cn";
 
 /**
- * The SETYCORP wordmark, set in the site's own type rather than shipped as a bitmap: the
- * supplied file read "Setycore" (the marketplace's name, not the company's), was upscaled
- * from a 3.8 KB JPEG, and carried the retired green. Live text stays sharp at any size and
- * takes the palette with it — "Sety" in ink, "corp" white on the CTA teal (5.36:1), on a
- * slanted flag that echoes the supplied artwork. Swap back to an <Image> once a real
- * vector logo exists.
+ * The Setycore logo supplied by the owner, cut out on a transparent ground. Every surface
+ * that carries it is light, so the dark-text artwork is the only variant. The source is
+ * 193 × 57 px — swap in a vector or a 2× export when one exists.
+ *
+ * `self-start` because the footer puts it in a flex column, where `w-auto` would stretch
+ * it to the column's width and drag the height up with it.
  */
 export function Logo({ name, className }: { name: string; className?: string }) {
   return (
-    <span
-      role="img"
-      aria-label={name}
-      className={cn("inline-flex select-none items-center text-[1.55rem] font-semibold leading-none tracking-[-0.03em] md:text-[1.7rem]", className)}
-    >
-      <span aria-hidden className="text-ink">
-        Sety
-      </span>
-      <span aria-hidden className="ml-[0.06em] -skew-x-[8deg] rounded-[0.3em] bg-signal-strong px-[0.22em] pb-[0.12em] pt-[0.06em]">
-        <span className="inline-block skew-x-[8deg] text-paper">corp</span>
-      </span>
-    </span>
+    <Image
+      src={HOME_MEDIA.logo}
+      alt={name}
+      width={193}
+      height={57}
+      priority
+      className={cn("h-8 w-auto self-start md:h-9", className)}
+    />
   );
 }

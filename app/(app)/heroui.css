@@ -96,7 +96,7 @@ body:has([data-wicloud-app]) {
   --dash-fg: light-dark(#354666, #ffffff); /* ink / paper */
   --dash-on-fg: light-dark(#ffffff, #26334c); /* label on a `fg` fill */
   --dash-fg-hover: light-dark(#26334c, #eef2f6); /* abyss / mist */
-  --dash-signal-fg: light-dark(#0d7d55, #4ed39d); /* signal-deep / signal-soft */
+  --dash-signal-fg: light-dark(#0b7247, #3ed294); /* signal-deep / signal-soft */
 
   /* Destructive. See the contrast note in the header — the dark fill takes a
      dark label, and destructive *text* needs a paler value again than the fill. */

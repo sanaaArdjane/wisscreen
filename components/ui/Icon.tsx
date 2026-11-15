@@ -28,6 +28,7 @@ const PATHS: Record<IconName, string> = {
   minimize: "M9 4v5H4M20 9h-5V4M15 20v-5h5M4 15h5v5",
   external: "M14 4h6v6M20 4l-8 8M18 13v5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h5",
   "arrow-right": "M5 12h14M13 6l6 6-6 6",
+  "arrow-up": "M12 19V5M6 11l6-6 6 6",
 
   /* Dashboard chrome. Same 24×24 grid, same 1.6 stroke, no fills — so they sit
      next to the marketing set without looking borrowed from another icon pack. */

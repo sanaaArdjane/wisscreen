@@ -242,6 +242,9 @@ export const SOLUTION_MEDIA: Record<string, SolutionMedia> = {
    ───────────────────────────────────────────────────────────────────────────────────────── */
 
 export const HOME_MEDIA = {
+  /** The logo in the navbar and footer (`components/layout/Logo.tsx`). 193 × 57 px. */
+  logo: "/photos/setycore-logo.png" as Asset,
+
   /**
    * The full-bleed clip in `UniverseReveal` — the footage the headline "WICLOUD" is
    * clipped out of, so it ends up being the *fill of display type on white*. That puts a

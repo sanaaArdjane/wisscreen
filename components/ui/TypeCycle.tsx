@@ -70,7 +70,7 @@ export function TypeCycle({
         aria-hidden="true"
         className={cn(
           "animate-caret ml-1.5 inline-block h-[0.78em] w-[0.07em] translate-y-[0.04em] rounded-full bg-signal",
-          "shadow-[0_0_10px_2px_rgba(55,159,158,0.75)]",
+          "shadow-[0_0_10px_2px_rgba(59,171,181,0.75)]",
           caretClassName,
         )}
       />

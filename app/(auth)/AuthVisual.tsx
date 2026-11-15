@@ -21,7 +21,7 @@ export default function AuthVisual() {
               <text x="72" y="160" fill="#354666" fontSize="12" fontWeight="600">Équipes</text>
               <text x="72" y="177" fill="#366479" fontSize="10">Ensemble</text>
               <circle className="auth-orbit" cx="280" cy="120" r="37" fill="#E7F5F6" />
-              <circle cx="280" cy="120" r="28" fill="#0A7681" />
+              <circle cx="280" cy="120" r="28" fill="#0B6D75" />
               <text x="280" y="127" textAnchor="middle" fill="white" fontSize="22" fontWeight="650">S</text>
               <circle className="auth-pulse" cx="306" cy="95" r="7" fill="#1099A5" stroke="white" strokeWidth="3" />
               <rect x="382" y="45" width="157" height="150" rx="18" fill="white" stroke="#D5E4EA" />

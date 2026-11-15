@@ -150,6 +150,7 @@ export const DEFAULT_NAV: NavContent = {
         { label: "VPN", href: "/solutions/wicloud#fonctionnalites" },
       ],
     },
+    { label: "SETYCORE", href: "/solutions/setycore", children: [] },
     {
       label: "DATA",
       href: "/solutions/ocr",

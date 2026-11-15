@@ -30,6 +30,7 @@ export const ICON_NAMES = [
   "minimize",
   "external",
   "arrow-right",
+  "arrow-up",
   "bell",
   "mail",
   "settings",

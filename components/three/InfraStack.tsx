@@ -40,7 +40,7 @@ import {
    `WIRE_HOT` (teal), and the plates' etching in the deep teal. */
 const WIRE = "#366479";
 const WIRE_HOT = "#1099A5";
-const TEAL_DEEP = "#0E6F78";
+const TEAL_DEEP = "#09575E";
 const FROST = "#E7F5F6";
 const MINT = "#C7F2E0";
 

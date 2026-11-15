@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { cn } from "@/lib/cn";
 import { Icon } from "@/components/ui/Icon";
 import { Logo } from "@/components/layout/Logo";
@@ -16,6 +17,7 @@ export function Navbar({ items, brand }: { items: NavContent["items"]; brand: st
   const [open, setOpen] = useState(false);
   // Index of the dropdown showing on desktop. One at a time; hover and keyboard focus both open it.
   const [menu, setMenu] = useState<number | null>(null);
+  const pathname = usePathname();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -51,7 +53,16 @@ export function Navbar({ items, brand }: { items: NavContent["items"]; brand: st
             : "max-w-[1280px] rounded-full border-b border-transparent bg-paper/85 px-5 py-2.5 ring-1 ring-ink/10 md:px-6",
         )}
       >
-        <Link href="/" aria-label={brand}>
+        <Link
+          href="/"
+          aria-label={brand}
+          // Already home: a same-page link does nothing, so the logo scrolls back up instead.
+          onClick={(e) => {
+            if (pathname !== "/") return;
+            e.preventDefault();
+            window.scrollTo({ top: 0 });
+          }}
+        >
           <Logo name={brand} />
         </Link>
 
